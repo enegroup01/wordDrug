@@ -15,6 +15,10 @@
 		AAE181981F97892D00683896 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE181961F97892D00683896 /* Main.storyboard */; };
 		AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAE181991F97892D00683896 /* Assets.xcassets */; };
 		AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */; };
+		AAE181A61F978BB900683896 /* questBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE181A51F978BB600683896 /* questBoard.png */; };
+		AAE181A71F978BBC00683896 /* monsterBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE181A41F978BA700683896 /* monsterBg.png */; };
+		AAE181A91F978C4200683896 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE181A81F978C3F00683896 /* bg.png */; };
+		AAE181AD1F97921A00683896 /* ca2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAE181AA1F9790BB00683896 /* ca2.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		AAE181991F97892D00683896 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAE1819C1F97892D00683896 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAE1819E1F97892D00683896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAE181A41F978BA700683896 /* monsterBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterBg.png; sourceTree = "<group>"; };
+		AAE181A51F978BB600683896 /* questBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questBoard.png; sourceTree = "<group>"; };
+		AAE181A81F978C3F00683896 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		AAE181AA1F9790BB00683896 /* ca2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ca2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +77,10 @@
 				AAE181991F97892D00683896 /* Assets.xcassets */,
 				AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */,
 				AAE1819E1F97892D00683896 /* Info.plist */,
+				AAE181A81F978C3F00683896 /* bg.png */,
+				AAE181A51F978BB600683896 /* questBoard.png */,
+				AAE181A41F978BA700683896 /* monsterBg.png */,
+				AAE181AA1F9790BB00683896 /* ca2.txt */,
 			);
 			path = wordDrug;
 			sourceTree = "<group>";
@@ -134,9 +146,13 @@
 			files = (
 				AAE181981F97892D00683896 /* Main.storyboard in Resources */,
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
+				AAE181A91F978C4200683896 /* bg.png in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
+				AAE181A61F978BB900683896 /* questBoard.png in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
+				AAE181AD1F97921A00683896 /* ca2.txt in Resources */,
 				AAE181911F97892D00683896 /* Actions.sks in Resources */,
+				AAE181A71F978BBC00683896 /* monsterBg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

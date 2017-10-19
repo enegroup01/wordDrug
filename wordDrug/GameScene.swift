@@ -11,100 +11,193 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var entities = [GKEntity]()
-    var graphs = [String : GKGraph]()
+    //暫時使用的單字
+    var wordSets = [String]()
     
-    private var lastUpdateTime : TimeInterval = 0
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
     
-    override func sceneDidLoad() {
+    
+    override func didMove(to view: SKView) {
+        
+        //整個背景
+        makeImageNode(name: "bg", image: "bg", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        //任務版子
+        makeImageNode(name: "questBoard", image: "questBoard", x: 0, y: 0, width: 700, height: 0, z: 1, alpha: 1, isAnchoring: false)
+        
+        //建立任務標題
+        makeLabelNode(x: -100, y:220, alignMent: .left, fontColor: .yellow, fontSize: 50, text: "", zPosition: 2, name: "questTitle", fontName: "Helvetica Bold", isHidden: false, alpha:1)
+        
+        //任務板子動畫 + 標題動畫
+        let questBoardAction = SKAction.resize(toHeight: 550, duration: 0.5)
+        findImageNode(name: "questBoard").run(questBoardAction) {[weak self] in
+            let action = self!.typingAction(text: "QUEST", nodeName: "questTitle")
+            self!.run(action)
+        }
+        
+        
+        //怪物畫面背景
+        makeImageNode(name: "monsterBg", image: "monsterBg", x: 0, y: 500, width: 750, height: 431, z: 1, alpha: 1, isAnchoring: false)
+        
+    
+       //讀取Bundle裡的文字檔
+        var wordFile:String?
+        
+        if let filepath = Bundle.main.path(forResource: "ca2", ofType: "txt") {
+            do {
+                wordFile = try String(contentsOfFile: filepath)
+                let words = wordFile?.components(separatedBy: ", ")
+                
+                //把字讀取到wordSets裡
+                wordSets = words!
+               
+                
+                //print(contents)
+            } catch {
+                // contents could not be loaded
+            }
+        } else {
+            // example.txt not found!
+        }
+        
+        //找第一組英文+中文字
+        let halfCount = wordSets.count / 2
+        let firstEngWord = wordSets[0]
+        let firstChiWord = wordSets[halfCount]
+        
 
-        self.lastUpdateTime = 0
+    }
+    
+    
+    //回傳SKLabelNode閃爍指令的func
+    func typingAction(text:String, nodeName:String) -> SKAction{
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        //閃爍指令
+        let questText = text
+        var questTextArray = questText.characters.map { String($0) }
+        questTextArray.append("_")
+        var i = 0
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
+        let wait = SKAction.wait(forDuration: 0.2)
+        
+        let typingAction = SKAction.run {[weak self] in
             
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+            self?.findLabelNode(name: nodeName).text = (self?.findLabelNode(name: nodeName).text!)! + questTextArray[i]
+            
+            i += 1
+            
         }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
         
-        // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {
-            self.lastUpdateTime = currentTime
+        let sequence = SKAction.sequence([wait,typingAction])
+        let repeatAction = SKAction.repeat(sequence, count: questTextArray.count)
+        let sparklingAction1 = SKAction.run {[weak self] in
+            
+            self?.findLabelNode(name: nodeName).text = questText + "_"
+            
+            
+        }
+        let sparklingAction2 = SKAction.run {[weak self] in
+            self?.findLabelNode(name: nodeName).text = questText
         }
         
-        // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
+        let sparklingSequence = SKAction.sequence([sparklingAction1,wait,sparklingAction2,wait])
+        let repeatSparklingAction = SKAction.repeat(sparklingSequence, count: 4)
         
-        // Update entities
-        for entity in self.entities {
-            entity.update(deltaTime: dt)
+        
+        let allSparklingAction = SKAction.sequence([repeatAction,repeatSparklingAction])
+        
+        
+        return allSparklingAction
+        
+        
+    }
+    
+    
+    //建立音節單字的func
+    func makeWords(word:String, lang:String){
+        
+        //設定x及y的位置
+        var xPos = CGFloat()
+        var yPos = CGFloat()
+        
+        //分音節
+        var sepWord = word
+        /*
+        switch lang {
+        case "engWord":
+            
+            
+        case "chiWord":
+            
+        default:
+            break
+        }
+        */
+        
+        
+    }
+    
+   
+    //找labelNode
+    func findLabelNode(name:String) -> SKLabelNode{
+        var node:SKLabelNode?
+        node = childNode(withName: name) as? SKLabelNode
+        return node!
+        
+    }
+    
+    //找IMAGE的skspritenode
+    func findImageNode(name:String) -> SKSpriteNode{
+        var node:SKSpriteNode?
+        node = childNode(withName: name) as? SKSpriteNode
+        return node!
+        
+    }
+    
+    //製作image的skspriteNode
+    func makeImageNode(name:String, image:String, x:CGFloat, y:CGFloat, width:CGFloat, height:CGFloat, z:CGFloat, alpha:CGFloat, isAnchoring:Bool){
+        
+        
+        let bundlePath = Bundle.main.path(forResource: image, ofType: "png")
+        let imageFile = UIImage(contentsOfFile: bundlePath!)
+        let texture = SKTexture(image: imageFile!)
+        let node = SKSpriteNode()
+        
+        node.size = CGSize(width: width, height: height)
+        node.name = name
+        node.texture = texture
+        node.position = CGPoint(x: x, y: y)
+        node.zPosition = z
+        node.alpha = alpha
+        
+        if isAnchoring{
+            
+            node.anchorPoint = CGPoint(x: 0, y: 0)
         }
         
-        self.lastUpdateTime = currentTime
+        addChild(node)
+        
     }
+    
+    //製作一般labelNode
+    func makeLabelNode(x:CGFloat,y:CGFloat,alignMent:SKLabelHorizontalAlignmentMode,fontColor:UIColor,fontSize:CGFloat,text:String,zPosition:CGFloat,name:String,fontName:String, isHidden:Bool, alpha:CGFloat){
+        
+        let node = SKLabelNode()
+        node.position = CGPoint(x: x, y: y)
+        node.horizontalAlignmentMode = alignMent
+        node.fontSize = fontSize
+        node.text = text
+        node.fontColor = fontColor
+        node.zPosition = zPosition
+        node.name = name
+        node.fontName = fontName
+        node.isHidden = isHidden
+        node.alpha = alpha
+        
+        
+        addChild(node)
+        
+    }
+    
+    
 }
