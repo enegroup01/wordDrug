@@ -52,7 +52,7 @@ class GameScene: SKScene {
     var isEnterAnswerEnable = false
     
     //是否能按功能button
-    var isButtonEnable = true
+    var isButtonEnable = false
     
     
     override func didMove(to view: SKView) {
@@ -147,9 +147,8 @@ class GameScene: SKScene {
     //學習階段, 也是產生學習單字的func
     func startLearning(){
         
-        isScanning = true
-        
-        //找第一組英文+中文字
+      
+        //找目前sequence的英文+中文字
         let halfCount = wordSets.count / 2
         let engWord = wordSets[currentWordSequence]
         let chiWord = wordSets[halfCount +  currentWordSequence]
@@ -167,13 +166,13 @@ class GameScene: SKScene {
         makeWords(word: engWord, lang: "engWord")
         makeWords(word: chiWord, lang: "chiWord")
         
+        //字fade in
         let fadeIn = SKAction.fadeIn(withDuration: 0.5)
         for node in children{
             
-            
             if (node.name?.contains("Word"))!{
+                
                 node.run(fadeIn, completion: {[weak self] in
-                    
                     
                     if (node.name?.contains("chiWord"))!{
                         
@@ -197,8 +196,8 @@ class GameScene: SKScene {
     //製作掃描線+發音
     func scanAndPronounce(){
         
-        //設定開始掃描, 避免重複掃描
-        isScanning = true
+        //設定開始掃描, 避免重複掃描 *這個一定要有
+        //isScanning = true
         
         //抓任務背景node
         if let questBoard = findImageNode(name: "questBoard") as SKSpriteNode?{
@@ -211,8 +210,15 @@ class GameScene: SKScene {
       
             
         //製作掃描線
+            
+            if childNode(withName: "scanning") != nil {
+                
+                print("already has scanning line")
+                
+            } else {
+            
         makeNode(name: "scanning", color: pinkColor, x: 0, y: 120, width: questBoardWidth, height: 1, z: 3, isAnchoring: false, alpha: 1)
-        
+            }
             //往下掃瞄速度
             let scanAction = SKAction.moveTo(y: 120 - engChiWordHeight, duration: 0.3)
             //線縮起來速度
@@ -257,7 +263,7 @@ class GameScene: SKScene {
         //讓英文字alpha變淡
         let fadeOut = SKAction.fadeAlpha(to: 0.1, duration: 0.6)
        
-        //所有英文字
+        //所有英文字fadeOut
         for node in children{
             
             if (node.name?.contains("engWord"))!{
@@ -312,6 +318,8 @@ class GameScene: SKScene {
         //產生真正來顯示用的多餘單字
         var extraWords = [String]()
         
+        
+        //補不足的選項
         switch currentWordSyllableCounts {
         
             case 2:
@@ -376,8 +384,7 @@ class GameScene: SKScene {
         //改變字的順序順序
         shownWords.shuffled()
         
-        print(shownWords)
-        
+
         //建立所有單字選項
         
         for i in 0 ..< shownWords.count{
@@ -392,7 +399,6 @@ class GameScene: SKScene {
     
     //關上任務版的動畫
     func closeQuestBoardAndReopen(){
-        
         
         for node in children{
             
@@ -962,9 +968,6 @@ class GameScene: SKScene {
         //確定答案正確
         if alreadyCorrectTimes == currentWordArray.count && alreadyCorrectTimes != 0 {
 
-            //先放一次單字發音再執行其他, 可能可以避免重複
-            
-            
             
             //不能按畫面
             self.isUserInteractionEnabled = false
