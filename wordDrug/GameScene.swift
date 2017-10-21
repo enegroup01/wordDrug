@@ -189,9 +189,6 @@ class GameScene: SKScene {
         
     }
     
-
-
-    
     
     //製作掃描線+發音
     func scanAndPronounce(){
@@ -211,14 +208,19 @@ class GameScene: SKScene {
             
         //製作掃描線
             
+            //避免已有scanningline *這一定要
             if childNode(withName: "scanning") != nil {
                 
                 print("already has scanning line")
                 
             } else {
             
-        makeNode(name: "scanning", color: pinkColor, x: 0, y: 120, width: questBoardWidth, height: 1, z: 3, isAnchoring: false, alpha: 1)
+        
+                //製作scanningline
+                makeNode(name: "scanning", color: pinkColor, x: 0, y: 120, width: questBoardWidth, height: 1, z: 3, isAnchoring: false, alpha: 1)
             }
+            
+            
             //往下掃瞄速度
             let scanAction = SKAction.moveTo(y: 120 - engChiWordHeight, duration: 0.3)
             //線縮起來速度
@@ -501,13 +503,11 @@ class GameScene: SKScene {
         //抓總共輸入幾次字
         let count = wordEntered.count
         
+        //檢查須確認的音節位置, 以count為參考
         switch count {
         case 0:
             if word == currentWordArray[0]{
                 //正確
-                
-
-         
                 pourPoisonAndRemoveLabel(sequence: 0, word: word, poisonNumber: poisonNumber)
                 
             } else {
@@ -517,8 +517,6 @@ class GameScene: SKScene {
         case 1:
             if word == currentWordArray[1]{
                 //正確
-                
-
                    pourPoisonAndRemoveLabel(sequence: 1, word: word, poisonNumber: poisonNumber)
                 
             } else {
@@ -532,8 +530,7 @@ class GameScene: SKScene {
                 //正確
           
              pourPoisonAndRemoveLabel(sequence: 2, word: word, poisonNumber: poisonNumber)
-                
-                
+         
             } else {
                 //錯誤
                 
@@ -542,8 +539,7 @@ class GameScene: SKScene {
             if word == currentWordArray[3]{
                 //正確
                     pourPoisonAndRemoveLabel(sequence: 3, word: word, poisonNumber: poisonNumber)
-                
-                
+      
             } else {
                 //錯誤
                 
@@ -551,8 +547,8 @@ class GameScene: SKScene {
         case 4:
             if word == currentWordArray[4]{
                 //正確
-                
-                           pourPoisonAndRemoveLabel(sequence: 4, word: word, poisonNumber: poisonNumber)
+
+                pourPoisonAndRemoveLabel(sequence: 4, word: word, poisonNumber: poisonNumber)
             } else {
                 //錯誤
                 
@@ -561,7 +557,7 @@ class GameScene: SKScene {
             if word == currentWordArray[5]{
                 //正確
                 
-                          pourPoisonAndRemoveLabel(sequence: 5, word: word, poisonNumber: poisonNumber)
+                pourPoisonAndRemoveLabel(sequence: 5, word: word, poisonNumber: poisonNumber)
                 
             } else {
                 //錯誤
@@ -576,22 +572,27 @@ class GameScene: SKScene {
     }
     
     func pourPoisonAndRemoveLabel(sequence: Int, word:String, poisonNumber:Int){
-        
-        
+   
+        //確認正確然後填入array
         wordEntered.append(word)
         
+        //找正確的音節來顯示alpha
         let correctWordName = word + String(sequence) + "engWord"
         findLabelNode(name: correctWordName).alpha = 1
         
+        //將音節正確數量+1, 來對應目前單字音節量
         alreadyCorrectTimes += 1
         
+        //找選項正確音節
         let selectionLabel = findLabelNode(name: word + String(poisonNumber) + "sel")
+        
+        //把它fadeOut後移除
         let fadeOut  = SKAction.fadeOut(withDuration: 0.3)
         selectionLabel.run(fadeOut, completion: {
             selectionLabel.removeFromParent()
         })
-        
-        
+ 
+        //讓正確藥水罐填滿
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.4)
         findImageNode(name: String(poisonNumber) + "Poison").run(fadeIn)
         
@@ -633,15 +634,18 @@ class GameScene: SKScene {
     //回傳SKLabelNode閃爍指令的func
     func typingAction(text:String, nodeName:String) -> SKAction{
         
-        //閃爍指令
+        //輸入的text
         let questText = text
+        //把text拆成array並加入底線_
         var questTextArray = questText.characters.map { String($0) }
         questTextArray.append("_")
+        
         var i = 0
-        
-        
+   
+        //每字間隔0.1秒
         let wait = SKAction.wait(forDuration: 0.1)
         
+        //開始顯示打字動畫
         let typingAction = SKAction.run {[weak self] in
             
             self?.findLabelNode(name: nodeName).text = (self?.findLabelNode(name: nodeName).text!)! + questTextArray[i]
@@ -652,11 +656,12 @@ class GameScene: SKScene {
         
         
         let sequence = SKAction.sequence([wait,typingAction])
+        //讓打字動畫做到字數數量
         let repeatAction = SKAction.repeat(sequence, count: questTextArray.count)
+        
+        //底線閃爍
         let sparklingAction1 = SKAction.run {[weak self] in
-            
             self?.findLabelNode(name: nodeName).text = questText + "_"
-            
             
         }
         let sparklingAction2 = SKAction.run {[weak self] in
@@ -664,8 +669,10 @@ class GameScene: SKScene {
         }
         
         let sparklingSequence = SKAction.sequence([sparklingAction1,wait,sparklingAction2,wait])
+        //讓底線閃爍4次
         let repeatSparklingAction = SKAction.repeat(sparklingSequence, count: 4)
         
+        //把打字+底線閃爍加在一起
         let allSparklingAction = SKAction.sequence([repeatAction,repeatSparklingAction])
         
         return allSparklingAction
