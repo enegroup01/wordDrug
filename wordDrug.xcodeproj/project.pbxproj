@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC01F9DC060003F5C3F /* blackDot.png */; };
+		AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC21F9DC069003F5C3F /* lightDot.png */; };
 		AA68BD611F99C0A600112AF4 /* bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD601F99C06100112AF4 /* bg2.png */; };
 		AA68BD631F99F4F000112AF4 /* california.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD621F99F4EB00112AF4 /* california.mp3 */; };
 		AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD671F9A1A4B00112AF4 /* camel.mp3 */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA2CCDC01F9DC060003F5C3F /* blackDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackDot.png; sourceTree = "<group>"; };
+		AA2CCDC21F9DC069003F5C3F /* lightDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightDot.png; sourceTree = "<group>"; };
 		AA68BD601F99C06100112AF4 /* bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg2.png; sourceTree = "<group>"; };
 		AA68BD621F99F4EB00112AF4 /* california.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = california.mp3; sourceTree = "<group>"; };
 		AA68BD641F9A1A4B00112AF4 /* camera.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = camera.mp3; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 				AAE181991F97892D00683896 /* Assets.xcassets */,
 				AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */,
 				AAE1819E1F97892D00683896 /* Info.plist */,
+				AA2CCDC21F9DC069003F5C3F /* lightDot.png */,
+				AA2CCDC01F9DC060003F5C3F /* blackDot.png */,
 				AA68BD601F99C06100112AF4 /* bg2.png */,
 				AAE181A81F978C3F00683896 /* bg.png */,
 				AA68BD7B1F9A1F7F00112AF4 /* bg4.png */,
@@ -198,6 +204,7 @@
 				AAE181A91F978C4200683896 /* bg.png in Resources */,
 				AA68BD781F9A1EA900112AF4 /* bg3.png in Resources */,
 				AA68BD611F99C0A600112AF4 /* bg2.png in Resources */,
+				AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
 				AAE181A61F978BB900683896 /* questBoard.png in Resources */,
 				AA68BD6F1F9A1A6300112AF4 /* camera.mp3 in Resources */,
@@ -205,6 +212,7 @@
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
 				AA68BD631F99F4F000112AF4 /* california.mp3 in Resources */,
 				AAE181AD1F97921A00683896 /* ca2.txt in Resources */,
+				AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */,
 				AAE181911F97892D00683896 /* Actions.sks in Resources */,
 				AAE181A71F978BBC00683896 /* monsterBg.png in Resources */,
 				AA68BD701F9A1A6600112AF4 /* camp.mp3 in Resources */,
