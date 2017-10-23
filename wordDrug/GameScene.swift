@@ -223,9 +223,6 @@ class GameScene: SKScene {
             
             // semi-autoplay 檢查
             
-            
-            
-            
             //製作掃描線
             //避免已有scanningline *這一定要
             if childNode(withName: "scanning") != nil {
@@ -234,16 +231,21 @@ class GameScene: SKScene {
                 
             } else {
                 
+                
                 //增加一次playTimer
                 if isPracticeMode == false {
+                    
                 playSoundTime += 1
+                
+                    //非練習模式
+                lightDotFunc(times: playSoundTime)
+                    
+                    
                 }
                 //製作scanningline
                 makeNode(name: "scanning", color: pinkColor, x: 0, y: 120, width: questBoardWidth, height: 1, z: 3, isAnchoring: false, alpha: 1)
                 
-                //亮紅點
-                lightDotFunc(playSoundTime: playSoundTime)
-             
+
                 
             }
             
@@ -286,11 +288,11 @@ class GameScene: SKScene {
         
     }
     
-    func lightDotFunc(playSoundTime: Int){
+    func lightDotFunc(times: Int){
         
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         
-        switch playSoundTime {
+        switch times {
         case 1:
             findImageNode(name: "lDot1").run(fadeIn)
         case 2:
@@ -304,6 +306,7 @@ class GameScene: SKScene {
             } else {
                 //回到學習單字
                 
+               //findLabelNode(name: "hint").text = "[ 下一個單字 ]"
                 
             }
             
@@ -532,6 +535,7 @@ class GameScene: SKScene {
                 } else {
                     
                     //開始學習練習模式
+                    isPracticeMode = true
                     
                     //點點消失
                     findImageNode(name: "lDot1").alpha = 0
@@ -1074,6 +1078,9 @@ class GameScene: SKScene {
             //正確數+1
             correctTime += 1
             
+            //亮燈
+            lightDotFunc(times: correctTime)
+            
             //初始化
             shownWords.removeAll(keepingCapacity: false)
             wordEntered.removeAll(keepingCapacity: false)
@@ -1118,6 +1125,7 @@ class GameScene: SKScene {
                 } else {
                     //繼續產生學習單字
                     
+                    
                     //把順序+1
                     if self!.currentWordSequence < self!.wordSets.count / 2 - 1{
                         self!.currentWordSequence += 1
@@ -1126,6 +1134,9 @@ class GameScene: SKScene {
                         
                         print("return to Zero")
                     }
+                    
+                    //解除practiceMode
+                    self!.isPracticeMode = false
                     
                     //正確數歸零
                     self!.correctTime = 0
