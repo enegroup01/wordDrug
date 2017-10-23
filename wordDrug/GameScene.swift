@@ -69,8 +69,6 @@ class GameScene: SKScene {
         //任務板子動畫 + 標題動畫
         openQuest()
        
-        
-        
         //建立怪物畫面背景
         makeImageNode(name: "monsterBg", image: "monsterBg", x: 0, y: 500, width: 750, height: 431, z: 1, alpha: 1, isAnchoring: false)
         
@@ -108,11 +106,7 @@ class GameScene: SKScene {
             
             makeImageNode(name: String(i) + "Poison" , image: "fillBar", x:CGFloat(-355 + (119 * i)) , y: -462, width: 125, height: 187, z: 5, alpha: 0, isAnchoring: true)
             
-
-            
         }
-        
-        
         
     }
     
@@ -631,7 +625,7 @@ class GameScene: SKScene {
 
     
     
-    //回傳SKLabelNode閃爍指令的func
+    //回傳SKLabelNode打字動畫+閃爍指令的func
     func typingAction(text:String, nodeName:String) -> SKAction{
         
         //輸入的text
@@ -752,12 +746,8 @@ class GameScene: SKScene {
             //產生提示
             createFlashHint()
 
-            
-            
-        }
 
-  
-        
+        }
         
         //抓音節數
         let sepCount = sepWords.count
@@ -821,9 +811,6 @@ class GameScene: SKScene {
             
         }
 
-        
-
-        
     }
     
     //建立hint閃爍Label
@@ -843,8 +830,6 @@ class GameScene: SKScene {
         findLabelNode(name: "hint").run(sparklingRepeat)
         
     }
-
-
     
     //顯示下一個字, 暫時先用不到
     /*
