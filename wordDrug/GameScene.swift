@@ -219,8 +219,6 @@ class GameScene: SKScene {
             //設定掃描總高度
             let engChiWordHeight:CGFloat = 174
             
-            
-            
             // semi-autoplay 檢查
             
             //製作掃描線
@@ -232,16 +230,6 @@ class GameScene: SKScene {
             } else {
                 
                 
-                //增加一次playTimer
-                if isPracticeMode == false {
-                    
-                playSoundTime += 1
-                
-                    //非練習模式
-                lightDotFunc(times: playSoundTime)
-                    
-                    
-                }
                 //製作scanningline
                 makeNode(name: "scanning", color: pinkColor, x: 0, y: 120, width: questBoardWidth, height: 1, z: 3, isAnchoring: false, alpha: 1)
                 
@@ -269,8 +257,31 @@ class GameScene: SKScene {
                 })
                 
                 self!.run(removeAction, completion: {
+                    
+                    
                     //允許再按掃描
                     self!.isScanning = false
+                    
+                    
+                    //假如是在聽讀模式, 增加一次playTimer
+                    if self!.isPracticeMode == false {
+                        
+                        self!.playSoundTime += 1
+                        
+                        //非練習模式
+                        self!.lightDotFunc(times: self!.playSoundTime)
+                        
+                        
+                    } else {
+                        
+                        //正確數+1
+                        self!.correctTime += 1
+                        
+                        //亮燈
+                        self!.lightDotFunc(times: self!.correctTime)
+                        
+                    }
+
                 })
                 
                 
@@ -544,7 +555,7 @@ class GameScene: SKScene {
                     
                     
                     //更改提示字
-                    findLabelNode(name: "hint").text = "[ 練習模式 ]"
+                    findLabelNode(name: "hint").text = "[ 練習拼字 ]"
                     
                     //發音次數歸零
                     playSoundTime = 0
@@ -922,7 +933,7 @@ class GameScene: SKScene {
         //產生提示label, 並閃爍forever
         let hintY = findImageNode(name: "questBoard").frame.minY
         
-        makeLabelNode(x: 0, y: hintY + 10, alignMent: .center, fontColor: pinkColor, fontSize: 30, text: "[ 請按畫面發音 ]", zPosition: 2, name: "hint" , fontName: "Helvetica Light", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: hintY + 10, alignMent: .center, fontColor: pinkColor, fontSize: 30, text: "[ 請按畫面聽讀單字 ]", zPosition: 2, name: "hint" , fontName: "Helvetica Light", isHidden: false, alpha: 1)
         
         /*
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.1)
@@ -1075,12 +1086,7 @@ class GameScene: SKScene {
             //輸入正確音節數歸零
             alreadyCorrectsyllables = 0
             
-            //正確數+1
-            correctTime += 1
-            
-            //亮燈
-            lightDotFunc(times: correctTime)
-            
+
             //初始化
             shownWords.removeAll(keepingCapacity: false)
             wordEntered.removeAll(keepingCapacity: false)
