@@ -343,7 +343,7 @@ class GameScene: SKScene {
     func learningTest(){
         
         //讓英文字alpha變淡
-        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.3)
+        let fadeOut = SKAction.fadeAlpha(to: 0.1, duration: 0.3)
         
         //顯示空格子
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
