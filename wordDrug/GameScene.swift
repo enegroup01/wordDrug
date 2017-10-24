@@ -23,7 +23,7 @@ class GameScene: SKScene {
     var wordSets = [String]()
     
     //暫時設定的音節
-    var syllables = ["ca","can"]
+    var syllables = ["ac"]
     
     //下一個顯示單字的順序
     var nextWordSequence = Int()
@@ -89,7 +89,7 @@ class GameScene: SKScene {
         if let filepath = Bundle.main.path(forResource: "ca2", ofType: "txt") {
             do {
                 wordFile = try String(contentsOfFile: filepath)
-                let words = wordFile?.components(separatedBy: ", ")
+                let words = wordFile?.components(separatedBy: "; ")
                 
                 //把字讀取到wordSets裡
                 wordSets = words!
@@ -160,7 +160,7 @@ class GameScene: SKScene {
         
         
         //找目前sequence的英文+中文字
-        let halfCount = wordSets.count / 2
+        let halfCount = wordSets.count / 3
         let engWord = wordSets[currentWordSequence]
         let chiWord = wordSets[halfCount +  currentWordSequence]
         
@@ -209,6 +209,7 @@ class GameScene: SKScene {
     //製作掃描線+發音
     func scanAndPronounce(){
 
+        
         //抓任務背景node
         if let questBoard = findImageNode(name: "questBoard") as SKSpriteNode?{
             
@@ -240,49 +241,56 @@ class GameScene: SKScene {
             let sequenceAction = SKAction.sequence([scanAction,shrinkAction])
             
             //啟動掃描動畫
-            findImageNode(name: "scanning").run(sequenceAction, completion: {[weak self] in
-                //播放發音
-                self!.pronounce()
+            
+            if let scanningLine = findImageNode(name: "scanning") as SKSpriteNode?{
                 
-                let removeAction = SKAction.run({
+                scanningLine.run(sequenceAction, completion: {[weak self] in
+                    //播放發音
+                    self!.pronounce()
                     
-                    //移除掃描線
-                    self!.findImageNode(name: "scanning").removeFromParent()
+                    let removeAction = SKAction.run({
+                        
+                        //移除掃描線
+                        self!.findImageNode(name: "scanning").removeFromParent()
+                        
+                    })
+                    
+                    self!.run(removeAction, completion: {
+                        
+                        
+                        //允許再按掃描
+                        self!.isScanning = false
+                        
+                        
+                        //判斷在聽讀模式還是練習模式
+                        
+                        
+                        if self!.isPracticeMode == false {
+                            
+                            self!.playSoundTime += 1
+                            
+                            //聽讀模式
+                            self!.lightDotFunc(times: self!.playSoundTime)
+                            
+                            print("1")
+                            
+                        } else{
+                            
+                            //練習模式
+                            self!.lightDotFunc(times: self!.correctTime)
+                            
+                            print("2")
+                        }
+                        
+                        
+                    }
+                    )
                     
                 })
                 
-                self!.run(removeAction, completion: {
-                    
-                    
-                    //允許再按掃描
-                    self!.isScanning = false
-                    
-                    
-                    //判斷在聽讀模式還是練習模式
-                    
-                    
-                    if self!.isPracticeMode == false {
-                        
-                        self!.playSoundTime += 1
-                        
-                        //非練習模式
-                        self!.lightDotFunc(times: self!.playSoundTime)
-                        
-                        print("1")
-                        
-                    } else{
-                        
-                        //亮燈
-                        self!.lightDotFunc(times: self!.correctTime)
-
-                        print("2")
-                    }
-
-              
-                    }
-                )
-                
-            })
+            }
+            
+           
             
         }
     }
@@ -300,24 +308,29 @@ class GameScene: SKScene {
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         
         switch times {
+
         case 1:
             findImageNode(name: "lDot1").run(fadeIn)
         case 2:
             findImageNode(name: "lDot2").run(fadeIn)
         case 3:
+   
             findImageNode(name: "lDot3").run(fadeIn)
-            
+           
             if isPracticeMode == false {
-            //更改hint文字
-            findLabelNode(name: "hint").text = "[ 再次點擊進入練習 ]"
+            
+                //更改hint文字
+            findLabelNode(name: "hint").text = "[ 準備進入練習 ]"
+                
             } else {
                 //回到學習單字
                 isUserInteractionEnabled = false
+                
                findLabelNode(name: "hint").text = "[ 練習完成 ]"
                 
+                findImageNode(name: "lDot3").alpha = 0
+                
             }
-            
-            
             
         default:
             break
@@ -355,7 +368,7 @@ class GameScene: SKScene {
         var otherWords = [String]()
         
         //在所有英文字裡面, 如果音節沒有重複目前顯示的音節, 就把它加入到otherWords裡
-        for i in 0 ..< wordSets.count / 2{
+        for i in 0 ..< wordSets.count / 3{
             
             let word = wordSets[i]
             let sepWordArray = word.components(separatedBy: " ")
@@ -459,6 +472,8 @@ class GameScene: SKScene {
             
             makeLabelNode(x: CGFloat(-300 + (120 * i)), y: -400, alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 3, name: shownWords[i] + String(i) + "sel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
           
+            isUserInteractionEnabled = true
+            
         }
         
         
@@ -522,9 +537,7 @@ class GameScene: SKScene {
             
             if isButtonEnable {
                 if node.name == "button"{
-                    
-                    
-                    
+       
                     print("button pressed")
            
                 }
@@ -535,41 +548,15 @@ class GameScene: SKScene {
             if isScanning == false{
                 
                 //假如發音按超過三次要開始練習
-                if playSoundTime <= 3{
+                if playSoundTime < 3{
                     
                     if node.name == "questBoard"{
 
                         scanAndPronounce()
                     }
                     
-                } else {
-
-                    
-                    //開始學習練習模式
-                    isPracticeMode = true
-                    
-                    //點點消失
-                    findImageNode(name: "lDot1").alpha = 0
-                    findImageNode(name: "lDot2").alpha = 0
-                    findImageNode(name: "lDot3").alpha = 0
-                    
-                    
-                    //更改提示字
-                    findLabelNode(name: "hint").text = "[ 練習拼字 ]"
-                    
-                    //發音次數歸零
-                    playSoundTime = 0
-                    
-                    
-                    //啟動練習
-                    learningTest()
-                    isButtonEnable = false
-
-                    
                 }
-                
              
-                
             }
             
             //假設有選項單字
@@ -1134,7 +1121,7 @@ class GameScene: SKScene {
                     
                     
                     //把順序+1
-                    if self!.currentWordSequence < self!.wordSets.count / 2 - 1{
+                    if self!.currentWordSequence < self!.wordSets.count / 3 - 1{
                         self!.currentWordSequence += 1
                     } else {
                         self!.currentWordSequence = 0
@@ -1168,6 +1155,45 @@ class GameScene: SKScene {
                     
                 }
             })
+            
+            
+        }
+        
+        
+        if playSoundTime == 3 {
+            //直接開啟練習
+            //只開啟一次
+            playSoundTime = 0
+            
+            //封鎖按鍵
+            isUserInteractionEnabled = false
+            
+             let when = DispatchTime.now() + 2
+            
+            DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                
+                //開始學習練習模式
+                self!.isPracticeMode = true
+                
+                //點點消失
+                self!.findImageNode(name: "lDot1").alpha = 0
+                self!.findImageNode(name: "lDot2").alpha = 0
+                self!.findImageNode(name: "lDot3").alpha = 0
+                
+                
+                //更改提示字
+                self!.findLabelNode(name: "hint").text = "[ 練習拼字 ]"
+                
+                //發音次數歸零
+                self!.playSoundTime = 0
+                
+                
+                //啟動練習
+                self!.learningTest()
+                self!.isButtonEnable = false
+                
+            })
+            
             
             
         }
