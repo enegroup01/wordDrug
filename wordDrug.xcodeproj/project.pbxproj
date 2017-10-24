@@ -23,6 +23,9 @@
 		AA68BD781F9A1EA900112AF4 /* bg3.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD771F9A1EA600112AF4 /* bg3.png */; };
 		AA68BD7A1F9A1EFB00112AF4 /* fillBar.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD791F9A1EF600112AF4 /* fillBar.png */; };
 		AA68BD7C1F9A1F8100112AF4 /* bg4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD7B1F9A1F7F00112AF4 /* bg4.png */; };
+		AADC11E01F9F45AC00F7C7A3 /* ac.txt in Resources */ = {isa = PBXBuildFile; fileRef = AADC11DF1F9F45AB00F7C7A3 /* ac.txt */; };
+		AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */; };
+		AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */; };
 		AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE1818C1F97892D00683896 /* AppDelegate.swift */; };
 		AAE1818F1F97892D00683896 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAE1818E1F97892D00683896 /* GameScene.sks */; };
 		AAE181911F97892D00683896 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAE181901F97892D00683896 /* Actions.sks */; };
@@ -54,6 +57,9 @@
 		AA68BD771F9A1EA600112AF4 /* bg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg3.png; sourceTree = "<group>"; };
 		AA68BD791F9A1EF600112AF4 /* fillBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillBar.png; sourceTree = "<group>"; };
 		AA68BD7B1F9A1F7F00112AF4 /* bg4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg4.png; sourceTree = "<group>"; };
+		AADC11DF1F9F45AB00F7C7A3 /* ac.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ac.txt; sourceTree = "<group>"; };
+		AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyButton.png; sourceTree = "<group>"; };
+		AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledButton.png; sourceTree = "<group>"; };
 		AAE181891F97892D00683896 /* wordDrug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wordDrug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE1818C1F97892D00683896 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAE1818E1F97892D00683896 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -128,6 +134,9 @@
 				AA68BD6A1F9A1A4C00112AF4 /* cannon.mp3 */,
 				AA68BD6C1F9A1A4C00112AF4 /* capital.mp3 */,
 				AA68BD651F9A1A4B00112AF4 /* catastrophe.mp3 */,
+				AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */,
+				AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */,
+				AADC11DF1F9F45AB00F7C7A3 /* ac.txt */,
 				AAE181AA1F9790BB00683896 /* ca2.txt */,
 			);
 			path = wordDrug;
@@ -192,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AADC11E01F9F45AC00F7C7A3 /* ac.txt in Resources */,
 				AAE181981F97892D00683896 /* Main.storyboard in Resources */,
 				AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */,
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
@@ -203,8 +213,10 @@
 				AA68BD731F9A1A6F00112AF4 /* cannibal.mp3 in Resources */,
 				AAE181A91F978C4200683896 /* bg.png in Resources */,
 				AA68BD781F9A1EA900112AF4 /* bg3.png in Resources */,
+				AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */,
 				AA68BD611F99C0A600112AF4 /* bg2.png in Resources */,
 				AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */,
+				AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
 				AAE181A61F978BB900683896 /* questBoard.png in Resources */,
 				AA68BD6F1F9A1A6300112AF4 /* camera.mp3 in Resources */,

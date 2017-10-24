@@ -18,12 +18,13 @@ class GameScene: SKScene {
     let pinkColor = UIColor.init(red: 240/255, green: 31/255, blue: 249/255, alpha: 1)
     let lightBlue = UIColor.init(red: 151/255, green: 224/255, blue: 255/255, alpha: 1)
     let coverPurple = UIColor.init(red: 98/255, green: 44/255, blue: 85/255, alpha: 1)
+    let lightPinkColor = UIColor.init(red: 251/255, green: 154/255, blue: 255/255, alpha: 1)
     
     //暫時使用的單字
     var wordSets = [String]()
     
     //暫時設定的音節
-    var syllables = ["ac"]
+    var syllables = ["ca"]
     
     //下一個顯示單字的順序
     var nextWordSequence = Int()
@@ -61,15 +62,15 @@ class GameScene: SKScene {
     var playSoundTime = 0
     var correctTime = 0
     
-    
+
     
     override func didMove(to view: SKView) {
         
         //建立整個背景
-        makeImageNode(name: "bg", image: "bg4", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "bg", image: "bg", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
         //建立任務版子
-        makeImageNode(name: "questBoard", image: "questBoard", x: 0, y: 0, width: 700, height: 0, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "questBoard", image: "questBoard", x: 0, y: -120, width: 700, height: 0, z: 1, alpha: 1, isAnchoring: false)
         
         //建立任務標題
         makeLabelNode(x: -100, y:220, alignMent: .left, fontColor: pinkColor, fontSize: 50, text: "", zPosition: 2, name: "questTitle", fontName: "Helvetica Bold", isHidden: false, alpha:1)
@@ -102,19 +103,19 @@ class GameScene: SKScene {
         } else {
             // example.txt not found!
         }
-        
-        //製作選項Node
-        
+
+ 
+        //製作按鈕
         for i in 0 ..< 6 {
-            makeNode(name: String(i) + "se", color: .clear, x:CGFloat(-300 + (120 * i)) , y: -380, width: 105, height: 150, z: 4, isAnchoring: false, alpha: 0.5)
+           
+            //選項按鈕
+            makeNode(name: String(i) + "se", color: .clear, x:CGFloat(-340 + (119 * i)) , y: -432, width: 95, height: 95, z: 6, isAnchoring: true, alpha: 1)
+            //填滿按鈕, 要比空按鈕大一點
+            makeImageNode(name: String(i) + "filledButton", image: "filledButton", x:CGFloat(-345 + (119 * i)) , y: -435, width: 100, height: 100, z: 4, alpha: 0, isAnchoring: true)
+            //空的按鈕
+            makeImageNode(name: String(i) + "emptyButton", image: "emptyButton", x:CGFloat(-345 + (119 * i)) , y: -435, width: 100, height: 100, z: 3, alpha: 0, isAnchoring: true)
         }
         
-        //製作發亮藥水, height:187
-        for i in 0 ..< 6 {
-            
-            makeImageNode(name: String(i) + "Poison" , image: "fillBar", x:CGFloat(-355 + (119 * i)) , y: -462, width: 125, height: 187, z: 5, alpha: 0, isAnchoring: true)
-            
-        }
         
         //建立三黑點+亮點, 並hidden
         makeImageNode(name: "bDot1", image: "blackDot", x: -70, y: -150, width: 15, height: 15, z: 2, alpha: 0, isAnchoring: false)
@@ -132,7 +133,7 @@ class GameScene: SKScene {
     //拉開任務＋連結開始學習
     func openQuest(){
         //拉開任務板子的action
-        let questBoardAction = SKAction.resize(toHeight: 550, duration: 0.3)
+        let questBoardAction = SKAction.resize(toHeight: 780, duration: 0.3)
         
         //拉開任務 ＋ 開始學習階段
         findImageNode(name: "questBoard").run(questBoardAction) {[weak self] in
@@ -342,7 +343,10 @@ class GameScene: SKScene {
     func learningTest(){
         
         //讓英文字alpha變淡
-        let fadeOut = SKAction.fadeAlpha(to: 0.1, duration: 0.3)
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.3)
+        
+        //顯示空格子
+        let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
         
         //所有英文字fadeOut
         for node in children{
@@ -350,6 +354,12 @@ class GameScene: SKScene {
             if (node.name?.contains("engWord"))!{
                 
                 node.run(fadeOut)
+                
+            }
+            
+            if (node.name?.contains("emptyButton"))!{
+                
+                node.run(fadeIn)
                 
             }
             
@@ -470,8 +480,9 @@ class GameScene: SKScene {
         
         for i in 0 ..< shownWords.count{
             
-            makeLabelNode(x: CGFloat(-300 + (120 * i)), y: -400, alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 3, name: shownWords[i] + String(i) + "sel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+            makeLabelNode(x: CGFloat(-300 + (120 * i)), y: -405, alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 5, name: shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
           
+            //可按按鍵
             isUserInteractionEnabled = true
             
         }
@@ -483,12 +494,22 @@ class GameScene: SKScene {
     //關上任務版的動畫
     func closeQuestBoardAndReopen(){
         
-        //藥水刪掉
+        //選項alpha變淡+移除選項字
         for node in children{
             
-            if (node.name?.contains("Poison"))!{
-                node.alpha = 0
+            if (node.name?.contains("filledButton"))!{
+                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                
             }
+            
+            if (node.name?.contains("emptyButton"))!{
+               changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+            }
+            
+            if (node.name?.contains("Sel"))!{
+               node.removeFromParent()
+            }
+            
         }
         //把questTitle字消失
         findLabelNode(name: "questTitle").text = ""
@@ -569,7 +590,6 @@ class GameScene: SKScene {
                         
                         
                         let wordChosen = shownWords[i]
-                        print(wordChosen)
                         
                         checkLearningTestAnswer(word: wordChosen,poisonNumber: i)
                         
@@ -665,24 +685,24 @@ class GameScene: SKScene {
         
         //找正確的音節來顯示alpha
         let correctWordName = word + String(sequence) + "engWord"
-        findLabelNode(name: correctWordName).alpha = 1
+        changeLabelAlfa(name: correctWordName, toAlpha: 1, time: 0.3)
         
         //將音節正確數量+1, 來對應目前單字音節量
         alreadyCorrectsyllables += 1
         
         //找選項正確音節
-        let selectionLabel = findLabelNode(name: word + String(poisonNumber) + "sel")
+        let selectedLabel = findLabelNode(name: word + String(poisonNumber) + "Sel")
         
-        //把它fadeOut後移除
-        let fadeOut  = SKAction.fadeOut(withDuration: 0.3)
-        selectionLabel.run(fadeOut, completion: {
-            selectionLabel.removeFromParent()
-        })
-        
-        //讓正確藥水罐填滿
-        let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.4)
-        findImageNode(name: String(poisonNumber) + "Poison").run(fadeIn)
-        
+        //改變label fontColor
+        let changeTextColor = SKAction.run {[weak self] in
+            selectedLabel.fontColor = self!.pinkColor
+        }
+        run(changeTextColor)
+
+
+        //填滿選項
+        let buttonName =  String(poisonNumber) + "filledButton"
+        changeImageAlfa(name: buttonName, toAlpha: 1, time: 0.4)
         
     }
     
@@ -1054,6 +1074,27 @@ class GameScene: SKScene {
     }
     
     
+    func changeImageAlfa(name:String, toAlpha:CGFloat, time:TimeInterval){
+        
+        if let node = childNode(withName: name) as? SKSpriteNode{
+            let alphaAction = SKAction.fadeAlpha(to: toAlpha, duration: time)
+            node.run(alphaAction)
+     
+        }
+        
+    }
+    
+    func changeLabelAlfa(name:String, toAlpha:CGFloat, time:TimeInterval){
+        
+        if let node = childNode(withName: name) as? SKLabelNode{
+            let alphaAction = SKAction.fadeAlpha(to: toAlpha, duration: time)
+            node.run(alphaAction)
+            
+        }
+        
+    }
+    
+    
     override func update(_ currentTime: TimeInterval) {
         
         
@@ -1083,13 +1124,7 @@ class GameScene: SKScene {
             correctTime += 1
 
             
-            //移除選項node
-            for node in children {
-                if (node.name?.contains("sel"))!{
-                    node.removeFromParent()
-                }
-                
-            }
+
             let when = DispatchTime.now() + 2
             
             //關上任務版
@@ -1101,16 +1136,29 @@ class GameScene: SKScene {
                 if self!.correctTime < 3 {
                     //再次練習
                     
+  
                     //能按畫面
                     self!.isUserInteractionEnabled = true
                     
-                    //藥水刪掉
+                    //選項顏色變淡+移除選項字
                     for node in self!.children{
-                        
-                        if (node.name?.contains("Poison"))!{
-                            node.alpha = 0
+ 
+                        if (node.name?.contains("filledButton"))!{
+                            self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
                         }
+                        
+                        if (node.name?.contains("emptyButton"))!{
+                            self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                        }
+                        
+                        if (node.name?.contains("Sel"))!{
+                            node.removeFromParent()
+                        }
+                        
                     }
+                    
+                    
+
                     
                     //再次啟動練習
                     self!.learningTest()
@@ -1118,39 +1166,49 @@ class GameScene: SKScene {
                     
                 } else {
                     //繼續產生學習單字
+                    self!.dotSparkingFunc()
                     
                     
-                    //把順序+1
-                    if self!.currentWordSequence < self!.wordSets.count / 3 - 1{
-                        self!.currentWordSequence += 1
-                    } else {
-                        self!.currentWordSequence = 0
+                    let when = DispatchTime.now() + 2
+
+                    
+                    DispatchQueue.main.asyncAfter(deadline: when, execute: {
                         
-                        print("return to Zero")
-                    }
+                        //把順序+1
+                        if self!.currentWordSequence < self!.wordSets.count / 3 - 1{
+                            self!.currentWordSequence += 1
+                        } else {
+                            self!.currentWordSequence = 0
+                            
+                            print("return to Zero")
+                        }
+                        
+                        //解除practiceMode
+                        self!.isPracticeMode = false
+                        
+                        //正確數歸零
+                        self!.correctTime = 0
+                        
+                        //播放次數歸零
+                        self!.playSoundTime = 0
+                        
+                        //點點消失
+                        self!.findImageNode(name: "lDot1").alpha = 0
+                        self!.findImageNode(name: "lDot2").alpha = 0
+                        self!.findImageNode(name: "lDot3").alpha = 0
+                        
+                        self!.findImageNode(name: "bDot1").alpha = 0
+                        self!.findImageNode(name: "bDot2").alpha = 0
+                        self!.findImageNode(name: "bDot3").alpha = 0
+                        
+                        
+                        //任務版重來
+                        self!.closeQuestBoardAndReopen()
+                        
+                        
+                    })
                     
-                    //解除practiceMode
-                    self!.isPracticeMode = false
-                    
-                    //正確數歸零
-                    self!.correctTime = 0
-                    
-                    //播放次數歸零
-                    self!.playSoundTime = 0
-                
-                    //點點消失
-                    self!.findImageNode(name: "lDot1").alpha = 0
-                    self!.findImageNode(name: "lDot2").alpha = 0
-                    self!.findImageNode(name: "lDot3").alpha = 0
-                    
-                    self!.findImageNode(name: "bDot1").alpha = 0
-                    self!.findImageNode(name: "bDot2").alpha = 0
-                    self!.findImageNode(name: "bDot3").alpha = 0
-                    
-                    
-                    //任務版重來
-                    self!.closeQuestBoardAndReopen()
-                    
+                   
                     
                     
                 }
@@ -1167,6 +1225,8 @@ class GameScene: SKScene {
             
             //封鎖按鍵
             isUserInteractionEnabled = false
+            
+            dotSparkingFunc()
             
              let when = DispatchTime.now() + 2
             
@@ -1200,6 +1260,27 @@ class GameScene: SKScene {
         
     }
     
+    
+    func dotSparkingFunc(){
+        
+        let sparkling1 = SKAction.fadeAlpha(to: 0, duration: 0.2)
+        let sparkling2 = SKAction.fadeAlpha(to: 1, duration: 0.2)
+        let sequence = SKAction.sequence([sparkling1,sparkling2])
+        let repeatAction = SKAction.repeat(sequence, count: 3)
+        
+        for node in children{
+            
+            if (node.name?.contains("lDot"))!{
+                
+                node.run(repeatAction)
+                
+                
+            }
+            
+        }
+      
+        
+    }
     
 }
 
