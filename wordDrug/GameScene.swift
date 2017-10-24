@@ -209,7 +209,6 @@ class GameScene: SKScene {
     //製作掃描線+發音
     func scanAndPronounce(){
 
-        
         //抓任務背景node
         if let questBoard = findImageNode(name: "questBoard") as SKSpriteNode?{
             
@@ -229,14 +228,10 @@ class GameScene: SKScene {
                 
             } else {
                 
-                
                 //製作scanningline
                 makeNode(name: "scanning", color: pinkColor, x: 0, y: 120, width: questBoardWidth, height: 1, z: 3, isAnchoring: false, alpha: 1)
-                
 
-                
             }
-            
             
             //往下掃瞄速度
             let scanAction = SKAction.moveTo(y: 120 - engChiWordHeight, duration: 0.3)
@@ -263,7 +258,9 @@ class GameScene: SKScene {
                     self!.isScanning = false
                     
                     
-                    //假如是在聽讀模式, 增加一次playTimer
+                    //判斷在聽讀模式還是練習模式
+                    
+                    
                     if self!.isPracticeMode == false {
                         
                         self!.playSoundTime += 1
@@ -271,20 +268,19 @@ class GameScene: SKScene {
                         //非練習模式
                         self!.lightDotFunc(times: self!.playSoundTime)
                         
+                        print("1")
                         
-                    } else {
-                        
-                        //正確數+1
-                        self!.correctTime += 1
+                    } else{
                         
                         //亮燈
                         self!.lightDotFunc(times: self!.correctTime)
-                        
+
+                        print("2")
                     }
 
-                })
-                
-                
+              
+                    }
+                )
                 
             })
             
@@ -316,8 +312,8 @@ class GameScene: SKScene {
             findLabelNode(name: "hint").text = "[ 再次點擊進入練習 ]"
             } else {
                 //回到學習單字
-                
-               //findLabelNode(name: "hint").text = "[ 下一個單字 ]"
+                isUserInteractionEnabled = false
+               findLabelNode(name: "hint").text = "[ 練習完成 ]"
                 
             }
             
@@ -462,7 +458,7 @@ class GameScene: SKScene {
         for i in 0 ..< shownWords.count{
             
             makeLabelNode(x: CGFloat(-300 + (120 * i)), y: -400, alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 3, name: shownWords[i] + String(i) + "sel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-            
+          
         }
         
         
@@ -527,23 +523,27 @@ class GameScene: SKScene {
             if isButtonEnable {
                 if node.name == "button"{
                     
+                    
+                    
                     print("button pressed")
            
                 }
             }
             
-            if isScanning == false{
             
+            //按主畫面的功能
+            if isScanning == false{
                 
                 //假如發音按超過三次要開始練習
-                if playSoundTime < 3{
+                if playSoundTime <= 3{
                     
                     if node.name == "questBoard"{
-                        
+
                         scanAndPronounce()
                     }
                     
                 } else {
+
                     
                     //開始學習練習模式
                     isPracticeMode = true
@@ -1091,8 +1091,9 @@ class GameScene: SKScene {
             shownWords.removeAll(keepingCapacity: false)
             wordEntered.removeAll(keepingCapacity: false)
             
-            //順序+1以及歸零
-            
+
+            //正確數+1
+            correctTime += 1
 
             
             //移除選項node
