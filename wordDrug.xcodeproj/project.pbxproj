@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC01F9DC060003F5C3F /* blackDot.png */; };
 		AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC21F9DC069003F5C3F /* lightDot.png */; };
-		AA53CF271F9F1EB00061C2E8 /* ac.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA53CF261F9F1EB00061C2E8 /* ac.txt */; };
 		AA68BD611F99C0A600112AF4 /* bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD601F99C06100112AF4 /* bg2.png */; };
 		AA68BD631F99F4F000112AF4 /* california.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD621F99F4EB00112AF4 /* california.mp3 */; };
 		AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD671F9A1A4B00112AF4 /* camel.mp3 */; };
@@ -41,7 +40,6 @@
 /* Begin PBXFileReference section */
 		AA2CCDC01F9DC060003F5C3F /* blackDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackDot.png; sourceTree = "<group>"; };
 		AA2CCDC21F9DC069003F5C3F /* lightDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightDot.png; sourceTree = "<group>"; };
-		AA53CF261F9F1EB00061C2E8 /* ac.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ac.txt; sourceTree = "<group>"; };
 		AA68BD601F99C06100112AF4 /* bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg2.png; sourceTree = "<group>"; };
 		AA68BD621F99F4EB00112AF4 /* california.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = california.mp3; sourceTree = "<group>"; };
 		AA68BD641F9A1A4B00112AF4 /* camera.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = camera.mp3; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 				AA68BD6A1F9A1A4C00112AF4 /* cannon.mp3 */,
 				AA68BD6C1F9A1A4C00112AF4 /* capital.mp3 */,
 				AA68BD651F9A1A4B00112AF4 /* catastrophe.mp3 */,
-				AA53CF261F9F1EB00061C2E8 /* ac.txt */,
 				AAE181AA1F9790BB00683896 /* ca2.txt */,
 			);
 			path = wordDrug;
@@ -195,7 +192,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA53CF271F9F1EB00061C2E8 /* ac.txt in Resources */,
 				AAE181981F97892D00683896 /* Main.storyboard in Resources */,
 				AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */,
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
