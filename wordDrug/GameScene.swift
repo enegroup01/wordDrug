@@ -62,6 +62,7 @@ class GameScene: SKScene {
     var playSoundTime = 0
     var correctTime = 0
     
+    //建立線條
 
     
     override func didMove(to view: SKView) {
@@ -106,16 +107,27 @@ class GameScene: SKScene {
 
  
         //製作按鈕
-        for i in 0 ..< 6 {
-           
+   
             //選項按鈕
-            makeNode(name: String(i) + "se", color: .clear, x:CGFloat(-340 + (119 * i)) , y: -432, width: 95, height: 95, z: 6, isAnchoring: true, alpha: 1)
-            //填滿按鈕, 要比空按鈕大一點
-            makeImageNode(name: String(i) + "filledButton", image: "filledButton", x:CGFloat(-345 + (119 * i)) , y: -435, width: 100, height: 100, z: 4, alpha: 0, isAnchoring: true)
-            //空的按鈕
-            makeImageNode(name: String(i) + "emptyButton", image: "emptyButton", x:CGFloat(-345 + (119 * i)) , y: -435, width: 100, height: 100, z: 3, alpha: 0, isAnchoring: true)
-        }
+
+          makeNode(name: "0se", color: .clear, x:-170 , y: -410, width: 95, height: 95, z: 6, isAnchoring: false, alpha: 1)
+          makeNode(name: "1se", color: .clear, x:-170 , y: -260, width: 95, height: 95, z: 6, isAnchoring: false, alpha: 1)
+          makeNode(name: "2se", color: .clear, x:170 , y: -410, width: 95, height: 95, z: 6, isAnchoring: false, alpha: 1)
+          makeNode(name: "3se", color: .clear, x:170 , y: -260, width: 95, height: 95, z: 6, isAnchoring: false, alpha: 1)
         
+        //填滿按鈕
+
+          makeImageNode(name: "0filledButton", image: "filledButton", x:-170 , y: -410, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
+          makeImageNode(name: "1filledButton", image: "filledButton", x:-170 , y: -260, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
+          makeImageNode(name: "2filledButton", image: "filledButton", x:170 , y: -410, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
+          makeImageNode(name: "3filledButton", image: "filledButton", x:170 , y: -260, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
+        
+        //空的按鈕
+        makeImageNode(name: "0emptyButton", image: "emptyButton", x:-170 , y: -410, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1emptyButton", image: "emptyButton", x:-170 , y: -260, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2emptyButton", image: "emptyButton", x:170 , y: -410, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3emptyButton", image: "emptyButton", x:170 , y: -260, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
+      
         
         //建立三黑點+亮點, 並hidden
         makeImageNode(name: "bDot1", image: "blackDot", x: -70, y: -150, width: 15, height: 15, z: 2, alpha: 0, isAnchoring: false)
@@ -126,9 +138,14 @@ class GameScene: SKScene {
         makeImageNode(name: "lDot2", image: "lightDot", x: 0, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
         makeImageNode(name: "lDot3", image: "lightDot", x: 70, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
         
+        
+        //建立線條
+
+
     }
     
-    
+
+
     
     //拉開任務＋連結開始學習
     func openQuest(){
@@ -354,17 +371,12 @@ class GameScene: SKScene {
             if (node.name?.contains("engWord"))!{
                 
                 node.run(fadeOut)
-                
             }
-            
             if (node.name?.contains("emptyButton"))!{
                 
                 node.run(fadeIn)
-                
             }
-            
         }
-        
         //抓目前單字
         let currentWord = wordSets[currentWordSequence]
         
@@ -416,7 +428,7 @@ class GameScene: SKScene {
         case 2:
             
             
-            for _ in 0 ..< 4 {
+            for _ in 0 ..< 2 {
                 randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
                 extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
                 countArray.remove(at: randomNumbers)
@@ -426,33 +438,13 @@ class GameScene: SKScene {
             
         case 3:
             
-            for _ in 0 ..< 3 {
                 randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
                 extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
                 countArray.remove(at: randomNumbers)
-                
-                
-            }
-            
-        case 4:
-            
-            for _ in 0..<2 {
-                randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
-                extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
-                countArray.remove(at: randomNumbers)
-            }
-            
-        case 5:
-            randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
-            extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
-            countArray.remove(at: randomNumbers)
-            
-        case 6:
-            
-            print("6 syllables")
+
             
         default:
-            print("default")
+             break
         }
         
         
@@ -478,9 +470,11 @@ class GameScene: SKScene {
         
         //建立所有單字選項
         
+        let positions = [[-170,-430],[-170,-280],[170,-430],[170,-280]]
+        
         for i in 0 ..< shownWords.count{
             
-            makeLabelNode(x: CGFloat(-300 + (120 * i)), y: -405, alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 5, name: shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
+            makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1]), alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 5, name: shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
           
             //可按按鍵
             isUserInteractionEnabled = true
