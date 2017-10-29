@@ -62,8 +62,7 @@ class GameScene: SKScene {
     var playSoundTime = 0
     var correctTime = 0
     
-    //建立線條
-
+ 
     
     override func didMove(to view: SKView) {
         
@@ -138,8 +137,6 @@ class GameScene: SKScene {
         makeImageNode(name: "lDot2", image: "lightDot", x: 0, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
         makeImageNode(name: "lDot3", image: "lightDot", x: 70, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
         
-        
-        //建立線條
 
 
     }
@@ -548,7 +545,7 @@ class GameScene: SKScene {
             
             let node : SKNode = self.atPoint(location)
             
-            //按鈕功能
+            //按鈕功能, 暫時用不到
             
             if isButtonEnable {
                 if node.name == "button"{
@@ -557,7 +554,6 @@ class GameScene: SKScene {
            
                 }
             }
-            
             
             //按主畫面的功能
             if isScanning == false{
@@ -590,10 +586,7 @@ class GameScene: SKScene {
                     }
                 }
                 
-                
-                
             }
-            
             
         }
     }
