@@ -50,7 +50,7 @@ class GameScene: SKScene {
     var currentWordArray = [String]()
     
     //是否能作答
-    var isEnterAnswerEnable = false
+    var isDragAndPlayEnable = false
     
     //是否能按功能button
     var isButtonEnable = false
@@ -63,6 +63,42 @@ class GameScene: SKScene {
     var correctTime = 0
     
  
+    //dragAndPlay需要變數
+    //線條
+    var line:SKShapeNode?
+    
+    //路徑
+    var path:CGMutablePath = CGMutablePath()
+    
+    //第一點
+    var firstTouch = CGPoint()
+    
+    //未確認的點
+    var movingTouch = CGPoint()
+    
+    //確認點
+    var fixedSecondTouch = CGPoint()
+    var fixedThirdTouch = CGPoint()
+    var fixedFourthTouch = CGPoint()
+    
+    //紀錄已經按到的node
+    var nodesTouched = [SKSpriteNode]()
+    
+    //紀錄按到了幾次node
+    var touchTimes = 0
+    
+    //是否是按第一下
+    var isFirstTouch = false
+    //有沒有按畫面
+    var isTouched = false
+    //結束有沒有在node上
+    var isEndOnNode = false
+    //node有沒有移除
+    var isRemoved = false
+    
+    //所有node的名稱
+    var selNodeNames = ["0se","1se","2se","3se"]
+    
     
     override func didMove(to view: SKView) {
         
@@ -138,6 +174,8 @@ class GameScene: SKScene {
         makeImageNode(name: "lDot3", image: "lightDot", x: 70, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
         
 
+        //避免多次按
+        self.view?.isMultipleTouchEnabled = false
 
     }
     
@@ -357,7 +395,7 @@ class GameScene: SKScene {
     func learningTest(){
         
         //讓英文字alpha變淡
-        let fadeOut = SKAction.fadeAlpha(to: 0.1, duration: 0.3)
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.3)
         
         //顯示空格子
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
@@ -467,6 +505,7 @@ class GameScene: SKScene {
         
         //建立所有單字選項
         
+        //設定四格的位置
         let positions = [[-170,-430],[-170,-280],[170,-430],[170,-280]]
         
         for i in 0 ..< shownWords.count{
@@ -476,8 +515,13 @@ class GameScene: SKScene {
             //可按按鍵
             isUserInteractionEnabled = true
             
+            //把建立的選項名稱放入array裡
+            selNodeNames.append(shownWords[i] + String(i) + "Sel")
+            
         }
         
+        
+        isDragAndPlayEnable = true
         
     }
     
@@ -569,27 +613,473 @@ class GameScene: SKScene {
                 }
              
             }
+
             
-            //假設有選項單字
-            if shownWords.count > 0 {
+            //**** 開始拖拉遊戲 dragAndPlay ***
+            
+            if isDragAndPlayEnable {
+            
+            //移除上一次的選擇
+    
+            //在建立一條新的線
+            line = SKShapeNode()
+            line?.strokeColor = .cyan
+            line?.lineWidth = 5
+            line?.name = "line"
+            line?.zPosition = 7
+            
+            addChild(line!)
+            
+                //指定好第一下的位置
+                firstTouch = touch.location(in: self)
                 
-                //抓選項方塊
-                for i in 0 ..< shownWords.count{
+                let node : SKNode = self.atPoint(firstTouch)
+                
+                //假如有按到node
+                //if node.name == "1" || node.name == "2" || node.name == "3" || node.name == "4"{
+                
+                
+                //假設有選項單字
+                if shownWords.count > 0 {
                     
-                    if node.name == String(i) + "se"{
+                    //抓選項方塊
+                    for i in 0 ..< selNodeNames.count{
                         
-                        
-                        let wordChosen = shownWords[i]
-                        
-                        checkLearningTestAnswer(word: wordChosen,poisonNumber: i)
-                        
+                        //按到任何按鈕
+                        if node.name == String(i) + "se"{
+                            
+                            self.touchTimes += 1
+                            
+                            let wordChosen = shownWords[i]
+                            
+                            let name = node.name!
+                            
+                            //從名稱當中移除該node
+                            if let idx = selNodeNames.index(of:name) {
+                                selNodeNames.remove(at: idx)
+                            }
+                            
+                            //確認正確或錯誤
+                            //checkLearningTestAnswer(word: wordChosen,poisonNumber: i)
+                            
+                            //如果做到的話第一個node就發亮
+                            makeNode(name: "new" + name, color: .cyan, x: node.position.x, y: node.position.y, width: node.frame.width, height: node.frame.height, z: node.zPosition + 1, isAnchoring: false, alpha: 1)
+                            
+                            //新增到已經按到的node裡
+                            nodesTouched.append(findImageNode(name: "new" + name))
+                            
+                            
+                            //建立暫時顯示單字
+                            showEnterWords(word: wordChosen)
+                        }
                     }
                 }
+            }
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        //確認有按到任何選項單字才會開始偵測move動作
+        if touchTimes > 0{
+            
+            for touch in touches{
+                
+                isEndOnNode = true
+                
+                //設定正在移動中的位置
+                movingTouch = touch.location(in: self)
+                
+                let node : SKNode = self.atPoint(movingTouch)
+                
+                //畫線
+                drawLine()
+                
+                //移除上一個node的功能
+                //避免重複移除
+                if isRemoved == false {
+                    
+                    let nodesTouchedCount = nodesTouched.count
+                    
+                    //假如按到兩個以上的node, 才會移除
+                    if nodesTouchedCount > 1 {
+                        
+                        //假如碰到的node是前一個
+                        if node.name == nodesTouched[nodesTouchedCount - 2].name {
+                            
+                            //阻擋重複移除
+                            isRemoved = true
+                            
+                            //移除掉目前這個的發亮node
+                            let nextNode = nodesTouched[nodesTouchedCount - 1]
+                            nextNode.removeFromParent()
+                            
+                            //記錄裡也要刪掉
+                            nodesTouched.remove(at: nodesTouchedCount - 1)
+                            
+                            //按到次數少1
+                            touchTimes -= 1
+                            
+                            //然後畫線
+                            drawLine()
+                            
+                            wordEntered.removeLast()
+                            
+                            var fullText = String()
+                            for i in wordEntered {
+                            fullText += i
+     
+                            }
+                            
+                            //更改輸入字
+            findLabelNode(name: "tempWord").text = fullText
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                //移動中遇到其餘三個node
+                
+                if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] {
+
+                        let name = node.name!
+                        let index = Int(name.replacingOccurrences(of: "se", with: ""))
+                        
+                        //避免連續加node
+                        if isTouched == false{
+                            
+                            //阻擋連續加node
+                            isTouched = true
+                            
+                            touchTimes += 1
+                            
+                            makeNode(name: "new" + name, color: .cyan, x: node.position.x, y: node.position.y, width: node.frame.width, height: node.frame.height, z: node.zPosition + 1, isAnchoring: false, alpha: 1)
+                            
+                            nodesTouched.append(findImageNode(name: "new" + name))
+                            
+                            //確認單字是否正確
+                            
+                            
+                            let wordChosen = shownWords[index!]
+                            //checkLearningTestAnswer(word: wordChosen,poisonNumber: i)
+                            showEnterWords(word: wordChosen)
+                            
+                        }
+                        
+                        //檢查已經增加第幾個node, 然後做固定轉折點
+                        switch touchTimes {
+                            
+                        case 2:
+                            
+                            fixedSecondTouch = getCgPoint(name: name)
+                            
+                        case 3:
+                            
+                            fixedThirdTouch = getCgPoint(name: name)
+                            
+                        case 4:
+                            
+                            fixedFourthTouch = getCgPoint(name: name)
+                            
+                        default:
+                            break
+                        }
+                        
+                        //轉折點設置好後畫線
+                        drawLine()
+   
+                        
+                    } else {
+                        
+                        
+                        //手指離開方塊時
+                        
+                        //避免一直重複執行
+                        isTouched = false
+                        
+                        isRemoved = false
+                        
+                    }
+                    
+                
+                
+            }
+        }
+        
+    }
+    
+    
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        //手指離開後對答案
+        if isDragAndPlayEnable {
+        
+            //移除上一次的發亮按鈕
+            removeSomeNodes(name: "new")
+            //移除上一次的線
+            removeSomeNodes(name: "line")
+            
+        //初始化
+        selNodeNames = ["0se","1se","2se","3se"]
+        
+        for touch in touches{
+            let lastTouch = touch.location(in: self)
+            
+            let node : SKNode = self.atPoint(lastTouch)
+            
+            if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3]{
+                
+                
+                
+            } else {
+                //最後一個沒碰到node的話, 一放開縮短線
+                
+                isEndOnNode = false
+                
+                drawLine()
                 
             }
             
         }
+        
+        //固定線
+        line = SKShapeNode()
+        line?.strokeColor = .cyan
+        line?.lineWidth = 5
+        line?.name = "line"
+        line?.zPosition = 7
+        addChild(line!)
+        
+        //初始化
+        
+        isFirstTouch = false
+        touchTimes = 0
+        isTouched = false
+        nodesTouched.removeAll(keepingCapacity: false)
+            
+            //確定答案正確
+            
+            //let alreadyCorrectCount = wordEntered.count
+            
+            //if alreadyCorrectCount == currentWordArray.count && alreadyCorrectCount != 0 {
+            
+            
+            //假如答案正確
+            if wordEntered == currentWordArray{
+            
+            
+            //不能按畫面
+                self.isUserInteractionEnabled = false
+                
+                //避免再次顯示掃描線
+                isScanning = true
+                
+                //播放單字
+                self.scanAndPronounce()
+                
+                //輸入正確音節數歸零
+                //alreadyCorrectsyllables = 0
+                
+                //初始化
+                shownWords.removeAll(keepingCapacity: false)
+                wordEntered.removeAll(keepingCapacity: false)
+                
+                //正確數+1
+                correctTime += 1
+                
+                let when = DispatchTime.now() + 2
+                
+                //關上任務版
+                
+                DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                    
+                    //確認練習三次了沒
+                    
+                    if self!.correctTime < 3 {
+                        //再次練習
+                        
+                        //能按畫面
+                        self!.isUserInteractionEnabled = true
+                        
+                        //選項顏色變淡+移除選項字
+                        for node in self!.children{
+                            
+                            if (node.name?.contains("filledButton"))!{
+                                self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                            }
+                            
+                            if (node.name?.contains("emptyButton"))!{
+                                self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                            }
+                            
+                            if (node.name?.contains("Sel"))!{
+                                node.removeFromParent()
+                            }
+                            
+                        }
+                        
+                        
+                        //把輸入字刪除
+                        self!.findLabelNode(name: "tempWord").text = ""
+                        
+                        
+                        //再次啟動練習
+                        self!.learningTest()
+                        self!.isButtonEnable = false
+                        
+                    } else {
+                        //繼續產生學習單字
+                        self!.dotSparkingFunc()
+                        
+                        let when = DispatchTime.now() + 2
+                        
+                        DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                            
+                            //把順序+1
+                            if self!.currentWordSequence < self!.wordSets.count / 3 - 1{
+                                self!.currentWordSequence += 1
+                            } else {
+                                self!.currentWordSequence = 0
+                                
+                                print("return to Zero")
+                            }
+                            
+                            //解除practiceMode
+                            self!.isPracticeMode = false
+                            
+                            //正確數歸零
+                            self!.correctTime = 0
+                            
+                            //播放次數歸零
+                            self!.playSoundTime = 0
+                            
+                            //點點消失
+                            self!.findImageNode(name: "lDot1").alpha = 0
+                            self!.findImageNode(name: "lDot2").alpha = 0
+                            self!.findImageNode(name: "lDot3").alpha = 0
+                            
+                            self!.findImageNode(name: "bDot1").alpha = 0
+                            self!.findImageNode(name: "bDot2").alpha = 0
+                            self!.findImageNode(name: "bDot3").alpha = 0
+                            
+                            
+                            //任務版重來
+                            self!.closeQuestBoardAndReopen()
+                            
+                            //不能dragAndPlay
+                            self!.isDragAndPlayEnable = false
+                            
+                            
+                        })
+                        
+                        
+                        
+                        
+                    }
+                })
+                
+                
+            } else {
+                
+                
+                //答案錯誤的機制
+                print("wrong answer")
+                //不能按畫面
+                self.isUserInteractionEnabled = false
+                //避免再次顯示掃描線
+                isScanning = true
+                //把輸入過的答案移除
+                wordEntered.removeAll(keepingCapacity: false)
+                
+                let wait = SKAction.wait(forDuration: 0.2)
+                
+                let redFontAction = SKAction.run({[weak self] in
+                         self!.findLabelNode(name: "tempWord").fontColor = .red
+                })
+                let whiteFontAction = SKAction.run({[weak self] in
+                    self!.findLabelNode(name: "tempWord").fontColor = .white
+                })
+
+                let sequence = SKAction.sequence([redFontAction,wait,whiteFontAction,wait])
+                let repeatAction = SKAction.repeat(sequence, count: 2)
+                findLabelNode(name: "tempWord").run(repeatAction, completion: {[weak self] in
+               
+                    //能按畫面
+                    self!.isUserInteractionEnabled = true
+                    
+                    //選項顏色變淡+移除選項字
+                    for node in self!.children{
+                        
+                        if (node.name?.contains("filledButton"))!{
+                            self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                        }
+                        
+                        //把選項字回復成白色
+                        if (node.name?.contains("Sel"))!{
+                            
+                            if let node = node as? SKLabelNode{
+                                
+                                node.fontColor = .white
+                                
+                            }
+                            
+                            //把輸入字刪除
+                            
+                            self!.findLabelNode(name: "tempWord").text = ""
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    self!.isButtonEnable = false
+
+                    
+                })
+                
+           
+                
+                
+            }
+
+            
+            
+        }
+        
     }
+    
+    
+    func showEnterWords(word:String){
+        //確認正確然後填入array
+        
+        wordEntered.append(word)
+
+        //建立labelNode
+
+        if let tempNode = childNode(withName: "tempWord") as? SKLabelNode {
+            //appendText
+            
+            var fullText = String()
+            for i in wordEntered {
+                
+                fullText += i
+
+                tempNode.text = fullText
+                
+            }
+            
+        } else {
+        
+        makeLabelNode(x: 0, y: 45, alignMent: .center, fontColor: .white, fontSize: 100, text: word, zPosition: 3, name: "tempWord", fontName: "Helvetica", isHidden: false, alpha: 1)
+        
+        }
+    }
+    
+
     
     
     func checkLearningTestAnswer(word:String, poisonNumber:Int){
@@ -675,7 +1165,7 @@ class GameScene: SKScene {
         changeLabelAlfa(name: correctWordName, toAlpha: 1, time: 0.3)
         
         //將音節正確數量+1, 來對應目前單字音節量
-        alreadyCorrectsyllables += 1
+        //alreadyCorrectsyllables += 1
         
         //找選項正確音節
         let selectedLabel = findLabelNode(name: word + String(poisonNumber) + "Sel")
@@ -979,6 +1469,66 @@ class GameScene: SKScene {
      
      */
     
+    func drawLine(){
+        
+        path = CGMutablePath()
+        
+        switch touchTimes {
+            
+        case 1:
+            
+            path.move(to: firstTouch)
+            
+            if isEndOnNode{
+                path.addLine(to: movingTouch)
+            } else {
+                removeSomeNodes(name: "new")
+            }
+        case 2:
+            
+            path.move(to: firstTouch)
+            path.addLine(to: fixedSecondTouch)
+            if isEndOnNode{
+                path.addLine(to: movingTouch)
+            }
+        case 3:
+            
+            path.move(to: firstTouch)
+            path.addLine(to: fixedSecondTouch)
+            path.addLine(to: fixedThirdTouch)
+            
+            if isEndOnNode{
+                path.addLine(to: movingTouch)
+            }
+        case 4:
+            
+            path.move(to: firstTouch)
+            path.addLine(to: fixedSecondTouch)
+            path.addLine(to: fixedThirdTouch)
+            path.addLine(to: fixedFourthTouch)
+            
+            if isEndOnNode{
+                path.addLine(to: movingTouch)
+                
+            }
+            
+        default:
+            break
+        }
+        
+        line!.path = path
+        
+    }
+    
+    func getCgPoint(name:String) -> CGPoint{
+        
+        let node = childNode(withName: name) as! SKSpriteNode
+        let xPos = node.frame.midX
+        let yPos = node.frame.midY
+        let position = CGPoint(x: xPos, y: yPos)
+        return position
+    }
+
     
     //找labelNode
     func findLabelNode(name:String) -> SKLabelNode{
@@ -1086,124 +1636,7 @@ class GameScene: SKScene {
         
         
         
-        //確定答案正確
-        if alreadyCorrectsyllables == currentWordArray.count && alreadyCorrectsyllables != 0 {
-            
-            
-            //不能按畫面
-            self.isUserInteractionEnabled = false
-            
-            //避免再次顯示掃描線
-            isScanning = true
-            
-            //播放單字
-            self.scanAndPronounce()
-            //輸入正確音節數歸零
-            alreadyCorrectsyllables = 0
-            
-
-            //初始化
-            shownWords.removeAll(keepingCapacity: false)
-            wordEntered.removeAll(keepingCapacity: false)
-            
-
-            //正確數+1
-            correctTime += 1
-
-            
-
-            let when = DispatchTime.now() + 2
-            
-            //關上任務版
-            
-            DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
-                
-                //確認練習三次了沒
-                
-                if self!.correctTime < 3 {
-                    //再次練習
-                    
-  
-                    //能按畫面
-                    self!.isUserInteractionEnabled = true
-                    
-                    //選項顏色變淡+移除選項字
-                    for node in self!.children{
- 
-                        if (node.name?.contains("filledButton"))!{
-                            self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
-                        }
-                        
-                        if (node.name?.contains("emptyButton"))!{
-                            self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
-                        }
-                        
-                        if (node.name?.contains("Sel"))!{
-                            node.removeFromParent()
-                        }
-                        
-                    }
-                    
-                    
-
-                    
-                    //再次啟動練習
-                    self!.learningTest()
-                    self!.isButtonEnable = false
-                    
-                } else {
-                    //繼續產生學習單字
-                    self!.dotSparkingFunc()
-                    
-                    
-                    let when = DispatchTime.now() + 2
-
-                    
-                    DispatchQueue.main.asyncAfter(deadline: when, execute: {
-                        
-                        //把順序+1
-                        if self!.currentWordSequence < self!.wordSets.count / 3 - 1{
-                            self!.currentWordSequence += 1
-                        } else {
-                            self!.currentWordSequence = 0
-                            
-                            print("return to Zero")
-                        }
-                        
-                        //解除practiceMode
-                        self!.isPracticeMode = false
-                        
-                        //正確數歸零
-                        self!.correctTime = 0
-                        
-                        //播放次數歸零
-                        self!.playSoundTime = 0
-                        
-                        //點點消失
-                        self!.findImageNode(name: "lDot1").alpha = 0
-                        self!.findImageNode(name: "lDot2").alpha = 0
-                        self!.findImageNode(name: "lDot3").alpha = 0
-                        
-                        self!.findImageNode(name: "bDot1").alpha = 0
-                        self!.findImageNode(name: "bDot2").alpha = 0
-                        self!.findImageNode(name: "bDot3").alpha = 0
-                        
-                        
-                        //任務版重來
-                        self!.closeQuestBoardAndReopen()
-                        
-                        
-                    })
-                    
-                   
-                    
-                    
-                }
-            })
-            
-            
-        }
-        
+        //發音三次後直跳練習
         
         if playSoundTime == 3 {
             //直接開啟練習
