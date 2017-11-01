@@ -151,25 +151,25 @@ class GameScene: SKScene {
         
         //填滿按鈕
         
-        makeImageNode(name: "0filledButton", image: "filledButton", x:-170 , y: -410, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1filledButton", image: "filledButton", x:-170 , y: -260, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2filledButton", image: "filledButton", x:170 , y: -410, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3filledButton", image: "filledButton", x:170 , y: -260, width: 95, height: 95, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0filledButton", image: "fButton", x:-170 , y: -410, width: 145, height: 145, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1filledButton", image: "fButton", x:-170 , y: -260, width: 145, height: 145, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2filledButton", image: "fButton", x:170 , y: -410, width: 145, height: 145, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3filledButton", image: "fButton", x:170 , y: -260, width: 145, height: 145, z: 4, alpha: 0, isAnchoring: false)
         
         //空的按鈕
-        makeImageNode(name: "0emptyButton", image: "emptyButton", x:-170 , y: -410, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1emptyButton", image: "emptyButton", x:-170 , y: -260, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2emptyButton", image: "emptyButton", x:170 , y: -410, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3emptyButton", image: "emptyButton", x:170 , y: -260, width: 95, height: 95, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0emptyButton", image: "eButton", x:-170 , y: -410, width: 125, height: 125, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1emptyButton", image: "eButton", x:-170 , y: -260, width: 125, height: 125, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2emptyButton", image: "eButton", x:170 , y: -410, width: 125, height: 125, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3emptyButton", image: "eButton", x:170 , y: -260, width: 125, height: 125, z: 3, alpha: 0, isAnchoring: false)
         
         //建立三黑點+亮點, 並hidden
-        makeImageNode(name: "bDot1", image: "blackDot", x: -70, y: -150, width: 15, height: 15, z: 2, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "bDot2", image: "blackDot", x: 0, y: -150, width: 15, height: 15, z: 2, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "bDot3", image: "blackDot", x: 70, y: -150, width: 15, height: 15, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "bDot1", image: "bDot1", x: -70, y: -150, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "bDot2", image: "bDot2", x: 0, y: -150, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "bDot3", image: "bDot3", x: 70, y: -150, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "lDot1", image: "lightDot", x: -70, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "lDot2", image: "lightDot", x: 0, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "lDot3", image: "lightDot", x: 70, y: -150, width: 107, height: 107, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lDot1", image: "lDot1", x: -70, y: -150, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lDot2", image: "lDot2", x: 0, y: -150, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lDot3", image: "lDot3", x: 70, y: -150, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
         
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
@@ -601,8 +601,8 @@ class GameScene: SKScene {
                 
                 //在建立一條新的線
                 line = SKShapeNode()
-                line?.strokeColor = .cyan
-                line?.lineWidth = 5
+                line?.strokeColor = pinkColor
+                line?.lineWidth = 8
                 line?.name = "line"
                 line?.zPosition = 7
                 
@@ -847,8 +847,8 @@ class GameScene: SKScene {
                 
                 //固定線
                 line = SKShapeNode()
-                line?.strokeColor = .cyan
-                line?.lineWidth = 5
+                line?.strokeColor = pinkColor
+                line?.lineWidth = 8
                 line?.name = "line"
                 line?.zPosition = 7
                 addChild(line!)
