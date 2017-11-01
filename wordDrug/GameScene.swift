@@ -864,7 +864,6 @@ class GameScene: SKScene {
                     
                     //部首音節變色...
 
-                    
                     //1. 把顯示的輸入字刪除
                     findLabelNode(name: "tempWord").text = ""
                     
@@ -1039,6 +1038,9 @@ class GameScene: SKScene {
                         
                         
                         self!.isButtonEnable = false
+                        
+                        //能再次按發音
+                        self!.isScanning = false
                         
                         
                     })
