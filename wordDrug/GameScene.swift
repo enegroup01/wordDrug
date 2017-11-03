@@ -2139,6 +2139,18 @@ class GameScene: SKScene {
                 isRoundEnd = false
                 //回合結束
                 print("roundEnd")
+                if currentWordSequence < wordSets.count / 3 - 1{
+                    currentWordSequence += 1
+                }  else {
+                        print("Session End")
+                    currentWordSequence = 0
+                    }
+                
+                //下一回合戰鬥
+                
+                
+                
+                
             }
         }
     }
