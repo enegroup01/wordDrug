@@ -68,8 +68,13 @@ class GameScene: SKScene {
     //確認贏幾次來算combo
     var battleComboTime = 0
     
+    var isRoundEnd = false
+    
     var monsterBlood = CGFloat()
     var playerBlood = CGFloat()
+    
+    var fullMonsterBlood = CGFloat()
+    var fullPlayerBlood = CGFloat()
     
     
     //dragAndPlay需要變數
@@ -184,9 +189,6 @@ class GameScene: SKScene {
         self.view?.isMultipleTouchEnabled = false
         
 
-        
-        
-        
 
     }
     
@@ -437,6 +439,11 @@ class GameScene: SKScene {
         //player血
         makeImageNode(name: "playerBlood", image: "playerBlood", x: -273, y: 145, width: 545, height: 70, z: 5, alpha: 0, isAnchoring: true)
         
+        
+        //確認血量
+        fullMonsterBlood = findImageNode(name: "monsterBlood").size.width
+        fullPlayerBlood = findImageNode(name: "playerBlood").size.width
+
         
         for node in children{
 
@@ -1149,7 +1156,13 @@ class GameScene: SKScene {
                                             } else {
                                                 
                                                 print("continue play")
+                                                //繼續攻擊
+                              
+                                                //1. 選項字重置
                                                 
+                                                //2. tempWord刪掉
+                                                
+                                                //3.wordEntered重置
                                                 
                                             }
                                         })
@@ -1158,7 +1171,7 @@ class GameScene: SKScene {
                                     
                                 })
 
-                            }
+                            } else {
                             
                             //攻擊人
                             self!.attack(point: 2, whom: player, finished: {
@@ -1169,10 +1182,12 @@ class GameScene: SKScene {
                                 } else {
                                     
                                     print("continue play")
-                        
+                                    //繼續攻擊
+                                    self!.continueBattle()
+                                    
                                 }
                             })
-                            
+                                }
                         }
                         }
                         
@@ -1230,7 +1245,8 @@ class GameScene: SKScene {
                                     } else {
                                         
                                         print("continue play")
-                                        
+                                        self!.continueBattle()
+                                
                                         
                                     }
                                     
@@ -1242,20 +1258,7 @@ class GameScene: SKScene {
                             }
                         }
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+
                         
                     }
                     
@@ -1311,7 +1314,7 @@ class GameScene: SKScene {
                 if wordEntered == currentWordArray{
                     
                     //部首音節變色...
-
+                    
                     //1. 把顯示的輸入字刪除
                     findLabelNode(name: "tempWord").text = ""
                     
@@ -1319,7 +1322,7 @@ class GameScene: SKScene {
                     
                     for node in children{
                         if (node.name?.contains("engWord"))!{
-                         changeLabelAlfa(name: node.name!, toAlpha: 1, time: 0.3)
+                            changeLabelAlfa(name: node.name!, toAlpha: 1, time: 0.3)
                             
                         }
                         
@@ -1371,7 +1374,7 @@ class GameScene: SKScene {
                                     node.removeFromParent()
                                 }
                             }
-        
+                            
                             //再次啟動練習
                             self!.learningTest()
                             self!.isButtonEnable = false
@@ -1427,13 +1430,12 @@ class GameScene: SKScene {
                                 }
                                 
                                 
-                              
+                                
                                 
                             })
                             
                         }
                     })
-                    
                     
                 } else {
                     
@@ -1503,26 +1505,85 @@ class GameScene: SKScene {
         }
         }
     }
+  
+    func continueBattle(){
+        
+        //1. 把顯示的輸入字刪除
+        findLabelNode(name: "tempWord").text = ""
+        
+        //2. 顯示原本有音節變色的字
+        /*
+        for node in children{
+            if (node.name?.contains("engWord"))!{
+                changeLabelAlfa(name: node.name!, toAlpha: 1, time: 0.3)
+                
+            }
+            
+        }
+        */
+        //不能按畫面
+        isUserInteractionEnabled = false
+        
+        //避免再次顯示掃描線
+        isScanning = true
+        
+        //播放單字
+        scanAndPronounce()
+        
+        //輸入正確音節數歸零
+        //alreadyCorrectsyllables = 0
+        
+        //初始化
+        shownWords.removeAll(keepingCapacity: false)
+        wordEntered.removeAll(keepingCapacity: false)
+        
+        
+        let when = DispatchTime.now() + 2
+        
+        DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
+            
+            //能按畫面
+            self!.isUserInteractionEnabled = true
+            
+            //選項顏色變淡+移除選項字
+            for node in self!.children{
+                
+                if (node.name?.contains("filledButton"))!{
+                    self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                }
+                
+                if (node.name?.contains("emptyButton"))!{
+                    self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                }
+                
+                if (node.name?.contains("Sel"))!{
+                    node.removeFromParent()
+                }
+            }
+            
+            //再次啟動練習
+            self!.learningTest()
+            self!.isButtonEnable = false
+        }
+        
+        
+    }
     
+    
+
     
     func attack(point:CGFloat,whom:String,finished: @escaping () -> Void){
-        
-        let fullMonsterBlood = findImageNode(name: "monsterBlood").size.width
-        let fullPlayerBlood = findImageNode(name: "playerBlood").size.width
-        
+
         
         var hurtMonster = fullMonsterBlood / 9 * point
         var hurtPlayer = fullPlayerBlood / 10 * point
         
         if hurtMonster > monsterBlood {
- 
             hurtMonster = monsterBlood
         }
 
         if hurtPlayer > playerBlood{
-            
             hurtPlayer = playerBlood
-            
         }
         
          //扣血畫面
@@ -1533,12 +1594,27 @@ class GameScene: SKScene {
             let hurtAction = SKAction.resize(toWidth: monsterBlood - hurtMonster, duration: 0.2)
             findImageNode(name: whom).run(hurtAction)
             monsterBlood = monsterBlood - hurtMonster
+            
+
+            if monsterBlood == 0 {
+                
+                isRoundEnd = true
+                
+            }
+            
             print(monsterBlood)
             
         case "playerBlood":
             let hurtAction = SKAction.resize(toWidth: playerBlood - hurtPlayer, duration: 0.2)
             findImageNode(name: whom).run(hurtAction)
             playerBlood = playerBlood - hurtPlayer
+            
+            if playerBlood == 0 {
+                
+                isRoundEnd = true
+                
+            }
+            
         default:
             break
         }
@@ -1546,6 +1622,8 @@ class GameScene: SKScene {
         let when = DispatchTime.now() + 0.7
 
         DispatchQueue.main.asyncAfter(deadline: when) {
+            
+
              finished()
         }
        
@@ -2053,6 +2131,16 @@ class GameScene: SKScene {
             
         }
         
+        
+        if isBattleMode{
+            //戰鬥模式中
+            
+            if isRoundEnd{
+                isRoundEnd = false
+                //回合結束
+                print("roundEnd")
+            }
+        }
     }
     
     
