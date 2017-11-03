@@ -31,6 +31,18 @@
 		AA86F3B21FA9BE22004E7997 /* lDot2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3AF1FA9BE22004E7997 /* lDot2.png */; };
 		AA86F3B51FA9C22E004E7997 /* fButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3B31FA9C22E004E7997 /* fButton.png */; };
 		AA86F3B61FA9C22E004E7997 /* eButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3B41FA9C22E004E7997 /* eButton.png */; };
+		AA86F3B81FA9CD9A004E7997 /* blurredBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3B71FA9CD99004E7997 /* blurredBg.png */; };
+		AA86F3BA1FA9CDF6004E7997 /* monster.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3B91FA9CDF5004E7997 /* monster.png */; };
+		AA86F3BC1FA9CE03004E7997 /* monsterEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3BB1FA9CE03004E7997 /* monsterEffect.png */; };
+		AA86F3C01FA9D92C004E7997 /* shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3BF1FA9D92C004E7997 /* shadow.png */; };
+		AA86F3C21FA9F483004E7997 /* leftFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3C11FA9F483004E7997 /* leftFrame.png */; };
+		AA86F3C41FA9F48B004E7997 /* rightFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3C31FA9F48B004E7997 /* rightFrame.png */; };
+		AA86F3C61FAC6C15004E7997 /* eButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3C51FAC6C14004E7997 /* eButton2.png */; };
+		AA86F3C81FAC6C1E004E7997 /* fButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3C71FAC6C1E004E7997 /* fButton2.png */; };
+		AA86F3CD1FAC6F96004E7997 /* bloodBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3C91FAC6F95004E7997 /* bloodBg.png */; };
+		AA86F3CF1FAC6F96004E7997 /* playerBlood.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3CB1FAC6F96004E7997 /* playerBlood.png */; };
+		AA86F3D01FAC6F96004E7997 /* monsterTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3CC1FAC6F96004E7997 /* monsterTitle.png */; };
+		AA86F3D21FAC7A49004E7997 /* monsterBlood.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3D11FAC7A49004E7997 /* monsterBlood.png */; };
 		AADC11E01F9F45AC00F7C7A3 /* ac.txt in Resources */ = {isa = PBXBuildFile; fileRef = AADC11DF1F9F45AB00F7C7A3 /* ac.txt */; };
 		AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */; };
 		AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */; };
@@ -73,6 +85,18 @@
 		AA86F3AF1FA9BE22004E7997 /* lDot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lDot2.png; sourceTree = "<group>"; };
 		AA86F3B31FA9C22E004E7997 /* fButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fButton.png; sourceTree = "<group>"; };
 		AA86F3B41FA9C22E004E7997 /* eButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eButton.png; sourceTree = "<group>"; };
+		AA86F3B71FA9CD99004E7997 /* blurredBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blurredBg.png; sourceTree = "<group>"; };
+		AA86F3B91FA9CDF5004E7997 /* monster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monster.png; sourceTree = "<group>"; };
+		AA86F3BB1FA9CE03004E7997 /* monsterEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterEffect.png; sourceTree = "<group>"; };
+		AA86F3BF1FA9D92C004E7997 /* shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow.png; sourceTree = "<group>"; };
+		AA86F3C11FA9F483004E7997 /* leftFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftFrame.png; sourceTree = "<group>"; };
+		AA86F3C31FA9F48B004E7997 /* rightFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightFrame.png; sourceTree = "<group>"; };
+		AA86F3C51FAC6C14004E7997 /* eButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eButton2.png; sourceTree = "<group>"; };
+		AA86F3C71FAC6C1E004E7997 /* fButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fButton2.png; sourceTree = "<group>"; };
+		AA86F3C91FAC6F95004E7997 /* bloodBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bloodBg.png; sourceTree = "<group>"; };
+		AA86F3CB1FAC6F96004E7997 /* playerBlood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerBlood.png; sourceTree = "<group>"; };
+		AA86F3CC1FAC6F96004E7997 /* monsterTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterTitle.png; sourceTree = "<group>"; };
+		AA86F3D11FAC7A49004E7997 /* monsterBlood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterBlood.png; sourceTree = "<group>"; };
 		AADC11DF1F9F45AB00F7C7A3 /* ac.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ac.txt; sourceTree = "<group>"; };
 		AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyButton.png; sourceTree = "<group>"; };
 		AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledButton.png; sourceTree = "<group>"; };
@@ -131,6 +155,16 @@
 				AAE181991F97892D00683896 /* Assets.xcassets */,
 				AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */,
 				AAE1819E1F97892D00683896 /* Info.plist */,
+				AA86F3B71FA9CD99004E7997 /* blurredBg.png */,
+				AA86F3B91FA9CDF5004E7997 /* monster.png */,
+				AA86F3C91FAC6F95004E7997 /* bloodBg.png */,
+				AA86F3CC1FAC6F96004E7997 /* monsterTitle.png */,
+				AA86F3D11FAC7A49004E7997 /* monsterBlood.png */,
+				AA86F3CB1FAC6F96004E7997 /* playerBlood.png */,
+				AA86F3BB1FA9CE03004E7997 /* monsterEffect.png */,
+				AA86F3BF1FA9D92C004E7997 /* shadow.png */,
+				AA86F3C11FA9F483004E7997 /* leftFrame.png */,
+				AA86F3C31FA9F48B004E7997 /* rightFrame.png */,
 				AA86F3A91FA9BE11004E7997 /* bDot1.png */,
 				AA86F3A81FA9BE11004E7997 /* bDot2.png */,
 				AA86F3A71FA9BE10004E7997 /* bDot3.png */,
@@ -159,6 +193,8 @@
 				AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */,
 				AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */,
 				AA86F3B41FA9C22E004E7997 /* eButton.png */,
+				AA86F3C71FAC6C1E004E7997 /* fButton2.png */,
+				AA86F3C51FAC6C14004E7997 /* eButton2.png */,
 				AA86F3B31FA9C22E004E7997 /* fButton.png */,
 				AADC11DF1F9F45AB00F7C7A3 /* ac.txt */,
 				AAE181AA1F9790BB00683896 /* ca2.txt */,
@@ -225,9 +261,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA86F3C61FAC6C15004E7997 /* eButton2.png in Resources */,
 				AA86F3B51FA9C22E004E7997 /* fButton.png in Resources */,
 				AA86F3B01FA9BE22004E7997 /* lDot1.png in Resources */,
 				AA86F3B21FA9BE22004E7997 /* lDot2.png in Resources */,
+				AA86F3BC1FA9CE03004E7997 /* monsterEffect.png in Resources */,
 				AADC11E01F9F45AC00F7C7A3 /* ac.txt in Resources */,
 				AAE181981F97892D00683896 /* Main.storyboard in Resources */,
 				AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */,
@@ -236,21 +274,25 @@
 				AA68BD711F9A1A6900112AF4 /* cancel.mp3 in Resources */,
 				AA68BD721F9A1A6C00112AF4 /* cancer.mp3 in Resources */,
 				AA68BD7A1F9A1EFB00112AF4 /* fillBar.png in Resources */,
+				AA86F3D01FAC6F96004E7997 /* monsterTitle.png in Resources */,
 				AA68BD741F9A1A7200112AF4 /* cannon.mp3 in Resources */,
 				AA68BD731F9A1A6F00112AF4 /* cannibal.mp3 in Resources */,
 				AA86F3AC1FA9BE11004E7997 /* bDot1.png in Resources */,
 				AAE181A91F978C4200683896 /* bg.png in Resources */,
 				AA68BD781F9A1EA900112AF4 /* bg3.png in Resources */,
 				AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */,
+				AA86F3CF1FAC6F96004E7997 /* playerBlood.png in Resources */,
 				AA68BD611F99C0A600112AF4 /* bg2.png in Resources */,
 				AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */,
 				AA86F3B61FA9C22E004E7997 /* eButton.png in Resources */,
 				AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */,
 				AA86F3B11FA9BE22004E7997 /* lDot3.png in Resources */,
+				AA86F3C21FA9F483004E7997 /* leftFrame.png in Resources */,
 				AA86F3AA1FA9BE11004E7997 /* bDot3.png in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
 				AAE181A61F978BB900683896 /* questBoard.png in Resources */,
 				AA68BD6F1F9A1A6300112AF4 /* camera.mp3 in Resources */,
+				AA86F3BA1FA9CDF6004E7997 /* monster.png in Resources */,
 				AA68BD7C1F9A1F8100112AF4 /* bg4.png in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
 				AA68BD631F99F4F000112AF4 /* california.mp3 in Resources */,
@@ -258,9 +300,15 @@
 				AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */,
 				AA86F3AB1FA9BE11004E7997 /* bDot2.png in Resources */,
 				AAE181911F97892D00683896 /* Actions.sks in Resources */,
+				AA86F3C01FA9D92C004E7997 /* shadow.png in Resources */,
+				AA86F3CD1FAC6F96004E7997 /* bloodBg.png in Resources */,
 				AAE181A71F978BBC00683896 /* monsterBg.png in Resources */,
+				AA86F3C41FA9F48B004E7997 /* rightFrame.png in Resources */,
+				AA86F3D21FAC7A49004E7997 /* monsterBlood.png in Resources */,
+				AA86F3B81FA9CD9A004E7997 /* blurredBg.png in Resources */,
 				AA68BD701F9A1A6600112AF4 /* camp.mp3 in Resources */,
 				AA68BD761F9A1A7800112AF4 /* catastrophe.mp3 in Resources */,
+				AA86F3C81FAC6C1E004E7997 /* fButton2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
