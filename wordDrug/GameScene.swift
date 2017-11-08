@@ -2122,9 +2122,9 @@ class GameScene: SKScene {
         run(changeTextColor)
         
         
-        //按鈕發亮
+        //按鈕發亮, 要設置為0秒完成, 否則會異常
         let buttonName =  String(poisonNumber) + "filledButton"
-        changeImageAlfa(name: buttonName, toAlpha: 1, time: 0.4)
+        changeImageAlfa(name: buttonName, toAlpha: 1, time: 0)
         
     }
     

@@ -58,6 +58,7 @@
 		AA8E9F731FB1839500509D39 /* darkGreenD.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8E9F721FB1839500509D39 /* darkGreenD.png */; };
 		AA8E9F751FB1841400509D39 /* questBoard3.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8E9F741FB1841400509D39 /* questBoard3.png */; };
 		AA8E9F771FB1851400509D39 /* questBoard4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8E9F761FB1851400509D39 /* questBoard4.png */; };
+		AA8F7FD91FB2C655000CD84F /* monsterAttack.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA8F7FD71FB2C655000CD84F /* monsterAttack.sks */; };
 		AADC11E01F9F45AC00F7C7A3 /* ac.txt in Resources */ = {isa = PBXBuildFile; fileRef = AADC11DF1F9F45AB00F7C7A3 /* ac.txt */; };
 		AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */; };
 		AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */; };
@@ -74,10 +75,8 @@
 		AAE181A91F978C4200683896 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE181A81F978C3F00683896 /* bg.png */; };
 		AAE181AD1F97921A00683896 /* ca2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAE181AA1F9790BB00683896 /* ca2.txt */; };
 		AAECC11D1FB0493B004ED813 /* explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC11C1FB0493B004ED813 /* explode.sks */; };
-		AAECC11F1FB080D2004ED813 /* attack.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC11E1FB080D2004ED813 /* attack.sks */; };
 		AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1201FB08A27004ED813 /* monsterExplode.sks */; };
 		AAECC1231FB08C15004ED813 /* monsterExplode.png in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1221FB08C14004ED813 /* monsterExplode.png */; };
-		AAECC1311FB09B5D004ED813 /* monsterAttack.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1301FB09B5D004ED813 /* monsterAttack.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +131,7 @@
 		AA8E9F721FB1839500509D39 /* darkGreenD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkGreenD.png; sourceTree = "<group>"; };
 		AA8E9F741FB1841400509D39 /* questBoard3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questBoard3.png; sourceTree = "<group>"; };
 		AA8E9F761FB1851400509D39 /* questBoard4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questBoard4.png; sourceTree = "<group>"; };
+		AA8F7FD71FB2C655000CD84F /* monsterAttack.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = monsterAttack.sks; sourceTree = "<group>"; };
 		AADC11DF1F9F45AB00F7C7A3 /* ac.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ac.txt; sourceTree = "<group>"; };
 		AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyButton.png; sourceTree = "<group>"; };
 		AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledButton.png; sourceTree = "<group>"; };
@@ -150,10 +150,8 @@
 		AAE181A81F978C3F00683896 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		AAE181AA1F9790BB00683896 /* ca2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ca2.txt; sourceTree = "<group>"; };
 		AAECC11C1FB0493B004ED813 /* explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explode.sks; sourceTree = "<group>"; };
-		AAECC11E1FB080D2004ED813 /* attack.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = attack.sks; sourceTree = "<group>"; };
 		AAECC1201FB08A27004ED813 /* monsterExplode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = monsterExplode.sks; sourceTree = "<group>"; };
 		AAECC1221FB08C14004ED813 /* monsterExplode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterExplode.png; sourceTree = "<group>"; };
-		AAECC1301FB09B5D004ED813 /* monsterAttack.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = monsterAttack.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,9 +204,8 @@
 				AAE181901F97892D00683896 /* Actions.sks */,
 				AAE181921F97892D00683896 /* GameScene.swift */,
 				AAECC1201FB08A27004ED813 /* monsterExplode.sks */,
-				AAECC11E1FB080D2004ED813 /* attack.sks */,
 				AAECC11C1FB0493B004ED813 /* explode.sks */,
-				AAECC1301FB09B5D004ED813 /* monsterAttack.sks */,
+				AA8F7FD71FB2C655000CD84F /* monsterAttack.sks */,
 				AAE181941F97892D00683896 /* GameViewController.swift */,
 				AAE181961F97892D00683896 /* Main.storyboard */,
 				AAE181991F97892D00683896 /* Assets.xcassets */,
@@ -330,7 +327,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */,
-				AAECC1311FB09B5D004ED813 /* monsterAttack.sks in Resources */,
 				AA86F3C61FAC6C15004E7997 /* eButton2.png in Resources */,
 				AA8E9F641FB1752E00509D39 /* attack3.png in Resources */,
 				AA8E9F6F1FB17C6800509D39 /* questBoardGreen2.png in Resources */,
@@ -362,7 +358,7 @@
 				AA86F3CF1FAC6F96004E7997 /* playerBlood.png in Resources */,
 				AA68BD611F99C0A600112AF4 /* bg2.png in Resources */,
 				AA8E9F581FB1647E00509D39 /* flatMonster2.png in Resources */,
-				AAECC11F1FB080D2004ED813 /* attack.sks in Resources */,
+				AA8F7FD91FB2C655000CD84F /* monsterAttack.sks in Resources */,
 				AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */,
 				AA86F3B61FA9C22E004E7997 /* eButton.png in Resources */,
 				AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */,
