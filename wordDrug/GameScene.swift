@@ -37,7 +37,6 @@ class GameScene: SKScene {
     //發音單字
     var wordsToPronounce = String()
     
-    
     //避免重複發音
     var isScanning = true
     
@@ -56,7 +55,6 @@ class GameScene: SKScene {
     
     //是否能按功能button
     var isButtonEnable = false
-    
     
     //autoPlay使用變數
     var isPracticeMode = false
@@ -158,8 +156,6 @@ class GameScene: SKScene {
                 
                 //把字讀取到wordSets裡
                 wordSets = words!
-                
-                
                 //print(contents)
             } catch {
                 // contents could not be loaded
@@ -186,7 +182,6 @@ class GameScene: SKScene {
         
         //填滿按鈕
 
-        
         makeImageNode(name: "0filledButton", image: "lightGreenD", x:-160 , y: -380, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
         makeImageNode(name: "1filledButton", image: "lightGreenD", x:-160 , y: -180, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
         makeImageNode(name: "2filledButton", image: "lightGreenD", x:160 , y: -380, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
@@ -2541,7 +2536,6 @@ class GameScene: SKScene {
         
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
         
         //發音三次後直跳練習
@@ -2568,24 +2562,19 @@ class GameScene: SKScene {
                 self!.findImageNode(name: "lDot2").alpha = 0
                 self!.findImageNode(name: "lDot3").alpha = 0
                 
-                
                 //更改提示字
                 self!.findLabelNode(name: "hint").text = "[ 練習拼字 ]"
                 
                 //發音次數歸零
                 self!.playSoundTime = 0
                 
-                
                 //啟動練習
                 self!.learningTest()
                 self!.isButtonEnable = false
                 
             })
-            
-            
-            
+
         }
-        
         
         if isBattleMode{
             //戰鬥模式中, 暫時用不到
