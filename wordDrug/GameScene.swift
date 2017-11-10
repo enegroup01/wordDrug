@@ -26,7 +26,7 @@ class GameScene: SKScene {
     var wordSets = [String]()
     
     //暫時設定的音節
-    var syllables = ["ca","ac","ed","ad"]
+    var syllables = ["ab","ac","ad","af","ai","al","am","an","any"]
     
     //下一個顯示單字的順序
     var nextWordSequence = Int()
@@ -149,7 +149,7 @@ class GameScene: SKScene {
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
-        if let filepath = Bundle.main.path(forResource: "ca2", ofType: "txt") {
+        if let filepath = Bundle.main.path(forResource: "1-1", ofType: "txt") {
             do {
                 wordFile = try String(contentsOfFile: filepath)
                 let words = wordFile?.components(separatedBy: "; ")
@@ -2540,7 +2540,7 @@ class GameScene: SKScene {
         
         //發音三次後直跳練習
         
-        if playSoundTime == 3 {
+        if playSoundTime == 2 {
             //直接開啟練習
             //只開啟一次
             playSoundTime = 0
