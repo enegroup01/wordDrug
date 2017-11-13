@@ -1,44 +1,44 @@
 //
-//  Map1ViewController.swift
+//  ElementViewController.swift
 //  wordDrug
 //
-//  Created by Ethan on 2017/11/8.
+//  Created by Ethan on 2017/11/10.
 //  Copyright © 2017年 playplay. All rights reserved.
 //
-
 import UIKit
 import SpriteKit
 import GameplayKit
 
-//跳進元素
-let jumpToGameKey = "jumpToElement"
+//傳送元素單位號碼
+let passSpotNumberKey = "passUnitNumber"
+//回到地圖
+let backToMapKey = "backToMap"
 
-class Map1ViewController: UIViewController {
 
-    //抓探索點號碼
+class ElementViewController: UIViewController {
+
+    //接收到探索點的號碼
     var spotNumber = Int()
+    
+    //所選擇的元素號碼
+    var unitNumber = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        //跳進元素NC
-        NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToElement), name: NSNotification.Name("jumpToElement"), object: nil)
-        
-  
 
-        // Do any additional setup after loading the view.
+      //設定NC
+        NotificationCenter.default.addObserver(self, selector: #selector(ElementViewController.passUnitNumber), name: NSNotification.Name("passUnitNumber"), object: nil)
         
-        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-        // including entities and graphs.
-        if let scene = GKScene(fileNamed: "Map1Scene") {
-            
+        NotificationCenter.default.addObserver(self, selector: #selector(ElementViewController.jumpBackToMap), name: NSNotification.Name("backToMap"), object: nil)
+
+        if let scene = GKScene(fileNamed: "ElementScene") {
             
             // Get the SKScene from the loaded GKScene
-            if let sceneNode = scene.rootNode as! Map1Scene? {
+            if let sceneNode = scene.rootNode as! ElementScene? {
                 
                 // Copy gameplay related content over to the scene
-                
+              
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -57,46 +57,50 @@ class Map1ViewController: UIViewController {
 
     }
     
-    @objc func notifyJumpBackToMap(){
-        
-        
+    
+    @objc func jumpBackToMap(){
+    
+        //跳回上一個畫面
+          self.dismiss(animated: true, completion: nil)
+    
     }
-    
-    
-    @objc func jumpToElement(_ notification: NSNotification){
+
+    @objc func passUnitNumber(_ notification: NSNotification){
         
-        //抓探索點號碼
-        if let spotNumberReceived = notification.userInfo?["spotNumber"] as? Int {
+        //抓元素單位
+        if let unitNumberReceived = notification.userInfo?["unitNumber"] as? Int {
 
-            spotNumber = spotNumberReceived
+            //接收元素單位
+            unitNumber = unitNumberReceived
             
+            //等待跳轉畫面
             let when = DispatchTime.now() + 0.5
-
+            
+            //跳轉畫面
             DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
-                self!.performSegue(withIdentifier: "toElement", sender: self)
+                self!.performSegue(withIdentifier: "toGame", sender: self)
             })
             
         }
         
     }
     
+    //傳送探索點號碼及其元素表號碼, 直接設定至遊戲Vc的變數裡
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        //傳送探索點數字
-        if segue.identifier == "toElement" {
-        
-            let destinationVC = segue.destination as! ElementViewController
+        if segue.identifier == "toGame" {
+            
+            let destinationVC = segue.destination as! GameViewController
             destinationVC.spotNumber = spotNumber
+            destinationVC.unitNumber = unitNumber
         }
         
     }
-        
 
-
+    
     override var shouldAutorotate: Bool {
         return true
     }
-       
     
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -115,4 +119,5 @@ class Map1ViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+
 }

@@ -22,7 +22,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-537" y="-4"/>
+            <point key="canvasLocation" x="1652" y="-4"/>
         </scene>
         <!--mapVc-->
         <scene sceneID="9Kt-D4-g6n">
@@ -34,10 +34,31 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="ncl-Zs-TTP"/>
                     </view>
+                    <connections>
+                        <segue destination="yCn-4q-h79" kind="show" identifier="toElement" id="Z8p-BV-MWS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwC-ou-cJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="167" y="-4"/>
+        </scene>
+        <!--elementVc-->
+        <scene sceneID="1tE-pT-Q64">
+            <objects>
+                <viewController storyboardIdentifier="elementVc" title="elementVc" id="yCn-4q-h79" customClass="ElementViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5PG-bF-OuQ" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="zVj-rN-QOP"/>
+                    </view>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="toGame" id="i9V-eh-ybj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6TP-zZ-Cw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="895" y="-4"/>
         </scene>
     </scenes>
 </document>

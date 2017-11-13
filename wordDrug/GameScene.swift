@@ -11,6 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+
     //node按鈕位置
     var location = CGPoint()
     
@@ -25,9 +26,12 @@ class GameScene: SKScene {
     //暫時使用的單字
     var wordSets = [String]()
     
-    //暫時設定的音節
-    var syllables = ["ab","ac","ad","af","ai","al","am","an","any"]
+    //此元素頁面裡所有的音節
+    var syllables = [String]()
     
+    //一張地圖裡的所有音節
+    var syllableSets = [["ab","ac","ad","af","ai","al","am","an","any"],["ap","ar","as","at","au","aw","ay","ba","be","bi"],["bit","bl","bo","br","bu","by","ce","ch","ci","ble"],["ck","cl","co","com","con","cian","cr","ct","de","di"],["do","dr","dy","dis","ea","ee","el","em","en","er"],["et","ew","ex","ey","fi","fl","fo","fr","ft","ful"],["ge","gi","gl","go","gr","he","hi","id","ie","igh"],["il","im","in","ing","ir","is","ject","kn","le","li"],["ly","mi","nd","no","nt","oa","ob","oe","of","oi"],["old","on","ong","oo","op","or","ot","ou","ow","oy"], ["ph","pi","pl","pr","i","re","ro","ry","sh","si"],["sk","so","sp","st","sion","th","ti","tion","tive","tle"],["to","tr","ture","ty","ub","ue","ui","um","un","up"],["ur","ut","war","wh","ab","ac","ad","ae","af","ai"]]
+
     //下一個顯示單字的順序
     var nextWordSequence = Int()
     
@@ -126,7 +130,21 @@ class GameScene: SKScene {
     //所有node的名稱
     var selNodeNames = ["se0","se1","se2","se3"]
     
+    //被設定好的頁數
+    var spotNumber = Int()
+    var unitNumber = Int()
+    
     override func didMove(to view: SKView) {
+        
+        
+        //元素單位練習完後的key
+        NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyEndUnit), name: NSNotification.Name("endUnit"), object: nil)
+        
+        //抓正確unit
+        currentWordSequence = 3 * unitNumber
+        
+        //抓正確的音節
+        syllables = syllableSets[spotNumber]
         
         //建立整個背景
         makeImageNode(name: "bg", image: "bg", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
@@ -149,7 +167,9 @@ class GameScene: SKScene {
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
-        if let filepath = Bundle.main.path(forResource: "1-1", ofType: "txt") {
+        let name = "1-" + String(spotNumber + 1)
+        
+        if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {
                 wordFile = try String(contentsOfFile: filepath)
                 let words = wordFile?.components(separatedBy: "; ")
@@ -166,7 +186,6 @@ class GameScene: SKScene {
         
         
         //製作按鈕
-        
         let lightWidth:CGFloat = 215.8
         let lightHeight:CGFloat = 235.3
         let darkWidth:CGFloat = 162.5
@@ -266,7 +285,7 @@ class GameScene: SKScene {
     func startLearning(){
         
         //找目前sequence的英文+中文字
-        let halfCount = wordSets.count / 3
+        let halfCount = wordSets.count / 4
         let engWord = wordSets[currentWordSequence]
         let chiWord = wordSets[halfCount +  currentWordSequence]
 
@@ -301,7 +320,10 @@ class GameScene: SKScene {
         
     }
     
-    
+    //元素單位練習完成
+    @objc func notifyEndUnit(){
+        
+    }
     
     
     
@@ -611,7 +633,7 @@ class GameScene: SKScene {
     func battleTest(){
         
         //找目前sequence的英文+中文字
-        let halfCount = wordSets.count / 3
+        let halfCount = wordSets.count / 4
         let engWord = wordSets[currentWordSequence]
         let chiWord = wordSets[halfCount +  currentWordSequence]
         
@@ -682,7 +704,7 @@ class GameScene: SKScene {
         var otherWords = [String]()
         
         //在所有英文字裡面, 如果音節沒有重複目前顯示的音節, 就把它加入到otherWords裡
-        for i in 0 ..< wordSets.count / 3{
+        for i in 0 ..< wordSets.count / 4{
             
             let word = wordSets[i]
             let sepWordArray = word.components(separatedBy: " ")
@@ -716,6 +738,18 @@ class GameScene: SKScene {
         
         //補不足的選項
         switch currentWordSyllableCounts {
+            
+        case 1:
+            
+            for _ in 0 ..< 3 {
+                randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
+                extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
+                countArray.remove(at: randomNumbers)
+                
+                
+            }
+            
+            
             
         case 2:
             
@@ -1182,7 +1216,8 @@ class GameScene: SKScene {
                                 
                                 //假如怪沒死
                                 //攻擊怪
-                                self!.attack(point: 3, whom: monster){
+                                //測試用, 暫時設置為9, 原本是3
+                                self!.attack(point: 9, whom: monster){
                                     if self!.monsterBlood == 0 {
                                         
                                         //這局結束
@@ -1541,7 +1576,7 @@ class GameScene: SKScene {
                     //正確數+1
                     correctTime += 1
                     
-                    let when = DispatchTime.now() + 2
+                    let when = DispatchTime.now() + 0.5
                     
                     //關上任務版
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
@@ -1577,13 +1612,18 @@ class GameScene: SKScene {
                             //繼續產生學習單字
                             self!.dotSparkingFunc()
                             
-                            let when = DispatchTime.now() + 2
+                            let when = DispatchTime.now() + 0.5
                             
                             DispatchQueue.main.asyncAfter(deadline: when, execute: {
                                 
                                 //把順序+1
-                                if self!.currentWordSequence < self!.wordSets.count / 3 - 1{
-                                    self!.currentWordSequence += 1
+                                
+                                
+                                //if self!.currentWordSequence < self!.wordSets.count / 4 - 1{
+                                
+                                if self!.currentWordSequence < (self!.unitNumber + 1) * 3 - 1{
+                                
+                                self!.currentWordSequence += 1
                                     
                                     //解除practiceMode
                                     self!.isPracticeMode = false
@@ -1611,7 +1651,10 @@ class GameScene: SKScene {
                                     self!.isDragAndPlayEnable = false
                                     
                                 } else {
-                                    self!.currentWordSequence = 0
+                                    //
+                                    //self!.currentWordSequence = 0
+                                    
+                                    self!.currentWordSequence  = self!.unitNumber * 3
                                     
                                     print("enterBattle")
                                     
@@ -1670,7 +1713,6 @@ class GameScene: SKScene {
                         
                         //能再次按發音
                         self!.isScanning = false
-                        
                         
                     })
       
@@ -1921,21 +1963,12 @@ class GameScene: SKScene {
     
     func nextBattle(){
         
-        //更改單字次序
-        
-        if currentWordSequence < wordSets.count / 3 - 1{
-            currentWordSequence += 1
-        }  else {
-            print("Session End")
-            currentWordSequence = 0
-        }
-
         //更改怪物出現次序
         if monsterSequence < monsters.count - 1 {
             monsterSequence += 1
         } else {
             monsterSequence = 0
-
+            
         }
         
         //初始化
@@ -1949,9 +1982,33 @@ class GameScene: SKScene {
         removeSomeNodes(name: "Frame")
         removeSomeNodes(name: "tempWord")
         
-        //開始戰鬥, 建立下一個單字
-        battleMode()
+        //更改單字次序
+
+        //if currentWordSequence < wordSets.count / 4 - 1{
+        
+        if currentWordSequence < (unitNumber + 1) * 3 - 1{
+            
+        currentWordSequence += 1
+            
+            
+            //開始戰鬥, 建立下一個單字
+            battleMode()
+            
+        }  else {
+            print("Session End")
+            
+            //currentWordSequence = 0
+            //currentWordSequence = unitNumber * 3
+
+            
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
+        }
+
+
+        
+
     }
+
     
     
     func wrongAnswerAction() -> SKAction{
@@ -2315,12 +2372,16 @@ class GameScene: SKScene {
             //抓音節數
             let sepCount = sepWords.count
             
+            //抓部首
+            let syllablesToCheck = syllables[unitNumber]
+            
+            
             for i in 0 ..< sepCount{
                 
                 let sepWord = sepWords[i]
                 
                 //檢查有沒有元素的字節, 有的話顯示為黃色
-                if syllables.contains(sepWord){
+                if syllablesToCheck.contains(sepWord){
                     
                     let fontColor = UIColor.yellow
                     
@@ -2550,7 +2611,7 @@ class GameScene: SKScene {
             
             dotSparkingFunc()
             
-            let when = DispatchTime.now() + 2
+            let when = DispatchTime.now() + 0.5
             
             DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
                 
@@ -2591,10 +2652,7 @@ class GameScene: SKScene {
                     }
                 
                 //下一回合戰鬥
-                
-                
-                
-                
+   
             }
             
             */
@@ -2604,10 +2662,10 @@ class GameScene: SKScene {
     
     func dotSparkingFunc(){
         
-        let sparkling1 = SKAction.fadeAlpha(to: 0, duration: 0.2)
-        let sparkling2 = SKAction.fadeAlpha(to: 1, duration: 0.2)
+        let sparkling1 = SKAction.fadeAlpha(to: 0, duration: 0.1)
+        let sparkling2 = SKAction.fadeAlpha(to: 1, duration: 0.1)
         let sequence = SKAction.sequence([sparkling1,sparkling2])
-        let repeatAction = SKAction.repeat(sequence, count: 3)
+        let repeatAction = SKAction.repeat(sequence, count: 2)
         
         for node in children{
             
@@ -2615,15 +2673,11 @@ class GameScene: SKScene {
                 
                 node.run(repeatAction)
                 
-                
             }
-            
         }
-        
-        
     }
-    
 }
+
 
 extension Array where Element: Hashable {
     var orderedSet: Array {

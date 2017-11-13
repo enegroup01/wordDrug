@@ -10,14 +10,22 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-let jumpToGameKey = "jumpToGame"
+//此元素三個單字練習完後結束的key
+let endUnitKey = "endUnit"
 
 
 class GameViewController: UIViewController {
     
+    var spotNumber = Int()
+    var unitNumber = Int()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("gameReceivedSpot:\(spotNumber)")
+        print("gameReceivedUnit:\(unitNumber)")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.jumpBackToElement), name: NSNotification.Name("endUnit"), object: nil)
         
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
@@ -27,6 +35,8 @@ class GameViewController: UIViewController {
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! GameScene? {
                 
+                sceneNode.unitNumber = unitNumber
+                sceneNode.spotNumber = spotNumber
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -48,6 +58,23 @@ class GameViewController: UIViewController {
     override var shouldAutorotate: Bool {
         return true
     }
+    
+    
+    
+    
+    @objc func jumpBackToElement(){
+        
+        /*
+        let elementVc = storyboard?.instantiateViewController(withIdentifier: "elementVc")
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = elementVc!
+        */
+        self.dismiss(animated: true, completion: nil)
+        
+        
+    }
+    
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {

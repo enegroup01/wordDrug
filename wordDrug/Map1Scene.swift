@@ -15,20 +15,17 @@ class Map1Scene: SKScene {
     //node按鈕位置
     var location = CGPoint()
     
-    var isEndDetected = false
-    
+    //言ㄙ色
     let specialCyan = UIColor.init(red: 9/255, green: 255/255, blue: 218/255, alpha: 1)
 
     //探索點
     var spots = [String]()
     var selectedSpotNumber = Int()
-
     
     override func didMove(to view: SKView) {
-        
-        
-        //NC
-                NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToGame), name: NSNotification.Name("jumpToGame"), object: nil)
+  
+        //跳進元素表NC
+        NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToElement), name: NSNotification.Name("jumpToElement"), object: nil)
         
         //做地圖
         makeImageNode(name: "map1", image: "map1", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
@@ -68,20 +65,17 @@ class Map1Scene: SKScene {
         //製作title
         makeLabelNode(x: 0, y: 470, alignMent: .center, fontColor: specialCyan, fontSize: 40, text: "發現探索點", zPosition: 4, name: "title", fontName: "Helvetica", isHidden: false, alpha: 0)
         
-        //製作探索點號碼
+        //製作對話框裡探索點號碼
         makeLabelNode(x: 0, y: 420, alignMent: .center, fontColor: specialCyan, fontSize: 40, text: "", zPosition: 4, name: "spotNumber", fontName: "Helvetica", isHidden: false, alpha: 0)
     
     }
     
 
-    
-    @objc func notifyJumpToGame(){
-        
-        
-        
-        
+    @objc func notifyJumpToElement(){
+   
     }
     
+    //探索游標出現
     func mouseAppearAction() -> SKAction {
         let englarge = SKAction.resize(toWidth: 278, height: 278, duration: 0.1)
         let rotateLeft = SKAction.rotate(toAngle: 1, duration: 1)
@@ -93,6 +87,7 @@ class Map1Scene: SKScene {
 
     }
     
+    //探索游標消失
     func mouseDisappearAction() -> SKAction {
         
         let changeToSmallSize = SKAction.resize(toWidth: 200, height: 200, duration: 0.1)
@@ -100,12 +95,12 @@ class Map1Scene: SKScene {
         let sequence = SKAction.sequence([changeToSmallSize,fadeOut])
         
         return sequence
-    
         
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        //對話框裡所有內容消失
         let changeToSmall = SKAction.resize(toHeight: 0, duration: 0)
         findImageNode(name: "dialogue").run(changeToSmall)
         changeImageAlfa(name: "dialogue", toAlpha: 0, time: 0)
@@ -120,8 +115,9 @@ class Map1Scene: SKScene {
             
             let node : SKNode = self.atPoint(location)
             
-            
+            //除了enterButton之外其餘畫面, 都要出現滑鼠游標
             if node.name != "enterButton"{
+                
             //滑鼠游標出現
             changeImageAlfa(name: "open", toAlpha: 1, time: 0.05)
             let mouseNode = findImageNode(name: "open")
@@ -129,22 +125,24 @@ class Map1Scene: SKScene {
             let changePos = SKAction.move(to: pos, duration: 0)
             mouseNode.run(changePos)
             mouseNode.run(mouseAppearAction())
+                
             }
-            //假如碰到點點
+            
+            
+            //假如碰到點點, 打開對話窗, 並且顯示所選擇的探索點
             for i in 0 ..< spots.count{
                 if node.name == spots[i] {
-
                     openDialogue(spotNumber: i)
-                    
                 }
             }
+            
+            
+            //按到enter就傳送nc以及探索點給scene
             if node.name == "enterButton"{
-        
-                print(selectedSpotNumber)
                 
                 let spotSelected:[String:Int] = ["spotNumber":selectedSpotNumber]
                 
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "jumpToGame"), object: nil, userInfo: spotSelected)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "jumpToElement"), object: nil, userInfo: spotSelected)
                 
             }
             
@@ -169,6 +167,7 @@ class Map1Scene: SKScene {
             for i in 0 ..< spots.count{
                 if node.name == spots[i] {
                     
+                    //打開對話框, 並顯示探索點號碼
                     openDialogue(spotNumber: i)
                 }
             }
@@ -176,11 +175,13 @@ class Map1Scene: SKScene {
     }
     
     
+    //打開對話框
     func openDialogue(spotNumber:Int){
         
+        //展開對話框的動畫
         changeImageAlfa(name: "dialogue", toAlpha: 1, time: 0)
         let enlarge = SKAction.resize(toHeight: 280, duration: 0.05)
-        findImageNode(name: "dialogue").run(enlarge)
+     
         
         findImageNode(name: "dialogue").run(enlarge) {[weak self] in
             self!.changeImageAlfa(name: "enterButton", toAlpha: 1, time: 0)
@@ -189,7 +190,8 @@ class Map1Scene: SKScene {
             self!.changeLabelAlfa(name: "spotNumber", toAlpha: 1, time: 0)
         }
 
-        selectedSpotNumber = spotNumber + 1
+        //設定探索點號碼
+        selectedSpotNumber = spotNumber
         
     }
     
@@ -200,7 +202,7 @@ class Map1Scene: SKScene {
             
             let node : SKNode = self.atPoint(location)
    
-            //滑鼠消失及移除
+            //滑鼠消失及移除動畫
             let mouseNode = findImageNode(name: "open")
             mouseNode.run(mouseDisappearAction(), completion: {
                 mouseNode.removeAllActions()
@@ -208,10 +210,8 @@ class Map1Scene: SKScene {
         }
     }
     
-   
-    
     override func update(_ currentTime: TimeInterval) {
-        
+
     
     }
     
