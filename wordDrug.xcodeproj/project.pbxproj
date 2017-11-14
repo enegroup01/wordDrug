@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC01F9DC060003F5C3F /* blackDot.png */; };
 		AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC21F9DC069003F5C3F /* lightDot.png */; };
+		AA590CBC1FBA9ADB00A5691D /* diamond.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CBB1FBA9ADB00A5691D /* diamond.png */; };
+		AA590CC01FBA9BF800A5691D /* elementBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CBF1FBA9BF800A5691D /* elementBottom.png */; };
+		AA590CC21FBAB6AE00A5691D /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA590CC11FBAB6AE00A5691D /* BookViewController.swift */; };
+		AA590CC61FBAB72300A5691D /* bookBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CC51FBAB72300A5691D /* bookBg.png */; };
+		AA590CC81FBABEB700A5691D /* topColumn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CC71FBABEB700A5691D /* topColumn.png */; };
+		AA590CCA1FBABF4700A5691D /* bottomColumn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CC91FBABF4700A5691D /* bottomColumn.png */; };
+		AA590CCD1FBAC00400A5691D /* leftButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CCB1FBAC00400A5691D /* leftButton.png */; };
+		AA590CCE1FBAC00400A5691D /* rightButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CCC1FBAC00400A5691D /* rightButton.png */; };
+		AA590CD01FBAC2F300A5691D /* worldDiamond.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CCF1FBAC2F200A5691D /* worldDiamond.png */; };
+		AA590CD21FBAC5C900A5691D /* wordBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CD11FBAC5C900A5691D /* wordBg.png */; };
+		AA590CD51FBACF7A00A5691D /* darkElementFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CD31FBACF7A00A5691D /* darkElementFrame.png */; };
+		AA590CD61FBACF7A00A5691D /* lightElementFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CD41FBACF7A00A5691D /* lightElementFrame.png */; };
 		AA68BD611F99C0A600112AF4 /* bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD601F99C06100112AF4 /* bg2.png */; };
 		AA68BD631F99F4F000112AF4 /* california.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD621F99F4EB00112AF4 /* california.mp3 */; };
 		AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD671F9A1A4B00112AF4 /* camel.mp3 */; };
@@ -139,6 +151,18 @@
 /* Begin PBXFileReference section */
 		AA2CCDC01F9DC060003F5C3F /* blackDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackDot.png; sourceTree = "<group>"; };
 		AA2CCDC21F9DC069003F5C3F /* lightDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightDot.png; sourceTree = "<group>"; };
+		AA590CBB1FBA9ADB00A5691D /* diamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diamond.png; sourceTree = "<group>"; };
+		AA590CBF1FBA9BF800A5691D /* elementBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elementBottom.png; sourceTree = "<group>"; };
+		AA590CC11FBAB6AE00A5691D /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		AA590CC51FBAB72300A5691D /* bookBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookBg.png; sourceTree = "<group>"; };
+		AA590CC71FBABEB700A5691D /* topColumn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topColumn.png; sourceTree = "<group>"; };
+		AA590CC91FBABF4700A5691D /* bottomColumn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomColumn.png; sourceTree = "<group>"; };
+		AA590CCB1FBAC00400A5691D /* leftButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftButton.png; sourceTree = "<group>"; };
+		AA590CCC1FBAC00400A5691D /* rightButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightButton.png; sourceTree = "<group>"; };
+		AA590CCF1FBAC2F200A5691D /* worldDiamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = worldDiamond.png; sourceTree = "<group>"; };
+		AA590CD11FBAC5C900A5691D /* wordBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wordBg.png; sourceTree = "<group>"; };
+		AA590CD31FBACF7A00A5691D /* darkElementFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkElementFrame.png; sourceTree = "<group>"; };
+		AA590CD41FBACF7A00A5691D /* lightElementFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightElementFrame.png; sourceTree = "<group>"; };
 		AA68BD601F99C06100112AF4 /* bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg2.png; sourceTree = "<group>"; };
 		AA68BD621F99F4EB00112AF4 /* california.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = california.mp3; sourceTree = "<group>"; };
 		AA68BD641F9A1A4B00112AF4 /* camera.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = camera.mp3; sourceTree = "<group>"; };
@@ -279,9 +303,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA590CC41FBAB70300A5691D /* bookVc */ = {
+			isa = PBXGroup;
+			children = (
+				AA590CC51FBAB72300A5691D /* bookBg.png */,
+				AA590CC71FBABEB700A5691D /* topColumn.png */,
+				AA590CC91FBABF4700A5691D /* bottomColumn.png */,
+				AA590CCB1FBAC00400A5691D /* leftButton.png */,
+				AA590CCC1FBAC00400A5691D /* rightButton.png */,
+				AA590CD31FBACF7A00A5691D /* darkElementFrame.png */,
+				AA590CD41FBACF7A00A5691D /* lightElementFrame.png */,
+				AA590CD11FBAC5C900A5691D /* wordBg.png */,
+				AA590CCF1FBAC2F200A5691D /* worldDiamond.png */,
+			);
+			path = bookVc;
+			sourceTree = "<group>";
+		};
 		AA7FA7AF1FB5A63D00315524 /* element */ = {
 			isa = PBXGroup;
 			children = (
+				AA590CBB1FBA9ADB00A5691D /* diamond.png */,
+				AA590CBF1FBA9BF800A5691D /* elementBottom.png */,
 				AA7FA7CA1FB5A91300315524 /* elementBg.png */,
 				AA7FA7B61FB5A6C600315524 /* e1.png */,
 				AA7FA7B21FB5A6C600315524 /* e2.png */,
@@ -383,6 +425,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA590CC41FBAB70300A5691D /* bookVc */,
 				AAE1818C1F97892D00683896 /* AppDelegate.swift */,
 				AAE181901F97892D00683896 /* Actions.sks */,
 				AAECC1201FB08A27004ED813 /* monsterExplode.sks */,
@@ -398,6 +441,7 @@
 				AAE181921F97892D00683896 /* GameScene.swift */,
 				AAE181941F97892D00683896 /* GameViewController.swift */,
 				AAE181961F97892D00683896 /* Main.storyboard */,
+				AA590CC11FBAB6AE00A5691D /* BookViewController.swift */,
 				AAE181991F97892D00683896 /* Assets.xcassets */,
 				AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */,
 				AAE1819E1F97892D00683896 /* Info.plist */,
@@ -527,6 +571,7 @@
 				AA8F80131FB32BF0000CD84F /* scanning.png in Resources */,
 				AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */,
 				AA86F3C61FAC6C15004E7997 /* eButton2.png in Resources */,
+				AA590CCD1FBAC00400A5691D /* leftButton.png in Resources */,
 				AA8E9F641FB1752E00509D39 /* attack3.png in Resources */,
 				AA8E9F6F1FB17C6800509D39 /* questBoardGreen2.png in Resources */,
 				AA86F3B51FA9C22E004E7997 /* fButton.png in Resources */,
@@ -550,6 +595,7 @@
 				AA7FA7A71FB5A63500315524 /* le5.png in Resources */,
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
 				AAC1CC121FB42243001DE6DB /* enterButton.png in Resources */,
+				AA590CCE1FBAC00400A5691D /* rightButton.png in Resources */,
 				AA7FA7E31FB5E46D00315524 /* 1-8.txt in Resources */,
 				AA7FA7E51FB5E46D00315524 /* 1-12.txt in Resources */,
 				AAECC11D1FB0493B004ED813 /* explode.sks in Resources */,
@@ -562,6 +608,7 @@
 				AA8E9F671FB1752E00509D39 /* attack6.png in Resources */,
 				AA8E9F541FB1642000509D39 /* flatMonster3.png in Resources */,
 				AA8F7FE61FB2FEB2000CD84F /* Map1Scene.sks in Resources */,
+				AA590CD01FBAC2F300A5691D /* worldDiamond.png in Resources */,
 				AA86F3D01FAC6F96004E7997 /* monsterTitle.png in Resources */,
 				AA8E9F661FB1752E00509D39 /* attack5.png in Resources */,
 				AA68BD741F9A1A7200112AF4 /* cannon.mp3 in Resources */,
@@ -574,6 +621,7 @@
 				AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */,
 				AA7FA7BD1FB5A6C600315524 /* e9.png in Resources */,
 				AA8F800F1FB32305000CD84F /* open.png in Resources */,
+				AA590CC81FBABEB700A5691D /* topColumn.png in Resources */,
 				AA86F3CF1FAC6F96004E7997 /* playerBlood.png in Resources */,
 				AA7FA7EA1FB5E46D00315524 /* 1-9.txt in Resources */,
 				AA68BD611F99C0A600112AF4 /* bg2.png in Resources */,
@@ -582,7 +630,9 @@
 				AA7FA7C21FB5A6C600315524 /* e6.png in Resources */,
 				AA8F7FD91FB2C655000CD84F /* monsterAttack.sks in Resources */,
 				AA7FA7E81FB5E46D00315524 /* 1-11.txt in Resources */,
+				AA590CD61FBACF7A00A5691D /* lightElementFrame.png in Resources */,
 				AA8F80001FB31B09000CD84F /* lightBlueSpot.png in Resources */,
+				AA590CD51FBACF7A00A5691D /* darkElementFrame.png in Resources */,
 				AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */,
 				AA7FA7AE1FB5A63500315524 /* le3.png in Resources */,
 				AA7FA7A61FB5A63500315524 /* le4.png in Resources */,
@@ -594,6 +644,7 @@
 				AA86F3B11FA9BE22004E7997 /* lDot3.png in Resources */,
 				AA86F3C21FA9F483004E7997 /* leftFrame.png in Resources */,
 				AAECC1231FB08C15004ED813 /* monsterExplode.png in Resources */,
+				AA590CD21FBAC5C900A5691D /* wordBg.png in Resources */,
 				AA86F3AA1FA9BE11004E7997 /* bDot3.png in Resources */,
 				AA7FA7D81FB5BFB100315524 /* 1-2.txt in Resources */,
 				AA8E9F731FB1839500509D39 /* darkGreenD.png in Resources */,
@@ -601,6 +652,7 @@
 				AA8F80011FB31B09000CD84F /* pinkSpot.png in Resources */,
 				AA8F7FFF1FB31B09000CD84F /* exploredSpot.png in Resources */,
 				AA7FA7E71FB5E46D00315524 /* 1-14.txt in Resources */,
+				AA590CC61FBAB72300A5691D /* bookBg.png in Resources */,
 				AAE181A61F978BB900683896 /* questBoard.png in Resources */,
 				AA68BD6F1F9A1A6300112AF4 /* camera.mp3 in Resources */,
 				AA8F80111FB325BC000CD84F /* close.png in Resources */,
@@ -617,13 +669,16 @@
 				AA8F7FF21FB315F1000CD84F /* map1.png in Resources */,
 				AA68BD631F99F4F000112AF4 /* california.mp3 in Resources */,
 				AAE181AD1F97921A00683896 /* ca2.txt in Resources */,
+				AA590CC01FBA9BF800A5691D /* elementBottom.png in Resources */,
 				AA7FA7AB1FB5A63500315524 /* le1.png in Resources */,
 				AA7FA7AC1FB5A63500315524 /* le10.png in Resources */,
+				AA590CBC1FBA9ADB00A5691D /* diamond.png in Resources */,
 				AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */,
 				AA86F3AB1FA9BE11004E7997 /* bDot2.png in Resources */,
 				AAE181911F97892D00683896 /* Actions.sks in Resources */,
 				AA7FA7EC1FB5E7C500315524 /* exit.png in Resources */,
 				AA86F3C01FA9D92C004E7997 /* shadow.png in Resources */,
+				AA590CCA1FBABF4700A5691D /* bottomColumn.png in Resources */,
 				AA8E9F691FB1752E00509D39 /* lightGreenD.png in Resources */,
 				AA7FA7C11FB5A6C600315524 /* e3.png in Resources */,
 				AA86F3CD1FAC6F96004E7997 /* bloodBg.png in Resources */,
@@ -656,6 +711,7 @@
 				AAE181951F97892D00683896 /* GameViewController.swift in Sources */,
 				AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */,
 				AA7FA7CD1FB5ACC500315524 /* ElementScene.swift in Sources */,
+				AA590CC21FBAB6AE00A5691D /* BookViewController.swift in Sources */,
 				AA7FA7C91FB5A7B500315524 /* ElementViewController.swift in Sources */,
 				AA8F7FEE1FB302B0000CD84F /* Map1Scene.swift in Sources */,
 			);

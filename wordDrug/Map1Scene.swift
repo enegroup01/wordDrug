@@ -9,13 +9,12 @@
 import SpriteKit
 import GameplayKit
 
-
 class Map1Scene: SKScene {
     
     //node按鈕位置
     var location = CGPoint()
     
-    //言ㄙ色
+    //特別顏色
     let specialCyan = UIColor.init(red: 9/255, green: 255/255, blue: 218/255, alpha: 1)
 
     //探索點
@@ -39,7 +38,7 @@ class Map1Scene: SKScene {
         makeImageNode(name: "lSpot2", image: "lightPinkSpot", x: 260, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot3", image: "lightBlueSpot", x: -20, y: 170, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot4", image: "lightYellowSpot", x: -250, y: 30, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot5", image: "lightPinkSpot", x: -80, y: -600, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "lSpot5", image: "lightPinkSpot", x: -80, y: -400, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot6", image: "lightBlueSpot", x: -140, y: -175, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot7", image: "lightYellowSpot", x: 340, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot8", image: "lightPinkSpot", x: 0, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
@@ -68,6 +67,12 @@ class Map1Scene: SKScene {
         //製作對話框裡探索點號碼
         makeLabelNode(x: 0, y: 420, alignMent: .center, fontColor: specialCyan, fontSize: 40, text: "", zPosition: 4, name: "spotNumber", fontName: "Helvetica", isHidden: false, alpha: 0)
     
+        //做底部欄位
+        makeImageNode(name: "elementBottom", image: "elementBottom", x: 0, y: -618, width: 752, height: 110, z: 1, alpha: 1, isAnchoring: false)
+        
+        //做元素按鈕
+        makeImageNode(name: "diamond", image: "diamond", x: 0, y: -580, width: 180, height: 180, z: 2, alpha: 1, isAnchoring: false)
+        
     }
     
 
@@ -95,7 +100,6 @@ class Map1Scene: SKScene {
         let sequence = SKAction.sequence([changeToSmallSize,fadeOut])
         
         return sequence
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
