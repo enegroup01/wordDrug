@@ -26,6 +26,10 @@ class Map1Scene: SKScene {
         //跳進元素表NC
         NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToElement), name: NSNotification.Name("jumpToElement"), object: nil)
         
+                NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToBook), name: NSNotification.Name("jumpToBook"), object: nil)
+        
+        
+        
         //做地圖
         makeImageNode(name: "map1", image: "map1", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
@@ -75,6 +79,10 @@ class Map1Scene: SKScene {
         
     }
     
+    
+    @objc func notifyJumpToBook(){
+        
+    }
 
     @objc func notifyJumpToElement(){
    
@@ -150,6 +158,13 @@ class Map1Scene: SKScene {
                 
             }
             
+            
+            if node.name == "diamond"{
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "jumpToBook"), object: nil, userInfo: nil)
+                let mouseNode = findImageNode(name: "open")
+                mouseNode.run(mouseDisappearAction())
+                
+            }
         }
     }
     

@@ -86,6 +86,7 @@ class BookViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     @IBAction func worldButtonClicked(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     
