@@ -29,15 +29,14 @@ class GameScene: SKScene {
     var syllables = [String]()
     
     //一張地圖裡的所有音節
-    /*
-    var syllableSets = [["ab","ac","ad","af","ai","al","am","an","any"],["ap","ar","as","at","au","aw","ay","ba","be","bi"],["bit","bl","bo","br","bu","by","ce","ch","ci","ble"],["ck","cl","co","com","con","cian","cr","ct","de","di"],["do","dr","dy","dis","ea","ee","el","em","en","er"],["et","ew","ex","ey","fi","fl","fo","fr","ft","ful"],["ge","gi","gl","go","gr","he","hi","id","ie","igh"],["il","im","in","ing","ir","is","ject","kn","le","li"],["ly","mi","nd","no","nt","oa","ob","oe","of","oi"],["old","on","ong","oo","op","or","ot","ou","ow","oy"], ["ph","pi","pl","pr","i","re","ro","ry","sh","si"],["sk","so","sp","st","sion","th","ti","tion","tive","tle"],["to","tr","ture","ty","ub","ue","ui","um","un","up"],["ur","ut","war","wh","ab","ac","ad","ae","af","ai"]]
-    */
-    
+    //音節
         let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],    ["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],["ly1","mi1","nd1","no1","nt1","oa1","ob1","oe1","of1","oi1"],["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],["ph1","pi1","pl1","pr1","rare1","re1","ro1","ry1","sh1","si1"],["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],["to1","tr1","ture1","ty1","ub1","ue1","ui1","um1","un1","up1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     
+    //母音
     let vowels = ["a","e","i","o","u"]
     
-    var isSpecialAE = false
+    //是否是_e音節
+    var isSpecialE = false
     
     //做名字供下方使用
     var syllableWordName = String()
@@ -2315,7 +2314,8 @@ class GameScene: SKScene {
     //建立音節單字的func
     func makeWords(word:String, lang:String){
         
-        isSpecialAE = false
+        //首先設定不是_e
+        isSpecialE = false
         
         //設定x及y的位置
         var posX = CGFloat()
@@ -2341,8 +2341,6 @@ class GameScene: SKScene {
             
         //製作英文字
         } else if lang == "engWord"{
-            
-            print("偵測是英文字")
             
             //分音節
             var sepWords = word.components(separatedBy: " ")
@@ -2381,7 +2379,6 @@ class GameScene: SKScene {
             wordsToPronounce = word.replacingOccurrences(of: " ", with: "")
             
             //產生提示
-            
             let hintY = findImageNode(name: "questBoard").frame.minY
             
             //戰鬥模式就不做這個hint了
@@ -2408,51 +2405,44 @@ class GameScene: SKScene {
             //在此先拆每個單字的字母來看是否有三個字母並且符合 _e規則的音節
             
             for i in 0 ..< sepCount{
-                //清空字母array
+                
+                //先清空字母array
                 characters.removeAll(keepingCapacity: false)
                 
                 let sepWord = sepWords[i]
                 
-                //拆單字字母, 填入array裡面
+                //直接拆單字字母變成character, 填入array裡面
                 for i in sepWord{
                     characters.append(i)
-                
-                    print("抓字母")
-                    print("characters:\(characters)")
+
                 }
                 
-               
-                
-                //確認是否有_e的部首, 有的話就做新字
+                //確認是否是_e的部首, 有的話就做新字
                 if syllablesWithoutDigit.contains("_e"){
                     
-                    print("確認有_e音節")
+                    //確認是_e部首
+                    isSpecialE = true
                     
-                    isSpecialAE = true
-                    
-                    //有任何字節是三個字母
+                    //(1)有任何字節是三個字母
                     if characters.count == 3 {
-                        
-                        print("確認三個英文字母")
-                        
-                       // for v in vowels {
-                            
-                            //第一個字母是母音
+
+                            //(2)第一個字母是母音
                             if vowels.contains(String(characters[0])){
+
                                 
-                                print("第一個字母是母音")
-                                
+                                //(3)第三個字母是e
                                 if characters[2] == "e"{
                                     
+                                    //***符合: _e 部首
                                     
-                                    //符合 _e 部守
-                                    print("第三個字母是e")
-                                    
+                                    //要開始填入的順序+1
                                     sequenceToAppend += 1
                                     
-                                    //設定此順序為部首字
+                                    //設定此順序為部首字的特別順序
                                     specialSyllable = sequenceToAppend
+                     
                                     
+                                    //假如這個array位置的第一個字是1, 就移除
                                     if newSepWords[sequenceToAppend][0] == "1"{
                                         
                                         newSepWords[sequenceToAppend].removeFirst()
@@ -2463,59 +2453,40 @@ class GameScene: SKScene {
                                     for i in 0 ..< 3 {
                                     newSepWords[sequenceToAppend].append(String(characters[i]))
                                     }
-    
+
+                                    
                                 } else {
                                     
-                                    print("最後一個字母不是e")
+                                    //最後一個字母不是e
                                     
                                     sequenceToAppend += 1
-                                    
                                     if newSepWords[sequenceToAppend][0] == "1"{
-                                        
                                         newSepWords[sequenceToAppend].removeFirst()
-                                        
                                     }
-
                                     newSepWords[sequenceToAppend].append(sepWord)
 
                                 }
                                 
                             }  else {
                                 
-                                print("第一個字母不是母音")
-                                
+                                //第一個字母不是母音
                                 sequenceToAppend += 1
-                                
                                 if newSepWords[sequenceToAppend][0] == "1"{
-                                    
                                     newSepWords[sequenceToAppend].removeFirst()
-                                    
                                 }
-
-                                
                                 newSepWords[sequenceToAppend].append(sepWord)
-                                
-                                print(newSepWords)
-                                
+
                                 
                             }
-
-                    
-                        //}
                     } else {
                         
-                        print("沒有三個字母")
+                        //沒有三個字母
                         sequenceToAppend += 1
-                        
                         if newSepWords[sequenceToAppend][0] == "1" {
-                            
                             newSepWords[sequenceToAppend].removeFirst()
-                            
                         }
-                        
                         newSepWords[sequenceToAppend].append(sepWord)
-                        
-                        print(newSepWords[sequenceToAppend])
+
                         
                     }
             
@@ -2523,27 +2494,26 @@ class GameScene: SKScene {
             
             }
             
+            
+            
             //===========以下為做字功能, 分成兩部分===============
             
             //Part 1. 有三字母部首的話
-            if isSpecialAE{
+            if isSpecialE{
                 
-                print("newSep:\(newSepWords)")
                 //***在此做_e單字
-                print("1")
+
+                //跑所有字節
                 for i in 0 ..< newSepWords.count{
-                    
-                        print("2")
+
+                    //用不到的字節就不做字
                     if newSepWords[i][0] != "1"{
-     
-                        print(newSepWords[i])
-                            print("3")
-                    //有append字母的才來做單字
+
+                    //***有append字母的才來做單字
                     
-                    //假如是_e部首
+                    //Part 1. 假如是_e部首
                     if i == specialSyllable {
-                        
-                        print("special:\(i)")
+
                         
                         var fontColor = UIColor()
                         
@@ -2556,7 +2526,7 @@ class GameScene: SKScene {
                             //指定名字
                             syllableWordName = sepWord +  String(s) + lang
                             
-                            //做1,3音節顏色 + 把第3音節的名字 +9
+                            //做1,3音節顏色
                             switch s{
                             case 0:
                                 fontColor = .red
@@ -2564,13 +2534,12 @@ class GameScene: SKScene {
                                 fontColor = .white
                             case 2:
                                 fontColor = .red
-                                //這一個的名字要特別標注出來給下方使用
-                                syllableWordName = sepWord +  String(s) + lang + "9"
-                                
+                            
                             default:
                                 break
                             }
                             
+                            //做字
                             if s > 0 {
                   
                                 //非第一組字
@@ -2579,14 +2548,16 @@ class GameScene: SKScene {
                                     let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
                                     
                                     makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: syllableWordName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                                    
                                 }
                                 
                             } else{
                                 
-                                //位置要抓前一非部首的音節位置
-                                
+                                //若是第一個字母
+                            
+                                //如果不是第一個字節
                                 if i != 0 {
+                                
+                                    //位置要抓前一非部首的音節位置
                                     
                                     if let leftNode = childNode(withName: normalSyllableName) as? SKLabelNode{
                                         
@@ -2598,6 +2569,7 @@ class GameScene: SKScene {
                                     
                                 } else {
                                    
+                                    //若是第一個字節, 直接製作
                                         makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: syllableWordName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
                                         
                                     
@@ -2609,47 +2581,33 @@ class GameScene: SKScene {
                             
                         }
 
-                    }
-                     //假如不是_e部首
-                     else {
-                        print("not _e syllables")
+                    }  else {
                         
+                        //若不是部首字
                         let sepWord = newSepWords[i][0]
                         
-                      //  if sepWord != "1"{
-                        
-                        //做字給部首使用
+                        //取名字
                         normalSyllableName = sepWord + String(i) + lang
                         
-                        //非元素字
+                        //非元素字顏色
                         let fontColor = UIColor.white
                         
                         if i > 0 {
                             
-                            //非第一組字, 要抓上一個字....
+                            //非第一組字, 要抓上一個字的結尾位置
                             
                             //先確認前個字是否接部首字
                             if i - 1 == specialSyllable{
-                                //是的話
                                 
-                                
-                                  print("make second word type 2")
+                                //是的話就抓部首字位置
                                 if let leftNode = childNode(withName: syllableWordName) as? SKLabelNode{
-                                    
-                                    print("if let")
                                     let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
                                     
                                     makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                                    
                                 }
 
-                                
-                                
-                                
                             } else {
-                                //不是的話
-                                
-                                print("make second word type 1")
+                                //不是的話抓上一個一般字的位置
                                 if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
                                     
                                     let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
@@ -2665,47 +2623,19 @@ class GameScene: SKScene {
                             
                             
                         } else{
-                            
-           print("make first word")
-                            
+    
                             //第一組字
                             makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
                             
                         }
-                    //}
+                
                     }
                 }
                 }
-                
-                /*
-                let fontColor = UIColor.yellow
-                
-                if i > 0 {
-                    print("3")
-                    
-                    //非第一組字
-                    if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
-                        
-                        let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
-                        
-                        makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                        
-                    }
-                    
-                } else {
-                    
-                    print("4")
-                    
-                    //第一組字
-                    makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                    
-                }
-*/
                 
             } else {
             
 
-                
               // Part 2. 不是_e, 就在這裡做單字
                 
                 
