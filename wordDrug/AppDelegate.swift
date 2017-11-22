@@ -8,6 +8,8 @@
 
 import UIKit
 
+var user : NSDictionary?
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

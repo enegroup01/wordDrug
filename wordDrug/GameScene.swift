@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-
+    
     //node按鈕位置
     var location = CGPoint()
     
@@ -21,6 +21,8 @@ class GameScene: SKScene {
     let lightPinkColor = UIColor.init(red: 251/255, green: 154/255, blue: 255/255, alpha: 1)
     let tiffanyColor = UIColor.init(red: 9/255, green: 255/255, blue: 218/255, alpha: 1)
     let diamondGreen = UIColor.init(red: 0/255, green: 215/255, blue: 58/255, alpha: 1)
+    let darkYellow = UIColor.init(red: 1, green: 156/255, blue: 0, alpha:1)
+    
     
     //暫時使用的單字
     var wordSets = [String]()
@@ -30,7 +32,12 @@ class GameScene: SKScene {
     
     //一張地圖裡的所有音節
     //音節
-        let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],    ["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],["ly1","mi1","nd1","no1","nt1","oa1","ob1","oe1","of1","oi1"],["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],["ph1","pi1","pl1","pr1","rare1","re1","ro1","ry1","sh1","si1"],["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],["to1","tr1","ture1","ty1","ub1","ue1","ui1","um1","un1","up1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
+    let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],["ly1","mi1","nd1","no1","nt1","oa1","ob1","oe1","of1","oi1"],["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],["ph1","pi1","pl1","pr1","rare1","re1","ro1","ry1","sh1","si1"],["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],["to1","tr1","ture1","ty1","ub1","ue1","ui1","um1","un1","up1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
+    
+    
+    var syllablesToCheck = String()
+    
+    var syllablesWithoutDigit = String()
     
     //母音
     let vowels = ["a","e","i","o","u"]
@@ -46,8 +53,7 @@ class GameScene: SKScene {
     
     //_e使用
     var characters = [Character]()
-
-
+    
     //下一個顯示單字的順序
     var nextWordSequence = Int()
     
@@ -99,16 +105,18 @@ class GameScene: SKScene {
     
     //答案正確時的自我爆炸特效
     var explodeEmitter:SKEmitterNode?
-
     
     //怪物攻擊Emiiter特效
     var monsterExplode:SKEmitterNode?
     var monsterAttack:SKEmitterNode?
     
     //怪物變數
-    var monsters = ["flatMonster1","flatMonster2","flatMonster3"]
+    //var monsters = ["flatMonster1","flatMonster2","flatMonster3"]
     //輪流順序
     var monsterSequence = 0
+    
+    var monsters = [["id":101,"name":"毛毛蟲"],["id":201,"name":"蘑菇怪"],["id":301,"name":"球球"],["id":401,"name":"史帝奇"],["id":501,"name":"青螳螂"],["id":601,"name":"被污染的鹿"],["id":701,"name":"田鼠"],["id":801,"name":"涡蝙蝠"],["id":901,"name":"鬍狗"],["id":1001,"name":"鋼牙鯊"],["id":1101,"name":"偵查哥八犬"],["id":1201,"name":"變異鹿"],["id":1301,"name":"眼鏡蛇"],["id":1401,"name":"三頭地獄犬"],["id":1501,"name":"獨眼觸手"],["id":1601,"name":"荊棘豬"],["id":1701,"name":"長毛犀牛"],["id":1801,"name":"王者翼獸"],["id":1901,"name":"巨爪虎"],["id":2001,"name":"海蛇王"],["id":2101,"name":"水晶蠍"],["id":2201,"name":"幽靈劍齒虎"],["id":2301,"name":"飛行焰馬"],["id":2401,"name":"恐龍"],["id":2501,"name":"老樹精"],["id":2601,"name":"污染的惡狼"],["id":2701,"name":"變異蜥蜴"],["id":2801,"name":"恐龍博士"],["id":2901,"name":"獅龍獸"],["id":3001,"name":"尖齒龍"],["id":3101,"name":"元素熊"],["id":3201,"name":"狐狸人"],["id":3301,"name":"咕魯"],["id":3401,"name":"食屍鬼"],["id":3501,"name":"泰坦星人"],["id":3601,"name":"納瑟斯"],["id":3701,"name":"翰墨丁格"],["id":3801,"name":"小小"],["id":3901,"name":"菲斯"],["id":4001,"name":"梅杜莎"],["id":4101,"name":"骷顱王"],["id":4201,"name":"死亡之握"]]
+    
     
     //dragAndPlay需要變數
     //線條
@@ -151,7 +159,6 @@ class GameScene: SKScene {
     var unitNumber = Int()
     
     override func didMove(to view: SKView) {
-        
         
         //元素單位練習完後的key
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyEndUnit), name: NSNotification.Name("endUnit"), object: nil)
@@ -200,13 +207,11 @@ class GameScene: SKScene {
             // example.txt not found!
         }
         
-        
         //製作按鈕
         let lightWidth:CGFloat = 215.8
         let lightHeight:CGFloat = 235.3
         let darkWidth:CGFloat = 162.5
         let darkHeight:CGFloat = 175.5
-    
         
         //選項按鈕
         
@@ -216,7 +221,7 @@ class GameScene: SKScene {
         makeNode(name: "se3", color: .clear, x:160 , y: -180, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
         
         //填滿按鈕
-
+        
         makeImageNode(name: "0filledButton", image: "lightGreenD", x:-160 , y: -380, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
         makeImageNode(name: "1filledButton", image: "lightGreenD", x:-160 , y: -180, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
         makeImageNode(name: "2filledButton", image: "lightGreenD", x:160 , y: -380, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
@@ -240,7 +245,7 @@ class GameScene: SKScene {
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
         
-
+        
         //自我爆炸explode
         explodeEmitter = SKEmitterNode(fileNamed: "explode.sks")
         explodeEmitter?.position = CGPoint(x: 0, y: 70)
@@ -248,8 +253,7 @@ class GameScene: SKScene {
         explodeEmitter?.name = "explodeEmitter"
         explodeEmitter?.isHidden = true
         addChild(explodeEmitter!)
-
-
+        
         //怪物爆炸
         monsterExplode = SKEmitterNode(fileNamed: "monsterExplode.sks")
         monsterExplode?.position = CGPoint(x: 0, y: 455)
@@ -266,10 +270,10 @@ class GameScene: SKScene {
         monsterAttack?.isHidden = true
         addChild(monsterAttack!)
         
-
+        
         //連擊Label
         makeLabelNode(x: 0, y: 455, alignMent: .center, fontColor: diamondGreen, fontSize: 70, text: "Combo Attack", zPosition: 5, name: "comboAttack", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
-
+        
     }
     
     //拉開任務＋連結開始學習
@@ -304,7 +308,6 @@ class GameScene: SKScene {
         let halfCount = wordSets.count / 4
         let engWord = wordSets[currentWordSequence]
         let chiWord = wordSets[halfCount +  currentWordSequence]
-
         
         //製作中英文字
         makeWords(word: engWord, lang: "engWord")
@@ -340,8 +343,6 @@ class GameScene: SKScene {
     @objc func notifyEndUnit(){
         
     }
-    
-    
     
     //製作掃描線+發音
     func scanAndPronounce(){
@@ -393,43 +394,32 @@ class GameScene: SKScene {
                     
                     self!.run(removeAction, completion: {
                         
-                        
                         //允許再按掃描
                         self!.isScanning = false
-                        
                         
                         //判斷在聽讀模式還是練習模式
                         //非戰鬥模式時才亮燈
                         if self!.isBattleMode == false {
-                        
-                        if self!.isPracticeMode == false {
                             
-                            self!.playSoundTime += 1
+                            if self!.isPracticeMode == false {
+                                
+                                self!.playSoundTime += 1
+                                
+                                //聽讀模式
+                                self!.lightDotFunc(times: self!.playSoundTime)
+                                
+                            } else{
+                                
+                                //練習模式
+                                self!.lightDotFunc(times: self!.correctTime)
+                                
+                            }
                             
-                            //聽讀模式
-                            self!.lightDotFunc(times: self!.playSoundTime)
-                            
-                            print("1")
-                            
-                        } else{
-                            
-                            //練習模式
-                            self!.lightDotFunc(times: self!.correctTime)
-                            
-                            print("2")
                         }
-                        
-                        
-                    }
                     }
                     )
-                    
                 })
-                
             }
-            
-            
-            
         }
     }
     
@@ -479,9 +469,24 @@ class GameScene: SKScene {
     
     //戰鬥模式
     func battleMode(){
-
+        
         //抓怪物名稱來做圖片
-        let monsterName = monsters[monsterSequence]
+        //let monsterName = monsters[monsterSequence]
+        
+        //找目前sequence的英文+中文字
+        let halfCount = wordSets.count / 2
+        let monsterId = wordSets[halfCount + currentWordSequence]
+        let monsterIdInt = Int(monsterId)
+        var monsterName = String()
+        
+        for monster in monsters{
+            
+            if monsterIdInt == monster["id"] as! Int{
+                
+                monsterName = monster["name"] as! String
+                print(monsterName)
+            }
+        }
         
         //進入battle模式
         isBattleMode = true
@@ -492,38 +497,36 @@ class GameScene: SKScene {
         //移除進度點
         removeSomeNodes(name: "Dot")
         
-
+        
         //移除選項字
         removeSomeNodes(name: "Sel")
         
-         //移除中英文字
+        //移除中英文字
         removeSomeNodes(name: "Word")
         
         //更改hint
         findLabelNode(name: "hint").text = ""
-        
         
         //怪物畫面
         makeImageNode(name: "monsterBlurredBg", image: "blurredBg", x: 0, y: 500, width: 750, height: 431, z: 2, alpha: 0, isAnchoring: false)
         
         // 建立怪物 width:750
         makeImageNode(name: "monsterEffect", image: "monsterEffect", x: 0, y: 450, width: 0, height: 431, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "monster", image: monsterName, x: 0, y: 455, width: 183.6, height: 216, z: 4, alpha: 0, isAnchoring: false)
-        
+        makeImageNode(name: "monster", image: monsterId, x: 0, y: 455, width: 183.6, height: 216, z: 4, alpha: 0, isAnchoring: false)
         
         //怪物titleBg
         makeImageNode(name: "monsterTitleBg", image: "monsterTitle", x: 0, y: 632, width: 750, height: 70, z: 4, alpha: 0, isAnchoring: false)
         
         //怪物title
-        makeLabelNode(x: 0, y: 624, alignMent: .center, fontColor: tiffanyColor, fontSize: 35, text: "Level 1 [Ca] 元素怪", zPosition: 5, name: "monsterTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: 624, alignMent: .center, fontColor: tiffanyColor, fontSize: 35, text: monsterName, zPosition: 5, name: "monsterTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         //怪物血Bg
         makeImageNode(name: "monsterBloodBg", image: "bloodBg", x: 0, y: 310, width: 510, height: 20, z: 4, alpha: 0, isAnchoring: false)
         //怪物血
         makeImageNode(name: "monsterBlood", image: "monsterBlood", x: -256, y: 300, width: 510, height: 20, z: 5, alpha: 0, isAnchoring: true)
-    
+        
         //player血Bg
-         makeImageNode(name: "playerBloodBg", image: "bloodBg", x: 0, y: 180, width: 510, height: 20, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "playerBloodBg", image: "bloodBg", x: 0, y: 180, width: 510, height: 20, z: 4, alpha: 0, isAnchoring: false)
         
         //player血
         makeImageNode(name: "playerBlood", image: "playerBlood", x: -273, y: 145, width: 545, height: 70, z: 5, alpha: 0, isAnchoring: true)
@@ -532,10 +535,10 @@ class GameScene: SKScene {
         //確認血量
         fullMonsterBlood = findImageNode(name: "monsterBlood").size.width
         fullPlayerBlood = findImageNode(name: "playerBlood").size.width
-
+        
         
         for node in children{
-
+            
             //把選項alpha弄淡
             if (node.name?.contains("emptyButton"))!{
                 
@@ -550,7 +553,6 @@ class GameScene: SKScene {
             
         }
         
-
         //怪物出現前動畫, 出現後顯時所有資訊
         monsterAppearIntro{[weak self] in
             
@@ -574,8 +576,7 @@ class GameScene: SKScene {
             //開始戰鬥
             self!.battleTest()
         }
-
-
+        
     }
     
     //怪物出現畫面動畫
@@ -612,7 +613,6 @@ class GameScene: SKScene {
             self!.findImageNode(name: "leftFrame").run(vanishToLeft)
             self!.findImageNode(name: "rightFrame").run(vanishToRight)
             self!.findLabelNode(name: "monsterFound").alpha = 0
-            
             
             //1. 模糊背景
             self!.changeImageAlfa(name: "monsterBlurredBg", toAlpha: 1, time: 0.2)
@@ -665,12 +665,11 @@ class GameScene: SKScene {
                 
                 node.run(fadeIn, completion: {[weak self] in
                     
-                        
-                        //中文字產生完之後, 就產生掃描線及發音
-                        self!.scanAndPronounce()
+                    //中文字產生完之後, 就產生掃描線及發音
+                    self!.scanAndPronounce()
                     
-                        //可以按畫面
-                        self!.isUserInteractionEnabled = true
+                    //可以按畫面
+                    self!.isUserInteractionEnabled = true
                     
                     //測驗的機制
                     self!.learningTest()
@@ -693,7 +692,7 @@ class GameScene: SKScene {
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
         
         for node in children{
-         
+            
             //隱藏英文單字
             if (node.name?.contains("engWord"))!{
                 
@@ -706,7 +705,7 @@ class GameScene: SKScene {
                 node.run(fadeIn)
             }
         }
- 
+        
         //抓目前單字
         let currentWord = wordSets[currentWordSequence]
         
@@ -762,19 +761,14 @@ class GameScene: SKScene {
                 extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
                 countArray.remove(at: randomNumbers)
                 
-                
             }
             
-            
-            
         case 2:
-            
             
             for _ in 0 ..< 2 {
                 randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
                 extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
                 countArray.remove(at: randomNumbers)
-                
                 
             }
             
@@ -783,7 +777,6 @@ class GameScene: SKScene {
             randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
             extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
             countArray.remove(at: randomNumbers)
-            
             
         default:
             break
@@ -809,7 +802,6 @@ class GameScene: SKScene {
         //改變字的順序順序
         shownWords.shuffled()
         
-        
         //建立所有單字選項
         
         //設定四格的位置
@@ -831,9 +823,6 @@ class GameScene: SKScene {
         isDragAndPlayEnable = true
         
     }
-    
-    
-    
     
     //關上任務版+再打開的動畫
     func closeQuestBoardAndReopen(){
@@ -1001,7 +990,7 @@ class GameScene: SKScene {
                         
                         //假如碰到的node是前一個
                         if node.name == nodesTouched[nodesTouchedCount - 2].name {
-     
+                            
                             //移除藥水
                             //取得數字順序
                             let idx = nodesTouchedCount - 1
@@ -1010,7 +999,7 @@ class GameScene: SKScene {
                             let seq = Int((nameToRemove?.replacingOccurrences(of: "newse", with: ""))!)
                             let word = shownWords[seq!]
                             removePoison(word: word, poisonNumber: seq!)
-    
+                            
                             //阻擋重複移除
                             isRemoved = true
                             
@@ -1192,7 +1181,7 @@ class GameScene: SKScene {
                     monsterBlood = findImageNode(name: monster).size.width
                     playerBlood = findImageNode(name: player).size.width
                     //print(monsterBlood)
-
+                    
                     
                     //假如答案正確
                     if wordEntered == currentWordArray{
@@ -1218,16 +1207,16 @@ class GameScene: SKScene {
                             
                             //temp自我爆炸後攻擊怪物
                             self!.run(sequence, completion: {
-
+                                
                                 //正確攻擊
                                 self!.findImageNode(name: "monster").run(self!.rightAttack())
                                 
                             })
-
+                            
                             
                             //等待攻擊動畫秒數後扣分
                             let when = DispatchTime.now() + 2.3
-
+                            
                             DispatchQueue.main.asyncAfter(deadline: when, execute: {
                                 
                                 //假如怪沒死
@@ -1259,7 +1248,7 @@ class GameScene: SKScene {
                                             })
                                             let sequence = SKAction.sequence([redFontAction,wait,whiteFontAction,wait])
                                             let repeatAction = SKAction.repeat(sequence, count: 2)
-                                           
+                                            
                                             
                                             //啟動閃字
                                             self!.findLabelNode(name: "comboAttack").run(repeatAction, completion: {
@@ -1272,7 +1261,7 @@ class GameScene: SKScene {
                                                 
                                                 //等待combo攻擊的時間
                                                 let when = DispatchTime.now() + 1.5
-
+                                                
                                                 DispatchQueue.main.asyncAfter(deadline: when, execute: {
                                                     //combo攻擊怪
                                                     self!.attack(point: 3, whom: monster, finished: {[weak self] in
@@ -1287,7 +1276,7 @@ class GameScene: SKScene {
                                                             //print("monster dead")
                                                             
                                                             //下一場
-                                                             self!.nextBattle()
+                                                            self!.nextBattle()
                                                             
                                                         } else {
                                                             
@@ -1303,9 +1292,9 @@ class GameScene: SKScene {
                                                                 } else {
                                                                     
                                                                     //print("continue play")
-                                                                             //繼續攻擊
+                                                                    //繼續攻擊
                                                                     self!.continueBattle()
-                                                           
+                                                                    
                                                                     
                                                                 }
                                                             })
@@ -1313,12 +1302,12 @@ class GameScene: SKScene {
                                                         }
                                                         
                                                     })
-
+                                                    
                                                 })
-
+                                                
                                             })
                                             
-
+                                            
                                         } else {
                                             
                                             //一般的攻擊人
@@ -1329,23 +1318,23 @@ class GameScene: SKScene {
                                             
                                             //等待怪物自爆的時間
                                             let when = DispatchTime.now() + 1.5
-
-                                            DispatchQueue.main.asyncAfter(deadline: when, execute: {
-
-                                                let attack = SKAction.run({
                                             
+                                            DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                                                
+                                                let attack = SKAction.run({
+                                                    
                                                     self!.monsterAttack?.isHidden = false
                                                     self!.monsterAttack?.resetSimulation()
                                                     
                                                 })
-                                            
+                                                
                                                 //等待怪物攻擊後再扣血
                                                 let wait = SKAction.wait(forDuration: 1.2)
                                                 
                                                 let sequence = SKAction.sequence([attack,wait])
                                                 
                                                 self!.run(sequence, completion: {
-                                                
+                                                    
                                                     //攻擊人
                                                     self!.attack(point: 2, whom: player, finished: {
                                                         
@@ -1353,7 +1342,7 @@ class GameScene: SKScene {
                                                             
                                                             //下一場
                                                             //print("player dead")
-                                                             self!.nextBattle()
+                                                            self!.nextBattle()
                                                         } else {
                                                             
                                                             //print("continue play")
@@ -1365,8 +1354,8 @@ class GameScene: SKScene {
                                                 })
                                                 
                                                 
-                   
-
+                                                
+                                                
                                                 
                                             })
                                             
@@ -1375,18 +1364,18 @@ class GameScene: SKScene {
                                 }
                                 
                             })
-
-
+                            
+                            
                         })
-        
-         
+                        
+                        
                     } else {
                         //答案錯誤
                         //print("wrong Answer")
                         
                         //combo - 1
                         if battleComboTime == 1 {
-                        battleComboTime -= 1
+                            battleComboTime -= 1
                         }
                         
                         //抓正確音節數有幾個
@@ -1407,7 +1396,7 @@ class GameScene: SKScene {
                         for i in 0 ..< checkCounts{
                             
                             if wordEntered[i] == currentWordArray[i] {
-                             correctSyllableCounts += 1
+                                correctSyllableCounts += 1
                             }
                         }
                         
@@ -1443,7 +1432,7 @@ class GameScene: SKScene {
                                         
                                         //這局結束
                                         //print("monster dead")
-                                         self!.nextBattle()
+                                        self!.nextBattle()
                                         
                                     } else{
                                         
@@ -1479,7 +1468,7 @@ class GameScene: SKScene {
                                                     if self!.playerBlood == 0 {
                                                         
                                                         print("player dead")
-                                                         self!.nextBattle()
+                                                        self!.nextBattle()
                                                     } else {
                                                         
                                                         print("continue play")
@@ -1489,116 +1478,213 @@ class GameScene: SKScene {
                                                     }
                                                 })
                                             })
-             
+                                            
                                         })
                                         
-                                       
+                                        
                                         
                                     }
                                 }
-
+                                
                             })
                             
                             
                         })
-
+                        
                         
                     }
                     
                     
                 } else {
-                
-                // Part 2.練習模式
-                
-                //移除上一次的發亮按鈕
-                removeSomeNodes(name: "new")
-                //移除上一次的線
-                removeSomeNodes(name: "line")
-                
-                //初始化
-                selNodeNames = ["se0","se1","se2","se3"]
-                
-                for touch in touches{
-                    let lastTouch = touch.location(in: self)
                     
-                    let node : SKNode = self.atPoint(lastTouch)
+                    // Part 2.練習模式
                     
-                    //是否修改線
-                    if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3]{
+                    //移除上一次的發亮按鈕
+                    removeSomeNodes(name: "new")
+                    //移除上一次的線
+                    removeSomeNodes(name: "line")
+                    
+                    //初始化
+                    selNodeNames = ["se0","se1","se2","se3"]
+                    
+                    for touch in touches{
+                        let lastTouch = touch.location(in: self)
                         
-                        //最後有碰到node, 不修改線
+                        let node : SKNode = self.atPoint(lastTouch)
                         
-                    } else {
-                        //最後一個沒碰到node的話, 一放開縮短線
-                        
-                        isEndOnNode = false
-                        
-                        drawLine()
-                        
-                    }
-                    
-                }
-                
-                //固定線
-                line = SKShapeNode()
-                line?.strokeColor = diamondGreen
-                line?.lineWidth = 8
-                line?.name = "line"
-                line?.zPosition = 4
-                line?.glowWidth = 2
-                addChild(line!)
-                
-                //初始化
-                isFirstTouch = false
-                touchTimes = 0
-                isTouched = false
-                nodesTouched.removeAll(keepingCapacity: false)
-                
-                //假如答案正確
-                if wordEntered == currentWordArray{
-                    
-                    //部首音節變色...
-                    
-                    //1. 把顯示的輸入字刪除
-                    findLabelNode(name: "tempWord").text = ""
-                    
-                    //2. 顯示原本有音節變色的字
-                    
-                    for node in children{
-                        if (node.name?.contains("engWord"))!{
-                            changeLabelAlfa(name: node.name!, toAlpha: 1, time: 0.3)
+                        //是否修改線
+                        if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3]{
+                            
+                            //最後有碰到node, 不修改線
+                            
+                        } else {
+                            //最後一個沒碰到node的話, 一放開縮短線
+                            
+                            isEndOnNode = false
+                            
+                            drawLine()
                             
                         }
                         
                     }
                     
-                    //不能按畫面
-                    self.isUserInteractionEnabled = false
-                    
-                    //避免再次顯示掃描線
-                    isScanning = true
-                    
-                    //播放單字
-                    self.scanAndPronounce()
-                    
-                    //輸入正確音節數歸零
-                    //alreadyCorrectsyllables = 0
+                    //固定線
+                    line = SKShapeNode()
+                    line?.strokeColor = diamondGreen
+                    line?.lineWidth = 8
+                    line?.name = "line"
+                    line?.zPosition = 4
+                    line?.glowWidth = 2
+                    addChild(line!)
                     
                     //初始化
-                    shownWords.removeAll(keepingCapacity: false)
-                    wordEntered.removeAll(keepingCapacity: false)
+                    isFirstTouch = false
+                    touchTimes = 0
+                    isTouched = false
+                    nodesTouched.removeAll(keepingCapacity: false)
                     
-                    //正確數+1
-                    correctTime += 1
-                    
-                    let when = DispatchTime.now() + 0.5
-                    
-                    //關上任務版
-                    DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                    //假如答案正確
+                    if wordEntered == currentWordArray{
                         
-                        //確認練習三次了沒
-                        if self!.correctTime < 1 {
-                            //再次練習
+                        //部首音節變色...
+                        
+                        //1. 把顯示的輸入字刪除
+                        findLabelNode(name: "tempWord").text = ""
+                        
+                        //2. 顯示原本有音節變色的字
+                        
+                        for node in children{
+                            if (node.name?.contains("engWord"))!{
+                                changeLabelAlfa(name: node.name!, toAlpha: 1, time: 0.3)
+                                
+                            }
+                            
+                        }
+                        
+                        //不能按畫面
+                        self.isUserInteractionEnabled = false
+                        
+                        //避免再次顯示掃描線
+                        isScanning = true
+                        
+                        //播放單字
+                        self.scanAndPronounce()
+                        
+                        //輸入正確音節數歸零
+                        //alreadyCorrectsyllables = 0
+                        
+                        //初始化
+                        shownWords.removeAll(keepingCapacity: false)
+                        wordEntered.removeAll(keepingCapacity: false)
+                        
+                        //正確數+1
+                        correctTime += 1
+                        
+                        let when = DispatchTime.now() + 0.5
+                        
+                        //關上任務版
+                        DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                            
+                            //確認練習三次了沒
+                            if self!.correctTime < 1 {
+                                //再次練習
+                                
+                                //能按畫面
+                                self!.isUserInteractionEnabled = true
+                                
+                                //選項顏色變淡+移除選項字
+                                for node in self!.children{
+                                    
+                                    if (node.name?.contains("filledButton"))!{
+                                        self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                                    }
+                                    
+                                    if (node.name?.contains("emptyButton"))!{
+                                        self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                                    }
+                                    
+                                    if (node.name?.contains("Sel"))!{
+                                        node.removeFromParent()
+                                    }
+                                }
+                                
+                                //再次啟動練習
+                                self!.learningTest()
+                                self!.isButtonEnable = false
+                                
+                            } else {
+                                //繼續產生學習單字
+                                self!.dotSparkingFunc()
+                                
+                                let when = DispatchTime.now() + 0.5
+                                
+                                DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                                    
+                                    //把順序+1
+                                    
+                                    
+                                    //if self!.currentWordSequence < self!.wordSets.count / 4 - 1{
+                                    
+                                    if self!.currentWordSequence < (self!.unitNumber + 1) * 3 - 1{
+                                        
+                                        self!.currentWordSequence += 1
+                                        
+                                        //解除practiceMode
+                                        self!.isPracticeMode = false
+                                        
+                                        //正確數歸零
+                                        self!.correctTime = 0
+                                        
+                                        //播放次數歸零
+                                        self!.playSoundTime = 0
+                                        
+                                        //點點消失
+                                        self!.findImageNode(name: "lDot1").alpha = 0
+                                        self!.findImageNode(name: "lDot2").alpha = 0
+                                        self!.findImageNode(name: "lDot3").alpha = 0
+                                        
+                                        self!.findImageNode(name: "bDot1").alpha = 0
+                                        self!.findImageNode(name: "bDot2").alpha = 0
+                                        self!.findImageNode(name: "bDot3").alpha = 0
+                                        
+                                        
+                                        //任務版重來
+                                        self!.closeQuestBoardAndReopen()
+                                        
+                                        //不能dragAndPlay
+                                        self!.isDragAndPlayEnable = false
+                                        
+                                    } else {
+                                        //
+                                        //self!.currentWordSequence = 0
+                                        
+                                        self!.currentWordSequence  = self!.unitNumber * 3
+                                        
+                                        print("enterBattle")
+                                        
+                                        //進入battleMode
+                                        self!.battleMode()
+                                        
+                                    }
+                                    
+                                })
+                                
+                            }
+                        })
+                        
+                    } else {
+                        
+                        //答案錯誤的機制
+                        print("wrong answer")
+                        //不能按畫面
+                        self.isUserInteractionEnabled = false
+                        //避免再次顯示掃描線
+                        isScanning = true
+                        //把輸入過的答案移除
+                        wordEntered.removeAll(keepingCapacity: false)
+                        
+                        
+                        findLabelNode(name: "tempWord").run(wrongAnswerAction(), completion: {[weak self] in
                             
                             //能按畫面
                             self!.isUserInteractionEnabled = true
@@ -1610,140 +1696,43 @@ class GameScene: SKScene {
                                     self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
                                 }
                                 
-                                if (node.name?.contains("emptyButton"))!{
-                                    self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
+                                //把選項字回復成白色
+                                if (node.name?.contains("Sel"))!{
+                                    
+                                    if let node = node as? SKLabelNode{
+                                        
+                                        node.fontColor = .white
+                                        
+                                    }
+                                    
+                                    //把輸入字刪除
+                                    
+                                    self!.findLabelNode(name: "tempWord").text = ""
+                                    
                                 }
                                 
-                                if (node.name?.contains("Sel"))!{
-                                    node.removeFromParent()
-                                }
                             }
                             
-                            //再次啟動練習
-                            self!.learningTest()
                             self!.isButtonEnable = false
                             
-                        } else {
-                            //繼續產生學習單字
-                            self!.dotSparkingFunc()
+                            //能再次按發音
+                            self!.isScanning = false
                             
-                            let when = DispatchTime.now() + 0.5
-                            
-                            DispatchQueue.main.asyncAfter(deadline: when, execute: {
-                                
-                                //把順序+1
-                                
-                                
-                                //if self!.currentWordSequence < self!.wordSets.count / 4 - 1{
-                                
-                                if self!.currentWordSequence < (self!.unitNumber + 1) * 3 - 1{
-                                
-                                self!.currentWordSequence += 1
-                                    
-                                    //解除practiceMode
-                                    self!.isPracticeMode = false
-                                    
-                                    //正確數歸零
-                                    self!.correctTime = 0
-                                    
-                                    //播放次數歸零
-                                    self!.playSoundTime = 0
-                                    
-                                    //點點消失
-                                    self!.findImageNode(name: "lDot1").alpha = 0
-                                    self!.findImageNode(name: "lDot2").alpha = 0
-                                    self!.findImageNode(name: "lDot3").alpha = 0
-                                    
-                                    self!.findImageNode(name: "bDot1").alpha = 0
-                                    self!.findImageNode(name: "bDot2").alpha = 0
-                                    self!.findImageNode(name: "bDot3").alpha = 0
-                                    
-                                    
-                                    //任務版重來
-                                    self!.closeQuestBoardAndReopen()
-                                    
-                                    //不能dragAndPlay
-                                    self!.isDragAndPlayEnable = false
-                                    
-                                } else {
-                                    //
-                                    //self!.currentWordSequence = 0
-                                    
-                                    self!.currentWordSequence  = self!.unitNumber * 3
-                                    
-                                    print("enterBattle")
-                                    
-                                    //進入battleMode
-                                    self!.battleMode()
-                                    
-                                }
-                            
-                            })
-                            
-                        }
-                    })
+                        })
+                        
+                    }
                     
-                } else {
-                    
-                    //答案錯誤的機制
-                    print("wrong answer")
-                    //不能按畫面
-                    self.isUserInteractionEnabled = false
-                    //避免再次顯示掃描線
-                    isScanning = true
-                    //把輸入過的答案移除
-                    wordEntered.removeAll(keepingCapacity: false)
-
-                    
-                    findLabelNode(name: "tempWord").run(wrongAnswerAction(), completion: {[weak self] in
-                        
-                        //能按畫面
-                        self!.isUserInteractionEnabled = true
-                        
-                        //選項顏色變淡+移除選項字
-                        for node in self!.children{
-                            
-                            if (node.name?.contains("filledButton"))!{
-                                self!.changeImageAlfa(name: node.name!, toAlpha: 0, time: 0)
-                            }
-                            
-                            //把選項字回復成白色
-                            if (node.name?.contains("Sel"))!{
-                                
-                                if let node = node as? SKLabelNode{
-                                    
-                                    node.fontColor = .white
-                                    
-                                }
-                                
-                                //把輸入字刪除
-                                
-                                self!.findLabelNode(name: "tempWord").text = ""
-                                
-                            }
-                            
-                        }
-                      
-                        self!.isButtonEnable = false
-                        
-                        //能再次按發音
-                        self!.isScanning = false
-                        
-                    })
-      
                 }
-        
             }
-        }
         }
     }
     
     //失敗攻擊
     func missAttack() -> SKAction{
-
+        
         //建立miss字
         makeLabelNode(x: 0, y: 445, alignMent: .center, fontColor: .white, fontSize: 60, text: "MISS", zPosition: 7, name: "miss", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
-
+        
         
         //fadein+fadeout
         let fadeIn = SKAction.fadeIn(withDuration: 0.2)
@@ -1758,9 +1747,9 @@ class GameScene: SKScene {
             }
         }
         return action
-    
+        
     }
-
+    
     //combo攻擊
     func comboAttack() -> SKAction{
         
@@ -1773,7 +1762,7 @@ class GameScene: SKScene {
         
         makeImageNode(name: "starAttEff", image: "attack2", x: 0, y: 455, width: 100, height: 100, z: 7, alpha: 0, isAnchoring: false)
         
-
+        
         //慢慢出現 1秒
         let appear = SKAction.fadeIn(withDuration: 1)
         let remove = SKAction.removeFromParent()
@@ -1796,7 +1785,7 @@ class GameScene: SKScene {
         let fadeOut = SKAction.fadeOut(withDuration: 0.1)
         let backToSize = SKAction.resize(toWidth: 65, height: 65, duration: 0)
         let starSequence = SKAction.sequence([starAppear,enlarge,fadeOut,backToSize])
-
+        
         //星星改變位置
         let pos = CGPoint(x: 40, y: 500)
         let pos2 = CGPoint(x: -20, y: 400)
@@ -1813,7 +1802,7 @@ class GameScene: SKScene {
             })
             
         }
-
+        
         //等待慢慢出現後星星攻擊
         let wait = SKAction.wait(forDuration: 1)
         let effectSequence = SKAction.sequence([action,wait,effect])
@@ -1829,7 +1818,7 @@ class GameScene: SKScene {
         let waitAndTremble = SKAction.sequence([wait2,tremble3Times])
         
         let groupAction = SKAction.group([waitAndTremble,effectSequence])
-
+        
         //輸出動畫
         return groupAction
     }
@@ -1876,7 +1865,7 @@ class GameScene: SKScene {
         
         //主要攻擊圖
         makeImageNode(name: "solidAttEff", image: "attack5", x: -40, y: 475, width: 80, height: 88, z: 6, alpha: 0, isAnchoring: false)
-       
+        
         //出現+變大+消失 0.17秒
         let appear2 = SKAction.fadeIn(withDuration: 0.05)
         let enlarge = SKAction.resize(toWidth: 130, height: 130, duration: 0.02)
@@ -1944,23 +1933,23 @@ class GameScene: SKScene {
         
         //合併
         let effect = SKAction.run {[weak self] in
-        
+            
             //先快速閃爍結束後再改變位置
             self!.findImageNode(name: "hollowAttEff").run(repeat3Times, completion: {
-          
+                
                 self!.findImageNode(name: "hollowAttEff").removeFromParent()
                 
                 self!.findImageNode(name: "solidAttEff").run(changePosSequence, completion: {
-            
+                    
                     self!.findImageNode(name: "solidAttEff").removeFromParent()
                     
                 })
             })
             
         }
-
+        
         //怪物震動動畫, 必須用monster來run
-
+        
         let point1 = CGPoint(x: 20, y: 465)
         let point2 = CGPoint(x: 0, y: 455)
         let move1 = SKAction.move(to: point1, duration: 0.1)
@@ -1973,19 +1962,20 @@ class GameScene: SKScene {
         
         //輸出動畫
         return groupAction
-   
+        
     }
     
     func nextBattle(){
         
         //更改怪物出現次序
+        /*
         if monsterSequence < monsters.count - 1 {
             monsterSequence += 1
         } else {
             monsterSequence = 0
             
         }
-        
+        */
         //初始化
         shownWords.removeAll(keepingCapacity: false)
         wordEntered.removeAll(keepingCapacity: false)
@@ -1998,12 +1988,12 @@ class GameScene: SKScene {
         removeSomeNodes(name: "tempWord")
         
         //更改單字次序
-
+        
         //if currentWordSequence < wordSets.count / 4 - 1{
         
         if currentWordSequence < (unitNumber + 1) * 3 - 1{
             
-        currentWordSequence += 1
+            currentWordSequence += 1
             
             
             //開始戰鬥, 建立下一個單字
@@ -2014,16 +2004,104 @@ class GameScene: SKScene {
             
             //currentWordSequence = 0
             //currentWordSequence = unitNumber * 3
-
             
-             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
+            //取得元素
+
+ 
+            
+            //取得User資料, 比對元素,
+            
+            if let getElements = user?["getElement"] as? String{
+                
+                print("has data")
+               
+                if getElements.contains(syllablesToCheck){
+                    
+                    //有得到過
+
+                    
+                } else {
+                    //得到元素
+                    
+                    //指定得到元素及使用者id
+                    let element = syllablesToCheck
+                    let id = user?["id"] as! String
+                    
+                    
+                    // url to access our php file
+                    let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getElement.php")!
+                    
+                    // request url
+                    var request = URLRequest(url: url)
+                    
+                    // method to pass data POST - cause it is secured
+                    request.httpMethod = "POST"
+                    
+                    // body gonna be appended to url
+                    let body = "userID=\(id)&element=\(element)"
+                    
+                    // append body to our request that gonna be sent
+                    request.httpBody = body.data(using: .utf8)
+                    
+                        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                            // no error
+                            if error == nil {
+                                
+                                do {
+                                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                    
+                                    guard let parseJSON = json else {
+                                        print("Error while parsing")
+                                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                        return
+                                    }
+
+                                    //再次儲存使用者資訊
+                                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                                    print(user!)
+                                    
+                                    //跳轉回元素表
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
+                                    
+                                } catch{
+                                    
+                                    print("catch error")
+                                    
+                                    
+                                    
+                                }
+                            } else {
+                                
+                                print("urlsession has error")
+                                
+                            }
+                        }).resume()
+
+
+                    
+                    
+                    
+                    /* // 動畫部分要重做
+                    
+                    makeImageNode(name: "getElemntBg1", image: "getElementBg1", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "getElementBg2", image: "getElementBg2", x: 0, y: 0, width: 750, height: 1334, z: 11, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "getElement", image: "getElement", x: 0, y: -20, width: 280, height: 280, z: 12, alpha: 1, isAnchoring: false)
+                    makeLabelNode(x: 0, y: -35, alignMent: .center, fontColor: darkYellow, fontSize: 50, text: syllablesWithoutDigit, zPosition: 13, name: "syllableWithoutDigit", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+                    */
+
+                    
+                    
+                    
+                }
+                
+            }
+            
         }
 
-
         
-
     }
-
+    
     
     
     func wrongAnswerAction() -> SKAction{
@@ -2041,7 +2119,7 @@ class GameScene: SKScene {
         return repeatAction
     }
     
-  
+    
     func continueBattle(){
         
         //fadeOut
@@ -2092,7 +2170,7 @@ class GameScene: SKScene {
         
     }
     
-
+    
     //扣分的func
     func attack(point:CGFloat,whom:String,finished: @escaping () -> Void){
         
@@ -2104,52 +2182,52 @@ class GameScene: SKScene {
         if hurtMonster > monsterBlood {
             hurtMonster = monsterBlood
         }
-
+        
         if hurtPlayer > playerBlood{
             hurtPlayer = playerBlood
         }
         
-         //扣血畫面
+        //扣血畫面
         
         switch whom {
         case "monsterBlood":
-           
+            
             let hurtAction = SKAction.resize(toWidth: monsterBlood - hurtMonster, duration: 0.2)
             findImageNode(name: whom).run(hurtAction)
             monsterBlood = monsterBlood - hurtMonster
-
+            
             /*
-            if monsterBlood == 0 {
-                
-                isRoundEnd = true
-                
-            }
-            print(monsterBlood)
-            */
+             if monsterBlood == 0 {
+             
+             isRoundEnd = true
+             
+             }
+             print(monsterBlood)
+             */
         case "playerBlood":
             let hurtAction = SKAction.resize(toWidth: playerBlood - hurtPlayer, duration: 0.2)
             findImageNode(name: whom).run(hurtAction)
             playerBlood = playerBlood - hurtPlayer
             
             /*
-            if playerBlood == 0 {
-                
-                isRoundEnd = true
-            }
- */
+             if playerBlood == 0 {
+             
+             isRoundEnd = true
+             }
+             */
             
         default:
             break
         }
-    
+        
         //扣分後的短暫等待
         let when = DispatchTime.now() + 0.5
-
+        
         DispatchQueue.main.asyncAfter(deadline: when) {
-
-             finished()
+            
+            finished()
         }
-
+        
         
     }
     
@@ -2176,12 +2254,12 @@ class GameScene: SKScene {
             
             //沒有的話就建立labelNode
             makeLabelNode(x: 0, y: 85, alignMent: .center, fontColor: .white, fontSize: 100, text: word, zPosition: 3, name: "tempWord", fontName: "Helvetica", isHidden: false, alpha: 1)
-
+            
             
         }
     }
     
-  
+    
     func pourPoison(word:String, poisonNumber:Int){
         
         //找選項正確音節
@@ -2218,7 +2296,7 @@ class GameScene: SKScene {
         let buttonName =  String(poisonNumber) + "filledButton"
         changeImageAlfa(name: buttonName, toAlpha: 0, time: 0)
         
-     
+        
         
     }
     
@@ -2261,7 +2339,7 @@ class GameScene: SKScene {
         let questText = text
         //把text拆成array並加入底線_
         var questTextArray = questText.characters.map { String($0) }
-
+        
         questTextArray.append("_")
         
         var i = 0
@@ -2329,7 +2407,7 @@ class GameScene: SKScene {
         
         //製作中文字
         if lang == "chiWord" {
-
+            
             //label的屬性
             align = .center
             posY = -10
@@ -2339,7 +2417,7 @@ class GameScene: SKScene {
             makeLabelNode(x: 0, y: posY, alignMent: align!, fontColor: .white, fontSize: fontSize, text: word, zPosition: 2, name: "chiWord", fontName: "Helvetica Light", isHidden: false, alpha: 0)
             
             
-        //製作英文字
+            //製作英文字
         } else if lang == "engWord"{
             
             //分音節
@@ -2383,17 +2461,17 @@ class GameScene: SKScene {
             
             //戰鬥模式就不做這個hint了
             if isBattleMode == false{
-            makeLabelNode(x: 0, y: hintY + 10, alignMent: .center, fontColor: diamondGreen, fontSize: 30, text: "[ 請按畫面聽讀單字 ]", zPosition: 2, name: "hint" , fontName: "Helvetica Light", isHidden: false, alpha: 1)
+                makeLabelNode(x: 0, y: hintY + 10, alignMent: .center, fontColor: diamondGreen, fontSize: 30, text: "[ 請按畫面聽讀單字 ]", zPosition: 2, name: "hint" , fontName: "Helvetica Light", isHidden: false, alpha: 1)
             }
             
             //抓音節數
             let sepCount = sepWords.count
             
             //抓部首
-            let syllablesToCheck = syllables[unitNumber]
+            syllablesToCheck = syllables[unitNumber]
             
             //去掉數字
-            let syllablesWithoutDigit = (syllablesToCheck.components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
+            syllablesWithoutDigit = (syllablesToCheck.components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
             
             //提供給_e部首字的sepWord使用
             var newSepWords = [["1"],["1"],["1"],["1"],["1"]]
@@ -2414,7 +2492,7 @@ class GameScene: SKScene {
                 //直接拆單字字母變成character, 填入array裡面
                 for i in sepWord{
                     characters.append(i)
-
+                    
                 }
                 
                 //確認是否是_e的部首, 有的話就做新字
@@ -2425,59 +2503,59 @@ class GameScene: SKScene {
                     
                     //(1)有任何字節是三個字母
                     if characters.count == 3 {
-
-                            //(2)第一個字母是母音
-                            if vowels.contains(String(characters[0])){
-
+                        
+                        //(2)第一個字母是母音
+                        if vowels.contains(String(characters[0])){
+                            
+                            
+                            //(3)第三個字母是e
+                            if characters[2] == "e"{
                                 
-                                //(3)第三個字母是e
-                                if characters[2] == "e"{
+                                //***符合: _e 部首
+                                
+                                //要開始填入的順序+1
+                                sequenceToAppend += 1
+                                
+                                //設定此順序為部首字的特別順序
+                                specialSyllable = sequenceToAppend
+                                
+                                
+                                //假如這個array位置的第一個字是1, 就移除
+                                if newSepWords[sequenceToAppend][0] == "1"{
                                     
-                                    //***符合: _e 部首
+                                    newSepWords[sequenceToAppend].removeFirst()
                                     
-                                    //要開始填入的順序+1
-                                    sequenceToAppend += 1
-                                    
-                                    //設定此順序為部首字的特別順序
-                                    specialSyllable = sequenceToAppend
-                     
-                                    
-                                    //假如這個array位置的第一個字是1, 就移除
-                                    if newSepWords[sequenceToAppend][0] == "1"{
-                                        
-                                        newSepWords[sequenceToAppend].removeFirst()
-                                        
-                                    }
-
-                                    //建立三個字母進去
-                                    for i in 0 ..< 3 {
-                                    newSepWords[sequenceToAppend].append(String(characters[i]))
-                                    }
-
-                                    
-                                } else {
-                                    
-                                    //最後一個字母不是e
-                                    
-                                    sequenceToAppend += 1
-                                    if newSepWords[sequenceToAppend][0] == "1"{
-                                        newSepWords[sequenceToAppend].removeFirst()
-                                    }
-                                    newSepWords[sequenceToAppend].append(sepWord)
-
                                 }
                                 
-                            }  else {
+                                //建立三個字母進去
+                                for i in 0 ..< 3 {
+                                    newSepWords[sequenceToAppend].append(String(characters[i]))
+                                }
                                 
-                                //第一個字母不是母音
+                                
+                            } else {
+                                
+                                //最後一個字母不是e
+                                
                                 sequenceToAppend += 1
                                 if newSepWords[sequenceToAppend][0] == "1"{
                                     newSepWords[sequenceToAppend].removeFirst()
                                 }
                                 newSepWords[sequenceToAppend].append(sepWord)
-
                                 
                             }
+                            
+                        }  else {
+                            
+                            //第一個字母不是母音
+                            sequenceToAppend += 1
+                            if newSepWords[sequenceToAppend][0] == "1"{
+                                newSepWords[sequenceToAppend].removeFirst()
+                            }
+                            newSepWords[sequenceToAppend].append(sepWord)
+                            
+                            
+                        }
                     } else {
                         
                         //沒有三個字母
@@ -2486,12 +2564,12 @@ class GameScene: SKScene {
                             newSepWords[sequenceToAppend].removeFirst()
                         }
                         newSepWords[sequenceToAppend].append(sepWord)
-
+                        
                         
                     }
-            
+                    
                 }
-            
+                
             }
             
             
@@ -2502,206 +2580,206 @@ class GameScene: SKScene {
             if isSpecialE{
                 
                 //***在此做_e單字
-
+                
                 //跑所有字節
                 for i in 0 ..< newSepWords.count{
-
+                    
                     //用不到的字節就不做字
                     if newSepWords[i][0] != "1"{
-
-                    //***有append字母的才來做單字
-                    
-                    //Part 1. 假如是_e部首
-                    if i == specialSyllable {
-
                         
-                        var fontColor = UIColor()
+                        //***有append字母的才來做單字
                         
-                        //裡面的每一個字母
-                        for s in 0 ..< newSepWords[i].count{
+                        //Part 1. 假如是_e部首
+                        if i == specialSyllable {
                             
-                            //抓每個字
-                            let sepWord = newSepWords[i][s]
                             
-                            //指定名字
-                            syllableWordName = sepWord +  String(s) + lang
+                            var fontColor = UIColor()
                             
-                            //做1,3音節顏色
-                            switch s{
-                            case 0:
-                                fontColor = .red
-                            case 1:
-                                fontColor = .white
-                            case 2:
-                                fontColor = .red
-                            
-                            default:
-                                break
-                            }
-                            
-                            //做字
-                            if s > 0 {
-                  
-                                //非第一組字
-                                if let leftNode = childNode(withName: newSepWords[i][s - 1] + String(s - 1) + lang) as? SKLabelNode{
+                            //裡面的每一個字母
+                            for s in 0 ..< newSepWords[i].count{
+                                
+                                //抓每個字
+                                let sepWord = newSepWords[i][s]
+                                
+                                //指定名字
+                                syllableWordName = sepWord +  String(s) + lang
+                                
+                                //做1,3音節顏色
+                                switch s{
+                                case 0:
+                                    fontColor = .red
+                                case 1:
+                                    fontColor = .white
+                                case 2:
+                                    fontColor = .red
                                     
-                                    let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
-                                    
-                                    makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: syllableWordName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                                default:
+                                    break
                                 }
                                 
-                            } else{
-                                
-                                //若是第一個字母
-                            
-                                //如果不是第一個字節
-                                if i != 0 {
-                                
-                                    //位置要抓前一非部首的音節位置
+                                //做字
+                                if s > 0 {
                                     
-                                    if let leftNode = childNode(withName: normalSyllableName) as? SKLabelNode{
+                                    //非第一組字
+                                    if let leftNode = childNode(withName: newSepWords[i][s - 1] + String(s - 1) + lang) as? SKLabelNode{
                                         
                                         let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
                                         
                                         makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: syllableWordName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                                        
                                     }
                                     
-                                } else {
-                                   
-                                    //若是第一個字節, 直接製作
+                                } else{
+                                    
+                                    //若是第一個字母
+                                    
+                                    //如果不是第一個字節
+                                    if i != 0 {
+                                        
+                                        //位置要抓前一非部首的音節位置
+                                        
+                                        if let leftNode = childNode(withName: normalSyllableName) as? SKLabelNode{
+                                            
+                                            let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
+                                            
+                                            makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: syllableWordName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                                            
+                                        }
+                                        
+                                    } else {
+                                        
+                                        //若是第一個字節, 直接製作
                                         makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: syllableWordName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
                                         
+                                        
+                                        
+                                    }
                                     
                                     
                                 }
                                 
+                            }
                             
+                        }  else {
+                            
+                            //若不是部首字
+                            let sepWord = newSepWords[i][0]
+                            
+                            //取名字
+                            normalSyllableName = sepWord + String(i) + lang
+                            
+                            //非元素字顏色
+                            let fontColor = UIColor.white
+                            
+                            if i > 0 {
+                                
+                                //非第一組字, 要抓上一個字的結尾位置
+                                
+                                //先確認前個字是否接部首字
+                                if i - 1 == specialSyllable{
+                                    
+                                    //是的話就抓部首字位置
+                                    if let leftNode = childNode(withName: syllableWordName) as? SKLabelNode{
+                                        let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
+                                        
+                                        makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                                    }
+                                    
+                                } else {
+                                    //不是的話抓上一個一般字的位置
+                                    if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
+                                        
+                                        let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
+                                        
+                                        makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                            } else{
+                                
+                                //第一組字
+                                makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                                
                             }
                             
                         }
-
-                    }  else {
+                    }
+                }
+                
+            } else {
+                
+                
+                // Part 2. 不是_e, 就在這裡做單字
+                
+                
+                //一個單字以處理成array之後建立每一個array的value
+                for i in 0 ..< sepCount{
+                    
+                    let sepWord = sepWords[i]
+                    
+                    //檢查有沒有元素的字節, 有的話顯示為黃色
+                    if syllablesWithoutDigit.contains(sepWord){
                         
-                        //若不是部首字
-                        let sepWord = newSepWords[i][0]
+                        let fontColor = UIColor.yellow
                         
-                        //取名字
-                        normalSyllableName = sepWord + String(i) + lang
+                        if i > 0 {
+                            
+                            //非第一組字
+                            if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
+                                
+                                let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
+                                
+                                makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                                
+                            }
+                            
+                        } else{
+                            //第一組字
+                            
+                            makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord  + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                            
+                        }
                         
-                        //非元素字顏色
+                    } else {
+                        
+                        //非元素字
                         let fontColor = UIColor.white
                         
                         if i > 0 {
                             
-                            //非第一組字, 要抓上一個字的結尾位置
                             
-                            //先確認前個字是否接部首字
-                            if i - 1 == specialSyllable{
+                            //非第一組字
+                            if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
                                 
-                                //是的話就抓部首字位置
-                                if let leftNode = childNode(withName: syllableWordName) as? SKLabelNode{
-                                    let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
-                                    
-                                    makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                                }
-
-                            } else {
-                                //不是的話抓上一個一般字的位置
-                                if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
-                                    
-                                    let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
-                                    
-                                    makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                                    
-                                }
-
+                                let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
                                 
+                                makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
                                 
                             }
                             
-                            
-                            
                         } else{
-    
+                            
+                            
                             //第一組字
-                            makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: normalSyllableName, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                            
-                        }
-                
-                    }
-                }
-                }
-                
-            } else {
-            
-
-              // Part 2. 不是_e, 就在這裡做單字
-                
-                
-            //一個單字以處理成array之後建立每一個array的value
-            for i in 0 ..< sepCount{
-                
-                let sepWord = sepWords[i]
-                
-                //檢查有沒有元素的字節, 有的話顯示為黃色
-                if syllablesWithoutDigit.contains(sepWord){
-                    
-                    let fontColor = UIColor.yellow
-                    
-                    if i > 0 {
-                        
-                        //非第一組字
-                        if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
-                            
-                            let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
-                            
-                            makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
+                            makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
                             
                         }
                         
-                    } else{
-                        //第一組字
                         
-                        makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord  + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-    
+                        
                     }
                     
-                } else {
-                    
-                    //非元素字
-                    let fontColor = UIColor.white
-                    
-                    if i > 0 {
-
-                        
-                        //非第一組字
-                        if let leftNode = childNode(withName: sepWords[i - 1] + String(i - 1) + lang) as? SKLabelNode{
-                            
-                            let nextX = CGFloat(leftNode.frame.origin.x + leftNode.frame.width + 4)
-                            
-                            makeLabelNode(x: nextX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                            
-                        }
-                        
-                    } else{
- 
-                        
-                        //第一組字
-                        makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
-                        
-                        }
-                
-                    
-              
                 }
-                
-            }
             }
         }
     }
     
-
+    
     //畫線功能
     func drawLine(){
         
@@ -2775,7 +2853,9 @@ class GameScene: SKScene {
     //找IMAGE的skspritenode
     func findImageNode(name:String) -> SKSpriteNode{
         var node:SKSpriteNode?
-        node = childNode(withName: name) as? SKSpriteNode
+        if let nodeFound = childNode(withName: name) as? SKSpriteNode{
+            node = nodeFound
+        }
         return node!
         
     }
@@ -2902,28 +2982,28 @@ class GameScene: SKScene {
                 self!.isButtonEnable = false
                 
             })
-
+            
         }
         
         if isBattleMode{
             //戰鬥模式中, 暫時用不到
             /*
-            if isRoundEnd{
-                isRoundEnd = false
-                //回合結束
-                print("roundEnd")
-                if currentWordSequence < wordSets.count / 3 - 1{
-                    currentWordSequence += 1
-                }  else {
-                        print("Session End")
-                    currentWordSequence = 0
-                    }
-                
-                //下一回合戰鬥
-   
-            }
-            
-            */
+             if isRoundEnd{
+             isRoundEnd = false
+             //回合結束
+             print("roundEnd")
+             if currentWordSequence < wordSets.count / 3 - 1{
+             currentWordSequence += 1
+             }  else {
+             print("Session End")
+             currentWordSequence = 0
+             }
+             
+             //下一回合戰鬥
+             
+             }
+             
+             */
         }
     }
     

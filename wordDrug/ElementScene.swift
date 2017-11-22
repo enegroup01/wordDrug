@@ -8,10 +8,7 @@ class ElementScene: SKScene {
     
     var elements = ["de0","de1","de2","de3","de4","de5","de6","de7","de8","de9"]
     
-
-    
     override func didMove(to view: SKView) {
-        
         
        
         NotificationCenter.default.addObserver(self, selector: #selector(ElementScene.notifyPassUnitNumber), name: NSNotification.Name("passUnitNumber"), object: nil)
