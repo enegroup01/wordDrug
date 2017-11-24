@@ -135,6 +135,7 @@ class GameScene: SKScene {
     var fixedSecondTouch = CGPoint()
     var fixedThirdTouch = CGPoint()
     var fixedFourthTouch = CGPoint()
+    var fixedFifthTouch = CGPoint()
     
     //紀錄已經按到的node
     var nodesTouched = [SKSpriteNode]()
@@ -152,7 +153,7 @@ class GameScene: SKScene {
     var isRemoved = false
     
     //所有node的名稱
-    var selNodeNames = ["se0","se1","se2","se3"]
+    var selNodeNames = ["se0","se1","se2","se3","se4"]
     
     //被設定好的頁數
     var spotNumber = Int()
@@ -170,19 +171,19 @@ class GameScene: SKScene {
         syllables = syllableSets[spotNumber]
         
         //建立整個背景
-        makeImageNode(name: "bg", image: "bg", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "bg", image: "testBgBlurred", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
         //建立任務版子
-        makeImageNode(name: "questBoard", image: "questBoard4", x: 0, y: -120, width: 700, height: 0, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "questBoard", image: "testQuestBoardDark", x: 0, y: 380, width: 610, height: 0, z: 1, alpha: 1, isAnchoring: false)
         
         //建立任務標題
-        makeLabelNode(x: -100, y:220, alignMent: .left, fontColor: diamondGreen, fontSize: 50, text: "", zPosition: 2, name: "questTitle", fontName: "Helvetica Bold", isHidden: false, alpha:1)
+        makeLabelNode(x: -100, y:500, alignMent: .left, fontColor: .white, fontSize: 50, text: "", zPosition: 2, name: "questTitle", fontName: "Helvetica Bold", isHidden: false, alpha:1)
         
         //任務板子動畫 + 標題動畫
         openQuest()
         
         //建立怪物畫面背景
-        makeImageNode(name: "screenBg", image: "screenBg", x: 0, y: 500, width: 750, height: 431, z: 1, alpha: 1, isAnchoring: false)
+       // makeImageNode(name: "screenBg", image: "screenBg", x: 0, y: 500, width: 750, height: 431, z: 1, alpha: 1, isAnchoring: false)
         
         //建立開啟按鈕
         makeNode(name: "button", color: .clear, x: 0, y: -575, width: 150, height: 150, z: 2, isAnchoring: false, alpha: 1)
@@ -208,39 +209,44 @@ class GameScene: SKScene {
         }
         
         //製作按鈕
-        let lightWidth:CGFloat = 215.8
-        let lightHeight:CGFloat = 235.3
-        let darkWidth:CGFloat = 162.5
-        let darkHeight:CGFloat = 175.5
+        let lightWidth:CGFloat = 170
+        let lightHeight:CGFloat = 168
+        let darkWidth:CGFloat = 155
+        let darkHeight:CGFloat = 155
+        let positions = [[-160,-360],[-260,-80],[160,-360],[260,-80],[0,110]]
         
         //選項按鈕
         
-        makeNode(name: "se0", color: .clear, x:-160 , y: -380, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se1", color: .clear, x:-160 , y: -180, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se2", color: .clear, x:160 , y: -380, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se3", color: .clear, x:160 , y: -180, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se0", color: .clear, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se1", color: .clear, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se2", color: .clear, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se3", color: .clear, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se4", color: .clear, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
         
         //填滿按鈕
         
-        makeImageNode(name: "0filledButton", image: "lightGreenD", x:-160 , y: -380, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1filledButton", image: "lightGreenD", x:-160 , y: -180, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2filledButton", image: "lightGreenD", x:160 , y: -380, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3filledButton", image: "lightGreenD", x:160 , y: -180, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0filledButton", image: "lightD", x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1filledButton", image: "lightD", x:CGFloat(positions[1][0]), y: CGFloat(positions[1][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2filledButton", image: "lightD", x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3filledButton", image: "lightD", x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "4filledButton", image: "lightD", x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+    
         
         //空的按鈕
-        makeImageNode(name: "0emptyButton", image: "darkGreenD", x:-160 , y: -380, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1emptyButton", image: "darkGreenD", x:-160 , y: -180, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2emptyButton", image: "darkGreenD", x:160 , y: -380, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3emptyButton", image: "darkGreenD", x:160 , y: -180, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0emptyButton", image: "darkerD", x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1emptyButton", image: "darkerD", x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2emptyButton", image: "darkerD", x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3emptyButton", image: "darkerD", x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "4emptyButton", image: "darkerD", x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         
         //建立三黑點+亮點, 並hidden
-        makeImageNode(name: "bDot1", image: "bDot1", x: -70, y: -70, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "bDot2", image: "bDot2", x: 0, y: -70, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "bDot3", image: "bDot3", x: 70, y: -70, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "bDot1", image: "bDot1", x: -70, y: -600, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "bDot2", image: "bDot2", x: 0, y: -600, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "bDot3", image: "bDot3", x: 70, y: -600, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "lDot1", image: "lDot1", x: -70, y: -70, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "lDot2", image: "lDot2", x: 0, y: -70, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "lDot3", image: "lDot3", x: 70, y: -70, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lDot1", image: "lDot1", x: -70, y: -600, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lDot2", image: "lDot2", x: 0, y: -600, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lDot3", image: "lDot3", x: 70, y: -600, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
         
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
@@ -248,7 +254,7 @@ class GameScene: SKScene {
         
         //自我爆炸explode
         explodeEmitter = SKEmitterNode(fileNamed: "explode.sks")
-        explodeEmitter?.position = CGPoint(x: 0, y: 70)
+        explodeEmitter?.position = CGPoint(x: 0, y: -150)
         explodeEmitter?.zPosition = 4
         explodeEmitter?.name = "explodeEmitter"
         explodeEmitter?.isHidden = true
@@ -270,7 +276,7 @@ class GameScene: SKScene {
         monsterAttack?.isHidden = true
         addChild(monsterAttack!)
         
-        
+       
         //連擊Label
         makeLabelNode(x: 0, y: 455, alignMent: .center, fontColor: diamondGreen, fontSize: 70, text: "Combo Attack", zPosition: 5, name: "comboAttack", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
@@ -279,7 +285,7 @@ class GameScene: SKScene {
     //拉開任務＋連結開始學習
     func openQuest(){
         //拉開任務板子的action
-        let questBoardAction = SKAction.resize(toHeight: 780, duration: 0.3)
+        let questBoardAction = SKAction.resize(toHeight: 359, duration: 0.3)
         
         //拉開任務 ＋ 開始學習階段
         findImageNode(name: "questBoard").run(questBoardAction) {[weak self] in
@@ -388,7 +394,7 @@ class GameScene: SKScene {
                     let removeAction = SKAction.run({
                         
                         //移除掃描線
-                        self!.findImageNode(name: "scanning").removeFromParent()
+                        scanningLine.removeFromParent()
                         
                     })
                     
@@ -482,7 +488,6 @@ class GameScene: SKScene {
         for monster in monsters{
             
             if monsterIdInt == monster["id"] as! Int{
-                
                 monsterName = monster["name"] as! String
                 print(monsterName)
             }
@@ -497,7 +502,6 @@ class GameScene: SKScene {
         //移除進度點
         removeSomeNodes(name: "Dot")
         
-        
         //移除選項字
         removeSomeNodes(name: "Sel")
         
@@ -508,11 +512,11 @@ class GameScene: SKScene {
         findLabelNode(name: "hint").text = ""
         
         //怪物畫面
-        makeImageNode(name: "monsterBlurredBg", image: "blurredBg", x: 0, y: 500, width: 750, height: 431, z: 2, alpha: 0, isAnchoring: false)
+        //makeImageNode(name: "monsterBlurredBg", image: "blurredBg", x: 0, y: 500, width: 750, height: 431, z: 2, alpha: 0, isAnchoring: false)
         
         // 建立怪物 width:750
-        makeImageNode(name: "monsterEffect", image: "monsterEffect", x: 0, y: 450, width: 0, height: 431, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "monster", image: monsterId, x: 0, y: 455, width: 183.6, height: 216, z: 4, alpha: 0, isAnchoring: false)
+        //makeImageNode(name: "monsterEffect", image: "monsterEffect", x: 0, y: 450, width: 0, height: 431, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "monster", image: monsterId, x: 0, y: -150, width: 241, height: 285, z: 1, alpha: 0, isAnchoring: false)
         
         //怪物titleBg
         makeImageNode(name: "monsterTitleBg", image: "monsterTitle", x: 0, y: 632, width: 750, height: 70, z: 4, alpha: 0, isAnchoring: false)
@@ -521,20 +525,28 @@ class GameScene: SKScene {
         makeLabelNode(x: 0, y: 624, alignMent: .center, fontColor: tiffanyColor, fontSize: 35, text: monsterName, zPosition: 5, name: "monsterTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         //怪物血Bg
-        makeImageNode(name: "monsterBloodBg", image: "bloodBg", x: 0, y: 310, width: 510, height: 20, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "monsterBloodBg", image: "bloodBg", x: 0, y: 200, width: 510, height: 20, z: 4, alpha: 0, isAnchoring: false)
         //怪物血
-        makeImageNode(name: "monsterBlood", image: "monsterBlood", x: -256, y: 300, width: 510, height: 20, z: 5, alpha: 0, isAnchoring: true)
+        makeImageNode(name: "monsterBlood", image: "monsterBlood", x: -256, y: 190, width: 510, height: 20, z: 5, alpha: 0, isAnchoring: true)
         
         //player血Bg
-        makeImageNode(name: "playerBloodBg", image: "bloodBg", x: 0, y: 180, width: 510, height: 20, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "playerBloodBg", image: "bloodBg", x: 0, y: -490, width: 500, height: 20, z: 4, alpha: 0, isAnchoring: false)
         
         //player血
-        makeImageNode(name: "playerBlood", image: "playerBlood", x: -273, y: 145, width: 545, height: 70, z: 5, alpha: 0, isAnchoring: true)
-        
+        makeImageNode(name: "playerBlood", image: "playerBlood", x: -273, y: -525, width: 545, height: 70, z: 5, alpha: 0, isAnchoring: true)
         
         //確認血量
         fullMonsterBlood = findImageNode(name: "monsterBlood").size.width
         fullPlayerBlood = findImageNode(name: "playerBlood").size.width
+        
+        
+        //瞄準器
+        makeImageNode(name: "aimer", image: "aimer", x: 0, y: -150, width: 477, height: 477, z: 2, alpha: 0, isAnchoring: false)
+        //瞄準圈
+        makeImageNode(name: "aimerCircle", image: "aimerCircle", x: 0, y: -150, width: 305, height: 287, z: 2, alpha: 0, isAnchoring: false)
+        //瞄準心
+        makeImageNode(name: "aimerHeart", image: "aimerHeart", x: 0, y: -150, width: 144, height: 144, z: 2, alpha: 0, isAnchoring: false)
+        
         
         
         for node in children{
@@ -573,12 +585,51 @@ class GameScene: SKScene {
             self!.changeImageAlfa(name: "playerBloodBg", toAlpha: 1, time: 0)
             self!.changeImageAlfa(name: "playerBlood", toAlpha: 1, time: 0)
             
+            
+            //瞄準器動畫
+            self!.changeImageAlfa(name: "aimer", toAlpha: 1, time: 0.1)
+            self!.changeImageAlfa(name: "aimerCircle", toAlpha: 1, time: 0.1)
+            self!.changeImageAlfa(name: "aimerHeart", toAlpha: 1, time: 0.1)
+            
+            let turnLeft = SKAction.rotate(toAngle: 0.5, duration: 3)
+            let turnRight = SKAction.rotate(toAngle: -0.5, duration: 4)
+            
+            let leftSequence = SKAction.sequence([turnLeft,turnRight])
+            let leftRepeat = SKAction.repeatForever(leftSequence)
+            
+            let rightSequence = SKAction.sequence([turnRight,turnLeft])
+            let rightRepeat = SKAction.repeatForever(rightSequence)
+            
+            self!.findImageNode(name: "aimer").run(leftRepeat)
+            self!.findImageNode(name: "aimerCircle").run(rightRepeat)
+            
+            
             //開始戰鬥
             self!.battleTest()
         }
         
     }
     
+    
+    //放大後消失的動畫, 瞄準器使用
+    func enlargeAndDisappear(name:String){
+        
+        let width = findImageNode(name: name).frame.width * 2
+        let height = findImageNode(name: name).frame.height * 2
+        let enlarge = SKAction.resize(toWidth: width, height: height, duration: 0.5)
+        let alphaAction = SKAction.run {[weak self] in
+            self!.changeImageAlfa(name: name, toAlpha: 0, time: 0.4)
+        }
+        
+        let sequence = SKAction.group([enlarge,alphaAction])
+        //findImageNode(name: name).run(sequence)
+        
+        findImageNode(name: name).run(sequence) {[weak self] in
+            self!.findImageNode(name: name).removeFromParent()
+        }
+        
+    }
+
     //怪物出現畫面動畫
     func monsterAppearIntro(finished: @escaping () -> Void){
         
@@ -615,22 +666,22 @@ class GameScene: SKScene {
             self!.findLabelNode(name: "monsterFound").alpha = 0
             
             //1. 模糊背景
-            self!.changeImageAlfa(name: "monsterBlurredBg", toAlpha: 1, time: 0.2)
+            //self!.changeImageAlfa(name: "monsterBlurredBg", toAlpha: 1, time: 0.2)
             
             //2. 怪物後方背景
             
-            let enlarge = SKAction.resize(toWidth: 750, duration: 0.2)
-            self!.changeImageAlfa(name: "monsterEffect", toAlpha: 1, time: 0.2)
+            //let enlarge = SKAction.resize(toWidth: 750, duration: 0.2)
+            //self!.changeImageAlfa(name: "monsterEffect", toAlpha: 1, time: 0.2)
             
-            self!.findImageNode(name: "monsterEffect").run(enlarge, completion: {[weak self] in
+           // self!.findImageNode(name: "monsterEffect").run(enlarge, completion: {[weak self] in
                 
                 //3. 怪物出現, 然後永久上下動
                 let showUp = SKAction.run({
                     self!.changeImageAlfa(name: "monster", toAlpha: 1, time: 0)
                 })
                 
-                let up = SKAction.moveTo(y: 460, duration: 0.2)
-                let down = SKAction.moveTo(y: 450, duration: 0.3)
+                let up = SKAction.moveTo(y: -140, duration: 0.2)
+                let down = SKAction.moveTo(y: -150, duration: 0.3)
                 let wait = SKAction.wait(forDuration: 0.2)
                 let upWaitDown = SKAction.sequence([up,wait,down])
                 let repeatAction = SKAction.repeatForever(upWaitDown)
@@ -639,11 +690,13 @@ class GameScene: SKScene {
                 
                 finished()
                 
-            })
+          //  })
             
         }
         
     }
+    
+    
     
     //啟動戰鬥功能 -> 利用測驗機制
     func battleTest(){
@@ -756,7 +809,7 @@ class GameScene: SKScene {
             
         case 1:
             
-            for _ in 0 ..< 3 {
+            for _ in 0 ..< 4 {
                 randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
                 extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
                 countArray.remove(at: randomNumbers)
@@ -765,7 +818,7 @@ class GameScene: SKScene {
             
         case 2:
             
-            for _ in 0 ..< 2 {
+            for _ in 0 ..< 3 {
                 randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
                 extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
                 countArray.remove(at: randomNumbers)
@@ -774,9 +827,18 @@ class GameScene: SKScene {
             
         case 3:
             
+            for _ in 0 ..< 2 {
+            
             randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
             extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
             countArray.remove(at: randomNumbers)
+            }
+            
+        case 4:
+            randomNumbers = Int(arc4random_uniform(UInt32(countArray.count)))
+            extraWords.append(otherWordsOrderSets[countArray[randomNumbers]])
+            countArray.remove(at: randomNumbers)
+            
             
         default:
             break
@@ -805,11 +867,13 @@ class GameScene: SKScene {
         //建立所有單字選項
         
         //設定四格的位置
-        let positions = [[-160,-390],[-160,-190],[160,-390],[160,-190]]
+        //let positions = [[-160,-390],[-160,-190],[160,-390],[160,-190]]
+
+        let positions = [[-160,-370],[-260,-90],[160,-370],[260,-90],[0,100]]
         
         for i in 0 ..< shownWords.count{
             
-            makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1]), alignMent: .center, fontColor: diamondGreen, fontSize: 50, text: shownWords[i], zPosition: 5, name: shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
+            makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1]), alignMent: .center, fontColor: .white, fontSize: 60, text: shownWords[i], zPosition: 5, name: shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
             
             //可按按鍵
             isUserInteractionEnabled = true
@@ -892,6 +956,7 @@ class GameScene: SKScene {
             }
             
             //按主畫面的功能
+            
             if isScanning == false{
                 
                 //假如發音按超過三次要開始練習, 三次跳練習目前放在update裡面
@@ -903,13 +968,13 @@ class GameScene: SKScene {
                     }
                 }
             }
-            
+ 
             //**** 開始拖拉遊戲 dragAndPlay ***
             if isDragAndPlayEnable {
                 
                 //在建立一條新的線
                 line = SKShapeNode()
-                line?.strokeColor = diamondGreen
+                line?.strokeColor = pinkColor
                 line?.lineWidth = 8
                 line?.name = "line"
                 line?.zPosition = 4
@@ -955,6 +1020,11 @@ class GameScene: SKScene {
                             //藥水動畫
                             pourPoison(word: wordChosen, poisonNumber: i)
                             
+                            //瞄準器縮小
+                            if isBattleMode{
+                            findImageNode(name: "aimerHeart").run(zoomIn())
+                            }
+                            
                         }
                     }
                 }
@@ -968,6 +1038,7 @@ class GameScene: SKScene {
         if touchTimes > 0{
             
             for touch in touches{
+                
                 
                 isEndOnNode = true
                 
@@ -1035,8 +1106,8 @@ class GameScene: SKScene {
                     
                 }
                 
-                //移動中遇到其它三個node
-                if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] {
+                //移動中遇到其它4個node
+                if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3]{
                     
                     //取得數字順序
                     let name = node.name!
@@ -1063,6 +1134,7 @@ class GameScene: SKScene {
                         
                         //藥水動畫
                         pourPoison(word: wordChosen, poisonNumber: index!)
+
                         
                         
                     }
@@ -1082,6 +1154,10 @@ class GameScene: SKScene {
                         
                         fixedFourthTouch = getCgPoint(name: name)
                         
+                    case 5:
+                        
+                        fixedFifthTouch = getCgPoint(name: name)
+                        
                     default:
                         break
                     }
@@ -1094,6 +1170,7 @@ class GameScene: SKScene {
                     
                     
                     //手指離開方塊時
+
                     
                     //避免一直重複執行
                     isTouched = false
@@ -1118,22 +1195,26 @@ class GameScene: SKScene {
         //確認有按到任何選項單字才會開始偵測end動作
         if touchTimes > 0{
             
+
+            
             if isDragAndPlayEnable {
                 
                 //****確認模式****
                 if isBattleMode {
                     // Part 1. 戰鬥模式
                     
+                    //瞄準器放大
+                    findImageNode(name: "aimerHeart").run(zoomOut())
+                    
                     //避免再次按
                     isUserInteractionEnabled = false
                     
                     //移除上一次的發亮按鈕
                     removeSomeNodes(name: "new")
-                    //移除上一次的線
-                    removeSomeNodes(name: "line")
+
                     
                     //初始化
-                    selNodeNames = ["se0","se1","se2","se3"]
+                    selNodeNames = ["se0","se1","se2","se3","se4"]
                     
                     for touch in touches{
                         let lastTouch = touch.location(in: self)
@@ -1141,7 +1222,7 @@ class GameScene: SKScene {
                         let node : SKNode = self.atPoint(lastTouch)
                         
                         //是否修改線
-                        if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3]{
+                        if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3] || node.name == selNodeNames[4]{
                             
                             //最後有碰到node, 不修改線
                             
@@ -1157,6 +1238,7 @@ class GameScene: SKScene {
                     }
                     
                     //固定線
+                    /*
                     line = SKShapeNode()
                     line?.strokeColor = diamondGreen
                     line?.lineWidth = 8
@@ -1164,6 +1246,7 @@ class GameScene: SKScene {
                     line?.zPosition = 4
                     line?.glowWidth = 2
                     addChild(line!)
+                    */
                     
                     //初始化
                     isFirstTouch = false
@@ -1189,9 +1272,15 @@ class GameScene: SKScene {
                         //combo確認+1
                         battleComboTime += 1
                         
+                        //放大後消失移除
+                        enlargeAndDisappear(name: "aimer")
+                        enlargeAndDisappear(name: "aimerCircle")
+                        enlargeAndDisappear(name: "aimerHeart")
+ 
+                        
                         //把temp字改顏色
                         let tempNode = findLabelNode(name: "tempWord")
-                        let changeColor = SKAction.colorize(with: diamondGreen, colorBlendFactor: 1, duration: 0.3)
+                        let changeColor = SKAction.colorize(with: pinkColor, colorBlendFactor: 1, duration: 0.3)
                         tempNode.run(changeColor, completion: {[weak self] in
                             
                             
@@ -1210,6 +1299,10 @@ class GameScene: SKScene {
                                 
                                 //正確攻擊
                                 self!.findImageNode(name: "monster").run(self!.rightAttack())
+                           
+                                //移除上一次的線
+                                self!.removeSomeNodes(name: "line")
+              
                                 
                             })
                             
@@ -1505,7 +1598,7 @@ class GameScene: SKScene {
                     removeSomeNodes(name: "line")
                     
                     //初始化
-                    selNodeNames = ["se0","se1","se2","se3"]
+                    selNodeNames = ["se0","se1","se2","se3","se4"]
                     
                     for touch in touches{
                         let lastTouch = touch.location(in: self)
@@ -1513,7 +1606,7 @@ class GameScene: SKScene {
                         let node : SKNode = self.atPoint(lastTouch)
                         
                         //是否修改線
-                        if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3]{
+                        if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3] || node.name == selNodeNames[4]{
                             
                             //最後有碰到node, 不修改線
                             
@@ -1528,6 +1621,7 @@ class GameScene: SKScene {
                         
                     }
                     
+                    /*
                     //固定線
                     line = SKShapeNode()
                     line?.strokeColor = diamondGreen
@@ -1536,7 +1630,7 @@ class GameScene: SKScene {
                     line?.zPosition = 4
                     line?.glowWidth = 2
                     addChild(line!)
-                    
+                    */
                     //初始化
                     isFirstTouch = false
                     touchTimes = 0
@@ -1727,6 +1821,20 @@ class GameScene: SKScene {
         }
     }
     
+    
+    func zoomIn() -> SKAction{
+        
+        let zoomIn = SKAction.resize(toWidth: 100, height: 100, duration: 0.1)
+        return zoomIn
+    }
+    func zoomOut() -> SKAction{
+        
+        let zoomOut = SKAction.resize(toWidth: 144, height: 144, duration: 0.2)
+        return zoomOut
+    }
+    
+    
+    
     //失敗攻擊
     func missAttack() -> SKAction{
         
@@ -1808,8 +1916,8 @@ class GameScene: SKScene {
         let effectSequence = SKAction.sequence([action,wait,effect])
         
         //monster震動動畫, 需搭配monster.run
-        let point1 = CGPoint(x: 20, y: 465)
-        let point2 = CGPoint(x: 0, y: 455)
+        let point1 = CGPoint(x: 20, y: -140)
+        let point2 = CGPoint(x: 0, y: -150)
         let move1 = SKAction.move(to: point1, duration: 0.1)
         let move2 = SKAction.move(to: point2, duration: 0.1)
         let wait2 = SKAction.wait(forDuration: 1)
@@ -1828,17 +1936,17 @@ class GameScene: SKScene {
     func rightAttack() -> SKAction {
         
         //所有效果
-        makeImageNode(name: "pinkAttEff", image: "attack4", x: 20, y: 505, width: 159, height: 137, z: 6, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "pinkAttEff", image: "attack4", x: 20, y: -150, width: 159, height: 137, z: 6, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "darkAttEff", image: "attack1", x: -10, y: 445, width: 111 * 0.5, height: 92 * 0.5, z: 6, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "darkAttEff", image: "attack1", x: -10, y: -210, width: 111 * 0.5, height: 92 * 0.5, z: 6, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "attEff", image: "attack3", x: 80, y: 465, width: 70, height: 70, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "attEff", image: "attack3", x: 80, y: -190, width: 70, height: 70, z: 7, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "attEff2", image: "attack5", x: -70, y: 405, width: 40, height: 40, z: 6, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "attEff3", image: "attack5", x: -50, y: 425, width: 60, height: 66, z: 6, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "attEff4", image: "attack5", x: 40, y: 435, width: 15, height: 15, z: 6, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "attEff2", image: "attack5", x: -70, y: -250, width: 40, height: 40, z: 6, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "attEff3", image: "attack5", x: -50, y: -230, width: 60, height: 66, z: 6, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "attEff4", image: "attack5", x: 40, y: -220, width: 15, height: 15, z: 6, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "attEff5", image: "attack3", x: -100, y: 510, width: 120, height: 120, z: 6, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "attEff5", image: "attack3", x: -100, y: -145, width: 120, height: 120, z: 6, alpha: 0, isAnchoring: false)
         
         //出現後旋轉 1秒
         let appear = SKAction.fadeIn(withDuration: 0.2)
@@ -1864,7 +1972,7 @@ class GameScene: SKScene {
         }
         
         //主要攻擊圖
-        makeImageNode(name: "solidAttEff", image: "attack5", x: -40, y: 475, width: 80, height: 88, z: 6, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "solidAttEff", image: "attack5", x: -40, y: -180, width: 80, height: 88, z: 6, alpha: 0, isAnchoring: false)
         
         //出現+變大+消失 0.17秒
         let appear2 = SKAction.fadeIn(withDuration: 0.05)
@@ -1874,8 +1982,8 @@ class GameScene: SKScene {
         let sequence2 = SKAction.sequence([appear2,enlarge,fadeOut2,backToSize])
         
         //等待出現後旋轉 + 改變兩個位置來攻擊 1秒
-        let pos = CGPoint(x: 40, y: 500)
-        let pos2 = CGPoint(x: -20, y: 400)
+        let pos = CGPoint(x: 40, y: -155)
+        let pos2 = CGPoint(x: -20, y: -255)
         let changePosition = SKAction.move(to: pos, duration: 0)
         let chagePosition2 = SKAction.move(to: pos2, duration: 0)
         let wait = SKAction.wait(forDuration: 1)
@@ -1893,8 +2001,8 @@ class GameScene: SKScene {
         let finalSequence = SKAction.sequence([action,runThis])
         
         //怪物震動動畫, 必須用monster來run
-        let point1 = CGPoint(x: 20, y: 465)
-        let point2 = CGPoint(x: 0, y: 455)
+        let point1 = CGPoint(x: 20, y: -140)
+        let point2 = CGPoint(x: 0, y: -150)
         let move1 = SKAction.move(to: point1, duration: 0.1)
         let move2 = SKAction.move(to: point2, duration: 0.1)
         let wait2 = SKAction.wait(forDuration: 1.2)
@@ -1950,8 +2058,8 @@ class GameScene: SKScene {
         
         //怪物震動動畫, 必須用monster來run
         
-        let point1 = CGPoint(x: 20, y: 465)
-        let point2 = CGPoint(x: 0, y: 455)
+        let point1 = CGPoint(x: 20, y: -140)
+        let point2 = CGPoint(x: 0, y: -150)
         let move1 = SKAction.move(to: point1, duration: 0.1)
         let move2 = SKAction.move(to: point2, duration: 0.1)
         let wait = SKAction.wait(forDuration: 0.51)
@@ -1973,7 +2081,6 @@ class GameScene: SKScene {
             monsterSequence += 1
         } else {
             monsterSequence = 0
-            
         }
         */
         //初始化
@@ -2017,7 +2124,13 @@ class GameScene: SKScene {
                
                 if getElements.contains(syllablesToCheck){
                     
-                    //有得到過
+                    //有得到過, 暫時先跳回
+                    
+                    //跳轉回元素表
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
+                    
+                    //移除node及動畫
+                    removeEverything()
 
                     
                 } else {
@@ -2043,7 +2156,7 @@ class GameScene: SKScene {
                     // append body to our request that gonna be sent
                     request.httpBody = body.data(using: .utf8)
                     
-                        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
                             // no error
                             if error == nil {
                                 
@@ -2063,6 +2176,9 @@ class GameScene: SKScene {
                                     
                                     //跳轉回元素表
                                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
+                                   
+                                    //移除node及動畫
+                                    self!.removeEverything()
                                     
                                 } catch{
                                     
@@ -2102,6 +2218,14 @@ class GameScene: SKScene {
         
     }
     
+    
+    func removeEverything(){
+        
+        self.removeAllActions()
+        self.removeAllChildren()
+        
+        
+    }
     
     
     func wrongAnswerAction() -> SKAction{
@@ -2253,7 +2377,7 @@ class GameScene: SKScene {
         } else {
             
             //沒有的話就建立labelNode
-            makeLabelNode(x: 0, y: 85, alignMent: .center, fontColor: .white, fontSize: 100, text: word, zPosition: 3, name: "tempWord", fontName: "Helvetica", isHidden: false, alpha: 1)
+            makeLabelNode(x: 0, y: 380, alignMent: .center, fontColor: .white, fontSize: 100, text: word, zPosition: 3, name: "tempWord", fontName: "Helvetica", isHidden: false, alpha: 1)
             
             
         }
@@ -2410,7 +2534,7 @@ class GameScene: SKScene {
             
             //label的屬性
             align = .center
-            posY = -10
+            posY = 270
             fontSize = 70
             
             //建立中文字
@@ -2447,7 +2571,7 @@ class GameScene: SKScene {
             
             //label的屬性
             align = .left
-            posY = 85
+            posY = 380
             fontSize = 100
             
             //加一個順序
@@ -2461,7 +2585,7 @@ class GameScene: SKScene {
             
             //戰鬥模式就不做這個hint了
             if isBattleMode == false{
-                makeLabelNode(x: 0, y: hintY + 10, alignMent: .center, fontColor: diamondGreen, fontSize: 30, text: "[ 請按畫面聽讀單字 ]", zPosition: 2, name: "hint" , fontName: "Helvetica Light", isHidden: false, alpha: 1)
+                makeLabelNode(x: 0, y: hintY + 10, alignMent: .center, fontColor: .white, fontSize: 30, text: "[ 請按畫面聽讀單字 ]", zPosition: 2, name: "hint" , fontName: "Helvetica Light", isHidden: false, alpha: 1)
             }
             
             //抓音節數
@@ -2818,6 +2942,19 @@ class GameScene: SKScene {
             path.addLine(to: fixedSecondTouch)
             path.addLine(to: fixedThirdTouch)
             path.addLine(to: fixedFourthTouch)
+            
+            if isEndOnNode{
+                path.addLine(to: movingTouch)
+                
+            }
+            
+        case 5:
+            
+            path.move(to: firstTouch)
+            path.addLine(to: fixedSecondTouch)
+            path.addLine(to: fixedThirdTouch)
+            path.addLine(to: fixedFourthTouch)
+            path.addLine(to: fixedFifthTouch)
             
             if isEndOnNode{
                 path.addLine(to: movingTouch)

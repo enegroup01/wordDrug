@@ -153,7 +153,7 @@
         <!--mapVc-->
         <scene sceneID="9Kt-D4-g6n">
             <objects>
-                <viewController title="mapVc" id="Dxg-Nz-qzU" customClass="Map1ViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapVc" title="mapVc" id="Dxg-Nz-qzU" customClass="Map1ViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qer-n3-Bcc" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

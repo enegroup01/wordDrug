@@ -18,9 +18,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+        
+        // if user is once logged in / register, keep him logged in
+        if user != nil {
+            
+            let id = user!["id"] as? String
+            if id != nil {
+
+                    toMap()
+            }
+            
+        }
+        
         return true
     }
 
+    func toMap(){
+        
+        let mainStoryBoard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let mapVc = mainStoryBoard.instantiateViewController(withIdentifier: "mapVc")
+        window?.rootViewController = mapVc
+        
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
