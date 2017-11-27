@@ -23,7 +23,6 @@ class GameScene: SKScene {
     let diamondGreen = UIColor.init(red: 0/255, green: 215/255, blue: 58/255, alpha: 1)
     let darkYellow = UIColor.init(red: 1, green: 156/255, blue: 0, alpha:1)
     
-    
     //暫時使用的單字
     var wordSets = [String]()
     
