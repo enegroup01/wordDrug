@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA093E5B1FCBEF0300434ACD /* PetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA093E5A1FCBEF0300434ACD /* PetViewController.swift */; };
+		AA093E5E1FCBFD0400434ACD /* selElem.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E5D1FCBFD0400434ACD /* selElem.png */; };
+		AA093E601FCBFD8900434ACD /* petInfoBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E5F1FCBFD8900434ACD /* petInfoBg.png */; };
+		AA093E621FCBFDBA00434ACD /* elem.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E611FCBFDBA00434ACD /* elem.png */; };
+		AA093E641FCBFDD600434ACD /* elemBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E631FCBFDD600434ACD /* elemBg.png */; };
+		AA093E661FCBFE5000434ACD /* prevButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E651FCBFE4F00434ACD /* prevButton.png */; };
+		AA093E681FCBFE5C00434ACD /* nextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E671FCBFE5C00434ACD /* nextButton.png */; };
+		AA093E6D1FCC4CF400434ACD /* ai1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E691FCC4CF200434ACD /* ai1.png */; };
+		AA093E6E1FCC4CF400434ACD /* ao1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E6A1FCC4CF200434ACD /* ao1.png */; };
+		AA093E6F1FCC4CF400434ACD /* ae1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E6B1FCC4CF300434ACD /* ae1.png */; };
+		AA093E701FCC4CF400434ACD /* bi1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E6C1FCC4CF300434ACD /* bi1.png */; };
 		AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC01F9DC060003F5C3F /* blackDot.png */; };
 		AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC21F9DC069003F5C3F /* lightDot.png */; };
 		AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4642841FC4216300D34516 /* LoginViewController.swift */; };
@@ -206,6 +217,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA093E5A1FCBEF0300434ACD /* PetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewController.swift; sourceTree = "<group>"; };
+		AA093E5D1FCBFD0400434ACD /* selElem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selElem.png; sourceTree = "<group>"; };
+		AA093E5F1FCBFD8900434ACD /* petInfoBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petInfoBg.png; sourceTree = "<group>"; };
+		AA093E611FCBFDBA00434ACD /* elem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elem.png; sourceTree = "<group>"; };
+		AA093E631FCBFDD600434ACD /* elemBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elemBg.png; sourceTree = "<group>"; };
+		AA093E651FCBFE4F00434ACD /* prevButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prevButton.png; sourceTree = "<group>"; };
+		AA093E671FCBFE5C00434ACD /* nextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextButton.png; sourceTree = "<group>"; };
+		AA093E691FCC4CF200434ACD /* ai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ai1.png; sourceTree = "<group>"; };
+		AA093E6A1FCC4CF200434ACD /* ao1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ao1.png; sourceTree = "<group>"; };
+		AA093E6B1FCC4CF300434ACD /* ae1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ae1.png; sourceTree = "<group>"; };
+		AA093E6C1FCC4CF300434ACD /* bi1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bi1.png; sourceTree = "<group>"; };
 		AA2CCDC01F9DC060003F5C3F /* blackDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackDot.png; sourceTree = "<group>"; };
 		AA2CCDC21F9DC069003F5C3F /* lightDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightDot.png; sourceTree = "<group>"; };
 		AA4642841FC4216300D34516 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -417,6 +439,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA093E5C1FCBFCE700434ACD /* petVc */ = {
+			isa = PBXGroup;
+			children = (
+				AA093E5D1FCBFD0400434ACD /* selElem.png */,
+				AA093E611FCBFDBA00434ACD /* elem.png */,
+				AA093E631FCBFDD600434ACD /* elemBg.png */,
+				AA093E5F1FCBFD8900434ACD /* petInfoBg.png */,
+				AA093E671FCBFE5C00434ACD /* nextButton.png */,
+				AA093E651FCBFE4F00434ACD /* prevButton.png */,
+				AA093E6B1FCC4CF300434ACD /* ae1.png */,
+				AA093E691FCC4CF200434ACD /* ai1.png */,
+				AA093E6A1FCC4CF200434ACD /* ao1.png */,
+				AA093E6C1FCC4CF300434ACD /* bi1.png */,
+			);
+			path = petVc;
+			sourceTree = "<group>";
+		};
 		AA590CC41FBAB70300A5691D /* bookVc */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +638,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA093E5C1FCBFCE700434ACD /* petVc */,
 				AA590CC41FBAB70300A5691D /* bookVc */,
 				AAE1818C1F97892D00683896 /* AppDelegate.swift */,
 				AAE181901F97892D00683896 /* Actions.sks */,
@@ -617,6 +657,7 @@
 				AAE181961F97892D00683896 /* Main.storyboard */,
 				AA4642841FC4216300D34516 /* LoginViewController.swift */,
 				AA590CC11FBAB6AE00A5691D /* BookViewController.swift */,
+				AA093E5A1FCBEF0300434ACD /* PetViewController.swift */,
 				AAE181991F97892D00683896 /* Assets.xcassets */,
 				AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */,
 				AAE1819E1F97892D00683896 /* Info.plist */,
@@ -746,6 +787,7 @@
 			files = (
 				AA7FA7BB1FB5A6C600315524 /* e10.png in Resources */,
 				AA7FA7E61FB5E46D00315524 /* 1-7.txt in Resources */,
+				AA093E681FCBFE5C00434ACD /* nextButton.png in Resources */,
 				AA7FA7E41FB5E46D00315524 /* 1-13.txt in Resources */,
 				AA4642C61FC81E3B00D34516 /* aimer.png in Resources */,
 				AA8F80131FB32BF0000CD84F /* scanning.png in Resources */,
@@ -757,6 +799,7 @@
 				AA8E9F6F1FB17C6800509D39 /* questBoardGreen2.png in Resources */,
 				AA87EA921FBD4CDB00830608 /* 1001.png in Resources */,
 				AA86F3B51FA9C22E004E7997 /* fButton.png in Resources */,
+				AA093E701FCC4CF400434ACD /* bi1.png in Resources */,
 				AA7FA7D91FB5BFB100315524 /* 1-6.txt in Resources */,
 				AA87EAA31FBD4CDB00830608 /* 2501.png in Resources */,
 				AA4642B11FC7C48600D34516 /* testQuestBoard.png in Resources */,
@@ -780,6 +823,7 @@
 				AA87EA951FBD4CDB00830608 /* 1201.png in Resources */,
 				AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */,
 				AA7FA7A71FB5A63500315524 /* le5.png in Resources */,
+				AA093E6F1FCC4CF400434ACD /* ae1.png in Resources */,
 				AA87EAA11FBD4CDB00830608 /* 2301.png in Resources */,
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
 				AAC1CC121FB42243001DE6DB /* enterButton.png in Resources */,
@@ -789,6 +833,8 @@
 				AA4642C01FC8163D00D34516 /* glowLine.png in Resources */,
 				AA7FA7E31FB5E46D00315524 /* 1-8.txt in Resources */,
 				AA7FA7E51FB5E46D00315524 /* 1-12.txt in Resources */,
+				AA093E6D1FCC4CF400434ACD /* ai1.png in Resources */,
+				AA093E641FCBFDD600434ACD /* elemBg.png in Resources */,
 				AA4642C21FC8176500D34516 /* testBgBlurred.png in Resources */,
 				AAECC11D1FB0493B004ED813 /* explode.sks in Resources */,
 				AA87EABA1FBD4CDB00830608 /* 801.png in Resources */,
@@ -819,6 +865,7 @@
 				AA68BD781F9A1EA900112AF4 /* bg3.png in Resources */,
 				AA4642BE1FC8103300D34516 /* darkerD.png in Resources */,
 				AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */,
+				AA093E601FCBFD8900434ACD /* petInfoBg.png in Resources */,
 				AA87EAB71FBD4CDB00830608 /* 501.png in Resources */,
 				AA7FA7BD1FB5A6C600315524 /* e9.png in Resources */,
 				AA8F800F1FB32305000CD84F /* open.png in Resources */,
@@ -829,6 +876,7 @@
 				AA7FA7EA1FB5E46D00315524 /* 1-9.txt in Resources */,
 				AA4642AF1FC7C3DB00D34516 /* testBg.png in Resources */,
 				AA68BD611F99C0A600112AF4 /* bg2.png in Resources */,
+				AA093E6E1FCC4CF400434ACD /* ao1.png in Resources */,
 				AA87EAA81FBD4CDB00830608 /* 3001.png in Resources */,
 				AA8E9F581FB1647E00509D39 /* flatMonster2.png in Resources */,
 				AA7FA7BE1FB5A6C600315524 /* e5.png in Resources */,
@@ -869,6 +917,7 @@
 				AA7FA7E71FB5E46D00315524 /* 1-14.txt in Resources */,
 				AA590CC61FBAB72300A5691D /* bookBg.png in Resources */,
 				AAE181A61F978BB900683896 /* questBoard.png in Resources */,
+				AA093E621FCBFDBA00434ACD /* elem.png in Resources */,
 				AA68BD6F1F9A1A6300112AF4 /* camera.mp3 in Resources */,
 				AA8F80111FB325BC000CD84F /* close.png in Resources */,
 				AA87EAC31FBD76F500830608 /* getElementBg1.png in Resources */,
@@ -921,11 +970,13 @@
 				AA86F3D21FAC7A49004E7997 /* monsterBlood.png in Resources */,
 				AA87EABD1FBD665700830608 /* 601.png in Resources */,
 				AA7FA7C01FB5A6C600315524 /* e1.png in Resources */,
+				AA093E5E1FCBFD0400434ACD /* selElem.png in Resources */,
 				AA86F3B81FA9CD9A004E7997 /* blurredBg.png in Resources */,
 				AA68BD701F9A1A6600112AF4 /* camp.mp3 in Resources */,
 				AA68BD761F9A1A7800112AF4 /* catastrophe.mp3 in Resources */,
 				AA8E9F631FB1752E00509D39 /* attack2.png in Resources */,
 				AA86F3C81FAC6C1E004E7997 /* fButton2.png in Resources */,
+				AA093E661FCBFE5000434ACD /* prevButton.png in Resources */,
 				AA8F80041FB31B09000CD84F /* yellowSpot.png in Resources */,
 				AA87EA991FBD4CDB00830608 /* 1601.png in Resources */,
 				AA87EA9E1FBD4CDB00830608 /* 201.png in Resources */,
@@ -945,6 +996,7 @@
 				AAE181931F97892D00683896 /* GameScene.swift in Sources */,
 				AA8F7FE41FB2FE65000CD84F /* Map1ViewController.swift in Sources */,
 				AAE181951F97892D00683896 /* GameViewController.swift in Sources */,
+				AA093E5B1FCBEF0300434ACD /* PetViewController.swift in Sources */,
 				AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */,
 				AA7FA7CD1FB5ACC500315524 /* ElementScene.swift in Sources */,
 				AA590CC21FBAB6AE00A5691D /* BookViewController.swift in Sources */,

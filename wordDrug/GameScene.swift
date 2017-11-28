@@ -946,6 +946,7 @@ class GameScene: SKScene {
             
             let node : SKNode = self.atPoint(location)
             
+        
             //按鈕功能, 暫時用不到
             if isButtonEnable {
                 if node.name == "button"{
