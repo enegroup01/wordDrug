@@ -28,6 +28,10 @@ class Map1Scene: SKScene {
         
                 NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToBook), name: NSNotification.Name("jumpToBook"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
+        
+
+        
         
         
         //做地圖
@@ -77,15 +81,20 @@ class Map1Scene: SKScene {
         //做元素按鈕
         makeImageNode(name: "diamond", image: "diamond", x: 0, y: -580, width: 180, height: 180, z: 2, alpha: 1, isAnchoring: false)
         
+        
+        //做寵物頭像
+        makeImageNode(name: "petAva", image: "petAva", x: -210, y: 460, width: 186, height: 186, z: 2, alpha: 1, isAnchoring: false)
+        makeLabelNode(x: -205, y: 510, alignMent: .center, fontColor: .white, fontSize: 18, text: "Ethan的迷你馬", zPosition: 2, name: "petName", fontName: "Helvetica", isHidden: false, alpha: 1)
+        
     }
     
     
     @objc func notifyJumpToBook(){
-        
     }
 
     @objc func notifyJumpToElement(){
-   
+    }
+    @objc func notifyJumpToPet(){
     }
     
     //探索游標出現
@@ -165,6 +174,16 @@ class Map1Scene: SKScene {
                 mouseNode.run(mouseDisappearAction())
                 
             }
+            
+            if node.name == "petAva"{
+                
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "jumpToPet"), object: nil, userInfo: nil)
+                let mouseNode = findImageNode(name: "open")
+                mouseNode.run(mouseDisappearAction())
+                
+                
+            }
+            
         }
     }
     

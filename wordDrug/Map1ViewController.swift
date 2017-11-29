@@ -13,6 +13,7 @@ import GameplayKit
 //跳進元素
 let jumpToGameKey = "jumpToElement"
 let jumpToBookKey = "jumpToBook"
+let jumpToPetKey = "jumpToPet"
 
 class Map1ViewController: UIViewController {
 
@@ -28,6 +29,8 @@ class Map1ViewController: UIViewController {
         
         //跳進書裡
                 NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToBook), name: NSNotification.Name("jumpToBook"), object: nil)
+        
+                        NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
         
   
 
@@ -90,6 +93,13 @@ class Map1ViewController: UIViewController {
         performSegue(withIdentifier: "toBook", sender: self)
         
     }
+    
+    @objc func jumpToPet(){
+        
+        performSegue(withIdentifier: "toPet", sender: self)
+        
+    }
+
     
     
     
