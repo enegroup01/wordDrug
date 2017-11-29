@@ -53,7 +53,7 @@ class PetViewController: UIViewController {
     var selElemsCgs = [[35,258],[100.5,258],[164.5,258]]
     
     //目前選到的元素Index
-    var currentElemIndex = Int()
+    var currentElemIndex = -1
     //紀錄三個選項元素的數字
     var selOccupiedByElemIndex = [-1,-1,-1]
     
@@ -67,11 +67,13 @@ class PetViewController: UIViewController {
     //元素屬性數值
     let elements = [["n":"ab1","f":"hp","v":"50"],["n":"ac1","f":"att","v":"20"],["n":"ad1","f":"def","v":"5"],["n":"a_e1","f":"hit","v":"2"],["n":"af1","f":"heal","v":"10"],["n":"ai1","f":"wood","v":"10"],["n":"al1","f":"earth","v":"10"],["n":"am1","f":"water","v":"10"],["n":"an1","f":"fire","v":"10"],["n":"any1","f":"upgrade","v":"101"]]
     
+    //有抓到的元素資訊儲存於此
+    var allGetElements = [String]()
+    var allGetElemsInfo = [[String:String]()]
+    
     var functionChinese = [String]()
     var titleChinese = [String]()
     var values = [String]()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,15 +92,18 @@ class PetViewController: UIViewController {
         //寵物資訊背景
         petInfoBg.image = UIImage(named: "petInfoBg.png")
         
+
+        //抓使用者得到的元素
+        let getElemets = user?["getElement"] as! String
+        
+        //做成新的array
+        allGetElements = getElemets.components(separatedBy: ";")
+        
+        //移除最後一個空白值, 以目前寫法來說會分出一個空的""
+        allGetElements.removeLast()
+        
         //元素列表背景
         elementBg.image = UIImage(named: "elemBg.png")
-        let elemImage = UIImage(named: "attack4.png")
-        
-        
-        
-        //設定好元素照片, 這兩張是暫時的
-        elem11.image = elemImage
-        elem12.image = elemImage
         
         //加入元素
         elems.append(elem1)
@@ -113,14 +118,35 @@ class PetViewController: UIViewController {
         elems.append(elem10)
         elems.append(elem11)
         elems.append(elem12)
+ 
+
         
-        //抓元素圖片進去顯示
-        for i in 0 ..< elements.count{
-            if let name = elements[i]["n"] as String?{
-                elems[i].image = makeImage(name: name)
+        //抓有得到的元素, append他們的資訊
+        for i in 0 ..< allGetElements.count{
+            if let name = allGetElements[i] as String?{
                 
+                //直接拿元素來做圖片
+                           elems[i].image = makeImage(name: name)
+
+                for e in 0 ..< elements.count{
+                    if let n = elements[e]["n"] as String?{
+                        if n == name{
+                            
+                            allGetElemsInfo.append(elements[e])
+                            
+                        }
+                        
+                    }
+
+                }
+
             }
         }
+        
+        allGetElemsInfo.remove(at: 0)
+        print(allGetElemsInfo)
+
+
         
         //加入元素位置, 固定原本位置使用
         elemCgPoints.append(elem1.center)
@@ -220,6 +246,8 @@ class PetViewController: UIViewController {
             //跑所有元素
             for e in  0 ..< elems.count{
                 
+                if elems[e].image != nil {
+                    
                 //有碰到元素的話
                 if elems[e].frame.contains(location){
                     
@@ -267,7 +295,7 @@ class PetViewController: UIViewController {
                     
                     //假如按兩次就回原位
                     //基本上只要有回原位就要計算寵物數值
-                    if touch.tapCount == 2 {
+                    if touch.tapCount == 2{
                         
                         touchedElem.frame.size = CGSize(width: 80, height: 80)
                         touchedElem.center = originalPosition
@@ -278,7 +306,7 @@ class PetViewController: UIViewController {
                     }
                     
                 }
-                
+                }
             }
             
         }
@@ -324,6 +352,9 @@ class PetViewController: UIViewController {
                     //假如碰到了其中之一
                     if selElems[s].frame.contains(location){
                         
+                        //***假如選項上有元素的話才啟動以下改變及計分機制***
+                        if touchedElem.image != nil{
+                        
                         //先檢查有沒有任何元素
                         if selOccupiedByElemIndex[s] != -1 {
                             
@@ -332,16 +363,22 @@ class PetViewController: UIViewController {
                             preElem.frame.size = CGSize(width: 80, height: 80)
                             preElem.center = elemCgPoints[selOccupiedByElemIndex[s]]
                             
+                            //要回到-1
+                            selOccupiedByElemIndex[s] = -1
+                            
+                            
                         }
                         //沒有的話固定元素在選項裡
                         touchedElem.frame.size = CGSize(width: 60, height: 60)
                         touchedElem.center = CGPoint(x: selElemsCgs[s][0], y: selElemsCgs[s][1])
                         
-                        //設定數字
+                        //因為有碰到所以設定數字
                         selOccupiedByElemIndex[s] = currentElemIndex
                         
+                        print(currentElemIndex)
                         //計算寵物數值
                         calculatePetValue()
+                        }
                     }
                 }
                 
@@ -356,9 +393,9 @@ class PetViewController: UIViewController {
     func fetchElementInfo(){
         
         //準備元素資訊供顯示
-        for i in 0 ..< elements.count{
+        for i in 0 ..< allGetElemsInfo.count{
             
-            if let functions = elements[i]["f"] as String?{
+            if let functions = allGetElemsInfo[i]["f"] as String?{
                 
                 switch functions{
                     
@@ -401,7 +438,7 @@ class PetViewController: UIViewController {
             }
             
             //新增數值供info顯示
-            if let value = elements[i]["v"] as String?{
+            if let value = allGetElemsInfo[i]["v"] as String?{
                 values.append(value)
                 
             }
@@ -443,13 +480,13 @@ class PetViewController: UIViewController {
         
         
         //抓數字
-        for s in  0 ..< selOccupiedByElemIndex.count{
+        for s in 0 ..< selOccupiedByElemIndex.count{
             
             //加數值上去
             if selOccupiedByElemIndex[s] > -1 {
                 
                 let index = selOccupiedByElemIndex[s]
-                let selElem = elements[index]
+                let selElem = allGetElemsInfo[index]
                 
                 if let function = selElem["f"] as String?{
                     

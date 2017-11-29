@@ -42,6 +42,7 @@ class Map1Scene: SKScene {
 
         //做點點
         makeImageNode(name: "lSpot0", image: "lightBlueSpot", x: -100, y: 100, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
+       /*
         makeImageNode(name: "lSpot1", image: "lightYellowSpot", x: 250, y: 200, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot2", image: "lightPinkSpot", x: 260, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot3", image: "lightBlueSpot", x: -20, y: 170, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
@@ -55,7 +56,7 @@ class Map1Scene: SKScene {
         makeImageNode(name: "lSpot11", image: "lightPinkSpot", x: -130, y: -30, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot12", image: "lightBlueSpot", x: -100, y: 10, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot13", image: "lightYellowSpot", x: 60, y: 155, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-
+*/
         //抓所有名字
         for node in children{
             if (node.name?.contains("lSpot"))!{

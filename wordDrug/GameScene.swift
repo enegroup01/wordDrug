@@ -22,6 +22,7 @@ class GameScene: SKScene {
     let tiffanyColor = UIColor.init(red: 9/255, green: 255/255, blue: 218/255, alpha: 1)
     let diamondGreen = UIColor.init(red: 0/255, green: 215/255, blue: 58/255, alpha: 1)
     let darkYellow = UIColor.init(red: 1, green: 156/255, blue: 0, alpha:1)
+    let specialPink = UIColor.init(red: 240/255, green: 150/255, blue: 149/255, alpha: 1)
     
     //暫時使用的單字
     var wordSets = [String]()
@@ -946,7 +947,17 @@ class GameScene: SKScene {
             
             let node : SKNode = self.atPoint(location)
             
-        
+            
+            if node.name == "tapToReturn"{
+
+                //跳轉回元素表
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
+                //移除node及動畫
+                removeEverything()
+            }
+
+            
             //按鈕功能, 暫時用不到
             if isButtonEnable {
                 if node.name == "button"{
@@ -1029,6 +1040,8 @@ class GameScene: SKScene {
                     }
                 }
             }
+            
+            
         }
     }
     
@@ -2168,22 +2181,20 @@ class GameScene: SKScene {
                                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                                         return
                                     }
-
+                                    
                                     //再次儲存使用者資訊
                                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                                     print(user!)
                                     
-                                    //跳轉回元素表
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
-                                   
-                                    //移除node及動畫
-                                    self!.removeEverything()
+                    
+                                    //得到元素動畫
+                                    self!.getElementAnimation()
+                                    
                                     
                                 } catch{
                                     
                                     print("catch error")
-                                    
                                     
                                     
                                 }
@@ -2194,20 +2205,8 @@ class GameScene: SKScene {
                             }
                         }).resume()
 
+                    
 
-                    
-                    
-                    
-                    /* // 動畫部分要重做
-                    
-                    makeImageNode(name: "getElemntBg1", image: "getElementBg1", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "getElementBg2", image: "getElementBg2", x: 0, y: 0, width: 750, height: 1334, z: 11, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "getElement", image: "getElement", x: 0, y: -20, width: 280, height: 280, z: 12, alpha: 1, isAnchoring: false)
-                    makeLabelNode(x: 0, y: -35, alignMent: .center, fontColor: darkYellow, fontSize: 50, text: syllablesWithoutDigit, zPosition: 13, name: "syllableWithoutDigit", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-                    */
-
-                    
-                    
                     
                 }
                 
@@ -2215,7 +2214,38 @@ class GameScene: SKScene {
             
         }
 
+    }
+    
+    //快速抓圖片
+    func makeImage(name:String) ->UIImage{
+        let image = UIImage(named: name + ".png")
+        return image!
+    }
+    
+    //得到元素動畫
+    func getElementAnimation(){
         
+        // 動畫部分要重做
+        
+        let elemImg = syllablesToCheck + "g"
+        
+       makeImageNode(name: "getElementBg", image: "darkBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 0, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 0, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElement", image: elemImg, x: 0, y: -20, width: 280, height: 280, z: 12, alpha: 1, isAnchoring: false)
+        makeLabelNode(x: 0, y: -200, alignMent: .center, fontColor: specialPink, fontSize: 80, text: "獲得新元素", zPosition: 13, name: "getElementInfo", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeNode(name: "tapToReturn", color: .clear, x: 0, y: 0, width: 750, height: 1334, z: 14, isAnchoring: false, alpha: 1)
+        
+        
+        let movingLight = childNode(withName: "movingLight") as! SKSpriteNode
+        let movingLight2 = childNode(withName: "movingLight2") as! SKSpriteNode
+        let action = SKAction.rotate(toAngle: 360, duration: 5000)
+        let action2 = SKAction.rotate(toAngle: -360, duration: 6000)
+        movingLight.run(action)
+        movingLight2.run(action2)
+        
+        isUserInteractionEnabled = true
+ 
     }
     
     
@@ -2223,7 +2253,6 @@ class GameScene: SKScene {
         
         self.removeAllActions()
         self.removeAllChildren()
-        
         
     }
     
