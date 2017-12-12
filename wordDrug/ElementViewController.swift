@@ -78,7 +78,7 @@ class ElementViewController: UIViewController {
             
             //跳轉畫面
             DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
-                self!.performSegue(withIdentifier: "toGame", sender: self)
+                self!.performSegue(withIdentifier: "beforePracticeToPet", sender: self)
             })
             
         }
@@ -88,11 +88,15 @@ class ElementViewController: UIViewController {
     //傳送探索點號碼及其元素表號碼, 直接設定至遊戲Vc的變數裡
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toGame" {
+        if segue.identifier == "beforePracticeToPet" {
             
-            let destinationVC = segue.destination as! GameViewController
+            let destinationVC = segue.destination as! PetViewController
             destinationVC.spotNumber = spotNumber
             destinationVC.unitNumber = unitNumber
+            //確認準備進入練習
+            destinationVC.isReadyToEnterBattle = true
+            //不能按元素
+            destinationVC.isElementTouchable = false
         }
         
     }

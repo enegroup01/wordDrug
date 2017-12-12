@@ -100,9 +100,7 @@ class Map1ViewController: UIViewController {
         
     }
 
-    
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //傳送探索點數字
@@ -111,6 +109,17 @@ class Map1ViewController: UIViewController {
             let destinationVC = segue.destination as! ElementViewController
             destinationVC.spotNumber = spotNumber
         }
+        
+        if segue.identifier == "toPet" {
+            
+            let destinationVC = segue.destination as! PetViewController
+            //非進入練習模式
+            destinationVC.isReadyToEnterBattle = false
+            //元素可以按
+            destinationVC.isElementTouchable = true
+        }
+        
+        
         
     }
         

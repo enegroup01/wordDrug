@@ -12,6 +12,7 @@ var pet : NSMutableDictionary?
 var petElems : NSMutableDictionary?
 var elemSaved : [Int]?
 
+
 class PetViewController: UIViewController {
     
     @IBOutlet weak var petAva: UIImageView!
@@ -41,6 +42,11 @@ class PetViewController: UIViewController {
     @IBOutlet weak var elem11: UIImageView!
     @IBOutlet weak var elem12: UIImageView!
     @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet weak var petTypeImg: UIImageView!
+    
+    @IBOutlet weak var playNowBtn: UIButton!
+    
+    @IBOutlet weak var hintBtn: UIButton!
     
     var location = CGPoint()
     //畫面上所有元素
@@ -77,6 +83,46 @@ class PetViewController: UIViewController {
     var functionChinese = [String]()
     var titleChinese = [String]()
     var values = [String]()
+    
+    //接收spot&unitNumber來判斷怪的屬性
+    var spotNumber = Int()
+    var unitNumber = Int()
+    
+    //暫時使用的單字
+    var wordSets = [String]()
+    
+    //怪物資訊
+    var monsters = [["id":101,"name":"毛毛蟲","hp":100,"att":35,"def":10,"magic":0,"type":"wood"],
+                    ["id":201,"name":"蘑菇怪","hp":100,"att":40,"def":10,"magic":0,"type":"earth"],
+                    ["id":301,"name":"球球","hp":100,"att":40,"def":10,"magic":0,"type":"water"],
+                    ["id":401,"name":"史帝奇","hp":150,"att":50,"def":15,"magic":0,"type":"fire"],
+                    ["id":501,"name":"青螳螂","hp":150,"att":50,"def":15,"magic":0,"type":"metal"],
+                    ["id":601,"name":"被污染的鹿","hp":150,"att":50,"def":15,"magic":0,"type":"wood"],
+                    ["id":701,"name":"田鼠","hp":200,"att":60,"def":20,"magic":0,"type":"earth"],
+                    ["id":801,"name":"涡蝙蝠","hp":200,"att":60,"def":20,"magic":0,"type":"water"],
+                    ["id":901,"name":"鬍狗","hp":200,"att":60,"def":20,"magic":0,"type":"fire"],
+                    ["id":1001,"name":"鋼牙鯊","hp":300,"att":70,"def":30,"magic":10,"type":"metal"]]
+    var monsterHp = Int()
+    var monsterAtt = Int()
+    var monsterDef = Int()
+    var monsterMagic = Int()
+    var monsterType = String()
+    
+    //提示怪物屬性畫面
+    let hintView = UIView()
+    let ghostButton = UIButton()
+    
+    
+    //目前單字的順位
+    var currentWordSequence = 0
+    
+    //是否要準備進入比賽
+    var isReadyToEnterBattle = Bool()
+    
+    //是否可以按元素
+    var isElementTouchable = Bool()
+    
+    var hintText = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,14 +166,14 @@ class PetViewController: UIViewController {
         elems.append(elem10)
         elems.append(elem11)
         elems.append(elem12)
- 
+        
         //抓有得到的元素, append他們的資訊
         for i in 0 ..< allGetElements.count{
             if let name = allGetElements[i] as String?{
                 
                 //直接拿元素來做圖片
-                           elems[i].image = makeImage(name: name)
-
+                elems[i].image = makeImage(name: name)
+                
                 for e in 0 ..< elements.count{
                     if let n = elements[e]["n"] as String?{
                         if n == name{
@@ -137,16 +183,16 @@ class PetViewController: UIViewController {
                         }
                         
                     }
-
+                    
                 }
-
+                
             }
         }
         
         allGetElemsInfo.remove(at: 0)
         print(allGetElemsInfo)
-
-      
+        
+        
         //加入元素位置, 固定原本位置使用
         elemCgPoints.append(elem1.center)
         elemCgPoints.append(elem2.center)
@@ -210,13 +256,13 @@ class PetViewController: UIViewController {
         
         //設定寵物資訊
         /*
-        petCureLabel.text = "0"
-        petLifeLabel.text = "100"
-        petAttackLabel.text = "40"
-        petDefenseLabel.text = "10"
-        petDoubleAttackLabel.text = "20%"
-        petExtraAttackLabel.text = "0"
-        */
+         petCureLabel.text = "0"
+         petLifeLabel.text = "100"
+         petAttackLabel.text = "40"
+         petDefenseLabel.text = "10"
+         petDoubleAttackLabel.text = "20%"
+         petExtraAttackLabel.text = "0"
+         */
         
         //設定寵物數值
         pet = ["petLife":100,"petAttack":40,"petDefense":10,"petDoubleAttack":20,"petExtraAttack":0,"petHeal":0,"petType":""]
@@ -250,9 +296,15 @@ class PetViewController: UIViewController {
                 
             }
         }
-        
+        //計算寵物數值
         calculatePetValue()
         
+        playNowBtn.isHidden = true
+        hintBtn.isHidden = true
+        
+        if isReadyToEnterBattle{
+        showHint()
+        }
     }
     
     //快速抓圖片
@@ -261,12 +313,193 @@ class PetViewController: UIViewController {
         return image!
     }
     
+    
+    
+    @objc func dismissHintButton(){
+        
+        hintView.removeFromSuperview()
+        ghostButton.removeFromSuperview()
+        
+        //開啟元素按鍵
+        isElementTouchable = true
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func playNowClicked(_ sender: Any) {
+        
+        performSegue(withIdentifier: "toGame", sender: self)
+    }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toGame" {
+            
+            let destinationVC = segue.destination as! GameViewController
+            destinationVC.spotNumber = spotNumber
+            destinationVC.unitNumber = unitNumber
+        }
+        
+    }
+    
+
+    
+    func showHint(){
+
+            
+            playNowBtn.isHidden = false
+            hintBtn.isHidden = false
+            
+            //建立不可按鍵蓋背景
+            
+            ghostButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+            ghostButton.backgroundColor = .black
+            ghostButton.alpha = 0.5
+            self.view.addSubview(ghostButton)
+            
+            
+            //建立提示對話框
+            hintView.frame = CGRect(x: 80, y: 300, width: 200, height: 130)
+            hintView.backgroundColor = .black
+            hintView.alpha = 1
+            hintView.layer.zPosition = 6
+            
+            self.view.addSubview(hintView)
+            
+            
+            //建立提示標題
+            let hintTitle = UILabel()
+            hintTitle.font = UIFont(name: "Helvetica Bold", size: 20)
+            hintTitle.adjustsFontSizeToFitWidth = true
+            hintTitle.text = "[ 提示 ]"
+            hintTitle.textColor = .cyan
+            hintTitle.frame = CGRect(x: 10, y: -20, width: 180, height: 80)
+            hintTitle.textAlignment = .center
+            hintView.addSubview(hintTitle)
+            
+            let coverPurple = UIColor.init(red: 98/255, green: 44/255, blue: 85/255, alpha: 1)
+            
+            //建立提示按鈕
+            let hintButton = UIButton(type: .system)
+            hintButton.frame = CGRect(x: 80, y: 90, width:40, height: 20)
+            hintButton.backgroundColor = coverPurple
+            hintButton.setTitle("OK", for: .normal)
+            hintButton.addTarget(self, action: #selector(PetViewController.dismissHintButton), for: .touchUpInside)
+            hintButton.tintColor = .white
+            hintButton.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 14)
+            hintView.addSubview(hintButton)
+            
+            //抓正確unit
+            currentWordSequence = 3 * unitNumber
+            
+            //讀取Bundle裡的文字檔, 為了抓怪物的屬性
+            var wordFile:String?
+            
+            let name = "1-" + String(spotNumber + 1)
+            
+            if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+                do {
+                    wordFile = try String(contentsOfFile: filepath)
+                    let words = wordFile?.components(separatedBy: "; ")
+                    
+                    //把字讀取到wordSets裡
+                    wordSets = words!
+                    //print(contents)
+                    
+                    //找目前sequence的英文+中文字
+                    let halfCount = wordSets.count / 2
+                    let monsterId = wordSets[halfCount + currentWordSequence]
+                    let monsterIdInt = Int(monsterId)
+                    var monsterName = String()
+                    
+                    
+                    //抓monster資訊
+                    for monster in monsters{
+                        
+                        if monsterIdInt == monster["id"] as! Int{
+                            monsterName = monster["name"] as! String
+                            monsterType = monster["type"] as! String
+                            monsterHp = monster["hp"] as! Int
+                            monsterAtt = monster["att"] as! Int
+                            monsterMagic = monster["magic"] as! Int
+                            
+                            
+                            var elementSuggest = String()
+                            var fontColorSuggest = UIColor()
+                            
+                            
+                            //再做一個判斷怪屬性攻擊倍數的switch
+                            switch monsterType{
+                                
+                            case "wood":
+                                elementSuggest = "metal"
+                                fontColorSuggest = .yellow
+                                
+                            case "earth":
+                                
+                                elementSuggest = "wood"
+                                fontColorSuggest = .orange
+                                
+                            case "water":
+                                
+                                elementSuggest = "earth"
+                                fontColorSuggest = .brown
+                                
+                            case "fire":
+                                elementSuggest = "water"
+                                fontColorSuggest = .blue
+                                
+                                
+                            case "metal":
+                                
+                                elementSuggest = "fire"
+                                fontColorSuggest = .red
+                                
+                            default:
+                                break
+                                
+                            }
+                            
+                            //建立提示文字
+                            let hintText = UILabel()
+                            hintText.font = UIFont(name: "Helvetica Bold", size: 14)
+                            hintText.adjustsFontSizeToFitWidth = true
+                            hintText.text = "此元素怪物為\(monsterType)屬性，建議裝備\(elementSuggest)元素"
+                            hintText.textColor = .white
+                            hintText.frame = CGRect(x: 10, y: 15, width: 180, height: 80)
+                            hintText.textAlignment = .center
+                            hintText.numberOfLines = 2
+                            hintView.addSubview(hintText)
+                            
+                            
+                            
+                        }
+                    }
+                    
+                } catch {
+                    // contents could not be loaded
+                }
+            } else {
+                // example.txt not found!
+            }
+        
+        
+        
+        
+    }
+    
+    @IBAction func hintClicked(_ sender: Any) {
+        
+        showHint()
+        //關閉元素按鍵
+        isElementTouchable = false
+        
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for touch in touches {
@@ -276,79 +509,81 @@ class PetViewController: UIViewController {
             //都沒碰到元素的話就隱藏info
             elemInfoBg.alpha = 0
             
-            //跑所有元素
-            for e in  0 ..< elems.count{
+            if isElementTouchable{
                 
-                if elems[e].image != nil {
+                //跑所有元素
+                for e in  0 ..< elems.count{
                     
-                //有碰到元素的話
-                if elems[e].frame.contains(location){
-                    
-                    //抓title
-                    let title = titleChinese[e]
-                    elemTitleLabel.text = "Lv1 " + title
-                    
-                    //抓能力值
-                    let function = functionChinese[e]
-                    
-                    //讓爆擊率＋%
-                    if function == "爆擊率" {
-                        elemInfoLabel.text = function + " +\(values[e])%"
-                    } else {
-                        elemInfoLabel.text = function + " +\(values[e])"
+                    if elems[e].image != nil {
                         
+                        //有碰到元素的話
+                        if elems[e].frame.contains(location){
+                            
+                            //抓title
+                            let title = titleChinese[e]
+                            elemTitleLabel.text = "Lv1 " + title
+                            
+                            //抓能力值
+                            let function = functionChinese[e]
+                            
+                            //讓爆擊率＋%
+                            if function == "爆擊率" {
+                                elemInfoLabel.text = function + " +\(values[e])%"
+                            } else {
+                                elemInfoLabel.text = function + " +\(values[e])"
+                                
+                            }
+                            
+                            //顯示元素照片
+                            let elemAva = elems[e].image
+                            elemInfoAva.image = elemAva
+                            elemInfoBg.alpha = 0.8
+                            
+                            //確認e是否為occupied當中的index, 是的話把數字還原-1,讓其可以繼續填入其他元素
+                            //解釋：確認所按到的元素是不是已經在使用當中的, 是的話就移除index
+                            switch e {
+                            case selOccupiedByElemIndex[0]:
+                                selOccupiedByElemIndex[0] = -1
+                                elemSaved![0] = -1
+                                
+                            case selOccupiedByElemIndex[1]:
+                                selOccupiedByElemIndex[1] = -1
+                                elemSaved![1] = -1
+                                
+                            case selOccupiedByElemIndex[2]:
+                                selOccupiedByElemIndex[2] = -1
+                                elemSaved![2] = -1
+                                
+                            default:
+                                break
+                            }
+                            
+                            //指定該元素的原始位置
+                            originalPosition = elemCgPoints[e]
+                            //移動
+                            //elems[e].center = location
+                            //指定該元素
+                            touchedElem = elems[e]
+                            //指定該元素Index
+                            currentElemIndex = e
+                            
+                            //假如按兩次就回原位
+                            //基本上只要有回原位就要計算寵物數值
+                            if touch.tapCount == 2{
+                                
+                                touchedElem.frame.size = CGSize(width: 80, height: 80)
+                                touchedElem.center = originalPosition
+                                elemInfoBg.alpha = 0
+                                
+                                //計算寵物數值
+                                calculatePetValue()
+                                
+                            }
+                            
+                        }
                     }
-                    
-                    //顯示元素照片
-                    let elemAva = elems[e].image
-                    elemInfoAva.image = elemAva
-                    elemInfoBg.alpha = 0.8
-                    
-                    //確認e是否為occupied當中的index, 是的話把數字還原-1,讓其可以繼續填入其他元素
-                    //解釋：確認所按到的元素是不是已經在使用當中的, 是的話就移除index
-                    switch e {
-                    case selOccupiedByElemIndex[0]:
-                        selOccupiedByElemIndex[0] = -1
-                        elemSaved![0] = -1
-                        
-                    case selOccupiedByElemIndex[1]:
-                        selOccupiedByElemIndex[1] = -1
-                        elemSaved![1] = -1
-                        
-                    case selOccupiedByElemIndex[2]:
-                        selOccupiedByElemIndex[2] = -1
-                        elemSaved![2] = -1
-                        
-                    default:
-                        break
-                    }
-                    
-                    //指定該元素的原始位置
-                    originalPosition = elemCgPoints[e]
-                    //移動
-                    //elems[e].center = location
-                    //指定該元素
-                    touchedElem = elems[e]
-                    //指定該元素Index
-                    currentElemIndex = e
-                    
-                    //假如按兩次就回原位
-                    //基本上只要有回原位就要計算寵物數值
-                    if touch.tapCount == 2{
-                        
-                        touchedElem.frame.size = CGSize(width: 80, height: 80)
-                        touchedElem.center = originalPosition
-                        elemInfoBg.alpha = 0
-                        
-                        //計算寵物數值
-                        calculatePetValue()
-                        
-                    }
-                    
-                }
                 }
             }
-            
         }
         
     }
@@ -394,30 +629,30 @@ class PetViewController: UIViewController {
                         
                         //***假如選項上有元素的話才啟動以下改變及計分機制***
                         if touchedElem.image != nil{
-                        
-                        //先檢查有沒有任何元素
-                        if selOccupiedByElemIndex[s] != -1 {
                             
-                            //之前的元素回原位
-                            let preElem = elems[selOccupiedByElemIndex[s]]
-                            preElem.frame.size = CGSize(width: 80, height: 80)
-                            preElem.center = elemCgPoints[selOccupiedByElemIndex[s]]
+                            //先檢查有沒有任何元素
+                            if selOccupiedByElemIndex[s] != -1 {
+                                
+                                //之前的元素回原位
+                                let preElem = elems[selOccupiedByElemIndex[s]]
+                                preElem.frame.size = CGSize(width: 80, height: 80)
+                                preElem.center = elemCgPoints[selOccupiedByElemIndex[s]]
+                                
+                                //要回到-1
+                                selOccupiedByElemIndex[s] = -1
+                                elemSaved![s] = -1
+                                
+                            }
+                            //沒有的話固定元素在選項裡
+                            touchedElem.frame.size = CGSize(width: 60, height: 60)
+                            touchedElem.center = CGPoint(x: selElemsCgs[s][0], y: selElemsCgs[s][1])
                             
-                            //要回到-1
-                            selOccupiedByElemIndex[s] = -1
-                            elemSaved![s] = -1
+                            //因為有碰到所以設定數字
                             
-                        }
-                        //沒有的話固定元素在選項裡
-                        touchedElem.frame.size = CGSize(width: 60, height: 60)
-                        touchedElem.center = CGPoint(x: selElemsCgs[s][0], y: selElemsCgs[s][1])
-                        
-                        //因為有碰到所以設定數字
-                        
                             selOccupiedByElemIndex[s] = currentElemIndex
-                     
+                            
                             elemSaved![s] = currentElemIndex
-
+                            
                             //計算寵物數值
                             calculatePetValue()
                             
@@ -489,7 +724,7 @@ class PetViewController: UIViewController {
         }
         
     }
-
+    
     //計算寵物數值的func
     func calculatePetValue(){
         
@@ -520,9 +755,11 @@ class PetViewController: UIViewController {
         petExtraAttackLabel.textColor = .white
         petDoubleAttackLabel.textColor = .white
         petCureLabel.textColor = .white
+        petTypeImg.image = UIImage()
+        
         
         // 機制: 這裡的數字不改, 每一次都check selOccupied有沒有任何值會影響
-
+        
         //抓數字
         for s in 0 ..< selOccupiedByElemIndex.count{
             
@@ -541,8 +778,8 @@ class PetViewController: UIViewController {
                         petLifeLabel.textColor = .green
                         petLifeLabel.text = String(petLife + Int(selElem["v"]!)!)
                         pet?["petLife"] = Int(petLife + Int(selElem["v"]!)!)
-     
-
+                        
+                        
                     case "att":
                         petAttackLabel.textColor = .green
                         petAttackLabel.text = String(petAttack + Int(selElem["v"]!)!)
@@ -566,37 +803,59 @@ class PetViewController: UIViewController {
                         pet?["petHeal"] = Int(petCure + Int(selElem["v"]!)!)
                         
                     case "wood":
-                        petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                        pet?["petType"] = "wood"
-                        
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                            
+                            pet?["petType"] = "wood"
+                            
+                            petTypeImg.image = UIImage(named: "wood.png")
+                            
+                  
                     case "earth":
-                        petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                        pet?["petType"] = "earth"
-                        
-                        
+                       
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                            pet?["petType"] = "earth"
+                            
+                            petTypeImg.image = UIImage(named: "earth.png")
+                            
+                 
                     case "water":
-                        petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                        pet?["petType"] = "water"
                         
-                    case "fire":
-                        petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                        pet?["petType"] = "fire"
-                        
-                    case "metal":
-                        petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                        pet?["petType"] = "metal"
 
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                            pet?["petType"] = "water"
+                            
+                            petTypeImg.image = UIImage(named: "water.png")
+                            
+                    case "fire":
                         
+                       
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                            pet?["petType"] = "fire"
+                            petTypeImg.image = UIImage(named: "fire.png")
+                            
+     
+                              case "metal":
+                                
+                     
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                            pet?["petType"] = "metal"
+                            
+                            petTypeImg.image = UIImage(named: "metal.png")
+                            
+     
                     case "upgrade":
                         break
                     default:

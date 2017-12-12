@@ -15,6 +15,8 @@
 		AA093E681FCBFE5C00434ACD /* nextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E671FCBFE5C00434ACD /* nextButton.png */; };
 		AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC01F9DC060003F5C3F /* blackDot.png */; };
 		AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC21F9DC069003F5C3F /* lightDot.png */; };
+		AA452B121FDFF1C7004B669B /* playNow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA452B111FDFF1C7004B669B /* playNow.png */; };
+		AA452B141FDFF472004B669B /* questionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA452B131FDFF472004B669B /* questionMark.png */; };
 		AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4642841FC4216300D34516 /* LoginViewController.swift */; };
 		AA4642AF1FC7C3DB00D34516 /* testBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4642AE1FC7C3DB00D34516 /* testBg.png */; };
 		AA4642B11FC7C48600D34516 /* testQuestBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4642B01FC7C48600D34516 /* testQuestBoard.png */; };
@@ -219,6 +221,11 @@
 		AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */; };
 		AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */; };
 		AADE62AF1FDF902400C9EA42 /* ai1.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62AE1FDF902400C9EA42 /* ai1.png */; };
+		AADE62B51FDFB99600C9EA42 /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62B01FDFB99400C9EA42 /* wood.png */; };
+		AADE62B61FDFB99600C9EA42 /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62B11FDFB99500C9EA42 /* water.png */; };
+		AADE62B71FDFB99600C9EA42 /* metal.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62B21FDFB99500C9EA42 /* metal.png */; };
+		AADE62B81FDFB99600C9EA42 /* earth.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62B31FDFB99600C9EA42 /* earth.png */; };
+		AADE62B91FDFB99600C9EA42 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62B41FDFB99600C9EA42 /* fire.png */; };
 		AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE1818C1F97892D00683896 /* AppDelegate.swift */; };
 		AAE1818F1F97892D00683896 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAE1818E1F97892D00683896 /* GameScene.sks */; };
 		AAE181911F97892D00683896 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAE181901F97892D00683896 /* Actions.sks */; };
@@ -245,6 +252,8 @@
 		AA093E671FCBFE5C00434ACD /* nextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextButton.png; sourceTree = "<group>"; };
 		AA2CCDC01F9DC060003F5C3F /* blackDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackDot.png; sourceTree = "<group>"; };
 		AA2CCDC21F9DC069003F5C3F /* lightDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightDot.png; sourceTree = "<group>"; };
+		AA452B111FDFF1C7004B669B /* playNow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playNow.png; sourceTree = "<group>"; };
+		AA452B131FDFF472004B669B /* questionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionMark.png; sourceTree = "<group>"; };
 		AA4642841FC4216300D34516 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA4642AE1FC7C3DB00D34516 /* testBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testBg.png; sourceTree = "<group>"; };
 		AA4642B01FC7C48600D34516 /* testQuestBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testQuestBoard.png; sourceTree = "<group>"; };
@@ -449,6 +458,11 @@
 		AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyButton.png; sourceTree = "<group>"; };
 		AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledButton.png; sourceTree = "<group>"; };
 		AADE62AE1FDF902400C9EA42 /* ai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ai1.png; sourceTree = "<group>"; };
+		AADE62B01FDFB99400C9EA42 /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
+		AADE62B11FDFB99500C9EA42 /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
+		AADE62B21FDFB99500C9EA42 /* metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metal.png; sourceTree = "<group>"; };
+		AADE62B31FDFB99600C9EA42 /* earth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = earth.png; sourceTree = "<group>"; };
+		AADE62B41FDFB99600C9EA42 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
 		AAE181891F97892D00683896 /* wordDrug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wordDrug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE1818C1F97892D00683896 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAE1818E1F97892D00683896 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -483,12 +497,14 @@
 			isa = PBXGroup;
 			children = (
 				AA4E89E71FCD84A800017247 /* backButton.png */,
+				AA452B131FDFF472004B669B /* questionMark.png */,
 				AA4E8A011FCD8F6700017247 /* selElem.png */,
 				AA093E611FCBFDBA00434ACD /* elem.png */,
 				AA093E631FCBFDD600434ACD /* elemBg.png */,
 				AA093E5F1FCBFD8900434ACD /* petInfoBg.png */,
 				AA093E671FCBFE5C00434ACD /* nextButton.png */,
 				AA093E651FCBFE4F00434ACD /* prevButton.png */,
+				AA452B111FDFF1C7004B669B /* playNow.png */,
 				AA4E89FD1FCD8E6A00017247 /* a_e1.png */,
 				AA4E89EE1FCD88F600017247 /* ab1.png */,
 				AADE62AE1FDF902400C9EA42 /* ai1.png */,
@@ -499,6 +515,11 @@
 				AA4E89E91FCD88F500017247 /* am1.png */,
 				AA4E89EA1FCD88F500017247 /* an1.png */,
 				AA4E89EC1FCD88F600017247 /* any1.png */,
+				AADE62B31FDFB99600C9EA42 /* earth.png */,
+				AADE62B41FDFB99600C9EA42 /* fire.png */,
+				AADE62B21FDFB99500C9EA42 /* metal.png */,
+				AADE62B11FDFB99500C9EA42 /* water.png */,
+				AADE62B01FDFB99400C9EA42 /* wood.png */,
 			);
 			path = petVc;
 			sourceTree = "<group>";
@@ -859,6 +880,7 @@
 				AA7FA7E41FB5E46D00315524 /* 1-13.txt in Resources */,
 				AA4642C61FC81E3B00D34516 /* aimer.png in Resources */,
 				AA8F80131FB32BF0000CD84F /* scanning.png in Resources */,
+				AA452B141FDFF472004B669B /* questionMark.png in Resources */,
 				AA4E8A131FCE73B700017247 /* af1g.png in Resources */,
 				AA4E8A0F1FCE73B700017247 /* ab1g.png in Resources */,
 				AA4E89F41FCD88F800017247 /* an1.png in Resources */,
@@ -896,6 +918,7 @@
 				AA68BD6E1F9A1A6000112AF4 /* camel.mp3 in Resources */,
 				AA7FA7A71FB5A63500315524 /* le5.png in Resources */,
 				AA87EAA11FBD4CDB00830608 /* 2301.png in Resources */,
+				AADE62B71FDFB99600C9EA42 /* metal.png in Resources */,
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
 				AAC1CC121FB42243001DE6DB /* enterButton.png in Resources */,
 				AA590CCE1FBAC00400A5691D /* rightButton.png in Resources */,
@@ -909,6 +932,7 @@
 				AA4642C21FC8176500D34516 /* testBgBlurred.png in Resources */,
 				AAECC11D1FB0493B004ED813 /* explode.sks in Resources */,
 				AA87EABA1FBD4CDB00830608 /* 801.png in Resources */,
+				AADE62B61FDFB99600C9EA42 /* water.png in Resources */,
 				AA68BD751F9A1A7500112AF4 /* capital.mp3 in Resources */,
 				AA68BD711F9A1A6900112AF4 /* cancel.mp3 in Resources */,
 				AA8E9F751FB1841400509D39 /* questBoard3.png in Resources */,
@@ -916,6 +940,7 @@
 				AA68BD721F9A1A6C00112AF4 /* cancer.mp3 in Resources */,
 				AA87EA961FBD4CDB00830608 /* 1301.png in Resources */,
 				AA8E9F6D1FB17BC600509D39 /* questBoardGreen.png in Resources */,
+				AADE62B91FDFB99600C9EA42 /* fire.png in Resources */,
 				AA68BD7A1F9A1EFB00112AF4 /* fillBar.png in Resources */,
 				AA8E9F671FB1752E00509D39 /* attack6.png in Resources */,
 				AA8E9F541FB1642000509D39 /* flatMonster3.png in Resources */,
@@ -931,6 +956,7 @@
 				AA68BD731F9A1A6F00112AF4 /* cannibal.mp3 in Resources */,
 				AA86F3AC1FA9BE11004E7997 /* bDot1.png in Resources */,
 				AAE181A91F978C4200683896 /* bg.png in Resources */,
+				AA452B121FDFF1C7004B669B /* playNow.png in Resources */,
 				AA7FA7C71FB5A77800315524 /* ElementScene.sks in Resources */,
 				AA8F800D1FB31C14000CD84F /* open2.png in Resources */,
 				AA4642BC1FC8102500D34516 /* testQuestBoardDark.png in Resources */,
@@ -974,6 +1000,7 @@
 				AA87EA9F1FBD4CDB00830608 /* 2101.png in Resources */,
 				AA87EAB61FBD4CDB00830608 /* 4201.png in Resources */,
 				AA8F80021FB31B09000CD84F /* lightPinkSpot.png in Resources */,
+				AADE62B81FDFB99600C9EA42 /* earth.png in Resources */,
 				AA86F3B61FA9C22E004E7997 /* eButton.png in Resources */,
 				AA7FA7A51FB5A63500315524 /* le9.png in Resources */,
 				AA87EAA61FBD4CDB00830608 /* 2801.png in Resources */,
@@ -1023,6 +1050,7 @@
 				AAE181AD1F97921A00683896 /* ca2.txt in Resources */,
 				AA590CC01FBA9BF800A5691D /* elementBottom.png in Resources */,
 				AA7FA7AB1FB5A63500315524 /* le1.png in Resources */,
+				AADE62B51FDFB99600C9EA42 /* wood.png in Resources */,
 				AA7FA7AC1FB5A63500315524 /* le10.png in Resources */,
 				AA4642B61FC7CCD100D34516 /* darkD.png in Resources */,
 				AA87EA9A1FBD4CDB00830608 /* 1701.png in Resources */,

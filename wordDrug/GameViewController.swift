@@ -14,6 +14,7 @@ import GameplayKit
 let endUnitKey = "endUnit"
 
 
+
 class GameViewController: UIViewController {
     
     var spotNumber = Int()
@@ -26,7 +27,7 @@ class GameViewController: UIViewController {
         print("gameReceivedUnit:\(unitNumber)")
         
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.jumpBackToElement), name: NSNotification.Name("endUnit"), object: nil)
-        
+      
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
@@ -60,8 +61,6 @@ class GameViewController: UIViewController {
     }
     
     
-    
-    
     @objc func jumpBackToElement(){
         
         /*
@@ -69,10 +68,14 @@ class GameViewController: UIViewController {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = elementVc!
-        */
-        self.dismiss(animated: true, completion: nil)
+ */
+     
+        //self.dismiss(animated: true, completion: nil)
+        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "dismissPetView"), object: nil, userInfo: nil)
         
-        
+        //dimiss掉兩個VCs
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+
     }
     
 
