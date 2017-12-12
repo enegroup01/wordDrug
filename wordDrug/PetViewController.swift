@@ -8,7 +8,12 @@
 
 import UIKit
 
+var pet : NSMutableDictionary?
+var petElems : NSMutableDictionary?
+var elemSaved : [Int]?
+
 class PetViewController: UIViewController {
+    
     @IBOutlet weak var petAva: UIImageView!
     @IBOutlet weak var selElem1Img: UIImageView!
     @IBOutlet weak var selElem2Img: UIImageView!
@@ -37,7 +42,6 @@ class PetViewController: UIViewController {
     @IBOutlet weak var elem12: UIImageView!
     @IBOutlet weak var pageLabel: UILabel!
     
-    
     var location = CGPoint()
     //畫面上所有元素
     var elems = [UIImageView]()
@@ -56,7 +60,6 @@ class PetViewController: UIViewController {
     var currentElemIndex = -1
     //紀錄三個選項元素的數字
     var selOccupiedByElemIndex = [-1,-1,-1]
-    
     
     //元素註解
     let elemInfoBg = UIView()
@@ -92,7 +95,6 @@ class PetViewController: UIViewController {
         //寵物資訊背景
         petInfoBg.image = UIImage(named: "petInfoBg.png")
         
-
         //抓使用者得到的元素
         let getElemets = user?["getElement"] as! String
         
@@ -119,8 +121,6 @@ class PetViewController: UIViewController {
         elems.append(elem11)
         elems.append(elem12)
  
-
-        
         //抓有得到的元素, append他們的資訊
         for i in 0 ..< allGetElements.count{
             if let name = allGetElements[i] as String?{
@@ -146,8 +146,7 @@ class PetViewController: UIViewController {
         allGetElemsInfo.remove(at: 0)
         print(allGetElemsInfo)
 
-
-        
+      
         //加入元素位置, 固定原本位置使用
         elemCgPoints.append(elem1.center)
         elemCgPoints.append(elem2.center)
@@ -210,17 +209,52 @@ class PetViewController: UIViewController {
         elemInfoBg.addSubview(elemInfoLabel)
         
         //設定寵物資訊
+        /*
         petCureLabel.text = "0"
         petLifeLabel.text = "100"
         petAttackLabel.text = "40"
         petDefenseLabel.text = "10"
         petDoubleAttackLabel.text = "20%"
         petExtraAttackLabel.text = "0"
+        */
         
+        //設定寵物數值
+        pet = ["petLife":100,"petAttack":40,"petDefense":10,"petDoubleAttack":20,"petExtraAttack":0,"petHeal":0,"petType":""]
         
         fetchElementInfo()
         
+        //指定之前所存檔的使用元素
+        if elemSaved == nil {
+            
+            elemSaved = selOccupiedByElemIndex
+            
+        } else {
+            
+            selOccupiedByElemIndex = elemSaved!
+        }
+        
+        //顯示
+        let when = DispatchTime.now() + 0.1
+        
+        DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
+            for s in 0 ..< self!.selOccupiedByElemIndex.count{
+                
+                if self!.selOccupiedByElemIndex[s] != -1 {
+                    
+                    //固定元素在選項裡
+                    
+                    self!.elems[self!.selOccupiedByElemIndex[s]].frame.size = CGSize(width: 60, height: 60)
+                    self!.elems[self!.selOccupiedByElemIndex[s]].center = CGPoint(x: self!.selElemsCgs[s][0], y: self!.selElemsCgs[s][1])
+                    
+                }
+                
+            }
+        }
+        
+        calculatePetValue()
+        
     }
+    
     //快速抓圖片
     func makeImage(name:String) ->UIImage{
         let image = UIImage(named: name + ".png")
@@ -234,7 +268,6 @@ class PetViewController: UIViewController {
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         
         for touch in touches {
             
@@ -276,10 +309,16 @@ class PetViewController: UIViewController {
                     switch e {
                     case selOccupiedByElemIndex[0]:
                         selOccupiedByElemIndex[0] = -1
+                        elemSaved![0] = -1
+                        
                     case selOccupiedByElemIndex[1]:
                         selOccupiedByElemIndex[1] = -1
+                        elemSaved![1] = -1
+                        
                     case selOccupiedByElemIndex[2]:
                         selOccupiedByElemIndex[2] = -1
+                        elemSaved![2] = -1
+                        
                     default:
                         break
                     }
@@ -303,6 +342,7 @@ class PetViewController: UIViewController {
                         
                         //計算寵物數值
                         calculatePetValue()
+                        
                     }
                     
                 }
@@ -365,7 +405,7 @@ class PetViewController: UIViewController {
                             
                             //要回到-1
                             selOccupiedByElemIndex[s] = -1
-                            
+                            elemSaved![s] = -1
                             
                         }
                         //沒有的話固定元素在選項裡
@@ -373,11 +413,14 @@ class PetViewController: UIViewController {
                         touchedElem.center = CGPoint(x: selElemsCgs[s][0], y: selElemsCgs[s][1])
                         
                         //因為有碰到所以設定數字
-                        selOccupiedByElemIndex[s] = currentElemIndex
                         
-                        print(currentElemIndex)
-                        //計算寵物數值
-                        calculatePetValue()
+                            selOccupiedByElemIndex[s] = currentElemIndex
+                     
+                            elemSaved![s] = currentElemIndex
+
+                            //計算寵物數值
+                            calculatePetValue()
+                            
                         }
                     }
                 }
@@ -445,22 +488,30 @@ class PetViewController: UIViewController {
             
         }
         
-        
     }
-    
-    
-    
+
     //計算寵物數值的func
     func calculatePetValue(){
         
+        
+        print(selOccupiedByElemIndex)
         //抓數值, 之後這個數值要從一個可以固定及升級改數值的地方抓數字過來.
         //寵物資訊重置
-        petCureLabel.text = "0"
-        petLifeLabel.text = "100"
-        petAttackLabel.text = "40"
-        petDefenseLabel.text = "10"
-        petDoubleAttackLabel.text = "20%"
-        petExtraAttackLabel.text = "0"
+        pet = ["petLife":100,"petAttack":40,"petDefense":10,"petDoubleAttack":20,"petExtraAttack":0,"petHeal":0,"petType":""]
+        
+        let petCure = pet?["petHeal"] as! Int
+        let petLife = pet?["petLife"] as! Int
+        let petAttack = pet?["petAttack"] as! Int
+        let petDefense = pet?["petDefense"] as! Int
+        let petDouble = pet?["petDoubleAttack"] as! Int
+        let petExtra = pet?["petExtraAttack"] as! Int
+        
+        petCureLabel.text = String(describing: petCure)
+        petLifeLabel.text = String(describing: petLife)
+        petAttackLabel.text = String(describing: petAttack)
+        petDefenseLabel.text = String(describing: petDefense)
+        petDoubleAttackLabel.text = String(describing: petDouble) + "%"
+        petExtraAttackLabel.text = String(describing: petExtra)
         
         //顏色先重置白色
         petLifeLabel.textColor = .white
@@ -471,14 +522,7 @@ class PetViewController: UIViewController {
         petCureLabel.textColor = .white
         
         // 機制: 這裡的數字不改, 每一次都check selOccupied有沒有任何值會影響
-        let life = Int(petLifeLabel.text!)
-        let att = Int(petAttackLabel.text!)
-        let def = Int(petDefenseLabel.text!)
-        let extra = Int(petExtraAttackLabel.text!)
-        let doub = Int(petDoubleAttackLabel.text!.replacingOccurrences(of: "%", with: ""))
-        let heal = Int(petCureLabel.text!)
-        
-        
+
         //抓數字
         for s in 0 ..< selOccupiedByElemIndex.count{
             
@@ -490,46 +534,69 @@ class PetViewController: UIViewController {
                 
                 if let function = selElem["f"] as String?{
                     
-                    
                     switch function{
                         
                     case "hp":
                         
                         petLifeLabel.textColor = .green
-                        petLifeLabel.text = String(life! + Int(selElem["v"]!)!)
-                        
+                        petLifeLabel.text = String(petLife + Int(selElem["v"]!)!)
+                        pet?["petLife"] = Int(petLife + Int(selElem["v"]!)!)
+     
+
                     case "att":
                         petAttackLabel.textColor = .green
-                        petAttackLabel.text = String(att! + Int(selElem["v"]!)!)
+                        petAttackLabel.text = String(petAttack + Int(selElem["v"]!)!)
+                        pet?["petAttack"] = Int(petAttack + Int(selElem["v"]!)!)
                         
                     case "def":
                         petDefenseLabel.textColor = .green
-                        petDefenseLabel.text = String(def! + Int(selElem["v"]!)!)
+                        petDefenseLabel.text = String(petDefense + Int(selElem["v"]!)!)
+                        pet?["petDefense"] = Int(petDefense + Int(selElem["v"]!)!)
                         
                         
                     case "hit":
                         petDoubleAttackLabel.textColor = .green
-                        petDoubleAttackLabel.text = String(doub! + Int(selElem["v"]!)!) + "%"
+                        petDoubleAttackLabel.text = String(petDouble + Int(selElem["v"]!)!) + "%"
+                        pet?["petDouble"] = Int(petDouble + Int(selElem["v"]!)!)
+                        
                         
                     case "heal":
                         petCureLabel.textColor = .green
-                        petCureLabel.text = String(heal! + Int(selElem["v"]!)!)
+                        petCureLabel.text = String(petCure + Int(selElem["v"]!)!)
+                        pet?["petHeal"] = Int(petCure + Int(selElem["v"]!)!)
                         
                     case "wood":
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(extra! + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "wood"
                         
                     case "earth":
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(extra! + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "earth"
+                        
                         
                     case "water":
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(extra! + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "water"
                         
                     case "fire":
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(extra! + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "fire"
+                        
+                    case "metal":
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "metal"
+
+                        
                     case "upgrade":
                         break
                     default:

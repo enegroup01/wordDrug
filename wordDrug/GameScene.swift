@@ -177,6 +177,15 @@ class GameScene: SKScene {
     var spotNumber = Int()
     var unitNumber = Int()
     
+    var petLife = Int()
+    var petAttack = Int()
+    var petDefense = Int()
+    var petHeal = Int()
+    var petExtra = Int()
+    var petDouble = Int()
+    var petType = String()
+    
+    
     override func didMove(to view: SKView) {
         
         //元素單位練習完後的key
@@ -297,6 +306,17 @@ class GameScene: SKScene {
         
         //連擊Label
         makeLabelNode(x: 0, y: 100, alignMent: .center, fontColor: .white, fontSize: 70, text: "Combo Attack", zPosition: 5, name: "comboAttack", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        
+        //抓寵物資訊
+        petLife = pet?["petLife"] as! Int
+        petAttack = pet?["petAttack"] as! Int
+        petDefense = pet?["petDefense"] as! Int
+        petDouble = pet?["petDoubleAttack"] as! Int
+        petExtra = pet?["petExtraAttack"] as! Int
+        petHeal = pet?["petHeal"] as! Int
+        petType = pet?["petType"] as! String
+        
         
     }
     
@@ -515,6 +535,7 @@ class GameScene: SKScene {
                 monsterMagic = monster["magic"] as! Int
                 
                 print(monsterName)
+                print(monsterAtt)
             }
         }
         
@@ -1357,31 +1378,19 @@ class GameScene: SKScene {
                             
                             DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
                                 
-                                
                                 //算爆擊機率
-                                //模擬爆擊機率
-                                let doubleRate:Int = 20
                                 let randomNumber = Int(arc4random_uniform(UInt32(100)))
                                 var isDoubleHit = false
-                                if randomNumber <= doubleRate{
+                                if randomNumber <= self!.petDouble{
                                     isDoubleHit = true
                                 }
                                 
-                                
-                                //總攻擊單位數 =  (人攻 - 怪防)
-                                let attackPoint = (40 - self!.monsterDef)
-                                
-                                //怪攻擊單位數 = (怪攻 - 人防)
-                                let monsterAttackPoint = (self!.monsterAtt - 10)
-                                
                                 // 總魔攻單位數 = (人的魔攻屬性 * 0.5/1/1.5)
                                 //模擬屬性攻擊
-                                let petType = "wood"
-                                let magicAttack = 10
-                                var magicTimes:CGFloat = 1
+                                let petType = self!.petType
                                 
-                            
-                           
+                                var magicTimes:CGFloat = 1
+
                                 //計算寵物攻擊怪的屬性倍數
                                 switch petType{
                                     
@@ -1470,12 +1479,33 @@ class GameScene: SKScene {
                                     
                                 }
                                 
+                                
+                                //總攻擊單位數 =  (人攻 - 怪防)
+                                var attackPoint = CGFloat(self!.petAttack) * (magicTimes) - CGFloat(self!.monsterDef)
+                                
+                                attackPoint = self!.randomPoint(points: attackPoint)
+
+
+                                
+                                
+                                //怪攻擊單位數 = (怪攻 - 人防)
+                                var monsterAttackPoint = CGFloat(self!.monsterAtt) * monsterMagicTimes - CGFloat(self!.petDefense)
+
+                                monsterAttackPoint = self!.randomPoint(points: monsterAttackPoint)
+                                
+                                
+                                
                                 //人魔法攻擊單位算法
-                                let magicAttackPoint = CGFloat(magicAttack) * magicTimes
+                                var magicAttackPoint = CGFloat(self!.petExtra) * magicTimes
                                 
+                                magicAttackPoint = self!.randomPoint(points: magicAttackPoint)
+                                
+
                                 //怪魔法攻擊單位算法
-                                let monsterMagicAttackPoint = CGFloat(self!.monsterMagic) * monsterMagicTimes
+                                var monsterMagicAttackPoint = CGFloat(self!.monsterMagic) * monsterMagicTimes
                                 
+
+                                monsterMagicAttackPoint = self!.randomPoint(points: monsterMagicAttackPoint)
                                 
                                 //show普攻字
                                 let comboAttack = self!.findLabelNode(name: "comboAttack")
@@ -2318,6 +2348,29 @@ class GameScene: SKScene {
         
         let zoomOut = SKAction.resize(toWidth: 144, height: 144, duration: 0.2)
         return zoomOut
+    }
+    
+    
+    
+    func randomPoint(points:CGFloat) -> CGFloat{
+        
+        var returnPoints = CGFloat()
+        returnPoints = points
+        
+        let attackRan = Int(arc4random_uniform(UInt32(returnPoints * 0.05)))
+        let attackPlusOrMinus = Int(arc4random_uniform(UInt32(2)))
+        if attackPlusOrMinus == 1 {
+            print("+")
+            returnPoints = returnPoints + CGFloat(attackRan)
+        } else {
+            
+            print("-")
+            returnPoints = returnPoints - CGFloat(attackRan)
+            
+        }
+
+        print(attackRan)
+        return returnPoints
     }
     
     

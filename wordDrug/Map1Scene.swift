@@ -154,6 +154,8 @@ class Map1Scene: SKScene {
             //假如碰到點點, 打開對話窗, 並且顯示所選擇的探索點
             for i in 0 ..< spots.count{
                 if node.name == spots[i] {
+                    
+                    //在此指定所選擇到的探索點號碼
                     openDialogue(spotNumber: i)
                 }
             }
