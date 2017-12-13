@@ -13,6 +13,11 @@
 		AA093E641FCBFDD600434ACD /* elemBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E631FCBFDD600434ACD /* elemBg.png */; };
 		AA093E661FCBFE5000434ACD /* prevButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E651FCBFE4F00434ACD /* prevButton.png */; };
 		AA093E681FCBFE5C00434ACD /* nextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E671FCBFE5C00434ACD /* nextButton.png */; };
+		AA2992321FE0EEBD0040D9C0 /* healEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA2992301FE0EEBD0040D9C0 /* healEffect.sks */; };
+		AA2992361FE14B430040D9C0 /* star0.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2992341FE14B420040D9C0 /* star0.png */; };
+		AA2992371FE14B430040D9C0 /* star1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2992351FE14B420040D9C0 /* star1.png */; };
+		AA29923A1FE14B4C0040D9C0 /* quitButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2992381FE14B4C0040D9C0 /* quitButton.png */; };
+		AA29923F1FE151780040D9C0 /* loseBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA29923E1FE151780040D9C0 /* loseBg.png */; };
 		AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC01F9DC060003F5C3F /* blackDot.png */; };
 		AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CCDC21F9DC069003F5C3F /* lightDot.png */; };
 		AA452B121FDFF1C7004B669B /* playNow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA452B111FDFF1C7004B669B /* playNow.png */; };
@@ -250,6 +255,11 @@
 		AA093E631FCBFDD600434ACD /* elemBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elemBg.png; sourceTree = "<group>"; };
 		AA093E651FCBFE4F00434ACD /* prevButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prevButton.png; sourceTree = "<group>"; };
 		AA093E671FCBFE5C00434ACD /* nextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextButton.png; sourceTree = "<group>"; };
+		AA2992301FE0EEBD0040D9C0 /* healEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = healEffect.sks; sourceTree = "<group>"; };
+		AA2992341FE14B420040D9C0 /* star0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star0.png; sourceTree = "<group>"; };
+		AA2992351FE14B420040D9C0 /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star1.png; sourceTree = "<group>"; };
+		AA2992381FE14B4C0040D9C0 /* quitButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quitButton.png; sourceTree = "<group>"; };
+		AA29923E1FE151780040D9C0 /* loseBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loseBg.png; sourceTree = "<group>"; };
 		AA2CCDC01F9DC060003F5C3F /* blackDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackDot.png; sourceTree = "<group>"; };
 		AA2CCDC21F9DC069003F5C3F /* lightDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightDot.png; sourceTree = "<group>"; };
 		AA452B111FDFF1C7004B669B /* playNow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playNow.png; sourceTree = "<group>"; };
@@ -539,6 +549,10 @@
 				AA4E8A161FCE741000017247 /* a_e1g.png */,
 				AA4E8A191FCE744200017247 /* darkBg.png */,
 				AA4E8A181FCE744200017247 /* movingLight.png */,
+				AA2992341FE14B420040D9C0 /* star0.png */,
+				AA2992351FE14B420040D9C0 /* star1.png */,
+				AA29923E1FE151780040D9C0 /* loseBg.png */,
+				AA2992381FE14B4C0040D9C0 /* quitButton.png */,
 			);
 			path = elementGetPng;
 			sourceTree = "<group>";
@@ -733,6 +747,7 @@
 				AA093E5C1FCBFCE700434ACD /* petVc */,
 				AA590CC41FBAB70300A5691D /* bookVc */,
 				AAE1818C1F97892D00683896 /* AppDelegate.swift */,
+				AA2992301FE0EEBD0040D9C0 /* healEffect.sks */,
 				AAE181901F97892D00683896 /* Actions.sks */,
 				AAECC1201FB08A27004ED813 /* monsterExplode.sks */,
 				AAECC11C1FB0493B004ED813 /* explode.sks */,
@@ -922,6 +937,7 @@
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
 				AAC1CC121FB42243001DE6DB /* enterButton.png in Resources */,
 				AA590CCE1FBAC00400A5691D /* rightButton.png in Resources */,
+				AA29923A1FE14B4C0040D9C0 /* quitButton.png in Resources */,
 				AA87EAA21FBD4CDB00830608 /* 2401.png in Resources */,
 				AA87EAB91FBD4CDB00830608 /* 701.png in Resources */,
 				AA4642C01FC8163D00D34516 /* glowLine.png in Resources */,
@@ -960,6 +976,7 @@
 				AA7FA7C71FB5A77800315524 /* ElementScene.sks in Resources */,
 				AA8F800D1FB31C14000CD84F /* open2.png in Resources */,
 				AA4642BC1FC8102500D34516 /* testQuestBoardDark.png in Resources */,
+				AA2992321FE0EEBD0040D9C0 /* healEffect.sks in Resources */,
 				AA87EAC71FBD7B8300830608 /* getElement.png in Resources */,
 				AA68BD781F9A1EA900112AF4 /* bg3.png in Resources */,
 				AA4642BE1FC8103300D34516 /* darkerD.png in Resources */,
@@ -967,6 +984,7 @@
 				AA093E601FCBFD8900434ACD /* petInfoBg.png in Resources */,
 				AA87EAB71FBD4CDB00830608 /* 501.png in Resources */,
 				AA7FA7BD1FB5A6C600315524 /* e9.png in Resources */,
+				AA2992361FE14B430040D9C0 /* star0.png in Resources */,
 				AA4E8A0D1FCE73B700017247 /* ai1g.png in Resources */,
 				AADE62AF1FDF902400C9EA42 /* ai1.png in Resources */,
 				AA8F800F1FB32305000CD84F /* open.png in Resources */,
@@ -1009,6 +1027,7 @@
 				AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */,
 				AA86F3B11FA9BE22004E7997 /* lDot3.png in Resources */,
 				AA4E8A141FCE73B700017247 /* ac1g.png in Resources */,
+				AA29923F1FE151780040D9C0 /* loseBg.png in Resources */,
 				AA86F3C21FA9F483004E7997 /* leftFrame.png in Resources */,
 				AAECC1231FB08C15004ED813 /* monsterExplode.png in Resources */,
 				AA4E89F61FCD88F800017247 /* any1.png in Resources */,
@@ -1049,6 +1068,7 @@
 				AA87EAA01FBD4CDB00830608 /* 2201.png in Resources */,
 				AAE181AD1F97921A00683896 /* ca2.txt in Resources */,
 				AA590CC01FBA9BF800A5691D /* elementBottom.png in Resources */,
+				AA2992371FE14B430040D9C0 /* star1.png in Resources */,
 				AA7FA7AB1FB5A63500315524 /* le1.png in Resources */,
 				AADE62B51FDFB99600C9EA42 /* wood.png in Resources */,
 				AA7FA7AC1FB5A63500315524 /* le10.png in Resources */,

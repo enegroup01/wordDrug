@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let id = user!["id"] as? String
             if id != nil {
 
-                    toMap()
+                    //toMap()
             }
             
         }

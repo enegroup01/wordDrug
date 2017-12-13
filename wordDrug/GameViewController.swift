@@ -74,7 +74,7 @@ class GameViewController: UIViewController {
         //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "dismissPetView"), object: nil, userInfo: nil)
         
         //dimiss掉兩個VCs
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+   self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
 
     }
     

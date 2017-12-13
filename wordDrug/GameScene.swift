@@ -110,6 +110,9 @@ class GameScene: SKScene {
     var monsterExplode:SKEmitterNode?
     var monsterAttack:SKEmitterNode?
     
+    //治癒效果
+    var healEffect:SKEmitterNode?
+    
     //怪物變數
     //var monsters = ["flatMonster1","flatMonster2","flatMonster3"]
     //輪流順序
@@ -303,10 +306,16 @@ class GameScene: SKScene {
         monsterAttack?.isHidden = true
         addChild(monsterAttack!)
         
+        //治癒效果
+        healEffect = SKEmitterNode(fileNamed: "healEffect.sks")
+        healEffect?.position = CGPoint(x: 0, y: -470)
+        healEffect?.zPosition = 4
+        healEffect?.name = "healEffect"
+        healEffect?.isHidden = true
+        addChild(healEffect!)
         
         //連擊Label
         makeLabelNode(x: 0, y: 100, alignMent: .center, fontColor: .white, fontSize: 70, text: "Combo Attack", zPosition: 5, name: "comboAttack", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
-        
         
         //抓寵物資訊
         petLife = pet?["petLife"] as! Int
@@ -316,7 +325,6 @@ class GameScene: SKScene {
         petExtra = pet?["petExtraAttack"] as! Int
         petHeal = pet?["petHeal"] as! Int
         petType = pet?["petType"] as! String
-        
         
     }
     
@@ -1003,7 +1011,7 @@ class GameScene: SKScene {
             let node : SKNode = self.atPoint(location)
             
             
-            if node.name == "tapToReturn"{
+            if node.name == "tapToReturn" || node.name == "quitButton"{
                 
                 //跳轉回元素表
                 
@@ -1264,7 +1272,6 @@ class GameScene: SKScene {
         if touchTimes > 0{
             
             
-            
             if isDragAndPlayEnable {
                 
                 //****確認模式****
@@ -1385,6 +1392,7 @@ class GameScene: SKScene {
                                     isDoubleHit = true
                                 }
                                 
+
                                 // 總魔攻單位數 = (人的魔攻屬性 * 0.5/1/1.5)
                                 //模擬屬性攻擊
                                 let petType = self!.petType
@@ -1485,7 +1493,6 @@ class GameScene: SKScene {
                                 
                                 attackPoint = self!.randomPoint(points: attackPoint)
 
-
                                 
                                 
                                 //怪攻擊單位數 = (怪攻 - 人防)
@@ -1569,6 +1576,88 @@ class GameScene: SKScene {
                                                                 self!.nextBattle()
                                                                 
                                                             } else {
+                                                                //檢查是否有治癒
+                                                                if self!.petHeal > 0{
+                    
+                                    
+
+                                                                    //補血
+                                                                    self!.heal(point: CGFloat((self!.petHeal)), whom: player, finished: {
+                                                                        
+                                                                        self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                        
+                                                                        
+                                                                        //換怪攻擊人
+                                                                        
+                                                                        //怪普攻字樣
+                                                                        comboAttack.alpha = 1
+                                                                        comboAttack.fontColor = .cyan
+                                                                        comboAttack.text = "怪物攻擊:\(monsterAttackPoint)"
+                                                                        
+                                                                        self!.attack(point: CGFloat(monsterAttackPoint), whom: player, finished: {
+                                                                            
+                                                                            //隱藏字樣
+                                                                            self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                            
+                                                                            if self!.playerBlood == 0 {
+                                                                                //假如玩家死亡
+                                                                                //print("player dead")
+                                                                                //self!.nextBattle()
+                                                               self!.failedToGetElement()
+                                                                            } else {
+                                                                                //假如人還沒死
+                                                                                //確認有無怪物魔法攻擊
+                                                                                
+                                                                                if monsterMagicAttackPoint > 0 {
+                                                                                    //有的話就魔法攻擊人
+                                                                                    
+                                                                                    //怪魔法攻擊字樣
+                                                                                    comboAttack.alpha = 1
+                                                                                    comboAttack.fontColor = self!.pinkColor
+                                                                                    comboAttack.text = "怪物魔法: \(monsterMagicAttackPoint)"
+                                                                                    
+                                                                                    self!.attack(point: monsterMagicAttackPoint, whom: player, finished: {
+                                                                                        
+                                                                                        //隱藏字樣
+                                                                                        self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                                        
+                                                                                        if self!.playerBlood == 0 {
+                                                                                            //假如玩家死亡
+                                                                                            //print("player dead")
+                                                                                            //self!.nextBattle()
+                                                               self!.failedToGetElement()
+                                                                                        }else {
+                                                                                            
+                                                                                            //繼續比賽
+                                                                                            self!.continueBattle()
+                                                                                            
+                                                                                        }
+                                                                                        
+                                                                                        
+                                                                                    })
+                                                                                    
+                                                                                    
+                                                                                } else {
+                                                                                    
+                                                                                    //繼續比賽
+                                                                                    self!.continueBattle()
+                                                                                    
+                                                                                }
+                                                                                
+                                                                                
+                                                                            }
+                                                                            
+                                                                            
+                                                                        })
+                                                                        
+                                                                    })
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                } else {
+                                                                
+                                                                
                                                                 //換怪攻擊人
                                                                 
                                                                 //怪普攻字樣
@@ -1584,8 +1673,8 @@ class GameScene: SKScene {
                                                                     if self!.playerBlood == 0 {
                                                                         //假如玩家死亡
                                                                         //print("player dead")
-                                                                        self!.nextBattle()
-                                                                        
+                                                                        //self!.nextBattle()
+                                                                        self!.failedToGetElement()
                                                                     } else {
                                                                         //假如人還沒死
                                                                         //確認有無怪物魔法攻擊
@@ -1606,8 +1695,8 @@ class GameScene: SKScene {
                                                                                 if self!.playerBlood == 0 {
                                                                                     //假如玩家死亡
                                                                                     //print("player dead")
-                                                                                    self!.nextBattle()
-                                                                                    
+                                                                                    //self!.nextBattle()
+                                                               self!.failedToGetElement()
                                                                                 }else {
                                                                                     
                                                                                     //繼續比賽
@@ -1634,10 +1723,95 @@ class GameScene: SKScene {
       
                                                             }
 
+                                                        }
                                                             
                                                         })
                                                         
                                                     } else {
+                                                        
+                                                        //檢查是否有治癒
+                                                        
+                                                        if self!.petHeal > 0{
+                                                            
+                                                            print("治癒術~~~~~~")
+                                                            
+
+                                                            
+                                                            self!.heal(point: CGFloat((self!.petHeal)), whom: player, finished: {
+                                                                
+                                                                
+                                                                self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                
+                                                                //換怪攻擊人
+                                                                //顯示字樣
+                                                                comboAttack.alpha = 1
+                                                                comboAttack.fontColor = .cyan
+                                                                comboAttack.text = "怪物攻擊:\(monsterAttackPoint)"
+                                                                
+                                                                self!.attack(point: CGFloat(monsterAttackPoint), whom: player, finished: {
+                                                                    
+                                                                    //隱藏字樣
+                                                                    
+                                                                    self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                    
+                                                                    if self!.playerBlood == 0 {
+                                                                        //假如玩家死亡
+                                                                        //print("player dead")
+                                                                        //self!.nextBattle()
+                                                                        self!.failedToGetElement()
+                                                                    } else {
+                                                                        //假如人還沒死
+                                                                        //確認有無怪物魔法攻擊
+                                                                        
+                                                                        if monsterMagicAttackPoint > 0 {
+                                                                            //有的話就魔法攻擊人
+                                                                            //顯示怪物魔法字樣
+                                                                            comboAttack.alpha = 1
+                                                                            comboAttack.fontColor = self!.pinkColor
+                                                                            comboAttack.text = "怪物魔法: \(monsterMagicAttackPoint)"
+                                                                            
+                                                                            self!.attack(point: monsterMagicAttackPoint, whom: player, finished: {
+                                                                                
+                                                                                //隱藏字樣
+                                                                                self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                                
+                                                                                if self!.playerBlood == 0 {
+                                                                                    //假如玩家死亡
+                                                                                    //print("player dead")
+                                                                                    //self!.nextBattle()
+                                                               self!.failedToGetElement()
+                                                                                }else {
+                                                                                    
+                                                                                    //繼續比賽
+                                                                                    self!.continueBattle()
+                                                                                    
+                                                                                }
+                                                                                
+                                                                            })
+                                                                            
+                                                                            
+                                                                        } else {
+                                                                            
+                                                                            //繼續比賽
+                                                                            self!.continueBattle()
+                                                                            
+                                                                            
+                                                                        }
+                                                                        
+                                                                        
+                                                                    }
+                                                                    
+                                                                    
+                                                                })
+
+                                                                
+                                                            })
+                                                            
+                                                            
+                                                            
+                                                        } else {
+                                                        
+                                                        
                                                         
                                                         //換怪攻擊人
                                                         //顯示字樣
@@ -1654,7 +1828,8 @@ class GameScene: SKScene {
                                                             if self!.playerBlood == 0 {
                                                                 //假如玩家死亡
                                                                 //print("player dead")
-                                                                self!.nextBattle()
+                                                                //self!.nextBattle()
+                                                                self!.failedToGetElement()
                                                                 
                                                             } else {
                                                                 //假如人還沒死
@@ -1675,8 +1850,8 @@ class GameScene: SKScene {
                                                                         if self!.playerBlood == 0 {
                                                                             //假如玩家死亡
                                                                             //print("player dead")
-                                                                            self!.nextBattle()
-                                                                            
+                                                                            //self!.nextBattle()
+                                                               self!.failedToGetElement()
                                                                         }else {
                                                                             
                                                                             //繼續比賽
@@ -1702,7 +1877,7 @@ class GameScene: SKScene {
                                                         })
        
                                                     }
-                                                    
+                                                }
                                                     
                                                 }
                                                 
@@ -1728,6 +1903,85 @@ class GameScene: SKScene {
                                                         self!.nextBattle()
                                                         
                                                     } else {
+                                                        //檢查是否有治癒術
+                                                        if self!.petHeal > 0 {
+                                                            //治癒
+                                  
+                                                            
+                                                            self!.heal(point: CGFloat(self!.petHeal), whom: player, finished: {
+                                                                
+                                                                self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                
+                                                                
+                                                                //換怪攻人
+                                                                
+                                                                //顯示字樣
+                                                                comboAttack.alpha = 1
+                                                                comboAttack.fontColor = .cyan
+                                                                comboAttack.text = "怪物攻擊:\(monsterAttackPoint)"
+                                                                
+                                                                self!.attack(point: CGFloat(monsterAttackPoint), whom: player, finished: {
+                                                                    
+                                                                    //隱藏字樣
+                                                                    self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                    
+                                                                    if self!.playerBlood == 0 {
+                                                                        //假如玩家死亡
+                                                                        //print("player dead")
+                                                                        //self!.nextBattle()
+                                                                        self!.failedToGetElement()
+                                                                    } else {
+                                                                        //假如人還沒死
+                                                                        //確認有無怪物魔法攻擊
+                                                                        
+                                                                        if monsterMagicAttackPoint > 0 {
+                                                                            //有的話就魔法攻擊人
+                                                                            
+                                                                            //顯示字樣
+                                                                            comboAttack.alpha = 1
+                                                                            comboAttack.fontColor = self!.pinkColor
+                                                                            comboAttack.text = "怪物魔法: \(monsterMagicAttackPoint)"
+                                                                            
+                                                                            self!.attack(point: monsterMagicAttackPoint, whom: player, finished: {
+                                                                                
+                                                                                //隱藏字樣
+                                                                                self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                                if self!.playerBlood == 0 {
+                                                                                    //假如玩家死亡
+                                                                                    //print("player dead")
+                                                                                    //self!.nextBattle()
+                                                               self!.failedToGetElement()
+                                                                                }else {
+                                                                                    
+                                                                                    //繼續比賽
+                                                                                    self!.continueBattle()
+                                                                                    
+                                                                                }
+                                                                                
+                                                                                
+                                                                            })
+                                                                            
+                                                                            
+                                                                        } else {
+                                                                            
+                                                                            //繼續比賽
+                                                                            self!.continueBattle()
+                                                                            
+                                                                            
+                                                                        }
+                                                                        
+                                                                        
+                                                                    }
+                                                                    
+                                                                    
+                                                                })
+ 
+                                                                
+                                                            })
+                                   
+                                                            
+                                                        } else {
+
                                                         //換怪攻人
                                                         
                                                         //顯示字樣
@@ -1743,8 +1997,8 @@ class GameScene: SKScene {
                                                             if self!.playerBlood == 0 {
                                                                 //假如玩家死亡
                                                                 //print("player dead")
-                                                                self!.nextBattle()
-                                                                
+                                                                //self!.nextBattle()
+                                                                self!.failedToGetElement()
                                                             } else {
                                                                 //假如人還沒死
                                                                 //確認有無怪物魔法攻擊
@@ -1764,8 +2018,8 @@ class GameScene: SKScene {
                                                                         if self!.playerBlood == 0 {
                                                                             //假如玩家死亡
                                                                             //print("player dead")
-                                                                            self!.nextBattle()
-                                                                            
+                                                                            //self!.nextBattle()
+                                                               self!.failedToGetElement()
                                                                         }else {
                                                                             
                                                                             //繼續比賽
@@ -1792,12 +2046,90 @@ class GameScene: SKScene {
                                                         })
             
                                                     }
-                               
+                                                }
                                                     
                                                 })
                       
                                             } else {
                                                 //沒有的話就換怪攻擊
+                                                
+                                                if self!.petHeal > 0 {
+                                                    //治癒術
+
+                                                    self!.heal(point: CGFloat(self!.petHeal), whom: player, finished: {
+                                                        
+                                                        
+                                                        self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                        
+                                                        //顯示字樣
+                                                        comboAttack.alpha = 1
+                                                        comboAttack.fontColor = .cyan
+                                                        comboAttack.text = "怪物攻擊:\(monsterAttackPoint)"
+                                                        
+                                                        self!.attack(point: CGFloat(monsterAttackPoint), whom: player, finished: {
+                                                            
+                                                            //隱藏字樣
+                                                            self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                            
+                                                            if self!.playerBlood == 0 {
+                                                                //假如玩家死亡
+                                                                //print("player dead")
+                                                                //self!.nextBattle()
+                                                                self!.failedToGetElement()
+                                                            } else {
+                                                                //假如人還沒死
+                                                                //確認有無怪物魔法攻擊
+                                                                
+                                                                if monsterMagicAttackPoint > 0 {
+                                                                    //有的話就魔法攻擊人
+                                                                    
+                                                                    //顯示字樣
+                                                                    comboAttack.alpha = 1
+                                                                    comboAttack.fontColor = self!.pinkColor
+                                                                    comboAttack.text = "怪物魔法: \(monsterMagicAttackPoint)"
+                                                                    
+                                                                    self!.attack(point: monsterMagicAttackPoint, whom: player, finished: {
+                                                                        
+                                                                        //隱藏字樣
+                                                                        self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                                        
+                                                                        
+                                                                        if self!.playerBlood == 0 {
+                                                                            //假如玩家死亡
+                                                                            //print("player dead")
+                                                                            //self!.nextBattle()
+                                                               self!.failedToGetElement()
+                                                                        }else {
+                                                                            
+                                                                            //繼續比賽
+                                                                            self!.continueBattle()
+                                                                            
+                                                                        }
+                                                                        
+                                                                        
+                                                                    })
+                                                                    
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    //繼續比賽
+                                                                    self!.continueBattle()
+                                                                    
+                                                                    
+                                                                }
+                                                                
+                                                                
+                                                            }
+                                                            
+                                                            
+                                                        })
+
+                                                        
+                                                    })
+                                                    
+                                                    
+                                                } else {
+                                                
                                                 
                                                 //顯示字樣
                                                 comboAttack.alpha = 1
@@ -1812,8 +2144,8 @@ class GameScene: SKScene {
                                                     if self!.playerBlood == 0 {
                                                         //假如玩家死亡
                                                         //print("player dead")
-                                                        self!.nextBattle()
-                                                        
+                                                        //self!.nextBattle()
+                                                        self!.failedToGetElement()
                                                     } else {
                                                         //假如人還沒死
                                                         //確認有無怪物魔法攻擊
@@ -1835,8 +2167,8 @@ class GameScene: SKScene {
                                                                 if self!.playerBlood == 0 {
                                                                     //假如玩家死亡
                                                                     //print("player dead")
-                                                                    self!.nextBattle()
-                                                                    
+                                                                    //self!.nextBattle()
+                                                                    self!.failedToGetElement()
                                                                 }else {
                                                                     
                                                                     //繼續比賽
@@ -1864,6 +2196,8 @@ class GameScene: SKScene {
        
                                                 
                                             }
+                                            
+                                        }
 
                                         }
                                         
@@ -1936,19 +2270,19 @@ class GameScene: SKScene {
                                     attackPoint = 0
                                 }
                             } else {
+                              
                                 attackPoint = 0
                             }
                             
                             //怪攻擊單位數 = (怪攻 - 人防)
-                            let monsterAttackPoint = (self!.monsterAtt - 10)
+                            let monsterAttackPoint = (self!.monsterAtt - self!.petDefense)
                             
                             //模擬屬性攻擊
                             let petType = "wood"
                             
-                            //模擬怪屬性攻擊
+                            //怪物魔攻屬性
                             var monsterMagicTimes:CGFloat = 1
                             
-                          
                             //再做一個判斷怪屬性攻擊倍數的switch
                             switch self!.monsterType{
                                 
@@ -1994,9 +2328,7 @@ class GameScene: SKScene {
                             //怪魔法攻擊單位算法
                             let monsterMagicAttackPoint = CGFloat(self!.monsterMagic) * monsterMagicTimes
                             
-                            
                             //show普攻字
-                            
                             let comboAttack = self!.findLabelNode(name: "comboAttack")
                             comboAttack.alpha = 1
                         
@@ -2025,6 +2357,94 @@ class GameScene: SKScene {
                                     self!.nextBattle()
                                     
                                 } else {
+                                    //確認是否有治癒
+                                    if self!.petHeal > 0 {
+                                        
+                                        
+                                        self!.heal(point: CGFloat(self!.petHeal), whom: player, finished: {
+                                            
+                                            
+                                            self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                            
+                                            //怪打人
+                                            
+                                            comboAttack.alpha = 1
+                                            comboAttack.fontColor = .blue
+                                            comboAttack.text = "怪物攻擊: \(monsterAttackPoint)"
+                                            
+                                            self!.attack(point: CGFloat(monsterAttackPoint), whom: player, finished: {
+                                                
+                                                self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                
+                                                //假如人死
+                                                if self!.playerBlood == 0 {
+                                                    //這局結束
+                                                    print("player dead")
+                                                    //下一場比賽
+                                                    //self!.nextBattle()
+                                                    self!.failedToGetElement()
+                                                } else {
+                                                    
+                                                    //假如人沒死
+                                                    
+                                                    //確認怪有沒有魔攻
+                                                    if monsterMagicAttackPoint > 0 {
+                                                        //有的話就魔法攻擊人
+                                                        
+                                                        comboAttack.alpha = 1
+                                                        comboAttack.fontColor = self!.pinkColor
+                                                        comboAttack.text = "怪物魔法: \(monsterMagicAttackPoint)"
+                                                        
+                                                        self!.attack(point: monsterMagicAttackPoint, whom: player, finished: {
+                                                            
+                                                            self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
+                                                            
+                                                            
+                                                            
+                                                            if self!.playerBlood == 0 {
+                                                                //假如玩家死亡
+                                                                //print("player dead")
+                                                                //self!.nextBattle()
+                                                                self!.failedToGetElement()
+                                                            }else {
+                                                                
+                                                                //繼續比賽
+                                                                self!.continueBattle()
+                                                                
+                                                            }
+                                                            
+                                                            
+                                                        })
+                                                        
+                                                        
+                                                    } else {
+                                                        
+                                                        //繼續比賽
+                                                        self!.continueBattle()
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    }
+                                                    
+                                                    
+                                                    
+                                                }
+                                                
+                                                
+                                            })
+
+                                            
+                                            
+                                            
+                                            
+                                        })
+                                        
+                                        
+                                        
+                                        
+                                    } else {
+                                    
                                     
                                     //怪打人
                                     
@@ -2041,8 +2461,8 @@ class GameScene: SKScene {
                                             //這局結束
                                             print("player dead")
                                             //下一場比賽
-                                            self!.nextBattle()
-                                            
+                                            //self!.nextBattle()
+                                            self!.failedToGetElement()
                                         } else {
                                             
                                             //假如人沒死
@@ -2064,8 +2484,8 @@ class GameScene: SKScene {
                                                     if self!.playerBlood == 0 {
                                                         //假如玩家死亡
                                                         //print("player dead")
-                                                        self!.nextBattle()
-                                                        
+                                                        //self!.nextBattle()
+                                                        self!.failedToGetElement()
                                                     }else {
                                                         
                                                         //繼續比賽
@@ -2095,12 +2515,10 @@ class GameScene: SKScene {
                                     })
                                     
                                 }
+                            }
                             })
                             
                         })
-                        
-                        
-                        
                         
                     }
                     
@@ -2775,6 +3193,83 @@ class GameScene: SKScene {
     }
     
     
+    func failedToGetElement(){
+        
+        
+        //初始化
+        shownWords.removeAll(keepingCapacity: false)
+        wordEntered.removeAll(keepingCapacity: false)
+        battleComboTime = 0
+        
+        //移除畫面
+        removeSomeNodes(name: "monster")
+        removeSomeNodes(name: "player")
+        removeSomeNodes(name: "Frame")
+        removeSomeNodes(name: "tempWord")
+        
+        let elemImg = syllablesToCheck + "g"
+
+        //製作背景
+        makeImageNode(name: "loseBg", image: "loseBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+        
+        //製作按鈕
+        makeImageNode(name: "quitButton", image: "quitButton", x: 0, y: -400, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
+        
+        //製作元素
+         makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 280, height: 280, z: 12, alpha: 1, isAnchoring: false)
+        
+        //製作文字
+        makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 30, text: "", zPosition: 11, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        //亮星星, 星星位置要抓
+        makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
+        
+        let star1 = findImageNode(name: "1star")
+        let star2 = findImageNode(name: "2star")
+        let star3 = findImageNode(name: "3star")
+        
+        let loseTextLabel = findLabelNode(name: "loseText")
+        
+        var checkStar = Int()
+        //做底數
+        let endUnitNumber = (unitNumber + 1) * 3
+        checkStar = endUnitNumber - currentWordSequence
+        
+        if let getElements = user?["getElement"] as? String{
+            
+            print("has data")
+            
+            if getElements.contains(syllablesToCheck){
+                
+                checkStar = 4
+                
+            }
+        }
+        
+        switch checkStar {
+            case 4:
+            loseTextLabel.text = "You Already Got This Element"
+        case 3:
+            print("過0關")
+            loseTextLabel.text = "You Need To Win 3 Stars To Get Element"
+        case 2:
+            print("過1關")
+            loseTextLabel.text = "You Need 2 More Stars To Get The Element"
+            star1.alpha = 1
+        case 1:
+            print("過2關")
+            loseTextLabel.text = "You Need 1 More Star To Get The Element"
+            star1.alpha = 1
+            star2.alpha = 2
+        default:
+            break
+        }
+          isUserInteractionEnabled = true
+    }
+    
+    
     func removeEverything(){
         
         self.removeAllActions()
@@ -2860,6 +3355,65 @@ class GameScene: SKScene {
         }
         
     }
+    
+    
+    //治癒功能
+    func heal(point:CGFloat,whom:String,finished: @escaping () -> Void){
+        
+        //每個單位的扣分計算法
+        //var hurtMonster = fullMonsterBlood / 9 * point
+        
+        //人的血量單位設定, 目前都是以100當單位..
+        var healPlayer = fullPlayerBlood / 100 * point
+      
+        //show治癒術
+        let comboAttack = findLabelNode(name: "comboAttack")
+        comboAttack.alpha = 1
+        comboAttack.fontColor = .blue
+
+        
+        
+        //假如未扣血就不補血
+        if playerBlood == fullPlayerBlood{
+            
+            healPlayer = 0
+            comboAttack.text = ""
+       
+        } else if (playerBlood + healPlayer) > fullPlayerBlood{
+            
+            //假如補血超過, 就只補到滿
+            
+            //補血動畫
+            healEffect?.isHidden = false
+            healEffect?.resetSimulation()
+            
+            healPlayer = healPlayer - (playerBlood + healPlayer - fullPlayerBlood)
+                    comboAttack.text = "治癒: \(petHeal)"
+            
+        } else {
+            
+            healEffect?.isHidden = false
+            healEffect?.resetSimulation()
+            comboAttack.text = "治癒: \(petHeal)"
+            
+        }
+        
+        //治癒畫面
+            let healAction = SKAction.resize(toWidth: playerBlood + healPlayer, duration: 0.2)
+            findImageNode(name: whom).run(healAction)
+            playerBlood = playerBlood + healPlayer
+        
+        //扣分後的短暫等待
+        let when = DispatchTime.now() + 0.5
+        
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            
+            finished()
+        }
+        
+        
+    }
+    
     
     
     //扣分的func
@@ -3069,7 +3623,7 @@ class GameScene: SKScene {
         
         let sparklingSequence = SKAction.sequence([sparklingAction1,wait,sparklingAction2,wait])
         //讓底線閃爍4次
-        let repeatSparklingAction = SKAction.repeat(sparklingSequence, count: 4)
+        let repeatSparklingAction = SKAction.repeat(sparklingSequence, count: 2)
         
         //顯示最後text
         let finalWord = SKAction.run {
@@ -3659,7 +4213,7 @@ class GameScene: SKScene {
         
         //發音三次後直跳練習
         
-        if playSoundTime == 2 {
+        if playSoundTime == 1 {
             //直接開啟練習
             //只開啟一次
             playSoundTime = 0

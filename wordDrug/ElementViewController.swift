@@ -16,7 +16,7 @@ let backToMapKey = "backToMap"
 
 
 class ElementViewController: UIViewController {
-
+    
     //接收到探索點的號碼
     var spotNumber = Int()
     
@@ -25,20 +25,20 @@ class ElementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
-      //設定NC
+        
+        
+        //設定NC
         NotificationCenter.default.addObserver(self, selector: #selector(ElementViewController.passUnitNumber), name: NSNotification.Name("passUnitNumber"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ElementViewController.jumpBackToMap), name: NSNotification.Name("backToMap"), object: nil)
-
+        
         if let scene = GKScene(fileNamed: "ElementScene") {
             
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! ElementScene? {
                 
                 // Copy gameplay related content over to the scene
-              
+                
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -54,22 +54,22 @@ class ElementViewController: UIViewController {
                 }
             }
         }
-
+        
     }
     
     
     @objc func jumpBackToMap(){
-    
+        
         //跳回上一個畫面
-          self.dismiss(animated: true, completion: nil)
-    
+        self.dismiss(animated: true, completion: nil)
+        
     }
-
+    
     @objc func passUnitNumber(_ notification: NSNotification){
         
         //抓元素單位
         if let unitNumberReceived = notification.userInfo?["unitNumber"] as? Int {
-
+            
             //接收元素單位
             unitNumber = unitNumberReceived
             
@@ -100,7 +100,7 @@ class ElementViewController: UIViewController {
         }
         
     }
-
+    
     
     override var shouldAutorotate: Bool {
         return true
@@ -123,5 +123,5 @@ class ElementViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
 }

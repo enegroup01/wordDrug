@@ -303,7 +303,7 @@ class PetViewController: UIViewController {
         hintBtn.isHidden = true
         
         if isReadyToEnterBattle{
-        showHint()
+            showHint()
         }
     }
     
@@ -347,146 +347,146 @@ class PetViewController: UIViewController {
         
     }
     
-
+    
     
     func showHint(){
-
-            
-            playNowBtn.isHidden = false
-            hintBtn.isHidden = false
-            
-            //建立不可按鍵蓋背景
-            
-            ghostButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-            ghostButton.backgroundColor = .black
-            ghostButton.alpha = 0.5
-            self.view.addSubview(ghostButton)
-            
-            
-            //建立提示對話框
-            hintView.frame = CGRect(x: 80, y: 300, width: 200, height: 130)
-            hintView.backgroundColor = .black
-            hintView.alpha = 1
-            hintView.layer.zPosition = 6
-            
-            self.view.addSubview(hintView)
-            
-            
-            //建立提示標題
-            let hintTitle = UILabel()
-            hintTitle.font = UIFont(name: "Helvetica Bold", size: 20)
-            hintTitle.adjustsFontSizeToFitWidth = true
-            hintTitle.text = "[ 提示 ]"
-            hintTitle.textColor = .cyan
-            hintTitle.frame = CGRect(x: 10, y: -20, width: 180, height: 80)
-            hintTitle.textAlignment = .center
-            hintView.addSubview(hintTitle)
-            
-            let coverPurple = UIColor.init(red: 98/255, green: 44/255, blue: 85/255, alpha: 1)
-            
-            //建立提示按鈕
-            let hintButton = UIButton(type: .system)
-            hintButton.frame = CGRect(x: 80, y: 90, width:40, height: 20)
-            hintButton.backgroundColor = coverPurple
-            hintButton.setTitle("OK", for: .normal)
-            hintButton.addTarget(self, action: #selector(PetViewController.dismissHintButton), for: .touchUpInside)
-            hintButton.tintColor = .white
-            hintButton.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 14)
-            hintView.addSubview(hintButton)
-            
-            //抓正確unit
-            currentWordSequence = 3 * unitNumber
-            
-            //讀取Bundle裡的文字檔, 為了抓怪物的屬性
-            var wordFile:String?
-            
-            let name = "1-" + String(spotNumber + 1)
-            
-            if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-                do {
-                    wordFile = try String(contentsOfFile: filepath)
-                    let words = wordFile?.components(separatedBy: "; ")
+        
+        
+        playNowBtn.isHidden = false
+        hintBtn.isHidden = false
+        
+        //建立不可按鍵蓋背景
+        
+        ghostButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        ghostButton.backgroundColor = .black
+        ghostButton.alpha = 0.5
+        self.view.addSubview(ghostButton)
+        
+        
+        //建立提示對話框
+        hintView.frame = CGRect(x: 80, y: 300, width: 200, height: 130)
+        hintView.backgroundColor = .black
+        hintView.alpha = 1
+        hintView.layer.zPosition = 6
+        
+        self.view.addSubview(hintView)
+        
+        
+        //建立提示標題
+        let hintTitle = UILabel()
+        hintTitle.font = UIFont(name: "Helvetica Bold", size: 20)
+        hintTitle.adjustsFontSizeToFitWidth = true
+        hintTitle.text = "[ 提示 ]"
+        hintTitle.textColor = .cyan
+        hintTitle.frame = CGRect(x: 10, y: -20, width: 180, height: 80)
+        hintTitle.textAlignment = .center
+        hintView.addSubview(hintTitle)
+        
+        let coverPurple = UIColor.init(red: 98/255, green: 44/255, blue: 85/255, alpha: 1)
+        
+        //建立提示按鈕
+        let hintButton = UIButton(type: .system)
+        hintButton.frame = CGRect(x: 80, y: 90, width:40, height: 20)
+        hintButton.backgroundColor = coverPurple
+        hintButton.setTitle("OK", for: .normal)
+        hintButton.addTarget(self, action: #selector(PetViewController.dismissHintButton), for: .touchUpInside)
+        hintButton.tintColor = .white
+        hintButton.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 14)
+        hintView.addSubview(hintButton)
+        
+        //抓正確unit
+        currentWordSequence = 3 * unitNumber
+        
+        //讀取Bundle裡的文字檔, 為了抓怪物的屬性
+        var wordFile:String?
+        
+        let name = "1-" + String(spotNumber + 1)
+        
+        if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+            do {
+                wordFile = try String(contentsOfFile: filepath)
+                let words = wordFile?.components(separatedBy: "; ")
+                
+                //把字讀取到wordSets裡
+                wordSets = words!
+                //print(contents)
+                
+                //找目前sequence的英文+中文字
+                let halfCount = wordSets.count / 2
+                let monsterId = wordSets[halfCount + currentWordSequence]
+                let monsterIdInt = Int(monsterId)
+                var monsterName = String()
+                
+                
+                //抓monster資訊
+                for monster in monsters{
                     
-                    //把字讀取到wordSets裡
-                    wordSets = words!
-                    //print(contents)
-                    
-                    //找目前sequence的英文+中文字
-                    let halfCount = wordSets.count / 2
-                    let monsterId = wordSets[halfCount + currentWordSequence]
-                    let monsterIdInt = Int(monsterId)
-                    var monsterName = String()
-                    
-                    
-                    //抓monster資訊
-                    for monster in monsters{
+                    if monsterIdInt == monster["id"] as! Int{
+                        monsterName = monster["name"] as! String
+                        monsterType = monster["type"] as! String
+                        monsterHp = monster["hp"] as! Int
+                        monsterAtt = monster["att"] as! Int
+                        monsterMagic = monster["magic"] as! Int
                         
-                        if monsterIdInt == monster["id"] as! Int{
-                            monsterName = monster["name"] as! String
-                            monsterType = monster["type"] as! String
-                            monsterHp = monster["hp"] as! Int
-                            monsterAtt = monster["att"] as! Int
-                            monsterMagic = monster["magic"] as! Int
+                        
+                        var elementSuggest = String()
+                        var fontColorSuggest = UIColor()
+                        
+                        
+                        //再做一個判斷怪屬性攻擊倍數的switch
+                        switch monsterType{
+                            
+                        case "wood":
+                            elementSuggest = "metal"
+                            fontColorSuggest = .yellow
+                            
+                        case "earth":
+                            
+                            elementSuggest = "wood"
+                            fontColorSuggest = .orange
+                            
+                        case "water":
+                            
+                            elementSuggest = "earth"
+                            fontColorSuggest = .brown
+                            
+                        case "fire":
+                            elementSuggest = "water"
+                            fontColorSuggest = .blue
                             
                             
-                            var elementSuggest = String()
-                            var fontColorSuggest = UIColor()
+                        case "metal":
                             
+                            elementSuggest = "fire"
+                            fontColorSuggest = .red
                             
-                            //再做一個判斷怪屬性攻擊倍數的switch
-                            switch monsterType{
-                                
-                            case "wood":
-                                elementSuggest = "metal"
-                                fontColorSuggest = .yellow
-                                
-                            case "earth":
-                                
-                                elementSuggest = "wood"
-                                fontColorSuggest = .orange
-                                
-                            case "water":
-                                
-                                elementSuggest = "earth"
-                                fontColorSuggest = .brown
-                                
-                            case "fire":
-                                elementSuggest = "water"
-                                fontColorSuggest = .blue
-                                
-                                
-                            case "metal":
-                                
-                                elementSuggest = "fire"
-                                fontColorSuggest = .red
-                                
-                            default:
-                                break
-                                
-                            }
-                            
-                            //建立提示文字
-                            let hintText = UILabel()
-                            hintText.font = UIFont(name: "Helvetica Bold", size: 14)
-                            hintText.adjustsFontSizeToFitWidth = true
-                            hintText.text = "此元素怪物為\(monsterType)屬性，建議裝備\(elementSuggest)元素"
-                            hintText.textColor = .white
-                            hintText.frame = CGRect(x: 10, y: 15, width: 180, height: 80)
-                            hintText.textAlignment = .center
-                            hintText.numberOfLines = 2
-                            hintView.addSubview(hintText)
-                            
-                            
+                        default:
+                            break
                             
                         }
+                        
+                        //建立提示文字
+                        let hintText = UILabel()
+                        hintText.font = UIFont(name: "Helvetica Bold", size: 14)
+                        hintText.adjustsFontSizeToFitWidth = true
+                        hintText.text = "此元素怪物為\(monsterType)屬性，建議裝備\(elementSuggest)元素"
+                        hintText.textColor = .white
+                        hintText.frame = CGRect(x: 10, y: 15, width: 180, height: 80)
+                        hintText.textAlignment = .center
+                        hintText.numberOfLines = 2
+                        hintView.addSubview(hintText)
+                        
+                        
+                        
                     }
-                    
-                } catch {
-                    // contents could not be loaded
                 }
-            } else {
-                // example.txt not found!
+                
+            } catch {
+                // contents could not be loaded
             }
+        } else {
+            // example.txt not found!
+        }
         
         
         
@@ -803,59 +803,59 @@ class PetViewController: UIViewController {
                         pet?["petHeal"] = Int(petCure + Int(selElem["v"]!)!)
                         
                     case "wood":
-                            
-                            petExtraAttackLabel.textColor = .green
-                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                            
-                            pet?["petType"] = "wood"
-                            
-                            petTypeImg.image = UIImage(named: "wood.png")
-                            
-                  
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        
+                        pet?["petType"] = "wood"
+                        
+                        petTypeImg.image = UIImage(named: "wood.png")
+                        
+                        
                     case "earth":
-                       
-                            
-                            petExtraAttackLabel.textColor = .green
-                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                            pet?["petType"] = "earth"
-                            
-                            petTypeImg.image = UIImage(named: "earth.png")
-                            
-                 
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "earth"
+                        
+                        petTypeImg.image = UIImage(named: "earth.png")
+                        
+                        
                     case "water":
                         
-
-                            petExtraAttackLabel.textColor = .green
-                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                            pet?["petType"] = "water"
-                            
-                            petTypeImg.image = UIImage(named: "water.png")
-                            
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "water"
+                        
+                        petTypeImg.image = UIImage(named: "water.png")
+                        
                     case "fire":
                         
-                       
-                            
-                            petExtraAttackLabel.textColor = .green
-                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                            pet?["petType"] = "fire"
-                            petTypeImg.image = UIImage(named: "fire.png")
-                            
-     
-                              case "metal":
-                                
-                     
-                            petExtraAttackLabel.textColor = .green
-                            petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                            pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
-                            pet?["petType"] = "metal"
-                            
-                            petTypeImg.image = UIImage(named: "metal.png")
-                            
-     
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "fire"
+                        petTypeImg.image = UIImage(named: "fire.png")
+                        
+                        
+                    case "metal":
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
+                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        pet?["petType"] = "metal"
+                        
+                        petTypeImg.image = UIImage(named: "metal.png")
+                        
+                        
                     case "upgrade":
                         break
                     default:
