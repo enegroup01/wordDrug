@@ -83,7 +83,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         // get id from parseJSON dictionary
                         let id = parseJSON["id"]
                         
-         
                         // successfully registered
                         if id != nil {
 
@@ -91,8 +90,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                 //登入
                                 DispatchQueue.main.async(execute: {
                              
-                                    self?.toMap()
-                                    
+                                    //self?.toMap()
+                                    self!.toStats()
                                 })
                                 
                             // error
@@ -204,7 +203,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         
                         DispatchQueue.main.async(execute: {
                             print("successfully logged in")
-                            self!.toMap()
+                            //self!.toMap()
+                                  self!.toStats()
+                            
                         })
                     
 
@@ -278,6 +279,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     func toMap(){
         performSegue(withIdentifier: "toMap", sender: self)
+    }
+    
+    func toStats(){
+        
+        performSegue(withIdentifier: "toStats", sender: self)
     }
 
     
