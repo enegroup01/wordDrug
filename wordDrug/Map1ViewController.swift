@@ -14,6 +14,7 @@ import GameplayKit
 let jumpToGameKey = "jumpToElement"
 let jumpToBookKey = "jumpToBook"
 let jumpToPetKey = "jumpToPet"
+let backToStatsKey = "backToStats"
 
 class Map1ViewController: UIViewController {
 
@@ -32,7 +33,7 @@ class Map1ViewController: UIViewController {
         
                         NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
         
-  
+                          NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.backToStats), name: NSNotification.Name("backToStats"), object: nil)
 
         // Do any additional setup after loading the view.
         
@@ -100,6 +101,11 @@ class Map1ViewController: UIViewController {
         
     }
 
+    @objc func backToStats(){
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

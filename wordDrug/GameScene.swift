@@ -159,6 +159,7 @@ let monsters =
     var monsterDef = Int()
     var monsterMagic = Int()
     var monsterType = String()
+    var monsterImg = String()
     
     //dragAndPlay需要變數
     //線條
@@ -339,11 +340,11 @@ let monsters =
         makeLabelNode(x: 0, y: 100, alignMent: .center, fontColor: .white, fontSize: 70, text: "Combo Attack", zPosition: 5, name: "comboAttack", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         //抓寵物資訊
-        petLife = pet?["petLife"] as! Int
-        petAttack = pet?["petAttack"] as! Int
-        petDefense = pet?["petDefense"] as! Int
-        petDouble = pet?["petDoubleAttack"] as! Int
-        petExtra = pet?["petExtraAttack"] as! Int
+        petLife = pet?["petHp"] as! Int
+        petAttack = pet?["petAtt"] as! Int
+        petDefense = pet?["petDef"] as! Int
+        petDouble = pet?["petHit"] as! Int
+        petExtra = pet?["petMag"] as! Int
         petHeal = pet?["petHeal"] as! Int
         petType = pet?["petType"] as! String
         
@@ -549,24 +550,59 @@ let monsters =
         //找目前sequence的英文+中文字
         let halfCount = wordSets.count / 2
         let monsterId = wordSets[halfCount + currentWordSequence]
-        let monsterIdInt = Int(monsterId)
+        //let monsterIdInt = Int(monsterId)
         var monsterName = String()
         
         
         //抓monster資訊
         for monster in monsters{
             
-            if monsterIdInt == monster["id"] as! Int{
-                monsterName = monster["name"] as! String
-                monsterType = monster["type"] as! String
-                monsterHp = monster["hp"] as! Int
-                monsterAtt = monster["att"] as! Int
-                monsterMagic = monster["magic"] as! Int
-                
+            if monsterId == monster["monId"] as! String{
+                monsterName = monster["monName"] as! String
+                monsterType = monster["monType"] as! String
+                monsterHp = monster["monHp"] as! Int
+                monsterAtt = monster["monAtt"] as! Int
+                monsterMagic = monster["monMag"] as! Int
+                monsterImg = monster["monImg"] as! String
                 print(monsterName)
                 print(monsterAtt)
             }
+            
         }
+        
+        //抓怪物名字
+        var monsterNameGroup = [String]()
+    
+        //抓r數字
+
+        var monGroup = Int()
+        
+        //如果圖片是亂數, 就抓亂數組別
+        if monsterImg.first == "r" {
+        var groupNum = monsterImg.replacingOccurrences(of: "r", with: "")
+        monGroup = Int(groupNum)! - 1
+        }
+        //依照組別append名字來提供亂數
+        for n in 0 ..< monsterNames.count{
+            
+           monsterNameGroup.append(monsterNames[n][monGroup])
+            
+        }
+        print(monsterNameGroup)
+        
+        //沒名字就亂數
+        if monsterName == "" {
+            let randomNumber = Int(arc4random_uniform(UInt32(monsterNameGroup.count)))
+
+            //怪物名字
+            monsterName = monsterNameGroup[randomNumber]
+            //怪物圖片
+            monsterImg = String(monGroup + 1) + "-" + String(randomNumber + 1)
+            
+            
+        }
+        print(monsterName)
+        print(monsterImg)
         
         //進入battle模式
         isBattleMode = true
@@ -591,7 +627,7 @@ let monsters =
         
         // 建立怪物 width:750
         //makeImageNode(name: "monsterEffect", image: "monsterEffect", x: 0, y: 450, width: 0, height: 431, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "monster", image: monsterId, x: 0, y: -150, width: 241, height: 285, z: 1, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "monster", image: monsterImg, x: 0, y: -150, width: 241, height: 285, z: 1, alpha: 0, isAnchoring: false)
         
         //怪物titleBg
         makeImageNode(name: "monsterTitleBg", image: "monsterTitle", x: 0, y: 632, width: 750, height: 70, z: 4, alpha: 0, isAnchoring: false)
@@ -3164,9 +3200,6 @@ let monsters =
                         }
                     }).resume()
                     
-                    
-                    
-                    
                 }
                 
             }
@@ -3186,12 +3219,15 @@ let monsters =
         
         // 動畫部分要重做
         
-        let elemImg = syllablesToCheck + "g"
+        //確認是否為得到多元素, 然後顯示
         
         makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
         makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        
+                let elemImg = "elemG"
         makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 280, height: 280, z: 12, alpha: 1, isAnchoring: false)
+    
         //製作按鈕
         makeImageNode(name: "getButton", image: "getButton", x: 0, y: -400, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
 
@@ -3212,6 +3248,37 @@ let monsters =
         
         isUserInteractionEnabled = true
         
+        //let elemImg = syllablesToCheck + "g"
+        
+        let elemName = syllablesToCheck.components(separatedBy: .decimalDigits)
+        let elemNum = syllablesToCheck.replacingOccurrences(of: elemName[0], with: "")
+        
+        let elemNameLabel = SKLabelNode()
+        elemNameLabel.position = CGPoint(x: 0, y: -12)
+        elemNameLabel.horizontalAlignmentMode = .center
+        elemNameLabel.fontSize = 45
+        elemNameLabel.text = elemName[0]
+        elemNameLabel.name = "elemNameLabel"
+        elemNameLabel.fontName = "Helvetica Bold"
+        elemNameLabel.fontColor = .black
+        elemNameLabel.zPosition = 13
+        
+        let elemNumLabel = SKLabelNode()
+        elemNumLabel.position = CGPoint(x: 28, y: -36)
+        elemNumLabel.horizontalAlignmentMode = .center
+        elemNumLabel.fontSize = 23
+        elemNumLabel.text = elemNum
+        elemNumLabel.name = "elemNumLabel"
+        elemNumLabel.fontName = "Helvetica Bold"
+        elemNumLabel.fontColor = .black
+        elemNumLabel.zPosition = 14
+        
+        
+        if let elemImgNode = findImageNode(name: "getElement") as SKSpriteNode?{
+            elemImgNode.addChild(elemNameLabel)
+            elemImgNode.addChild(elemNumLabel)
+        }
+        
     }
     
     
@@ -3228,7 +3295,7 @@ let monsters =
         removeSomeNodes(name: "Frame")
         removeSomeNodes(name: "tempWord")
         
-        let elemImg = syllablesToCheck + "g"
+        //製作元素
 
         //製作背景
         makeImageNode(name: "loseBg", image: "loseBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
@@ -3237,7 +3304,8 @@ let monsters =
         makeImageNode(name: "quitButton", image: "quitButton", x: 0, y: -400, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
         
         //製作元素
-         makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 280, height: 280, z: 12, alpha: 1, isAnchoring: false)
+        let elemImg = "elemG"
+        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 280, height: 280, z: 12, alpha: 1, isAnchoring: false)
         
         //製作文字
         makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 30, text: "", zPosition: 11, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
@@ -3288,6 +3356,39 @@ let monsters =
             break
         }
           isUserInteractionEnabled = true
+        
+        //加入元素的名稱 及數字
+        
+        let elemName = syllablesToCheck.components(separatedBy: .decimalDigits)
+        let elemNum = syllablesToCheck.replacingOccurrences(of: elemName[0], with: "")
+        
+        let elemNameLabel = SKLabelNode()
+        elemNameLabel.position = CGPoint(x: 0, y: -12)
+        elemNameLabel.horizontalAlignmentMode = .center
+        elemNameLabel.fontSize = 45
+        elemNameLabel.text = elemName[0]
+        elemNameLabel.name = "elemNameLabel"
+        elemNameLabel.fontName = "Helvetica Bold"
+        elemNameLabel.fontColor = .black
+        elemNameLabel.zPosition = 13
+        
+        let elemNumLabel = SKLabelNode()
+        elemNumLabel.position = CGPoint(x: 28, y: -36)
+        elemNumLabel.horizontalAlignmentMode = .center
+        elemNumLabel.fontSize = 23
+        elemNumLabel.text = elemNum
+        elemNumLabel.name = "elemNumLabel"
+        elemNumLabel.fontName = "Helvetica Bold"
+        elemNumLabel.fontColor = .black
+        elemNumLabel.zPosition = 14
+        
+
+        if let elemImgNode = findImageNode(name: "getElement") as SKSpriteNode?{
+        elemImgNode.addChild(elemNameLabel)
+        elemImgNode.addChild(elemNumLabel)
+        }
+
+        
     }
     
     

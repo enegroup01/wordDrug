@@ -13,6 +13,9 @@
 		AA093E641FCBFDD600434ACD /* elemBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E631FCBFDD600434ACD /* elemBg.png */; };
 		AA093E661FCBFE5000434ACD /* prevButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E651FCBFE4F00434ACD /* prevButton.png */; };
 		AA093E681FCBFE5C00434ACD /* nextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E671FCBFE5C00434ACD /* nextButton.png */; };
+		AA1EAAA41FEB6B2600E5C8EB /* 2-3-10.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1EAAA21FEB6B2500E5C8EB /* 2-3-10.png */; };
+		AA1EAAA51FEB6B2600E5C8EB /* 2-1-10.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1EAAA31FEB6B2600E5C8EB /* 2-1-10.png */; };
+		AA1EAAA71FEB736B00E5C8EB /* elemG.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1EAAA61FEB736B00E5C8EB /* elemG.png */; };
 		AA2992321FE0EEBD0040D9C0 /* healEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA2992301FE0EEBD0040D9C0 /* healEffect.sks */; };
 		AA2992361FE14B430040D9C0 /* star0.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2992341FE14B420040D9C0 /* star0.png */; };
 		AA2992371FE14B430040D9C0 /* star1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2992351FE14B420040D9C0 /* star1.png */; };
@@ -284,6 +287,9 @@
 		AA093E631FCBFDD600434ACD /* elemBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elemBg.png; sourceTree = "<group>"; };
 		AA093E651FCBFE4F00434ACD /* prevButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prevButton.png; sourceTree = "<group>"; };
 		AA093E671FCBFE5C00434ACD /* nextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextButton.png; sourceTree = "<group>"; };
+		AA1EAAA21FEB6B2500E5C8EB /* 2-3-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-3-10.png"; sourceTree = "<group>"; };
+		AA1EAAA31FEB6B2600E5C8EB /* 2-1-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-1-10.png"; sourceTree = "<group>"; };
+		AA1EAAA61FEB736B00E5C8EB /* elemG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elemG.png; sourceTree = "<group>"; };
 		AA2992301FE0EEBD0040D9C0 /* healEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = healEffect.sks; sourceTree = "<group>"; };
 		AA2992341FE14B420040D9C0 /* star0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star0.png; sourceTree = "<group>"; };
 		AA2992351FE14B420040D9C0 /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star1.png; sourceTree = "<group>"; };
@@ -622,6 +628,7 @@
 				AA2992351FE14B420040D9C0 /* star1.png */,
 				AA29923E1FE151780040D9C0 /* loseBg.png */,
 				AA8158E41FE24B67000AA3D5 /* winBg.png */,
+				AA1EAAA61FEB736B00E5C8EB /* elemG.png */,
 				AA8158E81FE25293000AA3D5 /* getButton.png */,
 				AA2992381FE14B4C0040D9C0 /* quitButton.png */,
 			);
@@ -794,6 +801,8 @@
 		AAB68D201FE8F32000CCF820 /* 怪物圖 */ = {
 			isa = PBXGroup;
 			children = (
+				AA1EAAA31FEB6B2600E5C8EB /* 2-1-10.png */,
+				AA1EAAA21FEB6B2500E5C8EB /* 2-3-10.png */,
 				AAB68D321FE8F35200CCF820 /* 1-1-0.png */,
 				AAB68D2B1FE8F35100CCF820 /* 1-1-10.png */,
 				AAB68D271FE8F35000CCF820 /* 1-2-10.png */,
@@ -1027,6 +1036,7 @@
 				AA8F80151FB34064000CD84F /* 420.txt in Resources */,
 				AA4E8A121FCE73B700017247 /* any1g.png in Resources */,
 				AAC1CC101FB42239001DE6DB /* dialogue.png in Resources */,
+				AA1EAAA51FEB6B2600E5C8EB /* 2-1-10.png in Resources */,
 				AA8F80031FB31B09000CD84F /* blueSpot.png in Resources */,
 				AA7FA7AD1FB5A63500315524 /* le7.png in Resources */,
 				AA86F3B01FA9BE22004E7997 /* lDot1.png in Resources */,
@@ -1213,6 +1223,7 @@
 				AAB68D4C1FE8F35400CCF820 /* 1-5.png in Resources */,
 				AAE181911F97892D00683896 /* Actions.sks in Resources */,
 				AA7FA7EC1FB5E7C500315524 /* exit.png in Resources */,
+				AA1EAAA71FEB736B00E5C8EB /* elemG.png in Resources */,
 				AA87EAAA1FBD4CDB00830608 /* 3101.png in Resources */,
 				AA86F3C01FA9D92C004E7997 /* shadow.png in Resources */,
 				AA87EAB11FBD4CDB00830608 /* 3801.png in Resources */,
@@ -1237,6 +1248,7 @@
 				AA3861451FE401B000B5FBC6 /* 1-6.txt in Resources */,
 				AA68BD701F9A1A6600112AF4 /* camp.mp3 in Resources */,
 				AA68BD761F9A1A7800112AF4 /* catastrophe.mp3 in Resources */,
+				AA1EAAA41FEB6B2600E5C8EB /* 2-3-10.png in Resources */,
 				AA8E9F631FB1752E00509D39 /* attack2.png in Resources */,
 				AA86F3C81FAC6C1E004E7997 /* fButton2.png in Resources */,
 				AA093E661FCBFE5000434ACD /* prevButton.png in Resources */,

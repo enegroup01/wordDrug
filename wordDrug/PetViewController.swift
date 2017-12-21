@@ -72,10 +72,167 @@ class PetViewController: UIViewController {
     let elemInfoAva = UIImageView()
     let elemTitleLabel = UILabel()
     let elemInfoLabel = UILabel()
+    let elemInfoPetAva = UIImageView()
     
     //元素屬性數值
+    /*
     let elements = [["n":"ab1","f":"hp","v":"50"],["n":"ac1","f":"att","v":"20"],["n":"ad1","f":"def","v":"5"],["n":"a_e1","f":"hit","v":"2"],["n":"af1","f":"heal","v":"10"],["n":"ai1","f":"wood","v":"10"],["n":"al1","f":"earth","v":"10"],["n":"am1","f":"water","v":"10"],["n":"an1","f":"fire","v":"10"],["n":"any1","f":"upgrade","v":"101"]]
+    */
     
+    let elements = [["name":"ab1","func":"hp","value":"50"],
+                    ["name":"ac1","func":"att","value":"20"],
+                    ["name":"ad1","func":"def","value":"5"],
+                    ["name":"a_e1","func":"upgrade","value":"1-1-10"],
+                    ["name":"af1","func":"upgrade","value":"1-1-10"],
+                    ["name":"ai1","func":"wood","value":"10"],
+                    ["name":"al1","func":"earth","value":"10"],
+                    ["name":"am1","func":"water","value":"10"],
+                    ["name":"an1","func":"fire","value":"10"],
+                    ["name":"any1","func":"upgrade","value":"1-1-10"],
+    
+                    ["name":"ap1","func":"metal","value":"10"],
+                    ["name":"ar1","func":"hp","value":"100"],
+                    ["name":"as1","func":"att","value":"40"],
+                    ["name":"at1","func":"upgrade","value":"1-2-10"],
+                    ["name":"au1","func":"upgrade","value":"1-2-10"],
+                    ["name":"aw1","func":"heal","value":"20"],
+                    ["name":"ay1","func":"wood","value":"30"],
+                    ["name":"ba1","func":"earth","value":"30"],
+                    ["name":"be1","func":"water","value":"30"],
+                    ["name":"bi1","func":"upgrade","value":"1-2-10"],
+                    
+                    ["name":"bit1","func":"fire","value":"30"],
+                    ["name":"bl1","func":"metal","value":"30"],
+                    ["name":"bo1","func":"hp","value":"150"],
+                    ["name":"br1","func":"att","value":"60"],
+                    ["name":"bu1","func":"def","value":"15"],
+                    ["name":"by1","func":"hit","value":"2"],
+                    ["name":"ce1","func":"upgrade","value":"1-3-10"],
+                    ["name":"ch1","func":"upgrade","value":"1-3-10"],
+                    ["name":"ci1","func":"wood","value":"50"],
+                    ["name":"ble1","func":"upgrade","value":"1-3-10"],
+                    
+                    ["name":"ck1","func":"earth","value":"50"],
+                    ["name":"cl1","func":"water","value":"50"],
+                    ["name":"co1","func":"fire","value":"50"],
+                    ["name":"com1","func":"upgrade","value":"1-4-10"],
+                    ["name":"con1","func":"heal","value":"40"],
+                    ["name":"cian1","func":"metal","value":"50"],
+                    ["name":"cr1","func":"hp","value":"200"],
+                    ["name":"ct1","func":"att","value":"80"],
+                    ["name":"de1","func":"upgrade","value":"1-4-10"],
+                    ["name":"di1","func":"upgrade","value":"1-4-10"],
+                    
+                    ["name":"do1","func":"def","value":"20"],
+                    ["name":"dr1","func":"hit","value":"4"],
+                    ["name":"dy1","func":"wood","value":"70"],
+                    ["name":"dis1","func":"earth","value":"70"],
+                    ["name":"ea1","func":"upgrade","value":"1-6-10"],
+                    ["name":"ee1","func":"water","value":"70"],
+                    ["name":"el1","func":"fire","value":"70"],
+                    ["name":"em1","func":"metal","value":"70"],
+                    ["name":"en1","func":"hp","value":"250"],
+                    ["name":"er1","func":"hp,att","value":"350,140"],
+                    
+                    ["name":"et1","func":"upgrade","value":"1-11-10"],
+                    ["name":"ew1","func":"def","value":"25"],
+                    ["name":"ex1","func":"heal","value":"60"],
+                    ["name":"ey1","func":"upgrade","value":"1-7-10"],
+                    ["name":"fi1","func":"wood","value":"90"],
+                    ["name":"fl1","func":"earth","value":"90"],
+                    ["name":"fo1","func":"upgrade","value":"1-6-10"],
+                    ["name":"fr1","func":"water","value":"90"],
+                    ["name":"ft1","func":"fire","value":"90"],
+                    ["name":"ful1","func":"upgrade","value":"1-6-10"],
+                    
+                    ["name":"ge1","func":"metal","value":"90"],
+                    ["name":"gi1","func":"hp","value":"300"],
+                    ["name":"gl1","func":"att","value":"120"],
+                    ["name":"go1","func":"def","value":"30"],
+                    ["name":"gr1","func":"upgrade","value":"1-7-10"],
+                    ["name":"he1","func":"wood","value":"110"],
+                    ["name":"hi1","func":"earth","value":"110"],
+                    ["name":"id1","func":"water","value":"110"],
+                    ["name":"ie1","func":"hit","value":"6"],
+                    ["name":"igh1","func":"upgrade","value":"1-7-10"],
+                    
+                    ["name":"il1","func":"fire","value":"110"],
+                    ["name":"im1","func":"metal","value":"110"],
+                    ["name":"in1","func":"upgrade","value":"1-8-10"],
+                    ["name":"ing1","func":"heal","value":"80"],
+                    ["name":"ir1","func":"hp","value":"350"],
+                    ["name":"is1","func":"att","value":"140"],
+                    ["name":"ject1","func":"upgrade","value":"1-8-10"],
+                    ["name":"kn1","func":"def","value":"35"],
+                    ["name":"le1","func":"wood","value":"130"],
+                    ["name":"li1","func":"upgrade","value":"1-8-10"],
+                    
+                    ["name":"ly1","func":"earth","value":"130"],
+                    ["name":"mil1","func":"water","value":"130"],
+                    ["name":"nd1","func":"fire","value":"130"],
+                    ["name":"no1","func":"metal","value":"130"],
+                    ["name":"nt1","func":"upgrade","value":"1-9-10"],
+                    ["name":"oa1","func":"hit","value":"8"],
+                    ["name":"ob1","func":"hp","value":"400"],
+                    ["name":"o_e1","func":"upgrade","value":"1-9-10"],
+                    ["name":"of1","func":"att","value":"160"],
+                    ["name":"oi1","func":"upgrade","value":"1-9-10"],
+                    
+                    ["name":"old1","func":"def","value":"40"],
+                    ["name":"on1","func":"wood","value":"150"],
+                    ["name":"ong1","func":"earth","value":"150"],
+                    ["name":"oo1","func":"heal","value":"100"],
+                    ["name":"op1","func":"upgrade","value":"1-11-10"],
+                    ["name":"or1","func":"water","value":"150"],
+                    ["name":"ot1","func":"fire","value":"150"],
+                    ["name":"ou1","func":"metal","value":"150"],
+                    ["name":"ow1","func":"hp","value":"450"],
+                    ["name":"oy1","func":"att,hit,upgrade","value":"210,9,1-12-10"],
+                    
+                    ["name":"ph1","func":"att","value":"180"],
+                    ["name":"pi1","func":"def","value":"45"],
+                    ["name":"pl1","func":"hit","value":"10"],
+                    ["name":"pr1","func":"wood","value":"170"],
+                    ["name":"rare1","func":"upgrade","value":"1-12-10"],
+                    ["name":"re1","func":"earth","value":"170"],
+                    ["name":"ro1","func":"water","value":"170"],
+                    ["name":"ry1","func":"fire","value":"170"],
+                    ["name":"sh1","func":"metal","value":"170"],
+                    ["name":"si1","func":"upgrade","value":"1-12-10"],
+                    
+                    ["name":"sk1","func":"hp","value":"500"],
+                    ["name":"so1","func":"att","value":"200"],
+                    ["name":"sp1","func":"def","value":"50"],
+                    ["name":"st1","func":"heal","value":"120"],
+                    ["name":"sion1","func":"upgrade","value":"1-13-10"],
+                    ["name":"th1","func":"wood","value":"190"],
+                    ["name":"ti1","func":"earth","value":"190"],
+                    ["name":"tion1","func":"upgrade","value":"2-1-10"],
+                    ["name":"tive1","func":"water","value":"190"],
+                    ["name":"tle1","func":"upgrade","value":"1-12-10"],
+                    
+                    ["name":"to1","func":"fire","value":"190"],
+                    ["name":"tr1","func":"metal","value":"190"],
+                    ["name":"ture1","func":"upgrade","value":"1-13-10"],
+                    ["name":"ty1","func":"hit","value":"12"],
+                    ["name":"ub1","func":"hp","value":"550"],
+                    ["name":"u_e1","func":"att","value":"220"],
+                    ["name":"ui1","func":"def","value":"55"],
+                    ["name":"um1","func":"wood","value":"210"],
+                    ["name":"un1","func":"earth","value":"210"],
+                    ["name":"up1","func":"upgrade","value":"1-13-10"],
+                    
+                    ["name":"ur1","func":"water","value":"210"],
+                    ["name":"ut1","func":"fire","value":"210"],
+                    ["name":"war1","func":"heal","value":"140"],
+                    ["name":"wh1","func":"metal;","value":"210"],
+                    ["name":"ab2","func":"upgrade","value":"2-1-10"],
+                    ["name":"ac2","func":"hp","value":"600"],
+                    ["name":"ad2","func":"att","value":"230"],
+                    ["name":"a_e2","func":"def","value":"60"],
+                    ["name":"af2","func":"wood;","value":"230"],
+                    ["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
+ 
     //有抓到的元素資訊儲存於此
     var allGetElements = [String]()
     var allGetElemsInfo = [[String:String]()]
@@ -122,10 +279,12 @@ class PetViewController: UIViewController {
     let monsterNames = [["可利鴨","可利鴨戰士","可利鴨指揮官","可利鴨招喚師","王者可利鴨"],["灰狼","灰狼戰士","灰狼指揮官","灰狼招喚師","王者灰狼"],["雕像","雕像戰士","雕像指揮官","雕像招喚師","王者雕像"],["水晶蠍","水晶蠍戰士","水晶蠍指揮官","水晶蠍招喚師","王者水晶蠍"],["龍獸","龍獸戰士","龍獸指揮官","龍獸招喚師","王者龍獸"],["巨熊","巨熊戰士"," 巨熊指揮官"," 巨熊招喚師","王者巨熊"],["暴雷龍","暴雷龍戰士","暴雷龍指揮官"," 暴雷龍招喚師","王者暴雷龍"],["石化獸","石化獸戰士"," 石化獸指揮官"," 石化獸招喚師","王者石化獸"],["靈馴鹿","靈馴鹿戰士"," 靈馴鹿指揮官"," 靈馴鹿招喚師","王者靈馴鹿"]]
 
  
- var monsterHp = Int()
-    var monsterAtt = Int()
-    var monsterDef = Int()
-    var monsterMagic = Int()
+ //var monsterHp = Int()
+    //var monsterAtt = Int()
+    //var monsterDef = Int()
+    //var monsterMagic = Int()
+    
+    //用來判斷提示
     var monsterType = String()
     
     //提示怪物屬性畫面
@@ -149,8 +308,13 @@ class PetViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
+        //抓所有寵物資訊
+        let petAvaImg = pet!["petImg"] as! String
+       
+        let petName = pet!["petName"] as! String
+        
         //寵物大頭照
-        petAva.image = UIImage(named: "401.png")
+        petAva.image = UIImage(named: petAvaImg)
         
         //使用的元素
         let selElemImage = UIImage(named: "selElem.png")
@@ -195,7 +359,7 @@ class PetViewController: UIViewController {
                 elems[i].image = makeImage(name: name)
                 
                 for e in 0 ..< elements.count{
-                    if let n = elements[e]["n"] as String?{
+                    if let n = elements[e]["name"] as String?{
                         if n == name{
                             
                             allGetElemsInfo.append(elements[e])
@@ -209,6 +373,7 @@ class PetViewController: UIViewController {
             }
         }
         
+        //移除第一組空值
         allGetElemsInfo.remove(at: 0)
         print(allGetElemsInfo)
         
@@ -259,6 +424,10 @@ class PetViewController: UIViewController {
         elemInfoAva.frame = CGRect(x: 10, y: 10, width: 80, height: 80)
         elemInfoBg.addSubview(elemInfoAva)
         
+        //註解裡的
+        elemInfoPetAva.frame = CGRect(x: 160, y: 60, width: 35, height: 35)
+        elemInfoBg.addSubview(elemInfoPetAva)
+        
         //註解title
         elemTitleLabel.textColor = .cyan
         elemTitleLabel.font = UIFont(name: "Helvetica Bold", size: 15)
@@ -286,12 +455,15 @@ class PetViewController: UIViewController {
         
         //設定寵物數值
         //pet = ["petLife":100,"petAttack":40,"petDefense":10,"petDoubleAttack":20,"petExtraAttack":0,"petHeal":0,"petType":""]
-        
+        pet = petOriginal
         //pets = [["petId":"1-1-0","petName":"幼龍","petHp":110,"petAtt":40,"petDef":10,"petHit":20,"petHeal":0,"petType":"","petImg":"1-1-0"], ["petId":"1-1-10","petName":"球球","petHp":120,"petAtt":50,"petDef":15,"petHit":25,"petHeal":0,"petType":"","petImg":"1-1-10"], ["petId":"1-2-10","petName":"螳螂拳","petHp":130,"petAtt":60,"petDef":15,"petHit":15,"petHeal":0,"petType":"","petImg":"1-2-10"],["petId":"1-3-10","petName":"蘑菇怪","petHp":165,"petAtt":60,"petDef":15,"petHit":23,"petHeal":0,"petType":"","petImg":"1-3-10"], ["petId":"1-4-10","petName":"劇毒狼","petHp":140,"petAtt":70,"petDef":20,"petHit":25,"petHeal":0,"petType":"","petImg":"1-4-10"], ["petId":"1-6-10","petName":"銀翼飛馬","petHp":150,"petAtt":70,"petDef":20,"petHit":20,"petHeal":0,"petType":"","petImg":"1-6-10"], ["petId":"1-7-10","petName":"恐龍博士","petHp":180,"petAtt":75,"petDef":22.5,"petHit":28,"petHeal":0,"petType":"","petImg":"1-7-10"], ["petId":"1-8-10","petName":"冰雪犀牛","petHp":160,"petAtt":80,"petDef":25,"petHit":25,"petHeal":0,"petType":"","petImg":"1-8-10"], ["petId":"1-9-10","petName":"美洲豹","petHp":195,"petAtt":90,"petDef":22.5,"petHit":18,"petHeal":0,"petType":"","petImg":"1-9-10"], ["petId":"1-11-10","petName":"治癒菇神","petHp":170,"petAtt":90,"petDef":25,"petHit":20,"petHeal":0,"petType":"","petImg":"1-11-10"], ["petId":"1-12-10","petName":"眼鏡蛇王","petHp":180,"petAtt":100,"petDef":30,"petHit":15,"petHeal":0,"petType":"","petImg":"1-12-10"], ["petId":"1-13-10","petName":"被感染的劇毒狼","petHp":210,"petAtt":105,"petDef":30,"petHit":28,"petHeal":0,"petType":"","petImg":"1-13-10"]]
         
         
         
         fetchElementInfo()
+        
+        //抓取本機儲存的已使用元素
+        elemSaved = UserDefaults.standard.object(forKey: "elemSaved") as? [Int]
         
         //指定之前所存檔的使用元素
         if elemSaved == nil {
@@ -438,19 +610,19 @@ class PetViewController: UIViewController {
                 //找目前sequence的英文+中文字
                 let halfCount = wordSets.count / 2
                 let monsterId = wordSets[halfCount + currentWordSequence]
-                let monsterIdInt = Int(monsterId)
-                var monsterName = String()
+               // let monsterIdInt = Int(monsterId)
+                //var monsterName = String()
                 
                 
                 //抓monster資訊
                 for monster in monsters{
                     
-                    if monsterIdInt == monster["id"] as! Int{
-                        monsterName = monster["name"] as! String
-                        monsterType = monster["type"] as! String
-                        monsterHp = monster["hp"] as! Int
-                        monsterAtt = monster["att"] as! Int
-                        monsterMagic = monster["magic"] as! Int
+                    if monsterId == monster["monId"] as! String{
+                        //monsterName = monster["name"] as! String
+                        monsterType = monster["monType"] as! String
+                        //monsterHp = monster["hp"] as! Int
+                        //monsterAtt = monster["att"] as! Int
+                        //monsterMagic = monster["magic"] as! Int
                         
                         
                         var elementSuggest = String()
@@ -485,6 +657,7 @@ class PetViewController: UIViewController {
                             fontColorSuggest = .red
                             
                         default:
+             
                             break
                             
                         }
@@ -547,14 +720,25 @@ class PetViewController: UIViewController {
                             let title = titleChinese[e]
                             elemTitleLabel.text = "Lv1 " + title
                             
+                            if title == "寵物碎片"{
+                                //顯示寵物圖片
+                                let imgName = allGetElemsInfo[e]["value"] as String?
+                                elemInfoPetAva.image = makeImage(name: imgName!)
+                            }
+                            
+
                             //抓能力值
                             let function = functionChinese[e]
                             
                             //讓爆擊率＋%
                             if function == "爆擊率" {
                                 elemInfoLabel.text = function + " +\(values[e])%"
+                            } else if title == "寵物碎片"{
+                                elemInfoLabel.text = function
+                                
                             } else {
-                                elemInfoLabel.text = function + " +\(values[e])"
+                                
+                                 elemInfoLabel.text = function + " +\(values[e])"
                                 
                             }
                             
@@ -562,6 +746,8 @@ class PetViewController: UIViewController {
                             let elemAva = elems[e].image
                             elemInfoAva.image = elemAva
                             elemInfoBg.alpha = 0.8
+                            
+                            
                             
                             //確認e是否為occupied當中的index, 是的話把數字還原-1,讓其可以繼續填入其他元素
                             //解釋：確認所按到的元素是不是已經在使用當中的, 是的話就移除index
@@ -603,7 +789,8 @@ class PetViewController: UIViewController {
                                 calculatePetValue()
                                 
                             }
-                            
+                            UserDefaults.standard.set(elemSaved, forKey: "elemSaved")
+
                         }
                     }
                 }
@@ -682,6 +869,8 @@ class PetViewController: UIViewController {
                             
                         }
                     }
+                    
+                    UserDefaults.standard.set(elemSaved, forKey: "elemSaved")
                 }
                 
             }
@@ -697,7 +886,8 @@ class PetViewController: UIViewController {
         //準備元素資訊供顯示
         for i in 0 ..< allGetElemsInfo.count{
             
-            if let functions = allGetElemsInfo[i]["f"] as String?{
+            if let functions = allGetElemsInfo[i]["func"] as String?{
+                
                 
                 switch functions{
                     
@@ -729,8 +919,11 @@ class PetViewController: UIViewController {
                     titleChinese.append("屬性元素")
                     functionChinese.append("火屬性魔攻")
                 case "upgrade":
-                    titleChinese.append("合併元素")
-                    functionChinese.append("需搭配any1,ba1,ca2")
+                    //需重寫升級方法
+                    titleChinese.append("寵物碎片")
+                    functionChinese.append("蒐集3片碎片合成寵物")
+                    
+                    
                     
                 default:
                     break
@@ -740,7 +933,7 @@ class PetViewController: UIViewController {
             }
             
             //新增數值供info顯示
-            if let value = allGetElemsInfo[i]["v"] as String?{
+            if let value = allGetElemsInfo[i]["value"] as String?{
                 values.append(value)
                 
             }
@@ -756,21 +949,32 @@ class PetViewController: UIViewController {
         print(selOccupiedByElemIndex)
         //抓數值, 之後這個數值要從一個可以固定及升級改數值的地方抓數字過來.
         //寵物資訊重置
-        pet = ["petLife":100,"petAttack":40,"petDefense":10,"petDoubleAttack":20,"petExtraAttack":0,"petHeal":0,"petType":""]
+        //pet = ["petLife":100,"petAttack":40,"petDefense":10,"petDoubleAttack":20,"petExtraAttack":0,"petHeal":0,"petType":""]
+        pet = petOriginal
+        print("petOriginal:\(petOriginal)")
         
+        let petHpValue = pet!["petHp"] as! Int
+        let petAttValue = pet!["petAtt"] as! Int
+        let petDefValue = pet!["petDef"] as! Int
+        let petHealValue = pet!["petHeal"] as! Int
+        //let petTypeValue = pet!["petType"] as! String
+        let petHitValue = pet!["petHit"] as! Int
+        let petMagValue = pet!["petMag"] as! Int
+        
+        /*
         let petCure = pet?["petHeal"] as! Int
         let petLife = pet?["petLife"] as! Int
         let petAttack = pet?["petAttack"] as! Int
         let petDefense = pet?["petDefense"] as! Int
         let petDouble = pet?["petDoubleAttack"] as! Int
         let petExtra = pet?["petExtraAttack"] as! Int
-        
-        petCureLabel.text = String(describing: petCure)
-        petLifeLabel.text = String(describing: petLife)
-        petAttackLabel.text = String(describing: petAttack)
-        petDefenseLabel.text = String(describing: petDefense)
-        petDoubleAttackLabel.text = String(describing: petDouble) + "%"
-        petExtraAttackLabel.text = String(describing: petExtra)
+        */
+        petCureLabel.text = String(describing: petHealValue)
+        petLifeLabel.text = String(describing: petHpValue)
+        petAttackLabel.text = String(describing: petAttValue)
+        petDefenseLabel.text = String(describing: petDefValue)
+        petDoubleAttackLabel.text = String(describing: petHitValue) + "%"
+        petExtraAttackLabel.text = String(describing: petMagValue)
         
         //顏色先重置白色
         petLifeLabel.textColor = .white
@@ -793,44 +997,44 @@ class PetViewController: UIViewController {
                 let index = selOccupiedByElemIndex[s]
                 let selElem = allGetElemsInfo[index]
                 
-                if let function = selElem["f"] as String?{
+                if let function = selElem["func"] as String?{
                     
                     switch function{
                         
                     case "hp":
                         
                         petLifeLabel.textColor = .green
-                        petLifeLabel.text = String(petLife + Int(selElem["v"]!)!)
-                        pet?["petLife"] = Int(petLife + Int(selElem["v"]!)!)
+                        petLifeLabel.text = String(petHpValue + Int(selElem["value"]!)!)
+                        pet?["petHp"] = Int(petHpValue + Int(selElem["value"]!)!)
                         
                         
                     case "att":
                         petAttackLabel.textColor = .green
-                        petAttackLabel.text = String(petAttack + Int(selElem["v"]!)!)
-                        pet?["petAttack"] = Int(petAttack + Int(selElem["v"]!)!)
+                        petAttackLabel.text = String(petAttValue + Int(selElem["value"]!)!)
+                        pet?["petAtt"] = Int(petAttValue + Int(selElem["value"]!)!)
                         
                     case "def":
                         petDefenseLabel.textColor = .green
-                        petDefenseLabel.text = String(petDefense + Int(selElem["v"]!)!)
-                        pet?["petDefense"] = Int(petDefense + Int(selElem["v"]!)!)
+                        petDefenseLabel.text = String(petDefValue + Int(selElem["value"]!)!)
+                        pet?["petDef"] = Int(petDefValue + Int(selElem["value"]!)!)
                         
                         
                     case "hit":
                         petDoubleAttackLabel.textColor = .green
-                        petDoubleAttackLabel.text = String(petDouble + Int(selElem["v"]!)!) + "%"
-                        pet?["petDouble"] = Int(petDouble + Int(selElem["v"]!)!)
+                        petDoubleAttackLabel.text = String(petHitValue + Int(selElem["value"]!)!) + "%"
+                        pet?["petHit"] = Int(petHitValue + Int(selElem["value"]!)!)
                         
                         
                     case "heal":
                         petCureLabel.textColor = .green
-                        petCureLabel.text = String(petCure + Int(selElem["v"]!)!)
-                        pet?["petHeal"] = Int(petCure + Int(selElem["v"]!)!)
+                        petCureLabel.text = String(petHealValue + Int(selElem["value"]!)!)
+                        pet?["petHeal"] = Int(petHealValue + Int(selElem["value"]!)!)
                         
                     case "wood":
                         
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
                         
                         pet?["petType"] = "wood"
                         
@@ -838,11 +1042,10 @@ class PetViewController: UIViewController {
                         
                         
                     case "earth":
-                        
-                        
+                    
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
                         pet?["petType"] = "earth"
                         
                         petTypeImg.image = UIImage(named: "earth.png")
@@ -852,8 +1055,8 @@ class PetViewController: UIViewController {
                         
                         
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
                         pet?["petType"] = "water"
                         
                         petTypeImg.image = UIImage(named: "water.png")
@@ -863,8 +1066,8 @@ class PetViewController: UIViewController {
                         
                         
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
                         pet?["petType"] = "fire"
                         petTypeImg.image = UIImage(named: "fire.png")
                         
@@ -873,8 +1076,8 @@ class PetViewController: UIViewController {
                         
                         
                         petExtraAttackLabel.textColor = .green
-                        petExtraAttackLabel.text = String(petExtra + Int(selElem["v"]!)!)
-                        pet?["petExtraAttack"] = Int(petExtra + Int(selElem["v"]!)!)
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
                         pet?["petType"] = "metal"
                         
                         petTypeImg.image = UIImage(named: "metal.png")
@@ -892,7 +1095,11 @@ class PetViewController: UIViewController {
                 
             }
             
+            //儲存改變數值
+            UserDefaults.standard.set(pet, forKey: "pet")
         }
+        
+        
         
     }
     

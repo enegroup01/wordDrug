@@ -30,6 +30,7 @@ class Map1Scene: SKScene {
         
         NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
         
+                NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyBackToStats), name: NSNotification.Name("jumpToPet"), object: nil)
 
         
         
@@ -42,7 +43,7 @@ class Map1Scene: SKScene {
 
         //做點點
         makeImageNode(name: "lSpot0", image: "lightBlueSpot", x: -100, y: 100, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-       /*
+       
         makeImageNode(name: "lSpot1", image: "lightYellowSpot", x: 250, y: 200, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot2", image: "lightPinkSpot", x: 260, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot3", image: "lightBlueSpot", x: -20, y: 170, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
@@ -56,7 +57,7 @@ class Map1Scene: SKScene {
         makeImageNode(name: "lSpot11", image: "lightPinkSpot", x: -130, y: -30, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot12", image: "lightBlueSpot", x: -100, y: 10, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot13", image: "lightYellowSpot", x: 60, y: 155, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-*/
+
         //抓所有名字
         for node in children{
             if (node.name?.contains("lSpot"))!{
@@ -87,6 +88,9 @@ class Map1Scene: SKScene {
         makeImageNode(name: "petAva", image: "petAva", x: -210, y: 460, width: 186, height: 186, z: 2, alpha: 1, isAnchoring: false)
         makeLabelNode(x: -205, y: 510, alignMent: .center, fontColor: .white, fontSize: 18, text: "Ethan的迷你馬", zPosition: 2, name: "petName", fontName: "Helvetica", isHidden: false, alpha: 1)
         
+       //回上一頁
+        makeLabelNode(x: -300, y: 600, alignMent: .left, fontColor: .green, fontSize: 40, text: "< back", zPosition: 1, name: "backButton", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
     }
     
     
@@ -96,6 +100,10 @@ class Map1Scene: SKScene {
     @objc func notifyJumpToElement(){
     }
     @objc func notifyJumpToPet(){
+    }
+    @objc func notifyBackToStats(){
+    
+    
     }
     
     //探索游標出現
@@ -184,6 +192,14 @@ class Map1Scene: SKScene {
                 let mouseNode = findImageNode(name: "open")
                 mouseNode.run(mouseDisappearAction())
                 
+                
+            }
+            
+            if node.name == "backButton"{
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToStats"), object: nil, userInfo: nil)
+                let mouseNode = findImageNode(name: "open")
+                mouseNode.run(mouseDisappearAction())
                 
             }
             

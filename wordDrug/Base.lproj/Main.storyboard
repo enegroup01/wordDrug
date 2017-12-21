@@ -144,13 +144,12 @@
                         <outlet property="middleLine" destination="E6d-UF-rem" id="1uI-Wl-5Md"/>
                         <outlet property="passwordTxt" destination="7n9-4j-B2s" id="Ao1-QP-e6U"/>
                         <outlet property="usernameTxt" destination="cfg-84-fds" id="VEs-LI-UbD"/>
-                        <segue destination="Dxg-Nz-qzU" kind="show" identifier="toMap" id="wFg-pc-aHk"/>
                         <segue destination="Ogz-8O-JWu" kind="show" identifier="toStats" id="6gS-fO-a7o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IRQ-Nb-WFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-778.39999999999998" y="-14.842578710644679"/>
+            <point key="canvasLocation" x="-1604" y="-4"/>
         </scene>
         <!--mapVc-->
         <scene sceneID="9Kt-D4-g6n">
@@ -917,6 +916,16 @@
                                     <constraint firstAttribute="width" constant="200" id="JQv-Ww-brS"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k4N-rc-uoV">
+                                <rect key="frame" x="299" y="607" width="76" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="rrh-s5-pRx"/>
+                                    <constraint firstAttribute="width" constant="76" id="x9Z-92-Qay"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="enterMapClick:" destination="Ogz-8O-JWu" eventType="touchUpInside" id="SwH-Zb-fqr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -946,6 +955,7 @@
                             <constraint firstAttribute="trailing" secondItem="x5D-S3-g1a" secondAttribute="trailing" id="hFy-QH-1ap"/>
                             <constraint firstItem="GrN-9D-Kj3" firstAttribute="top" secondItem="ugK-yK-QDA" secondAttribute="top" constant="7" id="hIV-xy-RIE"/>
                             <constraint firstItem="b3O-Hx-Rph" firstAttribute="top" secondItem="D3G-Kh-AFH" secondAttribute="bottom" constant="30" id="hMf-ge-BqC"/>
+                            <constraint firstItem="k4N-rc-uoV" firstAttribute="bottom" secondItem="3tj-Lt-sgq" secondAttribute="bottom" id="hsd-Qm-Yb7"/>
                             <constraint firstItem="3tj-Lt-sgq" firstAttribute="trailing" secondItem="tSr-0U-j0c" secondAttribute="trailing" constant="8" id="ivE-35-jWf"/>
                             <constraint firstItem="zFF-De-tMw" firstAttribute="top" secondItem="GN3-1g-AFs" secondAttribute="bottom" constant="52" id="jAn-IQ-osy"/>
                             <constraint firstItem="3Wn-Ka-dNr" firstAttribute="top" secondItem="3tj-Lt-sgq" secondAttribute="top" constant="257" id="m4Z-pd-EEJ"/>
@@ -954,6 +964,7 @@
                             <constraint firstItem="GN3-1g-AFs" firstAttribute="centerX" secondItem="ugK-yK-QDA" secondAttribute="centerX" id="uPc-CQ-KCq"/>
                             <constraint firstItem="bYT-49-Tao" firstAttribute="leading" secondItem="3tj-Lt-sgq" secondAttribute="leading" constant="48" id="vXl-wc-UGi"/>
                             <constraint firstItem="RGO-PW-JP1" firstAttribute="leading" secondItem="3tj-Lt-sgq" secondAttribute="leading" constant="48" id="ww5-Fy-O09"/>
+                            <constraint firstItem="k4N-rc-uoV" firstAttribute="trailing" secondItem="3tj-Lt-sgq" secondAttribute="trailing" id="xGz-v6-8fE"/>
                             <constraint firstItem="bO6-ab-4wa" firstAttribute="top" secondItem="b3O-Hx-Rph" secondAttribute="bottom" constant="29" id="xhK-K7-wne"/>
                             <constraint firstItem="RGO-PW-JP1" firstAttribute="top" secondItem="Ib4-sC-3DP" secondAttribute="bottom" constant="9" id="ydP-7a-sGH"/>
                         </constraints>
@@ -976,11 +987,12 @@
                         <outlet property="wordsFinishedAmountLabel" destination="zFF-De-tMw" id="Bro-GZ-qqe"/>
                         <outlet property="wordsFinishedPerLabel" destination="D3G-Kh-AFH" id="sAE-oq-Szo"/>
                         <outlet property="wordsWrongAmountLabel" destination="b3O-Hx-Rph" id="g8F-1f-rQx"/>
+                        <segue destination="Dxg-Nz-qzU" kind="show" identifier="toMap" id="zcx-Ve-zOB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JaI-7n-yhX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-765.60000000000002" y="766.86656671664173"/>
+            <point key="canvasLocation" x="-746" y="-4"/>
         </scene>
         <!--bookVc-->
         <scene sceneID="e3k-Ps-3VG">

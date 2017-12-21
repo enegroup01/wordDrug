@@ -8,7 +8,9 @@
 
 import UIKit
 
+//選擇所使用的寵物
 var pet : [String:Any]?
+var petOriginal : [String:Any]?
 
 class StatsViewController: UIViewController {
     
@@ -45,14 +47,51 @@ class StatsViewController: UIViewController {
     //partOne所有寵物
     let partOnePets:[[String:Any]] = [["petId":"1-1-0","petName":"幼龍","petHp":110,"petAtt":40,"petDef":10,"petHit":20,"petHeal":0,"petType":"","petImg":"1-1-0"], ["petId":"1-1-10","petName":"球球","petHp":120,"petAtt":50,"petDef":15,"petHit":25,"petHeal":0,"petType":"","petImg":"1-1-10"], ["petId":"1-2-10","petName":"螳螂拳","petHp":130,"petAtt":60,"petDef":15,"petHit":15,"petHeal":0,"petType":"","petImg":"1-2-10"],["petId":"1-3-10","petName":"蘑菇怪","petHp":165,"petAtt":60,"petDef":15,"petHit":23,"petHeal":0,"petType":"","petImg":"1-3-10"], ["petId":"1-4-10","petName":"劇毒狼","petHp":140,"petAtt":70,"petDef":20,"petHit":25,"petHeal":0,"petType":"","petImg":"1-4-10"], ["petId":"1-6-10","petName":"銀翼飛馬","petHp":150,"petAtt":70,"petDef":20,"petHit":20,"petHeal":0,"petType":"","petImg":"1-6-10"], ["petId":"1-7-10","petName":"恐龍博士","petHp":180,"petAtt":75,"petDef":22.5,"petHit":28,"petHeal":0,"petType":"","petImg":"1-7-10"], ["petId":"1-8-10","petName":"冰雪犀牛","petHp":160,"petAtt":80,"petDef":25,"petHit":25,"petHeal":0,"petType":"","petImg":"1-8-10"], ["petId":"1-9-10","petName":"美洲豹","petHp":195,"petAtt":90,"petDef":22.5,"petHit":18,"petHeal":0,"petType":"","petImg":"1-9-10"], ["petId":"1-11-10","petName":"治癒菇神","petHp":170,"petAtt":90,"petDef":25,"petHit":20,"petHeal":0,"petType":"","petImg":"1-11-10"], ["petId":"1-12-10","petName":"眼鏡蛇王","petHp":180,"petAtt":100,"petDef":30,"petHit":15,"petHeal":0,"petType":"","petImg":"1-12-10"], ["petId":"1-13-10","petName":"被感染的劇毒狼","petHp":210,"petAtt":105,"petDef":30,"petHit":28,"petHeal":0,"petType":"","petImg":"1-13-10"]]
     
+
+    //有抓到的元素資訊儲存於此
+    var allGetElements = [String]()
+    var allGetElemsInfo = [[String:String]()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         
-        //抓本機寵物
+        //抓本機曾經儲存的寵物
         pet = UserDefaults.standard.object(forKey: "pet") as? [String : Any]
+        //不變的數值
+        
+        //抓使用者得到的元素
+        /*
+        let getElemets = user?["getElement"] as! String
+        
+        //做成新的array
+        allGetElements = getElemets.components(separatedBy: ";")
+        
+        //移除最後一個空白值, 以目前寫法來說會分出一個空的""
+        allGetElements.removeLast()
+        
+        //抓有得到的元素, append他們的資訊
+        //抓有得到的元素, append他們的資訊
+        for i in 0 ..< allGetElements.count{
+            if let name = allGetElements[i] as String?{
+                
+                for e in 0 ..< elements.count{
+                    if let n = elements[e]["n"] as String?{
+                        if n == name{
+                            
+                            allGetElemsInfo.append(elements[e])
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        allGetElemsInfo.remove(at: 0)
+ */
         
         //先做好背景後隱藏
         darkBg.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
@@ -72,6 +111,24 @@ class StatsViewController: UIViewController {
         //檢查有沒有寵物
         if pet != nil {
             
+            
+            //抓該寵物原始數值存放到petOriginal裡
+            let originalPetId = pet!["petId"] as! String
+            for i in 0 ..< partOnePets.count{
+                
+                if let id = partOnePets[i]["petId"] as? String{
+                    
+                    if originalPetId == id {
+                        
+                        petOriginal = partOnePets[i]
+                        petOriginal!["petMag"] = 0
+                        
+                    }
+                    
+                }
+            }
+
+            
             print("has pet")
             //有的話就顯示之前預選的寵物
             showPetInfo()
@@ -82,20 +139,24 @@ class StatsViewController: UIViewController {
             print("no pet")
             
             //指定第一隻
-            
+        
             //指定好第一隻送的寵物
             pet = partOnePets[0]
+            petOriginal = partOnePets[0]
+            petOriginal!["petMag"] = 0
             
+            //先設定好魔攻為0
+            pet!["petMag"] = 0
+            
+            //儲存本機已選擇的寵物
+            UserDefaults.standard.set(pet, forKey: "pet")
+        
             //儲存的變數
             let petId = pet!["petId"] as! String
             let id = user?["id"] as! String
             
-            //儲存已得到的寵物
+            //儲存到後端
             getPet(id: id, petId: petId)
-            
-            //儲存本機已選擇的寵物
-            UserDefaults.standard.set(pet, forKey: "pet")
-            
             
             //開始動畫
             darkBg.isHidden = false
@@ -240,7 +301,6 @@ class StatsViewController: UIViewController {
     
     func showPetInfo(){
         
-
         //抓所有寵物資訊
         let petAvaImg = pet!["petImg"] as! String
         let petHpValue = pet!["petHp"] as! Int
@@ -250,6 +310,7 @@ class StatsViewController: UIViewController {
         let petTypeValue = pet!["petType"] as! String
         let petHitValue = pet!["petHit"] as! Int
         let petName = pet!["petName"] as! String
+        let petMagValue = pet!["petMag"] as! Int
         
         petHealLabel.textColor = .white
         petAttLabel.textColor = .white
@@ -259,7 +320,6 @@ class StatsViewController: UIViewController {
         petHitLabel.textColor = .white
         petMagLabel.textColor = .white
         
-        
         //顯示出來
         petAva.image = UIImage(named: petAvaImg)
         petHpLabel.text = String(petHpValue)
@@ -268,7 +328,7 @@ class StatsViewController: UIViewController {
         petHealLabel.text = String(petHealValue)
         petNameLabel.text = petName
         petHitLabel.text = String(petHitValue)
-        petMagLabel.text = "0"
+        petMagLabel.text = String(describing: petMagValue)
         
 
         //寵物上下動的動畫
@@ -279,8 +339,18 @@ class StatsViewController: UIViewController {
             
         }, completion: nil)
         
+         getPetValue()
         
     }
+    
+    
+    @IBAction func enterMapClick(_ sender: Any) {
+        
+        
+        performSegue(withIdentifier: "toMap", sender: self)
+        
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -306,9 +376,166 @@ class StatsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        //即時更新寵物資訊
+        getPetValue()
     }
     
+    
+    
+    //計算寵物數值的func
+    func getPetValue(){
+        
+        //抓數值, 之後這個數值要從一個可以固定及升級改數值的地方抓數字過來.
+        //寵物資訊重置
+        //pet = petOriginal
+        
+        let petHpValue = pet!["petHp"] as! Int
+        let petAttValue = pet!["petAtt"] as! Int
+        let petDefValue = pet!["petDef"] as! Int
+        let petHealValue = pet!["petHeal"] as! Int
+        //let petTypeValue = pet!["petType"] as! String
+        let petHitValue = pet!["petHit"] as! Int
+        let petMagValue = pet!["petMag"] as! Int
+        
+        /*
+         let petCure = pet?["petHeal"] as! Int
+         let petLife = pet?["petLife"] as! Int
+         let petAttack = pet?["petAttack"] as! Int
+         let petDefense = pet?["petDefense"] as! Int
+         let petDouble = pet?["petDoubleAttack"] as! Int
+         let petExtra = pet?["petExtraAttack"] as! Int
+         */
+        petHealLabel.text = String(describing: petHealValue)
+        petHpLabel.text = String(describing: petHpValue)
+        petAttLabel.text = String(describing: petAttValue)
+        petDefLabel.text = String(describing: petDefValue)
+        petHitLabel.text = String(describing: petHitValue) + "%"
+        petMagLabel.text = String(describing: petMagValue)
+        
+        //顏色先重置白色
+        petHpLabel.textColor = .white
+        petAttLabel.textColor = .white
+        petDefLabel.textColor = .white
+        petMagLabel.textColor = .white
+        petHitLabel.textColor = .white
+        petHealLabel.textColor = .white
+        //還有元素圖未寫
+        
+        
+        // 機制: 這裡的數字不改, 每一次都check selOccupied有沒有任何值會影響
+        
+        //抓數字
+        /*
+        for s in 0 ..< elemSaved!.count{
+            
+            //加數值上去
+            if elemSaved![s] > -1 {
+                
+                let index = elemSaved![s]
+                let selElem = allGetElemsInfo[index]
+                
+                if let function = selElem["f"] as String?{
+                    
+                    switch function{
+                        
+                    case "hp":
+                        
+                        petHpLabel.textColor = .green
+                        petHpLabel.text = String(petHpValue + Int(selElem["v"]!)!)
+                        pet?["petHp"] = Int(petHpValue + Int(selElem["v"]!)!)
+                        
+                        
+                    case "att":
+                        petAttLabel.textColor = .green
+                        petAttLabel.text = String(petAttValue + Int(selElem["v"]!)!)
+                        pet?["petAtt"] = Int(petAttValue + Int(selElem["v"]!)!)
+                        
+                    case "def":
+                        petDefLabel.textColor = .green
+                        petDefLabel.text = String(petDefValue + Int(selElem["v"]!)!)
+                        pet?["petDef"] = Int(petDefValue + Int(selElem["v"]!)!)
+                        
+                        
+                    case "hit":
+                        petHitLabel.textColor = .green
+                        petHitLabel.text = String(petHitValue + Int(selElem["v"]!)!) + "%"
+                        pet?["petHit"] = Int(petHitValue + Int(selElem["v"]!)!)
+                        
+                        
+                    case "heal":
+                        petHealLabel.textColor = .green
+                        petHealLabel.text = String(petHealValue + Int(selElem["v"]!)!)
+                        pet?["petHeal"] = Int(petHealValue + Int(selElem["v"]!)!)
+                        
+                    case "wood":
+                        
+                        petMagLabel.textColor = .green
+                        petMagLabel.text = String(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["v"]!)!)
+                        
+                        pet?["petType"] = "wood"
+                        
+                        //petTypeImg.image = UIImage(named: "wood.png")
+                        
+                        
+                    case "earth":
+                        
+                        petMagLabel.textColor = .green
+                        petMagLabel.text = String(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petType"] = "earth"
+                        
+                        //petTypeImg.image = UIImage(named: "earth.png")
+                        
+                        
+                    case "water":
+                        
+                        
+                        petMagLabel.textColor = .green
+                        petMagLabel.text = String(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petType"] = "water"
+                        
+                        //petTypeImg.image = UIImage(named: "water.png")
+                        
+                    case "fire":
+                        
+                        
+                        
+                        petMagLabel.textColor = .green
+                        petMagLabel.text = String(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petType"] = "fire"
+                        //petTypeImg.image = UIImage(named: "fire.png")
+                        
+                        
+                    case "metal":
+                        
+                        
+                        petMagLabel.textColor = .green
+                        petMagLabel.text = String(petMagValue + Int(selElem["v"]!)!)
+
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["v"]!)!)
+                        pet?["petType"] = "metal"
+                        
+                        //petTypeImg.image = UIImage(named: "metal.png")
+                        
+                        
+                    case "upgrade":
+                        break
+                    default:
+                        break
+                        
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        */
+    }
     
     /*
      // MARK: - Navigation

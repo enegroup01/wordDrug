@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let id = user!["id"] as? String
             if id != nil {
 
+                //跳轉到角色畫面
                 toStats()
             }
             
