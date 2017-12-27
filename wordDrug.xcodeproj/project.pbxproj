@@ -230,6 +230,17 @@
 		AA8F80111FB325BC000CD84F /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8F80101FB325BC000CD84F /* close.png */; };
 		AA8F80131FB32BF0000CD84F /* scanning.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8F80121FB32BF0000CD84F /* scanning.png */; };
 		AA8F80151FB34064000CD84F /* 420.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA8F80141FB34064000CD84F /* 420.txt */; };
+		AAAEBEE51FECB2C90043AB53 /* rareGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEE41FECB2C90043AB53 /* rareGem.png */; };
+		AAAEBEE71FECB3060043AB53 /* combineGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEE61FECB3060043AB53 /* combineGem.png */; };
+		AAAEBEE91FECB5870043AB53 /* worldDiamond.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEE81FECB5870043AB53 /* worldDiamond.png */; };
+		AAAEBEEB1FECB5C00043AB53 /* diamond.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEEA1FECB5BF0043AB53 /* diamond.png */; };
+		AAAEBEEF1FED0DA70043AB53 /* normalBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEEE1FED0DA60043AB53 /* normalBtn.png */; };
+		AAAEBEF31FED0F460043AB53 /* rareBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEF01FED0F450043AB53 /* rareBtn.png */; };
+		AAAEBEF41FED0F460043AB53 /* combineBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEF11FED0F460043AB53 /* combineBtn.png */; };
+		AAAEBEF51FED0F460043AB53 /* typeBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEF21FED0F460043AB53 /* typeBtn.png */; };
+		AAAEBEF71FED10AD0043AB53 /* elementChoiceBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEF61FED10AD0043AB53 /* elementChoiceBtn.png */; };
+		AAAEBEF91FED2A7B0043AB53 /* elemTypeBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEF81FED2A7A0043AB53 /* elemTypeBtn.png */; };
+		AAAEBEFB1FED3B010043AB53 /* typeSegBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEFA1FED3B010043AB53 /* typeSegBg.png */; };
 		AAB68D391FE8F35400CCF820 /* 1-2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB68D211FE8F34E00CCF820 /* 1-2.png */; };
 		AAB68D3A1FE8F35400CCF820 /* 1-6-10.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB68D221FE8F34E00CCF820 /* 1-6-10.png */; };
 		AAB68D3B1FE8F35400CCF820 /* 1-6.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB68D231FE8F34E00CCF820 /* 1-6.png */; };
@@ -258,6 +269,12 @@
 		AAC1CC121FB42243001DE6DB /* enterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CC111FB42243001DE6DB /* enterButton.png */; };
 		AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */; };
 		AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */; };
+		AADC613D1FEBA09900032780 /* earthGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC61371FEBA09700032780 /* earthGem.png */; };
+		AADC613E1FEBA09900032780 /* waterGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC61381FEBA09800032780 /* waterGem.png */; };
+		AADC613F1FEBA09900032780 /* fireGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC61391FEBA09800032780 /* fireGem.png */; };
+		AADC61401FEBA09900032780 /* normalGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC613A1FEBA09800032780 /* normalGem.png */; };
+		AADC61411FEBA09900032780 /* metalGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC613B1FEBA09900032780 /* metalGem.png */; };
+		AADC61421FEBA09900032780 /* woodGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AADC613C1FEBA09900032780 /* woodGem.png */; };
 		AADE62AF1FDF902400C9EA42 /* ai1.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62AE1FDF902400C9EA42 /* ai1.png */; };
 		AADE62B51FDFB99600C9EA42 /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62B01FDFB99400C9EA42 /* wood.png */; };
 		AADE62B61FDFB99600C9EA42 /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = AADE62B11FDFB99500C9EA42 /* water.png */; };
@@ -504,6 +521,17 @@
 		AA8F80101FB325BC000CD84F /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		AA8F80121FB32BF0000CD84F /* scanning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanning.png; sourceTree = "<group>"; };
 		AA8F80141FB34064000CD84F /* 420.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 420.txt; sourceTree = "<group>"; };
+		AAAEBEE41FECB2C90043AB53 /* rareGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rareGem.png; path = wordDrug/element/rareGem.png; sourceTree = SOURCE_ROOT; };
+		AAAEBEE61FECB3060043AB53 /* combineGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combineGem.png; path = wordDrug/bookVc/combineGem.png; sourceTree = SOURCE_ROOT; };
+		AAAEBEE81FECB5870043AB53 /* worldDiamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = worldDiamond.png; sourceTree = "<group>"; };
+		AAAEBEEA1FECB5BF0043AB53 /* diamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diamond.png; sourceTree = "<group>"; };
+		AAAEBEEE1FED0DA60043AB53 /* normalBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normalBtn.png; sourceTree = "<group>"; };
+		AAAEBEF01FED0F450043AB53 /* rareBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rareBtn.png; sourceTree = "<group>"; };
+		AAAEBEF11FED0F460043AB53 /* combineBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combineBtn.png; sourceTree = "<group>"; };
+		AAAEBEF21FED0F460043AB53 /* typeBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typeBtn.png; sourceTree = "<group>"; };
+		AAAEBEF61FED10AD0043AB53 /* elementChoiceBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elementChoiceBtn.png; sourceTree = "<group>"; };
+		AAAEBEF81FED2A7A0043AB53 /* elemTypeBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elemTypeBtn.png; sourceTree = "<group>"; };
+		AAAEBEFA1FED3B010043AB53 /* typeSegBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typeSegBg.png; sourceTree = "<group>"; };
 		AAB68D211FE8F34E00CCF820 /* 1-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-2.png"; sourceTree = "<group>"; };
 		AAB68D221FE8F34E00CCF820 /* 1-6-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-6-10.png"; sourceTree = "<group>"; };
 		AAB68D231FE8F34E00CCF820 /* 1-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-6.png"; sourceTree = "<group>"; };
@@ -532,6 +560,12 @@
 		AAC1CC111FB42243001DE6DB /* enterButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterButton.png; sourceTree = "<group>"; };
 		AADC11E21F9F4ADF00F7C7A3 /* emptyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyButton.png; sourceTree = "<group>"; };
 		AADC11E51F9F4E3E00F7C7A3 /* filledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledButton.png; sourceTree = "<group>"; };
+		AADC61371FEBA09700032780 /* earthGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = earthGem.png; sourceTree = "<group>"; };
+		AADC61381FEBA09800032780 /* waterGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterGem.png; sourceTree = "<group>"; };
+		AADC61391FEBA09800032780 /* fireGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireGem.png; sourceTree = "<group>"; };
+		AADC613A1FEBA09800032780 /* normalGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normalGem.png; sourceTree = "<group>"; };
+		AADC613B1FEBA09900032780 /* metalGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metalGem.png; sourceTree = "<group>"; };
+		AADC613C1FEBA09900032780 /* woodGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woodGem.png; sourceTree = "<group>"; };
 		AADE62AE1FDF902400C9EA42 /* ai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ai1.png; sourceTree = "<group>"; };
 		AADE62B01FDFB99400C9EA42 /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
 		AADE62B11FDFB99500C9EA42 /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
@@ -570,13 +604,20 @@
 		AA093E5C1FCBFCE700434ACD /* petVc */ = {
 			isa = PBXGroup;
 			children = (
+				AAAEBEF81FED2A7A0043AB53 /* elemTypeBtn.png */,
 				AA4E89E71FCD84A800017247 /* backButton.png */,
+				AAAEBEFA1FED3B010043AB53 /* typeSegBg.png */,
 				AA452B131FDFF472004B669B /* questionMark.png */,
 				AA4E8A011FCD8F6700017247 /* selElem.png */,
 				AA093E611FCBFDBA00434ACD /* elem.png */,
+				AAAEBEF61FED10AD0043AB53 /* elementChoiceBtn.png */,
 				AA093E631FCBFDD600434ACD /* elemBg.png */,
 				AA093E5F1FCBFD8900434ACD /* petInfoBg.png */,
 				AA093E671FCBFE5C00434ACD /* nextButton.png */,
+				AAAEBEEE1FED0DA60043AB53 /* normalBtn.png */,
+				AAAEBEF11FED0F460043AB53 /* combineBtn.png */,
+				AAAEBEF01FED0F450043AB53 /* rareBtn.png */,
+				AAAEBEF21FED0F460043AB53 /* typeBtn.png */,
 				AA093E651FCBFE4F00434ACD /* prevButton.png */,
 				AA452B111FDFF1C7004B669B /* playNow.png */,
 				AA4E89FD1FCD8E6A00017247 /* a_e1.png */,
@@ -612,6 +653,14 @@
 		AA4E8A031FCE738700017247 /* elementGetPng */ = {
 			isa = PBXGroup;
 			children = (
+				AADC61371FEBA09700032780 /* earthGem.png */,
+				AADC613C1FEBA09900032780 /* woodGem.png */,
+				AADC61381FEBA09800032780 /* waterGem.png */,
+				AADC61391FEBA09800032780 /* fireGem.png */,
+				AADC613B1FEBA09900032780 /* metalGem.png */,
+				AADC613A1FEBA09800032780 /* normalGem.png */,
+				AAAEBEE41FECB2C90043AB53 /* rareGem.png */,
+				AAAEBEE61FECB3060043AB53 /* combineGem.png */,
 				AA4E8A061FCE73B600017247 /* ab1g.png */,
 				AA4E8A0B1FCE73B700017247 /* ac1g.png */,
 				AA4E8A081FCE73B600017247 /* ad1g.png */,
@@ -638,6 +687,7 @@
 		AA590CC41FBAB70300A5691D /* bookVc */ = {
 			isa = PBXGroup;
 			children = (
+				AAAEBEE81FECB5870043AB53 /* worldDiamond.png */,
 				AA590CC51FBAB72300A5691D /* bookBg.png */,
 				AA590CC71FBABEB700A5691D /* topColumn.png */,
 				AA590CC91FBABF4700A5691D /* bottomColumn.png */,
@@ -655,6 +705,7 @@
 			isa = PBXGroup;
 			children = (
 				AA590CBB1FBA9ADB00A5691D /* diamond.png */,
+				AAAEBEEA1FECB5BF0043AB53 /* diamond.png */,
 				AA590CBF1FBA9BF800A5691D /* elementBottom.png */,
 				AA7FA7CA1FB5A91300315524 /* elementBg.png */,
 				AA7FA7B61FB5A6C600315524 /* e1.png */,
@@ -1005,12 +1056,14 @@
 				AA093E681FCBFE5C00434ACD /* nextButton.png in Resources */,
 				AA4642C61FC81E3B00D34516 /* aimer.png in Resources */,
 				AA8F80131FB32BF0000CD84F /* scanning.png in Resources */,
+				AADC613D1FEBA09900032780 /* earthGem.png in Resources */,
 				AA452B141FDFF472004B669B /* questionMark.png in Resources */,
 				AA4E8A131FCE73B700017247 /* af1g.png in Resources */,
 				AA3861501FE401B000B5FBC6 /* 1-4.txt in Resources */,
 				AA4E8A0F1FCE73B700017247 /* ab1g.png in Resources */,
 				AA4E89F41FCD88F800017247 /* an1.png in Resources */,
 				AAB68D3C1FE8F35400CCF820 /* 1-8-10.png in Resources */,
+				AADC613F1FEBA09900032780 /* fireGem.png in Resources */,
 				AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */,
 				AA86F3C61FAC6C15004E7997 /* eButton2.png in Resources */,
 				AA8158E91FE25293000AA3D5 /* getButton.png in Resources */,
@@ -1029,6 +1082,7 @@
 				AA6B1E4B1FE92E4F0009C625 /* congrat.png in Resources */,
 				AA86F3B51FA9C22E004E7997 /* fButton.png in Resources */,
 				AA87EAA31FBD4CDB00830608 /* 2501.png in Resources */,
+				AAAEBEEF1FED0DA70043AB53 /* normalBtn.png in Resources */,
 				AA4642B11FC7C48600D34516 /* testQuestBoard.png in Resources */,
 				AA4E8A1B1FCE744300017247 /* darkBg.png in Resources */,
 				AA38614D1FE401B000B5FBC6 /* 1-2.txt in Resources */,
@@ -1040,6 +1094,7 @@
 				AA8F80031FB31B09000CD84F /* blueSpot.png in Resources */,
 				AA7FA7AD1FB5A63500315524 /* le7.png in Resources */,
 				AA86F3B01FA9BE22004E7997 /* lDot1.png in Resources */,
+				AAAEBEF51FED0F460043AB53 /* typeBtn.png in Resources */,
 				AA86F3B21FA9BE22004E7997 /* lDot2.png in Resources */,
 				AA7FA7C31FB5A6C600315524 /* e7.png in Resources */,
 				AA86F3BC1FA9CE03004E7997 /* monsterEffect.png in Resources */,
@@ -1055,6 +1110,7 @@
 				AADE62B71FDFB99600C9EA42 /* metal.png in Resources */,
 				AAB68D3A1FE8F35400CCF820 /* 1-6-10.png in Resources */,
 				AAE1818F1F97892D00683896 /* GameScene.sks in Resources */,
+				AAAEBEFB1FED3B010043AB53 /* typeSegBg.png in Resources */,
 				AAC1CC121FB42243001DE6DB /* enterButton.png in Resources */,
 				AA590CCE1FBAC00400A5691D /* rightButton.png in Resources */,
 				AAB68D481FE8F35400CCF820 /* 1-4.png in Resources */,
@@ -1075,10 +1131,12 @@
 				AA8E9F751FB1841400509D39 /* questBoard3.png in Resources */,
 				AAB68D451FE8F35400CCF820 /* 1-5-10.png in Resources */,
 				AA87EAA41FBD4CDB00830608 /* 2601.png in Resources */,
+				AADC61421FEBA09900032780 /* woodGem.png in Resources */,
 				AA68BD721F9A1A6C00112AF4 /* cancer.mp3 in Resources */,
 				AA87EA961FBD4CDB00830608 /* 1301.png in Resources */,
 				AA8E9F6D1FB17BC600509D39 /* questBoardGreen.png in Resources */,
 				AADE62B91FDFB99600C9EA42 /* fire.png in Resources */,
+				AADC61411FEBA09900032780 /* metalGem.png in Resources */,
 				AA68BD7A1F9A1EFB00112AF4 /* fillBar.png in Resources */,
 				AA8E9F671FB1752E00509D39 /* attack6.png in Resources */,
 				AA8E9F541FB1642000509D39 /* flatMonster3.png in Resources */,
@@ -1107,8 +1165,10 @@
 				AA4642BE1FC8103300D34516 /* darkerD.png in Resources */,
 				AADC11E41F9F4ADF00F7C7A3 /* emptyButton.png in Resources */,
 				AA093E601FCBFD8900434ACD /* petInfoBg.png in Resources */,
+				AAAEBEF71FED10AD0043AB53 /* elementChoiceBtn.png in Resources */,
 				AA3861471FE401B000B5FBC6 /* 1-13.txt in Resources */,
 				AA87EAB71FBD4CDB00830608 /* 501.png in Resources */,
+				AAAEBEF91FED2A7B0043AB53 /* elemTypeBtn.png in Resources */,
 				AA7FA7BD1FB5A6C600315524 /* e9.png in Resources */,
 				AA38614E1FE401B000B5FBC6 /* 1-5.txt in Resources */,
 				AA2992361FE14B430040D9C0 /* star0.png in Resources */,
@@ -1136,6 +1196,7 @@
 				AA590CD61FBACF7A00A5691D /* lightElementFrame.png in Resources */,
 				AA8F80001FB31B09000CD84F /* lightBlueSpot.png in Resources */,
 				AA590CD51FBACF7A00A5691D /* darkElementFrame.png in Resources */,
+				AAAEBEE91FECB5870043AB53 /* worldDiamond.png in Resources */,
 				AA2CCDC31F9DC069003F5C3F /* lightDot.png in Resources */,
 				AA7FA7AE1FB5A63500315524 /* le3.png in Resources */,
 				AA7FA7A61FB5A63500315524 /* le4.png in Resources */,
@@ -1143,6 +1204,7 @@
 				AA4E89FC1FCD88F800017247 /* ad1.png in Resources */,
 				AAB68D4A1FE8F35400CCF820 /* 1-1-0.png in Resources */,
 				AA4642C71FC81E3B00D34516 /* aimerCircle.png in Resources */,
+				AAAEBEF41FED0F460043AB53 /* combineBtn.png in Resources */,
 				AAB68D3D1FE8F35400CCF820 /* 1-8.png in Resources */,
 				AA87EA9F1FBD4CDB00830608 /* 2101.png in Resources */,
 				AA3861321FE3E0DC00B5FBC6 /* fishMon.png in Resources */,
@@ -1156,6 +1218,7 @@
 				AA87EAA61FBD4CDB00830608 /* 2801.png in Resources */,
 				AAB68D491FE8F35400CCF820 /* 1-11-10.png in Resources */,
 				AA4E89E81FCD84A800017247 /* backButton.png in Resources */,
+				AADC613E1FEBA09900032780 /* waterGem.png in Resources */,
 				AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */,
 				AA86F3B11FA9BE22004E7997 /* lDot3.png in Resources */,
 				AA4E8A141FCE73B700017247 /* ac1g.png in Resources */,
@@ -1185,6 +1248,7 @@
 				AA87EAC31FBD76F500830608 /* getElementBg1.png in Resources */,
 				AA86F3BA1FA9CDF6004E7997 /* flatMonster1.png in Resources */,
 				AA87EA971FBD4CDB00830608 /* 1401.png in Resources */,
+				AAAEBEE51FECB2C90043AB53 /* rareGem.png in Resources */,
 				AA7FA7AA1FB5A63500315524 /* le6.png in Resources */,
 				AA4E8A111FCE73B700017247 /* ad1g.png in Resources */,
 				AA7FA7BF1FB5A6C600315524 /* e4.png in Resources */,
@@ -1206,11 +1270,14 @@
 				AA590CC01FBA9BF800A5691D /* elementBottom.png in Resources */,
 				AA2992371FE14B430040D9C0 /* star1.png in Resources */,
 				AA7FA7AB1FB5A63500315524 /* le1.png in Resources */,
+				AAAEBEE71FECB3060043AB53 /* combineGem.png in Resources */,
 				AADE62B51FDFB99600C9EA42 /* wood.png in Resources */,
 				AA7FA7AC1FB5A63500315524 /* le10.png in Resources */,
 				AA4642B61FC7CCD100D34516 /* darkD.png in Resources */,
 				AAB68D501FE8F35400CCF820 /* 1-13-10.png in Resources */,
+				AADC61401FEBA09900032780 /* normalGem.png in Resources */,
 				AA87EA9A1FBD4CDB00830608 /* 1701.png in Resources */,
+				AAAEBEF31FED0F460043AB53 /* rareBtn.png in Resources */,
 				AA87EAB31FBD4CDB00830608 /* 4001.png in Resources */,
 				AA4E89F31FCD88F800017247 /* am1.png in Resources */,
 				AA590CBC1FBA9ADB00A5691D /* diamond.png in Resources */,
@@ -1238,6 +1305,7 @@
 				AA8F80051FB31B09000CD84F /* lightYellowSpot.png in Resources */,
 				AA8E9F651FB1752E00509D39 /* attack4.png in Resources */,
 				AAE181A71F978BBC00683896 /* screenBg.png in Resources */,
+				AAAEBEEB1FECB5C00043AB53 /* diamond.png in Resources */,
 				AA8E9F771FB1851400509D39 /* questBoard4.png in Resources */,
 				AA87EA981FBD4CDB00830608 /* 1501.png in Resources */,
 				AA86F3C41FA9F48B004E7997 /* rightFrame.png in Resources */,
