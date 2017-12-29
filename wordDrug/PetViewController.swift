@@ -247,10 +247,24 @@ class PetViewController: UIViewController {
     var elemCgPoints = [CGPoint]()
     //碰觸到的元素
     var touchedElem = UIImageView()
+    
+    //碰觸到的選項元素
+    var selTouchedElem = UIImageView()
+    
     //記憶碰觸到元素的原始位置
     var originalPosition = CGPoint()
+    
+    //記憶碰到元素的當下位置
+    var currentPosition = CGPoint()
+    
+    //記憶selElem的原始位置
+    var selOriginalPosition = CGPoint()
+    
     //畫面上選項的元素
     var selElems = [UIImageView]()
+    
+    //選項的後面一層
+    var selElemsBack = [UIImageView]()
     
     //暫時抓正確選項位置
     var selElemsCgs = [[35,258],[100.5,258],[164.5,258]]
@@ -328,6 +342,11 @@ class PetViewController: UIViewController {
     var elemPage = 0   //預設為第0頁
     var elemPages = [0,1,2,3,4,5,6,7]
     
+    //提供儲存的變數
+    var selIndex = Int()
+    var selPage = Int()
+    var selElemValue = Int()
+    
     //屬性元素的控制器
     @IBOutlet weak var elemTypeSeg: UISegmentedControl!
     
@@ -393,23 +412,25 @@ class PetViewController: UIViewController {
         
         
         
-        //加入選項元素UIView為了彌補位置錯誤
-        /*
-         let sel1 = UIView()
+        //加入選項元素UIView為了讓selElem可以偵測
+         let sel1 = UIImageView()
          sel1.frame.size = CGSize(width: 55, height: 55)
          sel1.center = CGPoint(x: 35, y: 258)
          self.view.addSubview(sel1)
          
-         let sel2 = UIView()
+         let sel2 = UIImageView()
          sel2.frame.size = CGSize(width: 55, height: 55)
          sel2.center = CGPoint(x: 100.5, y: 258)
          self.view.addSubview(sel2)
          
-         let sel3 = UIView()
+         let sel3 = UIImageView()
          sel3.frame.size = CGSize(width: 55, height: 55)
          sel3.center = CGPoint(x: 164.5, y: 258)
          self.view.addSubview(sel3)
-         */
+        
+        selElemsBack.append(sel1)
+        selElemsBack.append(sel2)
+        selElemsBack.append(sel3)
         
         
         //上方elem空間
@@ -443,6 +464,7 @@ class PetViewController: UIViewController {
         elems.append(elem10)
         elems.append(elem11)
         elems.append(elem12)
+
         
         /*
          elems.append(elem13)
@@ -620,7 +642,7 @@ class PetViewController: UIViewController {
             
         }
         
-        print("exactElemSaved:\(String(describing: exactElemSaved))")
+        //print("exactElemSaved:\(String(describing: exactElemSaved))")
         
         //指定之前所存檔的使用元素
         if elemSaved == nil {
@@ -633,9 +655,17 @@ class PetViewController: UIViewController {
         }
         if exactElemSaved == nil {
             exactElemSaved = exactSelOccupiedByElemIndex
+            // exactElemSaved = [[0: 3], [6: 2], [0: 0]]
+          //  exactSelOccupiedByElemIndex = [[0: 3], [6: 2], [0: 0]]
+            
         } else {
-            exactSelOccupiedByElemIndex = exactElemSaved!
+       //     exactSelOccupiedByElemIndex = exactElemSaved!
+        
+        exactSelOccupiedByElemIndex = [[0: 3], [6: 2], [0: 0]]
+            exactElemSaved = [[0: 3], [6: 2], [0: 0]]
         }
+        
+        
         
         
         //顯示背包內容
@@ -755,12 +785,16 @@ class PetViewController: UIViewController {
     //顯示背包的function
     func showElems(segSelected:[[String:String]],img:String,delay:TimeInterval){
         
+         print("exactElemSaved:\(String(describing: exactElemSaved))")
+         //print("elemSaved:\(String(describing: elemSaved))")
+        
         //先重置資訊
         functionChinese.removeAll(keepingCapacity: false)
         titleChinese.removeAll(keepingCapacity: false)
         values.removeAll(keepingCapacity: false)
         
         
+        //重置選項elem圖及字
         for s in selElems{
             s.image = nil
             
@@ -774,8 +808,10 @@ class PetViewController: UIViewController {
             
         }
         
+        //重置下方elem位置, 圖及字
         for i in  0 ..< elems.count{
-            
+        
+        
             //必須回覆所有elem的位置
             elems[i].frame.size = CGSize(width: 80, height: 80)
             elems[i].center = elemCgPoints[i]
@@ -865,6 +901,8 @@ class PetViewController: UIViewController {
                     //print("page:\(p)")
                     //print("elem:\(value)")
                     
+                    
+                    
                     //如果不是該頁的或是不是沒選擇的就要做別頁的圖片來顯示元素
                     
                     var selElemPage = [[String:String]()]
@@ -922,6 +960,7 @@ class PetViewController: UIViewController {
                         //做出該選項元素的圖片
                         selElems[s].image = makeImage(name: selImageName)
                         
+                        //必須紀錄elemPage讓之後可以detect
                         
                         //抓名字
                         if let name = selElemPage[value]["name"] as String?{
@@ -966,10 +1005,11 @@ class PetViewController: UIViewController {
                         let when = DispatchTime.now() + delay
                         
                         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
-                            print("movedElem")
+
                             //固定元素在選項裡
                             self!.elems[value].frame.size = CGSize(width: 60, height: 60)
                             self!.elems[value].center = CGPoint(x: self!.selElemsCgs[s][0], y: self!.selElemsCgs[s][1])
+                            
                             
                         }
                         
@@ -1180,9 +1220,107 @@ class PetViewController: UIViewController {
             
             location = touch.location(in: self.view)
             
+            //跑所有Elem元素
+            for i in 0 ..< elems.count{
+
+                //指定所按到的下方或是上方的該頁元素
+                if let elemTouch = elems[i] as UIImageView?{
+                    
+                    //該elem不是空的
+                    if elemTouch.image != nil {
+                        
+                        //假如手指有碰到該元素
+                        if elemTouch.frame.contains(location){
+                            
+                            touchedElem = elemTouch
+                            
+                            //儲存原始位置, 回復使用
+                            originalPosition = elemCgPoints[i]
+                            
+                            //儲存目前碰到的touchedElem的位置, 可以在交換位置時使用
+                            currentPosition = touchedElem.center
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            
+            //跑有可能存在的selElem元素
+            
+            for i in 0 ..< selElems.count{
+                
+                if let selElemTouch = selElems[i] as UIImageView?{
+                    
+                    if selElemTouch.image != nil {
+                        
+                        if selElemTouch.frame.contains(location){
+                            
+                                selTouchedElem = selElemTouch
+                                selOriginalPosition = selTouchedElem.center
+                            
+                            //提供給後面儲存用
+
+                            //利用selElemsBack不改變位置的特性決定選selElem處於occupied的哪個位置儲存給後面使用
+                            if selElemsBack[0].frame.contains(location){
+                                selIndex = 0
+     
+                                
+                            } else if selElemsBack[1].frame.contains(location){
+                                selIndex = 1
+                                
+                            } else if selElemsBack[2].frame.contains(location){
+                                
+                                
+                                selIndex = 2
+                            }
+                            
+
+                            for p in 0 ..< elemPages.count{
+                                
+                                //抓頁面元素
+                                if let elem = exactSelOccupiedByElemIndex[selIndex][elemPages[p]]{
+                                    
+                                    //提供給後面儲存用
+                                    selPage = p
+                                    selElemValue = elem
+    
+                                }
+                                
+                            }
+
+                            
+      
+                            
+                            
+                            
+                            
+                        }
+                        
+                        
+                        
+                    }
+                    
+                    
+                }
+                
+                
+            }
+
+      
+        }
+        
+        
+   
+        /*
+        for touch in touches {
+            
+            location = touch.location(in: self.view)
+            
             //都沒碰到元素的話就隱藏info
             elemInfoBg.alpha = 0
-            
             
             //顯示元素資訊
             if isElementTouchable{
@@ -1191,9 +1329,9 @@ class PetViewController: UIViewController {
                 for e in 0 ..< elems.count{
                     //有碰到元素的話
                     if elems[e].frame.contains(location){
-                        print("some elems touched")
+               
+                        //非空值
                         if elems[e].image != nil {
-                            print("touched elems")
                             
                             //抓title
                             
@@ -1211,7 +1349,6 @@ class PetViewController: UIViewController {
                                 elemInfoPetAva.image = makeImage(name: imgName!)
                             }
                             
-                            
                             //抓能力值
                             let function = functionChinese[e]
                             
@@ -1226,17 +1363,16 @@ class PetViewController: UIViewController {
                                 elemInfoLabel.text = function + " +\(values[e])"
                                 
                             }
-                            
-                            //顯示元素照片
+ 
+                            //顯示元素照片, 還沒有寫顯示元素資訊在圖片上
                             let elemAva = elems[e].image
                             elemInfoAva.image = elemAva
                             elemInfoBg.alpha = 0.8
-                            
-                            
+
                             
                             //確認e是否為occupied當中的index, 是的話把數字還原-1,讓其可以繼續填入其他元素
                             //解釋：確認所按到的元素是不是已經在使用當中的, 是的話就移除index
-                            switch e {
+                            switch e{
                             case selOccupiedByElemIndex[0]:
                                 selOccupiedByElemIndex[0] = -1
                                 
@@ -1270,28 +1406,7 @@ class PetViewController: UIViewController {
                             //指定該元素
                             
                             touchedElem = elems[e]
-                            /*
-                             if let exactName = infoToShow[e]["name"] as String?{
-                             
-                             for i in 0 ..< allGetElemsInfo.count{
-                             
-                             if let name = allGetElemsInfo[i]["name"] as String?{
-                             if exactName == name {
-                             
-                             //指定該元素Index
-                             currentElemIndex = i
-                             
-                             }
-                             
-                             
-                             }
-                             
-                             
-                             }
-                             
-                             
-                             }
-                             */
+
                             //指定該元素Index
                             currentElemIndex = e
                             exactCurrentElemIndex = [elemPage:e]
@@ -1311,7 +1426,6 @@ class PetViewController: UIViewController {
                             UserDefaults.standard.set(elemSaved, forKey: "elemSaved")
                             // UserDefaults.standard.set(exactElemSaved,forKey: "exactElemSaved")
                             
-                            
                             let userDefaults = UserDefaults.standard
                             let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
                             userDefaults.set(encodedObject, forKey: "exactElemSaved")
@@ -1322,18 +1436,12 @@ class PetViewController: UIViewController {
                     
                 }
             }
+
+            
         }
         
         
-        for s in selElems{
-            
-            if s.frame.contains(location){
-                
-                print("selElems touched")
-            }
-            
-            
-        }
+ */
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -1344,13 +1452,405 @@ class PetViewController: UIViewController {
             //移動元素
             touchedElem.center = location
             
+            //移動選項元素
+            selTouchedElem.center = location
+            
         }
         
     }
     
+    func saveElemIndex(index:Int, page:Int, elem:Int){
+        
+        exactSelOccupiedByElemIndex[index] = [page:elem]
+        exactElemSaved![index] = [page:elem]
+        
+        
+        let userDefaults = UserDefaults.standard
+        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
+        userDefaults.set(encodedObject, forKey: "exactElemSaved")
+        userDefaults.synchronize()
+        
+        print(index)
+        print(page)
+        print(elem)
+        
+         print(exactSelOccupiedByElemIndex)
+    }
+    
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        for touch in touches {
+            
+            location = touch.location(in: self.view)
+            
+
+            //首先先讓元素回原位
+            
+
+
+            
+            touchedElem.center = originalPosition
+            //touchedElem.frame.size = CGSize(width:80, height: 80)
+            //selTouchedElem.center = selOriginalPosition
+            
+            //卻認selElem是否有固定, 沒有就消失
+            var selTouchedAnyImage = false
+            
+            
+            
+            //確認所移動的元素為何
+          
+            if touch.tapCount < 2{
+            
+                //***如果是selElem
+                
+                if touchedElem.image == nil && selTouchedElem.image != nil{
+                print("移動selElem")
+                //part 1. 遇到小elem就交換
+                //part 2. 碰到大elem就被大elem取代, 自己消失
+                //part 3. 碰到其他空格就固定住
+                //part 4. 移動到其他地方就消失
+
+                
+                for i in 0 ..< elems.count{
+                    
+                    if let elem = elems[i] as UIImageView?{
+                        
+                        if elem.image != nil{
+                        
+                        //part 1
+                        if elem.frame.contains(location){
+                            
+                            if elem.frame.width == 60 {
+                                
+                                      print("遇到小elem就交換")
+                                selTouchedAnyImage = true
+                                
+                                elem.center = selOriginalPosition
+                                
+   
+                                saveElemIndex(index: selIndex, page: elemPage, elem: i)
+                            
+                                
+                                
+                                  //part 2
+                            } else {
+                                
+                                
+                                      print("遇到碰到大elem就被大elem取代, 自己消失")
+                                      selTouchedAnyImage = true
+                                
+                                elem.center = selOriginalPosition
+                                elem.frame.size = CGSize(width:60, height: 60)
+                                
+                                
+                                selTouchedElem.image = nil
+                                
+                                for subview in selTouchedElem.subviews{
+                                    
+                                    subview.removeFromSuperview()
+                                }
+
+                                
+                            }
+                            
+                        }
+
+                    }
+                    }
+                    
+                }
+                
+                for i in 0 ..< selElemsBack.count{
+                    
+                    if let selElemBack = selElemsBack[i] as UIImageView?{
+                        
+                        //part 2.
+                        if selElemBack.frame.contains(location){
+                            
+                            print("碰到其他空格就固定住")
+                            
+                                  selTouchedAnyImage = true
+                
+                                  selTouchedElem.center = selElemBack.center
+                            
+                            //儲存
+                            saveElemIndex(index: i, page: selPage, elem: selElemValue)
+
+                           
+
+                        }
+                        
+                    }
+                    
+                    
+                }
+
+
+                //part 4.
+                if selTouchedAnyImage == false{
+                    
+                    print("移動到其他地方就消失")
+                    
+                    selTouchedElem.image = nil
+                    
+                    for subview in selTouchedElem.subviews{
+                        
+                        subview.removeFromSuperview()
+                    }
+                    
+                }
+                
+                //***如果是小Elem
+            } else if touchedElem.frame.width == 60 && touchedElem.image != nil{
+                     print("移動小elem")
+                    
+                    //part 1. 遇到別的elem就交換及固定, 並確認大小
+                    //part 2. 遇到別的selElem就交換及固定
+                    //part 3. 遇到空的selElemBack就固定
+                    //part 4. 沒有固定在任何地方的話就等於會回復到原位大小改成80
+                    
+                    //預設小元素沒有固定在任何地方
+                    var smallElemTouchedAnyImage = false
+
+                    //part 1.
+                    for i in 0 ..< elems.count{
+                        
+                        if let elem = elems[i] as UIImageView?{
+                            
+                            if elem != touchedElem{
+                            
+                            if elem.frame.contains(location) {
+                            
+                            //幾假如碰到的是小的elem, 就交換位置
+                            if elem.frame.width == 60 {
+                                print("幾假如碰到的是小的elem, 就交換位置")
+                                
+                                touchedElem.center = elem.center
+                                
+                                elem.center = currentPosition
+                                
+                                smallElemTouchedAnyImage = true
+                                //假如遇到的是大的elem, 交換位置及變大小
+                            } else {
+                                
+                                print("假如遇到的是大的elem, 交換位置及變大小")
+                                
+                                
+                                touchedElem.center = originalPosition
+                                touchedElem.frame.size = CGSize(width:80, height: 80)
+                                
+                                elem.center = currentPosition
+                                elem.frame.size = CGSize(width:60, height: 60)
+                                smallElemTouchedAnyImage = true
+
+                                
+                                }
+  
+                            }
+                            }
+                        }
+                        
+
+                    }
+                    
+                    //Part 2
+                    
+                    for i in 0 ..< selElems.count{
+                        
+                        if let selElem = selElems[i] as UIImageView?{
+                            
+                            if selElem.frame.contains(location) {
+                                
+                                print("遇到別的selElem就交換及固定")
+                                
+                                touchedElem.center = selElem.center
+                                
+                                selElem.center = currentPosition
+                                
+                                smallElemTouchedAnyImage = true
+                                
+                                
+                            }
+                            
+                            
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    //part 3. 遇到空的selElemBack就固定
+                    
+                    for i in 0 ..< selElemsBack.count{
+                        
+                        if let selElemBack = selElemsBack[i] as UIImageView?{
+                            
+                            if selElemBack.frame.contains(location) {
+                                
+                                print("遇到別的selElem就交換及固定")
+                                
+                                touchedElem.center = selElemBack.center
+                                
+                                
+                                smallElemTouchedAnyImage = true
+                                
+                                
+                            }
+                            
+                            
+                            
+                        }
+                        
+                        
+                    }
+
+                    
+                              //part 4. 沒有固定在任何地方的話就等於會回復到原位大小改成80
+                    
+                    if smallElemTouchedAnyImage == false{
+                        print("沒有固定在任何地方的話就等於會回復到原位大小改成80")
+                        
+                        touchedElem.frame.size = CGSize(width:80, height: 80)
+                        
+                    }
+           
+                
+                    
+                    //***如果是大Elem
+            } else if touchedElem.frame.width == 80{
+                
+                print("移動大elem")
+                   // part 1. 碰到小elem就替換及固定及改大小
+                   // part 2. 碰到selElem就取代及改大小
+                   // part 3. 碰到selElemsBack就固定及改大小
+                    
+
+                    //Part 1.
+                    for i in 0 ..< elems.count{
+                        if let elem = elems[i] as UIImageView?{
+                            
+                            if elem != touchedElem{
+                            
+                            //碰到小的
+                            if elem.frame.width == 60{
+                                
+                                if elem.frame.contains(location){
+                                    
+                                    print("碰到小elem就替換及固定及改大小")
+                                    touchedElem.center = elem.center
+                                    touchedElem.frame.size = CGSize(width:60, height: 60)
+                                    
+                                    elem.center = elemCgPoints[i]
+                                    elem.frame.size = CGSize(width:80, height: 80)
+                                    
+                                }
+
+                                
+                            }
+                            }
+                        }
+                        
+      
+                    }
+                    
+                    //Part 2. 碰到selElem就取代及改大小
+
+                    for i in 0 ..< selElems.count{
+                        
+                        if let selElem = selElems[i] as UIImageView?{
+                            
+                            //要確認有圖片才算
+                            if selElem.image != nil {
+                            
+                            if selElem.frame.contains(location){
+                                
+                                
+                                print("碰到selElem就取代及改大小")
+                                touchedElem.center = selElem.center
+                                
+                                touchedElem.frame.size = CGSize(width:60, height: 60)
+                                
+                                
+                                //selElem消失
+                                
+                                selElem.image = nil
+                                
+                                for subview in selElem.subviews{
+                                    
+                                    subview.removeFromSuperview()
+                                    
+                                }
+
+                                
+                            }
+                            
+                            }
+                        }
+          
+                    }
+                    
+                     // part 3. 碰到selElemsBack就固定及改大小
+                    
+                    for i in 0 ..< selElemsBack.count{
+                       
+                        if let selElemBack = selElemsBack[i] as UIImageView?{
+                            
+                            if selElemBack.frame.contains(location){
+                                
+                                print("碰到selElemsBack就固定及改大小")
+
+                                touchedElem.center = selElemBack.center
+                                touchedElem.frame.size = CGSize(width:60, height: 60)
+                                
+                            }
+       
+                            
+                        }
+    
+                    }
+ 
+            }
+         
+            } else {
+
+                // part 1. selElem按兩下會消失
+                // part 2. 小elem按兩下會回原位
+                
+                //按兩下sel元素會消失
+                if selTouchedElem.image != nil && touchedElem.image == nil {
+                
+                           print("sel元素消失")
+                    
+                selTouchedElem.image = nil
+                
+                for subview in selTouchedElem.subviews{
+                    
+                    subview.removeFromSuperview()
+                }
+                }
+                
+                if touchedElem.image != nil && selTouchedElem.image == nil && touchedElem.frame.width == 60{
+                    
+                           print("小elem回到原始元素位置")
+                    
+                    touchedElem.center = originalPosition
+                    touchedElem.frame.size = CGSize(width:80, height: 80)
+
+                    
+                }
+                
+                
+            }
+            
+            touchedElem = UIImageView()
+            selTouchedElem = UIImageView()
+            
+            
+        }
         
+        /*
         for touch in touches {
             
             location = touch.location(in: self.view)
@@ -1378,6 +1878,9 @@ class PetViewController: UIViewController {
                         //***假如選項上有元素的話才啟動以下改變及計分機制***
                         if touchedElem.image != nil{
                             
+                            
+                            
+                            //有元素的話要交換
                             //先檢查有沒有任何元素
                             if selOccupiedByElemIndex[s] != -1 {
                                 
@@ -1393,6 +1896,8 @@ class PetViewController: UIViewController {
                                 exactSelOccupiedByElemIndex[s] = [-1:-1]
                                 exactElemSaved![s] = [-1:-1]
                             }
+                            
+                            
                             //沒有的話固定元素在選項裡
                             touchedElem.frame.size = CGSize(width: 60, height: 60)
                             touchedElem.center = CGPoint(x: selElemsCgs[s][0], y: selElemsCgs[s][1])
@@ -1408,6 +1913,9 @@ class PetViewController: UIViewController {
                             //計算寵物數值
                             calculatePetValue()
                             
+                        } else {
+                            
+                            print("touchedElem is nil")
                         }
                     }
                     
@@ -1425,6 +1933,11 @@ class PetViewController: UIViewController {
             //初始化剛指定的element
             touchedElem = UIImageView()
         }
+        
+*/
+ 
+ */
+        
     }
     
     //抓取元素資訊
