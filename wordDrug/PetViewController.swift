@@ -421,20 +421,20 @@ class PetViewController: UIViewController {
         
         
         //加入選項元素UIView為了讓selElem可以偵測
-         let sel1 = UIImageView()
-         sel1.frame.size = CGSize(width: 60, height: 60)
-         sel1.center = CGPoint(x: 35, y: 258)
-         self.view.addSubview(sel1)
-         
-         let sel2 = UIImageView()
-         sel2.frame.size = CGSize(width: 60, height: 60)
-         sel2.center = CGPoint(x: 100.5, y: 258)
-         self.view.addSubview(sel2)
-         
-         let sel3 = UIImageView()
-         sel3.frame.size = CGSize(width: 60, height: 60)
-         sel3.center = CGPoint(x: 164.5, y: 258)
-         self.view.addSubview(sel3)
+        let sel1 = UIImageView()
+        sel1.frame.size = CGSize(width: 60, height: 60)
+        sel1.center = CGPoint(x: 35, y: 258)
+        self.view.addSubview(sel1)
+        
+        let sel2 = UIImageView()
+        sel2.frame.size = CGSize(width: 60, height: 60)
+        sel2.center = CGPoint(x: 100.5, y: 258)
+        self.view.addSubview(sel2)
+        
+        let sel3 = UIImageView()
+        sel3.frame.size = CGSize(width: 60, height: 60)
+        sel3.center = CGPoint(x: 164.5, y: 258)
+        self.view.addSubview(sel3)
         
         selElemsBack.append(sel1)
         selElemsBack.append(sel2)
@@ -472,7 +472,7 @@ class PetViewController: UIViewController {
         elems.append(elem10)
         elems.append(elem11)
         elems.append(elem12)
-
+        
         
         /*
          elems.append(elem13)
@@ -649,7 +649,7 @@ class PetViewController: UIViewController {
             exactElemSaved = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int : Int]]
             
         }
-
+        
         
         //指定之前所存檔的使用元素
         if elemSaved == nil {
@@ -663,11 +663,11 @@ class PetViewController: UIViewController {
         if exactElemSaved == nil {
             exactElemSaved = exactSelOccupiedByElemIndex
             // exactElemSaved = [[0: 3], [6: 2], [0: 0]]
-          //  exactSelOccupiedByElemIndex = [[0: 3], [6: 2], [0: 0]]
+            //  exactSelOccupiedByElemIndex = [[0: 3], [6: 2], [0: 0]]
             
         } else {
             exactSelOccupiedByElemIndex = exactElemSaved!
-        
+            
         }
         
         
@@ -676,11 +676,7 @@ class PetViewController: UIViewController {
         //顯示背包內容
         elemPage = 0
         showElems(segSelected:normalElems,img:"normalGem",delay:0.1)
-        
-        //計算寵物數值
-        calculatePetValue()
-        
-        
+  
         playNowBtn.isHidden = true
         hintBtn.isHidden = true
         
@@ -790,8 +786,8 @@ class PetViewController: UIViewController {
     //顯示背包的function
     func showElems(segSelected:[[String:String]],img:String,delay:TimeInterval){
         
-         print("exactElemSaved:\(String(describing: exactElemSaved))")
-         //print("elemSaved:\(String(describing: elemSaved))")
+        print("exactElemSaved:\(String(describing: exactElemSaved))")
+        //print("elemSaved:\(String(describing: elemSaved))")
         
         //先重置資訊
         functionChinese.removeAll(keepingCapacity: false)
@@ -820,8 +816,8 @@ class PetViewController: UIViewController {
         
         //重置下方elem位置, 圖及字
         for i in  0 ..< elems.count{
-        
-        
+            
+            
             //必須回覆所有elem的位置
             elems[i].frame.size = CGSize(width: 80, height: 80)
             elems[i].center = elemCgPoints[i]
@@ -904,23 +900,23 @@ class PetViewController: UIViewController {
             //跑儲存的數字
             for s in 0 ..< exactSelOccupiedByElemIndex.count{
                 
-
+                
                 //抓頁面元素
                 if let elem = exactSelOccupiedByElemIndex[s][elemPages[p]]{
                     
                     //以下留著做參考
-
+                    
                     
                     //如果不是該頁的或是不是沒選擇的就要做別頁的圖片來顯示元素
                     
                     var selElemPage = [[String:String]()]
                     var selImageName = String()
                     
-
+                    
                     if p != elemPage{
                         
                         //找出正確的頁面以及元素圖片
-                  
+                        
                         
                         switch p {
                             
@@ -974,7 +970,7 @@ class PetViewController: UIViewController {
                         //必須紀錄elemPage讓之後可以detect
                         
                         //在此append selElem的資訊
-
+                        
                         if let function = selElemPage[elem]["func"] as String?{
                             
                             if !function.contains(","){
@@ -985,57 +981,57 @@ class PetViewController: UIViewController {
                                     selTitleChinese[s] = "魔法元素"
                                     selFunctionChinese[s] = "血量"
                                 case "att":
-                        
+                                    
                                     selTitleChinese[s] = "魔法元素"
                                     selFunctionChinese[s] = "攻擊力"
-
+                                    
                                 case "def":
-                              
+                                    
                                     selTitleChinese[s] = "魔法元素"
                                     selFunctionChinese[s] = "防禦力"
-
+                                    
                                 case "hit":
-                                 
+                                    
                                     selTitleChinese[s] = "魔法元素"
                                     selFunctionChinese[s] = "爆擊率"
-
+                                    
                                 case "heal":
-                               
+                                    
                                     selTitleChinese[s] = "魔法元素"
                                     selFunctionChinese[s] = "治癒"
-
+                                    
                                 case "wood":
-                                   
+                                    
                                     selTitleChinese[s] = "屬性元素"
                                     selFunctionChinese[s] = "木屬性魔攻"
-
+                                    
                                 case "earth":
-                        
+                                    
                                     selTitleChinese[s] = "屬性元素"
                                     selFunctionChinese[s] = "土屬性魔攻"
-
+                                    
                                 case "water":
-                         
+                                    
                                     selTitleChinese[s] = "屬性元素"
                                     selFunctionChinese[s] = "水屬性魔攻"
-
+                                    
                                 case "fire":
-                            
+                                    
                                     selTitleChinese[s] = "屬性元素"
                                     selFunctionChinese[s] = "火屬性魔攻"
-
+                                    
                                 case "metal":
-                          
+                                    
                                     selTitleChinese[s] = "屬性元素"
                                     selFunctionChinese[s] = "金屬性魔攻"
-
+                                    
                                     
                                 case "upgrade":
                                     //需重寫升級方法
-                            
+                                    
                                     selTitleChinese[s] = "寵物碎片"
                                     selFunctionChinese[s] = "蒐集3片碎片合成寵物"
-
+                                    
                                     
                                 default:
                                     break
@@ -1043,23 +1039,23 @@ class PetViewController: UIViewController {
                                 }
                             }else {
                                 
-
+                                
                                 //還需要寫分析多元素的功能
                                 
                                 selTitleChinese[s] = "稀有元素"
                                 selFunctionChinese[s] = "稀有元素"
-
+                                
                                 
                             }
-
+                            
                             
                         }
                         
-          
+                        
                         if let value = selElemPage[elem]["value"] as String?{
                             
                             selValues[s] = value
-                        
+                            
                             
                         }
                         
@@ -1110,11 +1106,11 @@ class PetViewController: UIViewController {
                         let when = DispatchTime.now() + delay
                         
                         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
-
+                            
                             //固定元素在選項裡
                             self!.elems[elem].frame.size = CGSize(width: 60, height: 60)
                             self!.elems[elem].center = CGPoint(x: self!.selElemsCgs[s][0], y: self!.selElemsCgs[s][1])
-                            
+                       
                             
                         }
                         
@@ -1124,12 +1120,19 @@ class PetViewController: UIViewController {
                     
                 }
                 
-                
+     
             }
             
         }
         
+        print(selTitleChinese)
+        print(selFunctionChinese)
+        print(selValues)
         
+        
+            //計算寵物數值
+            calculatePetValue()
+
     }
     
     
@@ -1330,7 +1333,7 @@ class PetViewController: UIViewController {
             
             //跑所有Elem元素
             for i in 0 ..< elems.count{
-
+                
                 //指定所按到的下方或是上方的該頁元素
                 if let elemTouch = elems[i] as UIImageView?{
                     
@@ -1456,25 +1459,25 @@ class PetViewController: UIViewController {
                             elemInfoBg.alpha = 0.8
                             
                             
-                                selTouchedElem = selElemTouch
-                                //selOriginalPosition = selTouchedElem.center
+                            selTouchedElem = selElemTouch
+                            //selOriginalPosition = selTouchedElem.center
                             selOriginalPosition = selTouchedElem.center
                             
                             //提供給後面儲存用
-
+                            
                             //利用selElemsBack不改變位置的特性決定選selElem處於occupied的哪個位置儲存給後面使用
                             if selElemsBack[0].frame.contains(location){
                                 selIndex = 0
-
+                                
                             } else if selElemsBack[1].frame.contains(location){
                                 selIndex = 1
                                 
                             } else if selElemsBack[2].frame.contains(location){
-              
+                                
                                 selIndex = 2
                             }
                             
-
+                            
                             for p in 0 ..< elemPages.count{
                                 
                                 //抓頁面元素
@@ -1483,14 +1486,14 @@ class PetViewController: UIViewController {
                                     //提供給後面儲存用
                                     selPage = p
                                     selElemValue = elem
-    
+                                    
                                 }
                                 
                             }
-
+                            
                         }
                         
-
+                        
                     }
                     
                     
@@ -1498,139 +1501,139 @@ class PetViewController: UIViewController {
                 
                 
             }
-
-      
+            
+            
         }
         
-
+        
         /*
-        for touch in touches {
-            
-            location = touch.location(in: self.view)
-            
-            //都沒碰到元素的話就隱藏info
-            elemInfoBg.alpha = 0
-            
-            //顯示元素資訊
-            if isElementTouchable{
-                
-                //跑所有元素
-                for e in 0 ..< elems.count{
-                    //有碰到元素的話
-                    if elems[e].frame.contains(location){
-               
-                        //非空值
-                        if elems[e].image != nil {
-                            
-                            //抓title
-                            
-                            let title = titleChinese[e]
-                            elemTitleLabel.text = "Lv1 " + title
-                            
-                            //寵物圖片
-                            
-                            //先重置
-                            elemInfoPetAva.image = UIImage()
-                            
-                            if title == "寵物碎片"{
-                                //顯示寵物圖片
-                                let imgName = infoToShow[e]["value"] as String?
-                                elemInfoPetAva.image = makeImage(name: imgName!)
-                            }
-                            
-                            //抓能力值
-                            let function = functionChinese[e]
-                            
-                            //讓爆擊率＋%
-                            if function == "爆擊率" {
-                                elemInfoLabel.text = function + " +\(values[e])%"
-                            } else if title == "寵物碎片"{
-                                elemInfoLabel.text = function
-                                
-                            } else {
-                                
-                                elemInfoLabel.text = function + " +\(values[e])"
-                                
-                            }
- 
-                            //顯示元素照片, 還沒有寫顯示元素資訊在圖片上
-                            let elemAva = elems[e].image
-                            elemInfoAva.image = elemAva
-                            elemInfoBg.alpha = 0.8
-
-                            
-                            //確認e是否為occupied當中的index, 是的話把數字還原-1,讓其可以繼續填入其他元素
-                            //解釋：確認所按到的元素是不是已經在使用當中的, 是的話就移除index
-                            switch e{
-                            case selOccupiedByElemIndex[0]:
-                                selOccupiedByElemIndex[0] = -1
-                                
-                                elemSaved![0] = -1
-                                
-                                exactSelOccupiedByElemIndex[0] = [-1:-1]
-                                exactElemSaved![0] = [-1:-1]
-                                
-                            case selOccupiedByElemIndex[1]:
-                                selOccupiedByElemIndex[1] = -1
-                                elemSaved![1] = -1
-                                
-                                exactSelOccupiedByElemIndex[1] = [-1:-1]
-                                exactElemSaved![1] = [-1:-1]
-                                
-                            case selOccupiedByElemIndex[2]:
-                                selOccupiedByElemIndex[2] = -1
-                                elemSaved![2] = -1
-                                
-                                exactSelOccupiedByElemIndex[2] = [-1:-1]
-                                exactElemSaved![2] = [-1:-1]
-                                
-                            default:
-                                break
-                            }
-                            
-                            //指定該元素的原始位置
-                            originalPosition = elemCgPoints[e]
-                            //移動
-                            //elems[e].center = location
-                            //指定該元素
-                            
-                            touchedElem = elems[e]
-
-                            //指定該元素Index
-                            currentElemIndex = e
-                            exactCurrentElemIndex = [elemPage:e]
-                            
-                            //假如按兩次就回原位
-                            //基本上只要有回原位就要計算寵物數值
-                            if touch.tapCount == 2{
-                                
-                                touchedElem.frame.size = CGSize(width: 80, height: 80)
-                                touchedElem.center = originalPosition
-                                elemInfoBg.alpha = 0
-                                
-                                //計算寵物數值
-                                calculatePetValue()
-                                
-                            }
-                            UserDefaults.standard.set(elemSaved, forKey: "elemSaved")
-                            // UserDefaults.standard.set(exactElemSaved,forKey: "exactElemSaved")
-                            
-                            let userDefaults = UserDefaults.standard
-                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
-                            userDefaults.set(encodedObject, forKey: "exactElemSaved")
-                            userDefaults.synchronize()
-                            
-                        }
-                    }
-                    
-                }
-            }
-
-            
-        }
-        
-        
- */
+         for touch in touches {
+         
+         location = touch.location(in: self.view)
+         
+         //都沒碰到元素的話就隱藏info
+         elemInfoBg.alpha = 0
+         
+         //顯示元素資訊
+         if isElementTouchable{
+         
+         //跑所有元素
+         for e in 0 ..< elems.count{
+         //有碰到元素的話
+         if elems[e].frame.contains(location){
+         
+         //非空值
+         if elems[e].image != nil {
+         
+         //抓title
+         
+         let title = titleChinese[e]
+         elemTitleLabel.text = "Lv1 " + title
+         
+         //寵物圖片
+         
+         //先重置
+         elemInfoPetAva.image = UIImage()
+         
+         if title == "寵物碎片"{
+         //顯示寵物圖片
+         let imgName = infoToShow[e]["value"] as String?
+         elemInfoPetAva.image = makeImage(name: imgName!)
+         }
+         
+         //抓能力值
+         let function = functionChinese[e]
+         
+         //讓爆擊率＋%
+         if function == "爆擊率" {
+         elemInfoLabel.text = function + " +\(values[e])%"
+         } else if title == "寵物碎片"{
+         elemInfoLabel.text = function
+         
+         } else {
+         
+         elemInfoLabel.text = function + " +\(values[e])"
+         
+         }
+         
+         //顯示元素照片, 還沒有寫顯示元素資訊在圖片上
+         let elemAva = elems[e].image
+         elemInfoAva.image = elemAva
+         elemInfoBg.alpha = 0.8
+         
+         
+         //確認e是否為occupied當中的index, 是的話把數字還原-1,讓其可以繼續填入其他元素
+         //解釋：確認所按到的元素是不是已經在使用當中的, 是的話就移除index
+         switch e{
+         case selOccupiedByElemIndex[0]:
+         selOccupiedByElemIndex[0] = -1
+         
+         elemSaved![0] = -1
+         
+         exactSelOccupiedByElemIndex[0] = [-1:-1]
+         exactElemSaved![0] = [-1:-1]
+         
+         case selOccupiedByElemIndex[1]:
+         selOccupiedByElemIndex[1] = -1
+         elemSaved![1] = -1
+         
+         exactSelOccupiedByElemIndex[1] = [-1:-1]
+         exactElemSaved![1] = [-1:-1]
+         
+         case selOccupiedByElemIndex[2]:
+         selOccupiedByElemIndex[2] = -1
+         elemSaved![2] = -1
+         
+         exactSelOccupiedByElemIndex[2] = [-1:-1]
+         exactElemSaved![2] = [-1:-1]
+         
+         default:
+         break
+         }
+         
+         //指定該元素的原始位置
+         originalPosition = elemCgPoints[e]
+         //移動
+         //elems[e].center = location
+         //指定該元素
+         
+         touchedElem = elems[e]
+         
+         //指定該元素Index
+         currentElemIndex = e
+         exactCurrentElemIndex = [elemPage:e]
+         
+         //假如按兩次就回原位
+         //基本上只要有回原位就要計算寵物數值
+         if touch.tapCount == 2{
+         
+         touchedElem.frame.size = CGSize(width: 80, height: 80)
+         touchedElem.center = originalPosition
+         elemInfoBg.alpha = 0
+         
+         //計算寵物數值
+         calculatePetValue()
+         
+         }
+         UserDefaults.standard.set(elemSaved, forKey: "elemSaved")
+         // UserDefaults.standard.set(exactElemSaved,forKey: "exactElemSaved")
+         
+         let userDefaults = UserDefaults.standard
+         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
+         userDefaults.set(encodedObject, forKey: "exactElemSaved")
+         userDefaults.synchronize()
+         
+         }
+         }
+         
+         }
+         }
+         
+         
+         }
+         
+         
+         */
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -1648,6 +1651,7 @@ class PetViewController: UIViewController {
         
     }
     
+    //儲存選項的func
     func saveElemIndex(index:Int, page:Int, elem:Int){
         
         exactSelOccupiedByElemIndex[index] = [page:elem]
@@ -1663,12 +1667,15 @@ class PetViewController: UIViewController {
         print(page)
         print(elem)
         
-         print(exactSelOccupiedByElemIndex)
+        print(exactSelOccupiedByElemIndex)
+        
+        //計算寵物數值
+        calculatePetValue()
     }
     
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
+        
         for touch in touches {
             
             location = touch.location(in: self.view)
@@ -1676,10 +1683,12 @@ class PetViewController: UIViewController {
             //放掉手指就不顯示info
             elemInfoBg.alpha = 0
             
-
+            
             //首先先讓元素回原位
             
             touchedElem.center = originalPosition
+            
+            calculatePetValue()
             
             //touchedElem.frame.size = CGSize(width:80, height: 80)
             //selTouchedElem.center = selOriginalPosition
@@ -1687,72 +1696,72 @@ class PetViewController: UIViewController {
             //卻認selElem是否有固定, 沒有就消失
             var selTouchedAnyImage = false
             
-
-            //確認所移動的元素為何
-          
-            if touch.tapCount < 2{
             
+            //確認所移動的元素為何
+            
+            if touch.tapCount < 2{
+                
                 //***如果是selElem
                 
                 if touchedElem.image == nil && selTouchedElem.image != nil{
-                print("移動selElem")
-                //part 1. 遇到小elem就交換
-                //part 2. 碰到大elem就被大elem取代, 自己消失
-                //part 3. 碰到其他selElem就交換
-                //part 4. 碰到其他空格就固定住
-                //part 5. 移動到其他地方就消失
-
-                
-                for i in 0 ..< elems.count{
+                    print("移動selElem")
+                    //part 1. 遇到小elem就交換
+                    //part 2. 碰到大elem就被大elem取代, 自己消失
+                    //part 3. 碰到其他selElem就交換
+                    //part 4. 碰到其他空格就固定住
+                    //part 5. 移動到其他地方就消失
                     
-                    if let elem = elems[i] as UIImageView?{
+                    
+                    for i in 0 ..< elems.count{
                         
-                        if elem.image != nil{
-                        
-                        //part 1
-                        if elem.frame.contains(location){
+                        if let elem = elems[i] as UIImageView?{
                             
-                            if elem.frame.width == 60 {
+                            if elem.image != nil{
                                 
-                                      print("遇到小elem就交換")
-                                selTouchedAnyImage = true
-                                
-                                elem.center = selOriginalPosition
-                                
-   
-                                //如果碰到的是本頁的小elem
-                                saveElemIndex(index: selIndex, page: elemPage, elem: i)
-                                
-                                
-                            
- 
-                                  //part 2
-                            } else {
-                                
-                                
-                                      print("遇到碰到大elem就被大elem取代, 自己消失")
-                                      selTouchedAnyImage = true
-                                
-                                elem.center = selOriginalPosition
-                                elem.frame.size = CGSize(width:60, height: 60)
-                                
-                                
-                                selTouchedElem.image = nil
-                                
-                                for subview in selTouchedElem.subviews{
+                                //part 1
+                                if elem.frame.contains(location){
                                     
-                                    subview.removeFromSuperview()
+                                    if elem.frame.width == 60 {
+                                        
+                                        print("遇到小elem就交換")
+                                        selTouchedAnyImage = true
+                                        
+                                        elem.center = selOriginalPosition
+                                        
+                                        
+                                        //如果碰到的是本頁的小elem
+                                        saveElemIndex(index: selIndex, page: elemPage, elem: i)
+                                        
+                                        
+                                        
+                                        
+                                        //part 2
+                                    } else {
+                                        
+                                        
+                                        print("遇到碰到大elem就被大elem取代, 自己消失")
+                                        selTouchedAnyImage = true
+                                        
+                                        elem.center = selOriginalPosition
+                                        elem.frame.size = CGSize(width:60, height: 60)
+                                        
+                                        
+                                        selTouchedElem.image = nil
+                                        
+                                        for subview in selTouchedElem.subviews{
+                                            
+                                            subview.removeFromSuperview()
+                                        }
+                                        
+                                        saveElemIndex(index: selIndex, page: elemPage, elem: i)
+                                    }
+                                    
                                 }
-
-                                saveElemIndex(index: selIndex, page: elemPage, elem: i)
+                                
                             }
-                            
                         }
-
+                        
                     }
-                    }
-                    
-                }
                     
                     
                     //part 3.
@@ -1764,19 +1773,197 @@ class PetViewController: UIViewController {
                             
                             //確認不是讀取空值
                             if selElem.image != nil {
-                            //避開自己
-                            if selElem != selTouchedElem{
+                                //避開自己
+                                if selElem != selTouchedElem{
+                                    
+                                    if selElem.frame.contains(location) {
+                                        
+                                        print("遇到別的selElem就交換及固定")
+                                        
+                                        //固定的部分在下方sel碰到selElemsBack處理
+                                        //selTouchedElem.center = selElem.center
+                                        
+                                        selElem.center = selOriginalPosition
+                                        
+                                        selTouchedAnyImage = true
+                                        
+                                        //抓被換sel的頁數及elem
+                                        var replacedSelIndex = Int()
+                                        var replacedSelPage = Int()
+                                        var replacedSelElem = Int()
+                                        //利用selElemsBack不改變位置的特性決定選selElem處於occupied的哪個位置儲存給後面使用
+                                        if selElemsBack[0].frame.contains(location){
+                                            replacedSelIndex = 0
+                                            
+                                        } else if selElemsBack[1].frame.contains(location){
+                                            replacedSelIndex = 1
+                                            
+                                        } else if selElemsBack[2].frame.contains(location){
+                                            
+                                            replacedSelIndex = 2
+                                        }
+                                        
+                                        for p in 0 ..< elemPages.count{
+                                            
+                                            //抓頁面元素
+                                            if let elem = exactSelOccupiedByElemIndex[replacedSelIndex][elemPages[p]]{
+                                                
+                                                //提供給後面儲存用
+                                                replacedSelPage = p
+                                                replacedSelElem = elem
+                                                
+                                            }
+                                            
+                                        }
+                                        
+                                        //儲存交換位置的index
+                                        saveElemIndex(index: selIndex, page: replacedSelPage, elem: replacedSelElem)
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                    for i in 0 ..< selElemsBack.count{
+                        
+                        if let selElemBack = selElemsBack[i] as UIImageView?{
+                            
+                            //part 4.
+                            if selElemBack.frame.contains(location){
+                                
+                                print("碰到其他空格就固定住")
+                                
+                                selTouchedAnyImage = true
+                                
+                                selTouchedElem.center = selElemBack.center
+                                
+                                
+                                
+                                //先確認儲存位置是否有任何elem
+                                
+                                if exactSelOccupiedByElemIndex[i] == [-1: -1]{
+                                    
+                                    saveElemIndex(index:selIndex, page:-1, elem:-1)
+                                    saveElemIndex(index: i, page: selPage, elem: selElemValue)
+                                    
+                                } else {
+                                    
+                                    saveElemIndex(index: i, page: selPage, elem: selElemValue)
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    //part 5.
+                    if selTouchedAnyImage == false{
+                        
+                        print("移動到其他地方就消失")
+                        
+                        selTouchedElem.image = nil
+                        
+                        for subview in selTouchedElem.subviews{
+                            
+                            subview.removeFromSuperview()
+                        }
+                        
+                        saveElemIndex(index: selIndex, page: -1, elem: -1)
+                        
+                    }
+                    
+                    
+                    
+                    //***如果是小Elem
+                } else if touchedElem.frame.width == 60 && touchedElem.image != nil{
+                    
+                    //part 1. 遇到別的elem就交換及固定, 並確認大小
+                    //part 2. 遇到別的selElem就交換及固定
+                    //part 3. 遇到空的selElemBack就固定
+                    //part 4. 沒有固定在任何地方的話就等於會回復到原位大小改成80
+                    
+                    //預設小元素沒有固定在任何地方
+                    var smallElemTouchedAnyImage = false
+                    
+                    //part 1.
+                    for i in 0 ..< elems.count{
+                        
+                        if let elem = elems[i] as UIImageView?{
+                            
+                            if elem != touchedElem{
+                                
+                                if elem.frame.contains(location) {
+                                    
+                                    //幾如碰到的是小的elem, 就交換位置
+                                    if elem.frame.width == 60 {
+                                        print("幾假如碰到的是小的elem, 就交換位置")
+                                        
+                                        //此固定位置下方有做到
+                                        //touchedElem.center = elem.center
+                                        
+                                        elem.center = currentPosition
+                                        
+                                        smallElemTouchedAnyImage = true
+                                        
+                                        saveElemIndex(index: elemIndex, page: elemPage, elem: i)
+                                        
+                                        //假如遇到的是大的elem, 交換位置及變大小
+                                        
+                                    } else {
+                                        
+                                        print("假如遇到的是大的elem, 交換位置及變大小")
+                                        
+                                        
+                                        touchedElem.center = originalPosition
+                                        touchedElem.frame.size = CGSize(width:80, height: 80)
+                                        
+                                        elem.center = currentPosition
+                                        elem.frame.size = CGSize(width:60, height: 60)
+                                        smallElemTouchedAnyImage = true
+                                        
+                                        saveElemIndex(index: elemIndex, page: elemPage, elem: i)
+                                        
+                                        
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                    //Part 2
+                    
+                    for i in 0 ..< selElems.count{
+                        
+                        if let selElem = selElems[i] as UIImageView?{
+                            
+                            if selElem.image != nil{
                                 
                                 if selElem.frame.contains(location) {
                                     
-                                    print("遇到別的selElem就交換及固定")
+                                    print("小elem遇到別的selElem就交換及固定")
                                     
-                                    //固定的部分在下方sel碰到selElemsBack處理
-                                    //selTouchedElem.center = selElem.center
+                                    //此固定位置下方有做到
+                                    //touchedElem.center = selElem.center
                                     
-                                    selElem.center = selOriginalPosition
+                                    selElem.center = currentPosition
                                     
-                                    selTouchedAnyImage = true
+                                    smallElemTouchedAnyImage = true
                                     
                                     //抓被換sel的頁數及elem
                                     var replacedSelIndex = Int()
@@ -1808,190 +1995,12 @@ class PetViewController: UIViewController {
                                     }
                                     
                                     //儲存交換位置的index
-                                    saveElemIndex(index: selIndex, page: replacedSelPage, elem: replacedSelElem)
-     
-                                }
-                                
-                            }
-                            
-                            }
-                        }
-                        
-                        
-                    }
-                
-                for i in 0 ..< selElemsBack.count{
-                    
-                    if let selElemBack = selElemsBack[i] as UIImageView?{
-                        
-                        //part 4.
-                        if selElemBack.frame.contains(location){
-                            
-                            print("碰到其他空格就固定住")
-                            
-                                  selTouchedAnyImage = true
-                
-                                  selTouchedElem.center = selElemBack.center
-                            
-                            
-                            
-                            //先確認儲存位置是否有任何elem
-                            
-                            if exactSelOccupiedByElemIndex[i] == [-1: -1]{
-                                
-                                saveElemIndex(index:selIndex, page:-1, elem:-1)
-                                saveElemIndex(index: i, page: selPage, elem: selElemValue)
-                                
-                            } else {
-
-                            saveElemIndex(index: i, page: selPage, elem: selElemValue)
-
-                            }
-
-                        }
-                        
-                    }
-                    
-                    
-                }
-                    
-
-
-                    
-
-
-                //part 5.
-                if selTouchedAnyImage == false{
-                    
-                    print("移動到其他地方就消失")
-                    
-                    selTouchedElem.image = nil
-                    
-                    for subview in selTouchedElem.subviews{
-                        
-                        subview.removeFromSuperview()
-                    }
-                    
-                    saveElemIndex(index: selIndex, page: -1, elem: -1)
-                    
-                }
-                    
-
-                
-                //***如果是小Elem
-            } else if touchedElem.frame.width == 60 && touchedElem.image != nil{
-                    
-                    //part 1. 遇到別的elem就交換及固定, 並確認大小
-                    //part 2. 遇到別的selElem就交換及固定
-                    //part 3. 遇到空的selElemBack就固定
-                    //part 4. 沒有固定在任何地方的話就等於會回復到原位大小改成80
-                    
-                    //預設小元素沒有固定在任何地方
-                    var smallElemTouchedAnyImage = false
-
-                    //part 1.
-                    for i in 0 ..< elems.count{
-                        
-                        if let elem = elems[i] as UIImageView?{
-                            
-                            if elem != touchedElem{
-                            
-                            if elem.frame.contains(location) {
-                            
-                            //幾如碰到的是小的elem, 就交換位置
-                            if elem.frame.width == 60 {
-                                print("幾假如碰到的是小的elem, 就交換位置")
-                                
-                                //此固定位置下方有做到
-                                //touchedElem.center = elem.center
-                                
-                                elem.center = currentPosition
-                                
-                                smallElemTouchedAnyImage = true
-                                
-                                saveElemIndex(index: elemIndex, page: elemPage, elem: i)
-                                
-                                //假如遇到的是大的elem, 交換位置及變大小
-                          
-                            } else {
-                                
-                                print("假如遇到的是大的elem, 交換位置及變大小")
-                                
-                                
-                                touchedElem.center = originalPosition
-                                touchedElem.frame.size = CGSize(width:80, height: 80)
-                                
-                                elem.center = currentPosition
-                                elem.frame.size = CGSize(width:60, height: 60)
-                                smallElemTouchedAnyImage = true
-                                
-                                saveElemIndex(index: elemIndex, page: elemPage, elem: i)
-
-                                
-                                }
-  
-                            }
-                            }
-                        }
-                        
-
-                    }
-                    
-                    //Part 2
-                    
-                    for i in 0 ..< selElems.count{
-                        
-                        if let selElem = selElems[i] as UIImageView?{
-                            
-                            if selElem.image != nil{
-                            
-                            if selElem.frame.contains(location) {
-                                
-                                print("小elem遇到別的selElem就交換及固定")
-                                
-                                //此固定位置下方有做到
-                                //touchedElem.center = selElem.center
-                                
-                                selElem.center = currentPosition
-                                
-                                smallElemTouchedAnyImage = true
-                                
-                                //抓被換sel的頁數及elem
-                                var replacedSelIndex = Int()
-                                var replacedSelPage = Int()
-                                var replacedSelElem = Int()
-                                //利用selElemsBack不改變位置的特性決定選selElem處於occupied的哪個位置儲存給後面使用
-                                if selElemsBack[0].frame.contains(location){
-                                    replacedSelIndex = 0
+                                    saveElemIndex(index: elemIndex, page: replacedSelPage, elem: replacedSelElem)
                                     
-                                } else if selElemsBack[1].frame.contains(location){
-                                    replacedSelIndex = 1
                                     
-                                } else if selElemsBack[2].frame.contains(location){
-                                    
-                                    replacedSelIndex = 2
-                                }
-                                
-                                for p in 0 ..< elemPages.count{
-                                    
-                                    //抓頁面元素
-                                    if let elem = exactSelOccupiedByElemIndex[replacedSelIndex][elemPages[p]]{
-                                        
-                                        //提供給後面儲存用
-                                        replacedSelPage = p
-                                        replacedSelElem = elem
-                                        
-                                    }
                                     
                                 }
                                 
-                                //儲存交換位置的index
-                                saveElemIndex(index: elemIndex, page: replacedSelPage, elem: replacedSelElem)
-                                
-                                
-                                
-                            }
-                            
                             }
                             
                         }
@@ -2017,16 +2026,16 @@ class PetViewController: UIViewController {
                                 //檢查此位置是否為-1
                                 
                                 if exactSelOccupiedByElemIndex[i] == [-1: -1]{
-                           
+                                    
                                     print("-1")
                                     saveElemIndex(index:elemIndex, page:-1, elem:-1)
                                     saveElemIndex(index: i, page: elemPage, elem: elemValue)
                                 } else {
-
+                                    
                                     print("!=-1")
                                     saveElemIndex(index: i, page: elemPage, elem: elemValue)
                                 }
-
+                                
                             }
                             
                             
@@ -2035,9 +2044,9 @@ class PetViewController: UIViewController {
                         
                         
                     }
-
                     
-                              //part 4. 沒有固定在任何地方的話就等於會回復到原位大小改成80
+                    
+                    //part 4. 沒有固定在任何地方的話就等於會回復到原位大小改成80
                     
                     if smallElemTouchedAnyImage == false{
                         print("沒有固定在任何地方的話就等於會回復到原位大小改成80")
@@ -2047,117 +2056,117 @@ class PetViewController: UIViewController {
                         saveElemIndex(index: elemIndex, page: -1, elem: -1)
                         
                     }
-       
-                    //***如果是大Elem
-            } else if touchedElem.frame.width == 80{
-                
-                print("移動大elem")
-                   // part 1. 碰到小elem就替換及固定及改大小
-                   // part 2. 碰到selElem就取代及改大小
-                   // part 3. 碰到selElemsBack就固定及改大小
                     
-
+                    //***如果是大Elem
+                } else if touchedElem.frame.width == 80{
+                    
+                    print("移動大elem")
+                    // part 1. 碰到小elem就替換及固定及改大小
+                    // part 2. 碰到selElem就取代及改大小
+                    // part 3. 碰到selElemsBack就固定及改大小
+                    
+                    
                     //Part 1.
                     for i in 0 ..< elems.count{
                         if let elem = elems[i] as UIImageView?{
                             
                             if elem != touchedElem{
-                            
-                            //碰到小的
-                            if elem.frame.width == 60{
                                 
-                                if elem.frame.contains(location){
+                                //碰到小的
+                                if elem.frame.width == 60{
                                     
-                                    print("碰到小elem就替換及固定及改大小")
-                    
+                                    if elem.frame.contains(location){
+                                        
+                                        print("碰到小elem就替換及固定及改大小")
+                                        
+                                        
+                                        elem.center = elemCgPoints[i]
+                                        elem.frame.size = CGSize(width:80, height: 80)
+                                        
+                                    }
                                     
-                                    elem.center = elemCgPoints[i]
-                                    elem.frame.size = CGSize(width:80, height: 80)
                                     
                                 }
-
-                                
-                            }
                             }
                         }
                         
-      
+                        
                     }
                     
                     //Part 2. 碰到selElem就取代及改大小
-
+                    
                     for i in 0 ..< selElems.count{
                         
                         if let selElem = selElems[i] as UIImageView?{
                             
                             //要確認有圖片才算
                             if selElem.image != nil {
-                            
-                            if selElem.frame.contains(location){
                                 
-                                
-                                print("碰到selElem就取代及改大小")
-                                
-                                
-                                //selElem消失
-                                
-                                selElem.image = nil
-                                
-                                for subview in selElem.subviews{
+                                if selElem.frame.contains(location){
                                     
-                                    subview.removeFromSuperview()
+                                    
+                                    print("碰到selElem就取代及改大小")
+                                    
+                                    
+                                    //selElem消失
+                                    
+                                    selElem.image = nil
+                                    
+                                    for subview in selElem.subviews{
+                                        
+                                        subview.removeFromSuperview()
+                                        
+                                    }
+                                    
                                     
                                 }
-
-
-                            }
-                            
+                                
                             }
                         }
-          
+                        
                     }
                     
-                     // part 3. 碰到selElemsBack就固定及改大小
+                    // part 3. 碰到selElemsBack就固定及改大小
                     
                     for i in 0 ..< selElemsBack.count{
-                       
+                        
                         if let selElemBack = selElemsBack[i] as UIImageView?{
                             
                             if selElemBack.frame.contains(location){
                                 
                                 print("碰到selElemsBack就固定及改大小")
-
+                                
                                 touchedElem.center = selElemBack.center
                                 touchedElem.frame.size = CGSize(width:60, height: 60)
                                 
                                 saveElemIndex(index: i, page: elemPage, elem: elemValue)
                                 
                             }
-       
+                            
                             
                         }
-    
+                        
                     }
- 
-      
-            }
-         
+                    
+                    
+                }
+                
             } else {
-
+                
                 // part 1. selElem按兩下會消失
                 // part 2. 小elem按兩下會回原位
                 
                 //按兩下sel元素會消失
                 if selTouchedElem.image != nil && touchedElem.image == nil {
-                
-                           print("sel元素消失")
                     
-                selTouchedElem.image = nil
-                
-                for subview in selTouchedElem.subviews{
+                    print("sel元素消失")
                     
-                    subview.removeFromSuperview()
-                }
+                    selTouchedElem.image = nil
+                    
+                    for subview in selTouchedElem.subviews{
+                        
+                        subview.removeFromSuperview()
+                    }
                     
                     saveElemIndex(index: selIndex, page: -1, elem: -1)
                     
@@ -2165,13 +2174,13 @@ class PetViewController: UIViewController {
                 
                 if touchedElem.image != nil && selTouchedElem.image == nil && touchedElem.frame.width == 60{
                     
-                           print("小elem回到原始元素位置")
+                    print("小elem回到原始元素位置")
                     
                     touchedElem.center = originalPosition
                     touchedElem.frame.size = CGSize(width:80, height: 80)
                     
                     saveElemIndex(index: elemIndex, page: -1, elem: -1)
-
+                    
                     
                 }
                 
@@ -2190,92 +2199,92 @@ class PetViewController: UIViewController {
         }
         
         /*
-        for touch in touches {
-            
-            location = touch.location(in: self.view)
-            
-            //Part 1. 首先先讓元素回原位
-            touchedElem.frame.size = CGSize(width: 80, height: 80)
-            touchedElem.center = originalPosition
-            
-            //放掉手指就不顯示info
-            elemInfoBg.alpha = 0
-            
-            //計算寵物數值
-            calculatePetValue()
-            
-            //Part 2. 下方假如元素有碰到選項, 就移至選項位置
-            
-            if touch.tapCount < 2{
-                
-                //跑所有的選項元素
-                for s in 0 ..< selElems.count{
-                    
-                    //假如碰到了其中之一
-                    if selElems[s].frame.contains(location){
-                        
-                        //***假如選項上有元素的話才啟動以下改變及計分機制***
-                        if touchedElem.image != nil{
-                            
-                            
-                            
-                            //有元素的話要交換
-                            //先檢查有沒有任何元素
-                            if selOccupiedByElemIndex[s] != -1 {
-                                
-                                //之前的元素回原位
-                                let preElem = elems[selOccupiedByElemIndex[s]]
-                                preElem.frame.size = CGSize(width: 80, height: 80)
-                                preElem.center = elemCgPoints[selOccupiedByElemIndex[s]]
-                                
-                                //要回到-1
-                                selOccupiedByElemIndex[s] = -1
-                                elemSaved![s] = -1
-                                
-                                exactSelOccupiedByElemIndex[s] = [-1:-1]
-                                exactElemSaved![s] = [-1:-1]
-                            }
-                            
-                            
-                            //沒有的話固定元素在選項裡
-                            touchedElem.frame.size = CGSize(width: 60, height: 60)
-                            touchedElem.center = CGPoint(x: selElemsCgs[s][0], y: selElemsCgs[s][1])
-                            
-                            //因為有碰到所以設定數字
-                            
-                            selOccupiedByElemIndex[s] = currentElemIndex
-                            exactSelOccupiedByElemIndex[s] = exactCurrentElemIndex
-                            
-                            elemSaved![s] = currentElemIndex
-                            exactElemSaved![s] = exactCurrentElemIndex
-                            
-                            //計算寵物數值
-                            calculatePetValue()
-                            
-                        } else {
-                            
-                            print("touchedElem is nil")
-                        }
-                    }
-                    
-                    UserDefaults.standard.set(elemSaved, forKey: "elemSaved")
-                    //UserDefaults.standard.set(exactElemSaved,forKey: "exactElemSaved")
-                    
-                    let userDefaults = UserDefaults.standard
-                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
-                    userDefaults.set(encodedObject, forKey: "exactElemSaved")
-                    userDefaults.synchronize()
-                }
-                
-            }
-            
-            //初始化剛指定的element
-            touchedElem = UIImageView()
-        }
-        
-*/
- 
- */
+         for touch in touches {
+         
+         location = touch.location(in: self.view)
+         
+         //Part 1. 首先先讓元素回原位
+         touchedElem.frame.size = CGSize(width: 80, height: 80)
+         touchedElem.center = originalPosition
+         
+         //放掉手指就不顯示info
+         elemInfoBg.alpha = 0
+         
+         //計算寵物數值
+         calculatePetValue()
+         
+         //Part 2. 下方假如元素有碰到選項, 就移至選項位置
+         
+         if touch.tapCount < 2{
+         
+         //跑所有的選項元素
+         for s in 0 ..< selElems.count{
+         
+         //假如碰到了其中之一
+         if selElems[s].frame.contains(location){
+         
+         //***假如選項上有元素的話才啟動以下改變及計分機制***
+         if touchedElem.image != nil{
+         
+         
+         
+         //有元素的話要交換
+         //先檢查有沒有任何元素
+         if selOccupiedByElemIndex[s] != -1 {
+         
+         //之前的元素回原位
+         let preElem = elems[selOccupiedByElemIndex[s]]
+         preElem.frame.size = CGSize(width: 80, height: 80)
+         preElem.center = elemCgPoints[selOccupiedByElemIndex[s]]
+         
+         //要回到-1
+         selOccupiedByElemIndex[s] = -1
+         elemSaved![s] = -1
+         
+         exactSelOccupiedByElemIndex[s] = [-1:-1]
+         exactElemSaved![s] = [-1:-1]
+         }
+         
+         
+         //沒有的話固定元素在選項裡
+         touchedElem.frame.size = CGSize(width: 60, height: 60)
+         touchedElem.center = CGPoint(x: selElemsCgs[s][0], y: selElemsCgs[s][1])
+         
+         //因為有碰到所以設定數字
+         
+         selOccupiedByElemIndex[s] = currentElemIndex
+         exactSelOccupiedByElemIndex[s] = exactCurrentElemIndex
+         
+         elemSaved![s] = currentElemIndex
+         exactElemSaved![s] = exactCurrentElemIndex
+         
+         //計算寵物數值
+         calculatePetValue()
+         
+         } else {
+         
+         print("touchedElem is nil")
+         }
+         }
+         
+         UserDefaults.standard.set(elemSaved, forKey: "elemSaved")
+         //UserDefaults.standard.set(exactElemSaved,forKey: "exactElemSaved")
+         
+         let userDefaults = UserDefaults.standard
+         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
+         userDefaults.set(encodedObject, forKey: "exactElemSaved")
+         userDefaults.synchronize()
+         }
+         
+         }
+         
+         //初始化剛指定的element
+         touchedElem = UIImageView()
+         }
+         
+         */
+         
+         */
         
     }
     
@@ -2356,189 +2365,603 @@ class PetViewController: UIViewController {
     
     //計算寵物數值的func
     func calculatePetValue(){
+
+        //抓數值, 之後這個數值要從一個可以固定及升級改數值的地方抓數字過來.
+        //寵物資訊重置
+        pet = petOriginal
         
-        /*
-         
-         print(selOccupiedByElemIndex)
-         print(exactSelOccupiedByElemIndex)
-         //抓數值, 之後這個數值要從一個可以固定及升級改數值的地方抓數字過來.
-         //寵物資訊重置
-         //pet = ["petLife":100,"petAttack":40,"petDefense":10,"petDoubleAttack":20,"petExtraAttack":0,"petHeal":0,"petType":""]
-         pet = petOriginal
-         print("petOriginal:\(petOriginal)")
-         
-         let petHpValue = pet!["petHp"] as! Int
-         let petAttValue = pet!["petAtt"] as! Int
-         let petDefValue = pet!["petDef"] as! Int
-         let petHealValue = pet!["petHeal"] as! Int
-         //let petTypeValue = pet!["petType"] as! String
-         let petHitValue = pet!["petHit"] as! Int
-         let petMagValue = pet!["petMag"] as! Int
-         
-         /*
-         let petCure = pet?["petHeal"] as! Int
-         let petLife = pet?["petLife"] as! Int
-         let petAttack = pet?["petAttack"] as! Int
-         let petDefense = pet?["petDefense"] as! Int
-         let petDouble = pet?["petDoubleAttack"] as! Int
-         let petExtra = pet?["petExtraAttack"] as! Int
-         */
-         petCureLabel.text = String(describing: petHealValue)
-         petLifeLabel.text = String(describing: petHpValue)
-         petAttackLabel.text = String(describing: petAttValue)
-         petDefenseLabel.text = String(describing: petDefValue)
-         petDoubleAttackLabel.text = String(describing: petHitValue) + "%"
-         petExtraAttackLabel.text = String(describing: petMagValue)
-         
-         //顏色先重置白色
-         petLifeLabel.textColor = .white
-         petAttackLabel.textColor = .white
-         petDefenseLabel.textColor = .white
-         petExtraAttackLabel.textColor = .white
-         petDoubleAttackLabel.textColor = .white
-         petCureLabel.textColor = .white
-         petTypeImg.image = UIImage()
-         
-         
-         // 機制: 這裡的數字不改, 每一次都check selOccupied有沒有任何值會影響
-         
-         
-         /*
+        
+        let petHpValue = pet!["petHp"] as! Int
+        let petAttValue = pet!["petAtt"] as! Int
+        let petDefValue = pet!["petDef"] as! Int
+        let petHealValue = pet!["petHeal"] as! Int
+        //let petTypeValue = pet!["petType"] as! String
+        let petHitValue = pet!["petHit"] as! Int
+        let petMagValue = pet!["petMag"] as! Int
+        
+
+        petCureLabel.text = String(describing: petHealValue)
+        petLifeLabel.text = String(describing: petHpValue)
+        petAttackLabel.text = String(describing: petAttValue)
+        petDefenseLabel.text = String(describing: petDefValue)
+        petDoubleAttackLabel.text = String(describing: petHitValue) + "%"
+        petExtraAttackLabel.text = String(describing: petMagValue)
+        
+        //顏色先重置白色
+        petLifeLabel.textColor = .white
+        petAttackLabel.textColor = .white
+        petDefenseLabel.textColor = .white
+        petExtraAttackLabel.textColor = .white
+        petDoubleAttackLabel.textColor = .white
+        petCureLabel.textColor = .white
+        petTypeImg.image = UIImage()
+        
+        
+        // 機制: 這裡的數字不改, 每一次都check selOccupied有沒有任何值會影響
+        
+        
+        
          for p in 0 ..< elemPages.count{
          
          for s in 0 ..< exactSelOccupiedByElemIndex.count{
          
-         if let value = exactSelOccupiedByElemIndex[s][elemPages[p]]{
+         if let elem = exactSelOccupiedByElemIndex[s][elemPages[p]]{
          
-         print("index:\(s)")
-         print("page:\(p)")
-         print("elem:\(value)")
-         
+
+            var function = String()
+            var value = String()
+            
+            switch p {
+                
+            case 0:
+                
+                function = getValues(group: normalElems, type: "func", elem: elem)
+                value = getValues(group: normalElems, type: "value", elem: elem)
+                
+            case 1:
+                
+                function = "metal"
+                value = getValues(group: metalElems, type: "value", elem: elem)
+                
+                
+            case 2:
+                
+                function = "wood"
+                value = getValues(group: woodElems, type: "value", elem: elem)
+                
+            case 3:
+                
+                function = "water"
+                value = getValues(group: waterElems, type: "value", elem: elem)
+                
+            case 4:
+                
+                function = "fire"
+                value = getValues(group: fireElems, type: "value", elem: elem)
+                
+            case 5:
+                
+                function = "earth"
+                value = getValues(group: earthElems, type: "value", elem: elem)
+                
+            case 6:
+                
+                function = "upgrade"
+                value = getValues(group: combineElems, type: "value", elem: elem)
+                
+            case 7:
+                
+                function = "rare"
+                value = getValues(group: rareElems, type: "value", elem: elem)
+                
+            default:
+                break
+            }
+
+     
+
+            switch function{
+                
+            case "hp":
+                
+                
+                petLifeLabel.textColor = .green
+                
+                
+                petLifeLabel.text = String(Int(petLifeLabel.text!)! + Int(value)!)
+                
+                pet?["petHp"] = Int(Int(petLifeLabel.text!)! + Int(value)!)
+                
+                
+            case "att":
+                petAttackLabel.textColor = .green
+                
+
+                petAttackLabel.text = String(Int(petAttackLabel.text!)! + Int(value)!)
+                
+                pet?["petAtt"] = Int(Int(petAttackLabel.text!)! + Int(value)!)
+                
+
+                
+            case "def":
+                petDefenseLabel.textColor = .green
+                
+                
+                petDefenseLabel.text = String(Int(petDefenseLabel.text!)! + Int(value)!)
+                
+                pet?["petDef"] = Int(Int(petDefenseLabel.text!)! + Int(value)!)
+                
+
+                
+                
+            case "hit":
+                petDoubleAttackLabel.textColor = .green
+                
+                
+                petDoubleAttackLabel.text = String(Int(petDoubleAttackLabel.text!)! + Int(value)!)
+                
+                pet?["petHit"] = Int(Int(petDoubleAttackLabel.text!)! + Int(value)!)
+                
+
+                
+                
+            case "heal":
+                petCureLabel.textColor = .green
+                
+                
+                petCureLabel.text = String(Int(petCureLabel.text!)! + Int(value)!)
+                
+                pet?["petHeal"] = Int(Int(petCureLabel.text!)! + Int(value)!)
+                
+
+                
+            case "wood":
+                
+                petExtraAttackLabel.textColor = .green
+                petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                pet?["petMag"] = Int(petMagValue + Int(value)!)
+                
+                pet?["petType"] = "wood"
+                
+                petTypeImg.image = UIImage(named: "wood.png")
+                
+                
+            case "earth":
+                
+                petExtraAttackLabel.textColor = .green
+                petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                pet?["petMag"] = Int(petMagValue + Int(value)!)
+                pet?["petType"] = "earth"
+                
+                petTypeImg.image = UIImage(named: "earth.png")
+                
+                
+            case "water":
+                
+                
+                petExtraAttackLabel.textColor = .green
+                petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                pet?["petMag"] = Int(petMagValue + Int(value)!)
+                pet?["petType"] = "water"
+                
+                petTypeImg.image = UIImage(named: "water.png")
+                
+            case "fire":
+                
+                
+                
+                petExtraAttackLabel.textColor = .green
+                petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                pet?["petMag"] = Int(petMagValue + Int(value)!)
+                pet?["petType"] = "fire"
+                petTypeImg.image = UIImage(named: "fire.png")
+                
+                
+            case "metal":
+                
+                
+                petExtraAttackLabel.textColor = .green
+                petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                pet?["petMag"] = Int(petMagValue + Int(value)!)
+                pet?["petType"] = "metal"
+                
+                petTypeImg.image = UIImage(named: "metal.png")
+                
+                
+            case "upgrade":
+                break
+            default:
+                break
+                
+                
+            }
+
+
          
          }
          
-         
-         
          }
          
-         
-         
+            
+            //儲存改變數值
+            UserDefaults.standard.set(pet, forKey: "pet")
+
          }
-         */
-         //抓數字
-         for s in 0 ..< selOccupiedByElemIndex.count{
-         
-         //加數值上去
-         if selOccupiedByElemIndex[s] > -1 {
-         
-         let index = selOccupiedByElemIndex[s]
-         let selElem = infoToShow[index]
-         
-         if let function = selElem["func"] as String?{
-         
-         switch function{
-         
-         case "hp":
-         
-         petLifeLabel.textColor = .green
-         petLifeLabel.text = String(petHpValue + Int(selElem["value"]!)!)
-         pet?["petHp"] = Int(petHpValue + Int(selElem["value"]!)!)
-         
-         
-         case "att":
-         petAttackLabel.textColor = .green
-         petAttackLabel.text = String(petAttValue + Int(selElem["value"]!)!)
-         pet?["petAtt"] = Int(petAttValue + Int(selElem["value"]!)!)
-         
-         case "def":
-         petDefenseLabel.textColor = .green
-         petDefenseLabel.text = String(petDefValue + Int(selElem["value"]!)!)
-         pet?["petDef"] = Int(petDefValue + Int(selElem["value"]!)!)
-         
-         
-         case "hit":
-         petDoubleAttackLabel.textColor = .green
-         petDoubleAttackLabel.text = String(petHitValue + Int(selElem["value"]!)!) + "%"
-         pet?["petHit"] = Int(petHitValue + Int(selElem["value"]!)!)
-         
-         
-         case "heal":
-         petCureLabel.textColor = .green
-         petCureLabel.text = String(petHealValue + Int(selElem["value"]!)!)
-         pet?["petHeal"] = Int(petHealValue + Int(selElem["value"]!)!)
-         
-         case "wood":
-         
-         petExtraAttackLabel.textColor = .green
-         petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
-         pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
-         
-         pet?["petType"] = "wood"
-         
-         petTypeImg.image = UIImage(named: "wood.png")
-         
-         
-         case "earth":
-         
-         petExtraAttackLabel.textColor = .green
-         petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
-         pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
-         pet?["petType"] = "earth"
-         
-         petTypeImg.image = UIImage(named: "earth.png")
-         
-         
-         case "water":
-         
-         
-         petExtraAttackLabel.textColor = .green
-         petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
-         pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
-         pet?["petType"] = "water"
-         
-         petTypeImg.image = UIImage(named: "water.png")
-         
-         case "fire":
-         
-         
-         
-         petExtraAttackLabel.textColor = .green
-         petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
-         pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
-         pet?["petType"] = "fire"
-         petTypeImg.image = UIImage(named: "fire.png")
-         
-         
-         case "metal":
-         
-         
-         petExtraAttackLabel.textColor = .green
-         petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
-         pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
-         pet?["petType"] = "metal"
-         
-         petTypeImg.image = UIImage(named: "metal.png")
-         
-         
-         case "upgrade":
-         break
-         default:
-         break
-         
-         
-         }
-         
-         }
-         
-         }
-         
-         //儲存改變數值
-         UserDefaults.standard.set(pet, forKey: "pet")
-         }
-         */
+ 
+        //抓數字
+        
+        
+        
+        /*
+
+            
+            //跑selElem的數字
+            for i in 0 ..< selFunctionChinese.count{
+                
+                
+                if let function = selFunctionChinese[i] as String?{
+                    
+                    switch function{
+                        
+                        
+                    case "血量":
+                        
+                        petLifeLabel.textColor = .green
+                        petLifeLabel.text = String(petHpValue + Int(selValues[i])!)
+                        pet?["petHp"] = Int(petHpValue + Int(selValues[i])!)
+                        
+                        
+                    case "攻擊力":
+                        petAttackLabel.textColor = .green
+                        petAttackLabel.text = String(petAttValue + Int(selValues[i])!)
+                        pet?["petAtt"] = Int(petAttValue + Int(selValues[i])!)
+                        
+                    case "防禦力":
+                        petDefenseLabel.textColor = .green
+                        petDefenseLabel.text = String(petDefValue + Int(selValues[i])!)
+                        pet?["petDef"] = Int(petDefValue + Int(selValues[i])!)
+                        
+                        
+                    case "爆擊率":
+                        petDoubleAttackLabel.textColor = .green
+                        petDoubleAttackLabel.text = String(petHitValue + Int(selValues[i])!) + "%"
+                        pet?["petHit"] = Int(petHitValue + Int(selValues[i])!)
+                        
+                        
+                    case "治癒":
+                        petCureLabel.textColor = .green
+                        petCureLabel.text = String(petHealValue + Int(selValues[i])!)
+                        pet?["petHeal"] = Int(petHealValue + Int(selValues[i])!)
+                        
+                    case "木屬性魔攻":
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selValues[i])!)
+                        pet?["petMag"] = Int(petMagValue + Int(selValues[i])!)
+                        
+                        pet?["petType"] = "wood"
+                        
+                        petTypeImg.image = UIImage(named: "wood.png")
+                        
+                        
+                    case "土屬性魔攻":
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selValues[i])!)
+                        pet?["petMag"] = Int(petMagValue + Int(selValues[i])!)
+                        pet?["petType"] = "earth"
+                        
+                        petTypeImg.image = UIImage(named: "earth.png")
+                        
+                        
+                    case "水屬性魔攻":
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selValues[i])!)
+                        pet?["petMag"] = Int(petMagValue + Int(selValues[i])!)
+                        pet?["petType"] = "water"
+                        
+                        petTypeImg.image = UIImage(named: "water.png")
+                        
+                    case "火屬性魔攻":
+                        
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selValues[i])!)
+                        pet?["petMag"] = Int(petMagValue + Int(selValues[i])!)
+                        pet?["petType"] = "fire"
+                        petTypeImg.image = UIImage(named: "fire.png")
+                        
+                        
+                    case "金屬性魔攻":
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selValues[i])!)
+                        pet?["petMag"] = Int(petMagValue + Int(selValues[i])!)
+                        pet?["petType"] = "metal"
+                        
+                        petTypeImg.image = UIImage(named: "metal.png")
+                        
+                        
+                    case "蒐集3片碎片合成寵物":
+                        break
+                        
+                    case "":
+                        break
+                        
+                    default:
+                        break
+                        
+                    }
+   
+                    
+                }
+                
+            }
+            
+        
+        
+        for i in 0 ..< elems.count{
+            
+            if let elem = elems[i] as UIImageView?{
+                
+                if elem.frame.width == 60{
+                    print("smallElem:\(i)")
+                    if let function = functionChinese[i] as String?{
+                        
+                        
+                        print("elemFunction:\(function)")
+                        
+                        switch function{
+                            
+                           
+                            
+                            
+                        case "血量":
+                            
+                            petLifeLabel.textColor = .green
+                            petLifeLabel.text = String(petHpValue + Int(values[i])!)
+                            pet?["petHp"] = Int(petHpValue + Int(values[i])!)
+                            
+                            
+                        case "攻擊力":
+                            petAttackLabel.textColor = .green
+                            petAttackLabel.text = String(petAttValue + Int(values[i])!)
+                            pet?["petAtt"] = Int(petAttValue + Int(values[i])!)
+                            
+                        case "防禦力":
+                            petDefenseLabel.textColor = .green
+                            petDefenseLabel.text = String(petDefValue + Int(values[i])!)
+                            pet?["petDef"] = Int(petDefValue + Int(values[i])!)
+                            
+                            
+                        case "爆擊率":
+                            petDoubleAttackLabel.textColor = .green
+                            petDoubleAttackLabel.text = String(petHitValue + Int(values[i])!) + "%"
+                            pet?["petHit"] = Int(petHitValue + Int(values[i])!)
+                            
+                            
+                        case "治癒":
+                            petCureLabel.textColor = .green
+                            petCureLabel.text = String(petHealValue + Int(values[i])!)
+                            pet?["petHeal"] = Int(petHealValue + Int(values[i])!)
+                            
+                        case "木屬性魔攻":
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petMagValue + Int(values[i])!)
+                            pet?["petMag"] = Int(petMagValue + Int(values[i])!)
+                            
+                            pet?["petType"] = "wood"
+                            
+                            petTypeImg.image = UIImage(named: "wood.png")
+                            
+                            
+                        case "土屬性魔攻":
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petMagValue + Int(values[i])!)
+                            pet?["petMag"] = Int(petMagValue + Int(values[i])!)
+                            pet?["petType"] = "earth"
+                            
+                            petTypeImg.image = UIImage(named: "earth.png")
+                            
+                            
+                        case "水屬性魔攻":
+                            
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petMagValue + Int(values[i])!)
+                            pet?["petMag"] = Int(petMagValue + Int(values[i])!)
+                            pet?["petType"] = "water"
+                            
+                            petTypeImg.image = UIImage(named: "water.png")
+                            
+                        case "火屬性魔攻":
+                            
+                            
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petMagValue + Int(values[i])!)
+                            pet?["petMag"] = Int(petMagValue + Int(values[i])!)
+                            pet?["petType"] = "fire"
+                            petTypeImg.image = UIImage(named: "fire.png")
+                            
+                            
+                        case "金屬性魔攻":
+                            
+                            
+                            petExtraAttackLabel.textColor = .green
+                            petExtraAttackLabel.text = String(petMagValue + Int(values[i])!)
+                            pet?["petMag"] = Int(petMagValue + Int(values[i])!)
+                            pet?["petType"] = "metal"
+                            
+                            petTypeImg.image = UIImage(named: "metal.png")
+                            
+                            
+                        case "蒐集3片碎片合成寵物":
+                            break
+                            
+                        case "":
+                            break
+                            
+                        default:
+                            break
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+                
+                
+            }
+            
+        }
+        */
+        
+        
+        /*
+        for s in 0 ..< selOccupiedByElemIndex.count{
+            
+            //加數值上去
+            if selOccupiedByElemIndex[s] > -1 {
+                
+                let index = selOccupiedByElemIndex[s]
+                let selElem = infoToShow[index]
+                
+                if let function = selElem["func"] as String?{
+                    
+                    switch function{
+                        
+                    case "hp":
+                        
+                        petLifeLabel.textColor = .green
+                        petLifeLabel.text = String(petHpValue + Int(selElem["value"]!)!)
+                        pet?["petHp"] = Int(petHpValue + Int(selElem["value"]!)!)
+                        
+                        
+                    case "att":
+                        petAttackLabel.textColor = .green
+                        petAttackLabel.text = String(petAttValue + Int(selElem["value"]!)!)
+                        pet?["petAtt"] = Int(petAttValue + Int(selElem["value"]!)!)
+                        
+                    case "def":
+                        petDefenseLabel.textColor = .green
+                        petDefenseLabel.text = String(petDefValue + Int(selElem["value"]!)!)
+                        pet?["petDef"] = Int(petDefValue + Int(selElem["value"]!)!)
+                        
+                        
+                    case "hit":
+                        petDoubleAttackLabel.textColor = .green
+                        petDoubleAttackLabel.text = String(petHitValue + Int(selElem["value"]!)!) + "%"
+                        pet?["petHit"] = Int(petHitValue + Int(selElem["value"]!)!)
+                        
+                        
+                    case "heal":
+                        petCureLabel.textColor = .green
+                        petCureLabel.text = String(petHealValue + Int(selElem["value"]!)!)
+                        pet?["petHeal"] = Int(petHealValue + Int(selElem["value"]!)!)
+                        
+                    case "wood":
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
+                        
+                        pet?["petType"] = "wood"
+                        
+                        petTypeImg.image = UIImage(named: "wood.png")
+                        
+                        
+                    case "earth":
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petType"] = "earth"
+                        
+                        petTypeImg.image = UIImage(named: "earth.png")
+                        
+                        
+                    case "water":
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petType"] = "water"
+                        
+                        petTypeImg.image = UIImage(named: "water.png")
+                        
+                    case "fire":
+                        
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petType"] = "fire"
+                        petTypeImg.image = UIImage(named: "fire.png")
+                        
+                        
+                    case "metal":
+                        
+                        
+                        petExtraAttackLabel.textColor = .green
+                        petExtraAttackLabel.text = String(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petMag"] = Int(petMagValue + Int(selElem["value"]!)!)
+                        pet?["petType"] = "metal"
+                        
+                        petTypeImg.image = UIImage(named: "metal.png")
+                        
+                        
+                    case "upgrade":
+                        break
+                    default:
+                        break
+                        
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            //儲存改變數值
+            UserDefaults.standard.set(pet, forKey: "pet")
+        }
+        */
         
         
     }
+    
+    //從各頁裡取得元素資訊的小func
+    func getValues(group:[[String:String]],type:String,elem:Int) -> String{
+        
+        var stringGet = String()
+        
+        if let stringToReturn = group[elem][type] as String?{
+  
+            stringGet = stringToReturn
+            
+        }
+     
+        return stringGet
+    }
+    
     
     @IBAction func backToMapClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
