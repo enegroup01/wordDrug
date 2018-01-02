@@ -296,6 +296,12 @@ class PetViewController: UIViewController {
     var titleChinese = [String]()
     var values = [String]()
     
+    var selFunctionChinese = [String]()
+    var selTitleChinese = [String]()
+    var selValues = [String]()
+    
+    
+    
     //接收spot&unitNumber來判斷怪的屬性
     var spotNumber = Int()
     var unitNumber = Int()
@@ -346,6 +352,8 @@ class PetViewController: UIViewController {
     var selIndex = Int()
     var selPage = Int()
     var selElemValue = Int()
+    var elemValue = Int()
+    var elemIndex = Int()
     
     //屬性元素的控制器
     @IBOutlet weak var elemTypeSeg: UISegmentedControl!
@@ -414,17 +422,17 @@ class PetViewController: UIViewController {
         
         //加入選項元素UIView為了讓selElem可以偵測
          let sel1 = UIImageView()
-         sel1.frame.size = CGSize(width: 55, height: 55)
+         sel1.frame.size = CGSize(width: 60, height: 60)
          sel1.center = CGPoint(x: 35, y: 258)
          self.view.addSubview(sel1)
          
          let sel2 = UIImageView()
-         sel2.frame.size = CGSize(width: 55, height: 55)
+         sel2.frame.size = CGSize(width: 60, height: 60)
          sel2.center = CGPoint(x: 100.5, y: 258)
          self.view.addSubview(sel2)
          
          let sel3 = UIImageView()
-         sel3.frame.size = CGSize(width: 55, height: 55)
+         sel3.frame.size = CGSize(width: 60, height: 60)
          sel3.center = CGPoint(x: 164.5, y: 258)
          self.view.addSubview(sel3)
         
@@ -641,8 +649,7 @@ class PetViewController: UIViewController {
             exactElemSaved = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int : Int]]
             
         }
-        
-        //print("exactElemSaved:\(String(describing: exactElemSaved))")
+
         
         //指定之前所存檔的使用元素
         if elemSaved == nil {
@@ -659,10 +666,8 @@ class PetViewController: UIViewController {
           //  exactSelOccupiedByElemIndex = [[0: 3], [6: 2], [0: 0]]
             
         } else {
-       //     exactSelOccupiedByElemIndex = exactElemSaved!
+            exactSelOccupiedByElemIndex = exactElemSaved!
         
-        exactSelOccupiedByElemIndex = [[0: 3], [6: 2], [0: 0]]
-            exactElemSaved = [[0: 3], [6: 2], [0: 0]]
         }
         
         
@@ -793,6 +798,11 @@ class PetViewController: UIViewController {
         titleChinese.removeAll(keepingCapacity: false)
         values.removeAll(keepingCapacity: false)
         
+        //以目前狀態來說只會有三格
+        selFunctionChinese = ["","",""]
+        selTitleChinese = ["","",""]
+        selValues = ["","",""]
+        
         
         //重置選項elem圖及字
         for s in selElems{
@@ -885,6 +895,8 @@ class PetViewController: UIViewController {
         //抓取資訊
         fetchElementInfo()
         
+        
+        //*** 處理selElems的部分
         //做選項裡的圖, 包含該頁及非該頁
         //跑每一頁, 用意在於要確認每組第一個值為頁數, 然後抓取他們的value
         for p in 0 ..< elemPages.count{
@@ -892,26 +904,23 @@ class PetViewController: UIViewController {
             //跑儲存的數字
             for s in 0 ..< exactSelOccupiedByElemIndex.count{
                 
-                //
+
                 //抓頁面元素
-                if let value = exactSelOccupiedByElemIndex[s][elemPages[p]]{
+                if let elem = exactSelOccupiedByElemIndex[s][elemPages[p]]{
                     
                     //以下留著做參考
-                    //print("index:\(s)")
-                    //print("page:\(p)")
-                    //print("elem:\(value)")
-                    
-                    
+
                     
                     //如果不是該頁的或是不是沒選擇的就要做別頁的圖片來顯示元素
                     
                     var selElemPage = [[String:String]()]
                     var selImageName = String()
                     
-                    if p != elemPage && p != -1{
+
+                    if p != elemPage{
                         
                         //找出正確的頁面以及元素圖片
-                        
+                  
                         
                         switch p {
                             
@@ -958,12 +967,104 @@ class PetViewController: UIViewController {
                         //做選項圖片名字的Label
                         
                         //做出該選項元素的圖片
-                        selElems[s].image = makeImage(name: selImageName)
                         
+                        
+                        selElems[s].image = makeImage(name: selImageName)
+                        selElems[s].center = CGPoint(x: selElemsCgs[s][0], y:selElemsCgs[s][1])
                         //必須紀錄elemPage讓之後可以detect
                         
+                        //在此append selElem的資訊
+
+                        if let function = selElemPage[elem]["func"] as String?{
+                            
+                            if !function.contains(","){
+                                
+                                switch function{
+                                    
+                                case "hp":
+                                    selTitleChinese[s] = "魔法元素"
+                                    selFunctionChinese[s] = "血量"
+                                case "att":
+                        
+                                    selTitleChinese[s] = "魔法元素"
+                                    selFunctionChinese[s] = "攻擊力"
+
+                                case "def":
+                              
+                                    selTitleChinese[s] = "魔法元素"
+                                    selFunctionChinese[s] = "防禦力"
+
+                                case "hit":
+                                 
+                                    selTitleChinese[s] = "魔法元素"
+                                    selFunctionChinese[s] = "爆擊率"
+
+                                case "heal":
+                               
+                                    selTitleChinese[s] = "魔法元素"
+                                    selFunctionChinese[s] = "治癒"
+
+                                case "wood":
+                                   
+                                    selTitleChinese[s] = "屬性元素"
+                                    selFunctionChinese[s] = "木屬性魔攻"
+
+                                case "earth":
+                        
+                                    selTitleChinese[s] = "屬性元素"
+                                    selFunctionChinese[s] = "土屬性魔攻"
+
+                                case "water":
+                         
+                                    selTitleChinese[s] = "屬性元素"
+                                    selFunctionChinese[s] = "水屬性魔攻"
+
+                                case "fire":
+                            
+                                    selTitleChinese[s] = "屬性元素"
+                                    selFunctionChinese[s] = "火屬性魔攻"
+
+                                case "metal":
+                          
+                                    selTitleChinese[s] = "屬性元素"
+                                    selFunctionChinese[s] = "金屬性魔攻"
+
+                                    
+                                case "upgrade":
+                                    //需重寫升級方法
+                            
+                                    selTitleChinese[s] = "寵物碎片"
+                                    selFunctionChinese[s] = "蒐集3片碎片合成寵物"
+
+                                    
+                                default:
+                                    break
+                                    
+                                }
+                            }else {
+                                
+
+                                //還需要寫分析多元素的功能
+                                
+                                selTitleChinese[s] = "稀有元素"
+                                selFunctionChinese[s] = "稀有元素"
+
+                                
+                            }
+
+                            
+                        }
+                        
+          
+                        if let value = selElemPage[elem]["value"] as String?{
+                            
+                            selValues[s] = value
+                        
+                            
+                        }
+                        
                         //抓名字
-                        if let name = selElemPage[value]["name"] as String?{
+                        if let name = selElemPage[elem]["name"] as String?{
                             
                             //抓字母 +  數字
                             elemName = name.components(separatedBy: .decimalDigits)
@@ -999,6 +1100,10 @@ class PetViewController: UIViewController {
                         //假設是該頁的元素就要把elem放到正確位置
                     } else if p == elemPage{
                         
+                        //幫選項填入空值
+                        selTitleChinese[s] = ""
+                        selFunctionChinese[s] = ""
+                        selValues[s] = ""
                         
                         //延遲delay秒後顯示
                         
@@ -1007,8 +1112,8 @@ class PetViewController: UIViewController {
                         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
 
                             //固定元素在選項裡
-                            self!.elems[value].frame.size = CGSize(width: 60, height: 60)
-                            self!.elems[value].center = CGPoint(x: self!.selElemsCgs[s][0], y: self!.selElemsCgs[s][1])
+                            self!.elems[elem].frame.size = CGSize(width: 60, height: 60)
+                            self!.elems[elem].center = CGPoint(x: self!.selElemsCgs[s][0], y: self!.selElemsCgs[s][1])
                             
                             
                         }
@@ -1220,6 +1325,9 @@ class PetViewController: UIViewController {
             
             location = touch.location(in: self.view)
             
+            //都沒碰到元素的話就隱藏info
+            elemInfoBg.alpha = 0
+            
             //跑所有Elem元素
             for i in 0 ..< elems.count{
 
@@ -1232,6 +1340,43 @@ class PetViewController: UIViewController {
                         //假如手指有碰到該元素
                         if elemTouch.frame.contains(location){
                             
+                            //抓title
+                            let title = titleChinese[i]
+                            elemTitleLabel.text = "Lv1 " + title
+                            
+                            //寵物圖片
+                            
+                            //先重置
+                            elemInfoPetAva.image = UIImage()
+                            
+                            if title == "寵物碎片"{
+                                //顯示寵物圖片
+                                let imgName = infoToShow[i]["value"] as String?
+                                elemInfoPetAva.image = makeImage(name: imgName!)
+                            }
+                            
+                            //抓能力值
+                            let function = functionChinese[i]
+                            
+                            //讓爆擊率＋%
+                            if function == "爆擊率" {
+                                elemInfoLabel.text = function + " +\(values[i])%"
+                            } else if title == "寵物碎片"{
+                                elemInfoLabel.text = function
+                                
+                            } else {
+                                
+                                elemInfoLabel.text = function + " +\(values[i])"
+                                
+                            }
+                            
+                            //顯示元素照片, 還沒有寫顯示元素資訊在圖片上
+                            let elemAva = elems[i].image
+                            elemInfoAva.image = elemAva
+                            elemInfoBg.alpha = 0.8
+                            
+                            
+                            
                             touchedElem = elemTouch
                             
                             //儲存原始位置, 回復使用
@@ -1239,6 +1384,22 @@ class PetViewController: UIViewController {
                             
                             //儲存目前碰到的touchedElem的位置, 可以在交換位置時使用
                             currentPosition = touchedElem.center
+                            
+                            elemValue = i
+                            
+                            //利用selElemsBack不改變位置的特性決定選elemIndex處於occupied的哪個位置儲存給後面使用
+                            if selElemsBack[0].frame.contains(location){
+                                elemIndex = 0
+                                
+                            } else if selElemsBack[1].frame.contains(location){
+                                elemIndex = 1
+                                
+                            } else if selElemsBack[2].frame.contains(location){
+                                
+                                elemIndex = 2
+                            }
+                            
+                            
                         }
                         
                     }
@@ -1258,22 +1419,58 @@ class PetViewController: UIViewController {
                         
                         if selElemTouch.frame.contains(location){
                             
+                            
+                            //抓title
+                            let title = selTitleChinese[i]
+                            elemTitleLabel.text = "Lv1 " + title
+                            
+                            //寵物圖片
+                            
+                            //先重置
+                            elemInfoPetAva.image = UIImage()
+                            
+                            if title == "寵物碎片"{
+                                //顯示寵物圖片
+                                //let imgName = selValues[i] as String?
+                                //elemInfoPetAva.image = makeImage(name: imgName!)
+                            }
+                            
+                            //抓能力值
+                            let function = selFunctionChinese[i]
+                            
+                            //讓爆擊率＋%
+                            if function == "爆擊率" {
+                                elemInfoLabel.text = function + " +\(selValues[i])%"
+                            } else if title == "寵物碎片"{
+                                elemInfoLabel.text = function
+                                
+                            } else {
+                                
+                                elemInfoLabel.text = function + " +\(selValues[i])"
+                                
+                            }
+                            
+                            //顯示元素照片, 還沒有寫顯示元素資訊在圖片上
+                            let elemAva = selElemTouch.image
+                            elemInfoAva.image = elemAva
+                            elemInfoBg.alpha = 0.8
+                            
+                            
                                 selTouchedElem = selElemTouch
-                                selOriginalPosition = selTouchedElem.center
+                                //selOriginalPosition = selTouchedElem.center
+                            selOriginalPosition = selTouchedElem.center
                             
                             //提供給後面儲存用
 
                             //利用selElemsBack不改變位置的特性決定選selElem處於occupied的哪個位置儲存給後面使用
                             if selElemsBack[0].frame.contains(location){
                                 selIndex = 0
-     
-                                
+
                             } else if selElemsBack[1].frame.contains(location){
                                 selIndex = 1
                                 
                             } else if selElemsBack[2].frame.contains(location){
-                                
-                                
+              
                                 selIndex = 2
                             }
                             
@@ -1291,16 +1488,9 @@ class PetViewController: UIViewController {
                                 
                             }
 
-                            
-      
-                            
-                            
-                            
-                            
                         }
                         
-                        
-                        
+
                     }
                     
                     
@@ -1312,8 +1502,7 @@ class PetViewController: UIViewController {
       
         }
         
-        
-   
+
         /*
         for touch in touches {
             
@@ -1484,21 +1673,21 @@ class PetViewController: UIViewController {
             
             location = touch.location(in: self.view)
             
+            //放掉手指就不顯示info
+            elemInfoBg.alpha = 0
+            
 
             //首先先讓元素回原位
             
-
-
-            
             touchedElem.center = originalPosition
+            
             //touchedElem.frame.size = CGSize(width:80, height: 80)
             //selTouchedElem.center = selOriginalPosition
             
             //卻認selElem是否有固定, 沒有就消失
             var selTouchedAnyImage = false
             
-            
-            
+
             //確認所移動的元素為何
           
             if touch.tapCount < 2{
@@ -1509,8 +1698,9 @@ class PetViewController: UIViewController {
                 print("移動selElem")
                 //part 1. 遇到小elem就交換
                 //part 2. 碰到大elem就被大elem取代, 自己消失
-                //part 3. 碰到其他空格就固定住
-                //part 4. 移動到其他地方就消失
+                //part 3. 碰到其他selElem就交換
+                //part 4. 碰到其他空格就固定住
+                //part 5. 移動到其他地方就消失
 
                 
                 for i in 0 ..< elems.count{
@@ -1530,10 +1720,12 @@ class PetViewController: UIViewController {
                                 elem.center = selOriginalPosition
                                 
    
+                                //如果碰到的是本頁的小elem
                                 saveElemIndex(index: selIndex, page: elemPage, elem: i)
+                                
+                                
                             
-                                
-                                
+ 
                                   //part 2
                             } else {
                                 
@@ -1552,7 +1744,7 @@ class PetViewController: UIViewController {
                                     subview.removeFromSuperview()
                                 }
 
-                                
+                                saveElemIndex(index: selIndex, page: elemPage, elem: i)
                             }
                             
                         }
@@ -1561,12 +1753,78 @@ class PetViewController: UIViewController {
                     }
                     
                 }
+                    
+                    
+                    //part 3.
+                    
+                    for i in 0 ..< selElems.count{
+                        
+                        
+                        if let selElem = selElems[i] as UIImageView?{
+                            
+                            //確認不是讀取空值
+                            if selElem.image != nil {
+                            //避開自己
+                            if selElem != selTouchedElem{
+                                
+                                if selElem.frame.contains(location) {
+                                    
+                                    print("遇到別的selElem就交換及固定")
+                                    
+                                    //固定的部分在下方sel碰到selElemsBack處理
+                                    //selTouchedElem.center = selElem.center
+                                    
+                                    selElem.center = selOriginalPosition
+                                    
+                                    selTouchedAnyImage = true
+                                    
+                                    //抓被換sel的頁數及elem
+                                    var replacedSelIndex = Int()
+                                    var replacedSelPage = Int()
+                                    var replacedSelElem = Int()
+                                    //利用selElemsBack不改變位置的特性決定選selElem處於occupied的哪個位置儲存給後面使用
+                                    if selElemsBack[0].frame.contains(location){
+                                        replacedSelIndex = 0
+                                        
+                                    } else if selElemsBack[1].frame.contains(location){
+                                        replacedSelIndex = 1
+                                        
+                                    } else if selElemsBack[2].frame.contains(location){
+                                        
+                                        replacedSelIndex = 2
+                                    }
+                                    
+                                    for p in 0 ..< elemPages.count{
+                                        
+                                        //抓頁面元素
+                                        if let elem = exactSelOccupiedByElemIndex[replacedSelIndex][elemPages[p]]{
+                                            
+                                            //提供給後面儲存用
+                                            replacedSelPage = p
+                                            replacedSelElem = elem
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                    //儲存交換位置的index
+                                    saveElemIndex(index: selIndex, page: replacedSelPage, elem: replacedSelElem)
+     
+                                }
+                                
+                            }
+                            
+                            }
+                        }
+                        
+                        
+                    }
                 
                 for i in 0 ..< selElemsBack.count{
                     
                     if let selElemBack = selElemsBack[i] as UIImageView?{
                         
-                        //part 2.
+                        //part 4.
                         if selElemBack.frame.contains(location){
                             
                             print("碰到其他空格就固定住")
@@ -1575,10 +1833,20 @@ class PetViewController: UIViewController {
                 
                                   selTouchedElem.center = selElemBack.center
                             
-                            //儲存
+                            
+                            
+                            //先確認儲存位置是否有任何elem
+                            
+                            if exactSelOccupiedByElemIndex[i] == [-1: -1]{
+                                
+                                saveElemIndex(index:selIndex, page:-1, elem:-1)
+                                saveElemIndex(index: i, page: selPage, elem: selElemValue)
+                                
+                            } else {
+
                             saveElemIndex(index: i, page: selPage, elem: selElemValue)
 
-                           
+                            }
 
                         }
                         
@@ -1586,9 +1854,13 @@ class PetViewController: UIViewController {
                     
                     
                 }
+                    
 
 
-                //part 4.
+                    
+
+
+                //part 5.
                 if selTouchedAnyImage == false{
                     
                     print("移動到其他地方就消失")
@@ -1600,11 +1872,14 @@ class PetViewController: UIViewController {
                         subview.removeFromSuperview()
                     }
                     
+                    saveElemIndex(index: selIndex, page: -1, elem: -1)
+                    
                 }
+                    
+
                 
                 //***如果是小Elem
             } else if touchedElem.frame.width == 60 && touchedElem.image != nil{
-                     print("移動小elem")
                     
                     //part 1. 遇到別的elem就交換及固定, 並確認大小
                     //part 2. 遇到別的selElem就交換及固定
@@ -1623,16 +1898,21 @@ class PetViewController: UIViewController {
                             
                             if elem.frame.contains(location) {
                             
-                            //幾假如碰到的是小的elem, 就交換位置
+                            //幾如碰到的是小的elem, 就交換位置
                             if elem.frame.width == 60 {
                                 print("幾假如碰到的是小的elem, 就交換位置")
                                 
-                                touchedElem.center = elem.center
+                                //此固定位置下方有做到
+                                //touchedElem.center = elem.center
                                 
                                 elem.center = currentPosition
                                 
                                 smallElemTouchedAnyImage = true
+                                
+                                saveElemIndex(index: elemIndex, page: elemPage, elem: i)
+                                
                                 //假如遇到的是大的elem, 交換位置及變大小
+                          
                             } else {
                                 
                                 print("假如遇到的是大的elem, 交換位置及變大小")
@@ -1644,6 +1924,8 @@ class PetViewController: UIViewController {
                                 elem.center = currentPosition
                                 elem.frame.size = CGSize(width:60, height: 60)
                                 smallElemTouchedAnyImage = true
+                                
+                                saveElemIndex(index: elemIndex, page: elemPage, elem: i)
 
                                 
                                 }
@@ -1661,20 +1943,56 @@ class PetViewController: UIViewController {
                         
                         if let selElem = selElems[i] as UIImageView?{
                             
+                            if selElem.image != nil{
+                            
                             if selElem.frame.contains(location) {
                                 
-                                print("遇到別的selElem就交換及固定")
+                                print("小elem遇到別的selElem就交換及固定")
                                 
-                                touchedElem.center = selElem.center
+                                //此固定位置下方有做到
+                                //touchedElem.center = selElem.center
                                 
                                 selElem.center = currentPosition
                                 
                                 smallElemTouchedAnyImage = true
                                 
+                                //抓被換sel的頁數及elem
+                                var replacedSelIndex = Int()
+                                var replacedSelPage = Int()
+                                var replacedSelElem = Int()
+                                //利用selElemsBack不改變位置的特性決定選selElem處於occupied的哪個位置儲存給後面使用
+                                if selElemsBack[0].frame.contains(location){
+                                    replacedSelIndex = 0
+                                    
+                                } else if selElemsBack[1].frame.contains(location){
+                                    replacedSelIndex = 1
+                                    
+                                } else if selElemsBack[2].frame.contains(location){
+                                    
+                                    replacedSelIndex = 2
+                                }
+                                
+                                for p in 0 ..< elemPages.count{
+                                    
+                                    //抓頁面元素
+                                    if let elem = exactSelOccupiedByElemIndex[replacedSelIndex][elemPages[p]]{
+                                        
+                                        //提供給後面儲存用
+                                        replacedSelPage = p
+                                        replacedSelElem = elem
+                                        
+                                    }
+                                    
+                                }
+                                
+                                //儲存交換位置的index
+                                saveElemIndex(index: elemIndex, page: replacedSelPage, elem: replacedSelElem)
+                                
+                                
                                 
                             }
                             
-                            
+                            }
                             
                         }
                         
@@ -1689,14 +2007,26 @@ class PetViewController: UIViewController {
                             
                             if selElemBack.frame.contains(location) {
                                 
-                                print("遇到別的selElem就交換及固定")
+                                print("小elem遇到別的selElemsBack就交換及固定")
                                 
                                 touchedElem.center = selElemBack.center
                                 
                                 
                                 smallElemTouchedAnyImage = true
                                 
+                                //檢查此位置是否為-1
                                 
+                                if exactSelOccupiedByElemIndex[i] == [-1: -1]{
+                           
+                                    print("-1")
+                                    saveElemIndex(index:elemIndex, page:-1, elem:-1)
+                                    saveElemIndex(index: i, page: elemPage, elem: elemValue)
+                                } else {
+
+                                    print("!=-1")
+                                    saveElemIndex(index: i, page: elemPage, elem: elemValue)
+                                }
+
                             }
                             
                             
@@ -1714,10 +2044,10 @@ class PetViewController: UIViewController {
                         
                         touchedElem.frame.size = CGSize(width:80, height: 80)
                         
+                        saveElemIndex(index: elemIndex, page: -1, elem: -1)
+                        
                     }
-           
-                
-                    
+       
                     //***如果是大Elem
             } else if touchedElem.frame.width == 80{
                 
@@ -1739,8 +2069,7 @@ class PetViewController: UIViewController {
                                 if elem.frame.contains(location){
                                     
                                     print("碰到小elem就替換及固定及改大小")
-                                    touchedElem.center = elem.center
-                                    touchedElem.frame.size = CGSize(width:60, height: 60)
+                    
                                     
                                     elem.center = elemCgPoints[i]
                                     elem.frame.size = CGSize(width:80, height: 80)
@@ -1768,9 +2097,6 @@ class PetViewController: UIViewController {
                                 
                                 
                                 print("碰到selElem就取代及改大小")
-                                touchedElem.center = selElem.center
-                                
-                                touchedElem.frame.size = CGSize(width:60, height: 60)
                                 
                                 
                                 //selElem消失
@@ -1783,7 +2109,7 @@ class PetViewController: UIViewController {
                                     
                                 }
 
-                                
+
                             }
                             
                             }
@@ -1804,6 +2130,8 @@ class PetViewController: UIViewController {
                                 touchedElem.center = selElemBack.center
                                 touchedElem.frame.size = CGSize(width:60, height: 60)
                                 
+                                saveElemIndex(index: i, page: elemPage, elem: elemValue)
+                                
                             }
        
                             
@@ -1811,6 +2139,7 @@ class PetViewController: UIViewController {
     
                     }
  
+      
             }
          
             } else {
@@ -1829,6 +2158,9 @@ class PetViewController: UIViewController {
                     
                     subview.removeFromSuperview()
                 }
+                    
+                    saveElemIndex(index: selIndex, page: -1, elem: -1)
+                    
                 }
                 
                 if touchedElem.image != nil && selTouchedElem.image == nil && touchedElem.frame.width == 60{
@@ -1837,6 +2169,8 @@ class PetViewController: UIViewController {
                     
                     touchedElem.center = originalPosition
                     touchedElem.frame.size = CGSize(width:80, height: 80)
+                    
+                    saveElemIndex(index: elemIndex, page: -1, elem: -1)
 
                     
                 }
@@ -1844,9 +2178,14 @@ class PetViewController: UIViewController {
                 
             }
             
+            //重置
             touchedElem = UIImageView()
             selTouchedElem = UIImageView()
-            
+            //提供儲存的變數重置
+            selIndex = Int()
+            selPage = Int()
+            selElemValue = Int()
+            elemValue = Int()
             
         }
         
@@ -1939,6 +2278,8 @@ class PetViewController: UIViewController {
  */
         
     }
+    
+    
     
     //抓取元素資訊
     func fetchElementInfo(){
