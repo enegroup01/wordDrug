@@ -106,6 +106,7 @@
 		AA68BD7A1F9A1EFB00112AF4 /* fillBar.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD791F9A1EF600112AF4 /* fillBar.png */; };
 		AA68BD7C1F9A1F8100112AF4 /* bg4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA68BD7B1F9A1F7F00112AF4 /* bg4.png */; };
 		AA6B1E4B1FE92E4F0009C625 /* congrat.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6B1E4A1FE92E4E0009C625 /* congrat.png */; };
+		AA7165ED1FFBBC3C0099E1B0 /* trashCan.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7165EC1FFBBC3B0099E1B0 /* trashCan.png */; };
 		AA7FA7A51FB5A63500315524 /* le9.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7FA79B1FB5A63300315524 /* le9.png */; };
 		AA7FA7A61FB5A63500315524 /* le4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7FA79C1FB5A63400315524 /* le4.png */; };
 		AA7FA7A71FB5A63500315524 /* le5.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7FA79D1FB5A63400315524 /* le5.png */; };
@@ -397,6 +398,7 @@
 		AA68BD791F9A1EF600112AF4 /* fillBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillBar.png; sourceTree = "<group>"; };
 		AA68BD7B1F9A1F7F00112AF4 /* bg4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg4.png; sourceTree = "<group>"; };
 		AA6B1E4A1FE92E4E0009C625 /* congrat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = congrat.png; sourceTree = "<group>"; };
+		AA7165EC1FFBBC3B0099E1B0 /* trashCan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trashCan.png; sourceTree = "<group>"; };
 		AA7FA79B1FB5A63300315524 /* le9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = le9.png; sourceTree = "<group>"; };
 		AA7FA79C1FB5A63400315524 /* le4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = le4.png; sourceTree = "<group>"; };
 		AA7FA79D1FB5A63400315524 /* le5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = le5.png; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 				AA4E89E71FCD84A800017247 /* backButton.png */,
 				AAAEBEFA1FED3B010043AB53 /* typeSegBg.png */,
 				AA452B131FDFF472004B669B /* questionMark.png */,
+				AA7165EC1FFBBC3B0099E1B0 /* trashCan.png */,
 				AA4E8A011FCD8F6700017247 /* selElem.png */,
 				AA093E611FCBFDBA00434ACD /* elem.png */,
 				AAAEBEF61FED10AD0043AB53 /* elementChoiceBtn.png */,
@@ -1091,6 +1094,7 @@
 				AA4E8A121FCE73B700017247 /* any1g.png in Resources */,
 				AAC1CC101FB42239001DE6DB /* dialogue.png in Resources */,
 				AA1EAAA51FEB6B2600E5C8EB /* 2-1-10.png in Resources */,
+				AA7165ED1FFBBC3C0099E1B0 /* trashCan.png in Resources */,
 				AA8F80031FB31B09000CD84F /* blueSpot.png in Resources */,
 				AA7FA7AD1FB5A63500315524 /* le7.png in Resources */,
 				AA86F3B01FA9BE22004E7997 /* lDot1.png in Resources */,

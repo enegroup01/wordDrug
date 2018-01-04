@@ -532,6 +532,13 @@
                                         </segments>
                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </segmentedControl>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trashCan.png" translatesAutoresizingMaskIntoConstraints="NO" id="sxw-TS-Znk">
+                                        <rect key="frame" x="69" y="7" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="WMb-dP-5XR"/>
+                                            <constraint firstAttribute="width" constant="50" id="ucZ-yz-602"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1318993866443634" green="0.16714635491371155" blue="0.24185290932655334" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -556,6 +563,7 @@
                                     <constraint firstItem="eST-R9-8Cl" firstAttribute="leading" secondItem="1xv-Rk-7RF" secondAttribute="leading" id="SJA-gN-bVR"/>
                                     <constraint firstItem="yV9-2y-sah" firstAttribute="centerX" secondItem="cw6-8T-loS" secondAttribute="centerX" id="UGz-64-K6X"/>
                                     <constraint firstItem="sty-nU-dGe" firstAttribute="leading" secondItem="cw6-8T-loS" secondAttribute="leading" constant="15" id="UrZ-rY-dIS"/>
+                                    <constraint firstItem="sxw-TS-Znk" firstAttribute="leading" secondItem="sty-nU-dGe" secondAttribute="trailing" constant="8" id="Uty-ee-dKy"/>
                                     <constraint firstItem="VmP-LA-LY0" firstAttribute="centerX" secondItem="cw6-8T-loS" secondAttribute="centerX" id="V7i-er-2RM"/>
                                     <constraint firstAttribute="bottom" secondItem="aYZ-ge-ind" secondAttribute="bottom" constant="368" id="Wmo-Fp-C7Q"/>
                                     <constraint firstItem="vvD-pZ-RBc" firstAttribute="leading" secondItem="eST-R9-8Cl" secondAttribute="trailing" constant="8" symbolic="YES" id="ZWj-Yg-onE"/>
@@ -588,6 +596,7 @@
                                     <constraint firstItem="sty-nU-dGe" firstAttribute="top" secondItem="cw6-8T-loS" secondAttribute="top" constant="7" id="s9z-Hv-Kcv"/>
                                     <constraint firstItem="1xv-Rk-7RF" firstAttribute="top" secondItem="8JH-15-uaV" secondAttribute="bottom" constant="8" symbolic="YES" id="sgt-ev-YSL"/>
                                     <constraint firstItem="6vZ-ZG-G6r" firstAttribute="top" secondItem="5v0-cG-Or7" secondAttribute="bottom" constant="8" symbolic="YES" id="tPz-go-T7G"/>
+                                    <constraint firstItem="sxw-TS-Znk" firstAttribute="top" secondItem="cw6-8T-loS" secondAttribute="top" constant="7" id="ufw-X3-MtF"/>
                                     <constraint firstItem="8JH-15-uaV" firstAttribute="leading" secondItem="den-uH-iCR" secondAttribute="trailing" constant="8" symbolic="YES" id="vPV-cm-IxZ"/>
                                     <constraint firstItem="aYZ-ge-ind" firstAttribute="top" secondItem="yV9-2y-sah" secondAttribute="bottom" constant="8" symbolic="YES" id="w8h-I5-ebw"/>
                                     <constraint firstItem="Uxv-Xb-Lzw" firstAttribute="top" secondItem="ltr-z5-LgR" secondAttribute="bottom" constant="8" symbolic="YES" id="wXd-CW-T5b"/>
@@ -639,6 +648,7 @@
                         <outlet property="selElem1Img" destination="JEL-FX-zaw" id="FkN-9i-2tq"/>
                         <outlet property="selElem2Img" destination="rzk-RV-fEF" id="eQZ-Sh-LVv"/>
                         <outlet property="selElem3Img" destination="65m-LI-dL1" id="ev4-fG-dZg"/>
+                        <outlet property="trashCanImg" destination="sxw-TS-Znk" id="ZGn-Dl-baW"/>
                         <outlet property="typeSeg" destination="SSO-S6-NcQ" id="tU4-Hq-lZj"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="toGame" id="Hrs-j3-KKC"/>
                     </connections>
@@ -1190,6 +1200,7 @@
         <image name="questionMark.png" width="800" height="800"/>
         <image name="rightButton.png" width="60" height="60"/>
         <image name="statsBg.png" width="750" height="1334"/>
+        <image name="trashCan.png" width="256" height="256"/>
         <image name="waterTest.png" width="70" height="70"/>
         <image name="worldDiamond.png" width="245" height="190"/>
     </resources>
