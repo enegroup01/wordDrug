@@ -404,7 +404,7 @@ class PetViewController: UIViewController {
     var elemValueToKeep = Int()
     
     
-    //通知刪除元素的時候用到的變數
+    //通知刪除元素的時候接收到NC的變數
     var defaultPage:Int?
     var defaultSeg:Int?
     var defaultTypeSeg:Int?
@@ -412,11 +412,10 @@ class PetViewController: UIViewController {
     var isElemAttachable = true
     var defaultElemToDelete:String?
     
-    
-    
+    //提示刪除elem的圖案
     let arrow = UIImageView()
     let deleteHint = UILabel()
-     let ghost = UIButton()
+    let ghost = UIButton()
     
     //屬性元素的控制器
     @IBOutlet weak var elemTypeSeg: UISegmentedControl!
@@ -430,7 +429,7 @@ class PetViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         /*
-        //測試用
+        //測試畫面用
         //做一個檔selElem的ghost button
         let ghost = UIButton()
         ghost.frame = CGRect(x: 0, y: 55, width: self.view.frame.width, height: self.view.frame.height / 2.28)
@@ -673,6 +672,7 @@ class PetViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
+        //測試畫面用. 假如一開始就要動畫也建議在這裡
 /*
         UIView.animate(withDuration: 0.8, delay: 0.5, options: [.repeat,.curveEaseOut], animations: {[weak self] in
             
@@ -700,6 +700,7 @@ class PetViewController: UIViewController {
     
     
     
+    //最主要處理必須刪掉元素才能得到新元素的畫面及function
     override func viewWillAppear(_ animated: Bool) {
         
         //如果背包滿的話
@@ -711,7 +712,6 @@ class PetViewController: UIViewController {
             saveElemIndex(index: 2, page: -1, elem: -1)
             
             //做一個檔selElem的ghost button
-           
             ghost.frame = CGRect(x: 0, y: 55, width: self.view.frame.width, height: self.view.frame.height / 2.28)
             ghost.backgroundColor = .black
             ghost.alpha = 0.5
@@ -747,18 +747,18 @@ class PetViewController: UIViewController {
             }
             
             
-            //暫時不能回地圖
+            //暫時不能回地圖, 按鈕取消
             backToMapBtn.isUserInteractionEnabled = false
             
-            //重新取得
+            //重新取得所有元素array才會更新
             emptyAllElemsInfo()
             getUserElementFunc()
 
             
-            
-            //準備showElem
+            //準備showElem, 下方皆為showElem的功能
             elemPage = defaultPage!
             
+            //判斷是哪一頁, 然後showElem
             if defaultTypeSeg == -1 {
                 //大項目
                 typeSeg.isHidden = true
@@ -822,6 +822,7 @@ class PetViewController: UIViewController {
         }
 
     }
+    
     @objc func typeSelected(sender:UISegmentedControl){
         
         let index = elemTypeSeg.selectedSegmentIndex
@@ -1841,6 +1842,7 @@ class PetViewController: UIViewController {
     //part 2. 更新前端user資訊
     //part 3. 重置所有元素array
     //part 4. dismiss刪除畫面
+    //***假如背包滿了, 刪除完後另外處理
 
     
     //假如是選項中的elem要刪除的話
@@ -2137,15 +2139,13 @@ class PetViewController: UIViewController {
                     
                     //****因為背包滿刪除元素後該做的事情
                     if self!.isBackpackFull{
+                        
                         //要移除刪除提示
                         self!.arrow.removeFromSuperview()
                         self!.deleteHint.removeFromSuperview()
                         self!.ghost.removeFromSuperview()
                         
-           
-                        
                         //後端getElement
-                        
                         let element = self!.defaultElemToDelete!
                         let id = user?["id"] as! String
 
@@ -2184,13 +2184,12 @@ class PetViewController: UIViewController {
                                     print(user!)
                                     
                                     
-                                    
                                     //抓出那個最後加入的elem然後做動畫
                                     DispatchQueue.main.async(execute: {
                                       
                                         
                                         //再次取得目前的元素, 並且分類好
-                                        //重新取得
+                                        //重新取得所有更新的元素
                                         self!.emptyAllElemsInfo()
                                         self!.getUserElementFunc()
                                         
@@ -2260,9 +2259,8 @@ class PetViewController: UIViewController {
                                     
                                         elemToShow.center = CGPoint(x: 180, y: 370)
                                         
-                                        //箭頭動畫
+                                        //跳入動畫
                                         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn], animations: {
-                                            
                                             
                                          elemToShow.center = CGPoint(x: 200, y: 340)
 
@@ -2310,16 +2308,7 @@ class PetViewController: UIViewController {
                                 
                             }
                         }).resume()
-
-                        
-                        
-                        
-           
-                        
-                        
-                        
-                        
-                        
+  
                     }
                     
                 })
@@ -2342,7 +2331,6 @@ class PetViewController: UIViewController {
     
     //抓元素, 分類元素的功能
     func getUserElementFunc(){
-        
         
         //抓使用者得到的元素
         let getElements = user?["getElement"] as! String

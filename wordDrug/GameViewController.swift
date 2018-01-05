@@ -12,6 +12,7 @@ import GameplayKit
 
 //此元素三個單字練習完後結束的key
 let endUnitKey = "endUnit"
+//跳回背包畫面的Key
 let backToBackpackKey = "backToBackpack"
 
 
@@ -29,7 +30,8 @@ class GameViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.jumpBackToElement), name: NSNotification.Name("endUnit"), object: nil)
         
-            NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.backToBackpack), name: NSNotification.Name("backToBackpack"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.backToBackpack), name: NSNotification.Name("backToBackpack"), object: nil)
       
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
@@ -82,18 +84,19 @@ class GameViewController: UIViewController {
     }
     
 
-    //跳回背包畫面
+    //跳回背包畫面的NC
     @objc func backToBackpack(_ notification: NSNotification){
         
 
+        //抓四個數值, 回傳給前一個Vc
         if let page = notification.userInfo?["page"] as? Int{
             if let seg = notification.userInfo?["seg"] as? Int{
                 if let typeSeg = notification.userInfo?["typeSeg"] as? Int{
                     if let elem = notification.userInfo?["elem"] as? String{
                     
+
                     
-                    //1. elemPage 2.segIndex 3.typeSeg
-                    
+                        //回傳給前一個Vc, 並在Vc裡viewWillAppear產生作用
                     if let presenter = presentingViewController as? PetViewController {
                         presenter.defaultPage = page
                         presenter.defaultSeg = seg

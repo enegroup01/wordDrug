@@ -400,6 +400,7 @@ let monsters =
         //元素單位練習完後的key
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyEndUnit), name: NSNotification.Name("endUnit"), object: nil)
         
+        //要通知刪除元素的key
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyBackToBackpack), name: NSNotification.Name("backToBackpack"), object: nil)
 
         
@@ -1273,13 +1274,12 @@ let monsters =
             if node.name == "okButton" {
                 
                 //在此傳4個值給Vc
-                
                 let valuePass:[String:Any] = ["page":elemPageToPass,"seg":segIndexToPass,"typeSeg":typeSegToPass, "elem":syllablesToCheck]
-                
-                
+  
                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToBackpack"), object: nil, userInfo: valuePass)
                 
-                  removeEverything()
+                //移除所有的NODE
+                removeEverything()
             }
             
             
@@ -3354,11 +3354,14 @@ let monsters =
                     let id = user?["id"] as! String
                     
                     //在此要先確認此元素是否已滿, 滿的話就要提示刪除
+                   
+                    //列舉一般元素的func
+                    let normalTypes = ["hp","att","def","heal","hit"]
                     
-                    var normalTypes = ["hp","att","def","heal","hit"]
-                    
+                    //確認背包是否已滿
                     var bagIsFull = Bool()
                     
+                    //分析出func來看它是屬於背包的哪類元素, 並且設定好三個value準備傳送nc使用
                     for i in 0 ..< elements.count{
                         
                         if let name = elements[i]["name"] as String?{
@@ -3382,6 +3385,7 @@ let monsters =
                                             if normalElemsFull{
                                                 print("normal元素滿了")
                                                 bagIsFull = true
+                                                
                                                 elemPageToPass = 0
                                                 segIndexToPass = 0
                                                 typeSegToPass = -1
@@ -3408,8 +3412,7 @@ let monsters =
                                                     elemPageToPass = 1
                                                     segIndexToPass = 1
                                                     typeSegToPass = 0
-                                                    
-                                                    
+
                                                     
                                                 } else {
                                                     
@@ -3535,7 +3538,7 @@ let monsters =
                     }
                     
                     
-                    //決定背包狀態
+                    //上方判斷完後就能知道背包狀態
                     
                     if bagIsFull {
                         //背包滿了
@@ -3548,7 +3551,7 @@ let monsters =
                         //Part 6. 刪除完之後後端getElement + showElem
                         //Part 7. showElem之後跳到空位
                         
-                        
+                        //通知背包已滿
                         notifyBagIsFull()
                         
                     } else {
@@ -3627,16 +3630,19 @@ let monsters =
     
     func notifyBagIsFull(){
         
-         makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+     
+        //製作畫面
+        makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
         makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+       
         //製作按鈕
         makeImageNode(name: "okButton", image: "okBtn", x: 0, y: -400, width:276, height: 144, z: 14, alpha: 1, isAnchoring: false)
-
+        
+        //用紅底當警告
         makeNode(name: "getElementWarningBg", color: .red, x: 0, y: 0, width: 750, height: 1334, z: 13, isAnchoring: false, alpha: 0.5)
         
         //在此要抓元素的屬性來決定元素圖案
-        
         var elemImg = "elemG"
         
         for i in 0 ..< elements.count{
@@ -3694,7 +3700,7 @@ let monsters =
             
         }
         
-        
+        //顯示元素
         makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
         
         
