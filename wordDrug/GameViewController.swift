@@ -12,6 +12,7 @@ import GameplayKit
 
 //此元素三個單字練習完後結束的key
 let endUnitKey = "endUnit"
+let backToBackpackKey = "backToBackpack"
 
 
 
@@ -27,6 +28,8 @@ class GameViewController: UIViewController {
         print("gameReceivedUnit:\(unitNumber)")
         
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.jumpBackToElement), name: NSNotification.Name("endUnit"), object: nil)
+        
+            NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.backToBackpack), name: NSNotification.Name("backToBackpack"), object: nil)
       
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
@@ -75,6 +78,41 @@ class GameViewController: UIViewController {
         
         //dimiss掉兩個VCs
    self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+
+    }
+    
+
+    //跳回背包畫面
+    @objc func backToBackpack(_ notification: NSNotification){
+        
+
+        if let page = notification.userInfo?["page"] as? Int{
+            if let seg = notification.userInfo?["seg"] as? Int{
+                if let typeSeg = notification.userInfo?["typeSeg"] as? Int{
+                    if let elem = notification.userInfo?["elem"] as? String{
+                    
+                    
+                    //1. elemPage 2.segIndex 3.typeSeg
+                    
+                    if let presenter = presentingViewController as? PetViewController {
+                        presenter.defaultPage = page
+                        presenter.defaultSeg = seg
+                        presenter.defaultTypeSeg = typeSeg
+                        presenter.isBackpackFull = true
+                        presenter.isElemAttachable = false
+                        presenter.defaultElemToDelete = elem
+                        
+                    }
+                    }
+                }
+            }
+        }
+        
+        
+
+        
+        self.dismiss(animated: false, completion: nil)
+        
 
     }
     

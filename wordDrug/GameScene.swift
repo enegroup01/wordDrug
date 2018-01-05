@@ -154,6 +154,30 @@ let monsters =
     
     let monsterNames = [["可利鴨","可利鴨戰士","可利鴨指揮官","可利鴨招喚師","王者可利鴨"],["灰狼","灰狼戰士","灰狼指揮官","灰狼招喚師","王者灰狼"],["雕像","雕像戰士","雕像指揮官","雕像招喚師","王者雕像"],["水晶蠍","水晶蠍戰士","水晶蠍指揮官","水晶蠍招喚師","王者水晶蠍"],["龍獸","龍獸戰士","龍獸指揮官","龍獸招喚師","王者龍獸"],["巨熊","巨熊戰士"," 巨熊指揮官"," 巨熊招喚師","王者巨熊"],["暴雷龍","暴雷龍戰士","暴雷龍指揮官"," 暴雷龍招喚師","王者暴雷龍"],["石化獸","石化獸戰士"," 石化獸指揮官"," 石化獸招喚師","王者石化獸"],["靈馴鹿","靈馴鹿戰士"," 靈馴鹿指揮官"," 靈馴鹿招喚師","王者靈馴鹿"]]
     
+    //測試用的假元素
+    let elements = [["name":"ab1","func":"att","value":"1"],
+                    ["name":"ac1","func":"att","value":"100"],
+                    ["name":"ad1","func":"att","value":"500"],
+                    ["name":"a_e1","func":"att","value":"10"],
+                    ["name":"af1","func":"att","value":"10"],
+                    ["name":"ai1","func":"att","value":"10"],
+                    ["name":"al1","func":"att","value":"10"],
+                    ["name":"am1","func":"att","value":"10"],
+                    ["name":"an1","func":"att","value":"10"],
+                    ["name":"any1","func":"att","value":"110"],
+                    
+                    ["name":"ap1","func":"att","value":"10"],
+                    ["name":"ar1","func":"att","value":"100"],
+                    ["name":"as1","func":"att","value":"110"],
+                    ["name":"at1","func":"upgrade","value":"1-2-10"],
+                    ["name":"au1","func":"upgrade","value":"1-2-10"],
+                    ["name":"aw1","func":"upgrade","value":"1-2-10"],
+                    ["name":"ay1","func":"upgrade","value":"1-2-10"],
+                    ["name":"ba1","func":"upgrade","value":"1-2-10"],
+                    ["name":"be1","func":"upgrade","value":"1-2-10"],
+                    ["name":"bi1","func":"upgrade","value":"1-2-10"]]
+    
+    /*
     let elements = [["name":"ab1","func":"hp","value":"50"],
                     ["name":"ac1","func":"att","value":"20"],
                     ["name":"ad1","func":"def","value":"5"],
@@ -307,7 +331,7 @@ let monsters =
                     ["name":"a_e2","func":"def","value":"60"],
                     ["name":"af2","func":"wood;","value":"230"],
                     ["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
-
+*/
     
     var monsterHp = Int()
     var monsterAtt = Int()
@@ -365,11 +389,19 @@ let monsters =
     var petDouble = Int()
     var petType = String()
     
+    //準備傳給NC的頁碼
+    var elemPageToPass = Int()
+    var segIndexToPass = Int()
+    var typeSegToPass = Int()
     
+   
     override func didMove(to view: SKView) {
         
         //元素單位練習完後的key
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyEndUnit), name: NSNotification.Name("endUnit"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyBackToBackpack), name: NSNotification.Name("backToBackpack"), object: nil)
+
         
         //抓正確unit
         currentWordSequence = 3 * unitNumber
@@ -570,6 +602,11 @@ let monsters =
     
     //元素單位練習完成
     @objc func notifyEndUnit(){
+        
+    }
+    
+    @objc func notifyBackToBackpack(){
+    
         
     }
     
@@ -1230,6 +1267,19 @@ let monsters =
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
                 //移除node及動畫
                 removeEverything()
+            }
+            
+            //刪除背包元素
+            if node.name == "okButton" {
+                
+                //在此傳4個值給Vc
+                
+                let valuePass:[String:Any] = ["page":elemPageToPass,"seg":segIndexToPass,"typeSeg":typeSegToPass, "elem":syllablesToCheck]
+                
+                
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToBackpack"), object: nil, userInfo: valuePass)
+                
+                  removeEverything()
             }
             
             
@@ -3303,6 +3353,208 @@ let monsters =
                     let element = syllablesToCheck
                     let id = user?["id"] as! String
                     
+                    //在此要先確認此元素是否已滿, 滿的話就要提示刪除
+                    
+                    var normalTypes = ["hp","att","def","heal","hit"]
+                    
+                    var bagIsFull = Bool()
+                    
+                    for i in 0 ..< elements.count{
+                        
+                        if let name = elements[i]["name"] as String?{
+                            
+                            if element == name{
+                                
+                                if let type = elements[i]["func"]{
+                                    //歸類normal以及排除rare
+                                    
+                                    //排除rare
+                                    if !type.contains(","){
+                                        
+                                        
+                                        //歸類normal
+                                       
+                                        if normalTypes.contains(type){
+                                            
+                                            //歸類為normal
+                                            
+                                            //如果滿的話
+                                            if normalElemsFull{
+                                                print("normal元素滿了")
+                                                bagIsFull = true
+                                                elemPageToPass = 0
+                                                segIndexToPass = 0
+                                                typeSegToPass = -1
+                                                
+                                            } else {
+                                                
+                                                print("normal元素還有")
+                                                
+                                                  bagIsFull = false
+                                                
+                                            }
+
+                                            
+                                        } else {
+                                            //另外歸類為屬性+合併
+                                            
+                                            switch type{
+                                                
+                                            case "metal":
+                                                if metalElemsFull{
+                                                    
+                                                    print("metal元素滿了")
+                                                      bagIsFull = true
+                                                    elemPageToPass = 1
+                                                    segIndexToPass = 1
+                                                    typeSegToPass = 0
+                                                    
+                                                    
+                                                    
+                                                } else {
+                                                    
+                                                    print("metal元素還有")
+                                                    bagIsFull = false
+                                                }
+                                            case "wood":
+                                                if woodElemsFull{
+                                                    print("wood元素滿了")
+                                                      bagIsFull = true
+                                                    elemPageToPass = 2
+                                                    segIndexToPass = 1
+                                                    typeSegToPass = 1
+                                                    
+                                                    
+                                                } else {
+                                                
+                                                    print("wood元素還有")
+                                                    bagIsFull = false
+                                                }
+                                            case "water":
+                                                if waterElemsFull{
+                                                    
+                                                    
+                                                    print("water元素滿了")
+                                                      bagIsFull = true
+                                                    elemPageToPass = 3
+                                                    segIndexToPass = 1
+                                                    typeSegToPass = 2
+                                                    
+                                                } else {
+                                                    
+                                                    print("water元素還有")
+                                                    bagIsFull = false
+                                                }
+                                            case "fire":
+                                                if fireElemsFull{
+                                                    
+                                                    print("fire元素滿了")
+                                                      bagIsFull = true
+                                                    elemPageToPass = 4
+                                                    segIndexToPass = 1
+                                                    typeSegToPass = 3
+                                                    
+                                                } else {
+                                                    
+                                                    print("fire元素還有")
+                                                    bagIsFull = false
+                                                }
+                                            case "earth":
+                                                if earthElemsFull{
+                                                    
+                                                    print("earth元素滿了")
+                                                      bagIsFull = true
+                                                    elemPageToPass = 5
+                                                    segIndexToPass = 1
+                                                    typeSegToPass = 4
+                                                    
+                                                    
+                                                } else {
+                                                    print("earth元素還有")
+                                                    bagIsFull = false
+                                                    
+                                                }
+                                            case "upgrade":
+                                                if combineElemsFull{
+                                                    
+                                                    print("合併元素滿了")
+                                                      bagIsFull = true
+                                                    
+                                                    elemPageToPass = 6
+                                                    segIndexToPass = 2
+                                                    typeSegToPass = -1
+                                                    
+                                                } else {
+                                                    
+                                                    print("合併元素還有")
+                                                    bagIsFull = false
+                                                    
+                                                }
+                                                
+                                            default:
+                                                break
+                                            }
+ 
+                                            
+                                        }
+           
+                                        //以下為rare
+                                    } else {
+                                        
+                                        
+                                        
+                                        if rareElemsFull{
+                                            
+                                            
+                                            print("rare元素滿了")
+                                            bagIsFull = true
+                                            
+                                            elemPageToPass = 7
+                                            segIndexToPass = 3
+                                            typeSegToPass = -1
+                                            
+                                        } else {
+                                            
+                                            
+                                            print("rare元素還有")
+                                            bagIsFull = false
+                                        }
+                      
+                                        
+                                    }
+                         
+                                }
+                   
+                                
+                            }
+                            
+           
+                        }
+                        
+
+                    }
+                    
+                    
+                    //決定背包狀態
+                    
+                    if bagIsFull {
+                        //背包滿了
+                        
+                        //Part 1. 在獲得畫面跳出警告, 警告完後往下
+                        //Part 2. 跳到非遊戲的背包畫面
+                        //Part 3. 顯示該元素頁面
+                        //Part 4. 把所有selIndex重置
+                        //Part 5. 規定一定要刪掉其中一個
+                        //Part 6. 刪除完之後後端getElement + showElem
+                        //Part 7. showElem之後跳到空位
+                        
+                        
+                        notifyBagIsFull()
+                        
+                    } else {
+                    
+                        //背包還沒滿
+                    
                     
                     // url to access our php file
                     let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getElement.php")!
@@ -3354,7 +3606,7 @@ let monsters =
                             
                         }
                     }).resume()
-                    
+                }
                 }
                 
             }
@@ -3368,6 +3620,134 @@ let monsters =
         let image = UIImage(named: name + ".png")
         return image!
     }
+    
+    
+    
+    //警告背包已滿的畫面
+    
+    func notifyBagIsFull(){
+        
+         makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        //製作按鈕
+        makeImageNode(name: "okButton", image: "okBtn", x: 0, y: -400, width:276, height: 144, z: 14, alpha: 1, isAnchoring: false)
+
+        makeNode(name: "getElementWarningBg", color: .red, x: 0, y: 0, width: 750, height: 1334, z: 13, isAnchoring: false, alpha: 0.5)
+        
+        //在此要抓元素的屬性來決定元素圖案
+        
+        var elemImg = "elemG"
+        
+        for i in 0 ..< elements.count{
+            
+            if syllablesToCheck == elements[i]["name"]{
+                
+                if let function = elements[i]["func"]{
+                    
+                    //不包含雙元素
+                    if !function.contains(","){
+                        
+                        
+                        switch function{
+                            
+                        case "hp":
+                            elemImg = "normalGem"
+                        case "att":
+                            elemImg = "normalGem"
+                        case "def":
+                            elemImg = "normalGem"
+                        case "hit":
+                            elemImg = "normalGem"
+                        case "heal":
+                            elemImg = "normalGem"
+                        case "wood":
+                            elemImg = "woodGem"
+                        case "earth":
+                            elemImg = "earthGem"
+                        case "water":
+                            elemImg = "waterGem"
+                        case "fire":
+                            elemImg = "fireGem"
+                        case "metal":
+                            elemImg = "metalGem"
+                        case "upgrade":
+                            elemImg = "combineGem"
+                            
+                        default:
+                            elemImg = "normalGem"
+                            
+                        }
+                        
+                        
+                        
+                    } else {
+                        
+                        elemImg = "rareGem"
+                        
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
+        
+        
+        //製作文字
+        makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "背包已滿，先丟掉不要的元素", zPosition: 14, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        
+        //亮星星, 星星位置要抓
+        makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        
+        let movingLight = childNode(withName: "movingLight") as! SKSpriteNode
+        let movingLight2 = childNode(withName: "movingLight2") as! SKSpriteNode
+        let action = SKAction.rotate(toAngle: 360, duration: 5000)
+        let action2 = SKAction.rotate(toAngle: -360, duration: 6000)
+        movingLight.run(action)
+        movingLight2.run(action2)
+        
+        isUserInteractionEnabled = true
+        
+        //let elemImg = syllablesToCheck + "g"
+        
+        let elemName = syllablesToCheck.components(separatedBy: .decimalDigits)
+        let elemNum = syllablesToCheck.replacingOccurrences(of: elemName[0], with: "")
+        
+        let elemNameLabel = SKLabelNode()
+        elemNameLabel.position = CGPoint(x: 0, y: -12)
+        elemNameLabel.horizontalAlignmentMode = .center
+        elemNameLabel.fontSize = 45
+        elemNameLabel.text = elemName[0]
+        elemNameLabel.name = "elemNameLabel"
+        elemNameLabel.fontName = "Helvetica Bold"
+        elemNameLabel.fontColor = .black
+        elemNameLabel.zPosition = 13
+        
+        let elemNumLabel = SKLabelNode()
+        elemNumLabel.position = CGPoint(x: 28, y: -36)
+        elemNumLabel.horizontalAlignmentMode = .center
+        elemNumLabel.fontSize = 23
+        elemNumLabel.text = elemNum
+        elemNumLabel.name = "elemNumLabel"
+        elemNumLabel.fontName = "Helvetica Bold"
+        elemNumLabel.fontColor = .black
+        elemNumLabel.zPosition = 14
+        
+        
+        if let elemImgNode = findImageNode(name: "getElement") as SKSpriteNode?{
+            elemImgNode.addChild(elemNameLabel)
+            elemImgNode.addChild(elemNumLabel)
+        }
+    }
+    
     
     //得到元素動畫
     func getElementAnimation(){

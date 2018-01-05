@@ -8,6 +8,14 @@
 
 import UIKit
 
+var normalElemsFull = Bool()
+var metalElemsFull = Bool()
+var woodElemsFull = Bool()
+var waterElemsFull = Bool()
+var fireElemsFull = Bool()
+var earthElemsFull = Bool()
+var combineElemsFull = Bool()
+var rareElemsFull = Bool()
 
 var petElems : NSMutableDictionary?
 
@@ -37,6 +45,32 @@ class PetViewController: UIViewController {
     
     let monsterNames = [["可利鴨","可利鴨戰士","可利鴨指揮官","可利鴨招喚師","王者可利鴨"],["灰狼","灰狼戰士","灰狼指揮官","灰狼招喚師","王者灰狼"],["雕像","雕像戰士","雕像指揮官","雕像招喚師","王者雕像"],["水晶蠍","水晶蠍戰士","水晶蠍指揮官","水晶蠍招喚師","王者水晶蠍"],["龍獸","龍獸戰士","龍獸指揮官","龍獸招喚師","王者龍獸"],["巨熊","巨熊戰士"," 巨熊指揮官"," 巨熊招喚師","王者巨熊"],["暴雷龍","暴雷龍戰士","暴雷龍指揮官"," 暴雷龍招喚師","王者暴雷龍"],["石化獸","石化獸戰士"," 石化獸指揮官"," 石化獸招喚師","王者石化獸"],["靈馴鹿","靈馴鹿戰士"," 靈馴鹿指揮官"," 靈馴鹿招喚師","王者靈馴鹿"]]
     
+    
+    
+    let elements = [["name":"ab1","func":"att","value":"1"],
+                    ["name":"ac1","func":"att","value":"100"],
+                    ["name":"ad1","func":"att","value":"500"],
+                    ["name":"a_e1","func":"att","value":"10"],
+                    ["name":"af1","func":"att","value":"10"],
+                    ["name":"ai1","func":"att","value":"10"],
+                    ["name":"al1","func":"att","value":"10"],
+                    ["name":"am1","func":"att","value":"10"],
+                    ["name":"an1","func":"att","value":"10"],
+                    ["name":"any1","func":"att","value":"110"],
+                    
+                    ["name":"ap1","func":"att","value":"10"],
+                    ["name":"ar1","func":"att","value":"100"],
+                    ["name":"as1","func":"att","value":"110"],
+                    ["name":"at1","func":"upgrade","value":"1-2-10"],
+                    ["name":"au1","func":"upgrade","value":"1-2-10"],
+                    ["name":"aw1","func":"upgrade","value":"1-2-10"],
+                    ["name":"ay1","func":"upgrade","value":"1-2-10"],
+                    ["name":"ba1","func":"upgrade","value":"1-2-10"],
+                    ["name":"be1","func":"upgrade","value":"1-2-10"],
+                    ["name":"bi1","func":"upgrade","value":"1-2-10"]]
+    
+    
+    /*
     let elements = [["name":"ab1","func":"hp","value":"50"],
                     ["name":"ac1","func":"att","value":"20"],
                     ["name":"ad1","func":"def","value":"5"],
@@ -191,6 +225,9 @@ class PetViewController: UIViewController {
                     ["name":"af2","func":"wood;","value":"230"],
                     ["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
     
+    */
+    
+    
     //大項分類
     @IBOutlet weak var typeSeg: UISegmentedControl!
     //調整分類的高度constraint
@@ -226,6 +263,9 @@ class PetViewController: UIViewController {
     @IBOutlet weak var elem10: UIImageView!
     @IBOutlet weak var elem11: UIImageView!
     @IBOutlet weak var elem12: UIImageView!
+    
+    @IBOutlet weak var backToMapBtn: UIButton!
+    
     
     //上方的三個元素空格, 因為怕被覆蓋後來再加入
     var elem13 = UIImageView()
@@ -364,14 +404,54 @@ class PetViewController: UIViewController {
     var elemValueToKeep = Int()
     
     
+    //通知刪除元素的時候用到的變數
+    var defaultPage:Int?
+    var defaultSeg:Int?
+    var defaultTypeSeg:Int?
+    var isBackpackFull = false
+    var isElemAttachable = true
+    var defaultElemToDelete:String?
+    
+    
+    
+    let arrow = UIImageView()
+    let deleteHint = UILabel()
+     let ghost = UIButton()
+    
     //屬性元素的控制器
     @IBOutlet weak var elemTypeSeg: UISegmentedControl!
     
     @IBOutlet weak var trashCanImg: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        /*
+        //測試用
+        //做一個檔selElem的ghost button
+        let ghost = UIButton()
+        ghost.frame = CGRect(x: 0, y: 55, width: self.view.frame.width, height: self.view.frame.height / 2.28)
+        ghost.backgroundColor = .black
+        ghost.alpha = 0.5
+        self.view.addSubview(ghost)
+        
+
+        arrow.frame.size = CGSize(width: 116, height: 116)
+        arrow.center = CGPoint(x: 95, y: 150)
+ 
+        arrow.image = UIImage(named: "arrow.png")
+        self.view.addSubview(arrow)
+        
+        deleteHint.frame = CGRect(x: 70, y: 200, width: 300, height: 100)
+        deleteHint.textColor = .cyan
+        deleteHint.font = UIFont(name: "Helvetica Bold", size: 20)
+        deleteHint.text = "請拖曳欲刪除的元素至垃圾桶"
+        self.view.addSubview(deleteHint)
+        */
+      
         
         //預設
         elemTypeSeg.selectedSegmentIndex = 0
@@ -420,19 +500,22 @@ class PetViewController: UIViewController {
         //元素列表背景
         elementBg.image = UIImage(named: "elemBg.png")
         
-        
         //加入選項元素UIView為了讓selElem可以偵測
+        
         let sel1 = UIImageView()
+        let sel2 = UIImageView()
+        let sel3 = UIImageView()
+        
         sel1.frame.size = CGSize(width: 60, height: 60)
         sel1.center = CGPoint(x: 35, y: 258)
         self.view.addSubview(sel1)
         
-        let sel2 = UIImageView()
+        
         sel2.frame.size = CGSize(width: 60, height: 60)
         sel2.center = CGPoint(x: 100.5, y: 258)
         self.view.addSubview(sel2)
         
-        let sel3 = UIImageView()
+        
         sel3.frame.size = CGSize(width: 60, height: 60)
         sel3.center = CGPoint(x: 164.5, y: 258)
         self.view.addSubview(sel3)
@@ -560,11 +643,16 @@ class PetViewController: UIViewController {
             
         }
         
+        //沒有值的話, 就預設為0
+        if defaultPage == nil{
+            defaultPage = 0
         
+        }
         
+        print("viewdidload:\(defaultPage)")
         
         //顯示背包內容
-        elemPage = 0
+        elemPage = defaultPage!
         showElems(segSelected:normalElems,img:"normalGem",delay:0.1)
   
         playNowBtn.isHidden = true
@@ -573,6 +661,35 @@ class PetViewController: UIViewController {
         if isReadyToEnterBattle{
             showHint()
         }
+        
+        /*
+
+ 
+ */
+    
+    
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+/*
+        UIView.animate(withDuration: 0.8, delay: 0.5, options: [.repeat,.curveEaseOut], animations: {[weak self] in
+            
+            
+            self!.arrow.isHidden = false
+               self!.arrow.frame.origin.y = 60
+            
+            
+        }) {[weak self] (finished:Bool) in
+            
+            
+        self!.arrow.frame.origin.y = 150
+            self!.arrow.isHidden = true
+            
+        }
+        */
+        
     }
     
     //快速抓圖片
@@ -582,6 +699,129 @@ class PetViewController: UIViewController {
     }
     
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //如果背包滿的話
+        if isBackpackFull{
+            
+          //重置selElemIndex
+            saveElemIndex(index: 0, page: -1, elem: -1)
+            saveElemIndex(index: 1, page: -1, elem: -1)
+            saveElemIndex(index: 2, page: -1, elem: -1)
+            
+            //做一個檔selElem的ghost button
+           
+            ghost.frame = CGRect(x: 0, y: 55, width: self.view.frame.width, height: self.view.frame.height / 2.28)
+            ghost.backgroundColor = .black
+            ghost.alpha = 0.5
+            self.view.addSubview(ghost)
+            
+            //做箭頭
+            arrow.frame.size = CGSize(width: 116, height: 116)
+            arrow.center = CGPoint(x: 95, y: 150)
+            arrow.image = UIImage(named: "arrow.png")
+            self.view.addSubview(arrow)
+            
+            //刪除提示文字
+            deleteHint.frame = CGRect(x: 70, y: 200, width: 300, height: 100)
+            deleteHint.textColor = .cyan
+            deleteHint.font = UIFont(name: "Helvetica Bold", size: 20)
+            deleteHint.text = "請拖曳欲刪除的元素至垃圾桶"
+            self.view.addSubview(deleteHint)
+            
+            //箭頭動畫
+            UIView.animate(withDuration: 0.8, delay: 0.5, options: [.repeat,.curveEaseOut], animations: {[weak self] in
+                
+                
+                self!.arrow.isHidden = false
+                self!.arrow.frame.origin.y = 60
+                
+                
+            }) {[weak self] (finished:Bool) in
+                
+                
+                self!.arrow.frame.origin.y = 150
+                self!.arrow.isHidden = true
+                
+            }
+            
+            
+            //暫時不能回地圖
+            backToMapBtn.isUserInteractionEnabled = false
+            
+            //重新取得
+            emptyAllElemsInfo()
+            getUserElementFunc()
+
+            
+            
+            //準備showElem
+            elemPage = defaultPage!
+            
+            if defaultTypeSeg == -1 {
+                //大項目
+                typeSeg.isHidden = true
+                
+                switch defaultSeg!{
+                case 0:
+                    showElems(segSelected: normalElems, img: "normalGem", delay: 0.01)
+                    elemTypeSeg.selectedSegmentIndex = 0
+                case 1:
+                    showElems(segSelected: metalElems, img: "metalGem", delay: 0.01)
+                    elemTypeSeg.selectedSegmentIndex = 1
+                    typeSeg.isHidden = false
+                case 2:
+                    showElems(segSelected: combineElems, img: "combineGem", delay: 0.01)
+                    elemTypeSeg.selectedSegmentIndex = 2
+                case 3:
+                    showElems(segSelected: rareElems, img: "rareGem", delay: 0.01)
+                    elemTypeSeg.selectedSegmentIndex = 3
+                    
+                default:
+                    break
+                }
+   
+            } else {
+                //小項目
+                
+                typeSeg.isHidden = false
+                
+                switch defaultTypeSeg!{
+                    
+                case 0:
+                    showElems(segSelected: metalElems, img: "metalGem", delay: 0.01)
+                    typeSeg.selectedSegmentIndex = 0
+ 
+                case 1:
+                    showElems(segSelected: woodElems, img: "woodGem", delay: 0.01)
+                    typeSeg.selectedSegmentIndex = 1
+                case 2:
+                    showElems(segSelected: waterElems, img: "waterGem", delay: 0.01)
+                    typeSeg.selectedSegmentIndex = 2
+                case 3:
+                    showElems(segSelected: fireElems, img: "fireGem", delay: 0.01)
+                    typeSeg.selectedSegmentIndex = 3
+                case 4:
+                    showElems(segSelected: earthElems, img: "earthGem", delay: 0.01)
+                    typeSeg.selectedSegmentIndex = 0
+ 
+                    
+                default:
+                    break
+                }
+                
+                
+            }
+            
+            
+            
+        } else {
+            
+            print("normal enrty")
+        }
+
+    }
     @objc func typeSelected(sender:UISegmentedControl){
         
         let index = elemTypeSeg.selectedSegmentIndex
@@ -1052,6 +1292,9 @@ class PetViewController: UIViewController {
     
     @IBAction func playNowClicked(_ sender: Any) {
         
+        //把play鍵隱藏起來為了跳回背包時不顯示
+        playNowBtn.isHidden = true
+        
         performSegue(withIdentifier: "toGame", sender: self)
     }
     
@@ -1285,6 +1528,7 @@ class PetViewController: UIViewController {
                             elemInfoBg.alpha = 0.8
                             
                             touchedElem = elemTouch
+                            print(touchedElem)
                             
                             //儲存原始位置, 回復使用
                             originalPosition = elemCgPoints[i]
@@ -1803,6 +2047,8 @@ class PetViewController: UIViewController {
                     self!.emptyAllElemsInfo()
                     self!.getUserElementFunc()
                     
+                    
+                    
                     //用seg來判斷目前頁面然後showElem
                     var page = Int()
                     var selElemPage = [[String : String]]()
@@ -1883,6 +2129,198 @@ class PetViewController: UIViewController {
                     
                     //回到畫面後可繼續移動元素
                     self!.isElementTouchable = true
+                    
+                   
+                    //可按回地圖按鈕
+                    self!.backToMapBtn.isUserInteractionEnabled = true
+
+                    
+                    //****因為背包滿刪除元素後該做的事情
+                    if self!.isBackpackFull{
+                        //要移除刪除提示
+                        self!.arrow.removeFromSuperview()
+                        self!.deleteHint.removeFromSuperview()
+                        self!.ghost.removeFromSuperview()
+                        
+           
+                        
+                        //後端getElement
+                        
+                        let element = self!.defaultElemToDelete!
+                        let id = user?["id"] as! String
+
+                        
+                        // url to access our php file
+                        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getElement.php")!
+                        
+                        // request url
+                        var request = URLRequest(url: url)
+                        
+                        // method to pass data POST - cause it is secured
+                        request.httpMethod = "POST"
+                        
+                        // body gonna be appended to url
+                        let body = "userID=\(id)&element=\(element)"
+                        
+                        // append body to our request that gonna be sent
+                        request.httpBody = body.data(using: .utf8)
+                        
+                        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+                            // no error
+                            if error == nil {
+                                
+                                do {
+                                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                    
+                                    guard let parseJSON = json else {
+                                        print("Error while parsing")
+                                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                        return
+                                    }
+                                    
+                                    //再次儲存使用者資訊
+                                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                                    print(user!)
+                                    
+                                    
+                                    
+                                    //抓出那個最後加入的elem然後做動畫
+                                    DispatchQueue.main.async(execute: {
+                                      
+                                        
+                                        //再次取得目前的元素, 並且分類好
+                                        //重新取得
+                                        self!.emptyAllElemsInfo()
+                                        self!.getUserElementFunc()
+                                        
+                                        
+                                       //準備showElem
+                                        self!.elemPage = self!.defaultPage!
+                                        
+                                        if self!.defaultTypeSeg == -1 {
+                                            //大項目
+                                            self!.typeSeg.isHidden = true
+                                            
+                                            switch self!.defaultSeg!{
+                                            case 0:
+                                                self!.showElems(segSelected: self!.normalElems, img: "normalGem", delay: 0.01)
+                                                self!.elemTypeSeg.selectedSegmentIndex = 0
+                                            case 1:
+                                                self!.showElems(segSelected: self!.metalElems, img: "metalGem", delay: 0.01)
+                                                self!.elemTypeSeg.selectedSegmentIndex = 1
+                                                self!.typeSeg.isHidden = false
+                                            case 2:
+                                                self!.showElems(segSelected: self!.combineElems, img: "combineGem", delay: 0.01)
+                                                self!.elemTypeSeg.selectedSegmentIndex = 2
+                                            case 3:
+                                                self!.showElems(segSelected: self!.rareElems, img: "rareGem", delay: 0.01)
+                                                self!.elemTypeSeg.selectedSegmentIndex = 3
+                                                
+                                            default:
+                                                break
+                                            }
+                                            
+                                        } else {
+                                            //小項目
+                                            
+                                            self!.typeSeg.isHidden = false
+                                            
+                                            switch self!.defaultTypeSeg!{
+                                                
+                                            case 0:
+                                                self!.showElems(segSelected: self!.metalElems, img: "metalGem", delay: 0.01)
+                                                self!.typeSeg.selectedSegmentIndex = 0
+                                                
+                                            case 1:
+                                                self!.showElems(segSelected: self!.woodElems, img: "woodGem", delay: 0.01)
+                                                self!.typeSeg.selectedSegmentIndex = 1
+                                            case 2:
+                                                self!.showElems(segSelected: self!.waterElems, img: "waterGem", delay: 0.01)
+                                                self!.typeSeg.selectedSegmentIndex = 2
+                                            case 3:
+                                                self!.showElems(segSelected: self!.fireElems, img: "fireGem", delay: 0.01)
+                                                self!.typeSeg.selectedSegmentIndex = 3
+                                            case 4:
+                                                self!.showElems(segSelected: self!.earthElems, img: "earthGem", delay: 0.01)
+                                                self!.typeSeg.selectedSegmentIndex = 0
+                                                
+                                                
+                                            default:
+                                                break
+                                            }
+                                            
+                                            
+                                        }
+
+                                        
+                                        //最後一個給予動畫
+
+                                        let elemToShow = self!.elems[self!.elems.count - 1]
+                                    
+                                        elemToShow.center = CGPoint(x: 180, y: 370)
+                                        
+                                        //箭頭動畫
+                                        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn], animations: {
+                                            
+                                            
+                                         elemToShow.center = CGPoint(x: 200, y: 340)
+
+                                            
+                                        }) {[weak self] (finished:Bool) in
+                                            
+                                  
+                                            if finished{
+                                            UIView.animate(withDuration: 0.3, animations: {
+                                                
+                                                elemToShow.center = self!.elemCgPoints[self!.elems.count - 1]
+                                                
+                                                //回復按鈕 ＆ 鑲上selElem的
+                                                self!.backToMapBtn.isUserInteractionEnabled = true
+                                                self!.isElemAttachable = true
+                                                
+                                                
+                                            })
+                                            
+                                            }
+                                            
+                                            
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                    })
+                                    
+
+                                    
+                                    
+                                    
+                                    
+                                    
+                                } catch{
+                                    
+                                    print("catch error")
+                                    
+                                    
+                                }
+                            } else {
+                                
+                                print("urlsession has error")
+                                
+                            }
+                        }).resume()
+
+                        
+                        
+                        
+           
+                        
+                        
+                        
+                        
+                        
+                    }
                     
                 })
 
@@ -2019,7 +2457,76 @@ class PetViewController: UIViewController {
         earthElems.remove(at: 0)
         combineElems.remove(at: 0)
         rareElems.remove(at: 0)
- 
+        
+        
+        if normalElems.count == 12{
+            
+            normalElemsFull = true
+            
+        } else {
+            
+            normalElemsFull = false
+            
+        }
+        if metalElems.count == 12{
+            
+            metalElemsFull = true
+        } else {
+            
+                  metalElemsFull = false
+            
+        }
+        if woodElems.count == 12{
+                  woodElemsFull = true
+            
+        } else {
+            
+                woodElemsFull = false
+            
+        }
+        if waterElems.count == 12{
+            
+            waterElemsFull = true
+        } else {
+            
+            waterElemsFull = false
+            
+        }
+        
+        if fireElems.count == 12{
+            fireElemsFull = true
+            
+        } else {
+            
+            fireElemsFull = false
+            
+        }
+        if earthElems.count == 12{
+            
+            earthElemsFull = true
+            
+        } else {
+            earthElemsFull = false
+            
+        }
+        
+        if combineElems.count == 12{
+            combineElemsFull = true
+            
+        } else {
+            combineElemsFull = false
+            
+        }
+        
+        if rareElems.count == 12{
+            
+            rareElemsFull = true
+            
+        } else {
+            
+            rareElemsFull = false
+        }
+            
  }
     
     
@@ -2448,6 +2955,9 @@ class PetViewController: UIViewController {
                     // part 4. 碰到刪除鍵就啟動刪除
                     
                     
+                    
+                    //如果非刪除模式
+                    if isElemAttachable {
                     //Part 1.
                     for i in 0 ..< elems.count{
                         if let elem = elems[i] as UIImageView?{
@@ -2528,6 +3038,7 @@ class PetViewController: UIViewController {
                             
                         }
                         
+                    }
                     }
                     
                     // part 4. 碰到刪除鍵就啟動刪除
@@ -2786,8 +3297,7 @@ class PetViewController: UIViewController {
                 
                 petLifeLabel.text = String(Int(petLifeLabel.text!)! + Int(value)!)
                 
-                pet?["petHp"] = Int(Int(petLifeLabel.text!)! + Int(value)!)
-                
+                pet?["petHp"] = Int(petLifeLabel.text!)!
                 
             case "att":
                 petAttackLabel.textColor = .green
@@ -2795,8 +3305,8 @@ class PetViewController: UIViewController {
 
                 petAttackLabel.text = String(Int(petAttackLabel.text!)! + Int(value)!)
                 
-                pet?["petAtt"] = Int(Int(petAttackLabel.text!)! + Int(value)!)
-                
+                //pet?["petAtt"] = Int(Int(petAttackLabel.text!)! + Int(value)!)
+                pet?["petAtt"] = Int(petAttackLabel.text!)!
 
                 
             case "def":
@@ -2805,7 +3315,7 @@ class PetViewController: UIViewController {
                 
                 petDefenseLabel.text = String(Int(petDefenseLabel.text!)! + Int(value)!)
                 
-                pet?["petDef"] = Int(Int(petDefenseLabel.text!)! + Int(value)!)
+                pet?["petDef"] = Int(petDefenseLabel.text!)!
                 
 
                 
@@ -2816,8 +3326,7 @@ class PetViewController: UIViewController {
                 
                 petDoubleAttackLabel.text = String(Int(petDoubleAttackLabel.text!)! + Int(value)!)
                 
-                pet?["petHit"] = Int(Int(petDoubleAttackLabel.text!)! + Int(value)!)
-                
+                pet?["petHit"] = Int(petDoubleAttackLabel.text!)!
 
                 
                 
@@ -2827,7 +3336,7 @@ class PetViewController: UIViewController {
                 
                 petCureLabel.text = String(Int(petCureLabel.text!)! + Int(value)!)
                 
-                pet?["petHeal"] = Int(Int(petCureLabel.text!)! + Int(value)!)
+                pet?["petHeal"] = Int(petCureLabel.text!)!
                 
 
                 
