@@ -47,9 +47,9 @@ class PetViewController: UIViewController {
     
     
     
-    let elements = [["name":"ab1","func":"att","value":"1"],
+    let elements = [["name":"ab1","func":"def","value":"1"],
                     ["name":"ac1","func":"att","value":"100"],
-                    ["name":"ad1","func":"att","value":"500"],
+                    ["name":"ad1","func":"att","value":"5000"],
                     ["name":"a_e1","func":"att","value":"10"],
                     ["name":"af1","func":"att","value":"10"],
                     ["name":"ai1","func":"att","value":"10"],
@@ -61,7 +61,7 @@ class PetViewController: UIViewController {
                     ["name":"ap1","func":"att","value":"10"],
                     ["name":"ar1","func":"att","value":"100"],
                     ["name":"as1","func":"att","value":"110"],
-                    ["name":"at1","func":"upgrade","value":"1-2-10"],
+                    ["name":"at1","func":"earth","value":"110"],
                     ["name":"au1","func":"upgrade","value":"1-2-10"],
                     ["name":"aw1","func":"upgrade","value":"1-2-10"],
                     ["name":"ay1","func":"upgrade","value":"1-2-10"],
@@ -819,6 +819,17 @@ class PetViewController: UIViewController {
         } else {
             
             print("normal enrty")
+  
+            //抓所有寵物資訊
+            let petAvaImg = pet!["petImg"] as! String
+            
+            
+            //寵物大頭照
+            petAva.image = UIImage(named: petAvaImg)
+            
+            petOriginal!["petMag"] = 0
+            calculatePetValue()
+            
         }
 
     }
@@ -1474,6 +1485,12 @@ class PetViewController: UIViewController {
             
             //都沒碰到元素的話就隱藏info
             elemInfoBg.alpha = 0
+            
+            if petAva.frame.contains(location){
+                
+                performSegue(withIdentifier: "petToAllPetsVc", sender: self)
+                
+            }
             
             
             //跑所有Elem元素
@@ -2276,6 +2293,7 @@ class PetViewController: UIViewController {
                                                 //回復按鈕 ＆ 鑲上selElem的
                                                 self!.backToMapBtn.isUserInteractionEnabled = true
                                                 self!.isElemAttachable = true
+                                                self!.isBackpackFull = false
                                                 
                                                 
                                             })
@@ -2285,16 +2303,11 @@ class PetViewController: UIViewController {
                                             
                                         }
                                         
-                                        
-                                        
+                             
                                         
                                     })
                                     
 
-                                    
-                                    
-                                    
-                                    
                                     
                                 } catch{
                                     
@@ -3189,7 +3202,12 @@ class PetViewController: UIViewController {
         
         let petHpValue = pet!["petHp"] as! Int
         let petAttValue = pet!["petAtt"] as! Int
-        let petDefValue = pet!["petDef"] as! Int
+        
+        if let petDefValue = pet!["petDef"] {
+            
+            petDefenseLabel.text = String(describing: petDefValue)
+        }
+ 
         let petHealValue = pet!["petHeal"] as! Int
         //let petTypeValue = pet!["petType"] as! String
         let petHitValue = pet!["petHit"] as! Int
@@ -3199,7 +3217,7 @@ class PetViewController: UIViewController {
         petCureLabel.text = String(describing: petHealValue)
         petLifeLabel.text = String(describing: petHpValue)
         petAttackLabel.text = String(describing: petAttValue)
-        petDefenseLabel.text = String(describing: petDefValue)
+        
         petDoubleAttackLabel.text = String(describing: petHitValue) + "%"
         petExtraAttackLabel.text = String(describing: petMagValue)
         
@@ -3301,9 +3319,9 @@ class PetViewController: UIViewController {
                 petDefenseLabel.textColor = .green
                 
                 
-                petDefenseLabel.text = String(Int(petDefenseLabel.text!)! + Int(value)!)
+                petDefenseLabel.text = String(Float(petDefenseLabel.text!)! + Float(value)!)
                 
-                pet?["petDef"] = Int(petDefenseLabel.text!)!
+                pet?["petDef"] = Float(petDefenseLabel.text!)!
                 
 
                 

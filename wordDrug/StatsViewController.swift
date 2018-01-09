@@ -45,7 +45,7 @@ class StatsViewController: UIViewController {
 
 
     //partOne所有寵物
-    let partOnePets:[[String:Any]] = [["petId":"1-1-0","petName":"幼龍","petHp":110,"petAtt":40,"petDef":10,"petHit":20,"petHeal":0,"petType":"","petImg":"1-1-0"], ["petId":"1-1-10","petName":"球球","petHp":120,"petAtt":50,"petDef":15,"petHit":25,"petHeal":0,"petType":"","petImg":"1-1-10"], ["petId":"1-2-10","petName":"螳螂拳","petHp":130,"petAtt":60,"petDef":15,"petHit":15,"petHeal":0,"petType":"","petImg":"1-2-10"],["petId":"1-3-10","petName":"蘑菇怪","petHp":165,"petAtt":60,"petDef":15,"petHit":23,"petHeal":0,"petType":"","petImg":"1-3-10"], ["petId":"1-4-10","petName":"劇毒狼","petHp":140,"petAtt":70,"petDef":20,"petHit":25,"petHeal":0,"petType":"","petImg":"1-4-10"], ["petId":"1-6-10","petName":"銀翼飛馬","petHp":150,"petAtt":70,"petDef":20,"petHit":20,"petHeal":0,"petType":"","petImg":"1-6-10"], ["petId":"1-7-10","petName":"恐龍博士","petHp":180,"petAtt":75,"petDef":22.5,"petHit":28,"petHeal":0,"petType":"","petImg":"1-7-10"], ["petId":"1-8-10","petName":"冰雪犀牛","petHp":160,"petAtt":80,"petDef":25,"petHit":25,"petHeal":0,"petType":"","petImg":"1-8-10"], ["petId":"1-9-10","petName":"美洲豹","petHp":195,"petAtt":90,"petDef":22.5,"petHit":18,"petHeal":0,"petType":"","petImg":"1-9-10"], ["petId":"1-11-10","petName":"治癒菇神","petHp":170,"petAtt":90,"petDef":25,"petHit":20,"petHeal":0,"petType":"","petImg":"1-11-10"], ["petId":"1-12-10","petName":"眼鏡蛇王","petHp":180,"petAtt":100,"petDef":30,"petHit":15,"petHeal":0,"petType":"","petImg":"1-12-10"], ["petId":"1-13-10","petName":"被感染的劇毒狼","petHp":210,"petAtt":105,"petDef":30,"petHit":28,"petHeal":0,"petType":"","petImg":"1-13-10"]]
+    let partOnePets:[[String:Any]] = [["petId":"1-1-0","petName":"幼龍","petHp":110,"petAtt":40,"petDef":10,"petHit":20,"petHeal":0,"petType":"","petImg":"1-1-0","petMag":0], ["petId":"1-1-10","petName":"球球","petHp":120,"petAtt":50,"petDef":15,"petHit":25,"petHeal":0,"petType":"","petImg":"1-1-10","petMag":0], ["petId":"1-2-10","petName":"螳螂拳","petHp":130,"petAtt":60,"petDef":15,"petHit":15,"petHeal":0,"petType":"","petImg":"1-2-10","petMag":0],["petId":"1-3-10","petName":"蘑菇怪","petHp":165,"petAtt":60,"petDef":15,"petHit":23,"petHeal":0,"petType":"","petImg":"1-3-10","petMag":0], ["petId":"1-4-10","petName":"劇毒狼","petHp":140,"petAtt":70,"petDef":20,"petHit":25,"petHeal":0,"petType":"","petImg":"1-4-10","petMag":0], ["petId":"1-6-10","petName":"銀翼飛馬","petHp":150,"petAtt":70,"petDef":20,"petHit":20,"petHeal":0,"petType":"","petImg":"1-6-10","petMag":0], ["petId":"1-7-10","petName":"恐龍博士","petHp":180,"petAtt":75,"petDef":22.5,"petHit":28,"petHeal":0,"petType":"","petImg":"1-7-10","petMag":0], ["petId":"1-8-10","petName":"冰雪犀牛","petHp":160,"petAtt":80,"petDef":25,"petHit":25,"petHeal":0,"petType":"","petImg":"1-8-10","petMag":0], ["petId":"1-9-10","petName":"美洲豹","petHp":195,"petAtt":90,"petDef":22.5,"petHit":18,"petHeal":0,"petType":"","petImg":"1-9-10","petMag":0], ["petId":"1-11-10","petName":"治癒菇神","petHp":170,"petAtt":90,"petDef":25,"petHit":20,"petHeal":0,"petType":"","petImg":"1-11-10","petMag":0], ["petId":"1-12-10","petName":"眼鏡蛇王","petHp":180,"petAtt":100,"petDef":30,"petHit":15,"petHeal":0,"petType":"","petImg":"1-12-10","petMag":0], ["petId":"1-13-10","petName":"被感染的劇毒狼","petHp":210,"petAtt":105,"petDef":30,"petHit":28,"petHeal":0,"petType":"","petImg":"1-13-10","petMag":0]]
     
 
     //有抓到的元素資訊儲存於此
@@ -59,39 +59,8 @@ class StatsViewController: UIViewController {
         
         //抓本機曾經儲存的寵物
         pet = UserDefaults.standard.object(forKey: "pet") as? [String : Any]
-        //不變的數值
         
-        //抓使用者得到的元素
-        /*
-        let getElemets = user?["getElement"] as! String
-        
-        //做成新的array
-        allGetElements = getElemets.components(separatedBy: ";")
-        
-        //移除最後一個空白值, 以目前寫法來說會分出一個空的""
-        allGetElements.removeLast()
-        
-        //抓有得到的元素, append他們的資訊
-        //抓有得到的元素, append他們的資訊
-        for i in 0 ..< allGetElements.count{
-            if let name = allGetElements[i] as String?{
-                
-                for e in 0 ..< elements.count{
-                    if let n = elements[e]["n"] as String?{
-                        if n == name{
-                            
-                            allGetElemsInfo.append(elements[e])
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-        }
-        allGetElemsInfo.remove(at: 0)
- */
+        print(pet)
         
         //先做好背景後隱藏
         darkBg.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
@@ -121,7 +90,6 @@ class StatsViewController: UIViewController {
                     if originalPetId == id {
                         
                         petOriginal = partOnePets[i]
-                        petOriginal!["petMag"] = 0
                         
                     }
                     
@@ -143,10 +111,7 @@ class StatsViewController: UIViewController {
             //指定好第一隻送的寵物
             pet = partOnePets[0]
             petOriginal = partOnePets[0]
-            petOriginal!["petMag"] = 0
             
-            //先設定好魔攻為0
-            pet!["petMag"] = 0
             
             //儲存本機已選擇的寵物
             UserDefaults.standard.set(pet, forKey: "pet")
@@ -155,8 +120,18 @@ class StatsViewController: UIViewController {
             let petId = pet!["petId"] as! String
             let id = user?["id"] as! String
             
-            //儲存到後端
-            getPet(id: id, petId: petId)
+            //抓user所擁有的pet, 避免重複getPet
+            let petsOwned = user?["petsOwned"] as! String
+            var petsOwnedArray = petsOwned.components(separatedBy: ";")
+            petsOwnedArray.removeLast()
+            
+
+            if !petsOwnedArray.contains(petId){
+                //儲存到後端
+                getPet(id: id, petId: petId)
+            }
+            
+
             
             //開始動畫
             darkBg.isHidden = false
@@ -305,7 +280,13 @@ class StatsViewController: UIViewController {
         let petAvaImg = pet!["petImg"] as! String
         let petHpValue = pet!["petHp"] as! Int
         let petAttValue = pet!["petAtt"] as! Int
-        let petDefValue = pet!["petDef"] as! Int
+        //let petDefValue = pet!["petDef"] as! Int
+        
+        if let petDefValue = pet!["petDef"] {
+        
+        petDefLabel.text = String(describing: petDefValue)
+        }
+        
         let petHealValue = pet!["petHeal"] as! Int
         let petTypeValue = pet!["petType"] as! String
         let petHitValue = pet!["petHit"] as! Int
@@ -324,10 +305,10 @@ class StatsViewController: UIViewController {
         petAva.image = UIImage(named: petAvaImg)
         petHpLabel.text = String(petHpValue)
         petAttLabel.text = String(petAttValue)
-        petDefLabel.text = String(petDefValue)
         petHealLabel.text = String(petHealValue)
         petNameLabel.text = petName
         petHitLabel.text = String(petHitValue)
+        
         petMagLabel.text = String(describing: petMagValue)
         
 
@@ -358,6 +339,12 @@ class StatsViewController: UIViewController {
             
             location = touch.location(in: self.view)
             
+            if petAva.frame.contains(location){
+                
+                performSegue(withIdentifier: "toAllPetsVc", sender: self)
+            }
+            
+            
         }
         
     }
@@ -377,7 +364,10 @@ class StatsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //即時更新寵物資訊
-        getPetValue()
+        
+        //有的話就顯示之前預選的寵物
+        showPetInfo()
+        
     }
     
     
@@ -391,7 +381,12 @@ class StatsViewController: UIViewController {
         
         let petHpValue = pet!["petHp"] as! Int
         let petAttValue = pet!["petAtt"] as! Int
-        let petDefValue = pet!["petDef"] as! Int
+      
+        if let petDefValue = pet!["petDef"] {
+            
+            petDefLabel.text = String(describing: petDefValue)
+        }
+     
         let petHealValue = pet!["petHeal"] as! Int
         //let petTypeValue = pet!["petType"] as! String
         let petHitValue = pet!["petHit"] as! Int
@@ -408,7 +403,6 @@ class StatsViewController: UIViewController {
         petHealLabel.text = String(describing: petHealValue)
         petHpLabel.text = String(describing: petHpValue)
         petAttLabel.text = String(describing: petAttValue)
-        petDefLabel.text = String(describing: petDefValue)
         petHitLabel.text = String(describing: petHitValue) + "%"
         petMagLabel.text = String(describing: petMagValue)
         

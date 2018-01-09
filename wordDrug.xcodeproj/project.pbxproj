@@ -15,6 +15,10 @@
 		AA093E681FCBFE5C00434ACD /* nextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E671FCBFE5C00434ACD /* nextButton.png */; };
 		AA0D0CB91FFE62E900E7AEE1 /* okBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0D0CB81FFE62E900E7AEE1 /* okBtn.png */; };
 		AA0D0CBB1FFF742300E7AEE1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0D0CBA1FFF742300E7AEE1 /* arrow.png */; };
+		AA1AF1DF20035BE300C418F3 /* AllPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1AF1DE20035BE300C418F3 /* AllPetsViewController.swift */; };
+		AA1AF1E120035D5100C418F3 /* myPetBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1AF1E020035D5100C418F3 /* myPetBanner.png */; };
+		AA1AF1E420035DC300C418F3 /* allPetsBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1AF1E320035DC300C418F3 /* allPetsBg.png */; };
+		AA1AF1E620035FE200C418F3 /* petFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1AF1E520035FE200C418F3 /* petFrame.png */; };
 		AA1EAAA41FEB6B2600E5C8EB /* 2-3-10.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1EAAA21FEB6B2500E5C8EB /* 2-3-10.png */; };
 		AA1EAAA51FEB6B2600E5C8EB /* 2-1-10.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1EAAA31FEB6B2600E5C8EB /* 2-1-10.png */; };
 		AA1EAAA71FEB736B00E5C8EB /* elemG.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1EAAA61FEB736B00E5C8EB /* elemG.png */; };
@@ -81,6 +85,8 @@
 		AA4E8A171FCE741000017247 /* a_e1g.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E8A161FCE741000017247 /* a_e1g.png */; };
 		AA4E8A1A1FCE744300017247 /* movingLight.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E8A181FCE744200017247 /* movingLight.png */; };
 		AA4E8A1B1FCE744300017247 /* darkBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E8A191FCE744200017247 /* darkBg.png */; };
+		AA53F94D2003A95A002852F7 /* lowerBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = AA53F94C2003A95A002852F7 /* lowerBanner.png */; };
+		AA53F94F2003A965002852F7 /* upperBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = AA53F94E2003A965002852F7 /* upperBanner.png */; };
 		AA590CBC1FBA9ADB00A5691D /* diamond.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CBB1FBA9ADB00A5691D /* diamond.png */; };
 		AA590CC01FBA9BF800A5691D /* elementBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CBF1FBA9BF800A5691D /* elementBottom.png */; };
 		AA590CC21FBAB6AE00A5691D /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA590CC11FBAB6AE00A5691D /* BookViewController.swift */; };
@@ -295,6 +301,10 @@
 		AAE181A61F978BB900683896 /* questBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE181A51F978BB600683896 /* questBoard.png */; };
 		AAE181A71F978BBC00683896 /* screenBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE181A41F978BA700683896 /* screenBg.png */; };
 		AAE181A91F978C4200683896 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE181A81F978C3F00683896 /* bg.png */; };
+		AAE3A7472004844F0068ACBF /* useButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A7462004844F0068ACBF /* useButton.png */; };
+		AAE3A74A200486910068ACBF /* lockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A748200486900068ACBF /* lockButton.png */; };
+		AAE3A74B200486910068ACBF /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A749200486910068ACBF /* coverBg.png */; };
+		AAE3A74D2004891B0068ACBF /* 1-1-0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A74C2004891B0068ACBF /* 1-1-0.png */; };
 		AAECC11D1FB0493B004ED813 /* explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC11C1FB0493B004ED813 /* explode.sks */; };
 		AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1201FB08A27004ED813 /* monsterExplode.sks */; };
 		AAECC1231FB08C15004ED813 /* monsterExplode.png in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1221FB08C14004ED813 /* monsterExplode.png */; };
@@ -309,6 +319,10 @@
 		AA093E671FCBFE5C00434ACD /* nextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextButton.png; sourceTree = "<group>"; };
 		AA0D0CB81FFE62E900E7AEE1 /* okBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = okBtn.png; sourceTree = "<group>"; };
 		AA0D0CBA1FFF742300E7AEE1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		AA1AF1DE20035BE300C418F3 /* AllPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPetsViewController.swift; sourceTree = "<group>"; };
+		AA1AF1E020035D5100C418F3 /* myPetBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myPetBanner.png; sourceTree = "<group>"; };
+		AA1AF1E320035DC300C418F3 /* allPetsBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = allPetsBg.png; sourceTree = "<group>"; };
+		AA1AF1E520035FE200C418F3 /* petFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petFrame.png; sourceTree = "<group>"; };
 		AA1EAAA21FEB6B2500E5C8EB /* 2-3-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-3-10.png"; sourceTree = "<group>"; };
 		AA1EAAA31FEB6B2600E5C8EB /* 2-1-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-1-10.png"; sourceTree = "<group>"; };
 		AA1EAAA61FEB736B00E5C8EB /* elemG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elemG.png; sourceTree = "<group>"; };
@@ -375,6 +389,8 @@
 		AA4E8A161FCE741000017247 /* a_e1g.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = a_e1g.png; sourceTree = "<group>"; };
 		AA4E8A181FCE744200017247 /* movingLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movingLight.png; sourceTree = "<group>"; };
 		AA4E8A191FCE744200017247 /* darkBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkBg.png; sourceTree = "<group>"; };
+		AA53F94C2003A95A002852F7 /* lowerBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lowerBanner.png; sourceTree = "<group>"; };
+		AA53F94E2003A965002852F7 /* upperBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upperBanner.png; sourceTree = "<group>"; };
 		AA590CBB1FBA9ADB00A5691D /* diamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diamond.png; sourceTree = "<group>"; };
 		AA590CBF1FBA9BF800A5691D /* elementBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elementBottom.png; sourceTree = "<group>"; };
 		AA590CC11FBAB6AE00A5691D /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
@@ -591,6 +607,10 @@
 		AAE181A41F978BA700683896 /* screenBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenBg.png; sourceTree = "<group>"; };
 		AAE181A51F978BB600683896 /* questBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questBoard.png; sourceTree = "<group>"; };
 		AAE181A81F978C3F00683896 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		AAE3A7462004844F0068ACBF /* useButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = useButton.png; sourceTree = "<group>"; };
+		AAE3A748200486900068ACBF /* lockButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lockButton.png; sourceTree = "<group>"; };
+		AAE3A749200486910068ACBF /* coverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverBg.png; sourceTree = "<group>"; };
+		AAE3A74C2004891B0068ACBF /* 1-1-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-1-0.png"; path = "wordDrug/1-1-0.png"; sourceTree = SOURCE_ROOT; };
 		AAECC11C1FB0493B004ED813 /* explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explode.sks; sourceTree = "<group>"; };
 		AAECC1201FB08A27004ED813 /* monsterExplode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = monsterExplode.sks; sourceTree = "<group>"; };
 		AAECC1221FB08C14004ED813 /* monsterExplode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterExplode.png; sourceTree = "<group>"; };
@@ -645,6 +665,21 @@
 				AADE62B01FDFB99400C9EA42 /* wood.png */,
 			);
 			path = petVc;
+			sourceTree = "<group>";
+		};
+		AA1AF1E220035DA100C418F3 /* allPets */ = {
+			isa = PBXGroup;
+			children = (
+				AA1AF1E020035D5100C418F3 /* myPetBanner.png */,
+				AA1AF1E320035DC300C418F3 /* allPetsBg.png */,
+				AA1AF1E520035FE200C418F3 /* petFrame.png */,
+				AA53F94C2003A95A002852F7 /* lowerBanner.png */,
+				AA53F94E2003A965002852F7 /* upperBanner.png */,
+				AAE3A7462004844F0068ACBF /* useButton.png */,
+				AAE3A749200486910068ACBF /* coverBg.png */,
+				AAE3A748200486900068ACBF /* lockButton.png */,
+			);
+			path = allPets;
 			sourceTree = "<group>";
 		};
 		AA38612E1FE3D13200B5FBC6 /* stats */ = {
@@ -863,13 +898,13 @@
 			children = (
 				AA1EAAA31FEB6B2600E5C8EB /* 2-1-10.png */,
 				AA1EAAA21FEB6B2500E5C8EB /* 2-3-10.png */,
-				AAB68D321FE8F35200CCF820 /* 1-1-0.png */,
 				AAB68D2B1FE8F35100CCF820 /* 1-1-10.png */,
 				AAB68D271FE8F35000CCF820 /* 1-2-10.png */,
 				AAB68D211FE8F34E00CCF820 /* 1-2.png */,
 				AAB68D2F1FE8F35200CCF820 /* 1-3-10.png */,
 				AAB68D331FE8F35200CCF820 /* 1-3.png */,
 				AAB68D371FE8F35400CCF820 /* 1-4-10.png */,
+				AAE3A74C2004891B0068ACBF /* 1-1-0.png */,
 				AAB68D301FE8F35200CCF820 /* 1-4.png */,
 				AAB68D2D1FE8F35100CCF820 /* 1-5-10.png */,
 				AAB68D341FE8F35300CCF820 /* 1-5.png */,
@@ -910,6 +945,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA1AF1E220035DA100C418F3 /* allPets */,
 				AAB68D201FE8F32000CCF820 /* 怪物圖 */,
 				AA38612E1FE3D13200B5FBC6 /* stats */,
 				AA7FA7AF1FB5A63D00315524 /* element */,
@@ -935,11 +971,13 @@
 				AAE181921F97892D00683896 /* GameScene.swift */,
 				AAE181941F97892D00683896 /* GameViewController.swift */,
 				AAE181961F97892D00683896 /* Main.storyboard */,
+				AA1AF1DE20035BE300C418F3 /* AllPetsViewController.swift */,
 				AA38612C1FE3D00C00B5FBC6 /* StatsViewController.swift */,
 				AA4642841FC4216300D34516 /* LoginViewController.swift */,
 				AA590CC11FBAB6AE00A5691D /* BookViewController.swift */,
 				AA093E5A1FCBEF0300434ACD /* PetViewController.swift */,
 				AAE181991F97892D00683896 /* Assets.xcassets */,
+				AAB68D321FE8F35200CCF820 /* 1-1-0.png */,
 				AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */,
 				AAE1819E1F97892D00683896 /* Info.plist */,
 				AAECC1221FB08C14004ED813 /* monsterExplode.png */,
@@ -1071,6 +1109,7 @@
 				AA3861501FE401B000B5FBC6 /* 1-4.txt in Resources */,
 				AA4E8A0F1FCE73B700017247 /* ab1g.png in Resources */,
 				AA4E89F41FCD88F800017247 /* an1.png in Resources */,
+				AA1AF1E620035FE200C418F3 /* petFrame.png in Resources */,
 				AAB68D3C1FE8F35400CCF820 /* 1-8-10.png in Resources */,
 				AADC613F1FEBA09900032780 /* fireGem.png in Resources */,
 				AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */,
@@ -1127,6 +1166,7 @@
 				AA29923A1FE14B4C0040D9C0 /* quitButton.png in Resources */,
 				AA87EAA21FBD4CDB00830608 /* 2401.png in Resources */,
 				AA87EAB91FBD4CDB00830608 /* 701.png in Resources */,
+				AAE3A74A200486910068ACBF /* lockButton.png in Resources */,
 				AA4642C01FC8163D00D34516 /* glowLine.png in Resources */,
 				AA4E8A171FCE741000017247 /* a_e1g.png in Resources */,
 				AA093E641FCBFDD600434ACD /* elemBg.png in Resources */,
@@ -1225,10 +1265,12 @@
 				AAB68D4B1FE8F35400CCF820 /* 1-3.png in Resources */,
 				AA86F3B61FA9C22E004E7997 /* eButton.png in Resources */,
 				AAB68D461FE8F35400CCF820 /* 1-9-10.png in Resources */,
+				AAE3A7472004844F0068ACBF /* useButton.png in Resources */,
 				AA7FA7A51FB5A63500315524 /* le9.png in Resources */,
 				AA87EAA61FBD4CDB00830608 /* 2801.png in Resources */,
 				AAB68D491FE8F35400CCF820 /* 1-11-10.png in Resources */,
 				AA4E89E81FCD84A800017247 /* backButton.png in Resources */,
+				AA53F94D2003A95A002852F7 /* lowerBanner.png in Resources */,
 				AADC613E1FEBA09900032780 /* waterGem.png in Resources */,
 				AADC11E61F9F4E3E00F7C7A3 /* filledButton.png in Resources */,
 				AA86F3B11FA9BE22004E7997 /* lDot3.png in Resources */,
@@ -1241,6 +1283,7 @@
 				AA38614B1FE401B000B5FBC6 /* 1-7.txt in Resources */,
 				AA4E89F61FCD88F800017247 /* any1.png in Resources */,
 				AA590CD21FBAC5C900A5691D /* wordBg.png in Resources */,
+				AA1AF1E120035D5100C418F3 /* myPetBanner.png in Resources */,
 				AA86F3AA1FA9BE11004E7997 /* bDot3.png in Resources */,
 				AA4E89F81FCD88F800017247 /* ab1.png in Resources */,
 				AA8E9F731FB1839500509D39 /* darkGreenD.png in Resources */,
@@ -1271,6 +1314,7 @@
 				AA87EA9D1FBD4CDB00830608 /* 2001.png in Resources */,
 				AA38614C1FE401B000B5FBC6 /* 1-10.txt in Resources */,
 				AAB68D411FE8F35400CCF820 /* 1-9.png in Resources */,
+				AA53F94F2003A965002852F7 /* upperBanner.png in Resources */,
 				AA7FA7A91FB5A63500315524 /* le8.png in Resources */,
 				AA8E9F711FB17D0800509D39 /* questBoardBlue.png in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
@@ -1287,11 +1331,13 @@
 				AA4642B61FC7CCD100D34516 /* darkD.png in Resources */,
 				AAB68D501FE8F35400CCF820 /* 1-13-10.png in Resources */,
 				AADC61401FEBA09900032780 /* normalGem.png in Resources */,
+				AAE3A74D2004891B0068ACBF /* 1-1-0.png in Resources */,
 				AA87EA9A1FBD4CDB00830608 /* 1701.png in Resources */,
 				AAAEBEF31FED0F460043AB53 /* rareBtn.png in Resources */,
 				AA87EAB31FBD4CDB00830608 /* 4001.png in Resources */,
 				AA4E89F31FCD88F800017247 /* am1.png in Resources */,
 				AA590CBC1FBA9ADB00A5691D /* diamond.png in Resources */,
+				AA1AF1E420035DC300C418F3 /* allPetsBg.png in Resources */,
 				AA2CCDC11F9DC061003F5C3F /* blackDot.png in Resources */,
 				AA4642C81FC81E3B00D34516 /* aimerHeart.png in Resources */,
 				AA86F3AB1FA9BE11004E7997 /* bDot2.png in Resources */,
@@ -1316,6 +1362,7 @@
 				AA86F3CD1FAC6F96004E7997 /* bloodBg.png in Resources */,
 				AA8F80051FB31B09000CD84F /* lightYellowSpot.png in Resources */,
 				AA8E9F651FB1752E00509D39 /* attack4.png in Resources */,
+				AAE3A74B200486910068ACBF /* coverBg.png in Resources */,
 				AAE181A71F978BBC00683896 /* screenBg.png in Resources */,
 				AAAEBEEB1FECB5C00043AB53 /* diamond.png in Resources */,
 				AA8E9F771FB1851400509D39 /* questBoard4.png in Resources */,
@@ -1357,6 +1404,7 @@
 				AA8F7FE41FB2FE65000CD84F /* Map1ViewController.swift in Sources */,
 				AAE181951F97892D00683896 /* GameViewController.swift in Sources */,
 				AA093E5B1FCBEF0300434ACD /* PetViewController.swift in Sources */,
+				AA1AF1DF20035BE300C418F3 /* AllPetsViewController.swift in Sources */,
 				AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */,
 				AA7FA7CD1FB5ACC500315524 /* ElementScene.swift in Sources */,
 				AA590CC21FBAB6AE00A5691D /* BookViewController.swift in Sources */,

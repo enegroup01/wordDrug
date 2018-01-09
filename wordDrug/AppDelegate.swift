@@ -29,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 //跳轉到角色畫面
                 toStats()
+                
+                print(user)
+                
+         
             }
             
         }

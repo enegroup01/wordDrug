@@ -155,9 +155,9 @@ let monsters =
     let monsterNames = [["可利鴨","可利鴨戰士","可利鴨指揮官","可利鴨招喚師","王者可利鴨"],["灰狼","灰狼戰士","灰狼指揮官","灰狼招喚師","王者灰狼"],["雕像","雕像戰士","雕像指揮官","雕像招喚師","王者雕像"],["水晶蠍","水晶蠍戰士","水晶蠍指揮官","水晶蠍招喚師","王者水晶蠍"],["龍獸","龍獸戰士","龍獸指揮官","龍獸招喚師","王者龍獸"],["巨熊","巨熊戰士"," 巨熊指揮官"," 巨熊招喚師","王者巨熊"],["暴雷龍","暴雷龍戰士","暴雷龍指揮官"," 暴雷龍招喚師","王者暴雷龍"],["石化獸","石化獸戰士"," 石化獸指揮官"," 石化獸招喚師","王者石化獸"],["靈馴鹿","靈馴鹿戰士"," 靈馴鹿指揮官"," 靈馴鹿招喚師","王者靈馴鹿"]]
     
     //測試用的假元素
-    let elements = [["name":"ab1","func":"att","value":"1"],
+    let elements = [["name":"ab1","func":"def","value":"1"],
                     ["name":"ac1","func":"att","value":"100"],
-                    ["name":"ad1","func":"att","value":"500"],
+                    ["name":"ad1","func":"att","value":"5000"],
                     ["name":"a_e1","func":"att","value":"10"],
                     ["name":"af1","func":"att","value":"10"],
                     ["name":"ai1","func":"att","value":"10"],
@@ -169,7 +169,7 @@ let monsters =
                     ["name":"ap1","func":"att","value":"10"],
                     ["name":"ar1","func":"att","value":"100"],
                     ["name":"as1","func":"att","value":"110"],
-                    ["name":"at1","func":"upgrade","value":"1-2-10"],
+                    ["name":"at1","func":"earth","value":"110"],
                     ["name":"au1","func":"upgrade","value":"1-2-10"],
                     ["name":"aw1","func":"upgrade","value":"1-2-10"],
                     ["name":"ay1","func":"upgrade","value":"1-2-10"],
@@ -383,7 +383,7 @@ let monsters =
     
     var petLife = Int()
     var petAttack = Int()
-    var petDefense = Int()
+    var petDefense = Float()
     var petHeal = Int()
     var petExtra = Int()
     var petDouble = Int()
@@ -530,7 +530,15 @@ let monsters =
         //抓寵物資訊
         petLife = pet?["petHp"] as! Int
         petAttack = pet?["petAtt"] as! Int
-        petDefense = pet?["petDef"] as! Int
+        if let petDefDouble = pet?["petDef"] as? Double{
+            
+            petDefense = Float(petDefDouble)
+            
+        } else if let petDefInt = pet?["petDef"] as? Int{
+            
+            petDefense = Float(petDefInt)
+        }
+       
         petDouble = pet?["petHit"] as! Int
         petExtra = pet?["petMag"] as! Int
         petHeal = pet?["petHeal"] as! Int
@@ -2531,7 +2539,7 @@ let monsters =
                             }
                             
                             //怪攻擊單位數 = (怪攻 - 人防)
-                            let monsterAttackPoint = (self!.monsterAtt - self!.petDefense)
+                            let monsterAttackPoint = (CGFloat(self!.monsterAtt) - CGFloat(self!.petDefense))
                             
                             //模擬屬性攻擊
                             let petType = "wood"
