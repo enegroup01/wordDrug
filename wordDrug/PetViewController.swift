@@ -8,6 +8,7 @@
 
 import UIKit
 
+//各背包是否裝滿的全球變數
 var normalElemsFull = Bool()
 var metalElemsFull = Bool()
 var woodElemsFull = Bool()
@@ -17,18 +18,20 @@ var earthElemsFull = Bool()
 var combineElemsFull = Bool()
 var rareElemsFull = Bool()
 
-var petElems : NSMutableDictionary?
+
+//var upgradeElems = [String]()
+//所有的合併元素array
+var upgradeElemsInfo = [String:String]()
+//var petElems : NSMutableDictionary?
 
 //這個要刪除
-var elemSaved : [Int]?
+//var elemSaved : [Int]?
 
 //元素紀錄
 var exactElemSaved : [[Int:Int]]?
 
 class PetViewController: UIViewController {
-    //所有元素屬性數值
     //怪物資訊
-    
     let monsters =
         [["monId":"1-1-1","monName":"","monHp":100,"monAtt":35,"monDef":10,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-1-2","monName":"","monHp":100,"monAtt":40,"monDef":10,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-1-3","monName":"","monHp":100,"monAtt":40,"monDef":10,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-1-4","monName":"","monHp":150,"monAtt":50,"monDef":15,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-1-5","monName":"","monHp":150,"monAtt":50,"monDef":15,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-1-6","monName":"","monHp":150,"monAtt":50,"monDef":15,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-1-7","monName":"","monHp":200,"monAtt":60,"monDef":20,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-1-8","monName":"","monHp":200,"monAtt":60,"monDef":20,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-1-9","monName":"","monHp":200,"monAtt":60,"monDef":20,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-1-10","monName":"球球","monHp":300,"monAtt":70,"monDef":30,"monMag":5,"monType":"metal","monImg":"1-1-10"],["monId":"1-2-1","monName":"","monHp":250,"monAtt":70,"monDef":25,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-2-2","monName":"","monHp":250,"monAtt":70,"monDef":25,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-2-3","monName":"","monHp":250,"monAtt":70,"monDef":25,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-2-4","monName":"","monHp":300,"monAtt":80,"monDef":30,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-2-5","monName":"","monHp":300,"monAtt":80,"monDef":30,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-2-6","monName":"","monHp":300,"monAtt":80,"monDef":30,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-2-7","monName":"","monHp":350,"monAtt":90,"monDef":35,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-2-8","monName":"","monHp":350,"monAtt":90,"monDef":35,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-2-9","monName":"","monHp":350,"monAtt":90,"monDef":35,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-2-10","monName":"螳螂拳","monHp":400,"monAtt":100,"monDef":45,"monMag":10,"monType":"water","monImg":"1-2-10"],["monId":"1-3-1","monName":"","monHp":350,"monAtt":100,"monDef":40,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-3-2","monName":"","monHp":350,"monAtt":100,"monDef":40,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-3-3","monName":"","monHp":350,"monAtt":100,"monDef":40,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-3-4","monName":"","monHp":400,"monAtt":110,"monDef":45,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-3-5","monName":"","monHp":400,"monAtt":110,"monDef":45,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-3-6","monName":"","monHp":400,"monAtt":110,"monDef":45,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-3-7","monName":"","monHp":450,"monAtt":120,"monDef":50,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-3-8","monName":"","monHp":450,"monAtt":120,"monDef":50,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-3-9","monName":"","monHp":450,"monAtt":120,"monDef":50,"monMag":0,"monType":"fire","monImg":"r1"], ["monId":"1-3-10","monName":"蘑菇怪","monHp":500,"monAtt":130,"monDef":55,"monMag":15,"monType":"earth","monImg":"1-3-10"],["monId":"1-4-1","monName":"","monHp":450,"monAtt":130,"monDef":55,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-4-2","monName":"","monHp":450,"monAtt":130,"monDef":55,"monMag":0,"monType":"water","monImg":"r1"], ["monId":"1-4-3","monName":"","monHp":450,"monAtt":130,"monDef":55,"monMag":0,"monType":"wood","monImg":"r1"], ["monId":"1-4-4","monName":"","monHp":500,"monAtt":140,"monDef":60,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-4-5","monName":"","monHp":500,"monAtt":140,"monDef":60,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-4-6","monName":"","monHp":500,"monAtt":140,"monDef":60,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-4-7","monName":"","monHp":550,"monAtt":150,"monDef":65,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-4-8","monName":"","monHp":550,"monAtt":150,"monDef":65,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-4-9","monName":"","monHp":550,"monAtt":150,"monDef":65,"monMag":0,"monType":"fire","monImg":"r1"], ["monId":"1-4-10","monName":"劇毒狼","monHp":600,"monAtt":160,"monDef":70,"monMag":20,"monType":"water","monImg":"1-4-10"],["monId":"1-5-1","monName":"","monHp":600,"monAtt":160,"monDef":70,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-5-2","monName":"","monHp":600,"monAtt":160,"monDef":70,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-5-3","monName":"","monHp":600,"monAtt":160,"monDef":70,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-5-4","monName":"","monHp":650,"monAtt":170,"monDef":75,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-5-5","monName":"","monHp":650,"monAtt":170,"monDef":75,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-5-6","monName":"","monHp":650,"monAtt":170,"monDef":75,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-5-7","monName":"","monHp":700,"monAtt":180,"monDef":80,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-5-8","monName":"","monHp":700,"monAtt":180,"monDef":80,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-5-9","monName":"","monHp":700,"monAtt":180,"monDef":80,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-5-10","monName":"千年樹妖","monHp":750,"monAtt":190,"monDef":85,"monMag":25,"monType":"fire","monImg":"1-5-10"],["monId":"1-6-1","monName":"","monHp":750,"monAtt":190,"monDef":85,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-6-2","monName":"","monHp":750,"monAtt":190,"monDef":85,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-6-3","monName":"","monHp":750,"monAtt":190,"monDef":85,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-6-4","monName":"","monHp":800,"monAtt":200,"monDef":90,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-6-5","monName":"","monHp":800,"monAtt":200,"monDef":90,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-6-6","monName":"","monHp":800,"monAtt":200,"monDef":90,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-6-7","monName":"","monHp":850,"monAtt":210,"monDef":95,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-6-8","monName":"","monHp":850,"monAtt":210,"monDef":95,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-6-9","monName":"","monHp":850,"monAtt":210,"monDef":95,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-6-10","monName":"銀翼飛馬","monHp":900,"monAtt":220,"monDef":100,"monMag":30,"monType":"metal","monImg":"1-6-10"],["monId":"1-7-1","monName":"","monHp":900,"monAtt":220,"monDef":100,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-7-2","monName":"","monHp":900,"monAtt":220,"monDef":100,"monMag":0,"monType":"wood","monImg":"r1"], ["monId":"1-7-3","monName":"","monHp":900,"monAtt":220,"monDef":100,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-7-4","monName":"","monHp":950,"monAtt":230,"monDef":105,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-7-5","monName":"","monHp":950,"monAtt":230,"monDef":105,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-7-6","monName":"","monHp":950,"monAtt":230,"monDef":105,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-7-7","monName":"","monHp":1000,"monAtt":240,"monDef":110,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-7-8","monName":"","monHp":1000,"monAtt":240,"monDef":110,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-7-9","monName":"","monHp":1000,"monAtt":240,"monDef":110,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-7-10","monName":"恐龍博士","monHp":1050,"monAtt":250,"monDef":115,"monMag":35,"monType":"fire","monImg":"1-7-10"],["monId":"1-8-1","monName":"","monHp":1050,"monAtt":250,"monDef":115,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-8-2","monName":"","monHp":1050,"monAtt":250,"monDef":115,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-8-3","monName":"","monHp":1050,"monAtt":250,"monDef":115,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-8-4","monName":"","monHp":1100,"monAtt":260,"monDef":120,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-8-5","monName":"","monHp":1100,"monAtt":260,"monDef":120,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-8-6","monName":"","monHp":1100,"monAtt":260,"monDef":120,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-8-7","monName":"","monHp":1150,"monAtt":270,"monDef":125,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-8-8","monName":"","monHp":1150,"monAtt":270,"monDef":125,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-8-9","monName":"","monHp":1150,"monAtt":270,"monDef":125,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-8-10","monName":"冰雪犀牛","monHp":1200,"monAtt":280,"monDef":130,"monMag":40,"monType":"earth","monImg":"1-8-10"],["monId":"1-9-1","monName":"","monHp":1200,"monAtt":280,"monDef":130,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-9-2","monName":"","monHp":1200,"monAtt":280,"monDef":130,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-9-3","monName":"","monHp":1200,"monAtt":280,"monDef":130,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-9-4","monName":"","monHp":1250,"monAtt":290,"monDef":135,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-9-5","monName":"","monHp":1250,"monAtt":290,"monDef":135,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-9-6","monName":"","monHp":1250,"monAtt":290,"monDef":135,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-9-7","monName":"","monHp":1300,"monAtt":300,"monDef":140,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-9-8","monName":"","monHp":1300,"monAtt":300,"monDef":140,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-9-9","monName":"","monHp":1300,"monAtt":300,"monDef":140,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-9-10","monName":"美洲豹","monHp":1350,"monAtt":310,"monDef":145,"monMag":45,"monType":"earth","monImg":"1-9-10"],["monId":"1-10-1","monName":"","monHp":1350,"monAtt":310,"monDef":145,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-10-2","monName":"","monHp":1350,"monAtt":310,"monDef":145,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-10-3","monName":"","monHp":1350,"monAtt":310,"monDef":145,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-10-4","monName":"","monHp":1400,"monAtt":320,"monDef":150,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-10-5","monName":"","monHp":1400,"monAtt":320,"monDef":150,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-10-6","monName":"","monHp":1400,"monAtt":320,"monDef":150,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-10-7","monName":"","monHp":1450,"monAtt":330,"monDef":155,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-10-8","monName":"","monHp":1450,"monAtt":330,"monDef":155,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-10-9","monName":"","monHp":1450,"monAtt":330,"monDef":155,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-10-10","monName":"梅杜莎","monHp":1500,"monAtt":340,"monDef":160,"monMag":50,"monType":"water","monImg":"1-10-10"],["monId":"1-11-1","monName":"","monHp":1500,"monAtt":340,"monDef":160,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-11-2","monName":"","monHp":1500,"monAtt":340,"monDef":160,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-11-3","monName":"","monHp":1500,"monAtt":340,"monDef":160,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-11-4","monName":"","monHp":1550,"monAtt":350,"monDef":165,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-11-5","monName":"","monHp":1550,"monAtt":350,"monDef":165,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-11-6","monName":"","monHp":1550,"monAtt":350,"monDef":165,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-11-7","monName":"","monHp":1600,"monAtt":360,"monDef":170,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-11-8","monName":"","monHp":1600,"monAtt":360,"monDef":170,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-11-9","monName":"","monHp":1600,"monAtt":360,"monDef":170,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-11-10","monName":"治癒菇神","monHp":1650,"monAtt":370,"monDef":175,"monMag":55,"monType":"wood","monImg":"1-11-10"],["monId":"1-12-1","monName":"","monHp":1650,"monAtt":370,"monDef":175,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-12-2","monName":"","monHp":1650,"monAtt":370,"monDef":175,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-12-3","monName":"","monHp":1650,"monAtt":370,"monDef":175,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-12-4","monName":"","monHp":1700,"monAtt":380,"monDef":180,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-12-5","monName":"","monHp":1700,"monAtt":380,"monDef":180,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-12-6","monName":"","monHp":1700,"monAtt":380,"monDef":180,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-12-7","monName":"","monHp":1750,"monAtt":390,"monDef":185,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-12-8","monName":"","monHp":1750,"monAtt":390,"monDef":185,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-12-9","monName":"","monHp":1750,"monAtt":390,"monDef":185,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-12-10","monName":"眼鏡蛇王","monHp":1800,"monAtt":400,"monDef":190,"monMag":60,"monType":"fire","monImg":"1-12-10"],["monId":"1-13-1","monName":"","monHp":1800,"monAtt":400,"monDef":190,"monMag":0,"monType":"earth","monImg":"r1"], ["monId":"1-13-2","monName":"","monHp":1800,"monAtt":400,"monDef":190,"monMag":0,"monType":"metal","monImg":"r1"],
          ["monId":"1-13-3","monName":"","monHp":1800,"monAtt":400,"monDef":190,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-13-4","monName":"","monHp":1850,"monAtt":410,"monDef":195,"monMag":0,"monType":"water","monImg":"r1"],["monId":"1-13-5","monName":"","monHp":1850,"monAtt":410,"monDef":195,"monMag":0,"monType":"fire","monImg":"r1"], ["monId":"1-13-6","monName":"","monHp":1850,"monAtt":410,"monDef":195,"monMag":0,"monType":"metal","monImg":"r1"],["monId":"1-13-7","monName":"","monHp":1900,"monAtt":420,"monDef":200,"monMag":0,"monType":"wood","monImg":"r1"],["monId":"1-13-8","monName":"","monHp":1900,"monAtt":420,"monDef":200,"monMag":0,"monType":"fire","monImg":"r1"],["monId":"1-13-9","monName":"","monHp":1900,"monAtt":420,"monDef":200,"monMag":0,"monType":"earth","monImg":"r1"],["monId":"1-13-10","monName":"被感染的劇毒狼","monHp":1950,"monAtt":430,"monDef":205,"monMag":65,"monType":"water","monImg":"1-13-10"],
@@ -46,7 +49,8 @@ class PetViewController: UIViewController {
     let monsterNames = [["可利鴨","可利鴨戰士","可利鴨指揮官","可利鴨招喚師","王者可利鴨"],["灰狼","灰狼戰士","灰狼指揮官","灰狼招喚師","王者灰狼"],["雕像","雕像戰士","雕像指揮官","雕像招喚師","王者雕像"],["水晶蠍","水晶蠍戰士","水晶蠍指揮官","水晶蠍招喚師","王者水晶蠍"],["龍獸","龍獸戰士","龍獸指揮官","龍獸招喚師","王者龍獸"],["巨熊","巨熊戰士"," 巨熊指揮官"," 巨熊招喚師","王者巨熊"],["暴雷龍","暴雷龍戰士","暴雷龍指揮官"," 暴雷龍招喚師","王者暴雷龍"],["石化獸","石化獸戰士"," 石化獸指揮官"," 石化獸招喚師","王者石化獸"],["靈馴鹿","靈馴鹿戰士"," 靈馴鹿指揮官"," 靈馴鹿招喚師","王者靈馴鹿"]]
     
     
-    
+    /*
+     //測試用的元素符號
     let elements = [["name":"ab1","func":"def","value":"1"],
                     ["name":"ac1","func":"att","value":"100"],
                     ["name":"ad1","func":"att","value":"5000"],
@@ -68,9 +72,9 @@ class PetViewController: UIViewController {
                     ["name":"ba1","func":"upgrade","value":"1-2-10"],
                     ["name":"be1","func":"upgrade","value":"1-2-10"],
                     ["name":"bi1","func":"upgrade","value":"1-2-10"]]
+    */
     
-    
-    /*
+    //元素資料
     let elements = [["name":"ab1","func":"hp","value":"50"],
                     ["name":"ac1","func":"att","value":"20"],
                     ["name":"ad1","func":"def","value":"5"],
@@ -225,7 +229,7 @@ class PetViewController: UIViewController {
                     ["name":"af2","func":"wood;","value":"230"],
                     ["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
     
-    */
+    
     
     
     //大項分類
@@ -233,9 +237,7 @@ class PetViewController: UIViewController {
     //調整分類的高度constraint
     @IBOutlet weak var elemTypeSegHeight: NSLayoutConstraint!
     
-    
     let lightOrange = UIColor.init(red: 1, green: 169/255, blue: 77/255, alpha: 1)
-    
     
     @IBOutlet weak var petAva: UIImageView!
     @IBOutlet weak var selElem1Img: UIImageView!
@@ -265,7 +267,6 @@ class PetViewController: UIViewController {
     @IBOutlet weak var elem12: UIImageView!
     
     @IBOutlet weak var backToMapBtn: UIButton!
-    
     
     //上方的三個元素空格, 因為怕被覆蓋後來再加入
     var elem13 = UIImageView()
@@ -316,7 +317,7 @@ class PetViewController: UIViewController {
     var exactCurrentElemIndex = [-1:-1]
     
     //紀錄三個選項元素的數字
-    var selOccupiedByElemIndex = [-1,-1,-1]
+    //var selOccupiedByElemIndex = [-1,-1,-1]
     var exactSelOccupiedByElemIndex = [[-1:-1],[-1:-1],[-1:-1]]
     
     //元素註解
@@ -339,6 +340,7 @@ class PetViewController: UIViewController {
     var values = [String]()
     var elemNames = [String]()
     
+    //selElem所有的描述
     var selFunctionChinese = [String]()
     var selTitleChinese = [String]()
     var selValues = [String]()
@@ -386,7 +388,7 @@ class PetViewController: UIViewController {
     var elemName:[String]?
     var elemNum:String?
     
-    //元素的頁數變數及所有頁數
+    //元素的頁數變數及所有頁數, 背包的分頁數
     var elemPage = 0   //預設為第0頁
     var elemPages = [0,1,2,3,4,5,6,7]
     
@@ -420,6 +422,7 @@ class PetViewController: UIViewController {
     //屬性元素的控制器
     @IBOutlet weak var elemTypeSeg: UISegmentedControl!
     
+    //垃圾桶圖示
     @IBOutlet weak var trashCanImg: UIImageView!
     
     
@@ -429,7 +432,7 @@ class PetViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         /*
-        //測試畫面用
+        //測試畫面用, 測試刪除畫面
         //做一個檔selElem的ghost button
         let ghost = UIButton()
         ghost.frame = CGRect(x: 0, y: 55, width: self.view.frame.width, height: self.view.frame.height / 2.28)
@@ -451,6 +454,7 @@ class PetViewController: UIViewController {
         self.view.addSubview(deleteHint)
         */
       
+        
         
         //預設
         elemTypeSeg.selectedSegmentIndex = 0
@@ -481,8 +485,7 @@ class PetViewController: UIViewController {
         
         //抓所有寵物資訊
         let petAvaImg = pet!["petImg"] as! String
-        
-        
+
         //寵物大頭照
         petAva.image = UIImage(named: petAvaImg)
         
@@ -556,8 +559,12 @@ class PetViewController: UIViewController {
         elems.append(elem11)
         elems.append(elem12)
         
-        
+
         //抓取所有使用者元素的func
+        //upgradeElems = [String]()
+        upgradeElemsInfo = [String:String]()
+        
+        //在此處抓取元素之前不用empty所有元素, viewDidLoad會載入
         getUserElementFunc()
         
         
@@ -612,7 +619,7 @@ class PetViewController: UIViewController {
         fetchElementInfo()
         
         //抓取本機儲存的已使用元素
-        elemSaved = UserDefaults.standard.object(forKey: "elemSaved") as? [Int]
+        //elemSaved = UserDefaults.standard.object(forKey: "elemSaved") as? [Int]
         
         //用decode方式抓取本機儲存的使用元素
         let decodedObject = UserDefaults.standard.object(forKey: "exactElemSaved") as? NSData
@@ -624,6 +631,7 @@ class PetViewController: UIViewController {
         
         
         //指定之前所存檔的使用元素
+        /*
         if elemSaved == nil {
             
             elemSaved = selOccupiedByElemIndex
@@ -632,6 +640,7 @@ class PetViewController: UIViewController {
             selOccupiedByElemIndex = elemSaved!
             
         }
+ */
         if exactElemSaved == nil {
             exactElemSaved = exactSelOccupiedByElemIndex
             // exactElemSaved = [[0: 3], [6: 2], [0: 0]]
@@ -1846,6 +1855,8 @@ class PetViewController: UIViewController {
         rareElems = [[String:String]()]
         allGetElemsInfo = [[String:String]()]
         allGetElements = [String]()
+        //upgradeElems = [String]()
+        upgradeElemsInfo = [String:String]()
     }
     
     
@@ -2376,56 +2387,67 @@ class PetViewController: UIViewController {
                                     case "hp":
                                         
                                         normalElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "att":
                                         
                                         normalElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                     case "def":
                                         
                                         normalElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "hit":
                                         
                                         normalElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "heal":
                                         
                                         normalElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                     case "wood":
                                         
                                         woodElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "earth":
                                         
                                         earthElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "water":
                                         
                                         waterElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "fire":
                                         
                                         fireElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "metal":
                                         
                                         metalElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
                                     case "upgrade":
                                         
                                         combineElems.append(elements[e])
-                                        allGetElemsInfo.append(elements[e])
+                                        //allGetElemsInfo.append(elements[e])
                                         
+                                        //append合併元素
+                                        
+                                        if let elemValue = elements[e]["value"] as String?{
+                                            if let elemName = elements[e]["name"] as String?{
+                                            //upgradeElems.append(elemValue)
+                                                upgradeElemsInfo.updateValue(elemValue, forKey: elemName)
+                                               
+                                            }
+                                            
+                                        }
+                                      
                                     default:
                                         break
                                     }
@@ -2434,7 +2456,7 @@ class PetViewController: UIViewController {
                                     
                                     //稀有元素
                                     rareElems.append(elements[e])
-                                    allGetElemsInfo.append(elements[e])
+                                    //allGetElemsInfo.append(elements[e])
                                 }
                                 
                             }
@@ -2449,7 +2471,7 @@ class PetViewController: UIViewController {
         }
         
         //移除第一組空值
-        allGetElemsInfo.remove(at: 0)
+        //allGetElemsInfo.remove(at: 0)
         normalElems.remove(at: 0)
         metalElems.remove(at: 0)
         woodElems.remove(at: 0)
@@ -2527,6 +2549,9 @@ class PetViewController: UIViewController {
             
             rareElemsFull = false
         }
+        
+        //print("upgradeElems:\(upgradeElems)")
+        print("upgradeElemsInfo:\(upgradeElemsInfo)")
             
  }
     

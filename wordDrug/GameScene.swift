@@ -36,6 +36,7 @@ class GameScene: SKScene {
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],["ly1","mi1","nd1","no1","nt1","oa1","ob1","oe1","of1","oi1"],["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],["ph1","pi1","pl1","pr1","rare1","re1","ro1","ry1","sh1","si1"],["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],["to1","tr1","ture1","ty1","ub1","ue1","ui1","um1","un1","up1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     */
     
+        let partOnePets:[[String:Any]] = [["petId":"1-1-0","petName":"幼龍","petHp":110,"petAtt":40,"petDef":10,"petHit":20,"petHeal":0,"petType":"","petImg":"1-1-0","petMag":0], ["petId":"1-1-10","petName":"球球","petHp":120,"petAtt":50,"petDef":15,"petHit":25,"petHeal":0,"petType":"","petImg":"1-1-10","petMag":0], ["petId":"1-2-10","petName":"螳螂拳","petHp":130,"petAtt":60,"petDef":15,"petHit":15,"petHeal":0,"petType":"","petImg":"1-2-10","petMag":0],["petId":"1-3-10","petName":"蘑菇怪","petHp":165,"petAtt":60,"petDef":15,"petHit":23,"petHeal":0,"petType":"","petImg":"1-3-10","petMag":0], ["petId":"1-4-10","petName":"劇毒狼","petHp":140,"petAtt":70,"petDef":20,"petHit":25,"petHeal":0,"petType":"","petImg":"1-4-10","petMag":0], ["petId":"1-6-10","petName":"銀翼飛馬","petHp":150,"petAtt":70,"petDef":20,"petHit":20,"petHeal":0,"petType":"","petImg":"1-6-10","petMag":0], ["petId":"1-7-10","petName":"恐龍博士","petHp":180,"petAtt":75,"petDef":22.5,"petHit":28,"petHeal":0,"petType":"","petImg":"1-7-10","petMag":0], ["petId":"1-8-10","petName":"冰雪犀牛","petHp":160,"petAtt":80,"petDef":25,"petHit":25,"petHeal":0,"petType":"","petImg":"1-8-10","petMag":0], ["petId":"1-9-10","petName":"美洲豹","petHp":195,"petAtt":90,"petDef":22.5,"petHit":18,"petHeal":0,"petType":"","petImg":"1-9-10","petMag":0], ["petId":"1-11-10","petName":"治癒菇神","petHp":170,"petAtt":90,"petDef":25,"petHit":20,"petHeal":0,"petType":"","petImg":"1-11-10","petMag":0], ["petId":"1-12-10","petName":"眼鏡蛇王","petHp":180,"petAtt":100,"petDef":30,"petHit":15,"petHeal":0,"petType":"","petImg":"1-12-10","petMag":0], ["petId":"1-13-10","petName":"被感染的劇毒狼","petHp":210,"petAtt":105,"petDef":30,"petHit":28,"petHeal":0,"petType":"","petImg":"1-13-10","petMag":0]]
     
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],["ly1","mi1","nd1","no1","nt1","oa1","ob1","o_e1","of1","oi1"],["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],["ph1","pi1","pl1","pr1","rare1","re1","ro1","ry1","sh1","si1"],["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],["to1","tr1","ture1","ty1","ub1","u_e1","ui1","um1","un1","up1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     
@@ -155,6 +156,7 @@ let monsters =
     let monsterNames = [["可利鴨","可利鴨戰士","可利鴨指揮官","可利鴨招喚師","王者可利鴨"],["灰狼","灰狼戰士","灰狼指揮官","灰狼招喚師","王者灰狼"],["雕像","雕像戰士","雕像指揮官","雕像招喚師","王者雕像"],["水晶蠍","水晶蠍戰士","水晶蠍指揮官","水晶蠍招喚師","王者水晶蠍"],["龍獸","龍獸戰士","龍獸指揮官","龍獸招喚師","王者龍獸"],["巨熊","巨熊戰士"," 巨熊指揮官"," 巨熊招喚師","王者巨熊"],["暴雷龍","暴雷龍戰士","暴雷龍指揮官"," 暴雷龍招喚師","王者暴雷龍"],["石化獸","石化獸戰士"," 石化獸指揮官"," 石化獸招喚師","王者石化獸"],["靈馴鹿","靈馴鹿戰士"," 靈馴鹿指揮官"," 靈馴鹿招喚師","王者靈馴鹿"]]
     
     //測試用的假元素
+    /*
     let elements = [["name":"ab1","func":"def","value":"1"],
                     ["name":"ac1","func":"att","value":"100"],
                     ["name":"ad1","func":"att","value":"5000"],
@@ -176,8 +178,8 @@ let monsters =
                     ["name":"ba1","func":"upgrade","value":"1-2-10"],
                     ["name":"be1","func":"upgrade","value":"1-2-10"],
                     ["name":"bi1","func":"upgrade","value":"1-2-10"]]
+    */
     
-    /*
     let elements = [["name":"ab1","func":"hp","value":"50"],
                     ["name":"ac1","func":"att","value":"20"],
                     ["name":"ad1","func":"def","value":"5"],
@@ -331,7 +333,7 @@ let monsters =
                     ["name":"a_e2","func":"def","value":"60"],
                     ["name":"af2","func":"wood;","value":"230"],
                     ["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
-*/
+
     
     var monsterHp = Int()
     var monsterAtt = Int()
@@ -394,8 +396,15 @@ let monsters =
     var segIndexToPass = Int()
     var typeSegToPass = Int()
     
+    //合併升級寵物使用
+    var upgradeCount = Int()
+    var isUpgrade = false
+    var upgradeNames = [String]()
+    var upgradeValue = String()
    
     override func didMove(to view: SKView) {
+        
+        print("petValue:\(pet)")
         
         //元素單位練習完後的key
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyEndUnit), name: NSNotification.Name("endUnit"), object: nil)
@@ -1289,6 +1298,40 @@ let monsters =
                 //移除所有的NODE
                 removeEverything()
             }
+            
+            
+            //得到寵物後的按鈕
+            if node.name == "getPetButton"{
+                
+                print("getPetButton clicked")
+                
+                //Part 1. 連接後端
+                //Part 2. 刪除元素
+                //Part 3. 跳回關卡
+                let id = user?["id"] as! String
+                getPet(id: id, petId: upgradeValue)
+                
+                //刪除兩個元素
+                deleteElem(elem:upgradeNames[0])
+                deleteElem(elem:upgradeNames[1])
+                
+                
+                //把所有elem歸零, 合併元素在selElem裡
+                exactElemSaved = [[-1:-1],[-1:-1],[-1:-1]]
+                
+                let userDefaults = UserDefaults.standard
+                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
+                userDefaults.set(encodedObject, forKey: "exactElemSaved")
+                userDefaults.synchronize()
+                
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
+
+                //移除所有的NODE
+                removeEverything()
+                
+            }
+            
             
             
             //按鈕功能, 暫時用不到
@@ -3486,10 +3529,46 @@ let monsters =
                                                     
                                                 }
                                             case "upgrade":
-                                                if combineElemsFull{
+                                                
+                                                if let elemValue = elements[i]["value"] as String?{
+                                                    
+                                                    for (name,value) in upgradeElemsInfo {
+                                                        
+                                                        if value == elemValue{
+                                                            
+                                                            upgradeCount += 1
+                                                            upgradeNames.append(name)
+                                                            upgradeValue = value
+                                                            
+                                                        }
+                                                    }
+                                                    
+                                                    /*
+                                                    for i in 0 ..< upgradeElems.count{
+                                                        
+                                                        if upgradeElems[i] == elemValue{
+                                                            
+                                                            upgradeCount += 1
+                                                            
+                                                        }
+                    
+                                                    }
+                                                    */
+                                                }
+ 
+                                                if upgradeCount == 2 {
+                                                    
+                                                    print("合併元素升級寵物囉～～～～～～～～～～～")
+                                                    
+                                                    isUpgrade = true
+                                                    
+                                                }
+                                                
+                                                //假如背包滿而且還沒要升級
+                                                if combineElemsFull && isUpgrade == false{
                                                     
                                                     print("合併元素滿了")
-                                                      bagIsFull = true
+                                                    bagIsFull = true
                                                     
                                                     elemPageToPass = 6
                                                     segIndexToPass = 2
@@ -3546,9 +3625,25 @@ let monsters =
                     }
                     
                     
-                    //上方判斷完後就能知道背包狀態
+                
+                    //Part 1. 另外需要判斷是否寵物合併升級
+                    //Part 2. 上方判斷完後就能知道背包狀態
                     
-                    if bagIsFull {
+                    if isUpgrade {
+                        
+                        print("upgrade")
+                        
+                        //如果要合併寵物的話
+                        //Part 1. 合併動畫
+                        //Part 2. 抓寵物圖片
+                        //Part 3. 一樣跳回原畫面
+                        
+                        print(upgradeElemsInfo)
+                        print(syllablesToCheck)
+                        
+                        notifyUpgrade()
+
+                    } else if bagIsFull {
                         //背包滿了
                         
                         //Part 1. 在獲得畫面跳出警告, 警告完後往下
@@ -3617,7 +3712,7 @@ let monsters =
                             
                         }
                     }).resume()
-                }
+                        }
                 }
                 
             }
@@ -3634,7 +3729,200 @@ let monsters =
     
     
     
-    //警告背包已滿的畫面
+    //合併元素
+    
+    func notifyUpgrade(){
+        
+        //Part 1. 抓出三個元素
+        //Part 2. 三個元素合併後發亮
+        //Part 3. 浮現寵物
+        //Part 4. 顯示寵物數值
+        var node = SKSpriteNode()
+        var node1 = SKSpriteNode()
+        var node2 = SKSpriteNode()
+        
+        //製作畫面
+        makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+
+        let elemImg = "combineGem"
+
+        
+        //顯示元素1
+        makeImageNode(name: "getElement", image: elemImg, x: -250, y: 200, width: 200, height: 200, z: 11, alpha: 1, isAnchoring: false)
+        //顯示元素2
+        makeImageNode(name: "getElement1", image: elemImg, x: 0, y: 200, width: 200, height: 200, z: 16, alpha: 1, isAnchoring: false)
+        //顯示元素3
+        makeImageNode(name: "getElement2", image: elemImg, x: 250, y: 200, width: 200, height: 200, z: 11, alpha: 1, isAnchoring: false)
+        
+        
+        //亮星星, 星星位置要抓
+        makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        
+        let elemName = syllablesToCheck.components(separatedBy: .decimalDigits)
+        let elemNum = syllablesToCheck.replacingOccurrences(of: elemName[0], with: "")
+        
+        let elemNameLabel = SKLabelNode()
+        elemNameLabel.position = CGPoint(x: 0, y: -12)
+        elemNameLabel.horizontalAlignmentMode = .center
+        elemNameLabel.fontSize = 45
+        elemNameLabel.text = elemName[0]
+        elemNameLabel.name = "elemNameLabel"
+        elemNameLabel.fontName = "Helvetica Bold"
+        elemNameLabel.fontColor = .black
+        elemNameLabel.zPosition = 13
+        
+        let elemNumLabel = SKLabelNode()
+        elemNumLabel.position = CGPoint(x: 28, y: -36)
+        elemNumLabel.horizontalAlignmentMode = .center
+        elemNumLabel.fontSize = 23
+        elemNumLabel.text = elemNum
+        elemNumLabel.name = "elemNumLabel"
+        elemNumLabel.fontName = "Helvetica Bold"
+        elemNumLabel.fontColor = .black
+        elemNumLabel.zPosition = 14
+        
+        if let elemImgNode = findImageNode(name: "getElement") as SKSpriteNode?{
+            elemImgNode.addChild(elemNameLabel)
+            elemImgNode.addChild(elemNumLabel)
+            node = elemImgNode
+        }
+
+        
+        //讀upgradeElemsInfo裡的名字
+        let firstElemName = upgradeNames[0]
+        let elemName1 = firstElemName.components(separatedBy: .decimalDigits)
+        let elemNum1 = firstElemName.replacingOccurrences(of: elemName1[0], with: "")
+        
+        let elemNameLabel1 = SKLabelNode()
+        elemNameLabel1.position = CGPoint(x: 0, y: -12)
+        elemNameLabel1.horizontalAlignmentMode = .center
+        elemNameLabel1.fontSize = 45
+        elemNameLabel1.text = elemName1[0]
+        elemNameLabel1.name = "elemNameLabel"
+        elemNameLabel1.fontName = "Helvetica Bold"
+        elemNameLabel1.fontColor = .black
+        elemNameLabel1.zPosition = 17
+        
+        let elemNumLabel1 = SKLabelNode()
+        elemNumLabel1.position = CGPoint(x: 28, y: -36)
+        elemNumLabel1.horizontalAlignmentMode = .center
+        elemNumLabel1.fontSize = 23
+        elemNumLabel1.text = elemNum1
+        elemNumLabel1.name = "elemNumLabel"
+        elemNumLabel1.fontName = "Helvetica Bold"
+        elemNumLabel1.fontColor = .black
+        elemNumLabel1.zPosition = 18
+        
+        if let elemImgNode = findImageNode(name: "getElement1") as SKSpriteNode?{
+            elemImgNode.addChild(elemNameLabel1)
+            elemImgNode.addChild(elemNumLabel1)
+            node1 = elemImgNode
+        }
+
+        let secondElemName = upgradeNames[1]
+
+        let elemName2 = secondElemName.components(separatedBy: .decimalDigits)
+        let elemNum2 = secondElemName.replacingOccurrences(of: elemName2[0], with: "")
+        let elemNameLabel2 = SKLabelNode()
+        elemNameLabel2.position = CGPoint(x: 0, y: -12)
+        elemNameLabel2.horizontalAlignmentMode = .center
+        elemNameLabel2.fontSize = 45
+        elemNameLabel2.text = elemName2[0]
+        elemNameLabel2.name = "elemNameLabel"
+        elemNameLabel2.fontName = "Helvetica Bold"
+        elemNameLabel2.fontColor = .black
+        elemNameLabel2.zPosition = 13
+        
+        let elemNumLabel2 = SKLabelNode()
+        elemNumLabel2.position = CGPoint(x: 28, y: -36)
+        elemNumLabel2.horizontalAlignmentMode = .center
+        elemNumLabel2.fontSize = 23
+        elemNumLabel2.text = elemNum2
+        elemNumLabel2.name = "elemNumLabel"
+        elemNumLabel2.fontName = "Helvetica Bold"
+        elemNumLabel2.fontColor = .black
+        elemNumLabel2.zPosition = 14
+        
+        if let elemImgNode = findImageNode(name: "getElement2") as SKSpriteNode?{
+            elemImgNode.addChild(elemNameLabel2)
+            elemImgNode.addChild(elemNumLabel2)
+            node2 = elemImgNode
+        }
+        
+        
+        //三元素合一動畫
+        
+     
+        let moveToRight = SKAction.moveTo(x: 0, duration: 0.5)
+        let moveToLeft = SKAction.moveTo(x: 0, duration: 0.5)
+        let disappear = SKAction.hide()
+        let nodeAction = SKAction.sequence([moveToRight,disappear])
+        let node2Action = SKAction.sequence([moveToLeft,disappear])
+        
+        node.run(nodeAction)
+        node2.run(node2Action) {[weak self] in
+            
+            //發亮消失然後產生寵物
+            
+            self!.changeImageAlfa(name: "getElement", toAlpha: 0, time: 0.3)
+            self!.changeImageAlfa(name: "getElement1", toAlpha: 0, time: 0.3)
+            self!.changeImageAlfa(name: "getElement2", toAlpha: 0, time: 0.3)
+            
+            
+            //產生寵物
+            self!.makeImageNode(name: "petGet", image: self!.upgradeValue, x: 0, y: 200, width: 250, height: 250, z: 20, alpha: 0, isAnchoring: false)
+          
+            self!.changeImageAlfa(name: "petGet", toAlpha: 1, time: 0.5)
+            
+            
+            
+           
+            
+            self!.makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+            self!.makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+            
+            
+            let movingLight = self!.childNode(withName: "movingLight") as! SKSpriteNode
+            let movingLight2 = self!.childNode(withName: "movingLight2") as! SKSpriteNode
+            let action = SKAction.rotate(toAngle: 360, duration: 5000)
+            let action2 = SKAction.rotate(toAngle: -360, duration: 6000)
+            movingLight.run(action)
+            movingLight2.run(action2)
+            
+            for i in 0 ..< self!.partOnePets.count{
+                if let petId = self!.partOnePets[i]["petId"] as! String?{
+                    
+                    if petId == self!.upgradeValue{
+                        
+                        if let petName = self!.partOnePets[i]["petName"] as! String?{
+                            
+                            
+                        //製作文字
+                        self!.makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "獲得新寵物: " + petName, zPosition: 14, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+                        }
+                        
+                        //製作按鈕
+                        self!.makeImageNode(name: "getPetButton", image: "okBtn", x: 0, y: -400, width:276, height: 144, z: 24, alpha: 1, isAnchoring: false)
+                        
+                        self!.isUserInteractionEnabled = true
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+            }
+            
+            
+        }
+        
+        
+    }
     
     func notifyBagIsFull(){
         
@@ -4154,7 +4442,7 @@ let monsters =
         //var hurtMonster = fullMonsterBlood / 9 * point
         
         //人的血量單位設定, 目前都是以100當單位..
-        var healPlayer = fullPlayerBlood / 100 * point
+        var healPlayer = fullPlayerBlood / CGFloat(petLife) * point
       
         //show治癒術
         let comboAttack = findLabelNode(name: "comboAttack")
@@ -4213,7 +4501,7 @@ let monsters =
         //var hurtMonster = fullMonsterBlood / 9 * point
         
         //人的血量設定
-        var hurtPlayer = fullPlayerBlood / 100 * point
+        var hurtPlayer = fullPlayerBlood / CGFloat(petLife) * point
         
         var hurtMonster = fullMonsterBlood / CGFloat(monsterHp) * point
         
@@ -5078,6 +5366,119 @@ let monsters =
             }
         }
     }
+    
+    
+    
+    //上傳得到的寵物
+    func getPet(id:String,petId:String){
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getPet.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&getPet=\(petId)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+
+    
+    //刪除元素
+    func deleteElem(elem:String){
+        
+        let id = user?["id"] as! String
+        let element = elem
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/deleteElement.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&element=\(element)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    print(user!)
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+
+            }
+        }).resume()
+        
+    }
+    
+    
+    
 }
 
 
