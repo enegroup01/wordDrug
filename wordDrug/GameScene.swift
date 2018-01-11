@@ -4694,7 +4694,7 @@ let monsters =
             }
             
             //抓音節數
-            let sepCount = sepWords.count
+            //let sepCount = sepWords.count
             
             //抓部首
             syllablesToCheck = syllables[unitNumber]
@@ -4711,7 +4711,7 @@ let monsters =
             
             //在此先拆每個單字的字母來看是否有三個字母並且符合 _e規則的音節
             
-            for i in 0 ..< sepCount{
+            for i in 0 ..< sepWords.count{
                 
                 //先清空字母array
                 characters.removeAll(keepingCapacity: false)
@@ -4728,7 +4728,7 @@ let monsters =
                 if syllablesWithoutDigit.contains("_e"){
                     
                     //確認是_e部首
-                    //isSpecialE = true
+                    isSpecialE = true
                     
                     //(1)有任何字節是三個字母
                     if characters.count == 3 {
@@ -4742,15 +4742,11 @@ let monsters =
                                 
                                 //***符合: _e 部首
                                 
-                                //確認是_e部首
-                                isSpecialE = true
-                                
                                 //要開始填入的順序+1
                                 sequenceToAppend += 1
                                 
                                 //設定此順序為部首字的特別順序
                                 specialSyllable = sequenceToAppend
-                                
                                 
                                 //假如這個array位置的第一個字是1, 就移除
                                 if newSepWords[sequenceToAppend][0] == "1"{
@@ -4950,13 +4946,13 @@ let monsters =
                 
                 
                 //一個單字以處理成array之後建立每一個array的value
-                for i in 0 ..< sepCount{
+                for i in 0 ..< sepWords.count{
                     
                     let sepWord = sepWords[i]
-                    
                     //檢查有沒有元素的字節, 有的話顯示為黃色
-                    if syllablesWithoutDigit.contains(sepWord){
-                        
+                    //if syllablesWithoutDigit.contains(sepWord){ //之前這寫法會把相同字母也include進去, 不準確
+                    
+                    if syllablesWithoutDigit == sepWord{
                         let fontColor = UIColor.yellow
                         
                         if i > 0 {
@@ -4972,7 +4968,7 @@ let monsters =
                             
                         } else{
                             //第一組字
-                            
+                            print("firstSepWord:\(sepWord)")
                             makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord  + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
                             
                         }
@@ -5077,6 +5073,7 @@ let monsters =
         
     }
     
+    //抓node的位置func
     func getCgPoint(name:String) -> CGPoint{
         
         let node = childNode(withName: name) as! SKSpriteNode
@@ -5405,120 +5402,4 @@ extension Array {
     }
 }
 
-//顯示下一個字, 暫時先用不到
-/*
- func showNextWord(){
- 
- 
- //移除目前的字
- removeSomeNodes(name: "Word")
- let halfCount = wordSets.count / 2
- 
- //按順序建立單字
- if nextWordSequence < halfCount{
- 
- let nextEngWord = wordSets[nextWordSequence]
- let nextChiWord = wordSets[halfCount + nextWordSequence]
- 
- //做英文字
- makeWords(word: nextEngWord, language: "engWord")
- //做中文字
- makeWords(word: nextChiWord, language: "chiWord")
- 
- } else {
- 
- 
- findImageNode(name: "playButton").isHidden = false
- //跳回顯示第一組單字
- nextWordSequence = 0
- let nextEngWord = wordSets[nextWordSequence]
- let nextChiWord = wordSets[halfCount + nextWordSequence]
- 
- 
- //做英文字
- makeWords(word: nextEngWord, language: "engWord")
- //做中文字
- makeWords(word: nextChiWord, language: "chiWord")
- 
- }
- }
- 
- */
-
-/*
- //檢查音節數以及正確數, 暫時用不到
- func checkLearningTestAnswer(word:String, poisonNumber:Int){
- 
- //抓總共輸入幾次字
- let count = wordEntered.count
- 
- //檢查須確認的音節位置, 以count為參考
- switch count {
- case 0:
- if word == currentWordArray[0]{
- //正確
- //pourPoisonAndRemoveLabel(sequence: 0, word: word, poisonNumber: poisonNumber)
- 
- } else {
- //錯誤
- 
- }
- case 1:
- if word == currentWordArray[1]{
- //正確
- //pourPoisonAndRemoveLabel(sequence: 1, word: word, poisonNumber: poisonNumber)
- 
- } else {
- //錯誤
- 
- }
- 
- 
- case 2:
- if word == currentWordArray[2]{
- //正確
- 
- //pourPoisonAndRemoveLabel(sequence: 2, word: word, poisonNumber: poisonNumber)
- 
- } else {
- //錯誤
- 
- }
- case 3:
- if word == currentWordArray[3]{
- //正確
- //pourPoisonAndRemoveLabel(sequence: 3, word: word, poisonNumber: poisonNumber)
- 
- } else {
- //錯誤
- 
- }
- case 4:
- if word == currentWordArray[4]{
- //正確
- 
- //pourPoisonAndRemoveLabel(sequence: 4, word: word, poisonNumber: poisonNumber)
- } else {
- //錯誤
- 
- }
- case 5:
- if word == currentWordArray[5]{
- //正確
- 
- //pourPoisonAndRemoveLabel(sequence: 5, word: word, poisonNumber: poisonNumber)
- 
- } else {
- //錯誤
- 
- }
- default:
- break
- 
- 
- }
- 
- }
- 
- */
 

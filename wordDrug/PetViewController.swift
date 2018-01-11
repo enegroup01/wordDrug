@@ -1260,7 +1260,7 @@ class PetViewController: UIViewController {
         calculatePetValue()
 
         
-        /*
+    /*
         for p in 0 ..< elemPages.count{
             
             //跑儲存的數字
@@ -1499,8 +1499,8 @@ class PetViewController: UIViewController {
          
          //計算寵物數值
          calculatePetValue()
-         
-        */
+         */
+        
         
     }
     
