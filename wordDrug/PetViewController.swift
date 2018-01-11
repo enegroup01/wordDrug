@@ -18,7 +18,6 @@ var earthElemsFull = Bool()
 var combineElemsFull = Bool()
 var rareElemsFull = Bool()
 
-
 //var upgradeElems = [String]()
 //所有的合併元素array
 var upgradeElemsInfo = [String:String]()
@@ -412,7 +411,7 @@ class PetViewController: UIViewController {
     var defaultTypeSeg:Int?
     var isBackpackFull = false
     var isElemAttachable = true
-    var defaultElemToDelete:String?
+    var defaultElemToGet:String?
     
     //提示刪除elem的圖案
     let arrow = UIImageView()
@@ -626,7 +625,6 @@ class PetViewController: UIViewController {
         
         if let decoded = decodedObject {
             exactElemSaved = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int : Int]]
-            
         }
         
         
@@ -641,41 +639,34 @@ class PetViewController: UIViewController {
             
         }
  */
+        //第一次登入為nil就給予空值
         if exactElemSaved == nil {
             exactElemSaved = exactSelOccupiedByElemIndex
-            // exactElemSaved = [[0: 3], [6: 2], [0: 0]]
-            //  exactSelOccupiedByElemIndex = [[0: 3], [6: 2], [0: 0]]
             
         } else {
+            //非空值就把儲存值給予
             exactSelOccupiedByElemIndex = exactElemSaved!
             
         }
         
-        //沒有值的話, 就預設為0
+        //沒有值的話, 就預設為第一頁
         if defaultPage == nil{
             defaultPage = 0
-        
         }
-        
-        print("viewdidload:\(defaultPage)")
         
         //顯示背包內容
         elemPage = defaultPage!
         showElems(segSelected:normalElems,img:"normalGem",delay:0.1)
   
+        //先隱藏玩跟提示的按鈕
         playNowBtn.isHidden = true
         hintBtn.isHidden = true
         
+        //如果要進入遊戲就顯示提示
         if isReadyToEnterBattle{
             showHint()
         }
-        
-        /*
 
- 
- */
-    
-    
     }
     
     
@@ -707,8 +698,7 @@ class PetViewController: UIViewController {
         return image!
     }
     
-    
-    
+
     //最主要處理必須刪掉元素才能得到新元素的畫面及function
     override func viewWillAppear(_ animated: Bool) {
         
@@ -741,20 +731,17 @@ class PetViewController: UIViewController {
             
             //箭頭動畫
             UIView.animate(withDuration: 0.8, delay: 0.5, options: [.repeat,.curveEaseOut], animations: {[weak self] in
-                
-                
+
                 self!.arrow.isHidden = false
                 self!.arrow.frame.origin.y = 60
                 
                 
             }) {[weak self] (finished:Bool) in
-                
-                
+
                 self!.arrow.frame.origin.y = 150
                 self!.arrow.isHidden = true
                 
             }
-            
             
             //暫時不能回地圖, 按鈕取消
             backToMapBtn.isUserInteractionEnabled = false
@@ -772,6 +759,7 @@ class PetViewController: UIViewController {
                 //大項目
                 typeSeg.isHidden = true
                 
+                //抓大頁
                 switch defaultSeg!{
                 case 0:
                     showElems(segSelected: normalElems, img: "normalGem", delay: 0.01)
@@ -796,6 +784,7 @@ class PetViewController: UIViewController {
                 
                 typeSeg.isHidden = false
                 
+                //抓屬性小項目
                 switch defaultTypeSeg!{
                     
                 case 0:
@@ -813,7 +802,7 @@ class PetViewController: UIViewController {
                     typeSeg.selectedSegmentIndex = 3
                 case 4:
                     showElems(segSelected: earthElems, img: "earthGem", delay: 0.01)
-                    typeSeg.selectedSegmentIndex = 0
+                    typeSeg.selectedSegmentIndex = 4
  
                     
                 default:
@@ -827,27 +816,32 @@ class PetViewController: UIViewController {
             
         } else {
             
-            print("normal enrty")
+            //一般進入
+            
+            print("normal entry")
   
+            /*
+             //以下function應該都不需要
             //抓所有寵物資訊
             let petAvaImg = pet!["petImg"] as! String
-            
-            
+       
             //寵物大頭照
             petAva.image = UIImage(named: petAvaImg)
             
-            petOriginal!["petMag"] = 0
+            //petOriginal!["petMag"] = 0
             calculatePetValue()
-            
+            */
         }
 
     }
     
+    //選擇seg
     @objc func typeSelected(sender:UISegmentedControl){
         
+        //抓index
         let index = elemTypeSeg.selectedSegmentIndex
+        
         switch index{
-            
         case 0:
             
             elemPage = 0
@@ -890,11 +884,10 @@ class PetViewController: UIViewController {
     }
     
     //屬性元素的Seg
-    
     @objc func attriTypeSelected(sender:UISegmentedControl){
         
-        
         let index = typeSeg.selectedSegmentIndex
+        
         switch index{
         case 0:
             elemPage = 1
@@ -940,8 +933,7 @@ class PetViewController: UIViewController {
         //這個可以看出目前的選項裡有哪些elem
         print("exactElemSaved:\(String(describing: exactElemSaved))")
 
-        
-        //先重置資訊
+        //先重置資訊, 這種方式跟下方的方式應該是一樣的
         functionChinese.removeAll(keepingCapacity: false)
         titleChinese.removeAll(keepingCapacity: false)
         values.removeAll(keepingCapacity: false)
@@ -960,6 +952,7 @@ class PetViewController: UIViewController {
             
             for i in s.subviews{
                 
+                //圖及字都移除
                 if i.tag == 0 || i.tag == 1{
                     
                     i.removeFromSuperview()
@@ -970,7 +963,6 @@ class PetViewController: UIViewController {
         
         //重置下方elem位置, 圖及字
         for i in  0 ..< elems.count{
-            
             
             //必須回覆所有elem的位置
             elems[i].frame.size = CGSize(width: 80, height: 80)
@@ -990,18 +982,18 @@ class PetViewController: UIViewController {
                 
             }
             
-            
         }
         
-        //抓元素圖片
+        //抓該頁主元素圖片
         elemImg = img
         
+        //確認此頁有元素
         if segSelected.count > 0 {
             
             //指定好所選擇的類別
             infoToShow = segSelected
-            //抓資訊
             
+            //抓資訊
             for i in 0 ..< segSelected.count{
                 
                 if let name = segSelected[i]["name"] as String?{
@@ -1042,13 +1034,233 @@ class PetViewController: UIViewController {
             
         }
         
-        //抓取資訊
+        //抓取資訊, append進去
         fetchElementInfo()
         
         
-        //*** 處理selElems的部分
+        //*** 處理selElems的部分 ***
         //做選項裡的圖, 包含該頁及非該頁
         //跑每一頁, 用意在於要確認每組第一個值為頁數, 然後抓取他們的value
+        
+        
+        for i in 0 ..< exactSelOccupiedByElemIndex.count{
+            
+            for (page,elem) in exactSelOccupiedByElemIndex[i]{
+                
+                //如果不是該頁的或是不是沒選擇的就要做別頁的圖片來顯示元素
+                var selElemPage = [[String:String]()]
+                var selImageName = String()
+
+                if page != -1{
+                if page != elemPage{
+                    
+                    //找出正確的頁面以及元素圖片
+
+                    switch page {
+                        
+                    case 0:
+                        
+                        selElemPage = normalElems
+                        selImageName = "normalGem"
+                        
+                    case 1:
+                        
+                        selElemPage = metalElems
+                        selImageName = "metalGem"
+                    case 2:
+                        
+                        selElemPage = woodElems
+                        selImageName = "woodGem"
+                        
+                    case 3:
+                        
+                        selElemPage = waterElems
+                        selImageName = "waterGem"
+                    case 4:
+                        
+                        selElemPage = fireElems
+                        selImageName = "fireGem"
+                    case 5:
+                        
+                        selElemPage = earthElems
+                        selImageName = "earthGem"
+                    case 6:
+                        
+                        selElemPage = combineElems
+                        selImageName = "combineGem"
+                    case 7:
+                        
+                        selElemPage = rareElems
+                        selImageName = "rareGem"
+                        
+                    default:
+                        break
+                    }
+                    
+                    //做選項圖片名字的Label
+                    
+                    //做出該選項元素的圖片
+
+                    selElems[i].image = makeImage(name: selImageName)
+                    selElems[i].center = CGPoint(x: selElemsCgs[i][0], y:selElemsCgs[i][1])
+                    //必須紀錄elemPage讓之後可以detect
+                    
+                    //在此append selElem的資訊
+                    
+                    if let function = selElemPage[elem]["func"] as String?{
+                        
+                        if !function.contains(","){
+                            
+                            switch function{
+                                
+                            case "hp":
+                                selTitleChinese[i] = "魔法元素"
+                                selFunctionChinese[i] = "血量"
+                            case "att":
+                                
+                                selTitleChinese[i] = "魔法元素"
+                                selFunctionChinese[i] = "攻擊力"
+                                
+                            case "def":
+                                
+                                selTitleChinese[i] = "魔法元素"
+                                selFunctionChinese[i] = "防禦力"
+                                
+                            case "hit":
+                                
+                                selTitleChinese[i] = "魔法元素"
+                                selFunctionChinese[i] = "爆擊率"
+                                
+                            case "heal":
+                                
+                                selTitleChinese[i] = "魔法元素"
+                                selFunctionChinese[i] = "治癒"
+                                
+                            case "wood":
+                                
+                                selTitleChinese[i] = "屬性元素"
+                                selFunctionChinese[i] = "木屬性魔攻"
+                                
+                            case "earth":
+                                
+                                selTitleChinese[i] = "屬性元素"
+                                selFunctionChinese[i] = "土屬性魔攻"
+                                
+                            case "water":
+                                
+                                selTitleChinese[i] = "屬性元素"
+                                selFunctionChinese[i] = "水屬性魔攻"
+                                
+                            case "fire":
+                                
+                                selTitleChinese[i] = "屬性元素"
+                                selFunctionChinese[i] = "火屬性魔攻"
+                                
+                            case "metal":
+                                
+                                selTitleChinese[i] = "屬性元素"
+                                selFunctionChinese[i] = "金屬性魔攻"
+                                
+                                
+                            case "upgrade":
+                                //需重寫升級方法
+                                
+                                selTitleChinese[i] = "寵物碎片"
+                                selFunctionChinese[i] = "蒐集3片碎片合成寵物"
+                                
+                            default:
+                                break
+                                
+                            }
+                        }else {
+                            
+                            //還需要寫分析多元素的功能
+                            
+                            selTitleChinese[i] = "稀有元素"
+                            selFunctionChinese[i] = "稀有元素"
+                            
+                        }
+                        
+                    }
+                    
+                    //抓數值
+                    if let value = selElemPage[elem]["value"] as String?{
+                        
+                        selValues[i] = value
+                        
+                    }
+                    
+                    //抓名字
+                    if let name = selElemPage[elem]["name"] as String?{
+                        
+                        //填入名字
+                        selElemNames[i] = name
+                        
+                        
+                        //抓字母 +  數字
+                        elemName = name.components(separatedBy: .decimalDigits)
+                        elemNum = name.replacingOccurrences(of: elemName![0], with: "")
+                        
+                        
+                        //做字母的label
+                        let elemNameLabel = UILabel()
+                        
+                        elemNameLabel.frame = CGRect(x: 5, y: 10, width: 40, height:40)
+                        elemNameLabel.textAlignment = .center
+                        elemNameLabel.font = UIFont(name: "Helvetica Bold", size: 20)
+                        elemNameLabel.text = elemName![0]
+                        elemNameLabel.textColor = .black
+                        elemNameLabel.tag = 0
+                        selElems[i].addSubview(elemNameLabel)
+                        
+                        //做數字的Label
+                        let elemNumLabel = UILabel()
+                        
+                        elemNumLabel.frame = CGRect(x: 15, y: 15, width: 15, height: 15)
+                        elemNumLabel.textAlignment = .center
+                        elemNumLabel.font = UIFont(name: "Helvetica Bold", size: 12)
+                        elemNumLabel.text = elemNum
+                        elemNumLabel.textColor = .black
+                        elemNumLabel.tag = 1
+                        selElems[i].addSubview(elemNumLabel)
+                        
+                    }
+
+                    
+                    //假設是該頁的元素就要把elem放到正確位置
+                } else if page == elemPage{
+                    
+                    //幫選項填入空值
+                    selTitleChinese[i] = ""
+                    selFunctionChinese[i] = ""
+                    selValues[i] = ""
+                    selElemNames[i] = ""
+                    
+                    //延遲delay秒後顯示
+                    
+                    let when = DispatchTime.now() + delay
+                    
+                    DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
+                        
+                        //固定元素在選項裡
+                        self!.elems[elem].frame.size = CGSize(width: 60, height: 60)
+                        self!.elems[elem].center = CGPoint(x: self!.selElemsCgs[i][0], y: self!.selElemsCgs[i][1])
+                        
+                        
+                    }
+                    
+                }
+                }
+                
+            }
+            
+        }
+        
+        //計算寵物數值
+        calculatePetValue()
+
+        
+        /*
         for p in 0 ..< elemPages.count{
             
             //跑儲存的數字
@@ -1284,13 +1496,15 @@ class PetViewController: UIViewController {
             }
             
         }
+         
+         //計算寵物數值
+         calculatePetValue()
+         
+        */
         
-            //計算寵物數值
-            calculatePetValue()
-
     }
     
-    
+    //關掉暗示鍵
     @objc func dismissHintButton(){
         
         for subview in hintView.subviews{
@@ -1315,8 +1529,8 @@ class PetViewController: UIViewController {
         
         //把play鍵隱藏起來為了跳回背包時不顯示
         playNowBtn.isHidden = true
-        
         performSegue(withIdentifier: "toGame", sender: self)
+        
     }
     
     
@@ -1344,7 +1558,6 @@ class PetViewController: UIViewController {
         ghostButton.alpha = 0.5
         self.view.addSubview(ghostButton)
         
-        
         //建立提示對話框
         hintView.frame = CGRect(x: 80, y: 300, width: 200, height: 130)
         hintView.backgroundColor = .black
@@ -1352,7 +1565,6 @@ class PetViewController: UIViewController {
         hintView.layer.zPosition = 6
         
         self.view.addSubview(hintView)
-        
         
         //建立提示標題
         let hintTitle = UILabel()
@@ -1412,10 +1624,9 @@ class PetViewController: UIViewController {
                         
                         
                         var elementSuggest = String()
-                        var fontColorSuggest = UIColor()
+                        var fontColorSuggest = UIColor() //顏色有指定, 尚未使用
                         
-                        
-                        //再做一個判斷怪屬性攻擊倍數的switch
+                        //
                         switch monsterType{
                             
                         case "wood":
@@ -1459,8 +1670,6 @@ class PetViewController: UIViewController {
                         hintText.numberOfLines = 2
                         hintView.addSubview(hintText)
                         
-                        
-                        
                     }
                 }
                 
@@ -1495,13 +1704,14 @@ class PetViewController: UIViewController {
             //都沒碰到元素的話就隱藏info
             elemInfoBg.alpha = 0
             
+            //點擊到petAva連結到寵物
             if petAva.frame.contains(location){
                 
                 performSegue(withIdentifier: "petToAllPetsVc", sender: self)
                 
             }
             
-            
+            //按到Elem時
             //跑所有Elem元素
             for i in 0 ..< elems.count{
                 
@@ -1548,14 +1758,12 @@ class PetViewController: UIViewController {
                             elemInfoBackUp = elemInfoLabel.text!
                             elemNameToDelete = elemNames[i]
                   
-
                             //顯示元素照片, 還沒有寫顯示元素資訊在圖片上
                             let elemAva = elems[i].image
                             elemInfoAva.image = elemAva
                             elemInfoBg.alpha = 0.8
                             
                             touchedElem = elemTouch
-                            print(touchedElem)
                             
                             //儲存原始位置, 回復使用
                             originalPosition = elemCgPoints[i]
@@ -1590,7 +1798,7 @@ class PetViewController: UIViewController {
                 
             }
             
-            
+            //按到selElem時
             //跑有可能存在的selElem元素
             
             for i in 0 ..< selElems.count{
@@ -1739,7 +1947,7 @@ class PetViewController: UIViewController {
     }
     
     
-    //刪除元素
+    //準備刪除元素
     func deleteElem(elem:UIImageView){
 
         //取消移動任何元素
@@ -1752,7 +1960,6 @@ class PetViewController: UIViewController {
         ghostButton.alpha = 0.5
         self.view.addSubview(ghostButton)
         
-        
         //建立提示對話框
         hintView.frame = CGRect(x: 80, y: 300, width: 240, height: 180)
         hintView.backgroundColor = .black
@@ -1760,7 +1967,6 @@ class PetViewController: UIViewController {
         hintView.layer.zPosition = 6
         
         self.view.addSubview(hintView)
-        
         
         //建立提示標題
         let hintTitle = UILabel()
@@ -1822,14 +2028,10 @@ class PetViewController: UIViewController {
         elemInfo.numberOfLines = 2
         hintView.addSubview(elemInfo)
 
-   
     }
     
     //取消刪除
     @objc func cancelDelete(elem:UIImageView){
-        
-        print("cancel")
-    
 
         for subview in hintView.subviews{
             subview.removeFromSuperview()
@@ -1853,17 +2055,14 @@ class PetViewController: UIViewController {
         earthElems = [[String:String]()]
         combineElems = [[String:String]()]
         rareElems = [[String:String]()]
-        allGetElemsInfo = [[String:String]()]
+        //allGetElemsInfo = [[String:String]()]
         allGetElements = [String]()
         //upgradeElems = [String]()
         upgradeElemsInfo = [String:String]()
     }
     
     
-    
-    
-    
-    //刪除元素的主功能
+    //執行刪除元素的主功能
    @objc func performDelete(){
     
     //part 1. 後端刪掉元素
@@ -1883,7 +2082,6 @@ class PetViewController: UIViewController {
         for i in 0 ..< exactSelOccupiedByElemIndex.count{
             
             key = Array(exactSelOccupiedByElemIndex[i].keys)
-            
             keys.append(key)
             
         }
@@ -1905,18 +2103,14 @@ class PetViewController: UIViewController {
                     //append需要比較的位置
                     indexToCompare.append(i)
                 }
-                
             }
-            
         }
         
-        
-        
+    
         //再比大小
-        
         //先確認有需要比較的位置, 有了再比較
         if indexToCompare.count > 0 {
-        
+            
         for p in elemPages{
             
             for i in 0 ..< indexToCompare.count{
@@ -1950,7 +2144,7 @@ class PetViewController: UIViewController {
              onlyExactElemSavedNoCalculate(index: elemIndexToDelete, page: -1, elem: -1)
             
         }
-        
+ 
         //****變化完再來儲存, 因為前方只儲存了exactElemSaved***
         exactSelOccupiedByElemIndex = exactElemSaved!
 
@@ -1971,9 +2165,7 @@ class PetViewController: UIViewController {
             
             keys.append(key)
             
-            
         }
-        
         
         //抓需要compare的key
         let pageToCheck = elemPage
@@ -1983,14 +2175,10 @@ class PetViewController: UIViewController {
        
                 if keys[i][0] == pageToCheck{
                     
-                    print(i)
-                    
                     indexToCompare.append(i)
-                    
                     
                 }
 
-            
         }
 
         //接著來比較大小
@@ -2000,8 +2188,6 @@ class PetViewController: UIViewController {
         
             for i in 0 ..< indexToCompare.count{
                 
-     
-                    
                     if let value2 = exactSelOccupiedByElemIndex[indexToCompare[i]][pageToCheck] as Int?{
                         
                         //不會被重置的大elem數值
@@ -2014,13 +2200,11 @@ class PetViewController: UIViewController {
                             
                             //在此不需要做任何事, 因為沒有任何selElem的數值需要改變
                             
-                            
                         }
                         
                     }
 
             }
-        
         
         //****變化完再來儲存, 因為前方只儲存了exactElemSaved
         exactSelOccupiedByElemIndex = exactElemSaved!
@@ -2076,8 +2260,7 @@ class PetViewController: UIViewController {
                     //再次取得目前的元素, 並且分類好
                     self!.emptyAllElemsInfo()
                     self!.getUserElementFunc()
-                    
-                    
+
                     
                     //用seg來判斷目前頁面然後showElem
                     var page = Int()
@@ -2164,8 +2347,7 @@ class PetViewController: UIViewController {
                     //可按回地圖按鈕
                     self!.backToMapBtn.isUserInteractionEnabled = true
 
-                    
-                    //****因為背包滿刪除元素後該做的事情
+                    // *** 因為背包滿刪除元素後該做的事情 ***
                     if self!.isBackpackFull{
                         
                         //要移除刪除提示
@@ -2173,8 +2355,8 @@ class PetViewController: UIViewController {
                         self!.deleteHint.removeFromSuperview()
                         self!.ghost.removeFromSuperview()
                         
-                        //後端getElement
-                        let element = self!.defaultElemToDelete!
+                        //後端getElement,
+                        let element = self!.defaultElemToGet!
                         let id = user?["id"] as! String
 
                         
@@ -2438,7 +2620,7 @@ class PetViewController: UIViewController {
                                         //allGetElemsInfo.append(elements[e])
                                         
                                         //append合併元素
-                                        
+                                        //把合併元素append到array裡供後方檢查
                                         if let elemValue = elements[e]["value"] as String?{
                                             if let elemName = elements[e]["name"] as String?{
                                             //upgradeElems.append(elemValue)
@@ -2481,7 +2663,7 @@ class PetViewController: UIViewController {
         combineElems.remove(at: 0)
         rareElems.remove(at: 0)
         
-        
+        //確認各頁元素有沒有滿
         if normalElems.count == 12{
             
             normalElemsFull = true
@@ -2550,9 +2732,7 @@ class PetViewController: UIViewController {
             rareElemsFull = false
         }
         
-        //print("upgradeElems:\(upgradeElems)")
-        print("upgradeElemsInfo:\(upgradeElemsInfo)")
-            
+        
  }
     
     
@@ -2566,13 +2746,9 @@ class PetViewController: UIViewController {
             elemInfoBg.alpha = 0
             
             //首先先讓元素回原位
-            
             touchedElem.center = originalPosition
             
             calculatePetValue()
-            
-            
- 
             
             //卻認selElem是否有固定, 沒有就消失
             var selTouchedAnyImage = false
@@ -3116,10 +3292,6 @@ class PetViewController: UIViewController {
                 
             }
             
-            
-            
-                       print(exactSelOccupiedByElemIndex)
-            
             //重置
             touchedElem = UIImageView()
             selTouchedElem = UIImageView()
@@ -3145,8 +3317,10 @@ class PetViewController: UIViewController {
             
             if let functions = infoToShow[i]["func"] as String?{
                 
+                //非稀有元素
                 if !functions.contains(","){
                     
+                    //填入資訊
                     switch functions{
                         
                     case "hp":
@@ -3206,9 +3380,8 @@ class PetViewController: UIViewController {
                 
             }
             
-            //新增名稱攻顯示及刪除使用
+            //新增名稱供顯示及刪除使用
             if let name = infoToShow[i]["name"] as String?{
-                
                 elemNames.append(name)
                 
             }
@@ -3224,25 +3397,21 @@ class PetViewController: UIViewController {
         //寵物資訊重置
         pet = petOriginal
         
-        
+        //抓數值來顯示, 計算
         let petHpValue = pet!["petHp"] as! Int
         let petAttValue = pet!["petAtt"] as! Int
-        
         if let petDefValue = pet!["petDef"] {
-            
             petDefenseLabel.text = String(describing: petDefValue)
         }
- 
         let petHealValue = pet!["petHeal"] as! Int
-        //let petTypeValue = pet!["petType"] as! String
+        //let petTypeValue = pet!["petType"] as! String //用不到
         let petHitValue = pet!["petHit"] as! Int
         let petMagValue = pet!["petMag"] as! Int
-        
-
+    
+        //顯示
         petCureLabel.text = String(describing: petHealValue)
         petLifeLabel.text = String(describing: petHpValue)
         petAttackLabel.text = String(describing: petAttValue)
-        
         petDoubleAttackLabel.text = String(describing: petHitValue) + "%"
         petExtraAttackLabel.text = String(describing: petMagValue)
         
@@ -3253,18 +3422,188 @@ class PetViewController: UIViewController {
         petExtraAttackLabel.textColor = .white
         petDoubleAttackLabel.textColor = .white
         petCureLabel.textColor = .white
+        
+        //寵物屬性小圖示先重置
         petTypeImg.image = UIImage()
         
-        
         // 機制: 這裡的數字不改, 每一次都check selOccupied有沒有任何值會影響
+        
+        for i in 0 ..< exactSelOccupiedByElemIndex.count{
+            
+            
+            for (page,elem) in exactSelOccupiedByElemIndex[i]{
+                
+                //抓取所有元素的func 及value
+                var function = String()
+                var value = String()
 
+                switch page {
+                    
+                case 0:
+                    
+                    function = getValues(group: normalElems, type: "func", elem: elem)
+                    value = getValues(group: normalElems, type: "value", elem: elem)
+                    
+                case 1:
+                    
+                    function = "metal"
+                    value = getValues(group: metalElems, type: "value", elem: elem)
+                    
+                    
+                case 2:
+                    
+                    function = "wood"
+                    value = getValues(group: woodElems, type: "value", elem: elem)
+                    
+                case 3:
+                    
+                    function = "water"
+                    value = getValues(group: waterElems, type: "value", elem: elem)
+                    
+                case 4:
+                    
+                    function = "fire"
+                    value = getValues(group: fireElems, type: "value", elem: elem)
+                    
+                case 5:
+                    
+                    function = "earth"
+                    value = getValues(group: earthElems, type: "value", elem: elem)
+                    
+                case 6:
+                    
+                    function = "upgrade"
+                    value = getValues(group: combineElems, type: "value", elem: elem)
+                    
+                case 7:
+                    
+                    function = "rare"
+                    value = getValues(group: rareElems, type: "value", elem: elem)
+                    
+                default:
+                    break
+                }
+                
+                switch function{
+                    
+                case "hp":
+                    
+                    petLifeLabel.textColor = .green
+                    
+                    petLifeLabel.text = String(Int(petLifeLabel.text!)! + Int(value)!)
+                    
+                    pet?["petHp"] = Int(petLifeLabel.text!)!
+                    
+                case "att":
+                    petAttackLabel.textColor = .green
+                    
+                    petAttackLabel.text = String(Int(petAttackLabel.text!)! + Int(value)!)
+                    
+                    //pet?["petAtt"] = Int(Int(petAttackLabel.text!)! + Int(value)!)
+                    pet?["petAtt"] = Int(petAttackLabel.text!)!
+                    
+                    
+                case "def":
+                    petDefenseLabel.textColor = .green
+                    
+                    petDefenseLabel.text = String(Float(petDefenseLabel.text!)! + Float(value)!)
+                    
+                    pet?["petDef"] = Float(petDefenseLabel.text!)!
+                    
+                    
+                case "hit":
+                    petDoubleAttackLabel.textColor = .green
+                    
+                    petDoubleAttackLabel.text = String(Int(petDoubleAttackLabel.text!)! + Int(value)!)
+                    
+                    pet?["petHit"] = Int(petDoubleAttackLabel.text!)!
+                    
+                    
+                case "heal":
+                    petCureLabel.textColor = .green
+                    
+                    petCureLabel.text = String(Int(petCureLabel.text!)! + Int(value)!)
+                    
+                    pet?["petHeal"] = Int(petCureLabel.text!)!
+                    
+                    
+                    
+                case "wood":
+                    
+                    petExtraAttackLabel.textColor = .green
+                    petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                    pet?["petMag"] = Int(petMagValue + Int(value)!)
+                    
+                    pet?["petType"] = "wood"
+                    
+                    petTypeImg.image = UIImage(named: "wood.png")
+                    
+                    
+                case "earth":
+                    
+                    petExtraAttackLabel.textColor = .green
+                    petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                    pet?["petMag"] = Int(petMagValue + Int(value)!)
+                    pet?["petType"] = "earth"
+                    
+                    petTypeImg.image = UIImage(named: "earth.png")
+                    
+                    
+                case "water":
+                    
+                    
+                    petExtraAttackLabel.textColor = .green
+                    petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                    pet?["petMag"] = Int(petMagValue + Int(value)!)
+                    pet?["petType"] = "water"
+                    
+                    petTypeImg.image = UIImage(named: "water.png")
+                    
+                case "fire":
+                    
+                    
+                    
+                    petExtraAttackLabel.textColor = .green
+                    petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                    pet?["petMag"] = Int(petMagValue + Int(value)!)
+                    pet?["petType"] = "fire"
+                    petTypeImg.image = UIImage(named: "fire.png")
+                    
+                    
+                case "metal":
+                    
+                    
+                    petExtraAttackLabel.textColor = .green
+                    petExtraAttackLabel.text = String(petMagValue + Int(value)!)
+                    pet?["petMag"] = Int(petMagValue + Int(value)!)
+                    pet?["petType"] = "metal"
+                    
+                    petTypeImg.image = UIImage(named: "metal.png")
+                    
+                    
+                case "upgrade":
+                    break
+                default:
+                    break
+                    
+                    
+                }
+
+                
+            }
+
+            //儲存改變數值
+            UserDefaults.standard.set(pet, forKey: "pet")
+        }
+        
+        /*
+        
         for p in 0 ..< elemPages.count{
          
          for s in 0 ..< exactSelOccupiedByElemIndex.count{
          
          if let elem = exactSelOccupiedByElemIndex[s][elemPages[p]]{
          
-
             //抓取所有元素的func 及value
             var function = String()
             var value = String()
@@ -3315,8 +3654,6 @@ class PetViewController: UIViewController {
             default:
                 break
             }
-
-     
 
             switch function{
                 
@@ -3443,7 +3780,7 @@ class PetViewController: UIViewController {
             UserDefaults.standard.set(pet, forKey: "pet")
 
          }
-
+*/
         
     }
     

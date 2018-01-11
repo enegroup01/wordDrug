@@ -272,12 +272,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
             }.resume()
         
-        
-        
     }
-    
-    
-
     
     func toStats(){
         

@@ -774,8 +774,6 @@ let monsters =
                 monsterAtt = monster["monAtt"] as! Int
                 monsterMagic = monster["monMag"] as! Int
                 monsterImg = monster["monImg"] as! String
-                print(monsterName)
-                print(monsterAtt)
             }
             
         }
@@ -784,21 +782,21 @@ let monsters =
         var monsterNameGroup = [String]()
     
         //抓r數字
-
         var monGroup = Int()
         
         //如果圖片是亂數, 就抓亂數組別
         if monsterImg.first == "r" {
-        var groupNum = monsterImg.replacingOccurrences(of: "r", with: "")
+        let groupNum = monsterImg.replacingOccurrences(of: "r", with: "")
         monGroup = Int(groupNum)! - 1
         }
+        
+        
         //依照組別append名字來提供亂數
         for n in 0 ..< monsterNames.count{
             
            monsterNameGroup.append(monsterNames[n][monGroup])
             
         }
-        print(monsterNameGroup)
         
         //沒名字就亂數
         if monsterName == "" {
@@ -809,10 +807,7 @@ let monsters =
             //怪物圖片
             monsterImg = String(monGroup + 1) + "-" + String(randomNumber + 1)
             
-            
         }
-        print(monsterName)
-        print(monsterImg)
         
         //進入battle模式
         isBattleMode = true
@@ -1109,8 +1104,7 @@ let monsters =
             
             for s in sepWordArray{
                 
-                if currentWordArray.contains(s) {
-                } else {
+                if !currentWordArray.contains(s) {
                     otherWords.append(s)
                     
                 }
@@ -1195,10 +1189,7 @@ let monsters =
         shownWords.shuffled()
         
         //建立所有單字選項
-        
-        //設定四格的位置
-        //let positions = [[-160,-390],[-160,-190],[160,-390],[160,-190]]
-        
+        //設定5格的位置
         let positions = [[-160,-370],[-260,-90],[160,-370],[260,-90],[0,100]]
         
         for i in 0 ..< shownWords.count{
@@ -1278,6 +1269,7 @@ let monsters =
             let node : SKNode = self.atPoint(location)
             
             
+            //遊戲結束
             if node.name == "getButton" || node.name == "quitButton"{
                 
                 //跳轉回元素表
@@ -1287,7 +1279,7 @@ let monsters =
                 removeEverything()
             }
             
-            //刪除背包元素
+            //刪除背包元素的ok按鍵
             if node.name == "okButton" {
                 
                 //在此傳4個值給Vc
@@ -1302,8 +1294,6 @@ let monsters =
             
             //得到寵物後的按鈕
             if node.name == "getPetButton"{
-                
-                print("getPetButton clicked")
                 
                 //Part 1. 連接後端
                 //Part 2. 刪除元素
@@ -1324,14 +1314,12 @@ let monsters =
                 userDefaults.set(encodedObject, forKey: "exactElemSaved")
                 userDefaults.synchronize()
                 
-                
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
 
-                //移除所有的NODE
+                //移除所有的Node
                 removeEverything()
                 
             }
-            
             
             
             //按鈕功能, 暫時用不到
@@ -1349,6 +1337,7 @@ let monsters =
                 //假如發音按超過三次要開始練習, 三次跳練習目前放在update裡面
                 if playSoundTime < 3{
                     
+                    //按到這些範圍要發音
                     if node.name == "questBoard" || (node.name?.contains("engWord"))! || (node.name?.contains("chiWord"))!{
                         
                         scanAndPronounce()
@@ -1603,7 +1592,7 @@ let monsters =
                         
                         let node : SKNode = self.atPoint(lastTouch)
                         
-                        //是否修改線
+                        //是否修改線的長度
                         if node.name == selNodeNames[0] || node.name == selNodeNames[1] || node.name == selNodeNames[2] || node.name == selNodeNames[3] || node.name == selNodeNames[4]{
                             
                             //最後有碰到node, 不修改線
@@ -1645,12 +1634,10 @@ let monsters =
                     
                     monsterBlood = findImageNode(name: monster).size.width
                     playerBlood = findImageNode(name: player).size.width
-                    //print(monsterBlood)
-                    
+      
                     
                     //假如答案正確, 啟動攻擊
                     if wordEntered == currentWordArray{
-                        
                         
                         //放大後消失移除
                         enlargeAndDisappear(name: "aimer")
@@ -1798,13 +1785,15 @@ let monsters =
                                 //總攻擊單位數 =  (人攻 - 怪防)
                                 var attackPoint = CGFloat(self!.petAttack) * (magicTimes) - CGFloat(self!.monsterDef)
                                 
+                                //計算亂數
                                 attackPoint = self!.randomPoint(points: attackPoint)
 
                                 
                                 
                                 //怪攻擊單位數 = (怪攻 - 人防)
                                 var monsterAttackPoint = CGFloat(self!.monsterAtt) * monsterMagicTimes - CGFloat(self!.petDefense)
-
+                                
+                                //計算亂數
                                 monsterAttackPoint = self!.randomPoint(points: monsterAttackPoint)
                                 
                                 
@@ -1812,14 +1801,16 @@ let monsters =
                                 //人魔法攻擊單位算法
                                 var magicAttackPoint = CGFloat(self!.petExtra) * magicTimes
                                 
+                                //計算亂數
                                 magicAttackPoint = self!.randomPoint(points: magicAttackPoint)
                                 
 
                                 //怪魔法攻擊單位算法
                                 var monsterMagicAttackPoint = CGFloat(self!.monsterMagic) * monsterMagicTimes
                                 
-
+                                //計算亂數
                                 monsterMagicAttackPoint = self!.randomPoint(points: monsterMagicAttackPoint)
+                                
                                 
                                 //show普攻字
                                 let comboAttack = self!.findLabelNode(name: "comboAttack")
@@ -1836,7 +1827,6 @@ let monsters =
                                     //假如怪死
                                     if self!.monsterBlood == 0 {
                                         //這局結束
-                                        print("monster dead")
                                         //下一場比賽
                                         self!.nextBattle()
                                         
@@ -1858,7 +1848,6 @@ let monsters =
                                                 //怪死的話
                                                 if self!.monsterBlood == 0 {
                                                     //這局結束
-                                                    print("monster dead")
                                                     //下一場比賽
                                                     self!.nextBattle()
                                                     
@@ -1878,7 +1867,6 @@ let monsters =
                                                             //怪死的話
                                                             if self!.monsterBlood == 0 {
                                                                 //這局結束
-                                                                print("monster dead")
                                                                 //下一場比賽
                                                                 self!.nextBattle()
                                                                 
@@ -1886,13 +1874,10 @@ let monsters =
                                                                 //檢查是否有治癒
                                                                 if self!.petHeal > 0{
                     
-                                    
-
                                                                     //補血
                                                                     self!.heal(point: CGFloat((self!.petHeal)), whom: player, finished: {
                                                                         
                                                                         self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
-                                                                        
                                                                         
                                                                         //換怪攻擊人
                                                                         
@@ -1910,7 +1895,8 @@ let monsters =
                                                                                 //假如玩家死亡
                                                                                 //print("player dead")
                                                                                 //self!.nextBattle()
-                                                               self!.failedToGetElement()
+                                                             
+                                                                                self!.failedToGetElement()
                                                                             } else {
                                                                                 //假如人還沒死
                                                                                 //確認有無怪物魔法攻擊
@@ -1932,7 +1918,8 @@ let monsters =
                                                                                             //假如玩家死亡
                                                                                             //print("player dead")
                                                                                             //self!.nextBattle()
-                                                               self!.failedToGetElement()
+                                                               
+                                                                                            self!.failedToGetElement()
                                                                                         }else {
                                                                                             
                                                                                             //繼續比賽
@@ -2003,7 +1990,8 @@ let monsters =
                                                                                     //假如玩家死亡
                                                                                     //print("player dead")
                                                                                     //self!.nextBattle()
-                                                               self!.failedToGetElement()
+                                                              
+                                                                                    self!.failedToGetElement()
                                                                                 }else {
                                                                                     
                                                                                     //繼續比賽
@@ -2040,12 +2028,7 @@ let monsters =
                                                         
                                                         if self!.petHeal > 0{
                                                             
-                                                            print("治癒術~~~~~~")
-                                                            
-
-                                                            
                                                             self!.heal(point: CGFloat((self!.petHeal)), whom: player, finished: {
-                                                                
                                                                 
                                                                 self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
                                                                 
@@ -2086,7 +2069,8 @@ let monsters =
                                                                                     //假如玩家死亡
                                                                                     //print("player dead")
                                                                                     //self!.nextBattle()
-                                                               self!.failedToGetElement()
+                                                            
+                                                                                    self!.failedToGetElement()
                                                                                 }else {
                                                                                     
                                                                                     //繼續比賽
@@ -2158,7 +2142,8 @@ let monsters =
                                                                             //假如玩家死亡
                                                                             //print("player dead")
                                                                             //self!.nextBattle()
-                                                               self!.failedToGetElement()
+                                                               
+                                                                            self!.failedToGetElement()
                                                                         }else {
                                                                             
                                                                             //繼續比賽
@@ -2205,7 +2190,6 @@ let monsters =
                                                     //怪死的話
                                                     if self!.monsterBlood == 0 {
                                                         //這局結束
-                                                        print("monster dead")
                                                         //下一場比賽
                                                         self!.nextBattle()
                                                         
@@ -2257,7 +2241,8 @@ let monsters =
                                                                                     //假如玩家死亡
                                                                                     //print("player dead")
                                                                                     //self!.nextBattle()
-                                                               self!.failedToGetElement()
+                                                    
+                                                                                    self!.failedToGetElement()
                                                                                 }else {
                                                                                     
                                                                                     //繼續比賽
@@ -2326,7 +2311,8 @@ let monsters =
                                                                             //假如玩家死亡
                                                                             //print("player dead")
                                                                             //self!.nextBattle()
-                                                               self!.failedToGetElement()
+                                                 
+                                                                            self!.failedToGetElement()
                                                                         }else {
                                                                             
                                                                             //繼續比賽
@@ -2570,8 +2556,8 @@ let monsters =
                             //總攻擊單位數 =  (人攻*按照正確音節比例 - 怪防) ***假如攻擊力小於防禦就視為0
                             var attackPoint = Int()
                             if correctSyllableCounts > 0 {
-                                if (40 * correctSyllableCounts / syllableCounts) > self!.monsterDef{
-                                    attackPoint = (40 * correctSyllableCounts / syllableCounts - self!.monsterDef)
+                                if (self!.petAttack * correctSyllableCounts / syllableCounts) > self!.monsterDef{
+                                    attackPoint = (self!.petAttack * correctSyllableCounts / syllableCounts - self!.monsterDef)
                                 } else{
                                     
                                     attackPoint = 0
@@ -2659,7 +2645,6 @@ let monsters =
                                 //假如怪死
                                 if self!.monsterBlood == 0 {
                                     //這局結束
-                                    print("monster dead")
                                     //下一場比賽
                                     self!.nextBattle()
                                     
@@ -2686,7 +2671,6 @@ let monsters =
                                                 //假如人死
                                                 if self!.playerBlood == 0 {
                                                     //這局結束
-                                                    print("player dead")
                                                     //下一場比賽
                                                     //self!.nextBattle()
                                                     self!.failedToGetElement()
@@ -2705,8 +2689,7 @@ let monsters =
                                                         self!.attack(point: monsterMagicAttackPoint, whom: player, finished: {
                                                             
                                                             self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
-                                                            
-                                                            
+
                                                             
                                                             if self!.playerBlood == 0 {
                                                                 //假如玩家死亡
@@ -2729,27 +2712,17 @@ let monsters =
                                                         //繼續比賽
                                                         self!.continueBattle()
                                                         
-                                                        
-                                                        
-                                                        
                                                     }
                                                     
-                                                    
-                                                    
+
                                                 }
                                                 
                                                 
                                             })
 
-                                            
-                                            
-                                            
-                                            
                                         })
                                         
-                                        
-                                        
-                                        
+
                                     } else {
                                     
                                     
@@ -2766,7 +2739,6 @@ let monsters =
                                         //假如人死
                                         if self!.playerBlood == 0 {
                                             //這局結束
-                                            print("player dead")
                                             //下一場比賽
                                             //self!.nextBattle()
                                             self!.failedToGetElement()
@@ -2785,8 +2757,6 @@ let monsters =
                                                 self!.attack(point: monsterMagicAttackPoint, whom: player, finished: {
                                                     
                                                     self!.changeLabelAlfa(name: "comboAttack", toAlpha: 0, time: 0.5)
-                                                    
-                                                    
                                                     
                                                     if self!.playerBlood == 0 {
                                                         //假如玩家死亡
@@ -2808,9 +2778,6 @@ let monsters =
                                                 
                                                 //繼續比賽
                                                 self!.continueBattle()
-                                                
-                                                
-                                                
                                                 
                                             }
                                             
@@ -2873,6 +2840,7 @@ let monsters =
                      line?.glowWidth = 2
                      addChild(line!)
                      */
+                    
                     //初始化
                     isFirstTouch = false
                     touchTimes = 0
@@ -2921,7 +2889,7 @@ let monsters =
                         //關上任務版
                         DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
                             
-                            //確認練習三次了沒
+                            //確認練習幾次後跳轉
                             if self!.correctTime < 1 {
                                 //再次練習
                                 
@@ -2994,9 +2962,8 @@ let monsters =
                                         //
                                         //self!.currentWordSequence = 0
                                         
+                                        //三個字學完後
                                         self!.currentWordSequence  = self!.unitNumber * 3
-                                        
-                                        print("enterBattle")
                                         
                                         //進入battleMode
                                         self!.battleMode()
@@ -3011,7 +2978,7 @@ let monsters =
                     } else {
                         
                         //答案錯誤的機制
-                        print("wrong answer")
+                    
                         //不能按畫面
                         self.isUserInteractionEnabled = false
                         //避免再次顯示掃描線
@@ -3074,8 +3041,7 @@ let monsters =
         let zoomOut = SKAction.resize(toWidth: 144, height: 144, duration: 0.2)
         return zoomOut
     }
-    
-    
+
     
     func randomPoint(points:CGFloat) -> CGFloat{
         
@@ -3085,16 +3051,13 @@ let monsters =
         let attackRan = Int(arc4random_uniform(UInt32(returnPoints * 0.05)))
         let attackPlusOrMinus = Int(arc4random_uniform(UInt32(2)))
         if attackPlusOrMinus == 1 {
-            print("+")
             returnPoints = returnPoints + CGFloat(attackRan)
         } else {
             
-            print("-")
             returnPoints = returnPoints - CGFloat(attackRan)
             
         }
 
-        print(attackRan)
         return returnPoints
     }
     
@@ -3372,19 +3335,16 @@ let monsters =
             battleMode()
             
         }  else {
-            print("Session End")
             
             //currentWordSequence = 0
             //currentWordSequence = unitNumber * 3
+
             
             //取得元素
-            
-            
             //取得User資料, 比對元素,
             
             if let getElements = user?["getElement"] as? String{
                 
-                print("has data")
                 
                 if getElements.contains(syllablesToCheck){
                     
@@ -3434,7 +3394,7 @@ let monsters =
                                             
                                             //如果滿的話
                                             if normalElemsFull{
-                                                print("normal元素滿了")
+
                                                 bagIsFull = true
                                                 
                                                 elemPageToPass = 0
@@ -3442,8 +3402,6 @@ let monsters =
                                                 typeSegToPass = -1
                                                 
                                             } else {
-                                                
-                                                print("normal元素還有")
                                                 
                                                   bagIsFull = false
                                                 
@@ -3458,7 +3416,7 @@ let monsters =
                                             case "metal":
                                                 if metalElemsFull{
                                                     
-                                                    print("metal元素滿了")
+                                                    //print("metal元素滿了")
                                                       bagIsFull = true
                                                     elemPageToPass = 1
                                                     segIndexToPass = 1
@@ -3467,12 +3425,12 @@ let monsters =
                                                     
                                                 } else {
                                                     
-                                                    print("metal元素還有")
+                                                    //print("metal元素還有")
                                                     bagIsFull = false
                                                 }
                                             case "wood":
                                                 if woodElemsFull{
-                                                    print("wood元素滿了")
+                                                    //print("wood元素滿了")
                                                       bagIsFull = true
                                                     elemPageToPass = 2
                                                     segIndexToPass = 1
@@ -3481,14 +3439,13 @@ let monsters =
                                                     
                                                 } else {
                                                 
-                                                    print("wood元素還有")
+                                                    //print("wood元素還有")
                                                     bagIsFull = false
                                                 }
                                             case "water":
                                                 if waterElemsFull{
                                                     
-                                                    
-                                                    print("water元素滿了")
+                                                    //print("water元素滿了")
                                                       bagIsFull = true
                                                     elemPageToPass = 3
                                                     segIndexToPass = 1
@@ -3496,13 +3453,13 @@ let monsters =
                                                     
                                                 } else {
                                                     
-                                                    print("water元素還有")
+                                                    //print("water元素還有")
                                                     bagIsFull = false
                                                 }
                                             case "fire":
                                                 if fireElemsFull{
                                                     
-                                                    print("fire元素滿了")
+                                                    //print("fire元素滿了")
                                                       bagIsFull = true
                                                     elemPageToPass = 4
                                                     segIndexToPass = 1
@@ -3510,13 +3467,13 @@ let monsters =
                                                     
                                                 } else {
                                                     
-                                                    print("fire元素還有")
+                                                    //print("fire元素還有")
                                                     bagIsFull = false
                                                 }
                                             case "earth":
                                                 if earthElemsFull{
                                                     
-                                                    print("earth元素滿了")
+                                                    //print("earth元素滿了")
                                                       bagIsFull = true
                                                     elemPageToPass = 5
                                                     segIndexToPass = 1
@@ -3524,7 +3481,7 @@ let monsters =
                                                     
                                                     
                                                 } else {
-                                                    print("earth元素還有")
+                                                    //print("earth元素還有")
                                                     bagIsFull = false
                                                     
                                                 }
@@ -3537,7 +3494,9 @@ let monsters =
                                                         if value == elemValue{
                                                             
                                                             upgradeCount += 1
+                                                            //append顯示名字
                                                             upgradeNames.append(name)
+                                                            //所合併的寵物
                                                             upgradeValue = value
                                                             
                                                         }
@@ -3558,8 +3517,6 @@ let monsters =
  
                                                 if upgradeCount == 2 {
                                                     
-                                                    print("合併元素升級寵物囉～～～～～～～～～～～")
-                                                    
                                                     isUpgrade = true
                                                     
                                                 }
@@ -3567,7 +3524,7 @@ let monsters =
                                                 //假如背包滿而且還沒要升級
                                                 if combineElemsFull && isUpgrade == false{
                                                     
-                                                    print("合併元素滿了")
+                                                    //print("合併元素滿了")
                                                     bagIsFull = true
                                                     
                                                     elemPageToPass = 6
@@ -3576,7 +3533,7 @@ let monsters =
                                                     
                                                 } else {
                                                     
-                                                    print("合併元素還有")
+                                                    //print("合併元素還有")
                                                     bagIsFull = false
                                                     
                                                 }
@@ -3596,7 +3553,7 @@ let monsters =
                                         if rareElemsFull{
                                             
                                             
-                                            print("rare元素滿了")
+                                            //print("rare元素滿了")
                                             bagIsFull = true
                                             
                                             elemPageToPass = 7
@@ -3606,7 +3563,7 @@ let monsters =
                                         } else {
                                             
                                             
-                                            print("rare元素還有")
+                                            //print("rare元素還有")
                                             bagIsFull = false
                                         }
                       
@@ -3626,20 +3583,19 @@ let monsters =
                     
                     
                 
-                    //Part 1. 另外需要判斷是否寵物合併升級
-                    //Part 2. 上方判斷完後就能知道背包狀態
+                    //Part 1. 判斷是否寵物合併升級
+                    //Part 2. 上方判斷完後就能知道背包是否已滿
                     
                     if isUpgrade {
                         
-                        print("upgrade")
                         
                         //如果要合併寵物的話
                         //Part 1. 合併動畫
                         //Part 2. 抓寵物圖片
                         //Part 3. 一樣跳回原畫面
                         
-                        print(upgradeElemsInfo)
-                        print(syllablesToCheck)
+                        //print(upgradeElemsInfo)
+                        //print(syllablesToCheck)
                         
                         notifyUpgrade()
 
@@ -3738,7 +3694,7 @@ let monsters =
         //Part 3. 浮現寵物
         //Part 4. 顯示寵物數值
         var node = SKSpriteNode()
-        var node1 = SKSpriteNode()
+        //var node1 = SKSpriteNode() //不用作中間那個元素的動畫
         var node2 = SKSpriteNode()
         
         //製作畫面
@@ -3818,7 +3774,8 @@ let monsters =
         if let elemImgNode = findImageNode(name: "getElement1") as SKSpriteNode?{
             elemImgNode.addChild(elemNameLabel1)
             elemImgNode.addChild(elemNumLabel1)
-            node1 = elemImgNode
+            //node1 = elemImgNode //不用作中間那個元素的動畫
+
         }
 
         let secondElemName = upgradeNames[1]
@@ -3853,7 +3810,6 @@ let monsters =
         
         
         //三元素合一動畫
-        
      
         let moveToRight = SKAction.moveTo(x: 0, duration: 0.5)
         let moveToLeft = SKAction.moveTo(x: 0, duration: 0.5)
@@ -3876,10 +3832,6 @@ let monsters =
           
             self!.changeImageAlfa(name: "petGet", toAlpha: 1, time: 0.5)
             
-            
-            
-           
-            
             self!.makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
             self!.makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
             
@@ -3897,8 +3849,7 @@ let monsters =
                     if petId == self!.upgradeValue{
                         
                         if let petName = self!.partOnePets[i]["petName"] as! String?{
-                            
-                            
+
                         //製作文字
                         self!.makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "獲得新寵物: " + petName, zPosition: 14, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
                         }
@@ -3949,8 +3900,7 @@ let monsters =
                     
                     //不包含雙元素
                     if !function.contains(","){
-                        
-                        
+
                         switch function{
                             
                         case "hp":
@@ -4200,8 +4150,6 @@ let monsters =
         makeImageNode(name: "quitButton", image: "quitButton", x: 0, y: -400, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
         
         
-        
-        
         var elemImg = "elemG"
         
         for i in 0 ..< elements.count{
@@ -4269,11 +4217,11 @@ let monsters =
         //亮星星, 星星位置要抓
         makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
         makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
+        //makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
         
         let star1 = findImageNode(name: "1star")
         let star2 = findImageNode(name: "2star")
-        let star3 = findImageNode(name: "3star")
+        //let star3 = findImageNode(name: "3star")
         
         let loseTextLabel = findLabelNode(name: "loseText")
         
@@ -4284,7 +4232,6 @@ let monsters =
         
         if let getElements = user?["getElement"] as? String{
             
-            print("has data")
             
             if getElements.contains(syllablesToCheck){
                 
@@ -4505,8 +4452,6 @@ let monsters =
         
         var hurtMonster = fullMonsterBlood / CGFloat(monsterHp) * point
         
-        
-        
         //假如超過分數就扣光
         if hurtMonster > monsterBlood {
             hurtMonster = monsterBlood
@@ -4525,26 +4470,13 @@ let monsters =
             findImageNode(name: whom).run(hurtAction)
             monsterBlood = monsterBlood - hurtMonster
             
-            /*
-             if monsterBlood == 0 {
-             
-             isRoundEnd = true
-             
-             }
-             print(monsterBlood)
-             */
+
         case "playerBlood":
             let hurtAction = SKAction.resize(toWidth: playerBlood - hurtPlayer, duration: 0.2)
             findImageNode(name: whom).run(hurtAction)
             playerBlood = playerBlood - hurtPlayer
             
-            /*
-             if playerBlood == 0 {
-             
-             isRoundEnd = true
-             }
-             */
-            
+
         default:
             break
         }
@@ -4609,7 +4541,6 @@ let monsters =
     
     func removePoison(word:String, poisonNumber:Int){
         
-        print("removePoison")
         
         //找選項正確音節
         let selectedLabel = findLabelNode(name: word + String(poisonNumber) + "Sel")
@@ -4628,37 +4559,6 @@ let monsters =
         
         
     }
-    
-    
-    //變形動畫的範例
-    func warpNode(_ node: SKSpriteNode)
-    {
-        
-        let sourcePositions: [vector_float2] =
-            [
-                vector_float2(0, 0),   vector_float2(0.5, 0),   vector_float2(1, 0),  //bottom row of object
-                vector_float2(0, 0.5), vector_float2(0.5, 0.5), vector_float2(1, 0.5),  //middle row of object
-                vector_float2(0, 1),   vector_float2(0.5, 1),   vector_float2(1, 1)  //top row of object
-        ]
-        
-        let destinationPositions: [vector_float2] =
-            [
-                vector_float2(0, 0),   vector_float2(0.5, 0),   vector_float2(1, 0),  //bottom row of object
-                vector_float2(0, 0.5), vector_float2(0.5, 0.5), vector_float2(1, 0.5),  //middle row of object
-                vector_float2(0, 0.8), vector_float2(0.5, 0.8), vector_float2(1, 0.8)  //top row of object
-        ]
-        
-        let warpGeometryGrid = SKWarpGeometryGrid(columns: 2, rows: 2, sourcePositions: sourcePositions, destinationPositions: destinationPositions)
-        
-        let warpGeometryGridNoWarp = SKWarpGeometryGrid(columns: 2, rows: 2)
-        
-        node.warpGeometry = warpGeometryGridNoWarp
-        
-        let warpAction = SKAction.animate(withWarps: [warpGeometryGridNoWarp, warpGeometryGrid, warpGeometryGridNoWarp], times: [0.25, 0.5, 0.75], restore: true)
-        
-        node.run(warpAction!)
-    }
-    
     
     
     //回傳SKLabelNode打字動畫+閃爍指令的func
@@ -4755,8 +4655,8 @@ let monsters =
             //計算字母有多少個, 用來決定xPos
             var characterCounts = 0
             for i in sepWords{
-                characterCounts = characterCounts + i.characters.count
-                
+                //characterCounts = characterCounts + i.characters.count
+                characterCounts = characterCounts + i.count
             }
             
             switch characterCounts {
@@ -4828,7 +4728,7 @@ let monsters =
                 if syllablesWithoutDigit.contains("_e"){
                     
                     //確認是_e部首
-                    isSpecialE = true
+                    //isSpecialE = true
                     
                     //(1)有任何字節是三個字母
                     if characters.count == 3 {
@@ -4841,6 +4741,9 @@ let monsters =
                             if characters[2] == "e"{
                                 
                                 //***符合: _e 部首
+                                
+                                //確認是_e部首
+                                isSpecialE = true
                                 
                                 //要開始填入的順序+1
                                 sequenceToAppend += 1

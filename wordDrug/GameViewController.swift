@@ -87,14 +87,12 @@ class GameViewController: UIViewController {
     //跳回背包畫面的NC
     @objc func backToBackpack(_ notification: NSNotification){
         
-
         //抓四個數值, 回傳給前一個Vc
         if let page = notification.userInfo?["page"] as? Int{
             if let seg = notification.userInfo?["seg"] as? Int{
                 if let typeSeg = notification.userInfo?["typeSeg"] as? Int{
                     if let elem = notification.userInfo?["elem"] as? String{
                     
-
                     
                         //回傳給前一個Vc, 並在Vc裡viewWillAppear產生作用
                     if let presenter = presentingViewController as? PetViewController {
@@ -103,7 +101,7 @@ class GameViewController: UIViewController {
                         presenter.defaultTypeSeg = typeSeg
                         presenter.isBackpackFull = true
                         presenter.isElemAttachable = false
-                        presenter.defaultElemToDelete = elem
+                        presenter.defaultElemToGet = elem
                         
                     }
                     }
