@@ -468,6 +468,7 @@
 		AA3B03772004F0C300288B9D /* design.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA3B01D32004F0C200288B9D /* design.mp3 */; };
 		AA3B03782004F0C300288B9D /* cry.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA3B01D42004F0C200288B9D /* cry.mp3 */; };
 		AA3B03792004F0C300288B9D /* musician.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA3B01D52004F0C200288B9D /* musician.mp3 */; };
+		AA43E075200E07700005E8A3 /* newBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA43E074200E07700005E8A3 /* newBg.png */; };
 		AA452B121FDFF1C7004B669B /* playNow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA452B111FDFF1C7004B669B /* playNow.png */; };
 		AA452B141FDFF472004B669B /* questionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = AA452B131FDFF472004B669B /* questionMark.png */; };
 		AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4642841FC4216300D34516 /* LoginViewController.swift */; };
@@ -1181,6 +1182,7 @@
 		AA3B01D32004F0C200288B9D /* design.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = design.mp3; sourceTree = "<group>"; };
 		AA3B01D42004F0C200288B9D /* cry.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cry.mp3; sourceTree = "<group>"; };
 		AA3B01D52004F0C200288B9D /* musician.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = musician.mp3; sourceTree = "<group>"; };
+		AA43E074200E07700005E8A3 /* newBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBg.png; sourceTree = "<group>"; };
 		AA452B111FDFF1C7004B669B /* playNow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playNow.png; sourceTree = "<group>"; };
 		AA452B131FDFF472004B669B /* questionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionMark.png; sourceTree = "<group>"; };
 		AA4642841FC4216300D34516 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -2348,6 +2350,7 @@
 				AAECC1221FB08C14004ED813 /* monsterExplode.png */,
 				AA86F3B71FA9CD99004E7997 /* blurredBg.png */,
 				AA8E9F521FB1642000509D39 /* flatMonster3.png */,
+				AA43E074200E07700005E8A3 /* newBg.png */,
 				AA8E9F571FB1647D00509D39 /* flatMonster2.png */,
 				AA86F3B91FA9CDF5004E7997 /* flatMonster1.png */,
 				AA4E89E51FCD7EDD00017247 /* petAva.png */,
@@ -2502,6 +2505,7 @@
 				AA3B03292004F0C300288B9D /* badge.mp3 in Resources */,
 				AA3B02F42004F0C300288B9D /* too.mp3 in Resources */,
 				AA3B01E42004F0C200288B9D /* sky.mp3 in Resources */,
+				AA43E075200E07700005E8A3 /* newBg.png in Resources */,
 				AA8E9F641FB1752E00509D39 /* attack3.png in Resources */,
 				AAB68D4F1FE8F35400CCF820 /* 1-4-10.png in Resources */,
 				AA3B02BB2004F0C300288B9D /* hill.mp3 in Resources */,

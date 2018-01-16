@@ -1233,8 +1233,7 @@ class PetViewController: UIViewController {
                             //還需要寫分析多元素的功能
                             let functionArray = function.components(separatedBy: ",")
                             
-                            print(functionArray)
-                            
+                            //分別填入功能說明
                             for f in 0 ..< functionArray.count {
                                 
                                 switch functionArray[f]{
@@ -3511,38 +3510,44 @@ class PetViewController: UIViewController {
                     
                     titleChinese.append("稀有元素")
                     
-                    //還需要寫分析多元素的功能
+                    //分析多元素的功能
                      let functionArray = functions.components(separatedBy: ",")
-                    
-                    print(functionArray)
                     
                     for f in 0 ..< functionArray.count {
                     
                         switch functionArray[f]{
                             
+                            //依序填入功能說明
                         case "hp":
                             if f != 0 {
-                                functionChinese[i] = functionChinese[i] + "血量+"}else {
+                                functionChinese[i] = functionChinese[i] + "血量+"
                                 
+                            }else {
                                 functionChinese.append("血量+")
                             }
                         case "att":
                             if f != 0 {
-                                functionChinese[i] = functionChinese[i] + "攻擊力+"}else {
+                                functionChinese[i] = functionChinese[i] + "攻擊力+"
+                                
+                            }else {
                                 
                                 functionChinese.append("攻擊力+")
                             }
 
                         case "def":
                             if f != 0 {
-                                functionChinese[i] = functionChinese[i] + "防禦力+"}else {
+                                functionChinese[i] = functionChinese[i] + "防禦力+"
+                                
+                            }else {
                                 
                                 functionChinese.append("防禦力+")
                             }
 
                         case "hit":
                             if f != 0  {
-                                functionChinese[i] = functionChinese[i] + "爆擊率+"}else {
+                                functionChinese[i] = functionChinese[i] + "爆擊率+"
+                                
+                            }else {
                                 
                                 functionChinese.append("爆擊率+")
                             }
@@ -3577,8 +3582,6 @@ class PetViewController: UIViewController {
             }
             
         }
-     
-        print(functionChinese)
         
     }
     
@@ -3675,6 +3678,7 @@ class PetViewController: UIViewController {
                     let functionArray = function.components(separatedBy: ",")
                     let valueArray = value.components(separatedBy: ",")
                     
+                    //跑所有的稀有func
                     for f in 0 ..< functionArray.count{
                         
                         switch functionArray[f]{

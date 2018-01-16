@@ -420,7 +420,7 @@ let monsters =
         syllables = syllableSets[spotNumber]
         
         //建立整個背景
-        makeImageNode(name: "bg", image: "testBgBlurred", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "bg", image: "newBg", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
         //建立任務版子
         makeImageNode(name: "questBoard", image: "testQuestBoardDark", x: 0, y: 380, width: 610, height: 0, z: 1, alpha: 1, isAnchoring: false)
@@ -489,6 +489,7 @@ let monsters =
         makeImageNode(name: "4emptyButton", image: "darkerD", x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         
         //建立三黑點+亮點, 並hidden
+        /*
         makeImageNode(name: "bDot1", image: "bDot1", x: -70, y: -600, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
         makeImageNode(name: "bDot2", image: "bDot2", x: 0, y: -600, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
         makeImageNode(name: "bDot3", image: "bDot3", x: 70, y: -600, width: 60, height: 30, z: 2, alpha: 0, isAnchoring: false)
@@ -496,9 +497,10 @@ let monsters =
         makeImageNode(name: "lDot1", image: "lDot1", x: -70, y: -600, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
         makeImageNode(name: "lDot2", image: "lDot2", x: 0, y: -600, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
         makeImageNode(name: "lDot3", image: "lDot3", x: 70, y: -600, width: 105, height: 70, z: 3, alpha: 0, isAnchoring: false)
-        
+        */
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
+        
         
         
         //自我爆炸explode
@@ -553,6 +555,23 @@ let monsters =
         petHeal = pet?["petHeal"] as! Int
         petType = pet?["petType"] as! String
         
+        
+        //製作寵物畫面
+        let petImg = pet!["petImg"] as! String
+        let petName = pet!["petName"] as! String
+
+        makeImageNode(name: "petAva", image: petImg, x: -190, y: -480, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
+        makeLabelNode(x: -80, y: -480, alignMent: .left, fontColor: .white, fontSize: 35, text: petName, zPosition: 2, name: "petName", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: -200, y: -565, alignMent: .left, fontColor: .white, fontSize: 25, text: "生命值 \(petLife)", zPosition: 1, name: "petLife", fontName: "Helvetica", isHidden: false, alpha: 1)
+        makeLabelNode(x: -200, y: -605, alignMent: .left, fontColor: .white, fontSize: 25, text: "攻擊力 \(petAttack)", zPosition: 1, name: "petAttack", fontName: "Helvetica", isHidden: false, alpha: 1)
+        makeLabelNode(x: -50, y: -565, alignMent: .left, fontColor: .white, fontSize: 25, text: "魔攻 \(petExtra)", zPosition: 1, name: "petMag", fontName: "Helvetica", isHidden: false, alpha: 1)
+        makeLabelNode(x: -50, y: -605, alignMent: .left, fontColor: .white, fontSize: 25, text: "防禦 \(petDefense)", zPosition: 1, name: "petDef", fontName: "Helvetica", isHidden: false, alpha: 1)
+        makeLabelNode(x: 100, y: -565, alignMent: .left, fontColor: .white, fontSize: 25, text: "爆擊 \(petDouble)%", zPosition: 1, name: "petHit", fontName: "Helvetica", isHidden: false, alpha: 1)
+        makeLabelNode(x: 100, y: -605, alignMent: .left, fontColor: .white, fontSize: 25, text: "治癒 \(petHeal)", zPosition: 1, name: "petHeal", fontName: "Helvetica", isHidden: false, alpha: 1)
+        if petType != ""{
+        makeImageNode(name: "petType", image: petType, x: 200, y: -470, width: 50, height: 50, z: 2, alpha: 1, isAnchoring: false)
+        }
+        print("petType:\(petType)")
     }
     
     //拉開任務＋連結開始學習
@@ -606,9 +625,12 @@ let monsters =
                         self!.scanAndPronounce()
                         
                         //產生黑點點
+                        /*
                         self!.findImageNode(name: "bDot1").alpha = 1
                         self!.findImageNode(name: "bDot2").alpha = 1
                         self!.findImageNode(name: "bDot3").alpha = 1
+                          */
+ 
                     }
                     
                 })
@@ -690,12 +712,14 @@ let monsters =
                                 self!.playSoundTime += 1
                                 
                                 //聽讀模式
-                                self!.lightDotFunc(times: self!.playSoundTime)
+                                //self!.lightDotFunc(times: self!.playSoundTime)
+                               
                                 
                             } else{
                                 
                                 //練習模式
-                                self!.lightDotFunc(times: self!.correctTime)
+                                //self!.lightDotFunc(times: self!.correctTime)
+                        
                                 
                             }
                             
@@ -838,18 +862,28 @@ let monsters =
         makeImageNode(name: "monsterTitleBg", image: "monsterTitle", x: 0, y: 632, width: 750, height: 70, z: 4, alpha: 0, isAnchoring: false)
         
         //怪物title
-        makeLabelNode(x: 0, y: 624, alignMent: .center, fontColor: tiffanyColor, fontSize: 35, text: monsterName, zPosition: 5, name: "monsterTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: 600, alignMent: .center, fontColor: tiffanyColor, fontSize: 35, text: monsterName, zPosition: 5, name: "monsterTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         //怪物血Bg
         makeImageNode(name: "monsterBloodBg", image: "bloodBg", x: 0, y: 200, width: 510, height: 20, z: 4, alpha: 0, isAnchoring: false)
         //怪物血
         makeImageNode(name: "monsterBlood", image: "monsterBlood", x: -256, y: 190, width: 510, height: 20, z: 5, alpha: 0, isAnchoring: true)
         
+        /*
         //player血Bg
+        
         makeImageNode(name: "playerBloodBg", image: "bloodBg", x: 0, y: -490, width: 500, height: 20, z: 4, alpha: 0, isAnchoring: false)
         
         //player血
         makeImageNode(name: "playerBlood", image: "playerBlood", x: -273, y: -525, width: 545, height: 70, z: 5, alpha: 0, isAnchoring: true)
+        */
+        
+        //player血Bg
+        
+        makeImageNode(name: "playerBloodBg", image: "bloodBg", x: 65, y: -510, width: 390, height: 20, z: 4, alpha: 0, isAnchoring: false)
+        
+        //player血
+        makeImageNode(name: "playerBlood", image: "playerBlood", x: -148, y: -545, width: 425, height: 70, z: 5, alpha: 0, isAnchoring: true)
         
         //確認血量
         fullMonsterBlood = findImageNode(name: "monsterBlood").size.width
@@ -2919,7 +2953,7 @@ let monsters =
                                 
                             } else {
                                 //繼續產生學習單字
-                                self!.dotSparkingFunc()
+                                //self!.dotSparkingFunc()
                                 
                                 let when = DispatchTime.now() + 0.5
                                 
@@ -2944,6 +2978,7 @@ let monsters =
                                         self!.playSoundTime = 0
                                         
                                         //點點消失
+                                        /*
                                         self!.findImageNode(name: "lDot1").alpha = 0
                                         self!.findImageNode(name: "lDot2").alpha = 0
                                         self!.findImageNode(name: "lDot3").alpha = 0
@@ -2951,7 +2986,7 @@ let monsters =
                                         self!.findImageNode(name: "bDot1").alpha = 0
                                         self!.findImageNode(name: "bDot2").alpha = 0
                                         self!.findImageNode(name: "bDot3").alpha = 0
-                                        
+                                        */
                                         
                                         //任務版重來
                                         self!.closeQuestBoardAndReopen()
@@ -4968,7 +5003,6 @@ let monsters =
                             
                         } else{
                             //第一組字
-                            print("firstSepWord:\(sepWord)")
                             makeLabelNode(x: posX, y: posY, alignMent: align!, fontColor: fontColor, fontSize: fontSize, text: sepWord, zPosition: 2, name: sepWord  + String(i) + lang, fontName: "Helvetica Light", isHidden: false, alpha: 0)
                             
                         }
@@ -5199,7 +5233,7 @@ let monsters =
             //封鎖按鍵
             isUserInteractionEnabled = false
             
-            dotSparkingFunc()
+            //dotSparkingFunc()
             
             let when = DispatchTime.now() + 0.5
             
@@ -5209,9 +5243,11 @@ let monsters =
                 self!.isPracticeMode = true
                 
                 //點點消失
+                /*
                 self!.findImageNode(name: "lDot1").alpha = 0
                 self!.findImageNode(name: "lDot2").alpha = 0
                 self!.findImageNode(name: "lDot3").alpha = 0
+                */
                 
                 //更改提示字
                 self!.findLabelNode(name: "hint").text = "[ 練習拼字 ]"
