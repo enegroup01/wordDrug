@@ -183,7 +183,7 @@ class PetViewController: UIViewController {
                     ["name":"ou1","func":"metal","value":"150"],
                     ["name":"ow1","func":"hp","value":"450"],
                     ["name":"oy1","func":"att,hit,upgrade","value":"210,9,1-12-10"],
-                    
+
                     ["name":"ph1","func":"att","value":"180"],
                     ["name":"pi1","func":"def","value":"45"],
                     ["name":"pl1","func":"hit","value":"10"],
@@ -425,6 +425,10 @@ class PetViewController: UIViewController {
     @IBOutlet weak var trashCanImg: UIImageView!
     
     var canMoveElem = true
+    
+    //稀有的dictionary
+    var rareElemDict = [[String:Int]]()
+    var rareSelElemDict = [[String:Int]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1088,13 +1092,9 @@ class PetViewController: UIViewController {
         //抓取資訊, append進去
         fetchElementInfo()
         
-        
         //*** 處理selElems的部分 ***
         //做選項裡的圖, 包含該頁及非該頁
         //跑每一頁, 用意在於要確認每組第一個值為頁數, 然後抓取他們的value
-        
-        
-        
         
         for i in 0 ..< exactSelOccupiedByElemIndex.count{
             
@@ -1230,7 +1230,56 @@ class PetViewController: UIViewController {
                             //還需要寫分析多元素的功能
                             
                             selTitleChinese[i] = "稀有元素"
-                            selFunctionChinese[i] = "稀有元素"
+                            //還需要寫分析多元素的功能
+                            let functionArray = function.components(separatedBy: ",")
+                            
+                            print(functionArray)
+                            
+                            for f in 0 ..< functionArray.count {
+                                
+                                switch functionArray[f]{
+                                    
+                                case "hp":
+                                    if f != 0 {
+                                        selFunctionChinese[i] = selFunctionChinese[i] + "血量+"}else {
+                                        
+                                        selFunctionChinese[i] = ("血量+")
+                                    }
+                                case "att":
+                                    if f != 0 {
+                                        selFunctionChinese[i] = selFunctionChinese[i] + "攻擊力+"}else {
+                                        
+                                        selFunctionChinese[i] = ("攻擊力+")
+                                    }
+                                    
+                                case "def":
+                                    if f != 0 {
+                                        selFunctionChinese[i] = selFunctionChinese[i] + "防禦力+"}else {
+                                        
+                                        selFunctionChinese[i] = ("防禦力+")
+                                    }
+                                    
+                                case "hit":
+                                    if f != 0  {
+                                        selFunctionChinese[i] = selFunctionChinese[i] + "爆擊率+"}else {
+                                        
+                                        selFunctionChinese[i] = ("爆擊率+")
+                                    }
+                                    
+                                case "heal":
+                                    if f != 0  {
+                                        selFunctionChinese[i] = selFunctionChinese[i] + "治癒+"}else {
+                                        
+                                        selFunctionChinese[i] = ("治癒+")
+                                    }
+                                    
+                                default:
+                                    break
+                                    
+                                }
+                                
+                            }
+
                             
                         }
                         
@@ -1806,6 +1855,24 @@ class PetViewController: UIViewController {
                             } else if title == "寵物碎片"{
                                 elemInfoLabel.text = function
                                 
+                            } else if function.contains("+"){
+                                //稀有元素顯示
+                                //let rareValueArray = values[i].components.(separatedBy: ",")
+                                let rareValue = values[i]
+                                let rareValueArray = rareValue.components(separatedBy: ",")
+                                var functionArray = function.components(separatedBy: "+")
+                                functionArray.removeLast()
+
+                                elemInfoLabel.numberOfLines = 2
+                                /*
+                                elemInfoLabel.text = functionArray[0] + " +" + rareValueArray[0] + "\n" + functionArray[1] + " +" + rareValueArray[1]
+                                  */
+                                elemInfoLabel.text = ""
+                                for i in 0 ..< rareValueArray.count{
+                                    elemInfoLabel.text = elemInfoLabel.text! + functionArray[i] + " +" + rareValueArray[i]
+                                }
+                                
+                                
                             } else {
                                 
                                 elemInfoLabel.text = function + " +\(values[i])"
@@ -1891,6 +1958,25 @@ class PetViewController: UIViewController {
                                 elemInfoLabel.text = function + " +\(selValues[i])%"
                             } else if title == "寵物碎片"{
                                 elemInfoLabel.text = function
+                                
+                            } else if function.contains("+"){
+                                
+                                //稀有元素顯示
+                                //let rareValueArray = values[i].components.(separatedBy: ",")
+                                let rareValue = selValues[i]
+                                let rareValueArray = rareValue.components(separatedBy: ",")
+                                var functionArray = function.components(separatedBy: "+")
+                                functionArray.removeLast()
+                                
+                                elemInfoLabel.numberOfLines = 2
+                                /*
+                                 elemInfoLabel.text = functionArray[0] + " +" + rareValueArray[0] + "\n" + functionArray[1] + " +" + rareValueArray[1]
+                                 */
+                                elemInfoLabel.text = ""
+                                for i in 0 ..< rareValueArray.count{
+                                    elemInfoLabel.text = elemInfoLabel.text! + functionArray[i] + " +" + rareValueArray[i]
+                                }
+                                
                                 
                             } else {
                                 
@@ -3426,8 +3512,54 @@ class PetViewController: UIViewController {
                     titleChinese.append("稀有元素")
                     
                     //還需要寫分析多元素的功能
+                     let functionArray = functions.components(separatedBy: ",")
                     
-                    functionChinese.append("")
+                    print(functionArray)
+                    
+                    for f in 0 ..< functionArray.count {
+                    
+                        switch functionArray[f]{
+                            
+                        case "hp":
+                            if f != 0 {
+                                functionChinese[i] = functionChinese[i] + "血量+"}else {
+                                
+                                functionChinese.append("血量+")
+                            }
+                        case "att":
+                            if f != 0 {
+                                functionChinese[i] = functionChinese[i] + "攻擊力+"}else {
+                                
+                                functionChinese.append("攻擊力+")
+                            }
+
+                        case "def":
+                            if f != 0 {
+                                functionChinese[i] = functionChinese[i] + "防禦力+"}else {
+                                
+                                functionChinese.append("防禦力+")
+                            }
+
+                        case "hit":
+                            if f != 0  {
+                                functionChinese[i] = functionChinese[i] + "爆擊率+"}else {
+                                
+                                functionChinese.append("爆擊率+")
+                            }
+
+                        case "heal":
+                            if f != 0  {
+                                functionChinese[i] = functionChinese[i] + "治癒+"}else {
+                                
+                                functionChinese.append("治癒+")
+                            }
+
+                        default:
+                            break
+                            
+                        }
+                        
+                    }
                     
                 }
             }
@@ -3445,6 +3577,8 @@ class PetViewController: UIViewController {
             }
             
         }
+     
+        print(functionChinese)
         
     }
     
@@ -3488,13 +3622,12 @@ class PetViewController: UIViewController {
         
         for i in 0 ..< exactSelOccupiedByElemIndex.count{
             
-            
             for (page,elem) in exactSelOccupiedByElemIndex[i]{
                 
                 //抓取所有元素的func 及value
                 var function = String()
                 var value = String()
-
+                
                 switch page {
                     
                 case 0:
@@ -3506,7 +3639,6 @@ class PetViewController: UIViewController {
                     
                     function = "metal"
                     value = getValues(group: metalElems, type: "value", elem: elem)
-                    
                     
                 case 2:
                     
@@ -3535,8 +3667,71 @@ class PetViewController: UIViewController {
                     
                 case 7:
                     
-                    function = "rare"
+                    //在此計算稀有元素
+                    function = getValues(group: rareElems, type: "func", elem: elem)
                     value = getValues(group: rareElems, type: "value", elem: elem)
+                    
+                    //抓出所有的func
+                    let functionArray = function.components(separatedBy: ",")
+                    let valueArray = value.components(separatedBy: ",")
+                    
+                    for f in 0 ..< functionArray.count{
+                        
+                        switch functionArray[f]{
+                        case "hp":
+                            
+                            petLifeLabel.textColor = .green
+                            
+                            petLifeLabel.text = String(Int(petLifeLabel.text!)! + Int(valueArray[f])!)
+                            
+                            pet?["petHp"] = Int(petLifeLabel.text!)!
+                            
+                        case "att":
+                            petAttackLabel.textColor = .green
+                            
+                            petAttackLabel.text = String(Int(petAttackLabel.text!)! + Int(valueArray[f])!)
+                            
+                            //pet?["petAtt"] = Int(Int(petAttackLabel.text!)! + Int(value)!)
+                            pet?["petAtt"] = Int(petAttackLabel.text!)!
+                            
+                            
+                        case "def":
+                            petDefenseLabel.textColor = .green
+                            
+                            petDefenseLabel.text = String(Float(petDefenseLabel.text!)! + Float(valueArray[f])!)
+                            
+                            pet?["petDef"] = Float(petDefenseLabel.text!)!
+                            
+                            
+                        case "hit":
+                            petDoubleAttackLabel.textColor = .green
+                            
+                            
+                            let doubleAttackNumber = petDoubleAttackLabel.text?.replacingOccurrences(of: "%", with: "")
+                            
+                            petDoubleAttackLabel.text = String(Int(doubleAttackNumber!)! + Int(valueArray[f])!) + "%"
+                            
+                            pet?["petHit"] = Int(petDoubleAttackLabel.text!.replacingOccurrences(of: "%", with: ""))!
+                            
+                            
+                        case "heal":
+                            petCureLabel.textColor = .green
+                            
+                            petCureLabel.text = String(Int(petCureLabel.text!)! + Int(valueArray[f])!)
+                            
+                            pet?["petHeal"] = Int(petCureLabel.text!)!
+                            
+                       
+                        default:
+                            break
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    
+                    
                     
                 default:
                     break
@@ -3587,8 +3782,6 @@ class PetViewController: UIViewController {
                     
                     pet?["petHeal"] = Int(petCureLabel.text!)!
                     
-                    
-                    
                 case "wood":
                     
                     petExtraAttackLabel.textColor = .green
@@ -3622,8 +3815,6 @@ class PetViewController: UIViewController {
                     
                 case "fire":
                     
-                    
-                    
                     petExtraAttackLabel.textColor = .green
                     petExtraAttackLabel.text = String(petMagValue + Int(value)!)
                     pet?["petMag"] = Int(petMagValue + Int(value)!)
@@ -3649,7 +3840,6 @@ class PetViewController: UIViewController {
                     
                     
                 }
-
                 
             }
 
