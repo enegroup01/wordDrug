@@ -1417,7 +1417,6 @@ let monsters =
             
             for touch in touches{
                 
-                
                 isEndOnNode = true
                 
                 //設定正在移動中的位置
@@ -1561,6 +1560,8 @@ let monsters =
     
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
         
         //手指離開後對答案的機制
         
@@ -3339,7 +3340,6 @@ let monsters =
             //currentWordSequence = 0
             //currentWordSequence = unitNumber * 3
 
-            
             //取得元素
             //取得User資料, 比對元素,
             

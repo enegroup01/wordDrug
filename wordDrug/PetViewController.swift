@@ -424,6 +424,7 @@ class PetViewController: UIViewController {
     //垃圾桶圖示
     @IBOutlet weak var trashCanImg: UIImageView!
     
+    var canMoveElem = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -701,6 +702,8 @@ class PetViewController: UIViewController {
 
     //最主要處理必須刪掉元素才能得到新元素的畫面及function
     override func viewWillAppear(_ animated: Bool) {
+
+        canMoveElem = true
         
         //如果背包滿的話
         if isBackpackFull{
@@ -819,18 +822,66 @@ class PetViewController: UIViewController {
             //一般進入
             
             print("normal entry")
-  
-            /*
-             //以下function應該都不需要
+            
+            self.view.isUserInteractionEnabled = false
+             //換寵物的話要及時更換頭像
             //抓所有寵物資訊
             let petAvaImg = pet!["petImg"] as! String
        
             //寵物大頭照
             petAva.image = UIImage(named: petAvaImg)
+            print(exactSelOccupiedByElemIndex)
+            //抓取所儲存的selElem, 因為如果已有選擇寵物就會更改成全部-1
+            exactSelOccupiedByElemIndex = exactElemSaved!
             
-            //petOriginal!["petMag"] = 0
+
+            //用elemPage來抓seg及顯示圖, 因為如果已有選擇寵物就會更改到normal
+            switch elemPage{
+            case 0:
+                showElems(segSelected: normalElems, img: "normalGem", delay: 0.01)
+                elemTypeSeg.selectedSegmentIndex = 0
+                typeSeg.isHidden = true
+            case 1:
+                showElems(segSelected: metalElems, img: "metalGem", delay: 0.01)
+                elemTypeSeg.selectedSegmentIndex = 1
+                typeSeg.isHidden = false
+
+                
+            case 2:
+                showElems(segSelected: woodElems, img: "woodGem", delay: 0.01)
+                typeSeg.selectedSegmentIndex = 1
+                typeSeg.isHidden = false
+                
+            case 3:
+                showElems(segSelected: waterElems, img: "waterGem", delay: 0.01)
+                typeSeg.selectedSegmentIndex = 2
+                typeSeg.isHidden = false
+            case 4:
+                showElems(segSelected: fireElems, img: "fireGem", delay: 0.01)
+                typeSeg.selectedSegmentIndex = 3
+                typeSeg.isHidden = false
+            case 5:
+                showElems(segSelected: earthElems, img: "earthGem", delay: 0.01)
+                typeSeg.selectedSegmentIndex = 4
+                typeSeg.isHidden = false
+
+            case 6:
+                showElems(segSelected: combineElems, img: "combineGem", delay: 0.01)
+                elemTypeSeg.selectedSegmentIndex = 2
+                  typeSeg.isHidden = true
+            case 7:
+                showElems(segSelected: rareElems, img: "rareGem", delay: 0.01)
+                elemTypeSeg.selectedSegmentIndex = 3
+                  typeSeg.isHidden = true
+            default:
+                break
+
+            }
+
+                        
+            //必須重新計算, 因為寵物會改變
             calculatePetValue()
-            */
+ 
         }
 
     }
@@ -1041,6 +1092,8 @@ class PetViewController: UIViewController {
         //*** 處理selElems的部分 ***
         //做選項裡的圖, 包含該頁及非該頁
         //跑每一頁, 用意在於要確認每組第一個值為頁數, 然後抓取他們的value
+        
+        
         
         
         for i in 0 ..< exactSelOccupiedByElemIndex.count{
@@ -1259,8 +1312,10 @@ class PetViewController: UIViewController {
         //計算寵物數值
         calculatePetValue()
 
+ 
         
-    /*
+    
+        /*
         for p in 0 ..< elemPages.count{
             
             //跑儲存的數字
@@ -1499,7 +1554,7 @@ class PetViewController: UIViewController {
          
          //計算寵物數值
          calculatePetValue()
-         */
+        */
         
         
     }
@@ -1529,7 +1584,10 @@ class PetViewController: UIViewController {
         
         //把play鍵隱藏起來為了跳回背包時不顯示
         playNowBtn.isHidden = true
+        
         performSegue(withIdentifier: "toGame", sender: self)
+
+        canMoveElem = false
         
     }
     
@@ -1924,7 +1982,7 @@ class PetViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
         userDefaults.set(encodedObject, forKey: "exactElemSaved")
-        userDefaults.synchronize()
+        //userDefaults.synchronize()
         
         //計算寵物數值
         calculatePetValue()
@@ -1941,7 +1999,7 @@ class PetViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
         userDefaults.set(encodedObject, forKey: "exactElemSaved")
-        userDefaults.synchronize()
+        //userDefaults.synchronize()
         
         
     }
@@ -2732,11 +2790,12 @@ class PetViewController: UIViewController {
             rareElemsFull = false
         }
         
-        
  }
     
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        //當離開畫面時需要鎖定此功能, 因為會在別的VC操控到他
+        if canMoveElem{
         
         for touch in touches {
             
@@ -3138,6 +3197,7 @@ class PetViewController: UIViewController {
                     //part 5. 沒有固定在任何地方的話就等於會回復到原位大小改成80
                     
                     if smallElemTouchedAnyImage == false{
+                        
                         print("沒有固定在任何地方的話就等於會回復到原位大小改成80")
                         
                         touchedElem.frame.size = CGSize(width:80, height: 80)
@@ -3198,9 +3258,7 @@ class PetViewController: UIViewController {
                                 
                                 if selElem.frame.contains(location){
                                     
-                                    
                                     print("碰到selElem就取代及改大小")
-                                    
                                     
                                     //selElem消失
                                     
@@ -3291,7 +3349,7 @@ class PetViewController: UIViewController {
                 
                 
             }
-            
+           
             //重置
             touchedElem = UIImageView()
             selTouchedElem = UIImageView()
@@ -3304,7 +3362,7 @@ class PetViewController: UIViewController {
             
         }
 
-        
+    }
     }
     
     
@@ -3514,9 +3572,12 @@ class PetViewController: UIViewController {
                 case "hit":
                     petDoubleAttackLabel.textColor = .green
                     
-                    petDoubleAttackLabel.text = String(Int(petDoubleAttackLabel.text!)! + Int(value)!)
+                
+                    let doubleAttackNumber = petDoubleAttackLabel.text?.replacingOccurrences(of: "%", with: "")
                     
-                    pet?["petHit"] = Int(petDoubleAttackLabel.text!)!
+                    petDoubleAttackLabel.text = String(Int(doubleAttackNumber!)! + Int(value)!) + "%"
+                    
+                    pet?["petHit"] = Int(petDoubleAttackLabel.text!.replacingOccurrences(of: "%", with: ""))!
                     
                     
                 case "heal":
@@ -3594,6 +3655,9 @@ class PetViewController: UIViewController {
 
             //儲存改變數值
             UserDefaults.standard.set(pet, forKey: "pet")
+            
+            //可以點擊畫面
+            self.view.isUserInteractionEnabled = true
         }
         
         /*

@@ -32,7 +32,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     //註冊功能
     @IBAction func registerClick(_ sender: Any) {
-        
+        print("register")
         // shortcuts
         let username = usernameTxt.text!.lowercased()
         let password = passwordTxt.text!
@@ -82,6 +82,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         
                         // get id from parseJSON dictionary
                         let id = parseJSON["id"]
+                        print(id)
                         
                         // successfully registered
                         if id != nil {

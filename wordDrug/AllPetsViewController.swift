@@ -355,16 +355,23 @@ class AllPetsViewController: UIViewController, UICollectionViewDelegate,UICollec
         pet = partOnePets[buttonIndex]
         petOriginal = pet
         UserDefaults.standard.set(pet, forKey: "pet")
-        self.dismiss(animated: false, completion: nil)
         
         //把所有elem歸零, 比較合理
         exactElemSaved = [[-1:-1],[-1:-1],[-1:-1]]
+
         
         //儲存elemSaved
         let userDefaults = UserDefaults.standard
         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
         userDefaults.set(encodedObject, forKey: "exactElemSaved")
         userDefaults.synchronize()
+
+       //設定前一頁的page
+        if let petVc = presentingViewController as? PetViewController{
+        petVc.elemPage = 0
+        }
+        self.dismiss(animated: false, completion: nil)
+        
     }
     
     @objc func cancelClicked(){

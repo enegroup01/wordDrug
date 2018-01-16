@@ -16,7 +16,6 @@ let endUnitKey = "endUnit"
 let backToBackpackKey = "backToBackpack"
 
 
-
 class GameViewController: UIViewController {
     
     var spotNumber = Int()
@@ -29,7 +28,6 @@ class GameViewController: UIViewController {
         print("gameReceivedUnit:\(unitNumber)")
         
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.jumpBackToElement), name: NSNotification.Name("endUnit"), object: nil)
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.backToBackpack), name: NSNotification.Name("backToBackpack"), object: nil)
       
@@ -68,15 +66,6 @@ class GameViewController: UIViewController {
     
     @objc func jumpBackToElement(){
         
-        /*
-        let elementVc = storyboard?.instantiateViewController(withIdentifier: "elementVc")
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = elementVc!
- */
-     
-        //self.dismiss(animated: true, completion: nil)
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "dismissPetView"), object: nil, userInfo: nil)
         
         //dimiss掉兩個VCs
    self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
