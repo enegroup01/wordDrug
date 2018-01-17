@@ -68,8 +68,7 @@ class GameViewController: UIViewController {
         
         
         //dimiss掉兩個VCs
-   self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
-
+        self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
     }
     
 

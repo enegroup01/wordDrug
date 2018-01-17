@@ -14,6 +14,10 @@ let passSpotNumberKey = "passUnitNumber"
 //回到地圖
 let backToMapKey = "backToMap"
 
+//即時更新過觀點
+let gamePassUpdateKey = "gamePassUpdate"
+
+
 
 class ElementViewController: UIViewController {
     
@@ -32,6 +36,8 @@ class ElementViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(ElementViewController.jumpBackToMap), name: NSNotification.Name("backToMap"), object: nil)
         
+                NotificationCenter.default.addObserver(self, selector: #selector(ElementViewController.notifyGamePassUpdate), name: NSNotification.Name("gamePassUpdate"), object: nil)
+        
         if let scene = GKScene(fileNamed: "ElementScene") {
             
             // Get the SKScene from the loaded GKScene
@@ -42,6 +48,7 @@ class ElementViewController: UIViewController {
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
+                sceneNode.spotNumber = spotNumber
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
@@ -57,11 +64,23 @@ class ElementViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "gamePassUpdate"), object: nil, userInfo: nil)
+        
+    }
     
     @objc func jumpBackToMap(){
         
         //跳回上一個畫面
         self.dismiss(animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    @objc func notifyGamePassUpdate(){
+        
         
     }
     

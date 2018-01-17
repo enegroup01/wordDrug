@@ -59,9 +59,6 @@ class GameScene: SKScene {
     ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     
     
-    
-    
-    
     var syllablesToCheck = String()
     
     var syllablesWithoutDigit = String()
@@ -1340,6 +1337,19 @@ let monsters =
             //刪除背包元素的ok按鍵
             if node.name == "okButton" {
                 
+                //紀錄關卡
+                if unitNumber == 9{
+                    
+                    gamePassed = [spotNumber + 1:0]
+                }else {
+                    
+                    gamePassed = [spotNumber: unitNumber + 1]
+                }
+                //然後儲存關卡
+                let userDefaults = UserDefaults.standard
+                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                userDefaults.set(encodedObject, forKey: "gamePassed")
+                
                 //在此傳4個值給Vc
                 let valuePass:[String:Any] = ["page":elemPageToPass,"seg":segIndexToPass,"typeSeg":typeSegToPass, "elem":syllablesToCheck]
   
@@ -1356,6 +1366,21 @@ let monsters =
                 //Part 1. 連接後端
                 //Part 2. 刪除元素
                 //Part 3. 跳回關卡
+                //Part 4. 儲存關卡進度
+                
+                //紀錄關卡
+                if unitNumber == 9{
+                    
+                    gamePassed = [spotNumber + 1:0]
+                }else {
+                    
+                    gamePassed = [spotNumber: unitNumber + 1]
+                }
+                //然後儲存關卡
+                let userDefaults = UserDefaults.standard
+                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                userDefaults.set(encodedObject, forKey: "gamePassed")
+                
                 let id = user?["id"] as! String
                 getPet(id: id, petId: upgradeValue)
                 
@@ -1367,9 +1392,9 @@ let monsters =
                 //把所有elem歸零, 合併元素在selElem裡
                 exactElemSaved = [[-1:-1],[-1:-1],[-1:-1]]
                 
-                let userDefaults = UserDefaults.standard
-                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
-                userDefaults.set(encodedObject, forKey: "exactElemSaved")
+                //let userDefaults = UserDefaults.standard
+                let encodedObject1 = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
+                userDefaults.set(encodedObject1, forKey: "exactElemSaved")
                 userDefaults.synchronize()
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
@@ -3392,9 +3417,9 @@ let monsters =
             
             currentWordSequence += 1
             
-            
             //開始戰鬥, 建立下一個單字
             battleMode()
+            
             
         }  else {
             
@@ -3445,7 +3470,6 @@ let monsters =
                                     
                                     //排除rare
                                     if !type.contains(","){
-                                        
                                         
                                         //歸類normal
                                        
@@ -3649,11 +3673,11 @@ let monsters =
                     
                     if isUpgrade {
                         
-                        
                         //如果要合併寵物的話
                         //Part 1. 合併動畫
                         //Part 2. 抓寵物圖片
                         //Part 3. 一樣跳回原畫面
+                        //Part 4. 儲存關卡進度
                         
                         //print(upgradeElemsInfo)
                         //print(syllablesToCheck)
@@ -3670,6 +3694,7 @@ let monsters =
                         //Part 5. 規定一定要刪掉其中一個
                         //Part 6. 刪除完之後後端getElement + showElem
                         //Part 7. showElem之後跳到空位
+                        //Part 8. 儲存關卡進度
                         
                         //通知背包已滿
                         notifyBagIsFull()
@@ -3712,10 +3737,22 @@ let monsters =
                                 user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                                 print(user!)
                                 
-                                
+                                //紀錄關卡
+                                if self!.unitNumber == 9{
+
+                                    gamePassed = [self!.spotNumber + 1:0]
+                                }else {
+                                    
+                                    gamePassed = [self!.spotNumber: self!.unitNumber + 1]
+                                }
+                                //然後儲存
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                userDefaults.set(encodedObject, forKey: "gamePassed")
+
+
                                 //得到元素動畫
                                 self!.getElementAnimation()
-                                
                                 
                             } catch{
                                 

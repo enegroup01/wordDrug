@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-//var gamePassed:[Int:Int]?
+var gamePassed:[Int:Int]?
 
 class Map1Scene: SKScene {
     
@@ -33,26 +33,26 @@ class Map1Scene: SKScene {
         
         NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
         
-                NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyBackToStats), name: NSNotification.Name("jumpToPet"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyBackToStats), name: NSNotification.Name("jumpToPet"), object: nil)
 
-        
+         NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.spotPassUpdate), name: NSNotification.Name("spotPassUpdate"), object: nil)
         
         //做點點
         
-        makeImageNode(name: "lSpot0", image: "lightBlueSpot", x: -100, y: 100, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot1", image: "lightYellowSpot", x: 250, y: 200, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot2", image: "lightPinkSpot", x: 260, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot3", image: "lightBlueSpot", x: -20, y: 170, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot4", image: "lightYellowSpot", x: -250, y: 30, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot5", image: "lightPinkSpot", x: -80, y: -400, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot6", image: "lightBlueSpot", x: -140, y: -175, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot7", image: "lightYellowSpot", x: 340, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot8", image: "lightPinkSpot", x: 0, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot9", image: "lightBlueSpot", x: -10, y: -370, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot10", image: "lightYellowSpot", x: 120, y: 200, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot11", image: "lightPinkSpot", x: -130, y: -30, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot12", image: "lightBlueSpot", x: -100, y: 10, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "lSpot13", image: "lightYellowSpot", x: 60, y: 155, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "lSpot0", image: "lightBlueSpot", x: -100, y: 100, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot1", image: "lightYellowSpot", x: 250, y: 200, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot2", image: "lightPinkSpot", x: 260, y: -300, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot3", image: "lightBlueSpot", x: -20, y: 170, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot4", image: "lightYellowSpot", x: -250, y: 30, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot5", image: "lightPinkSpot", x: -80, y: -400, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot6", image: "lightBlueSpot", x: -140, y: -175, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot7", image: "lightYellowSpot", x: 340, y: -300, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot8", image: "lightPinkSpot", x: 0, y: -300, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot9", image: "lightBlueSpot", x: -10, y: -370, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot10", image: "lightYellowSpot", x: 120, y: 200, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot11", image: "lightPinkSpot", x: -130, y: -30, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot12", image: "lightBlueSpot", x: -100, y: 10, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "lSpot13", image: "lightYellowSpot", x: 60, y: 155, width: 120, height: 120, z: 2, alpha: 0, isAnchoring: false)
         
         
         
@@ -64,31 +64,41 @@ class Map1Scene: SKScene {
         }
         
         //抓userDefault判定目前是哪個探索點
-        /*
-        gamePassed = UserDefaults.standard.value(forKey: "gamePassed") as? [Int:Int]
+        
+        
+        let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
+        
+        if let decoded = decodedObject {
+            gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
         
         if gamePassed == nil {
             //第一次玩
             
             findImageNode(name: spots[0]).alpha = 1
             gamePassed = [0:0]
-            UserDefaults.standard.set(gamePassed, forKey: "gamePassed")
+            
+            let userDefaults = UserDefaults.standard
+            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+            userDefaults.set(encodedObject, forKey: "gamePassed")
             
         } else {
             //看過到第幾關
          
+            
             for (i,_) in gamePassed!{
                 
+                for n in 0 ..< i + 1{
                 
-               findImageNode(name: spots[i]).alpha = 1
+               findImageNode(name: spots[n]).alpha = 1
                 
-                
+                }
                 
                 
             }
 
         }
-        */
+ 
         
         //做地圖
         makeImageNode(name: "map1", image: "map1", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
@@ -128,6 +138,21 @@ class Map1Scene: SKScene {
         
     }
     
+    //即時更新探索點
+    @objc func spotPassUpdate(){
+        
+        print("NC received")
+        
+        for (i,_) in gamePassed!{
+            
+            for n in 0 ..< i + 1{
+                
+                findImageNode(name: spots[n]).alpha = 1
+            }
+
+        }
+        
+    }
     
     @objc func notifyJumpToBook(){
     }

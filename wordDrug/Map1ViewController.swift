@@ -15,6 +15,8 @@ let jumpToGameKey = "jumpToElement"
 let jumpToBookKey = "jumpToBook"
 let jumpToPetKey = "jumpToPet"
 let backToStatsKey = "backToStats"
+//即時更新探索點
+let spotPassUpdateKey = "spotPassUpdate"
 
 class Map1ViewController: UIViewController {
 
@@ -29,11 +31,16 @@ class Map1ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToElement), name: NSNotification.Name("jumpToElement"), object: nil)
         
         //跳進書裡
-                NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToBook), name: NSNotification.Name("jumpToBook"), object: nil)
         
-                        NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToBook), name: NSNotification.Name("jumpToBook"), object: nil)
         
-                          NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.backToStats), name: NSNotification.Name("backToStats"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.jumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
+        
+     
+        NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.backToStats), name: NSNotification.Name("backToStats"), object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(Map1ViewController.notifySpotPassUpdate), name: NSNotification.Name("spotPassUpdate"), object: nil)
 
         // Do any additional setup after loading the view.
         
@@ -67,9 +74,18 @@ class Map1ViewController: UIViewController {
     
     @objc func notifyJumpBackToMap(){
         
+    }
+    
+    @objc func notifySpotPassUpdate(){
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "spotPassUpdate"), object: nil, userInfo: nil)
+        
+        
+    }
     
     @objc func jumpToElement(_ notification: NSNotification){
         

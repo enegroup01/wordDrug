@@ -6,7 +6,8 @@ class ElementScene: SKScene {
     
     var location = CGPoint()
     
-    var elements = ["de0","de1","de2","de3","de4","de5","de6","de7","de8","de9"]
+    var elements = ["le0","le1","le2","le3","le4","le5","le6","le7","le8","le9"]
+    var spotNumber = Int()
     
     override func didMove(to view: SKView) {
         
@@ -15,6 +16,8 @@ class ElementScene: SKScene {
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(ElementScene.notifyJumpBackToMap), name: NSNotification.Name("backToMap"), object: nil)
+        
+                        NotificationCenter.default.addObserver(self, selector: #selector(ElementScene.gamePassUpdate), name: NSNotification.Name("gamePassUpdate"), object: nil)
 
         
         //製作元素背景
@@ -54,32 +57,75 @@ class ElementScene: SKScene {
         makeLabelNode(x: -300, y: 600, alignMent: .left, fontColor: .green, fontSize: 40, text: "< back", zPosition: 1, name: "backButton", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         
-        /*
+        
         //在此確認已過關卡
-        for (_,i) in gamePassed!{
+        for (s,u) in gamePassed!{
             
+            if s > spotNumber {
             
-            findImageNode(name: elements[i]).alpha = 1 
+                //全亮
+                for e in elements{
+                    findImageNode(name: e).alpha = 1
+                }
+                
+            } else if s == spotNumber{
+                
+                //只亮該關卡的通過數字
+                for i in 0 ..< u + 1{
+                    
+                    findImageNode(name: elements[i]).alpha = 1
+                    
+                }
+                
+                
+            }
+
             
-        }
-        */
+            }
         
     }
  
-    
-    
     @objc func notifyPassUnitNumber(){
         
-        
-        
+
     }
     
     @objc func notifyJumpBackToMap(){
         
-        
-        
+
+    }
+    
+    //通知關卡更新
+    @objc func gamePassUpdate(){
+                
+        //在此確認已過關卡
+        for (s,u) in gamePassed!{
+            
+            if s > spotNumber {
+                
+                //全亮
+                for e in elements{
+                    findImageNode(name: e).alpha = 1
+                }
+                
+            } else if s == spotNumber{
+                
+                //只亮該關卡的通過數字
+                for i in 0 ..< u + 1{
+                    
+                    findImageNode(name: elements[i]).alpha = 1
+                    
+                }
+                
+                
+            }
+            
+            
+        }
+
         
     }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -94,11 +140,11 @@ class ElementScene: SKScene {
                 
                 if node.name == elements[i]{
              
-                    
+                    /*
                     let nodeNameToChange = "le" + String(i)
                     
                     changeImageAlfa(name: nodeNameToChange, toAlpha: 1, time: 0.1)
- 
+ */
                     
                     let unitSelected:[String:Int] = ["unitNumber":i]
                     
@@ -111,8 +157,7 @@ class ElementScene: SKScene {
                     
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToMap"), object: nil, userInfo: nil)
                     
-                    
-                    
+
                 }
                 
                 
