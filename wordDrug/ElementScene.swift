@@ -53,9 +53,19 @@ class ElementScene: SKScene {
 
         makeLabelNode(x: -300, y: 600, alignMent: .left, fontColor: .green, fontSize: 40, text: "< back", zPosition: 1, name: "backButton", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
-     
+        
+        /*
+        //在此確認已過關卡
+        for (_,i) in gamePassed!{
+            
+            
+            findImageNode(name: elements[i]).alpha = 1 
+            
+        }
+        */
+        
     }
-    
+ 
     
     
     @objc func notifyPassUnitNumber(){
@@ -84,10 +94,11 @@ class ElementScene: SKScene {
                 
                 if node.name == elements[i]{
              
+                    
                     let nodeNameToChange = "le" + String(i)
                     
                     changeImageAlfa(name: nodeNameToChange, toAlpha: 1, time: 0.1)
-                    
+ 
                     
                     let unitSelected:[String:Int] = ["unitNumber":i]
                     

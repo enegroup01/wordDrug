@@ -9,6 +9,8 @@
 import SpriteKit
 import GameplayKit
 
+//var gamePassed:[Int:Int]?
+
 class Map1Scene: SKScene {
     
     //node按鈕位置
@@ -20,13 +22,14 @@ class Map1Scene: SKScene {
     //探索點
     var spots = [String]()
     var selectedSpotNumber = Int()
+
     
     override func didMove(to view: SKView) {
   
         //跳進元素表NC
         NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToElement), name: NSNotification.Name("jumpToElement"), object: nil)
         
-                NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToBook), name: NSNotification.Name("jumpToBook"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToBook), name: NSNotification.Name("jumpToBook"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToPet), name: NSNotification.Name("jumpToPet"), object: nil)
         
@@ -34,16 +37,9 @@ class Map1Scene: SKScene {
 
         
         
-        
-        //做地圖
-        makeImageNode(name: "map1", image: "map1", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
-        
-        //滑鼠游標
-        makeImageNode(name: "open", image: "scanning", x: location.x, y: location.y, width: 200, height: 200, z: 1, alpha: 0, isAnchoring: false)
-
         //做點點
+        
         makeImageNode(name: "lSpot0", image: "lightBlueSpot", x: -100, y: 100, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-       
         makeImageNode(name: "lSpot1", image: "lightYellowSpot", x: 250, y: 200, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot2", image: "lightPinkSpot", x: 260, y: -300, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot3", image: "lightBlueSpot", x: -20, y: 170, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
@@ -57,13 +53,52 @@ class Map1Scene: SKScene {
         makeImageNode(name: "lSpot11", image: "lightPinkSpot", x: -130, y: -30, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot12", image: "lightBlueSpot", x: -100, y: 10, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
         makeImageNode(name: "lSpot13", image: "lightYellowSpot", x: 60, y: 155, width: 120, height: 120, z: 2, alpha: 1, isAnchoring: false)
-
+        
+        
+        
         //抓所有名字
         for node in children{
             if (node.name?.contains("lSpot"))!{
                 spots.append(node.name!)
             }
         }
+        
+        //抓userDefault判定目前是哪個探索點
+        /*
+        gamePassed = UserDefaults.standard.value(forKey: "gamePassed") as? [Int:Int]
+        
+        if gamePassed == nil {
+            //第一次玩
+            
+            findImageNode(name: spots[0]).alpha = 1
+            gamePassed = [0:0]
+            UserDefaults.standard.set(gamePassed, forKey: "gamePassed")
+            
+        } else {
+            //看過到第幾關
+         
+            for (i,_) in gamePassed!{
+                
+                
+               findImageNode(name: spots[i]).alpha = 1
+                
+                
+                
+                
+            }
+
+        }
+        */
+        
+        //做地圖
+        makeImageNode(name: "map1", image: "map1", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        
+        //滑鼠游標
+        makeImageNode(name: "open", image: "scanning", x: location.x, y: location.y, width: 200, height: 200, z: 1, alpha: 0, isAnchoring: false)
+
+
+
+
 
         //製作對話
         makeImageNode(name: "dialogue", image: "dialogue", x: 0, y: 400, width: 370, height: 0, z: 3, alpha: 0, isAnchoring: false)

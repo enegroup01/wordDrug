@@ -182,13 +182,15 @@ class PetViewController: UIViewController {
                     ["name":"ot1","func":"fire","value":"150"],
                     ["name":"ou1","func":"metal","value":"150"],
                     ["name":"ow1","func":"hp","value":"450"],
-                    ["name":"oy1","func":"att,hit,upgrade","value":"210,9,1-12-10"],
+                    //["name":"oy1","func":"att,hit,upgrade","value":"210,9,1-12-10"],
+        ["name":"oy1","func":"upgrade","value":"1-12-10"],
+        
 
                     ["name":"ph1","func":"att","value":"180"],
                     ["name":"pi1","func":"def","value":"45"],
                     ["name":"pl1","func":"hit","value":"10"],
                     ["name":"pr1","func":"wood","value":"170"],
-                    ["name":"rare1","func":"upgrade","value":"1-12-10"],
+                    ["name":"cop1","func":"upgrade","value":"1-12-10"],
                     ["name":"re1","func":"earth","value":"170"],
                     ["name":"ro1","func":"water","value":"170"],
                     ["name":"ry1","func":"fire","value":"170"],
@@ -226,8 +228,9 @@ class PetViewController: UIViewController {
                     ["name":"ad2","func":"att","value":"230"],
                     ["name":"a_e2","func":"def","value":"60"],
                     ["name":"af2","func":"wood;","value":"230"],
-                    ["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
+                    //["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
     
+    ["name":"ai2","func":"def,heal","value":"80,200"]]
     
     
     

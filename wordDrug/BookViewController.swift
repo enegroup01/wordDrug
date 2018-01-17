@@ -18,7 +18,23 @@ class BookViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var partOfSpeechToShow = [String]()
     
     //目前所有音節
+    /*
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],    ["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],["ly1","mi1","nd1","no1","nt1","oa1","ob1","oe1","of1","oi1"],["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],["ph1","pi1","pl1","pr1","rare1","re1","ro1","ry1","sh1","si1"],["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],["to1","tr1","ture1","ty1","ub1","ue1","ui1","um1","un1","up1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
+    */
+    let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
+                        ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
+                        ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
+                        ["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],
+                        ["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],
+                        ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
+                        ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+                        ["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],
+                        ["ly1","mi1","nd1","no1","nt1","oa1","ob1","o_e1","of1","oi1"],
+                        ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
+                        ["ph1","pi1","pl1","pr1","cop1","re1","ro1","ry1","sh1","si1"],
+                        ["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],
+                        ["to1","tr1","ture1","ty1","ub1","u_e1","ui1","um1","un1","up1"],
+                        ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     
     //匯入所有的音節array
     var allSyllables = [String]()

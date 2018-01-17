@@ -38,7 +38,29 @@ class GameScene: SKScene {
     
         let partOnePets:[[String:Any]] = [["petId":"1-1-0","petName":"幼龍","petHp":110,"petAtt":40,"petDef":10,"petHit":20,"petHeal":0,"petType":"","petImg":"1-1-0","petMag":0], ["petId":"1-1-10","petName":"球球","petHp":120,"petAtt":50,"petDef":15,"petHit":25,"petHeal":0,"petType":"","petImg":"1-1-10","petMag":0], ["petId":"1-2-10","petName":"螳螂拳","petHp":130,"petAtt":60,"petDef":15,"petHit":15,"petHeal":0,"petType":"","petImg":"1-2-10","petMag":0],["petId":"1-3-10","petName":"蘑菇怪","petHp":165,"petAtt":60,"petDef":15,"petHit":23,"petHeal":0,"petType":"","petImg":"1-3-10","petMag":0], ["petId":"1-4-10","petName":"劇毒狼","petHp":140,"petAtt":70,"petDef":20,"petHit":25,"petHeal":0,"petType":"","petImg":"1-4-10","petMag":0], ["petId":"1-6-10","petName":"銀翼飛馬","petHp":150,"petAtt":70,"petDef":20,"petHit":20,"petHeal":0,"petType":"","petImg":"1-6-10","petMag":0], ["petId":"1-7-10","petName":"恐龍博士","petHp":180,"petAtt":75,"petDef":22.5,"petHit":28,"petHeal":0,"petType":"","petImg":"1-7-10","petMag":0], ["petId":"1-8-10","petName":"冰雪犀牛","petHp":160,"petAtt":80,"petDef":25,"petHit":25,"petHeal":0,"petType":"","petImg":"1-8-10","petMag":0], ["petId":"1-9-10","petName":"美洲豹","petHp":195,"petAtt":90,"petDef":22.5,"petHit":18,"petHeal":0,"petType":"","petImg":"1-9-10","petMag":0], ["petId":"1-11-10","petName":"治癒菇神","petHp":170,"petAtt":90,"petDef":25,"petHit":20,"petHeal":0,"petType":"","petImg":"1-11-10","petMag":0], ["petId":"1-12-10","petName":"眼鏡蛇王","petHp":180,"petAtt":100,"petDef":30,"petHit":15,"petHeal":0,"petType":"","petImg":"1-12-10","petMag":0], ["petId":"1-13-10","petName":"被感染的劇毒狼","petHp":210,"petAtt":105,"petDef":30,"petHit":28,"petHeal":0,"petType":"","petImg":"1-13-10","petMag":0]]
     
+    /*
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],["ly1","mi1","nd1","no1","nt1","oa1","ob1","o_e1","of1","oi1"],["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],["ph1","pi1","pl1","pr1","rare1","re1","ro1","ry1","sh1","si1"],["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],["to1","tr1","ture1","ty1","ub1","u_e1","ui1","um1","un1","up1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
+    */
+    
+    
+    let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
+    ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
+    ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
+    ["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],
+    ["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],
+    ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
+    ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+    ["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],
+    ["ly1","mi1","nd1","no1","nt1","oa1","ob1","o_e1","of1","oi1"],
+    ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
+    ["ph1","pi1","pl1","pr1","cop1","re1","ro1","ry1","sh1","si1"],
+    ["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],
+    ["to1","tr1","ture1","ty1","ub1","u_e1","ui1","um1","un1","up1"],
+    ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
+    
+    
+    
+    
     
     var syllablesToCheck = String()
     
@@ -288,13 +310,15 @@ let monsters =
                     ["name":"ot1","func":"fire","value":"150"],
                     ["name":"ou1","func":"metal","value":"150"],
                     ["name":"ow1","func":"hp","value":"450"],
-                    ["name":"oy1","func":"att,hit,upgrade","value":"210,9,1-12-10"],
-                    
+                    //["name":"oy1","func":"att,hit,upgrade","value":"210,9,1-12-10"],
+                    ["name":"oy1","func":"upgrade","value":"1-12-10"],
+        
+        
                     ["name":"ph1","func":"att","value":"180"],
                     ["name":"pi1","func":"def","value":"45"],
                     ["name":"pl1","func":"hit","value":"10"],
                     ["name":"pr1","func":"wood","value":"170"],
-                    ["name":"rare1","func":"upgrade","value":"1-12-10"],
+                    ["name":"cop1","func":"upgrade","value":"1-12-10"],
                     ["name":"re1","func":"earth","value":"170"],
                     ["name":"ro1","func":"water","value":"170"],
                     ["name":"ry1","func":"fire","value":"170"],
@@ -332,8 +356,8 @@ let monsters =
                     ["name":"ad2","func":"att","value":"230"],
                     ["name":"a_e2","func":"def","value":"60"],
                     ["name":"af2","func":"wood;","value":"230"],
-                    ["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
-
+                    //["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
+                    ["name":"ai2","func":"def,heal","value":"80,200"]]
     
     var monsterHp = Int()
     var monsterAtt = Int()
@@ -1678,6 +1702,8 @@ let monsters =
                         enlargeAndDisappear(name: "aimer")
                         enlargeAndDisappear(name: "aimerCircle")
                         enlargeAndDisappear(name: "aimerHeart")
+                        
+                        scanAndPronounce()
                         
                         
                         //把temp字改顏色
