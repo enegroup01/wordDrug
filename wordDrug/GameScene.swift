@@ -427,6 +427,12 @@ let monsters =
     var leftOrRight = Int()
     let leftChiNode = SKLabelNode()
     let rightChiNode = SKLabelNode()
+    
+    //紀錄第一個sequence
+    var firstSequence = Int()
+    
+    //紀錄單字有沒有加入最愛
+    var wordsLoved = [0,0,0]
    
     override func didMove(to view: SKView) {
         
@@ -441,6 +447,7 @@ let monsters =
         
         //抓正確unit
         currentWordSequence = 3 * unitNumber
+        firstSequence = currentWordSequence
         
         //抓正確的音節
         syllables = syllableSets[spotNumber]
@@ -1520,6 +1527,86 @@ let monsters =
                 }
             }
             
+            if node.name == "1Love"{
+
+                if wordsLoved[0] == 0{
+                    
+                  
+                    let bundlePath = Bundle.main.path(forResource: "heart", ofType: "png")
+                    let imageFile = UIImage(contentsOfFile: bundlePath!)
+                    let texture = SKTexture(image: imageFile!)
+                    findImageNode(name: "1Love").texture = texture
+ 
+                    wordsLoved[0] = 1
+                    
+                    
+                    
+                } else {
+                    
+                    
+                    let bundlePath = Bundle.main.path(forResource: "unHeart", ofType: "png")
+                    let imageFile = UIImage(contentsOfFile: bundlePath!)
+                    let texture = SKTexture(image: imageFile!)
+                    findImageNode(name: "1Love").texture = texture
+                    
+                    wordsLoved[0] = 0
+                    
+                }
+            
+            }
+            if node.name == "2Love"{
+                
+                if wordsLoved[1] == 0{
+                    
+                    
+                    let bundlePath = Bundle.main.path(forResource: "heart", ofType: "png")
+                    let imageFile = UIImage(contentsOfFile: bundlePath!)
+                    let texture = SKTexture(image: imageFile!)
+                    findImageNode(name: "2Love").texture = texture
+                    
+                    wordsLoved[1] = 1
+                    
+                } else {
+                    
+                    
+                    let bundlePath = Bundle.main.path(forResource: "unHeart", ofType: "png")
+                    let imageFile = UIImage(contentsOfFile: bundlePath!)
+                    let texture = SKTexture(image: imageFile!)
+                    findImageNode(name: "2Love").texture = texture
+                    
+                    wordsLoved[1] = 0
+                    
+                }
+
+                
+                
+            }
+            if node.name == "3Love"{
+                
+                if wordsLoved[2] == 0{
+                    
+                    
+                    let bundlePath = Bundle.main.path(forResource: "heart", ofType: "png")
+                    let imageFile = UIImage(contentsOfFile: bundlePath!)
+                    let texture = SKTexture(image: imageFile!)
+                    findImageNode(name: "3Love").texture = texture
+                    
+                    wordsLoved[2] = 1
+                    
+                } else {
+                    
+                    
+                    let bundlePath = Bundle.main.path(forResource: "unHeart", ofType: "png")
+                    let imageFile = UIImage(contentsOfFile: bundlePath!)
+                    let texture = SKTexture(image: imageFile!)
+                    findImageNode(name: "3Love").texture = texture
+                    
+                    wordsLoved[2] = 0
+                    
+                }
+                
+                
+            }
             //按主畫面的功能
             
             if isScanning == false{
@@ -5487,9 +5574,9 @@ let monsters =
         
         //確認是否為得到多元素, 然後顯示
         
-        makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElementBg", image: "winView", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 230, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 230, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
         
        //在此要抓元素的屬性來決定元素圖案
         
@@ -5551,18 +5638,73 @@ let monsters =
         }
         
         
-        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 230, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
     
         //製作按鈕
-        makeImageNode(name: "getButton", image: "getButton", x: 0, y: -400, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getButton", image: "getButton", x: 0, y: -500, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
 
         //製作文字
-        makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 30, text: "獲得新魔法元素，可用於裝備寵物", zPosition: 11, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 34, text: "獲得新魔法元素，可用於裝備寵物", zPosition: 11, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //亮星星, 星星位置要抓
+        /*
         makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        */
+        
+        //做checkMark
+        makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "2ch", image: "chMark", x: -330, y: -200, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "3ch", image: "chMark", x: -330, y: -300, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        
+        //顯示三個單字
+        let quarterCount = wordSets.count / 4
+        let halfCount = wordSets.count / 2
+        
+        let firstEngWord = wordSets[firstSequence].replacingOccurrences(of: " ", with: "")
+        let firstChiWord = wordSets[quarterCount + firstSequence]
+        let firstPartWord = wordSets[quarterCount + halfCount + firstSequence]
+        let secondEngWord = wordSets[firstSequence + 1].replacingOccurrences(of: " ", with: "")
+        let secondChiWord = wordSets[quarterCount + firstSequence + 1]
+        let secondPartWord = wordSets[quarterCount + halfCount + firstSequence + 1]
+        let thirdEngWord = wordSets[firstSequence + 2].replacingOccurrences(of: " ", with: "")
+        let thirdChiWord = wordSets[quarterCount + firstSequence + 2]
+        let thirdPartWord = wordSets[quarterCount + halfCount + firstSequence + 2]
+        
+        //檢查單字有無加入最愛
+        //假設
+        let myWords = ["cat","cap","art","cancel"]
+        var image1 = "unHeart"
+        var image2 = "unHeart"
+        var image3 = "unHeart"
+        if myWords.contains(firstEngWord){
+            wordsLoved[0] = 1
+        image1 = "heart"
+        }
+        if myWords.contains(secondEngWord){
+            wordsLoved[1] = 1
+            image2 = "heart"
+        }
+        if myWords.contains(thirdEngWord){
+            wordsLoved[2] = 1
+            image3 = "heart"
+        }
+        
+        
+        makeLabelNode(x: -260, y: -110, alignMent: .left, fontColor: .white, fontSize: 50, text: firstEngWord + " (" + firstPartWord + ") " + firstChiWord , zPosition: 11, name: "firstWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: -260, y: -220, alignMent: .left, fontColor: .white, fontSize: 50, text: secondEngWord + " (" + secondPartWord + ") " + secondChiWord , zPosition: 11, name: "secondWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+
+        makeLabelNode(x: -260, y: -320, alignMent: .left, fontColor: .white, fontSize: 50, text: thirdEngWord  + " (" + thirdPartWord + ") " + thirdChiWord, zPosition: 11, name: "thirdWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+
+        //check是否為最愛單字然後顯示圖片
+        
+        
+        
+        makeImageNode(name: "1Love", image: image1, x: 330, y: -90, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "2Love", image: image2, x: 330, y: -200, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "3Love", image: image3, x: 330, y: -300, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
+
         
         let movingLight = childNode(withName: "movingLight") as! SKSpriteNode
         let movingLight2 = childNode(withName: "movingLight2") as! SKSpriteNode
