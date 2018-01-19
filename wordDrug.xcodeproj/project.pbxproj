@@ -718,6 +718,8 @@
 		AAECC11D1FB0493B004ED813 /* explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC11C1FB0493B004ED813 /* explode.sks */; };
 		AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1201FB08A27004ED813 /* monsterExplode.sks */; };
 		AAECC1231FB08C15004ED813 /* monsterExplode.png in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1221FB08C14004ED813 /* monsterExplode.png */; };
+		AAFF77DC200F81D800283482 /* blueOrb.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFF77DA200F81D700283482 /* blueOrb.png */; };
+		AAFF77DD200F81D800283482 /* redOrb.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFF77DB200F81D700283482 /* redOrb.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1434,6 +1436,8 @@
 		AAECC11C1FB0493B004ED813 /* explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explode.sks; sourceTree = "<group>"; };
 		AAECC1201FB08A27004ED813 /* monsterExplode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = monsterExplode.sks; sourceTree = "<group>"; };
 		AAECC1221FB08C14004ED813 /* monsterExplode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterExplode.png; sourceTree = "<group>"; };
+		AAFF77DA200F81D700283482 /* blueOrb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueOrb.png; sourceTree = "<group>"; };
+		AAFF77DB200F81D700283482 /* redOrb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redOrb.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2374,6 +2378,8 @@
 				AA68BD601F99C06100112AF4 /* bg2.png */,
 				AAE181A81F978C3F00683896 /* bg.png */,
 				AA68BD7B1F9A1F7F00112AF4 /* bg4.png */,
+				AAFF77DA200F81D700283482 /* blueOrb.png */,
+				AAFF77DB200F81D700283482 /* redOrb.png */,
 				AA8E9F6E1FB17C6800509D39 /* questBoardGreen2.png */,
 				AA8E9F741FB1841400509D39 /* questBoard3.png */,
 				AA8E9F761FB1851400509D39 /* questBoard4.png */,
@@ -2474,6 +2480,7 @@
 				AA3B024C2004F0C300288B9D /* ball.mp3 in Resources */,
 				AA3B031D2004F0C300288B9D /* dog.mp3 in Resources */,
 				AA3B02C92004F0C300288B9D /* cash.mp3 in Resources */,
+				AAFF77DC200F81D800283482 /* blueOrb.png in Resources */,
 				AA3B03032004F0C300288B9D /* belt.mp3 in Resources */,
 				AA3B02C72004F0C300288B9D /* pizza.mp3 in Resources */,
 				AA3B01F72004F0C200288B9D /* wardrobe.mp3 in Resources */,
@@ -2587,6 +2594,7 @@
 				AA86F3BC1FA9CE03004E7997 /* monsterEffect.png in Resources */,
 				AA3B02762004F0C300288B9D /* is.mp3 in Resources */,
 				AA3B03102004F0C300288B9D /* handy.mp3 in Resources */,
+				AAFF77DD200F81D800283482 /* redOrb.png in Resources */,
 				AA3B03762004F0C300288B9D /* duck.mp3 in Resources */,
 				AA3B03642004F0C300288B9D /* back.mp3 in Resources */,
 				AA3B02B92004F0C300288B9D /* gift.mp3 in Resources */,

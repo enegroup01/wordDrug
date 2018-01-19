@@ -97,7 +97,7 @@ class ElementScene: SKScene {
     
     //通知關卡更新
     @objc func gamePassUpdate(){
-                
+        
         //在此確認已過關卡
         for (s,u) in gamePassed!{
             

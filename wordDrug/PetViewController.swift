@@ -2070,7 +2070,7 @@ class PetViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
         userDefaults.set(encodedObject, forKey: "exactElemSaved")
-        //userDefaults.synchronize()
+        userDefaults.synchronize()
         
         //計算寵物數值
         calculatePetValue()
@@ -2087,7 +2087,7 @@ class PetViewController: UIViewController {
         let userDefaults = UserDefaults.standard
         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: exactElemSaved!)
         userDefaults.set(encodedObject, forKey: "exactElemSaved")
-        //userDefaults.synchronize()
+        userDefaults.synchronize()
         
         
     }
