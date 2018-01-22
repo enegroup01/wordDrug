@@ -433,10 +433,21 @@ let monsters =
     
     //紀錄單字有沒有加入最愛
     var wordsLoved = [0,0,0]
+    var myWords = [String]()
+    var firstEngWord = String()
+    var secondEngWord = String()
+    var thirdEngWord = String()
    
     override func didMove(to view: SKView) {
         
         print("petValue:\(pet)")
+        
+        //載入我的最愛單字
+        if let myWordsString = user!["myWords"] as! String?{
+            myWords = myWordsString.components(separatedBy: ";")
+
+        }
+
         
         //元素單位練習完後的key
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.notifyEndUnit), name: NSNotification.Name("endUnit"), object: nil)
@@ -1438,8 +1449,11 @@ let monsters =
 
             
             
-            //遊戲結束
+            //遊戲結束 (1) 正常得到元素 (2) 遊戲失敗
             if node.name == "getButton" || node.name == "quitButton"{
+                
+                //儲存最愛單字至後端
+                addWordFunc()
                 
                 //跳轉回元素表
                 
@@ -1448,8 +1462,29 @@ let monsters =
                 removeEverything()
             }
             
-            //刪除背包元素的ok按鍵
-            if node.name == "okButton" {
+            //刪除背包元素的步驟 (1)pre先顯示 (2)再perform跳回杯包的刪除功能
+            //***這部分的上一步驟要重寫, 先顯示最愛單字後再來儲存最愛單字
+            
+            //Part 1.
+            if node.name == "preDelete"{
+                
+                //用紅底當警告...暫時不做
+                makeNode(name: "getElementWarningBg", color: .red, x: 0, y: 0, width: 750, height: 1334, z: 13, isAnchoring: false, alpha: 0.5)
+                
+                //移除preDelete + 製作performDelete
+                findImageNode(name: "preDelete").removeFromParent()
+                
+                //製作按鈕
+                makeImageNode(name: "performDelete", image: "okBtn", x: 0, y: -500, width:276, height: 144, z: 11, alpha: 1, isAnchoring: false)
+                
+                findLabelNode(name: "winText").text = "獲得新魔法元素，可用於裝備寵物"
+                
+            }
+            
+            //Part 2.
+            if node.name == "performDelete" {
+                
+                //儲存最愛單字
                 
                 //紀錄關卡
                 if unitNumber == 9{
@@ -1473,14 +1508,21 @@ let monsters =
                 removeEverything()
             }
             
+
             
-            //得到寵物後的按鈕
+            
+            
+            //合併得到寵物後的按鈕
+            
+            //***這部分的上一步驟要重寫, 合併完寵物動畫後才來選擇是否新增最愛單字
+            
             if node.name == "getPetButton"{
                 
                 //Part 1. 連接後端
                 //Part 2. 刪除元素
                 //Part 3. 跳回關卡
                 //Part 4. 儲存關卡進度
+                //Part 4. 儲存我的最愛單字
                 
                 //紀錄關卡
                 if unitNumber == 9{
@@ -1495,6 +1537,8 @@ let monsters =
                 let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                 userDefaults.set(encodedObject, forKey: "gamePassed")
                 
+                //關卡必須進後端, 這部分暫時未寫
+                
                 let id = user?["id"] as! String
                 getPet(id: id, petId: upgradeValue)
                 
@@ -1502,6 +1546,8 @@ let monsters =
                 deleteElem(elem:upgradeNames[0])
                 deleteElem(elem:upgradeNames[1])
                 
+                //儲存我的最愛單字
+                addWordFunc()
                 
                 //把所有elem歸零, 合併元素在selElem裡
                 exactElemSaved = [[-1:-1],[-1:-1],[-1:-1]]
@@ -1527,6 +1573,7 @@ let monsters =
                 }
             }
             
+            //新增至最愛功能
             if node.name == "1Love"{
 
                 if wordsLoved[0] == 0{
@@ -1539,8 +1586,6 @@ let monsters =
  
                     wordsLoved[0] = 1
                     
-                    
-                    
                 } else {
                     
                     
@@ -1550,6 +1595,7 @@ let monsters =
                     findImageNode(name: "1Love").texture = texture
                     
                     wordsLoved[0] = 0
+                    
                     
                 }
             
@@ -4904,6 +4950,10 @@ let monsters =
                     
                     //有得到過, 暫時先跳回
                     
+                    //**修正機制: 有得到過一樣顯示得到過的畫面, 選擇最愛單字**
+                    
+                    
+                    
                     //跳轉回元素表
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
                     
@@ -5147,10 +5197,15 @@ let monsters =
                         //Part 3. 一樣跳回原畫面
                         //Part 4. 儲存關卡進度
                         
+                        //***這部分機制要新增合併完之後新增單字
+                        
                         //print(upgradeElemsInfo)
                         //print(syllablesToCheck)
                         
                         notifyUpgrade()
+                        //讓動畫做完, 才能新增最愛及按ok
+                        isUserInteractionEnabled = false
+                        
 
                     } else if bagIsFull {
                         //背包滿了
@@ -5163,6 +5218,9 @@ let monsters =
                         //Part 6. 刪除完之後後端getElement + showElem
                         //Part 7. showElem之後跳到空位
                         //Part 8. 儲存關卡進度
+                        
+                        //***這部分機制要修改, 按ok之後再跳出警告背包已滿畫面
+                        
                         
                         //通知背包已滿
                         notifyBagIsFull()
@@ -5264,11 +5322,10 @@ let monsters =
         var node2 = SKSpriteNode()
         
         //製作畫面
-        makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElementBg", image: "winView", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
 
         let elemImg = "combineGem"
 
-        
         //顯示元素1
         makeImageNode(name: "getElement", image: elemImg, x: -250, y: 200, width: 200, height: 200, z: 11, alpha: 1, isAnchoring: false)
         //顯示元素2
@@ -5278,9 +5335,11 @@ let monsters =
         
         
         //亮星星, 星星位置要抓
+        /*
         makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        */
         
         let elemName = syllablesToCheck.components(separatedBy: .decimalDigits)
         let elemNum = syllablesToCheck.replacingOccurrences(of: elemName[0], with: "")
@@ -5311,7 +5370,6 @@ let monsters =
             node = elemImgNode
         }
 
-        
         //讀upgradeElemsInfo裡的名字
         let firstElemName = upgradeNames[0]
         let elemName1 = firstElemName.components(separatedBy: .decimalDigits)
@@ -5417,8 +5475,11 @@ let monsters =
                         if let petName = self!.partOnePets[i]["petName"] as! String?{
 
                         //製作文字
-                        self!.makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "獲得新寵物: " + petName, zPosition: 14, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+                        self!.makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "獲得新寵物: " + petName, zPosition: 14, name: "getPetText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
                         }
+                        
+                        //顯示新增我的最愛單字
+                        self!.showThreeWords()
                         
                         //製作按鈕
                         self!.makeImageNode(name: "getPetButton", image: "okBtn", x: 0, y: -400, width:276, height: 144, z: 24, alpha: 1, isAnchoring: false)
@@ -5443,17 +5504,20 @@ let monsters =
     
     func notifyBagIsFull(){
         
+        //分兩階段
+        //Part 1. preDelete提供新增我的最愛單字
+        //Part 2. performDelete跳回背包
      
         //製作畫面
-        makeImageNode(name: "getElementBg", image: "winBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElementBg", image: "winView", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 230, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 230, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
        
         //製作按鈕
-        makeImageNode(name: "okButton", image: "okBtn", x: 0, y: -400, width:276, height: 144, z: 14, alpha: 1, isAnchoring: false)
+        //makeImageNode(name: "okButton", image: "okBtn", x: 0, y: -500, width:276, height: 144, z: 14, alpha: 1, isAnchoring: false)
         
-        //用紅底當警告
-        makeNode(name: "getElementWarningBg", color: .red, x: 0, y: 0, width: 750, height: 1334, z: 13, isAnchoring: false, alpha: 0.5)
+        //用紅底當警告...
+        //makeNode(name: "getElementWarningBg", color: .red, x: 0, y: 0, width: 750, height: 1334, z: 13, isAnchoring: false, alpha: 0.5)
         
         //在此要抓元素的屬性來決定元素圖案
         var elemImg = "elemG"
@@ -5513,17 +5577,34 @@ let monsters =
         }
         
         //顯示元素
-        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 230, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
         
         
         //製作文字
-        makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "背包已滿，先丟掉不要的元素", zPosition: 14, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        /*
+        makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "背包已滿，先丟掉不要的元素", zPosition: 14, name: "winText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        */
+        //製作文字
+        makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 34, text: "獲得新魔法元素，可用於裝備寵物", zPosition: 11, name: "winText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
+        //製作按鈕
+        makeImageNode(name: "preDelete", image: "getButton", x: 0, y: -500, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
         
         //亮星星, 星星位置要抓
+        /*
         makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
+        */
+        //做checkMark
+        makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "2ch", image: "chMark", x: -330, y: -200, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "3ch", image: "chMark", x: -330, y: -300, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+
+        
+        //show三個字
+        showThreeWords()
+        
         
         let movingLight = childNode(withName: "movingLight") as! SKSpriteNode
         let movingLight2 = childNode(withName: "movingLight2") as! SKSpriteNode
@@ -5532,7 +5613,8 @@ let monsters =
         movingLight.run(action)
         movingLight2.run(action2)
         
-        isUserInteractionEnabled = true
+        //應該不需要因為前面沒有false
+        //isUserInteractionEnabled = true
         
         //let elemImg = syllablesToCheck + "g"
         
@@ -5644,7 +5726,7 @@ let monsters =
         makeImageNode(name: "getButton", image: "getButton", x: 0, y: -500, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
 
         //製作文字
-        makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 34, text: "獲得新魔法元素，可用於裝備寵物", zPosition: 11, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 34, text: "獲得新魔法元素，可用於裝備寵物", zPosition: 11, name: "winText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //亮星星, 星星位置要抓
         /*
@@ -5657,54 +5739,9 @@ let monsters =
         makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "2ch", image: "chMark", x: -330, y: -200, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "3ch", image: "chMark", x: -330, y: -300, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
-        
-        //顯示三個單字
-        let quarterCount = wordSets.count / 4
-        let halfCount = wordSets.count / 2
-        
-        let firstEngWord = wordSets[firstSequence].replacingOccurrences(of: " ", with: "")
-        let firstChiWord = wordSets[quarterCount + firstSequence]
-        let firstPartWord = wordSets[quarterCount + halfCount + firstSequence]
-        let secondEngWord = wordSets[firstSequence + 1].replacingOccurrences(of: " ", with: "")
-        let secondChiWord = wordSets[quarterCount + firstSequence + 1]
-        let secondPartWord = wordSets[quarterCount + halfCount + firstSequence + 1]
-        let thirdEngWord = wordSets[firstSequence + 2].replacingOccurrences(of: " ", with: "")
-        let thirdChiWord = wordSets[quarterCount + firstSequence + 2]
-        let thirdPartWord = wordSets[quarterCount + halfCount + firstSequence + 2]
-        
-        //檢查單字有無加入最愛
-        //假設
-        let myWords = ["cat","cap","art","cancel"]
-        var image1 = "unHeart"
-        var image2 = "unHeart"
-        var image3 = "unHeart"
-        if myWords.contains(firstEngWord){
-            wordsLoved[0] = 1
-        image1 = "heart"
-        }
-        if myWords.contains(secondEngWord){
-            wordsLoved[1] = 1
-            image2 = "heart"
-        }
-        if myWords.contains(thirdEngWord){
-            wordsLoved[2] = 1
-            image3 = "heart"
-        }
-        
-        
-        makeLabelNode(x: -260, y: -110, alignMent: .left, fontColor: .white, fontSize: 50, text: firstEngWord + " (" + firstPartWord + ") " + firstChiWord , zPosition: 11, name: "firstWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-        makeLabelNode(x: -260, y: -220, alignMent: .left, fontColor: .white, fontSize: 50, text: secondEngWord + " (" + secondPartWord + ") " + secondChiWord , zPosition: 11, name: "secondWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-
-        makeLabelNode(x: -260, y: -320, alignMent: .left, fontColor: .white, fontSize: 50, text: thirdEngWord  + " (" + thirdPartWord + ") " + thirdChiWord, zPosition: 11, name: "thirdWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-
-        //check是否為最愛單字然後顯示圖片
-        
-        
-        
-        makeImageNode(name: "1Love", image: image1, x: 330, y: -90, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "2Love", image: image2, x: 330, y: -200, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "3Love", image: image3, x: 330, y: -300, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
-
+    
+        //顯示三個字
+        showThreeWords()
         
         let movingLight = childNode(withName: "movingLight") as! SKSpriteNode
         let movingLight2 = childNode(withName: "movingLight2") as! SKSpriteNode
@@ -5748,6 +5785,55 @@ let monsters =
         
     }
     
+    
+   //顯示三個單字的func
+    func showThreeWords(){
+        
+        //顯示三個單字
+        let quarterCount = wordSets.count / 4
+        let halfCount = wordSets.count / 2
+        
+        firstEngWord = wordSets[firstSequence].replacingOccurrences(of: " ", with: "")
+        let firstChiWord = wordSets[quarterCount + firstSequence]
+        let firstPartWord = wordSets[quarterCount + halfCount + firstSequence]
+        secondEngWord = wordSets[firstSequence + 1].replacingOccurrences(of: " ", with: "")
+        let secondChiWord = wordSets[quarterCount + firstSequence + 1]
+        let secondPartWord = wordSets[quarterCount + halfCount + firstSequence + 1]
+        thirdEngWord = wordSets[firstSequence + 2].replacingOccurrences(of: " ", with: "")
+        let thirdChiWord = wordSets[quarterCount + firstSequence + 2]
+        let thirdPartWord = wordSets[quarterCount + halfCount + firstSequence + 2]
+        
+        //檢查單字有無加入最愛
+        
+        
+        var image1 = "unHeart"
+        var image2 = "unHeart"
+        var image3 = "unHeart"
+        if myWords.contains(firstEngWord){
+            wordsLoved[0] = 1
+            image1 = "heart"
+        }
+        if myWords.contains(secondEngWord){
+            wordsLoved[1] = 1
+            image2 = "heart"
+        }
+        if myWords.contains(thirdEngWord){
+            wordsLoved[2] = 1
+            image3 = "heart"
+        }
+        
+        
+        makeLabelNode(x: -260, y: -110, alignMent: .left, fontColor: .white, fontSize: 50, text: firstEngWord + " (" + firstPartWord + ") " + firstChiWord , zPosition: 11, name: "firstWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: -260, y: -220, alignMent: .left, fontColor: .white, fontSize: 50, text: secondEngWord + " (" + secondPartWord + ") " + secondChiWord , zPosition: 11, name: "secondWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        makeLabelNode(x: -260, y: -320, alignMent: .left, fontColor: .white, fontSize: 50, text: thirdEngWord  + " (" + thirdPartWord + ") " + thirdChiWord, zPosition: 11, name: "thirdWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        //check是否為最愛單字然後顯示圖片
+        
+        makeImageNode(name: "1Love", image: image1, x: 330, y: -90, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "2Love", image: image2, x: 330, y: -200, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "3Love", image: image3, x: 330, y: -300, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
+    }
     
     func failedToGetElement(){
         
@@ -6926,7 +7012,116 @@ let monsters =
         }).resume()
         
     }
+    
+    //新增最愛
+    func addWord(word:String){
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/addWord.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&word=\(word)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
 
+    //刪除最愛單字
+    func removeWord(word:String){
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/removeWord.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&word=\(word)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    print(user!)
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+
+    
     
     //刪除元素
     func deleteElem(elem:String){
@@ -6983,8 +7178,30 @@ let monsters =
         }).resume()
         
     }
-    
-    
+    //新增最愛單字
+    func addWordFunc(){
+        
+        for i in 0 ..< wordsLoved.count{
+            
+            if wordsLoved[i] == 1 {
+                
+                switch i{
+                case 0:
+                    addWord(word: firstEngWord)
+                case 1:
+                    addWord(word: secondEngWord)
+                case 2:
+                    addWord(word: thirdEngWord)
+                    
+                default:
+                    break
+                }
+                
+
+            }
+        }
+        
+    }
     
 }
 
