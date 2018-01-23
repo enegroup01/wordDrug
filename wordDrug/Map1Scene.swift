@@ -106,10 +106,6 @@ class Map1Scene: SKScene {
         //滑鼠游標
         makeImageNode(name: "open", image: "scanning", x: location.x, y: location.y, width: 200, height: 200, z: 1, alpha: 0, isAnchoring: false)
 
-
-
-
-
         //製作對話
         makeImageNode(name: "dialogue", image: "dialogue", x: 0, y: 400, width: 370, height: 0, z: 3, alpha: 0, isAnchoring: false)
         
