@@ -50,30 +50,31 @@ class PetViewController: UIViewController {
     
     /*
      //測試用的元素符號
-    let elements = [["name":"ab1","func":"def","value":"1"],
-                    ["name":"ac1","func":"att","value":"100"],
-                    ["name":"ad1","func":"att","value":"5000"],
-                    ["name":"a_e1","func":"att","value":"10"],
-                    ["name":"af1","func":"att","value":"10"],
-                    ["name":"ai1","func":"att","value":"10"],
-                    ["name":"al1","func":"att","value":"10"],
-                    ["name":"am1","func":"att","value":"10"],
-                    ["name":"an1","func":"att","value":"10"],
-                    ["name":"any1","func":"att","value":"110"],
-                    
-                    ["name":"ap1","func":"att","value":"10"],
-                    ["name":"ar1","func":"att","value":"100"],
-                    ["name":"as1","func":"att","value":"110"],
-                    ["name":"at1","func":"earth","value":"110"],
-                    ["name":"au1","func":"upgrade","value":"1-2-10"],
-                    ["name":"aw1","func":"upgrade","value":"1-2-10"],
-                    ["name":"ay1","func":"upgrade","value":"1-2-10"],
-                    ["name":"ba1","func":"upgrade","value":"1-2-10"],
-                    ["name":"be1","func":"upgrade","value":"1-2-10"],
-                    ["name":"bi1","func":"upgrade","value":"1-2-10"]]
-    */
+     let elements = [["name":"ab1","func":"def","value":"1"],
+     ["name":"ac1","func":"att","value":"100"],
+     ["name":"ad1","func":"att","value":"5000"],
+     ["name":"a_e1","func":"att","value":"10"],
+     ["name":"af1","func":"att","value":"10"],
+     ["name":"ai1","func":"att","value":"10"],
+     ["name":"al1","func":"att","value":"10"],
+     ["name":"am1","func":"att","value":"10"],
+     ["name":"an1","func":"att","value":"10"],
+     ["name":"any1","func":"att","value":"110"],
+     
+     ["name":"ap1","func":"att","value":"10"],
+     ["name":"ar1","func":"att","value":"100"],
+     ["name":"as1","func":"att","value":"110"],
+     ["name":"at1","func":"earth","value":"110"],
+     ["name":"au1","func":"upgrade","value":"1-2-10"],
+     ["name":"aw1","func":"upgrade","value":"1-2-10"],
+     ["name":"ay1","func":"upgrade","value":"1-2-10"],
+     ["name":"ba1","func":"upgrade","value":"1-2-10"],
+     ["name":"be1","func":"upgrade","value":"1-2-10"],
+     ["name":"bi1","func":"upgrade","value":"1-2-10"]]
+ */
     
     //元素資料
+    
     let elements = [["name":"ab1","func":"hp","value":"50"],
                     ["name":"ac1","func":"att","value":"20"],
                     ["name":"ad1","func":"def","value":"5"],

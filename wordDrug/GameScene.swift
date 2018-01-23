@@ -197,7 +197,8 @@ let monsters =
                     ["name":"ba1","func":"upgrade","value":"1-2-10"],
                     ["name":"be1","func":"upgrade","value":"1-2-10"],
                     ["name":"bi1","func":"upgrade","value":"1-2-10"]]
-    */
+ */
+    
     
     let elements = [["name":"ab1","func":"hp","value":"50"],
                     ["name":"ac1","func":"att","value":"20"],
@@ -355,6 +356,7 @@ let monsters =
                     ["name":"af2","func":"wood;","value":"230"],
                     //["name":"ai2","func":"def,heal,upgrade","value":"80,200,2-3-10"]]
                     ["name":"ai2","func":"def,heal","value":"80,200"]]
+    
     
     var monsterHp = Int()
     var monsterAtt = Int()
@@ -1469,15 +1471,15 @@ let monsters =
             if node.name == "preDelete"{
                 
                 //用紅底當警告...暫時不做
-                makeNode(name: "getElementWarningBg", color: .red, x: 0, y: 0, width: 750, height: 1334, z: 13, isAnchoring: false, alpha: 0.5)
+                makeNode(name: "getElementWarningBg", color: .red, x: 0, y: 0, width: 750, height: 1334, z: 11, isAnchoring: false, alpha: 0.5)
                 
                 //移除preDelete + 製作performDelete
                 findImageNode(name: "preDelete").removeFromParent()
                 
                 //製作按鈕
-                makeImageNode(name: "performDelete", image: "okBtn", x: 0, y: -500, width:276, height: 144, z: 11, alpha: 1, isAnchoring: false)
+                makeImageNode(name: "performDelete", image: "okBtn", x: 0, y: -500, width:276, height: 144, z: 12, alpha: 1, isAnchoring: false)
                 
-                findLabelNode(name: "winText").text = "獲得新魔法元素，可用於裝備寵物"
+                findLabelNode(name: "winText").text = "背包已滿，先丟掉不要的元素"
                 
             }
             
@@ -1485,6 +1487,7 @@ let monsters =
             if node.name == "performDelete" {
                 
                 //儲存最愛單字
+                addWordFunc()
                 
                 //紀錄關卡
                 if unitNumber == 9{
@@ -1559,6 +1562,8 @@ let monsters =
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
 
+                //有三個連接後端的作業, 看之後要不要做等待的view
+                
                 //移除所有的Node
                 removeEverything()
                 
@@ -5327,11 +5332,11 @@ let monsters =
         let elemImg = "combineGem"
 
         //顯示元素1
-        makeImageNode(name: "getElement", image: elemImg, x: -250, y: 200, width: 200, height: 200, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElement", image: elemImg, x: -250, y: 230, width: 200, height: 200, z: 11, alpha: 1, isAnchoring: false)
         //顯示元素2
-        makeImageNode(name: "getElement1", image: elemImg, x: 0, y: 200, width: 200, height: 200, z: 16, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElement1", image: elemImg, x: 0, y: 230, width: 200, height: 200, z: 16, alpha: 1, isAnchoring: false)
         //顯示元素3
-        makeImageNode(name: "getElement2", image: elemImg, x: 250, y: 200, width: 200, height: 200, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElement2", image: elemImg, x: 250, y: 230, width: 200, height: 200, z: 11, alpha: 1, isAnchoring: false)
         
         
         //亮星星, 星星位置要抓
@@ -5340,6 +5345,15 @@ let monsters =
         makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 1, isAnchoring: false)
         */
+        
+        //做checkMark
+        makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "2ch", image: "chMark", x: -330, y: -200, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "3ch", image: "chMark", x: -330, y: -300, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+        
+        //顯示三個字
+        showThreeWords()
+
         
         let elemName = syllablesToCheck.components(separatedBy: .decimalDigits)
         let elemNum = syllablesToCheck.replacingOccurrences(of: elemName[0], with: "")
@@ -5452,12 +5466,12 @@ let monsters =
             
             
             //產生寵物
-            self!.makeImageNode(name: "petGet", image: self!.upgradeValue, x: 0, y: 200, width: 250, height: 250, z: 20, alpha: 0, isAnchoring: false)
+            self!.makeImageNode(name: "petGet", image: self!.upgradeValue, x: 0, y: 230, width: 250, height: 250, z: 20, alpha: 0, isAnchoring: false)
           
             self!.changeImageAlfa(name: "petGet", toAlpha: 1, time: 0.5)
             
-            self!.makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
-            self!.makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 200, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+            self!.makeImageNode(name: "movingLight", image: "movingLight", x: 0, y: 230, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
+            self!.makeImageNode(name: "movingLight2", image: "movingLight", x: 0, y: 230, width: 650, height: 601, z: 11, alpha: 1, isAnchoring: false)
             
             
             let movingLight = self!.childNode(withName: "movingLight") as! SKSpriteNode
@@ -5475,23 +5489,19 @@ let monsters =
                         if let petName = self!.partOnePets[i]["petName"] as! String?{
 
                         //製作文字
-                        self!.makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "獲得新寵物: " + petName, zPosition: 14, name: "getPetText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+                        self!.makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 40, text: "獲得新寵物: " + petName, zPosition: 14, name: "getPetText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
                         }
                         
-                        //顯示新增我的最愛單字
-                        self!.showThreeWords()
                         
                         //製作按鈕
-                        self!.makeImageNode(name: "getPetButton", image: "okBtn", x: 0, y: -400, width:276, height: 144, z: 24, alpha: 1, isAnchoring: false)
+                        self!.makeImageNode(name: "getPetButton", image: "okBtn", x: 0, y: -500, width:276, height: 144, z: 24, alpha: 1, isAnchoring: false)
                         
                         self!.isUserInteractionEnabled = true
                         
-                        
-                        
+
                     }
                     
-                    
-                    
+                
                 }
                 
             }
@@ -5585,7 +5595,7 @@ let monsters =
         makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 40, text: "背包已滿，先丟掉不要的元素", zPosition: 14, name: "winText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         */
         //製作文字
-        makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 34, text: "獲得新魔法元素，可用於裝備寵物", zPosition: 11, name: "winText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 34, text: "獲得新魔法元素，可用於裝備寵物", zPosition: 12, name: "winText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //製作按鈕
         makeImageNode(name: "preDelete", image: "getButton", x: 0, y: -500, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
@@ -5837,6 +5847,8 @@ let monsters =
     
     func failedToGetElement(){
         
+        //初始化及移除畫面的必要性需要確認
+        
         //初始化
         shownWords.removeAll(keepingCapacity: false)
         wordEntered.removeAll(keepingCapacity: false)
@@ -5851,10 +5863,10 @@ let monsters =
         //製作元素
 
         //製作背景
-        makeImageNode(name: "loseBg", image: "loseBg", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "loseBg", image: "lostView", x: 0, y: 0, width: 750, height: 1334, z: 10, alpha: 1, isAnchoring: false)
         
         //製作按鈕
-        makeImageNode(name: "quitButton", image: "quitButton", x: 0, y: -400, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "quitButton", image: "quitButton", x: 0, y: -500, width:300, height: 90, z: 11, alpha: 1, isAnchoring: false)
         
         
         var elemImg = "elemG"
@@ -5916,52 +5928,72 @@ let monsters =
 
         
         //製作元素
-        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 200, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "getElement", image: elemImg, x: 0, y: 230, width: 200, height: 200, z: 12, alpha: 1, isAnchoring: false)
         
         //製作文字
-        makeLabelNode(x: 0, y: -220, alignMent: .center, fontColor: .white, fontSize: 30, text: "", zPosition: 11, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: 30, alignMent: .center, fontColor: .white, fontSize: 30, text: "挑戰失敗，錯誤單字已加入錯誤字集", zPosition: 11, name: "loseText", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //亮星星, 星星位置要抓
+        /*
         makeImageNode(name: "1star", image: "star1", x: -160, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
         makeImageNode(name: "2star", image: "star1", x: 00, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
         //makeImageNode(name: "3star", image: "star1", x: 160, y: -73, width: 100, height: 96.3, z: 11, alpha: 0, isAnchoring: false)
+        */
         
-        let star1 = findImageNode(name: "1star")
-        let star2 = findImageNode(name: "2star")
-        //let star3 = findImageNode(name: "3star")
+        //顯示三個字
+        showThreeWords()
+        
+        /*
+        let check1 = findImageNode(name: "1star")
+        let check2 = findImageNode(name: "2star")
+        let check3 = findImageNode(name: "3star")
         
         let loseTextLabel = findLabelNode(name: "loseText")
-        
+        */
         var checkStar = Int()
         //做底數
         let endUnitNumber = (unitNumber + 1) * 3
         checkStar = endUnitNumber - currentWordSequence
         
+        /* 確認有沒有已得到元素這部分先不用作
         if let getElements = user?["getElement"] as? String{
-            
-            
+
             if getElements.contains(syllablesToCheck){
                 
                 checkStar = 4
-                
             }
         }
+        */
         
         switch checkStar {
+            /*
             case 4:
             loseTextLabel.text = "You Already Got This Element"
+            */
+ 
         case 3:
             print("過0關")
-            loseTextLabel.text = "You Need To Win 3 Stars To Get Element"
+            
+            //做checkMark
+            makeImageNode(name: "1ch", image: "xMark", x: -330, y: -90, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            makeImageNode(name: "2ch", image: "xMark", x: -330, y: -200, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            makeImageNode(name: "3ch", image: "xMark", x: -330, y: -300, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            
         case 2:
             print("過1關")
-            loseTextLabel.text = "You Need 2 More Stars To Get The Element"
-            star1.alpha = 1
+            
+            //做checkMark
+            makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+            makeImageNode(name: "2ch", image: "xMark", x: -330, y: -200, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            makeImageNode(name: "3ch", image: "xMark", x: -330, y: -300, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
         case 1:
             print("過2關")
-            loseTextLabel.text = "You Need 1 More Star To Get The Element"
-            star1.alpha = 1
-            star2.alpha = 2
+           
+            //做checkMark
+            makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+            makeImageNode(name: "2ch", image: "chMark", x: -330, y: -200, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
+            makeImageNode(name: "3ch", image: "xMark", x: -330, y: -300, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            
         default:
             break
         }
@@ -7016,6 +7048,9 @@ let monsters =
     //新增最愛
     func addWord(word:String){
         
+        //確認該字沒有在最愛之內
+        if !myWords.contains(word){
+        
         let id = user?["id"] as! String
         
         // url to access our php file
@@ -7063,12 +7098,13 @@ let monsters =
                 
             }
         }).resume()
-        
+        }
     }
 
     //刪除最愛單字
     func removeWord(word:String){
         
+        if myWords.contains(word) {
         let id = user?["id"] as! String
         
         // url to access our php file
@@ -7118,7 +7154,7 @@ let monsters =
                 
             }
         }).resume()
-        
+        }
     }
 
     
@@ -7198,6 +7234,22 @@ let monsters =
                 }
                 
 
+            } else {
+                
+                switch i{
+                case 0:
+                    removeWord(word: firstEngWord)
+                case 1:
+                    removeWord(word: secondEngWord)
+                case 2:
+                    removeWord(word: thirdEngWord)
+                    
+                default:
+                    break
+                }
+                
+                
+                
             }
         }
         
