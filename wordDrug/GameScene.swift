@@ -572,8 +572,7 @@ let monsters =
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
         
-        
-        
+
         //自我爆炸explode
         explodeEmitter = SKEmitterNode(fileNamed: "explode.sks")
         explodeEmitter?.position = CGPoint(x: 0, y: -150)
@@ -6542,9 +6541,7 @@ let monsters =
                 }
                 
             }
-            
-            
-            
+
             //===========以下為做字功能, 分成兩部分===============
             
             //Part 1. 有三字母部首的話
