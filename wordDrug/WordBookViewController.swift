@@ -53,11 +53,12 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var myFavEngWordsToShow = [String]()
     var myFavChiWordsToShow = [String]()
     var myFavPartOfSpeechToShow = [String]()
-    
+    var myFavSyllablesToShow = [String]()
     
     var engWordsSelected = [String]()
     var chiWordsSelected = [String]()
     var partOfSpeechSelected = [String]()
+    var syllablesSelected = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,7 +129,6 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         //讀取所有單字
         
         let fakeGamePassed = gamePassed!
-        
         for (s,_) in fakeGamePassed{
             
             //讀取已完整的所有字集
@@ -235,36 +235,37 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
             let chiWord = chiWordsToShow[i]
             let partOfSpeech = partOfSpeechToShow[i]
+            let syllables = syllablesToShow[i]
+            let wordToAppend = engWordsToShow[i]
             for myWord in myWords{
                 
                 
                 if myWord == word {
                     
-                    
-                    myFavEngWordsToShow.append(myWord)
+                    myFavEngWordsToShow.append(wordToAppend)
                     myFavChiWordsToShow.append(chiWord)
                     myFavPartOfSpeechToShow.append(partOfSpeech)
+                    myFavSyllablesToShow.append(syllables)
                     
                 }
                 
             }
             
-            
         }
-        
         
         print(myFavEngWordsToShow)
         print(myFavChiWordsToShow)
         print(myFavPartOfSpeechToShow)
+        print(myFavSyllablesToShow)
         
- 
         engWordsSelected = engWordsToShow
         chiWordsSelected = chiWordsToShow
         partOfSpeechSelected = partOfSpeechToShow
+        syllablesSelected = syllablesToShow
 
-        
-        
     }
+    
+    
     @objc func segSelected(sender:UISegmentedControl){
         
         //抓index
@@ -277,19 +278,25 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             engWordsSelected = engWordsToShow
             chiWordsSelected = chiWordsToShow
             partOfSpeechSelected = partOfSpeechToShow
+            syllablesSelected = syllablesToShow
             tableView.reloadData()
         case 1:
             print("my Fav words")
+            
+     
             engWordsSelected = myFavEngWordsToShow
             chiWordsSelected = myFavChiWordsToShow
             partOfSpeechSelected = myFavPartOfSpeechToShow
-                 tableView.reloadData()
+            syllablesSelected = myFavSyllablesToShow
+            tableView.reloadData()
+            
         case 2:
             print("my Wrong Words")
             engWordsSelected = engWordsToShow
             chiWordsSelected = chiWordsToShow
             partOfSpeechSelected = partOfSpeechToShow
-                 tableView.reloadData()
+            syllablesSelected = syllablesToShow
+            tableView.reloadData()
 
         default:
             break
@@ -346,9 +353,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let heartImg = cell.viewWithTag(4) as! UIImageView
         
         //抓音節的字母 +  數字
-
-        let syllableText = syllablesToShow[indexPath.row].components(separatedBy: .decimalDigits)
-        let syllableNum = syllablesToShow[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
+        let syllableText = syllablesSelected[indexPath.row].components(separatedBy: .decimalDigits)
+        let syllableNum = syllablesSelected[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
         
         let engWords = engWordsSelected[indexPath.row]
         let engWordArray = engWords.components(separatedBy: " ")
@@ -428,7 +434,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
         } else {
         //設定一些字的顏色
-
+            
         var attrWords = [NSMutableAttributedString]()
         
         for i in 0 ..< engWordArray.count{
@@ -438,11 +444,15 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 //特殊字元
                 if engWord == syllableText[0]{
                     
+                    print("special")
+                    
                   let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
                     attrWords.append(word)
             
                 } else {
                     //一般字元
+                    
+                    print("normal")
                     let word = NSMutableAttributedString(string: engWord, attributes: attrs2)
                     attrWords.append(word)
                 }
@@ -471,12 +481,12 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         syllableNumberLabel.text = syllableNum
         
         return cell
+        
     }
     
     //cell的高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
-        
     }
     
     
