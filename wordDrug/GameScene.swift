@@ -4947,16 +4947,18 @@ let monsters =
             //取得元素
             //取得User資料, 比對元素,
             
+            
+            
             if let getElements = user?["getElement"] as? String{
                 
-                
-                if getElements.contains(syllablesToCheck){
+                //分析出Array才能確認是否正確符合元素, bug fixed
+                let getElementsArray = getElements.components(separatedBy: ";")
+
+                if getElementsArray.contains(syllablesToCheck){
                     
                     //有得到過, 暫時先跳回
                     
                     //**修正機制: 有得到過一樣顯示得到過的畫面, 選擇最愛單字**
-                    
-                    
                     
                     //跳轉回元素表
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
@@ -6440,7 +6442,7 @@ let monsters =
             
             //抓部首
             syllablesToCheck = syllables[unitNumber]
-            
+                        
             //去掉數字
             syllablesWithoutDigit = (syllablesToCheck.components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
             

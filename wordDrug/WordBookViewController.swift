@@ -49,7 +49,15 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var syllablesToShow = [String]()
     
     //我的最愛
-       var myWords = [String]()
+    var myWords = [String]()
+    var myFavEngWordsToShow = [String]()
+    var myFavChiWordsToShow = [String]()
+    var myFavPartOfSpeechToShow = [String]()
+    
+    
+    var engWordsSelected = [String]()
+    var chiWordsSelected = [String]()
+    var partOfSpeechSelected = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +94,11 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             segControl.addSubview(segLabel)
 
         }
+        
 
+        //設定segControl
+        segControl.addTarget(self, action: #selector(WordBookViewController.segSelected), for: .valueChanged)
+        
         //設定scrollView
         fullSize = myScrollView.frame.size
         myScrollView.contentSize = CGSize(width: fullSize.width * 4, height: fullSize.height)
@@ -115,7 +127,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
         //讀取所有單字
         
-        let fakeGamePassed = [10:9]
+        let fakeGamePassed = gamePassed!
         
         for (s,_) in fakeGamePassed{
             
@@ -216,11 +228,74 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             myWords = myWordsString.components(separatedBy: ";")
             
         }
-  
         
+    
+        for i in 0 ..< engWordsToShow.count{
+            
+            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            let chiWord = chiWordsToShow[i]
+            let partOfSpeech = partOfSpeechToShow[i]
+            for myWord in myWords{
+                
+                
+                if myWord == word {
+                    
+                    
+                    myFavEngWordsToShow.append(myWord)
+                    myFavChiWordsToShow.append(chiWord)
+                    myFavPartOfSpeechToShow.append(partOfSpeech)
+                    
+                }
+                
+            }
+            
+            
+        }
+        
+        
+        print(myFavEngWordsToShow)
+        print(myFavChiWordsToShow)
+        print(myFavPartOfSpeechToShow)
+        
+ 
+        engWordsSelected = engWordsToShow
+        chiWordsSelected = chiWordsToShow
+        partOfSpeechSelected = partOfSpeechToShow
+
         
         
     }
+    @objc func segSelected(sender:UISegmentedControl){
+        
+        //抓index
+        let index = segControl.selectedSegmentIndex
+        
+        switch index{
+            
+        case 0:
+            print("all words")
+            engWordsSelected = engWordsToShow
+            chiWordsSelected = chiWordsToShow
+            partOfSpeechSelected = partOfSpeechToShow
+            tableView.reloadData()
+        case 1:
+            print("my Fav words")
+            engWordsSelected = myFavEngWordsToShow
+            chiWordsSelected = myFavChiWordsToShow
+            partOfSpeechSelected = myFavPartOfSpeechToShow
+                 tableView.reloadData()
+        case 2:
+            print("my Wrong Words")
+            engWordsSelected = engWordsToShow
+            chiWordsSelected = chiWordsToShow
+            partOfSpeechSelected = partOfSpeechToShow
+                 tableView.reloadData()
+
+        default:
+            break
+        }
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -255,7 +330,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
 
-        return engWordsToShow.count
+        return engWordsSelected.count
 
     }
     
@@ -275,7 +350,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let syllableText = syllablesToShow[indexPath.row].components(separatedBy: .decimalDigits)
         let syllableNum = syllablesToShow[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
         
-        let engWords = engWordsToShow[indexPath.row]
+        let engWords = engWordsSelected[indexPath.row]
         let engWordArray = engWords.components(separatedBy: " ")
         let vowels = ["a","e","i","o","u"]
         
@@ -388,8 +463,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         engWordLabel.attributedText = word
         }
 
-        let chiWord = chiWordsToShow[indexPath.row]
-        let partOfSpeech = partOfSpeechToShow[indexPath.row].replacingOccurrences(of: "\r\n", with: "")
+        let chiWord = chiWordsSelected[indexPath.row]
+        let partOfSpeech = partOfSpeechSelected[indexPath.row].replacingOccurrences(of: "\r\n", with: "")
         chiWordLabel.text = "(" + partOfSpeech + ")" + " " +  chiWord
         syllableLabel.adjustsFontSizeToFitWidth = true
         syllableLabel.text = syllableText[0]

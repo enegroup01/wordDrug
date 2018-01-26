@@ -57,6 +57,16 @@ class StatsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
+        //抓userDefault判定目前是哪個探索點
+        let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
+        
+        if let decoded = decodedObject {
+            gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+
+        //自由設定
+        //gamePassed = [7:5]
+        
         //抓本機曾經儲存的寵物
         pet = UserDefaults.standard.object(forKey: "pet") as? [String : Any]
         

@@ -25,6 +25,8 @@ class Map1Scene: SKScene {
 
     
     override func didMove(to view: SKView) {
+        
+     
   
         //跳進元素表NC
         NotificationCenter.default.addObserver(self, selector: #selector(Map1Scene.notifyJumpToElement), name: NSNotification.Name("jumpToElement"), object: nil)
@@ -63,14 +65,6 @@ class Map1Scene: SKScene {
             }
         }
         
-        //抓userDefault判定目前是哪個探索點
-        
-        
-        let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
-        
-        if let decoded = decodedObject {
-            gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
-        }
         
         if gamePassed == nil {
             //第一次玩
@@ -99,7 +93,7 @@ class Map1Scene: SKScene {
 
         }
  
-        
+        print("mapVc gamePassed:\(gamePassed)")
         //做地圖
         makeImageNode(name: "map1", image: "map1", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
