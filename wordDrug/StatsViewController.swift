@@ -65,7 +65,7 @@ class StatsViewController: UIViewController {
         }
 
         //自由設定
-        //gamePassed = [7:5]
+        //gamePassed = [7:6]
         
         //抓本機曾經儲存的寵物
         pet = UserDefaults.standard.object(forKey: "pet") as? [String : Any]
@@ -122,7 +122,6 @@ class StatsViewController: UIViewController {
             pet = partOnePets[0]
             petOriginal = partOnePets[0]
             
-            
             //儲存本機已選擇的寵物
             UserDefaults.standard.set(pet, forKey: "pet")
         
@@ -140,8 +139,6 @@ class StatsViewController: UIViewController {
                 //儲存到後端
                 getPet(id: id, petId: petId)
             }
-            
-
             
             //開始動畫
             darkBg.isHidden = false
@@ -318,7 +315,6 @@ class StatsViewController: UIViewController {
         petHealLabel.text = String(petHealValue)
         petNameLabel.text = petName
         petHitLabel.text = String(petHitValue)
-        
         petMagLabel.text = String(describing: petMagValue)
         
 
@@ -327,7 +323,6 @@ class StatsViewController: UIViewController {
             
             self!.petAva.frame.origin.y = 87
 
-            
         }, completion: nil)
         
          getPetValue()
@@ -336,7 +331,6 @@ class StatsViewController: UIViewController {
     
     
     @IBAction func enterMapClick(_ sender: Any) {
-        
         
         performSegue(withIdentifier: "toMap", sender: self)
         

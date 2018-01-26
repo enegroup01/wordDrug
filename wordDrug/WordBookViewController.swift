@@ -223,6 +223,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         }
         
         
+        
+        
         //載入我的最愛單字
         if let myWordsString = user!["myWords"] as! String?{
             myWords = myWordsString.components(separatedBy: ";")
@@ -283,7 +285,6 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         case 1:
             print("my Fav words")
             
-     
             engWordsSelected = myFavEngWordsToShow
             chiWordsSelected = myFavChiWordsToShow
             partOfSpeechSelected = myFavPartOfSpeechToShow
@@ -443,16 +444,13 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 
                 //特殊字元
                 if engWord == syllableText[0]{
-                    
-                    print("special")
+
                     
                   let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
                     attrWords.append(word)
             
                 } else {
                     //一般字元
-                    
-                    print("normal")
                     let word = NSMutableAttributedString(string: engWord, attributes: attrs2)
                     attrWords.append(word)
                 }
@@ -495,6 +493,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {
+        self.dismiss(animated: false, completion: nil)
     }
     
     @IBAction func autoplayClicked(_ sender: Any) {
