@@ -65,7 +65,8 @@ class StatsViewController: UIViewController {
         }
 
         //自由設定
-        //gamePassed = [7:6]
+        //gamePassed = [13:9]
+        //print(gamePassed)
         
         //抓本機曾經儲存的寵物
         pet = UserDefaults.standard.object(forKey: "pet") as? [String : Any]
@@ -224,7 +225,7 @@ class StatsViewController: UIViewController {
     func getPet(id:String,petId:String){
         
         // url to access our php file
-        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getPet.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/getPet.php")!
         
         // request url
         var request = URLRequest(url: url)

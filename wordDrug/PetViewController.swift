@@ -2365,7 +2365,7 @@ class PetViewController: UIViewController {
     
     
     // url to access our php file
-    let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/deleteElement.php")!
+    let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/deleteElement.php")!
     
     // request url
     var request = URLRequest(url: url)
@@ -2504,7 +2504,7 @@ class PetViewController: UIViewController {
 
                         
                         // url to access our php file
-                        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getElement.php")!
+                        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/getElement.php")!
                         
                         // request url
                         var request = URLRequest(url: url)

@@ -39,7 +39,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         //檢查註冊
         // url to php file
-        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/register.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register.php")!
         
         // request to this file
         var request = URLRequest(url: url)
@@ -161,7 +161,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         // send request to mysql db
         // url to access our php file
-        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/login.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
         
         // request url
         var request = URLRequest(url: url)

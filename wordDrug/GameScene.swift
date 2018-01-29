@@ -5237,7 +5237,7 @@ let monsters =
                     
                     
                     // url to access our php file
-                    let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getElement.php")!
+                    let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/getElement.php")!
                     
                     // request url
                     var request = URLRequest(url: url)
@@ -6997,7 +6997,7 @@ let monsters =
     func getPet(id:String,petId:String){
         
         // url to access our php file
-        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/getPet.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/getPet.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -7053,7 +7053,7 @@ let monsters =
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/addWord.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -7107,7 +7107,7 @@ let monsters =
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/removeWord.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -7165,7 +7165,7 @@ let monsters =
         let element = elem
         
         // url to access our php file
-        let url = URL(string: "http://ec2-52-199-122-149.ap-northeast-1.compute.amazonaws.com/wordDrug/deleteElement.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/deleteElement.php")!
         
         // request url
         var request = URLRequest(url: url)
