@@ -967,8 +967,7 @@ let monsters =
         //瞄準心
         makeImageNode(name: "aimerHeart", image: "aimerHeart", x: 0, y: -150, width: 144, height: 144, z: 2, alpha: 0, isAnchoring: false)
         
-        
-        
+
         for node in children{
             
             //把選項alpha弄淡
@@ -1449,18 +1448,16 @@ let monsters =
             }
 
             
-            
             //遊戲結束 (1) 正常得到元素 (2) 遊戲失敗
             if node.name == "getButton" || node.name == "quitButton"{
                 
                 //儲存最愛單字至後端
                 addWordFunc()
-                
-                //跳轉回元素表
-                
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
                 //移除node及動畫
                 removeEverything()
+                
+    
             }
             
             //刪除背包元素的步驟 (1)pre先顯示 (2)再perform跳回杯包的刪除功能
@@ -1485,8 +1482,6 @@ let monsters =
             //Part 2.
             if node.name == "performDelete" {
                 
-                //儲存最愛單字
-                addWordFunc()
                 
                 //紀錄關卡
                 if unitNumber == 9{
@@ -1500,18 +1495,18 @@ let monsters =
                 let userDefaults = UserDefaults.standard
                 let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                 userDefaults.set(encodedObject, forKey: "gamePassed")
+
+                addWordFunc()
                 
                 //在此傳4個值給Vc
                 let valuePass:[String:Any] = ["page":elemPageToPass,"seg":segIndexToPass,"typeSeg":typeSegToPass, "elem":syllablesToCheck]
-  
-                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToBackpack"), object: nil, userInfo: valuePass)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToBackpack"), object: nil, userInfo: valuePass)
                 
                 //移除所有的NODE
+                
                 removeEverything()
             }
-            
 
-            
             
             
             //合併得到寵物後的按鈕
@@ -1548,8 +1543,6 @@ let monsters =
                 deleteElem(elem:upgradeNames[0])
                 deleteElem(elem:upgradeNames[1])
                 
-                //儲存我的最愛單字
-                addWordFunc()
                 
                 //把所有elem歸零, 合併元素在selElem裡
                 exactElemSaved = [[-1:-1],[-1:-1],[-1:-1]]
@@ -1559,13 +1552,14 @@ let monsters =
                 userDefaults.set(encodedObject1, forKey: "exactElemSaved")
                 userDefaults.synchronize()
                 
+                
+                //儲存我的最愛單字
+                addWordFunc()
+                
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "endUnit"), object: nil, userInfo: nil)
-
-                //有三個連接後端的作業, 看之後要不要做等待的view
-                
-                //移除所有的Node
+                //移除node及動畫
                 removeEverything()
-                
+
             }
             
             
@@ -1628,7 +1622,6 @@ let monsters =
                     
                 }
 
-                
                 
             }
             if node.name == "3Love"{
@@ -4947,8 +4940,6 @@ let monsters =
             //取得元素
             //取得User資料, 比對元素,
             
-            
-            
             if let getElements = user?["getElement"] as? String{
                 
                 //分析出Array才能確認是否正確符合元素, bug fixed
@@ -7033,7 +7024,6 @@ let monsters =
                     
                     print("catch error")
                     
-                    
                 }
             } else {
                 
@@ -7083,8 +7073,6 @@ let monsters =
                     //再次儲存使用者資訊
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    
-                    
                 } catch{
                     
                     print("catch error")
@@ -7121,7 +7109,6 @@ let monsters =
         // append body to our request that gonna be sent
         request.httpBody = body.data(using: .utf8)
         
-        
         URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
             // no error
             if error == nil {
@@ -7140,11 +7127,9 @@ let monsters =
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     print(user!)
                     
-                    
                 } catch{
                     
                     print("catch error")
-                    
                     
                 }
             } else {
@@ -7213,7 +7198,8 @@ let monsters =
         }).resume()
         
     }
-    //新增最愛單字
+    
+    //新增最愛單字, 需要補寫最後一個字新增完後才離開畫面的func, 建議可以用append字到一個字串後再一次addWord
     func addWordFunc(){
         
         for i in 0 ..< wordsLoved.count{
@@ -7231,7 +7217,6 @@ let monsters =
                 default:
                     break
                 }
-                
 
             } else {
                 
@@ -7246,14 +7231,9 @@ let monsters =
                 default:
                     break
                 }
-                
-                
-                
             }
         }
-        
     }
-    
 }
 
 
