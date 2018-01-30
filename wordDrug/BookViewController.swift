@@ -62,6 +62,7 @@ class BookViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     //所有得到的元素
     var allGetElements = [String]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -43,27 +43,54 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var wordSets = [[String]]()
     //殘值的字的array
     var tempWordSets = [[String]]()
+    var engWordsPlusWrongWordsToShow = [String]() //包含三個未得到但是有可能的錯錯誤單字
     var engWordsToShow = [String]()
     var chiWordsToShow = [String]()
     var partOfSpeechToShow = [String]()
     var syllablesToShow = [String]()
     
     //我的最愛
-    var myWords = [String]()
+    var myFavWords = [String]()
+    var myWrongWords = [String]()
+    
     var myFavEngWordsToShow = [String]()
     var myFavChiWordsToShow = [String]()
     var myFavPartOfSpeechToShow = [String]()
     var myFavSyllablesToShow = [String]()
+    
+    var myWrongEngWordsToShow = [String]()
+    var myWrongChiWordsToShow = [String]()
+    var myWrongPartOfSpeechToShow = [String]()
+    var myWrongSyllablesToShow = [String]()
     
     var engWordsSelected = [String]()
     var chiWordsSelected = [String]()
     var partOfSpeechSelected = [String]()
     var syllablesSelected = [String]()
     
+    //我的最愛圖片是否要顯示的array
+    var myFavImgs = [Int]()
+    
+    var location = CGPoint()
+    
+  
+    var activityIndicator = UIActivityIndicatorView()
+    
+    var likeMode = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        activityIndicator.layer.zPosition = 15
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.addSubview(activityIndicator)
+
         
         //抓seg高度
         segHeight.constant = 75
@@ -95,7 +122,6 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             segControl.addSubview(segLabel)
 
         }
-        
 
         //設定segControl
         segControl.addTarget(self, action: #selector(WordBookViewController.segSelected), for: .valueChanged)
@@ -159,6 +185,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             //再來讀取殘餘的英文字
             var wordFile:String?
             
+            //讀取最新一層的字
             let name = "1-" + String(s + 1)
             
             if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -202,36 +229,44 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
         }
         
-        //抓殘值
+        //抓殘值 ＆ 抓錯字
         for (s,g) in fakeGamePassed{
         
-        for w in 0 ..< (g * 3){
+        for w in 0 ..< ((g + 1) * 3){
             engWordsToShow.append(tempWordSets[0][w])
             let syllableSequence = Int(w / 3)
             syllablesToShow.append(syllableSets[s][syllableSequence])
         }
-        
-        //抓殘值
-        for w in 30 ..< (30 + g * 3){
+        for w in 30 ..< (30 + (g + 1) * 3){
             chiWordsToShow.append(tempWordSets[0][w])
         }
   
-        for w in 90 ..< (90 + g * 3){
+        for w in 90 ..< (90 + (g + 1) * 3){
             partOfSpeechToShow.append(tempWordSets[0][w])
         }
-
-        }
-        
-        
-        
-        
-        //載入我的最愛單字
-        if let myWordsString = user!["myWords"] as! String?{
-            myWords = myWordsString.components(separatedBy: ";")
             
         }
         
-    
+        //載入我的最愛單字
+        if let myWordsString = user!["myWords"] as! String?{
+            myFavWords = myWordsString.components(separatedBy: ";")
+        }
+        
+        //載入我的錯誤單字
+        if let myWrongWordsString = user!["wrongWords"] as! String?{
+            myWrongWords = myWrongWordsString.components(separatedBy: ";")
+            
+        }
+        
+        
+        //填入所有字的數量, 等等準備抓我的最愛的部分
+        for _ in 0 ..< engWordsToShow.count - 3{
+            
+            myFavImgs.append(0)
+            
+            
+        }
+        
         for i in 0 ..< engWordsToShow.count{
             
             let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
@@ -239,8 +274,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             let partOfSpeech = partOfSpeechToShow[i]
             let syllables = syllablesToShow[i]
             let wordToAppend = engWordsToShow[i]
-            for myWord in myWords{
-                
+            
+            for myWord in myFavWords{
                 
                 if myWord == word {
                     
@@ -249,7 +284,26 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                     myFavPartOfSpeechToShow.append(partOfSpeech)
                     myFavSyllablesToShow.append(syllables)
                     
+                    //抓全部單字要反紅的部分
+                    myFavImgs[i] = 1
+                    
                 }
+                
+            }
+            
+            //抓我的錯字
+            for myWrongWord in myWrongWords{
+                
+                if myWrongWord == word {
+                    
+                    myWrongEngWordsToShow.append(wordToAppend)
+                    myWrongChiWordsToShow.append(chiWord)
+                    myWrongPartOfSpeechToShow.append(partOfSpeech)
+                    myWrongSyllablesToShow.append(syllables)
+                    
+
+                }
+
                 
             }
             
@@ -264,9 +318,157 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         chiWordsSelected = chiWordsToShow
         partOfSpeechSelected = partOfSpeechToShow
         syllablesSelected = syllablesToShow
+        //移除三個多增加的數量
+        for  _ in 0 ..< 3 {
+            engWordsSelected.removeLast()
+        }
+        
 
     }
     
+    func loadAllWordFavs(){
+        
+        //載入我的最愛單字
+        if let myWordsString = user!["myWords"] as! String?{
+            myFavWords = myWordsString.components(separatedBy: ";")
+        }
+        
+        myFavImgs.removeAll(keepingCapacity: false)
+        
+        //填入所有字的數量, 等等準備抓我的最愛的部分
+        for _ in 0 ..< engWordsToShow.count - 3{
+            
+            myFavImgs.append(0)
+            
+            
+        }
+        
+        for i in 0 ..< engWordsToShow.count{
+            
+            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            
+            for myWord in myFavWords{
+                
+                if myWord == word {
+
+                    //抓全部單字要反紅的部分
+                    myFavImgs[i] = 1
+                    
+                }
+                
+            }
+        
+        }
+        
+    }
+    
+    
+    func loadMyFavWords(){
+        
+        
+        //載入我的最愛單字
+        if let myWordsString = user!["myWords"] as! String?{
+            myFavWords = myWordsString.components(separatedBy: ";")
+        }
+
+        myFavEngWordsToShow.removeAll(keepingCapacity: false)
+        myFavChiWordsToShow.removeAll(keepingCapacity: false)
+        myFavPartOfSpeechToShow.removeAll(keepingCapacity: false)
+        myFavSyllablesToShow.removeAll(keepingCapacity: false)
+        myFavImgs.removeAll(keepingCapacity: false)
+        
+        for _ in 0 ..< myFavWords.count{
+            
+            myFavImgs.append(1)
+            
+        }
+
+        
+        for i in 0 ..< engWordsToShow.count{
+            
+            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            let chiWord = chiWordsToShow[i]
+            let partOfSpeech = partOfSpeechToShow[i]
+            let syllables = syllablesToShow[i]
+            let wordToAppend = engWordsToShow[i]
+            
+            
+
+            for myWord in myFavWords{
+                
+                if myWord == word {
+                    
+                    myFavEngWordsToShow.append(wordToAppend)
+                    myFavChiWordsToShow.append(chiWord)
+                    myFavPartOfSpeechToShow.append(partOfSpeech)
+                    myFavSyllablesToShow.append(syllables)
+                    
+                    
+                }
+                
+            }
+            
+            
+            
+        }
+
+        engWordsSelected = myFavEngWordsToShow
+        chiWordsSelected = myFavChiWordsToShow
+        partOfSpeechSelected = myFavPartOfSpeechToShow
+        syllablesSelected = myFavSyllablesToShow
+
+        //不產生動畫的reload
+        tableView.reloadData()
+
+    }
+    
+    func loadMyWrongWords(){
+        
+        //載入我的錯誤單字
+        if let myWrongWordsString = user!["wrongWords"] as! String?{
+            myWrongWords = myWrongWordsString.components(separatedBy: ";")
+            
+        }
+        
+        
+        myWrongEngWordsToShow.removeAll(keepingCapacity: false)
+        myWrongChiWordsToShow.removeAll(keepingCapacity: false)
+        myWrongPartOfSpeechToShow.removeAll(keepingCapacity: false)
+        myWrongSyllablesToShow.removeAll(keepingCapacity: false)
+        
+        
+        for i in 0 ..< engWordsToShow.count{
+            
+            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            let chiWord = chiWordsToShow[i]
+            let partOfSpeech = partOfSpeechToShow[i]
+            let syllables = syllablesToShow[i]
+            let wordToAppend = engWordsToShow[i]
+            
+            
+            //抓我的錯字
+            for myWrongWord in myWrongWords{
+                
+                if myWrongWord == word {
+                    
+                    myWrongEngWordsToShow.append(wordToAppend)
+                    myWrongChiWordsToShow.append(chiWord)
+                    myWrongPartOfSpeechToShow.append(partOfSpeech)
+                    myWrongSyllablesToShow.append(syllables)
+                    
+                    
+                }
+                
+                
+            }
+            
+            
+            
+        }
+
+        tableView.reloadData()
+        
+    }
     
     @objc func segSelected(sender:UISegmentedControl){
         
@@ -277,33 +479,41 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
         case 0:
             print("all words")
+            
+            loadAllWordFavs()
+            likeMode = true
             engWordsSelected = engWordsToShow
             chiWordsSelected = chiWordsToShow
             partOfSpeechSelected = partOfSpeechToShow
             syllablesSelected = syllablesToShow
+            
+            //移除三個多增加的數量
+            for  _ in 0 ..< 3 {
+            engWordsSelected.removeLast()
+            }
+            
             tableView.reloadData()
         case 1:
             print("my Fav words")
             
-            engWordsSelected = myFavEngWordsToShow
-            chiWordsSelected = myFavChiWordsToShow
-            partOfSpeechSelected = myFavPartOfSpeechToShow
-            syllablesSelected = myFavSyllablesToShow
-            tableView.reloadData()
+            likeMode = true
+            loadMyFavWords()
+            
             
         case 2:
             print("my Wrong Words")
-            engWordsSelected = engWordsToShow
-            chiWordsSelected = chiWordsToShow
-            partOfSpeechSelected = partOfSpeechToShow
-            syllablesSelected = syllablesToShow
+            
+            likeMode = false
+            engWordsSelected = myWrongEngWordsToShow
+            chiWordsSelected = myWrongChiWordsToShow
+            partOfSpeechSelected = myWrongPartOfSpeechToShow
+            syllablesSelected = myWrongSyllablesToShow
             tableView.reloadData()
 
         default:
             break
         }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -339,11 +549,11 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
 
         return engWordsSelected.count
-
+        
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath) as! WordBookTableViewCell
         //cell背景顏色透明
         cell.backgroundColor = .clear
         
@@ -353,6 +563,23 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let chiWordLabel = cell.viewWithTag(3) as! UILabel
         let heartImg = cell.viewWithTag(4) as! UIImageView
         
+        
+        
+        if segControl.selectedSegmentIndex == 2 {
+            heartImg.image = UIImage(named: "crossBtn.png")
+            
+        } else {
+        
+        if myFavImgs[indexPath.row] == 0 {
+            
+            heartImg.image = UIImage(named: "unHeart.png")
+            
+        } else {
+            
+            heartImg.image = UIImage(named: "heart.png")
+            
+        }
+        }
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row].components(separatedBy: .decimalDigits)
         let syllableNum = syllablesSelected[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
@@ -478,7 +705,68 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         syllableLabel.text = syllableText[0]
         syllableNumberLabel.text = syllableNum
         
+        
+        //按讚及取消的function
+        cell.tapAction = {[weak self] (cell) in
+            
+            
+            if self!.likeMode == false {
+                
+                print("delete mode")
+                self!.activityIndicator.startAnimating()
+                UIApplication.shared.beginIgnoringInteractionEvents()
+                
+                
+                   let word = self!.engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
+                   self!.removeWrongWord(word: word)
+                
+                
+                
+            } else {
+        
+            if self!.myFavImgs[indexPath.row] == 0{
+                //加入最愛
+                self!.activityIndicator.startAnimating()
+                UIApplication.shared.beginIgnoringInteractionEvents()
+
+                
+                self!.myFavImgs[indexPath.row] = 1
+                
+                let word = self!.engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
+                self!.addWord(word: word)
+                
+                //不產生動畫的reload
+                UIView.performWithoutAnimation {
+                    self!.tableView.reloadRows(at: [indexPath], with: .none)
+                }
+
+            } else {
+                //取消最愛
+                self!.activityIndicator.startAnimating()
+                UIApplication.shared.beginIgnoringInteractionEvents()
+
+                
+                self!.myFavImgs[indexPath.row] = 0
+               
+                let word = self!.engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
+                self!.removeWord(word: word)
+                //不產生動畫的reload
+                UIView.performWithoutAnimation {
+                    self!.tableView.reloadRows(at: [indexPath], with: .none)
+                }
+
+
+            }
+            }
+  
+        }
+        
         return cell
+        
+    }
+
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
     
@@ -490,6 +778,13 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //播放發音
+        
+        for touch in touches{
+            
+            location = touch.location(in: self.view)
+          
+        }
+        
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {
@@ -497,6 +792,195 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     @IBAction func autoplayClicked(_ sender: Any) {
+    }
+    
+    //新增最愛
+    func addWord(word:String){
+        
+        
+            let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&word=\(word)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                        
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        
+                        DispatchQueue.main.async(execute: {
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
+                        })
+                    } catch{
+                        
+                        print("catch error")
+                        
+                        
+                    }
+                } else {
+                    
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        
+    }
+
+    
+    //刪除最愛單字
+    func removeWord(word:String){
+        
+
+        let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&word=\(word)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                        
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        print(user!)
+                    
+                        DispatchQueue.main.async(execute: {
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
+                            
+                            
+                            if self!.segControl.selectedSegmentIndex == 1 {
+                            
+                                //載入我的最愛單字
+                             self!.loadMyFavWords()
+                            }
+                        })
+                        
+               
+                        
+                    } catch{
+                        
+                        print("catch error")
+                        
+                    }
+                } else {
+                    
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        
+    }
+
+    //刪除最愛單字
+    func removeWrongWord(word:String){
+        
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWrongWord.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&word=\(word)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    print(user!)
+                    
+                    DispatchQueue.main.async(execute: {
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                        
+                        self!.loadMyWrongWords()
+                        
+                        
+                    })
+                    
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
     }
     
 }

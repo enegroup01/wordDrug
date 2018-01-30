@@ -439,6 +439,9 @@ let monsters =
     var firstEngWord = String()
     var secondEngWord = String()
     var thirdEngWord = String()
+    var wrongWords = [String]()
+    
+    var myWrongWords = [String]()
    
     override func didMove(to view: SKView) {
         
@@ -448,6 +451,13 @@ let monsters =
         if let myWordsString = user!["myWords"] as! String?{
             myWords = myWordsString.components(separatedBy: ";")
 
+        }
+        
+        //讀取所有錯誤的字供比對
+        if let myWrongWordsString = user!["wrongWords"] as! String?{
+            
+            myWrongWords = myWrongWordsString.components(separatedBy: ";")
+            
         }
 
         
@@ -878,6 +888,8 @@ let monsters =
         //抓r數字
         var monGroup = Int()
         
+        
+        //**此部分為設定亂數怪的圖片
         //如果圖片是亂數, 就抓亂數組別
         if monsterImg.first == "r" {
         let groupNum = monsterImg.replacingOccurrences(of: "r", with: "")
@@ -1448,7 +1460,7 @@ let monsters =
             }
 
             
-            //遊戲結束 (1) 正常得到元素 (2) 遊戲失敗
+            //遊戲結束 (1) 正常得到元素
             if node.name == "getButton" || node.name == "quitButton"{
                 
                 //儲存最愛單字至後端
@@ -1459,6 +1471,7 @@ let monsters =
                 
     
             }
+            
             
             //刪除背包元素的步驟 (1)pre先顯示 (2)再perform跳回杯包的刪除功能
             //***這部分的上一步驟要重寫, 先顯示最愛單字後再來儲存最愛單字
@@ -5839,7 +5852,7 @@ let monsters =
     
     func failedToGetElement(){
         
-        //初始化及移除畫面的必要性需要確認
+        //下方初始化及移除畫面的必要性需要確認
         
         //初始化
         shownWords.removeAll(keepingCapacity: false)
@@ -5871,8 +5884,7 @@ let monsters =
                     
                     //不包含雙元素
                     if !function.contains(","){
-                        
-                        
+
                         switch function{
                             
                         case "hp":
@@ -5970,6 +5982,14 @@ let monsters =
             makeImageNode(name: "1ch", image: "xMark", x: -330, y: -90, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
             makeImageNode(name: "2ch", image: "xMark", x: -330, y: -200, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
             makeImageNode(name: "3ch", image: "xMark", x: -330, y: -300, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            let thirdWord = wordSets[endUnitNumber - 1].replacingOccurrences(of: " ", with: "")
+            let secondWord = wordSets[endUnitNumber - 2].replacingOccurrences(of: " ", with: "")
+            let firstWord = wordSets[endUnitNumber - 3].replacingOccurrences(of: " ", with: "")
+
+            wrongWords.append(firstWord)
+            wrongWords.append(secondWord)
+            wrongWords.append(thirdWord)
+            
             
         case 2:
             print("過1關")
@@ -5978,6 +5998,13 @@ let monsters =
             makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
             makeImageNode(name: "2ch", image: "xMark", x: -330, y: -200, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
             makeImageNode(name: "3ch", image: "xMark", x: -330, y: -300, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            
+            let secondWord = wordSets[endUnitNumber - 1].replacingOccurrences(of: " ", with: "")
+            let firstWord = wordSets[endUnitNumber - 2].replacingOccurrences(of: " ", with: "")
+            
+            wrongWords.append(firstWord)
+            wrongWords.append(secondWord)
+            
         case 1:
             print("過2關")
            
@@ -5985,6 +6012,11 @@ let monsters =
             makeImageNode(name: "1ch", image: "chMark", x: -330, y: -90, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
             makeImageNode(name: "2ch", image: "chMark", x: -330, y: -200, width: 104, height: 79, z: 11, alpha: 1, isAnchoring: false)
             makeImageNode(name: "3ch", image: "xMark", x: -330, y: -300, width: 58, height: 68, z: 11, alpha: 1, isAnchoring: false)
+            
+           
+            let firstWord = wordSets[endUnitNumber - 1].replacingOccurrences(of: " ", with: "")
+            
+            wrongWords.append(firstWord)
             
         default:
             break
@@ -6021,6 +6053,9 @@ let monsters =
         elemImgNode.addChild(elemNameLabel)
         elemImgNode.addChild(elemNumLabel)
         }
+        
+        //直接新增錯字進去, 不等玩家按確認鍵
+        addWrongWords()
 
         
     }
@@ -7019,7 +7054,6 @@ let monsters =
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     
-                    
                 } catch{
                     
                     print("catch error")
@@ -7141,6 +7175,75 @@ let monsters =
         }
     }
 
+    //新增錯誤單字
+    
+    func addWrongWords(){
+
+        if wrongWords.count > 0 {
+            //確認有錯字
+            
+            for word in wrongWords{
+                
+                //避免重複
+                if !myWrongWords.contains(word){
+                
+                print("wrongword:\(word)")
+
+                let id = user?["id"] as! String
+                
+                // url to access our php file
+                let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWrongWord.php")!
+                
+                // request url
+                var request = URLRequest(url: url)
+                
+                // method to pass data POST - cause it is secured
+                request.httpMethod = "POST"
+                
+                // body gonna be appended to url
+                let body = "userID=\(id)&wrongWord=\(word)"
+                
+                // append body to our request that gonna be sent
+                request.httpBody = body.data(using: .utf8)
+                
+                URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+                    // no error
+                    if error == nil {
+                        
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                            
+                            guard let parseJSON = json else {
+                                print("Error while parsing")
+                                //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                return
+                            }
+                            
+                            //再次儲存使用者資訊
+                            UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                            user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                            print(user!)
+                            
+                        } catch{
+                            
+                            print("catch error")
+                            
+                        }
+                    } else {
+                        
+                        print("urlsession has error")
+                        
+                    }
+                }).resume()
+                
+                }
+            }
+        }
+      
+    }
+
+    
+    
     
     
     //刪除元素

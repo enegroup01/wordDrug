@@ -656,6 +656,7 @@
 		AAA1A683201206AD00C9106B /* winView.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA1A67D201206AC00C9106B /* winView.png */; };
 		AAA1A685201206AD00C9106B /* xMark.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA1A67F201206AD00C9106B /* xMark.png */; };
 		AAA1A68720122D2300C9106B /* unHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA1A68620122D2300C9106B /* unHeart.png */; };
+		AAA924162020845B00AEA07E /* WordBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA924152020845B00AEA07E /* WordBookTableViewCell.swift */; };
 		AAAEBEE51FECB2C90043AB53 /* rareGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEE41FECB2C90043AB53 /* rareGem.png */; };
 		AAAEBEE71FECB3060043AB53 /* combineGem.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEE61FECB3060043AB53 /* combineGem.png */; };
 		AAAEBEE91FECB5870043AB53 /* worldDiamond.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAEBEE81FECB5870043AB53 /* worldDiamond.png */; };
@@ -1386,6 +1387,7 @@
 		AAA1A67D201206AC00C9106B /* winView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = winView.png; sourceTree = "<group>"; };
 		AAA1A67F201206AD00C9106B /* xMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xMark.png; sourceTree = "<group>"; };
 		AAA1A68620122D2300C9106B /* unHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unHeart.png; sourceTree = "<group>"; };
+		AAA924152020845B00AEA07E /* WordBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordBookTableViewCell.swift; sourceTree = "<group>"; };
 		AAAEBEE41FECB2C90043AB53 /* rareGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rareGem.png; path = wordDrug/element/rareGem.png; sourceTree = SOURCE_ROOT; };
 		AAAEBEE61FECB3060043AB53 /* combineGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combineGem.png; path = wordDrug/bookVc/combineGem.png; sourceTree = SOURCE_ROOT; };
 		AAAEBEE81FECB5870043AB53 /* worldDiamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = worldDiamond.png; sourceTree = "<group>"; };
@@ -2399,6 +2401,7 @@
 				AAE181921F97892D00683896 /* GameScene.swift */,
 				AAE181941F97892D00683896 /* GameViewController.swift */,
 				AAE181961F97892D00683896 /* Main.storyboard */,
+				AAA924152020845B00AEA07E /* WordBookTableViewCell.swift */,
 				AA1AF1DE20035BE300C418F3 /* AllPetsViewController.swift */,
 				AA38612C1FE3D00C00B5FBC6 /* StatsViewController.swift */,
 				AA4642841FC4216300D34516 /* LoginViewController.swift */,
@@ -3245,6 +3248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA924162020845B00AEA07E /* WordBookTableViewCell.swift in Sources */,
 				AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */,
 				AA38612D1FE3D00C00B5FBC6 /* StatsViewController.swift in Sources */,
 				AAE181931F97892D00683896 /* GameScene.swift in Sources */,
