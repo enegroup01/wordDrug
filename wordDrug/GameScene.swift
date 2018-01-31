@@ -440,8 +440,10 @@ let monsters =
     var secondEngWord = String()
     var thirdEngWord = String()
     var wrongWords = [String]()
-    
     var myWrongWords = [String]()
+    
+    //錯誤的話就不能加入我的最愛
+    var isAddMyFavEnable = true
    
     override func didMove(to view: SKView) {
         
@@ -5231,7 +5233,6 @@ let monsters =
                         
                         //***這部分機制要修改, 按ok之後再跳出警告背包已滿畫面
                         
-                        
                         //通知背包已滿
                         notifyBagIsFull()
                         
@@ -5844,15 +5845,19 @@ let monsters =
         makeLabelNode(x: -260, y: -320, alignMent: .left, fontColor: .white, fontSize: 50, text: thirdEngWord  + " (" + thirdPartWord + ") " + thirdChiWord, zPosition: 11, name: "thirdWord", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //check是否為最愛單字然後顯示圖片
-        
+        if isAddMyFavEnable{
         makeImageNode(name: "1Love", image: image1, x: 330, y: -90, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "2Love", image: image2, x: 330, y: -200, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
         makeImageNode(name: "3Love", image: image3, x: 330, y: -300, width: 56, height: 48, z: 11, alpha: 1, isAnchoring: false)
+        }
     }
     
     func failedToGetElement(){
         
         //下方初始化及移除畫面的必要性需要確認
+        
+        //設定不能加入我的最愛
+        isAddMyFavEnable = false
         
         //初始化
         shownWords.removeAll(keepingCapacity: false)
@@ -7242,9 +7247,6 @@ let monsters =
       
     }
 
-    
-    
-    
     
     //刪除元素
     func deleteElem(elem:String){

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0345572021EA68005AC70E /* pauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0345562021EA67005AC70E /* pauseBtn.png */; };
 		AA093E5B1FCBEF0300434ACD /* PetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA093E5A1FCBEF0300434ACD /* PetViewController.swift */; };
 		AA093E601FCBFD8900434ACD /* petInfoBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E5F1FCBFD8900434ACD /* petInfoBg.png */; };
 		AA093E621FCBFDBA00434ACD /* elem.png in Resources */ = {isa = PBXBuildFile; fileRef = AA093E611FCBFDBA00434ACD /* elem.png */; };
@@ -738,6 +739,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA0345562021EA67005AC70E /* pauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseBtn.png; sourceTree = "<group>"; };
 		AA093E5A1FCBEF0300434ACD /* PetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewController.swift; sourceTree = "<group>"; };
 		AA093E5F1FCBFD8900434ACD /* petInfoBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petInfoBg.png; sourceTree = "<group>"; };
 		AA093E611FCBFDBA00434ACD /* elem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elem.png; sourceTree = "<group>"; };
@@ -2343,6 +2345,7 @@
 			children = (
 				AAC015B220173AC400FE675B /* wordBookBg.png */,
 				AAC015B820173C3E00FE675B /* autoplayBtn.png */,
+				AA0345562021EA67005AC70E /* pauseBtn.png */,
 				AAC015B420173B4800FE675B /* whitebackBtn.png */,
 				AAC015BC2017526000FE675B /* myFavMark.png */,
 				AAC015C02017662400FE675B /* crossBtn.png */,
@@ -2666,6 +2669,7 @@
 				AAB68D3E1FE8F35400CCF820 /* 1-1.png in Resources */,
 				AA7FA7A81FB5A63500315524 /* le2.png in Resources */,
 				AA3B036A2004F0C300288B9D /* video.mp3 in Resources */,
+				AA0345572021EA68005AC70E /* pauseBtn.png in Resources */,
 				AA3B01F92004F0C200288B9D /* surf.mp3 in Resources */,
 				AA3B03302004F0C300288B9D /* bass.mp3 in Resources */,
 				AA87EAAF1FBD4CDB00830608 /* 3601.png in Resources */,

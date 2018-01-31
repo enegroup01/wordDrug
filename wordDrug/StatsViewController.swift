@@ -64,8 +64,8 @@ class StatsViewController: UIViewController {
             gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
         }
 
-        //自由設定
-        //gamePassed = [13:9]
+        //自由設定, 需要過一關才能成功載入
+        //gamePassed = [2:0]
         //print(gamePassed)
         
         //抓本機曾經儲存的寵物

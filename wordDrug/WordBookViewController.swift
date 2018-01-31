@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
+class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,AVAudioPlayerDelegate {
     
     //背景
     @IBOutlet weak var wordBookBg: UIImageView!
@@ -87,6 +88,10 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var activityIndicator = UIActivityIndicatorView()
     
     var likeMode = true
+    
+    var player: AVAudioPlayer?
+    var isPlayable = true
+    let lightRed = UIColor.init(red: 1, green: 0, blue: 0, alpha: 0.3)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -337,7 +342,45 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         for  _ in 0 ..< 3 {
             engWordsSelected.removeLast()
         }
+
         
+    }
+    
+    func playSound(fileName:String) {
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            
+            
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            player?.delegate = self
+            
+            /* iOS 10 and earlier require the following line:
+             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+            
+            guard let player = player else { return }
+            
+        
+            player.play()
+            isPlayable = false
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
+        if flag == true{
+            
+            print("flag")
+            
+            isPlayable = true
+        }
 
     }
     
@@ -809,14 +852,31 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if isPlayable{
+        let word = engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
+        playSound(fileName: word)
+
+        let row = tableView.cellForRow(at: indexPath)
+            UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                
+                row?.backgroundColor = self!.lightRed
+                }, completion: { (finished:Bool) in
+                    if finished{
+                        UIView.animate(withDuration: 0.2, animations: {
+                            
+                            row?.backgroundColor = .clear
+                        })
+    
+                    }
+            })
+
+        }
     }
     
     //cell的高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //播放發音
