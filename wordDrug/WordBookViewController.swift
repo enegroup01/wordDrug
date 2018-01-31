@@ -10,17 +10,25 @@ import UIKit
 
 class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
     
+    //背景
     @IBOutlet weak var wordBookBg: UIImageView!
     
+    //可左右的view, 選擇單字等級
     @IBOutlet weak var myScrollView: UIScrollView!
     
+    //下方的點點
     @IBOutlet weak var myPageController: UIPageControl!
     
+    //設定seg的高度
     @IBOutlet weak var segHeight: NSLayoutConstraint!
+    
+    //自動播放鍵
     @IBOutlet weak var autoplayBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    //seg控制
     @IBOutlet weak var segControl: UISegmentedControl!
+    
     let specialGray = UIColor.init(red: 40/255, green: 49/255, blue: 58/255, alpha: 1)
     
     var fullSize: CGSize!
@@ -40,10 +48,12 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                         ["to1","tr1","ture1","ty1","ub1","u_e1","ui1","um1","un1","up1"],
                         ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     
+    //所有的單字的array
     var wordSets = [[String]]()
     //殘值的字的array
     var tempWordSets = [[String]]()
-    var engWordsPlusWrongWordsToShow = [String]() //包含三個未得到但是有可能的錯錯誤單字
+    
+    //所有背過的單字, 中文, 詞性, 音節
     var engWordsToShow = [String]()
     var chiWordsToShow = [String]()
     var partOfSpeechToShow = [String]()
@@ -206,7 +216,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
        
         }
         
-        //抓完整值
+        //抓所有單字
+        //Part 1. 抓完整值
         for i in 0 ..< wordSets.count{
             for w in 0 ..< 30{
                 
@@ -229,7 +240,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
         }
         
-        //抓殘值 ＆ 抓錯字
+        //Part 2. 抓殘值 ＆ 抓可能出現錯字的最新三個
         for (s,g) in fakeGamePassed{
         
         for w in 0 ..< ((g + 1) * 3){
@@ -247,6 +258,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
         }
         
+        
+        
         //載入我的最愛單字
         if let myWordsString = user!["myWords"] as! String?{
             myFavWords = myWordsString.components(separatedBy: ";")
@@ -258,21 +271,21 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
         }
         
-        
         //填入所有字的數量, 等等準備抓我的最愛的部分
         for _ in 0 ..< engWordsToShow.count - 3{
-            
             myFavImgs.append(0)
-            
-            
         }
         
+        
+        //從所有的單字裡去找match到的我的最愛單字
         for i in 0 ..< engWordsToShow.count{
             
+            //這個完整字沒有拆音節
             let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
             let chiWord = chiWordsToShow[i]
             let partOfSpeech = partOfSpeechToShow[i]
             let syllables = syllablesToShow[i]
+            //這個字才有拆音節
             let wordToAppend = engWordsToShow[i]
             
             for myWord in myFavWords{
@@ -303,7 +316,6 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                     
 
                 }
-
                 
             }
             
@@ -314,11 +326,14 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         print(myFavPartOfSpeechToShow)
         print(myFavSyllablesToShow)
         
+        //設定好要show的第一組單字就是全部的單字
         engWordsSelected = engWordsToShow
         chiWordsSelected = chiWordsToShow
         partOfSpeechSelected = partOfSpeechToShow
         syllablesSelected = syllablesToShow
-        //移除三個多增加的數量
+        
+        
+        //移除三個多增加的數量, 這三個是可能會錯的部分
         for  _ in 0 ..< 3 {
             engWordsSelected.removeLast()
         }
@@ -326,6 +341,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
     }
     
+    
+    //再次載入所有單字裡我的最愛要反紅的字, 使用時機: 在我的最愛裡修改過後跳回所有單字
     func loadAllWordFavs(){
         
         //載入我的最愛單字
@@ -337,12 +354,11 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
         //填入所有字的數量, 等等準備抓我的最愛的部分
         for _ in 0 ..< engWordsToShow.count - 3{
-            
             myFavImgs.append(0)
-            
-            
+
         }
         
+        //去對有沒有符合我的最愛然後將其反紅
         for i in 0 ..< engWordsToShow.count{
             
             let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
@@ -363,20 +379,23 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     
+    //讀取我的最愛的單字, 使用時機: (1) 在我的最愛裡刪除最愛單字, 做即時反應 (2) 其他時候跳轉到我的最愛畫面時
     func loadMyFavWords(){
-        
         
         //載入我的最愛單字
         if let myWordsString = user!["myWords"] as! String?{
             myFavWords = myWordsString.components(separatedBy: ";")
         }
 
+        //刪除所有已append的值
         myFavEngWordsToShow.removeAll(keepingCapacity: false)
         myFavChiWordsToShow.removeAll(keepingCapacity: false)
         myFavPartOfSpeechToShow.removeAll(keepingCapacity: false)
         myFavSyllablesToShow.removeAll(keepingCapacity: false)
         myFavImgs.removeAll(keepingCapacity: false)
         
+        
+        //所有單字反紅
         for _ in 0 ..< myFavWords.count{
             
             myFavImgs.append(1)
@@ -384,6 +403,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         }
 
         
+        //以所有的單字來match我的最愛單字的資訊
         for i in 0 ..< engWordsToShow.count{
             
             let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
@@ -391,8 +411,6 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             let partOfSpeech = partOfSpeechToShow[i]
             let syllables = syllablesToShow[i]
             let wordToAppend = engWordsToShow[i]
-            
-            
 
             for myWord in myFavWords{
                 
@@ -407,11 +425,10 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 }
                 
             }
-            
-            
-            
+
         }
 
+        //選擇好要show的單字
         engWordsSelected = myFavEngWordsToShow
         chiWordsSelected = myFavChiWordsToShow
         partOfSpeechSelected = myFavPartOfSpeechToShow
@@ -422,6 +439,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
     }
     
+    //載入錯誤單字, 使用時機: 移除錯誤單字即時顯示使用
     func loadMyWrongWords(){
         
         //載入我的錯誤單字
@@ -429,7 +447,6 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             myWrongWords = myWrongWordsString.components(separatedBy: ";")
             
         }
-        
         
         myWrongEngWordsToShow.removeAll(keepingCapacity: false)
         myWrongChiWordsToShow.removeAll(keepingCapacity: false)
@@ -466,10 +483,16 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
         }
 
+        engWordsSelected = myWrongEngWordsToShow
+        chiWordsSelected = myWrongChiWordsToShow
+        partOfSpeechSelected = myWrongPartOfSpeechToShow
+        syllablesSelected = myWrongSyllablesToShow
+        
         tableView.reloadData()
         
     }
     
+    //seg選項的func
     @objc func segSelected(sender:UISegmentedControl){
         
         //抓index
@@ -480,8 +503,12 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         case 0:
             print("all words")
             
+            //再次讀我的最愛反紅部分
             loadAllWordFavs()
+            //切換到可以修改最愛的模式
             likeMode = true
+            
+            //設定要顯示的字
             engWordsSelected = engWordsToShow
             chiWordsSelected = chiWordsToShow
             partOfSpeechSelected = partOfSpeechToShow
@@ -497,19 +524,16 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             print("my Fav words")
             
             likeMode = true
+            //把所有的func包起來, 供刪除最愛單字即時更新畫面使用
             loadMyFavWords()
-            
             
         case 2:
             print("my Wrong Words")
             
             likeMode = false
-            engWordsSelected = myWrongEngWordsToShow
-            chiWordsSelected = myWrongChiWordsToShow
-            partOfSpeechSelected = myWrongPartOfSpeechToShow
-            syllablesSelected = myWrongSyllablesToShow
-            tableView.reloadData()
-
+            //讀取錯字
+            loadMyWrongWords()
+            
         default:
             break
         }
@@ -546,6 +570,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
 
 
+    //確認有多少行
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
 
         return engWordsSelected.count
@@ -557,19 +582,20 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         //cell背景顏色透明
         cell.backgroundColor = .clear
         
+        //先設定好全部的TAG
         let syllableLabel = cell.viewWithTag(1) as! UILabel
         let syllableNumberLabel = cell.viewWithTag(5) as! UILabel
         let engWordLabel = cell.viewWithTag(2) as! UILabel
         let chiWordLabel = cell.viewWithTag(3) as! UILabel
         let heartImg = cell.viewWithTag(4) as! UIImageView
         
-        
-        
+        //如果是在錯字區, 就顯示刪除鍵
         if segControl.selectedSegmentIndex == 2 {
             heartImg.image = UIImage(named: "crossBtn.png")
             
         } else {
         
+        //在第1或第2區 我的最愛顯示反紅
         if myFavImgs[indexPath.row] == 0 {
             
             heartImg.image = UIImage(named: "unHeart.png")
@@ -580,25 +606,31 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
         }
         }
+        
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row].components(separatedBy: .decimalDigits)
         let syllableNum = syllablesSelected[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
         
+        //抓字
         let engWords = engWordsSelected[indexPath.row]
+        //拆音節成array
         let engWordArray = engWords.components(separatedBy: " ")
+        //定義母音
         let vowels = ["a","e","i","o","u"]
         
+        //字型顏色
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.cyan]
         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.orange]
         
-        
+        //假如音節是_e, 另外處理
         if syllableText[0].contains("_") {
             
          var characters = [Character]()
             
             var attrWords = [NSMutableAttributedString]()
             
+            //每一個英文字節拆字母
             for i in 0 ..< engWordArray.count{
                 
                 characters.removeAll(keepingCapacity: false)
@@ -608,6 +640,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                     characters.append(i)
                 }
                 
+                //確認是不是_e部首, 目前設定為三個字母, 若要增加要在這裡修改
                 if characters.count == 3 {
                     if characters[2] == "e"{
                         if vowels.contains(String(characters[0])){
@@ -619,6 +652,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                             let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs3)
                             attrWords.append(word2)
   
+                            
+                            //以下確認非部首字就loop through 然後新增
                         } else {
                             
                             for c in 0 ..< characters.count {
@@ -650,7 +685,10 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
             
             var word = NSMutableAttributedString()
+           
+            //跑這個字的array然後append成一個字串
             for i in 0 ..< attrWords.count {
+                
                 if i == 0 {
                     word = attrWords[i]
                 } else {
@@ -661,7 +699,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             engWordLabel.attributedText = word
 
         } else {
-        //設定一些字的顏色
+        //非_e部首, 設定一些字的顏色
             
         var attrWords = [NSMutableAttributedString]()
         
@@ -669,9 +707,8 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             
             if let engWord = engWordArray[i] as String?{
                 
-                //特殊字元
+                //如果此字節是音節字元
                 if engWord == syllableText[0]{
-
                     
                   let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
                     attrWords.append(word)
@@ -685,7 +722,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
             
         }
-        
+        //造字
         var word = NSMutableAttributedString()
         for i in 0 ..< attrWords.count {
             if i == 0 {
@@ -698,18 +735,21 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         engWordLabel.attributedText = word
         }
 
+        //中文字及詞性
         let chiWord = chiWordsSelected[indexPath.row]
         let partOfSpeech = partOfSpeechSelected[indexPath.row].replacingOccurrences(of: "\r\n", with: "")
+        
         chiWordLabel.text = "(" + partOfSpeech + ")" + " " +  chiWord
         syllableLabel.adjustsFontSizeToFitWidth = true
         syllableLabel.text = syllableText[0]
         syllableNumberLabel.text = syllableNum
         
         
-        //按讚及取消的function
+        //按讚及取消的function + 刪除的func
         cell.tapAction = {[weak self] (cell) in
             
             
+            //刪除的func
             if self!.likeMode == false {
                 
                 print("delete mode")
@@ -717,11 +757,13 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 UIApplication.shared.beginIgnoringInteractionEvents()
                 
                 
-                   let word = self!.engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
-                   self!.removeWrongWord(word: word)
+                //抓字
+                let word = self!.engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
                 
+                //刪除錯字
+                self!.removeWrongWord(word: word)
                 
-                
+
             } else {
         
             if self!.myFavImgs[indexPath.row] == 0{
@@ -729,7 +771,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 self!.activityIndicator.startAnimating()
                 UIApplication.shared.beginIgnoringInteractionEvents()
 
-                
+                //更改顏色及加字
                 self!.myFavImgs[indexPath.row] = 1
                 
                 let word = self!.engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
@@ -745,7 +787,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 self!.activityIndicator.startAnimating()
                 UIApplication.shared.beginIgnoringInteractionEvents()
 
-                
+                //更改顏色及刪除字
                 self!.myFavImgs[indexPath.row] = 0
                
                 let word = self!.engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
@@ -896,6 +938,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
                             UIApplication.shared.endIgnoringInteractionEvents()
                             
                             
+                            //如果剛好是在我的最愛, 那就即時更新畫面
                             if self!.segControl.selectedSegmentIndex == 1 {
                             
                                 //載入我的最愛單字
@@ -919,7 +962,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
     }
 
-    //刪除最愛單字
+    //移除錯誤單字
     func removeWrongWord(word:String){
         
         
