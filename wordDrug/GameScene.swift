@@ -7342,24 +7342,6 @@ let monsters =
 }
 
 
-extension Array where Element: Hashable {
-    var orderedSet: Array {
-        return NSOrderedSet(array: self).array as? Array ?? []
-    }
-}
 
-extension Array {
-    mutating func shuffled() {
-        for _ in self {
-            // generate random indexes that will be swapped
-            var (a, b) = (Int(arc4random_uniform(UInt32(self.count - 1))), Int(arc4random_uniform(UInt32(self.count - 1))))
-            if a == b { // if the same indexes are generated swap the first and last
-                a = 0
-                b = self.count - 1
-            }
-            self.swapAt(a, b)
-        }
-    }
-}
 
 

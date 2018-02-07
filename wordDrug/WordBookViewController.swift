@@ -665,6 +665,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.cyan]
         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.orange]
+
         
         //假如音節是_e, 另外處理
         if syllableText[0].contains("_") {
