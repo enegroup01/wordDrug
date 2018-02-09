@@ -1962,7 +1962,6 @@ let monsters =
                     isTouched = false
                     nodesTouched.removeAll(keepingCapacity: false)
                     
-                    
                     //指定名稱的變數
                     let monster = "monsterBlood"
                     let player = "playerBlood"
@@ -1972,7 +1971,6 @@ let monsters =
                     monsterBlood = findImageNode(name: monster).size.width
                     playerBlood = findImageNode(name: player).size.width
       
-                    
                     //假如答案正確, 啟動攻擊
                     if wordEntered == currentWordArray{
                         
@@ -2010,8 +2008,6 @@ let monsters =
                         
                       //顯示中文選項
                         
-                        
- 
                         //抓亂數中文
                         let quarterCount = wordSets.count / 4
                         let halfCount = wordSets.count / 2
