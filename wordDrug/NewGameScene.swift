@@ -171,6 +171,9 @@ class NewGameScene: SKScene {
       var openTimes = 0
     
     var blockAngle = CGFloat()
+    var scoresToAdd = Int()
+    var countScoreTimer = Timer()
+    var addedScore = 0
     
     override func didMove(to view: SKView) {
         
@@ -251,7 +254,7 @@ class NewGameScene: SKScene {
         makeLabelNode(x: 0, y: 550, alignMent: .center, fontColor: .lightGray, fontSize: 30, text: "175/2100", zPosition: 1, name: "wordAmount", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
         //得分Label, 這部分是新的
-        makeLabelNode(x: 330, y: 555, alignMent: .right, fontColor: .white, fontSize: 40, text: "0", zPosition: 1, name: "score", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 330, y: 555, alignMent: .right, fontColor: .white, fontSize: 40, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //三個點點
         makeImageNode(name: "whiteDot0", image: "whiteDot", x: -300, y: 450, width: 20, height: 20, z: 1, alpha: 0, isAnchoring: false)
@@ -784,8 +787,8 @@ class NewGameScene: SKScene {
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     //changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
               
-                    makeImageNode(name: "mark", image: "greenCircle", x: -190, y: -365, width: 220, height: 220, z: 9, alpha: 1, isAnchoring: false)
-                         makeImageNode(name: "mark", image: "redNo", x: 190, y: -365, width: 196, height: 196, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: -190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                         makeImageNode(name: "mark", image: "wrongX", x: 190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
                     
                     battleModeRight()
                     
@@ -793,12 +796,18 @@ class NewGameScene: SKScene {
                     //答錯
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     //changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
-           makeImageNode(name: "mark", image: "greenCircle", x: 190, y: -365, width: 220, height: 220, z: 9, alpha: 1, isAnchoring: false)
+           makeImageNode(name: "mark", image: "rightCircle", x: 190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
                     
-                    makeImageNode(name: "mark", image: "redNo", x: -190, y: -365, width: 196, height: 196, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "wrongX", x: -190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
 
+                    findLabelNode(name: "tempWord").text = "答錯"
+                    findLabelNode(name: "tempWord").fontColor = lightPink
+                    findLabelNode(name: "tempWord").fontSize = 60
                     
-                    battleModeWrong()
+                    let time = DispatchTime.now() + 1
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {[weak self] in
+                        self!.nextBattle()
+                    })
                     
                 }
             }
@@ -811,8 +820,8 @@ class NewGameScene: SKScene {
                     //changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
        
-                     makeImageNode(name: "mark", image: "redNo", x: -190, y: -365, width: 196, height: 196, z: 9, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "mark", image: "greenCircle", x: 190, y: -365, width: 220, height: 220, z: 9, alpha: 1, isAnchoring: false)
+                     makeImageNode(name: "mark", image: "wrongX", x: -190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: 190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
 
                     
                     battleModeRight()
@@ -823,12 +832,21 @@ class NewGameScene: SKScene {
                     //答錯
                     //changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
-                    makeImageNode(name: "mark", image: "greenCircle", x: -190, y: -365, width: 220, height: 220, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: -190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
 
                     
-                     makeImageNode(name: "mark", image: "redNo", x: 190, y: -365, width: 196, height: 196, z: 9, alpha: 1, isAnchoring: false)
+                     makeImageNode(name: "mark", image: "wrongX", x: 190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
                     
-                    battleModeWrong()
+                    findLabelNode(name: "tempWord").text = "答錯"
+                    findLabelNode(name: "tempWord").fontColor = lightPink
+                    findLabelNode(name: "tempWord").fontSize = 60
+                    
+                    let time = DispatchTime.now() + 1
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {[weak self] in
+                        self!.nextBattle()
+                    })
+                    
+                    
                 }
                 
             }
@@ -1331,7 +1349,9 @@ class NewGameScene: SKScene {
                                     
                                     //三個字學完後把字回第一個
                                     self!.currentWordSequence  = self!.unitNumber * 3
-                                    self!.currentPracticeSequence = self!.unitNumber * 3
+                                    
+                                    //這個應該不需要
+                                    //self!.currentPracticeSequence = self!.unitNumber * 3
                                     
                                     self!.isGameMode = true
                                     //進入battleMode
@@ -1395,6 +1415,8 @@ class NewGameScene: SKScene {
                                         
                                         self!.findLabelNode(name: "tempWord").text = ""
                                         
+                                        //停止格子動畫
+                                        self!.stopTremble()
                                         
                                        //重置上方格子
                                         self!.reloadBlocks()
@@ -1528,6 +1550,7 @@ class NewGameScene: SKScene {
     
     func battleMode(){
         
+        
         isBattleMode = true
         
         //選項alpha變淡+移除選項字
@@ -1550,8 +1573,10 @@ class NewGameScene: SKScene {
         //遊戲開始提示滑入
         hintSlideIn(leftText: "開始", rightText: "遊戲",waitTime: 2) {[weak self] in
             //移除點點
-            self!.findImageNode(name: "whiteDot2").removeFromParent()
             
+           self!.findImageNode(name: "whiteDot2").removeFromParent()
+       
+  
             //移除上方的label及背景
             UIView.animate(withDuration: 0.2, animations: {[weak self] in
                 self!.firstEngWordLabel.frame.origin.x = 60 + 375
@@ -1596,6 +1621,29 @@ class NewGameScene: SKScene {
     //建立遊戲畫面
     func setUpGameScreen(){
         //makeImageNode(name: "gamePuzzleBg", image: "gamePuzzleBg", x: 0, y: 320, width: 638, height: 388, z: 1, alpha: 1, isAnchoring: false)
+
+        //重置以下數據
+        removeSomeNodes(name: "-")
+        removeSomeNodes(name: "mark")
+        
+        openTimes = 0
+        
+        allPossibilities = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2],[3,0],[3,1],[3,2],[4,0],[4,1],[4,2]]
+        //產生15組字節
+        allBlockSyls = [String]()
+        //產生15組顏色, 要跟著x,y選項一起變化位置
+        allColorSets = [Int]()
+        //已選擇的顏色
+        colorsSelected = [Int]()
+        //已選擇的xy選項
+        alreadySelected = [[Int]]()
+        leftChiNode.text = ""
+        rightChiNode.text = ""
+        changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
+        changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
+        shownWords.removeAll(keepingCapacity: false)
+        wordEntered.removeAll(keepingCapacity: false)
+        addedScore = 0
         
         //15個遊戲格子
         makeImageNode(name: "0-0", image: "grayFrame", x: -280, y: 460, width: 115, height: 115, z: 1, alpha: 1, isAnchoring: false)
@@ -1646,7 +1694,7 @@ class NewGameScene: SKScene {
         makeImageNode(name: "4-2", image: "grayFrame", x: 280, y: 180, width: 115, height: 115, z: 1, alpha: 1, isAnchoring: false)
         
         blockAngle = findImageNode(name: "0-0").zRotation
-        print("angle:\(blockAngle)")
+
         //開始遊戲
         startGame()
     }
@@ -1913,8 +1961,11 @@ class NewGameScene: SKScene {
     
     //找labelNode
     func findLabelNode(name:String) -> SKLabelNode{
+        
         var node:SKLabelNode?
-        node = childNode(withName: name) as? SKLabelNode
+        if let nodeFound = childNode(withName: name) as? SKLabelNode{
+            node = nodeFound
+        }
         return node!
         
     }
@@ -2197,11 +2248,8 @@ class NewGameScene: SKScene {
         print("right")
         
         //隨機爆破五個
-        
-
         openTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(NewGameScene.openBlock), userInfo: nil, repeats: true)
 
-        
         
     }
     
@@ -2231,6 +2279,10 @@ class NewGameScene: SKScene {
         } else {
             
             openTimer.invalidate()
+            
+            //爆破完後再計分才正確
+            countScore()
+
         
         }
     }
@@ -2252,7 +2304,8 @@ class NewGameScene: SKScene {
                     let trembleRight = SKAction.rotate(toAngle: CGFloat(Double.pi / -36), duration: 0.2)
                     
                     let sequence = SKAction.sequence([trembleLeft,trembleRight])
-                  let block = findImageNode(name: "\(x)-\(y)")
+                  
+                    let block = findImageNode(name: "\(x)-\(y)")
                     let repeatAction = SKAction.repeatForever(sequence)
                     block.run(repeatAction)
                     
@@ -2272,13 +2325,89 @@ class NewGameScene: SKScene {
             
         }
 
-        
     }
     
     func battleModeWrong(){
         print("wrong")
     }
+
     
+    func countScore(){
+        let scoreLabel = findLabelNode(name: "scoreLabel")
+        let scoreNumber = scoreLabel.text
+        var rightWordsCount = 0
+
+        for i in 0 ..< alreadySelected.count{
+            let x = alreadySelected[i][0]
+            let y = alreadySelected[i][1]
+            let blockLabel = findLabelNode(name: "\(x)-\(y)BL")
+            let block = findImageNode(name: "\(x)-\(y)")
+            let currentWordSyls = wordSets[currentWordSequence].components(separatedBy: " ")
+            if currentWordSyls.contains(blockLabel.text!){
+             
+                rightWordsCount += 1
+                
+                let cgPoint = findLabelNode(name: "scoreLabel").frame.origin
+                let blockWidth = block.frame.width
+                let blockHeight = block.frame.height
+                let flyAction = SKAction.move(to: cgPoint, duration: 0.3)
+                let becomeSmall = SKAction.resize(toWidth: blockWidth / 3, height: blockHeight / 3, duration: 0.3)
+                let fadeOut = SKAction.fadeOut(withDuration: 0.3)
+                let groupAction = SKAction.group([flyAction,becomeSmall,fadeOut])
+                blockLabel.run(groupAction)
+                block.run(groupAction)
+                
+            }
+
+        }
+
+        scoresToAdd = rightWordsCount * 30
+        
+        countScoreTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(NewGameScene.scoreAnimation), userInfo: nil, repeats: true)
+        
+        countScoreTimer.fire()
+        
+    }
+    
+    @objc func scoreAnimation(){
+        
+        let scoreLabel = findLabelNode(name: "scoreLabel")
+        var scoreNumber = scoreLabel.text
+        if addedScore < scoresToAdd{
+            addedScore += 10
+            scoreLabel.text = String(Int(scoreNumber!)! + 10)
+
+        } else {
+            countScoreTimer.invalidate()
+            
+            //分數算完後接著判定是否下一場比賽
+            nextBattle()
+            
+            
+        }
+    }
+    
+    
+    func nextBattle(){
+        
+        findLabelNode(name: "tempWord").fontColor = .white
+        findLabelNode(name: "tempWord").text = ""
+        findLabelNode(name: "tempWord").fontSize = 80
+        
+        if currentWordSequence < (unitNumber + 1) * 3 - 1{
+            
+            currentWordSequence += 1
+            
+            //開始戰鬥, 建立下一個單字
+            
+            setUpGameScreen()
+        } else {
+            
+            //回合結束
+            
+        }
+        
+    }
     
 }
 
