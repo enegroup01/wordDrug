@@ -759,6 +759,7 @@
 		AAECC11D1FB0493B004ED813 /* explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC11C1FB0493B004ED813 /* explode.sks */; };
 		AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1201FB08A27004ED813 /* monsterExplode.sks */; };
 		AAECC1231FB08C15004ED813 /* monsterExplode.png in Resources */ = {isa = PBXBuildFile; fileRef = AAECC1221FB08C14004ED813 /* monsterExplode.png */; };
+		AAF34329203C6938005DDC9F /* narCos.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF34328203C6938005DDC9F /* narCos.png */; };
 		AAFF77DC200F81D800283482 /* blueOrb.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFF77DA200F81D700283482 /* blueOrb.png */; };
 		AAFF77DD200F81D800283482 /* redOrb.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFF77DB200F81D700283482 /* redOrb.png */; };
 /* End PBXBuildFile section */
@@ -1518,6 +1519,7 @@
 		AAECC11C1FB0493B004ED813 /* explode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = explode.sks; sourceTree = "<group>"; };
 		AAECC1201FB08A27004ED813 /* monsterExplode.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = monsterExplode.sks; sourceTree = "<group>"; };
 		AAECC1221FB08C14004ED813 /* monsterExplode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monsterExplode.png; sourceTree = "<group>"; };
+		AAF34328203C6938005DDC9F /* narCos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = narCos.png; sourceTree = "<group>"; };
 		AAFF77DA200F81D700283482 /* blueOrb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueOrb.png; sourceTree = "<group>"; };
 		AAFF77DB200F81D700283482 /* redOrb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redOrb.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2296,6 +2298,7 @@
 				AA8B6A02202484530023E0FD /* whiteDot.png */,
 				AA8B6A05202485E70023E0FD /* starDark.png */,
 				AA8B6A04202485E70023E0FD /* starLight.png */,
+				AAF34328203C6938005DDC9F /* narCos.png */,
 				AA8B6A0820248EC10023E0FD /* darkSelBtn.png */,
 				AA8B6A0A20248ECA0023E0FD /* lightSelBtn.png */,
 				AAEAF5CC2029E99C0069C1A2 /* newGameBg.png */,
@@ -3246,6 +3249,7 @@
 				AA3B02D02004F0C300288B9D /* photo.mp3 in Resources */,
 				AA3B02D72004F0C300288B9D /* physics.mp3 in Resources */,
 				AA3B020E2004F0C200288B9D /* sad.mp3 in Resources */,
+				AAF34329203C6938005DDC9F /* narCos.png in Resources */,
 				AA1EAAA71FEB736B00E5C8EB /* elemG.png in Resources */,
 				AA87EAAA1FBD4CDB00830608 /* 3101.png in Resources */,
 				AA3B02022004F0C200288B9D /* abroad.mp3 in Resources */,
