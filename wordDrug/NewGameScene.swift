@@ -201,13 +201,16 @@ class NewGameScene: SKScene {
         
         print("unitNumber:\(unitNumber)")
         print("spotNumber:\(spotNumber)")
+        //測試用
+        spotNumber = 13
+        unitNumber = 7
+        
         //抓正確unit
         currentWordSequence = 3 * unitNumber
         firstSequence = currentWordSequence
         
         //抓正確的音節
         syllables = syllableSets[spotNumber]
-        
         
         //讀取Bundle裡的文字檔
         var wordFile:String?
@@ -229,14 +232,11 @@ class NewGameScene: SKScene {
             // example.txt not found!
         }
         
-        
     }
     
     
     //載入畫面
     func setUpScreen(){
-        
-        
         
         //背景
         makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
@@ -433,6 +433,7 @@ class NewGameScene: SKScene {
         //字型顏色
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor : UIColor.cyan]
+         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor : UIColor.orange]
         
         //先抓音節
         syllablesToCheck = syllables[unitNumber]
@@ -447,13 +448,80 @@ class NewGameScene: SKScene {
         if syllablesWithoutDigit.contains("_"){
             //specialE的作法
             
-        } else {
-            //非specialE的作法
+            var characters = [Character]()
+            let vowels = ["a","e","i","o","u"]
             
+            //var attrWords = [NSMutableAttributedString]()
             
-            //抓三個字的array
+            //每一個英文字節拆字母
+            print(allThreeEngWords)
+            
             for w in 0 ..< allThreeEngWords.count{
                 
+                for i in 0 ..< allThreeEngWords[w].count{
+                    
+                    characters.removeAll(keepingCapacity: false)
+
+                    for c in allThreeEngWords[w][i]{
+                        
+                        characters.append(c)
+                    }
+                    
+                    if characters.count == 3{
+                        if characters[2] == "e"{
+                            
+                            if vowels.contains(String(characters[0])){
+                                
+                                
+                                //剛好是_e部首
+                                let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs1)
+                                attrWords[w].append(word)
+                                let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs0)
+                                attrWords[w].append(word1)
+                                let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs1)
+                                attrWords[w].append(word2)
+                                
+                            
+                            } else {
+                                
+                                for c in 0 ..< characters.count {
+                                    
+                                    let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs0)
+                                    attrWords[w].append(word)
+                                }
+
+                            }
+                            
+                        } else {
+                            
+                            for c in 0 ..< characters.count {
+                                
+                                let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs0)
+                                attrWords[w].append(word)
+                            }
+                            
+                        }
+                        
+                    } else {
+                        
+                        for c in 0 ..< characters.count {
+                            
+                            let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs0)
+                            attrWords[w].append(word)
+                        }
+                        
+                        
+                    }
+                    
+                    
+                }
+            }
+            
+        } else {
+            //非specialE的作法
+
+            //抓三個字的array
+            for w in 0 ..< allThreeEngWords.count{
                 
                 //抓每個array的音節
                 for i in 0 ..< allThreeEngWords[w].count{
@@ -483,6 +551,8 @@ class NewGameScene: SKScene {
             
         }
         
+        
+        //*** 以下為共同的造字func
         
         for w in 0 ..< attrWords.count {
             
@@ -555,7 +625,6 @@ class NewGameScene: SKScene {
     }
     
     func practice(){
-        
         
         //練習模式的話
         if isGameMode == false {
@@ -2238,10 +2307,8 @@ class NewGameScene: SKScene {
                 finished()
             })
             
-            
         }
-        
-        
+
     }
     
     func battleModeRight(){
@@ -2250,12 +2317,10 @@ class NewGameScene: SKScene {
         //隨機爆破五個
         openTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(NewGameScene.openBlock), userInfo: nil, repeats: true)
 
-        
     }
     
     @objc func openBlock(){
       
-        
         if openTimes < 5 {
             openTimes += 1
         let randomNum = Int(arc4random_uniform(UInt32(allPossibilities.count)))
