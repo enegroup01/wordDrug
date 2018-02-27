@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 
+let leaveGameKey = "leaveGame"
 
 class NewGameScene: SKScene {
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
@@ -174,13 +175,18 @@ class NewGameScene: SKScene {
     var scoresToAdd = Int()
     var countScoreTimer = Timer()
     var addedScore = 0
+    var mapNumber = Int()
     
     override func didMove(to view: SKView) {
         
+                NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
+        
         //載入各種字
         loadAllKindsOfWord()
+        
         //設定畫面
         setUpScreen()
+        
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
     }
@@ -202,9 +208,10 @@ class NewGameScene: SKScene {
         print("unitNumber:\(unitNumber)")
         print("spotNumber:\(spotNumber)")
         //測試用
+        /*
         spotNumber = 13
         unitNumber = 7
-        
+        */
         //抓正確unit
         currentWordSequence = 3 * unitNumber
         firstSequence = currentWordSequence
@@ -215,7 +222,7 @@ class NewGameScene: SKScene {
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
-        let name = "1-" + String(spotNumber + 1)
+        let name = String(mapNumber) + "-" + String(spotNumber + 1)
         
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {
@@ -410,7 +417,7 @@ class NewGameScene: SKScene {
         
         //找目前sequence的英文+中文字
         var allThreeEngWords = [[String]]()
-        let quarterCount = wordSets.count / 4
+        let quarterCount = wordSets.count / 3
         let engWord0 = wordSets[currentWordSequence].components(separatedBy: " ")
         let chiWord0 = wordSets[quarterCount +  currentWordSequence]
         let engWord1 = wordSets[currentWordSequence + 1].components(separatedBy: " ")
@@ -1323,8 +1330,8 @@ class NewGameScene: SKScene {
                             
                             
                             //抓亂數中文
-                            let quarterCount = wordSets.count / 4
-                            let halfCount = wordSets.count / 2
+                            let quarterCount = wordSets.count / 3
+                            let halfCount = wordSets.count / 3 * 2
                             let chiWord = wordSets[quarterCount +  currentWordSequence]
                             var allChiWords = [String]()
                             for i in quarterCount ..< halfCount{
@@ -2453,6 +2460,11 @@ class NewGameScene: SKScene {
     }
     
     
+    @objc func notifyLeaveGame(){
+        
+        print("notified")
+    }
+    
     func nextBattle(){
         
         findLabelNode(name: "tempWord").fontColor = .white
@@ -2470,6 +2482,8 @@ class NewGameScene: SKScene {
             
             //回合結束
             
+            
+                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: nil)
         }
         
     }

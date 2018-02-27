@@ -11,12 +11,18 @@ import SpriteKit
 import GameplayKit
 
 class NewGameViewController: UIViewController {
+    
+    var spotNumber = Int()
+    var unitNumber = Int()
+    var mapNumber = Int()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         // Do any additional setup after loading the view.
+        
+                        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
@@ -27,10 +33,14 @@ class NewGameViewController: UIViewController {
             if let sceneNode = scene.rootNode as! NewGameScene? {
                 
                 // Copy gameplay related content over to the scene
-                
+                //傳送關卡資訊過去
+                sceneNode.unitNumber = unitNumber
+                sceneNode.spotNumber = spotNumber
+                sceneNode.mapNumber =  mapNumber
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
+                
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
@@ -44,6 +54,11 @@ class NewGameViewController: UIViewController {
             }
         }
 
+    }
+    
+    @objc func leaveGame(){
+        
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

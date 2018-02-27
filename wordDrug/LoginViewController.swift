@@ -12,7 +12,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var usernameTxt: UITextField!
-    @IBOutlet weak var middleLine: UIView!
     @IBOutlet weak var bgView: UIView!
     
     override func viewDidLoad() {
@@ -92,7 +91,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                 DispatchQueue.main.async(execute: {
                              
                                  
-                                    self!.toStats()
+                                    self!.toCourses()
                                 })
                                 
                             // error
@@ -205,7 +204,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         DispatchQueue.main.async(execute: {
                             print("successfully logged in")
                    
-                                  self!.toStats()
+                                  self!.toCourses()
                             
                         })
                     
@@ -275,9 +274,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
     }
     
-    func toStats(){
+    func toCourses(){
         
-        performSegue(withIdentifier: "toStats", sender: self)
+        performSegue(withIdentifier: "toCoursesVc", sender: self)
     }
 
     

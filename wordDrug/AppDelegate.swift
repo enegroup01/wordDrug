@@ -28,9 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id != nil {
 
                 //跳轉到角色畫面
-                //toStats()
+                toStats()
                 
-                print(user)
+                if gamePassed == nil {
+                    //第一次玩
+                    
+                
+                    gamePassed = [0:0]
+                    
+                    let userDefaults = UserDefaults.standard
+                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                    userDefaults.set(encodedObject, forKey: "gamePassed")
+                    
+                }
  
          
             }
@@ -43,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func toStats(){
         
         let mainStoryBoard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let statsVc = mainStoryBoard.instantiateViewController(withIdentifier: "statsVc")
+        let statsVc = mainStoryBoard.instantiateViewController(withIdentifier: "coursesVc")
         window?.rootViewController = statsVc
         
     }
