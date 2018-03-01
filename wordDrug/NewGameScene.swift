@@ -2480,10 +2480,13 @@ class NewGameScene: SKScene {
             setUpGameScreen()
         } else {
             
-            //回合結束
+            //回合結束, 進入總結畫面
             
             
-                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: nil)
+            
+            
+           
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: nil)
         }
         
     }
