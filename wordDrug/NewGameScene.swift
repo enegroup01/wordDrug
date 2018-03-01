@@ -89,6 +89,8 @@ class NewGameScene: SKScene {
     //做三個字
     var words = [NSMutableAttributedString(),NSMutableAttributedString(),NSMutableAttributedString()]
     
+    //var words = NSMutableAttributedString()
+    
     //發音單字
     var wordsToPronounce = String()
     
@@ -249,24 +251,27 @@ class NewGameScene: SKScene {
         makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
         //做三個字的背景
-        makeImageNode(name: "threeWordBg", image: "threeWordBg", x: 0, y: 309, width: 750, height: 438, z: 2, alpha: 1, isAnchoring: false)
+        //makeImageNode(name: "threeWordBg", image: "threeWordBg", x: 0, y: 309, width: 750, height: 438, z: 2, alpha: 1, isAnchoring: false)
         
         //單字元素, 這部分是新的
-        makeImageNode(name: "elementToShow", image: "elemExample", x: -290, y: 590, width: 80, height: 80, z: 1, alpha: 1, isAnchoring: false)
+        //makeImageNode(name: "elementToShow", image: "elemExample", x: -290, y: 590, width: 80, height: 80, z: 1, alpha: 1, isAnchoring: false)
         
         //單字等級label
-        makeLabelNode(x: 0, y: 600, alignMent: .center, fontColor: lightGreen, fontSize: 40, text: "英檢初級", zPosition: 1, name: "levelTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        //makeLabelNode(x: 0, y: 600, alignMent: .center, fontColor: lightGreen, fontSize: 40, text: "英檢初級", zPosition: 1, name: "levelTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //單字量Label, 這部分是新的
-        makeLabelNode(x: 0, y: 550, alignMent: .center, fontColor: .lightGray, fontSize: 30, text: "175/2100", zPosition: 1, name: "wordAmount", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        makeLabelNode(x: 300, y: 550, alignMent: .center, fontColor: .lightGray, fontSize: 30, text: "175/2100", zPosition: 1, name: "wordAmount", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
         //得分Label, 這部分是新的
-        makeLabelNode(x: 330, y: 555, alignMent: .right, fontColor: .white, fontSize: 40, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        //makeLabelNode(x: 330, y: 555, alignMent: .right, fontColor: .white, fontSize: 40, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //三個點點
+        /*
         makeImageNode(name: "whiteDot0", image: "whiteDot", x: -300, y: 450, width: 20, height: 20, z: 1, alpha: 0, isAnchoring: false)
         makeImageNode(name: "whiteDot1", image: "whiteDot", x: -300, y: 300, width: 20, height: 20, z: 1, alpha: 0, isAnchoring: false)
         makeImageNode(name: "whiteDot2", image: "whiteDot", x: -300, y: 150, width: 20, height: 20, z: 1, alpha: 0, isAnchoring: false)
+        */
+        
         
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
@@ -349,6 +354,7 @@ class NewGameScene: SKScene {
         firstEngWordLabel.text = ""
         self.view?.addSubview(firstEngWordLabel)
         
+        /*
         secondEngWordLabel.frame = CGRect(x: 60 + 375, y: 160, width: 200, height: 40)
         
         secondEngWordLabel.textColor = darkWordColor
@@ -366,6 +372,8 @@ class NewGameScene: SKScene {
         thirdEngWordLabel.font = UIFont(name: "Helvetica Bold", size: 30)
         thirdEngWordLabel.text = ""
         self.view?.addSubview(thirdEngWordLabel)
+        */
+        
         
         //建立三個單字
         firstChiWordLabel.frame = CGRect(x: 270 + 375, y: 85, width: 90, height: 40)
@@ -377,6 +385,7 @@ class NewGameScene: SKScene {
         firstChiWordLabel.text = ""
         self.view?.addSubview(firstChiWordLabel)
         
+        /*
         secondChiWordLabel.frame = CGRect(x: 270 + 375, y: 160, width: 90, height: 40)
         //firstChiWordLabel.backgroundColor = .green
         secondChiWordLabel.textColor = darkWordColor
@@ -394,6 +403,7 @@ class NewGameScene: SKScene {
         thirdChiWordLabel.font = UIFont(name: "Helvetica Neue", size: 20)
         thirdChiWordLabel.text = ""
         self.view?.addSubview(thirdChiWordLabel)
+        */
         
         //建立好畫面後開始動畫
         introAnimation()
@@ -429,13 +439,16 @@ class NewGameScene: SKScene {
         allThreeEngWords.append(engWord1)
         allThreeEngWords.append(engWord2)
         
-        //英文字要用attr
+        //稍後需要做allThreeChiWords
+        var allThreechiWords = [[String]]()
+        
+        //建立中文字
         //firstWordLabel.text = engWord0
         firstChiWordLabel.text = chiWord0
         //secondWordLabel.text = engWord1
-        secondChiWordLabel.text = chiWord1
+        //secondChiWordLabel.text = chiWord1
         //thirdWordLabel.text = engWord2
-        thirdChiWordLabel.text = chiWord2
+        //thirdChiWordLabel.text = chiWord2
         
         //字型顏色
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -450,6 +463,7 @@ class NewGameScene: SKScene {
         
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
         
+        //var attrWords = [NSMutableAttributedString]()
         //確認是否是specialE
         
         if syllablesWithoutDigit.contains("_"){
@@ -464,12 +478,12 @@ class NewGameScene: SKScene {
             print(allThreeEngWords)
             
             for w in 0 ..< allThreeEngWords.count{
-                
+            
                 for i in 0 ..< allThreeEngWords[w].count{
                     
                     characters.removeAll(keepingCapacity: false)
 
-                    for c in allThreeEngWords[w][i]{
+                    for c in allThreeEngWords[w][i]{ //[w]
                         
                         characters.append(c)
                     }
@@ -482,7 +496,7 @@ class NewGameScene: SKScene {
                                 
                                 //剛好是_e部首
                                 let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs1)
-                                attrWords[w].append(word)
+                                attrWords[w].append(word) //[w] 以下皆改
                                 let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs0)
                                 attrWords[w].append(word1)
                                 let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs1)
@@ -530,7 +544,7 @@ class NewGameScene: SKScene {
             //抓三個字的array
             for w in 0 ..< allThreeEngWords.count{
                 
-                //抓每個array的音節
+                //抓array的音節,  只抓一個字
                 for i in 0 ..< allThreeEngWords[w].count{
                     
                     if let engWord = allThreeEngWords[w][i] as String?{
@@ -539,7 +553,7 @@ class NewGameScene: SKScene {
                             //符合部首字
                             
                             let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
-                            attrWords[w].append(word)
+                            attrWords[w].append(word)  //[w]
                             
                             
                         } else{
@@ -547,7 +561,7 @@ class NewGameScene: SKScene {
                             
                             let word = NSMutableAttributedString(string: engWord, attributes: attrs0)
                             
-                            attrWords[w].append(word)
+                            attrWords[w].append(word)    //[w]
                             
                         }
                     }
@@ -563,25 +577,25 @@ class NewGameScene: SKScene {
         
         for w in 0 ..< attrWords.count {
             
-            for i in 0 ..< attrWords[w].count {
+            for i in 0 ..< attrWords[w].count { //[w]
                 
                 if i == 0 {
-                    words[w] = attrWords[w][i]
+                    words[w] = attrWords[w][i] //[w]
                     
                 } else {
-                    words[w].append(attrWords[w][i])
+                    words[w].append(attrWords[w][i]) //[w]
                 }
             }
         }
         
         firstEngWordLabel.attributedText = words[0]
-        secondEngWordLabel.attributedText = words[1]
-        thirdEngWordLabel.attributedText = words[2]
+        //secondEngWordLabel.attributedText = words[1]
+        //thirdEngWordLabel.attributedText = words[2]
         
         
         firstEngWordLabel.textColor = darkWordColor
-        secondEngWordLabel.textColor = darkWordColor
-        thirdEngWordLabel.textColor = darkWordColor
+        //econdEngWordLabel.textColor = darkWordColor
+        //thirdEngWordLabel.textColor = darkWordColor
         
         //造完字單字滑入 - 一次性動畫
         slideInAnimation()
@@ -596,11 +610,39 @@ class NewGameScene: SKScene {
             self!.firstChiWordLabel.frame.origin.x = 270
         })
         
+        UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                       self!.firstChiWordLabel.frame.origin.x = 270
+            }, completion: { [weak self](finished:Bool) in
+                if finished{
+                    
+                    //設定第一個練習單字
+                    
+                    //self!.changeImageAlfa(name: "whiteDot0", toAlpha: 1, time: 0.3)
+                    self!.firstEngWordLabel.attributedText = self!.words[0]  //[0]
+                    self!.firstChiWordLabel.textColor = .white
+                    self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
+                    self!.currentPracticeSequence += 1
+                    
+                    self!.pronounce(finished: {
+                        //開始練習
+                        self!.practice()
+                    })
+
+                    
+                    
+                }
+                
+                
+        })
+        
+        /*
         UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveLinear, animations: {[weak self] in
             
             self!.secondEngWordLabel.frame.origin.x = 60
             self!.secondChiWordLabel.frame.origin.x = 270
         })
+        
+        
         
         UIView.animate(withDuration: 0.3, delay: 0.2, options: .curveLinear, animations: {[weak self] in
             
@@ -613,8 +655,8 @@ class NewGameScene: SKScene {
                 
                 //設定第一個練習單字
                 
-                self!.changeImageAlfa(name: "whiteDot0", toAlpha: 1, time: 0.3)
-                self!.firstEngWordLabel.attributedText = self!.words[0]
+                //self!.changeImageAlfa(name: "whiteDot0", toAlpha: 1, time: 0.3)
+                self!.firstEngWordLabel.attributedText = self!.words  //[0]
                 self!.firstChiWordLabel.textColor = .white
                 self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                 self!.currentPracticeSequence += 1
@@ -626,7 +668,7 @@ class NewGameScene: SKScene {
                 
             }
         }
-        
+        */
         
         
     }
@@ -651,42 +693,50 @@ class NewGameScene: SKScene {
                         
                     case 1:
                         print("1")
+                        /*
                         self!.currentEngWordLabel = self!.firstEngWordLabel
                         self!.currentChiWordLabel = self!.firstChiWordLabel
+                          */
                         shouldPronounce = false
                         
-                    case 2:
+                    case 2...:
                         print("2")
+                        /*
                         self!.currentEngWordLabel = self!.secondEngWordLabel
                         self!.currentChiWordLabel = self!.secondChiWordLabel
+ 
                         
-                        
-                        self!.changeImageAlfa(name: "whiteDot0", toAlpha: 0, time: 0.1)
+                        //self!.changeImageAlfa(name: "whiteDot0", toAlpha: 0, time: 0.1)
                         self!.firstEngWordLabel.textColor = self!.darkWordColor
                         self!.firstChiWordLabel.textColor = self!.darkWordColor
-                        self!.changeImageAlfa(name: "whiteDot1", toAlpha: 1, time: 0.3)
-                        self!.secondEngWordLabel.attributedText = self!.words[1]
+                        //self!.changeImageAlfa(name: "whiteDot1", toAlpha: 1, time: 0.3)
+                        self!.secondEngWordLabel.attributedText = self!.words //[1]
                         self!.secondChiWordLabel.textColor = .white
+                        */
+                        
+                        self?.firstEngWordLabel.attributedText = self!.words[self!.currentWordSequence]
                         
                         self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                         shouldPronounce = true
-                        
+                        /*
                     case 3:
                         print("3")
+                        /*
                         self!.currentEngWordLabel = self!.thirdEngWordLabel
                         self!.currentChiWordLabel = self!.thirdChiWordLabel
                         
-                        self!.changeImageAlfa(name: "whiteDot1", toAlpha: 0, time: 0.1)
+                        //self!.changeImageAlfa(name: "whiteDot1", toAlpha: 0, time: 0.1)
                         self!.secondEngWordLabel.textColor = self!.darkWordColor
                         self!.secondChiWordLabel.textColor = self!.darkWordColor
-                        self!.changeImageAlfa(name: "whiteDot2", toAlpha: 1, time: 0.3)
-                        self!.thirdEngWordLabel.attributedText = self!.words[2]
+                        //self!.changeImageAlfa(name: "whiteDot2", toAlpha: 1, time: 0.3)
+                        self!.thirdEngWordLabel.attributedText = self!.words //[2]
                         self!.thirdChiWordLabel.textColor = .white
+                        */
                         
                         self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                         
                         shouldPronounce = true
-                        
+                        */
                     default:
                         break
                     }
@@ -698,7 +748,8 @@ class NewGameScene: SKScene {
                             
                         }
                     }
-                    self!.currentEngWordLabel.textColor = self!.darkWordColor
+                    //self!.currentEngWordLabel.textColor = self!.darkWordColor
+                    self!.firstEngWordLabel.textColor = self!.darkWordColor
                     self!.isUserInteractionEnabled = true
                 }
             }
@@ -1272,18 +1323,7 @@ class NewGameScene: SKScene {
                         }
                         
                     }
-                    
-                    /*
-                     //固定線
-                     line = SKShapeNode()
-                     line?.strokeColor = diamondGreen
-                     line?.lineWidth = 8
-                     line?.name = "line"
-                     line?.zPosition = 4
-                     line?.glowWidth = 2
-                     addChild(line!)
-                     */
-                    
+                
                     //初始化
                     //isFirstTouch = false
                     touchTimes = 0
@@ -1380,11 +1420,12 @@ class NewGameScene: SKScene {
                             
                         }else {
                             //練習模式
-                            //1. 把顯示的輸入字得分
+                            //1. 把顯示的輸入字得分, 往上飄的動畫
                             rightScore()
                             
                             //2. 顯示原本有音節變色的字
-                            currentEngWordLabel.attributedText = words[currentPracticeSequence - 1]
+                            firstEngWordLabel.attributedText = words[currentPracticeSequence - 1]
+                            //[currentPracticeSequence - 1]
                             
                             
                             //不能按畫面
@@ -1398,10 +1439,7 @@ class NewGameScene: SKScene {
                                 self!.shownWords.removeAll(keepingCapacity: false)
                                 self!.wordEntered.removeAll(keepingCapacity: false)
                                 
-                                
-                                
                                 //把順序+1
-                                
                                 
                                 //if self!.currentWordSequence < self!.wordSets.count / 4 - 1{
                                 
@@ -1436,15 +1474,10 @@ class NewGameScene: SKScene {
                                     
                                 }
                                 
-                                
-                                
-                                
                             })
                             
                             //輸入正確音節數歸零
                             //alreadyCorrectsyllables = 0
-
-                            
                         }
                         
                     } else {
@@ -1650,7 +1683,7 @@ class NewGameScene: SKScene {
         hintSlideIn(leftText: "開始", rightText: "遊戲",waitTime: 2) {[weak self] in
             //移除點點
             
-           self!.findImageNode(name: "whiteDot2").removeFromParent()
+           //self!.findImageNode(name: "whiteDot2").removeFromParent()
        
   
             //移除上方的label及背景
@@ -1672,7 +1705,7 @@ class NewGameScene: SKScene {
                 if finished{
                     
                     
-                    self?.findImageNode(name: "threeWordBg").removeFromParent()
+                    //self?.findImageNode(name: "threeWordBg").removeFromParent()
                     
                     self!.setUpGameScreen()
                     
