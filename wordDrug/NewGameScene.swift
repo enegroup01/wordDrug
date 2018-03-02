@@ -148,6 +148,8 @@ class NewGameScene: SKScene {
     var currentEngWordLabel = UILabel()
     var currentChiWordLabel = UILabel()
     
+            var allThreeChiWords = [String]()
+    
     //是否是遊戲模式
     var isGameMode = false
     
@@ -250,6 +252,9 @@ class NewGameScene: SKScene {
         //背景
         makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
+        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 200, z: 10, alpha: 1, isAnchoring: false)
+
+        
         //做三個字的背景
         //makeImageNode(name: "threeWordBg", image: "threeWordBg", x: 0, y: 309, width: 750, height: 438, z: 2, alpha: 1, isAnchoring: false)
         
@@ -289,7 +294,7 @@ class NewGameScene: SKScene {
         let darkHeight:CGFloat = 150
         let lightImg:String = "lightSelBtn"
         let darkImg:String = "darkSelBtn"
-        let positions = [[-135,-570],[-230,-350],[135,-570],[230,-350],[0,-190]]
+        let positions = [[-135,-500],[-230,-280],[135,-500],[230,-280],[0,-90]]
         
         //選項按鈕
         
@@ -345,12 +350,12 @@ class NewGameScene: SKScene {
         
         //建立三個單字
         
-        firstEngWordLabel.frame = CGRect(x: 60 + 375, y: 85, width: 200, height: 40)
-        //firstWordLabel.backgroundColor = .cyan
+        firstEngWordLabel.frame = CGRect(x: 187.5 + 375, y: 110, width: 200, height: 80)
+        //firstEngWordLabel.backgroundColor = .cyan
         firstEngWordLabel.textColor = darkWordColor
-        firstEngWordLabel.textAlignment = .left
+        firstEngWordLabel.textAlignment = .center
         firstEngWordLabel.adjustsFontSizeToFitWidth = true
-        firstEngWordLabel.font = UIFont(name: "Helvetica Bold", size: 30)
+        firstEngWordLabel.font = UIFont(name: "Helvetica Bold", size: 70)
         firstEngWordLabel.text = ""
         self.view?.addSubview(firstEngWordLabel)
         
@@ -376,12 +381,12 @@ class NewGameScene: SKScene {
         
         
         //建立三個單字
-        firstChiWordLabel.frame = CGRect(x: 270 + 375, y: 85, width: 90, height: 40)
+        firstChiWordLabel.frame = CGRect(x: 187.5 + 375, y: 205, width: 90, height: 40)
         //firstChiWordLabel.backgroundColor = .green
-        firstChiWordLabel.textColor = darkWordColor
-        firstChiWordLabel.textAlignment = .right
+        firstChiWordLabel.textColor = .white
+        firstChiWordLabel.textAlignment = .center
         firstChiWordLabel.adjustsFontSizeToFitWidth = true
-        firstChiWordLabel.font = UIFont(name: "Helvetica Neue", size: 20)
+        firstChiWordLabel.font = UIFont(name: "Helvetica Neue", size: 25)
         firstChiWordLabel.text = ""
         self.view?.addSubview(firstChiWordLabel)
         
@@ -440,7 +445,11 @@ class NewGameScene: SKScene {
         allThreeEngWords.append(engWord2)
         
         //稍後需要做allThreeChiWords
-        var allThreechiWords = [[String]]()
+
+        allThreeChiWords.append(chiWord0)
+        allThreeChiWords.append(chiWord1)
+        allThreeChiWords.append(chiWord2)
+        
         
         //建立中文字
         //firstWordLabel.text = engWord0
@@ -451,9 +460,9 @@ class NewGameScene: SKScene {
         //thirdChiWordLabel.text = chiWord2
         
         //字型顏色
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor : UIColor.cyan]
-         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedStringKey.foregroundColor : UIColor.orange]
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 70), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 70), NSAttributedStringKey.foregroundColor : UIColor.cyan]
+         //let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 70), NSAttributedStringKey.foregroundColor : UIColor.orange]
         
         //先抓音節
         syllablesToCheck = syllables[unitNumber]
@@ -588,12 +597,13 @@ class NewGameScene: SKScene {
             }
         }
         
+        print(words)
         firstEngWordLabel.attributedText = words[0]
         //secondEngWordLabel.attributedText = words[1]
         //thirdEngWordLabel.attributedText = words[2]
         
         
-        firstEngWordLabel.textColor = darkWordColor
+        //firstEngWordLabel.textColor = darkWordColor
         //econdEngWordLabel.textColor = darkWordColor
         //thirdEngWordLabel.textColor = darkWordColor
         
@@ -606,22 +616,23 @@ class NewGameScene: SKScene {
     func slideInAnimation(){
         print("slide")
         UIView.animate(withDuration: 0.3, animations: {[weak self] in
-            self!.firstEngWordLabel.frame.origin.x = 60
-            self!.firstChiWordLabel.frame.origin.x = 270
+            //self!.firstEngWordLabel.frame.origin.x = 187.5
+            self!.firstEngWordLabel.center.x = 187.5
+            //self!.firstChiWordLabel.frame.origin.x = 270
         })
         
         UIView.animate(withDuration: 0.3, animations: {[weak self] in
-                       self!.firstChiWordLabel.frame.origin.x = 270
+                       self!.firstChiWordLabel.center.x = 187.5
             }, completion: { [weak self](finished:Bool) in
                 if finished{
                     
                     //設定第一個練習單字
                     
                     //self!.changeImageAlfa(name: "whiteDot0", toAlpha: 1, time: 0.3)
-                    self!.firstEngWordLabel.attributedText = self!.words[0]  //[0]
-                    self!.firstChiWordLabel.textColor = .white
+                    //self!.firstEngWordLabel.attributedText = self!.words[0]  //[0]
+                    //self!.firstChiWordLabel.textColor = .white
                     self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
-                    self!.currentPracticeSequence += 1
+                    //self!.currentPracticeSequence += 1
                     
                     self!.pronounce(finished: {
                         //開始練習
@@ -683,15 +694,17 @@ class NewGameScene: SKScene {
                 //是否要發音
                 var shouldPronounce = Bool()
                 
+                var waitTime = DispatchTime.now()
                 //等待發音練完後再進入練習
-                let time = DispatchTime.now() + 1.5 //這部分的等待要分兩種...第一次或非第一次的, 之後再修改
-                
+                if self!.currentPracticeSequence != 0 {
+                waitTime = DispatchTime.now() + 0.6
+                }
                 //首先指定好上方中英文的label
-                DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+                DispatchQueue.main.asyncAfter(deadline: waitTime) {[weak self] in
                     
                     switch self!.currentPracticeSequence{
                         
-                    case 1:
+                    case 0:
                         print("1")
                         /*
                         self!.currentEngWordLabel = self!.firstEngWordLabel
@@ -699,8 +712,7 @@ class NewGameScene: SKScene {
                           */
                         shouldPronounce = false
                         
-                    case 2...:
-                        print("2")
+                    case 1...:
                         /*
                         self!.currentEngWordLabel = self!.secondEngWordLabel
                         self!.currentChiWordLabel = self!.secondChiWordLabel
@@ -714,9 +726,11 @@ class NewGameScene: SKScene {
                         self!.secondChiWordLabel.textColor = .white
                         */
                         
-                        self?.firstEngWordLabel.attributedText = self!.words[self!.currentWordSequence]
                         
-                        self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
+                        self?.firstEngWordLabel.attributedText = self!.words[self!.currentPracticeSequence]
+                        self!.firstChiWordLabel.text = self!.allThreeChiWords[self!.currentPracticeSequence]
+                        
+                        self!.wordsToPronounce =  self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                         shouldPronounce = true
                         /*
                     case 3:
@@ -770,7 +784,6 @@ class NewGameScene: SKScene {
             }
         }
         
-        
         //抓目前單字
         let currentWord = wordSets[currentWordSequence]
         
@@ -784,7 +797,7 @@ class NewGameScene: SKScene {
         var otherWords = [String]()
         
         //在所有英文字裡面, 如果音節沒有重複目前顯示的音節, 就把它加入到otherWords裡
-        for i in 0 ..< wordSets.count / 4{
+        for i in 0 ..< wordSets.count / 3{
             
             let word = wordSets[i]
             let sepWordArray = word.components(separatedBy: " ")
@@ -797,6 +810,8 @@ class NewGameScene: SKScene {
                 }
             }
         }
+        
+        print("otherWords:\(otherWords)")
         
         //去除array裡重複的字
         let otherWordsOrderSets = otherWords.orderedSet
@@ -877,7 +892,7 @@ class NewGameScene: SKScene {
         
         //建立所有單字選項
         //設定5格的位置
-        let positions = [[-135,-580],[-230,-360],[135,-580],[230,-360],[0,-200]]
+        let positions = [[-135,-510],[-230,-290],[135,-510],[230,-290],[0,-100]]
         
         for i in 0 ..< shownWords.count{
             
@@ -1366,8 +1381,7 @@ class NewGameScene: SKScene {
                                 
                             }
                             //顯示中文選項
-                            
-                            
+
                             
                             //抓亂數中文
                             let quarterCount = wordSets.count / 3
@@ -1422,10 +1436,9 @@ class NewGameScene: SKScene {
                             //練習模式
                             //1. 把顯示的輸入字得分, 往上飄的動畫
                             rightScore()
-                            
+              
                             //2. 顯示原本有音節變色的字
-                            firstEngWordLabel.attributedText = words[currentPracticeSequence - 1]
-                            //[currentPracticeSequence - 1]
+                            firstEngWordLabel.attributedText = words[currentPracticeSequence]                            //[currentPracticeSequence - 1]
                             
                             
                             //不能按畫面
@@ -1537,11 +1550,7 @@ class NewGameScene: SKScene {
                                 
                             })
 
-                            
-                            
-                            
-                            
-                            
+
                             
                         } else {
                             //練習的時候
@@ -1590,8 +1599,6 @@ class NewGameScene: SKScene {
                         
                         
                     }
-                    
-                    
                 
             }
         }
@@ -1804,6 +1811,7 @@ class NewGameScene: SKScene {
         
         blockAngle = findImageNode(name: "0-0").zRotation
 
+        
         //開始遊戲
         startGame()
     }
