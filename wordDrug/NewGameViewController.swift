@@ -17,6 +17,7 @@ let showSentenceKey = "showSentence"
 let backToSpellKey = "backToSpell"
 let prounounceSentenceKey = "pronounceSentence"
 let practiceNextWordKey = "practiceNextWord"
+let tagQuestionKey = "tagQuestion"
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
     
@@ -110,8 +111,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPronounceSentence), name: NSNotification.Name("pronounceSentence"), object: nil)
         
         
+        //啟動選擇題
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyTagQuestion), name: NSNotification.Name("tagQuestion"), object: nil)
+        
         //啟動下個單字
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
+        
+        
+
         
         
         //先隱藏錄音及辨識
@@ -343,6 +350,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
     }
     
     
+    //啟動選擇題
+    @objc func notifyTagQuestion(){
+        //隱藏英文句子 + 錄音鍵
+        
+        //開啟聲音
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
+        } catch  {
+            
+        }
+
+        sentenceLabel.text = ""
+        recordBtn.isHidden = true
+        
+        
+        
+        
+    }
+    
     //按鈕
     @IBAction func recordClicked(_ sender: Any) {
         
@@ -528,9 +555,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
             
             if self!.isRecogWordCorrect{
                 
+                /*
                 //過關進入下個字
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
-
+*/
+                
+                //進入選擇題
+                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tagQuestion"), object: nil, userInfo: nil)
+                
                 
             } else {
             

@@ -212,7 +212,11 @@ class NewGameScene: SKScene {
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.pronounceSentence), name: NSNotification.Name("pronounceSentence"), object: nil)
         
    
-
+       //接收選擇題
+            NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.tagQuestion), name: NSNotification.Name("tagQuestion"), object: nil)
+        
+        
+        //接收下個單字
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.practiceNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
         
 
@@ -771,6 +775,20 @@ class NewGameScene: SKScene {
          practice()
         
      
+        
+    }
+    
+    //選擇題
+    @objc func tagQuestion(){
+        isDragAndPlayEnable = false
+        
+        //發音 + 做選項
+        
+        pronounce {
+            
+            
+        }
+        
         
     }
     
