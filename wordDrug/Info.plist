@@ -24,12 +24,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>辨識語音</string>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>啟動麥克風</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

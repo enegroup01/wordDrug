@@ -73,6 +73,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         print(indexPath.row)
+        //傳送地圖數字
         mapNumToPass = indexPath.row + 1
         
         performSegue(withIdentifier: "toPageVc", sender: self)

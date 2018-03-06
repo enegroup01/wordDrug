@@ -10,6 +10,7 @@ import SpriteKit
 import GameplayKit
 
 let leaveGameKey = "leaveGame"
+let startToRecognizeKey = "startToRecognize"
 
 class NewGameScene: SKScene {
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
@@ -33,6 +34,8 @@ class NewGameScene: SKScene {
     let lightPink = UIColor.init(red: 255/255, green: 217/255, blue: 239/255, alpha: 100)
     let selectWordDarkColor = UIColor.init(red: 62/255, green: 60/255, blue: 61/255, alpha: 1)
     
+   
+    
     //中文字左右對錯
     var leftOrRight = Int()
     let leftChiNode = SKLabelNode()
@@ -46,6 +49,9 @@ class NewGameScene: SKScene {
     
     //暫時使用的單字
     var wordSets = [String]()
+    
+    //暫時使用的句子
+    var sentenceSets = [String]()
     
     //此元素頁面裡所有的音節
     var syllables = [String]()
@@ -173,7 +179,7 @@ class NewGameScene: SKScene {
     
     //隨機爆破的Timer
     var openTimer = Timer()
-      var openTimes = 0
+    var openTimes = 0
     
     var blockAngle = CGFloat()
     var scoresToAdd = Int()
@@ -181,9 +187,35 @@ class NewGameScene: SKScene {
     var addedScore = 0
     var mapNumber = Int()
     
+    
+    //控制是否為第二次聽考
+    var isBackToSpell = false
+    
     override func didMove(to view: SKView) {
         
-                NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
+        
+       
+        //口試Nc (單字 + 句子)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyStartToRecognize), name: NSNotification.Name("startToRecognize"), object: nil)
+        
+        
+        //接收聽考Nc
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.backToSpell), name: NSNotification.Name("backToSpell"), object: nil)
+        
+        
+        //啟動造句子Nc
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowSentence), name: NSNotification.Name("showSentence"), object: nil)
+        
+        //接收句子發音
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.pronounceSentence), name: NSNotification.Name("pronounceSentence"), object: nil)
+        
+   
+
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.practiceNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
+        
+
         
         //載入各種字
         loadAllKindsOfWord()
@@ -243,6 +275,30 @@ class NewGameScene: SKScene {
             // example.txt not found!
         }
         
+        
+        //讀取Bundle裡的文字檔
+        var sentenceFile:String?
+        
+        let sentenceName = "s" + String(mapNumber) + "-" + String(spotNumber + 1)
+        
+        if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
+            do {
+                sentenceFile = try String(contentsOfFile: filepath)
+                let sentences = sentenceFile?.components(separatedBy: "; ")
+                
+                //把字讀取到wordSets裡
+                sentenceSets = sentences!
+                //print(contents)
+            } catch {
+                // contents could not be loaded
+            }
+        } else {
+            // example.txt not found!
+        }
+
+        print(sentenceSets)
+        print(wordSets)
+        
     }
     
     
@@ -252,7 +308,7 @@ class NewGameScene: SKScene {
         //背景
         makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
-        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 200, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
 
         
         //做三個字的背景
@@ -277,7 +333,7 @@ class NewGameScene: SKScene {
         makeImageNode(name: "whiteDot2", image: "whiteDot", x: -300, y: 150, width: 20, height: 20, z: 1, alpha: 0, isAnchoring: false)
         */
         
-        
+        //提示字
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
@@ -322,8 +378,8 @@ class NewGameScene: SKScene {
         
         
         //製作中文選項
-        makeImageNode(name: "leftChiBtn", image: "leftChiBtn", x: -187, y: -365, width: 376, height: 606, z: 7, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "rightChiBtn", image: "rightChiBtn", x: 187, y: -365, width: 376, height: 606, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187, y: -365, width: 320, height: 320, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "rightChiBtn", image: "rightRoundedSqr", x: 187, y: -365, width: 320, height: 320, z: 7, alpha: 0, isAnchoring: false)
         
         //加入中文字選項的node
         leftChiNode.position = CGPoint(x: -187, y: -375)
@@ -380,7 +436,7 @@ class NewGameScene: SKScene {
         */
         
         
-        //建立三個單字
+        //英文單字的Node
         firstChiWordLabel.frame = CGRect(x: 187.5 + 375, y: 205, width: 90, height: 40)
         //firstChiWordLabel.backgroundColor = .green
         firstChiWordLabel.textColor = .white
@@ -430,8 +486,10 @@ class NewGameScene: SKScene {
     // 2. makeWords: 讀取所有的字, 造字
     func makeWords(){
         
-        //找目前sequence的英文+中文字
+        //這個engWords是尚未attr的, attr完的是
         var allThreeEngWords = [[String]]()
+        
+        
         let quarterCount = wordSets.count / 3
         let engWord0 = wordSets[currentWordSequence].components(separatedBy: " ")
         let chiWord0 = wordSets[quarterCount +  currentWordSequence]
@@ -443,21 +501,15 @@ class NewGameScene: SKScene {
         allThreeEngWords.append(engWord0)
         allThreeEngWords.append(engWord1)
         allThreeEngWords.append(engWord2)
-        
-        //稍後需要做allThreeChiWords
 
+        
+        //append中文字
         allThreeChiWords.append(chiWord0)
         allThreeChiWords.append(chiWord1)
         allThreeChiWords.append(chiWord2)
         
         
-        //建立中文字
-        //firstWordLabel.text = engWord0
-        firstChiWordLabel.text = chiWord0
-        //secondWordLabel.text = engWord1
-        //secondChiWordLabel.text = chiWord1
-        //thirdWordLabel.text = engWord2
-        //thirdChiWordLabel.text = chiWord2
+
         
         //字型顏色
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 70), NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -472,8 +524,8 @@ class NewGameScene: SKScene {
         
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
         
-        //var attrWords = [NSMutableAttributedString]()
-        //確認是否是specialE
+        //以下為生成attr的步驟
+        //1. 確認是否是specialE
         
         if syllablesWithoutDigit.contains("_"){
             //specialE的作法
@@ -481,18 +533,14 @@ class NewGameScene: SKScene {
             var characters = [Character]()
             let vowels = ["a","e","i","o","u"]
             
-            //var attrWords = [NSMutableAttributedString]()
-            
             //每一個英文字節拆字母
-            print(allThreeEngWords)
-            
             for w in 0 ..< allThreeEngWords.count{
             
                 for i in 0 ..< allThreeEngWords[w].count{
                     
                     characters.removeAll(keepingCapacity: false)
 
-                    for c in allThreeEngWords[w][i]{ //[w]
+                    for c in allThreeEngWords[w][i]{
                         
                         characters.append(c)
                     }
@@ -505,7 +553,7 @@ class NewGameScene: SKScene {
                                 
                                 //剛好是_e部首
                                 let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs1)
-                                attrWords[w].append(word) //[w] 以下皆改
+                                attrWords[w].append(word)
                                 let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs0)
                                 attrWords[w].append(word1)
                                 let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs1)
@@ -562,7 +610,7 @@ class NewGameScene: SKScene {
                             //符合部首字
                             
                             let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
-                            attrWords[w].append(word)  //[w]
+                            attrWords[w].append(word)
                             
                             
                         } else{
@@ -570,7 +618,7 @@ class NewGameScene: SKScene {
                             
                             let word = NSMutableAttributedString(string: engWord, attributes: attrs0)
                             
-                            attrWords[w].append(word)    //[w]
+                            attrWords[w].append(word)
                             
                         }
                     }
@@ -582,7 +630,7 @@ class NewGameScene: SKScene {
         }
         
         
-        //*** 以下為共同的造字func
+        //*** 以下為共同的造字func, 把字造到words裡
         
         for w in 0 ..< attrWords.count {
             
@@ -597,12 +645,21 @@ class NewGameScene: SKScene {
             }
         }
         
-        print(words)
+
+        //造完字後顯示出英文部分
         firstEngWordLabel.attributedText = words[0]
         //secondEngWordLabel.attributedText = words[1]
         //thirdEngWordLabel.attributedText = words[2]
         
+        //顯示中文字
+        firstChiWordLabel.text = chiWord0
+        //firstWordLabel.text = engWord0
+        //secondWordLabel.text = engWord1
+        //secondChiWordLabel.text = chiWord1
+        //thirdWordLabel.text = engWord2
+        //thirdChiWordLabel.text = chiWord2
         
+
         //firstEngWordLabel.textColor = darkWordColor
         //econdEngWordLabel.textColor = darkWordColor
         //thirdEngWordLabel.textColor = darkWordColor
@@ -612,13 +669,16 @@ class NewGameScene: SKScene {
         
     }
     
+    
+    
     //Part 3. slideIn: 單字滑進來
     func slideInAnimation(){
-        print("slide")
+        
+        
         UIView.animate(withDuration: 0.3, animations: {[weak self] in
-            //self!.firstEngWordLabel.frame.origin.x = 187.5
+
             self!.firstEngWordLabel.center.x = 187.5
-            //self!.firstChiWordLabel.frame.origin.x = 270
+            
         })
         
         UIView.animate(withDuration: 0.3, animations: {[weak self] in
@@ -631,12 +691,18 @@ class NewGameScene: SKScene {
                     //self!.changeImageAlfa(name: "whiteDot0", toAlpha: 1, time: 0.3)
                     //self!.firstEngWordLabel.attributedText = self!.words[0]  //[0]
                     //self!.firstChiWordLabel.textColor = .white
+                    
+                    //設定發音單字
                     self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                     //self!.currentPracticeSequence += 1
                     
+                    //然後發音
                     self!.pronounce(finished: {
                         //開始練習
                         self!.practice()
+                        self!.firstEngWordLabel.textColor = self!.darkWordColor
+                        
+
                     })
 
                     
@@ -684,33 +750,69 @@ class NewGameScene: SKScene {
         
     }
     
+    @objc func backToSpell(){
+        isUserInteractionEnabled = false
+        
+        //隱藏上方的單字換成對話框
+        firstEngWordLabel.isHidden = true
+        firstChiWordLabel.isHidden = true
+        
+        //錄音字欄位
+        findImageNode(name: "recogWordsBg").alpha = 0
+        
+        //建立說話圖示
+        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380, width: 256, height: 210, z: 1, alpha: 1, isAnchoring: false)
+        
+        
+        //宣告此為第二次練習
+        isBackToSpell = true
+        
+        //練習
+         practice()
+        
+     
+        
+    }
+    
     func practice(){
         
-        //練習模式的話
+        //練習模式的話, 之後要改成isEnded...來結束此回合
+        
+        
         if isGameMode == false {
             
             hintSlideIn(leftText: "連線", rightText: "拼字",waitTime: 1.3) {[weak self] in
-                self!.isDragAndPlayEnable = true
-                //是否要發音
+
+                
+                //是否要發音, 判斷是不是第一個字
                 var shouldPronounce = Bool()
                 
                 var waitTime = DispatchTime.now()
+                
                 //等待發音練完後再進入練習
                 if self!.currentPracticeSequence != 0 {
                 waitTime = DispatchTime.now() + 0.6
                 }
+                
+                
                 //首先指定好上方中英文的label
                 DispatchQueue.main.asyncAfter(deadline: waitTime) {[weak self] in
                     
                     switch self!.currentPracticeSequence{
                         
                     case 0:
-                        print("1")
                         /*
                         self!.currentEngWordLabel = self!.firstEngWordLabel
                         self!.currentChiWordLabel = self!.firstChiWordLabel
                           */
+                        //設定不發音
+                        if self!.isBackToSpell{
+                        shouldPronounce = true
+                        } else {
                         shouldPronounce = false
+                            self!.isUserInteractionEnabled = true
+                        }
+                        
                         
                     case 1...:
                         /*
@@ -725,14 +827,13 @@ class NewGameScene: SKScene {
                         self!.secondEngWordLabel.attributedText = self!.words //[1]
                         self!.secondChiWordLabel.textColor = .white
                         */
-                        
-                        
+
                         self?.firstEngWordLabel.attributedText = self!.words[self!.currentPracticeSequence]
                         self!.firstChiWordLabel.text = self!.allThreeChiWords[self!.currentPracticeSequence]
                         
                         self!.wordsToPronounce =  self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                         shouldPronounce = true
-                        /*
+                        /* 以下都用不到
                     case 3:
                         print("3")
                         /*
@@ -757,14 +858,15 @@ class NewGameScene: SKScene {
                     
                     if shouldPronounce{
                         self!.pronounce {
-                            print("pronounce")
                             
+                            self!.firstEngWordLabel.textColor = self!.darkWordColor
+                            
+         self!.isUserInteractionEnabled = true
+
                             
                         }
                     }
                     //self!.currentEngWordLabel.textColor = self!.darkWordColor
-                    self!.firstEngWordLabel.textColor = self!.darkWordColor
-                    self!.isUserInteractionEnabled = true
                 }
             }
         }
@@ -810,8 +912,6 @@ class NewGameScene: SKScene {
                 }
             }
         }
-        
-        print("otherWords:\(otherWords)")
         
         //去除array裡重複的字
         let otherWordsOrderSets = otherWords.orderedSet
@@ -892,20 +992,22 @@ class NewGameScene: SKScene {
         
         //建立所有單字選項
         //設定5格的位置
-        let positions = [[-135,-510],[-230,-290],[135,-510],[230,-290],[0,-100]]
+        let positions = [[-135,-515],[-230,-295],[135,-515],[230,-295],[0,-105]]
         
         for i in 0 ..< shownWords.count{
             
             makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1]), alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 5, name: shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
             
-            //可按按鍵
-            isUserInteractionEnabled = true
             
             //把建立的選項名稱放入array裡
             selNodeNames.append(shownWords[i] + String(i) + "Sel")
             
         }
         
+        //可按按鍵
+        isUserInteractionEnabled = true
+
+        //啟動連線功能
         isDragAndPlayEnable = true
         
     }
@@ -932,8 +1034,12 @@ class NewGameScene: SKScene {
                     makeImageNode(name: "mark", image: "rightCircle", x: -190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
                          makeImageNode(name: "mark", image: "wrongX", x: 190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
                     
-                    battleModeRight()
+                    let when = DispatchTime.now() + 0.3
+                    DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                          self!.battleModeRight()
+                    })
                     
+
                 }else{
                     //答錯
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
@@ -942,13 +1048,16 @@ class NewGameScene: SKScene {
                     
                     makeImageNode(name: "mark", image: "wrongX", x: -190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
 
+                    /*
                     findLabelNode(name: "tempWord").text = "答錯"
                     findLabelNode(name: "tempWord").fontColor = lightPink
                     findLabelNode(name: "tempWord").fontSize = 60
-                    
+                    */
                     let time = DispatchTime.now() + 1
                     DispatchQueue.main.asyncAfter(deadline: time, execute: {[weak self] in
-                        self!.nextBattle()
+ 
+                        self!.battleModeRight()
+                        
                     })
                     
                 }
@@ -966,7 +1075,10 @@ class NewGameScene: SKScene {
                     makeImageNode(name: "mark", image: "rightCircle", x: 190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
 
                     
-                    battleModeRight()
+                    let when = DispatchTime.now() + 0.3
+                    DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                        self!.battleModeRight()
+                    })
                     
                 }else{
                     //答錯
@@ -978,14 +1090,14 @@ class NewGameScene: SKScene {
 
                     
                      makeImageNode(name: "mark", image: "wrongX", x: 190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
-                    
+                    /*
                     findLabelNode(name: "tempWord").text = "答錯"
                     findLabelNode(name: "tempWord").fontColor = lightPink
                     findLabelNode(name: "tempWord").fontSize = 60
-                    
+                    */
                     let time = DispatchTime.now() + 1
                     DispatchQueue.main.asyncAfter(deadline: time, execute: {[weak self] in
-                        self!.nextBattle()
+                         self!.battleModeRight()
                     })
                     
                     
@@ -1045,6 +1157,8 @@ class NewGameScene: SKScene {
                             selectBall(word: wordChosen, poisonNumber: i)
                             
                             //假如是遊戲模式的話, 要開始隨機開上方方塊
+                            //以下的遊戲模式目前都用不到了
+                            /*
                             if isGameMode{
                                 
                                 if allPossibilities.count > 0 {
@@ -1069,6 +1183,7 @@ class NewGameScene: SKScene {
                                     
                                 }
                             }
+                            */
                         }
                     }
                 }
@@ -1436,16 +1551,42 @@ class NewGameScene: SKScene {
                             //練習模式
                             //1. 把顯示的輸入字得分, 往上飄的動畫
                             rightScore()
+                            
+                            
+                            //以下兩兩個是聽考模式的協助功能
+                            //移除talk圖示
+                            removeSomeNodes(name: "talkPng")
+                            
+                            //顯示英文字
+                            firstEngWordLabel.isHidden = false
               
                             //2. 顯示原本有音節變色的字
-                            firstEngWordLabel.attributedText = words[currentPracticeSequence]                            //[currentPracticeSequence - 1]
-                            
+                            firstEngWordLabel.attributedText = words[currentPracticeSequence]
                             
                             //不能按畫面
                             self.isUserInteractionEnabled = false
                             
                             
-                            //播放單字完之後準備 1. 下個單字 2. 進入比賽模式
+                            //如果是聽考模式就跳到選中文
+                            if isBackToSpell {
+                                
+                                
+                                
+                                testChinese()
+                                //不做發音了 直接跳
+                                /*
+                                self.pronounce(finished: {[weak self] in
+                                    
+                                    //中文選項
+                                    self!.testChinese()
+                                    
+                                })
+                                */
+                                
+                            } else {
+                            
+                                
+                            //跳到口試
                             self.pronounce(finished: {[weak self] in
                                 
                                 //初始化
@@ -1456,6 +1597,14 @@ class NewGameScene: SKScene {
                                 
                                 //if self!.currentWordSequence < self!.wordSets.count / 4 - 1{
                                 
+                                //口試
+                                self!.recognizeWord()
+                                
+                                //不能dragAndPlay
+                                self!.isDragAndPlayEnable = false
+
+                                
+                                /*   是否要加1的部分目前不做
                                 if self!.currentWordSequence < (self!.unitNumber + 1) * 3 - 1{
                                     
                                     self!.currentWordSequence += 1
@@ -1465,7 +1614,10 @@ class NewGameScene: SKScene {
                                     //self!.isPracticeMode = false
                                     
                                     //練習下個字
-                                    self!.practiceNextWord()
+                                    //self!.practiceNextWord()
+                                    
+                                    //確認單字是否正確
+                                    self!.recognizeWord()
                                     
                                     //不能dragAndPlay
                                     self!.isDragAndPlayEnable = false
@@ -1486,9 +1638,9 @@ class NewGameScene: SKScene {
                                     print("準備開始比賽")
                                     
                                 }
-                                
+                                */
                             })
-                            
+                            }
                             //輸入正確音節數歸零
                             //alreadyCorrectsyllables = 0
                         }
@@ -1605,6 +1757,106 @@ class NewGameScene: SKScene {
         
     }
     
+    
+    //辨識單字
+    func recognizeWord(){
+        
+        //隱藏不需要的東西
+        //選項alpha變淡+移除選項字
+        for node in children{
+            
+            if (node.name?.contains("filledButton"))!{
+                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                
+            }
+            
+            if (node.name?.contains("emptyButton"))!{
+                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+            }
+            
+            if (node.name?.contains("Sel"))!{
+                node.removeFromParent()
+            }
+            
+        }
+        
+        
+        //顯示出需要的東西, 發出NC
+        
+        let wordToPass:[String:String] = ["wordToPass":wordsToPronounce,"currentWordSequence":String(currentWordSequence)]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: wordToPass)
+
+        
+    }
+    
+    func testChinese(){
+        for node in children{
+            
+            if (node.name?.contains("filledButton"))!{
+                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.1)
+            }
+            
+            if (node.name?.contains("emptyButton"))!{
+                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.1)
+            }
+            
+            if (node.name?.contains("Sel"))!{
+                node.removeFromParent()
+            }
+            
+            
+        }
+        //顯示中文選項
+        
+        
+        //抓亂數中文
+        let quarterCount = wordSets.count / 3
+        let halfCount = wordSets.count / 3 * 2
+        let chiWord = wordSets[quarterCount +  currentWordSequence]
+        var allChiWords = [String]()
+        for i in quarterCount ..< halfCount{
+            allChiWords.append(wordSets[i])
+        }
+        
+        allChiWords.remove(at: currentWordSequence)
+        
+        //亂數
+        let randomNumber = Int(arc4random_uniform(UInt32(allChiWords.count)))
+        let randomChi = allChiWords[randomNumber]
+        var selChiWords = [String]()
+        
+        selChiWords.append(chiWord)
+        selChiWords.append(randomChi)
+        
+        let randomL = Int(arc4random_uniform(UInt32(2)))
+        var randomR = Int()
+        if randomL == 0 {
+            //左對
+            randomR = 1
+            leftOrRight = 0
+        } else {
+            //右對
+            randomR = 0
+            leftOrRight = 1
+        }
+        
+        leftChiNode.text = selChiWords[randomL]
+        rightChiNode.text = selChiWords[randomR]
+        
+        let leftChiBtn = findImageNode(name: "leftChiBtn")
+        let rightChiBtn = findImageNode(name:"rightChiBtn")
+        
+        let showAlpha = SKAction.fadeAlpha(to: 1, duration: 0.1)
+        leftChiBtn.run(showAlpha)
+        rightChiBtn.run(showAlpha, completion: {[weak self] in
+            
+            self!.isUserInteractionEnabled = true
+            
+        })
+        
+        
+    }
+    
     func reloadBlocks(){
         
         //把上方蓋起來的做法
@@ -1638,29 +1890,106 @@ class NewGameScene: SKScene {
         
     }
     
-    func practiceNextWord(){
+    //show句子
+    
+    @objc func notifyShowSentence(){
         
-        //選項alpha變淡+移除選項字
-        for node in children{
+        //字隱藏
+        firstEngWordLabel.text = ""
+        firstChiWordLabel.text = ""
+        firstEngWordLabel.isHidden = true
+        firstChiWordLabel.isHidden = true
+        findImageNode(name: "leftChiBtn").alpha = 0
+        findImageNode(name: "rightChiBtn").alpha = 0
+        leftChiNode.text = ""
+        rightChiNode.text = ""
+        removeSomeNodes(name: "mark")
+        
+        
+        
+        //英文句
+        /*
+        makeLabelNode(x: 0, y: 270, alignMent: .center, fontColor: .white, fontSize: 55, text: "This is a sentence test! for a very long sentence to see how it will turn out.", zPosition: 1, name: "sentenceLabel", fontName: "Helvetica Neue Bold", isHidden: false, alpha: 1)
+        
+        //中文句
+        makeLabelNode(x: 0, y: 200, alignMent: .center, fontColor: pinkColor, fontSize: 35, text: "這是一個句子測試。", zPosition: 1, name: "chiSentenceLabel", fontName: "Helvetica Neue Bold", isHidden: false, alpha: 1)
+        */
+    }
+    
+    
+    @objc func practiceNextWord(){
+        
+        
+         if currentWordSequence < (unitNumber + 1) * 3 - 1{
+         
+         currentWordSequence += 1
+         currentPracticeSequence += 1
             
-            if (node.name?.contains("filledButton"))!{
-                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+            shownWords.removeAll(keepingCapacity: false)
+            wordEntered.removeAll(keepingCapacity: false)
+            firstEngWordLabel.isHidden = false
+             firstChiWordLabel.isHidden = false
+           
+            
+            //準備下一個字的練習
+            isBackToSpell = false
+            
+            findImageNode(name: "recogWordsBg").alpha = 0
+            
+            //選項alpha變淡+移除選項字
+            for node in children{
+                
+                if (node.name?.contains("filledButton"))!{
+                    changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                    
+                }
+                
+                if (node.name?.contains("emptyButton"))!{
+                    changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                }
+                
+                
+                
+                if (node.name?.contains("Sel"))!{
+                    node.removeFromParent()
+                }
                 
             }
+
+            practice()
+
+         
+         } else {
+         
+         }
+        
+        
+        
+        
+    }
+    
+    //句子發音
+    @objc func pronounceSentence(_ notification: NSNotification){
+
+        //抓數值
+        if let sentenceToPronounce = notification.userInfo?["sentenceToPass"] as? String {
             
-            if (node.name?.contains("emptyButton"))!{
-                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
-            }
-            
-            if (node.name?.contains("Sel"))!{
-                node.removeFromParent()
-            }
+            //抓發音句子的檔名
+            wordsToPronounce = sentenceToPronounce
+         
+            //句子發音
+
+            pronounce(finished: {
+                
+                //發音完開始辨識
+                let wordToPass:[String:String] = ["wordToPass":"","currentWordSequence":""]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: wordToPass)
+                
+                
+                
+            })
             
         }
-        
-        
-        
-        practice()
         
     }
     
@@ -2043,6 +2372,14 @@ class NewGameScene: SKScene {
         node.alpha = alpha
         
         
+        if #available(iOS 11, *) {
+            node.numberOfLines = 0
+            
+        } else {
+            // Fallback on earlier versions
+            
+        }
+        
         addChild(node)
         
     }
@@ -2131,9 +2468,13 @@ class NewGameScene: SKScene {
     
     //單純發音功能
     func pronounce(finished: @escaping () -> Void){
-        let pronounceAction = SKAction.playSoundFileNamed(wordsToPronounce + ".mp3", waitForCompletion: true)
-        run(pronounceAction)
         
+       
+            let pronounceAction = SKAction.playSoundFileNamed(wordsToPronounce + ".mp3", waitForCompletion: true)
+            run(pronounceAction)
+            
+            print("pronounce")
+
         finished()
     }
     
@@ -2363,7 +2704,15 @@ class NewGameScene: SKScene {
         print("right")
         
         //隨機爆破五個
-        openTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(NewGameScene.openBlock), userInfo: nil, repeats: true)
+        //openTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(NewGameScene.openBlock), userInfo: nil, repeats: true)
+        //再次朗讀
+        
+        //進入句子
+        
+        let wordToPass:[String:String] = ["wordToPass":wordsToPronounce,"currentWordSequence":String(currentWordSequence)]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordToPass)
+
+        
 
     }
     
@@ -2501,6 +2850,12 @@ class NewGameScene: SKScene {
     }
     
     
+    @objc func notifyStartToRecognize(){
+        
+        //顯示錄音文字背景
+        findImageNode(name: "recogWordsBg").alpha = 1
+    }
+    
     @objc func notifyLeaveGame(){
         
         print("notified")
@@ -2522,6 +2877,7 @@ class NewGameScene: SKScene {
         } else {
             
             //回合結束, 進入總結畫面
+            
             
             
             
