@@ -709,10 +709,8 @@ class NewGameScene: SKScene {
 
                     })
 
-                    
-                    
+
                 }
-                
                 
         })
         
@@ -750,7 +748,6 @@ class NewGameScene: SKScene {
             }
         }
         */
-        
         
     }
     
@@ -851,6 +848,7 @@ class NewGameScene: SKScene {
                         
                         self!.wordsToPronounce =  self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                         shouldPronounce = true
+                        
                         /* 以下都用不到
                     case 3:
                         print("3")
@@ -888,8 +886,6 @@ class NewGameScene: SKScene {
                 }
             }
         }
-        
-        
         
         
         //顯示空格子

@@ -19,7 +19,7 @@ let prounounceSentenceKey = "pronounceSentence"
 let practiceNextWordKey = "practiceNextWord"
 let tagQuestionKey = "tagQuestion"
 
-class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
+class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate  {
     
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
@@ -76,12 +76,25 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
     //是否是在確認句子
     var isCheckingSentence = Bool()
     
+    
+    var tagsSelected = [String]()
+
+
+    
+    @IBOutlet weak var tagView: TagListView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         // Do any additional setup after loading the view.
         
+        //設定好tagView
+        tagView.backgroundColor = .clear
+        tagView.delegate = self
+        tagView.isHidden = true
+        
+        tagView.textFont = UIFont.boldSystemFont(ofSize: 30)
+       
         //辨識字的大小設定
         recogTextLabel.adjustsFontSizeToFitWidth = true
         
@@ -94,9 +107,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
         audioView.alpha = 0.5
         audioView.waveColor = .darkGray
         
-        
         //離開遊戲
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
+
+     NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
         //接收口試NC (單字 + 句子)
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.startToRecognize), name: NSNotification.Name("startToRecognize"), object: nil)
@@ -258,11 +271,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
             
         }
         
+        tagsSelected.removeAll(keepingCapacity: false)
+        tagView.isHidden = true
+        tagView.removeAllTags()
+        
+        recogTextLabel.text = ""
         recogTextLabel.isHidden = true
+        
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         recordBtn.isHidden = true
+        
         sentenceLabel.text = ""
         chiSentenceLabel.text = ""
+        
+        
         
     }
     
@@ -555,15 +577,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
             
             if self!.isRecogWordCorrect{
                 
-                /*
-                //過關進入下個字
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
-*/
-                
+  
+                self!.tagView.isHidden = false
                 //進入選擇題
                   NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tagQuestion"), object: nil, userInfo: nil)
                 
                 
+                //製作tags
+                var sentenceTag = self!.sentence.components(separatedBy: " ")
+                sentenceTag.shuffled()
+                for w in sentenceTag{
+                    
+                    self!.tagView.addTag(w)
+                }
+                
+     
             } else {
             
             self!.recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
@@ -662,6 +690,60 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate  {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    //確認tag的
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        tagView.isSelected = !tagView.isSelected
+        
+        var sentenceShown = String()
+        
+        if tagsSelected.count > 0 {
+
+            if tagsSelected.contains(title){
+                
+                for i in 0 ..< tagsSelected.count{
+                    
+                    if tagsSelected[i] == title{
+                        print(i)
+                        tagsSelected[i] = ""
+                        
+                    }
+                }
+                
+            } else {
+                
+                tagsSelected.append(title)
+            }
+        
+        } else {
+        tagsSelected.append(title)
+        }
+        
+        for tag in tagsSelected{
+            
+            if tag != ""{
+            sentenceShown += tag + " "
+            }
+        }
+        
+        recogTextLabel.text = sentenceShown
+        
+        let answerEntered = recogTextLabel.text?.dropLast()
+        
+        if answerEntered! == sentence{
+            
+            print("correct")
+            
+            //跳轉下個字
+            //過關進入下個字
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
+    
+        } else {
+            
+            print("not yet correct")
+        }
+    }
+
     
     
     

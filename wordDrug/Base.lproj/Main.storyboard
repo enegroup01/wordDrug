@@ -700,10 +700,41 @@
                                 <color key="textColor" red="0.46648036109703195" green="1" blue="0.22518633590651671" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oi9-Ra-rUb" customClass="TagListView" customModule="wordDrug" customModuleProvider="target">
+                                <rect key="frame" x="16" y="434" width="343" height="192"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
+                                        <color key="value" red="0.39366030693054199" green="0.30650019645690918" blue="0.43874970078468323" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tagSelectedBackgroundColor">
+                                        <color key="value" red="0.61287295818328857" green="0.35679090023040771" blue="0.26008731126785278" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="marginX">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="marginY">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingX">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingY">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Im1-Oy-Q3k" firstAttribute="centerX" secondItem="140-yy-deB" secondAttribute="centerX" id="5z0-EB-up8"/>
+                            <constraint firstItem="Oi9-Ra-rUb" firstAttribute="leading" secondItem="140-yy-deB" secondAttribute="leading" id="8Hz-nG-Dmh"/>
                             <constraint firstItem="140-yy-deB" firstAttribute="trailing" secondItem="EY7-UN-OL0" secondAttribute="trailingMargin" id="8jC-vP-N9J"/>
                             <constraint firstItem="pu5-FY-8Ej" firstAttribute="trailing" secondItem="140-yy-deB" secondAttribute="trailing" id="8yw-tT-hCc"/>
                             <constraint firstItem="5Yq-GR-cAx" firstAttribute="centerY" secondItem="Im1-Oy-Q3k" secondAttribute="centerY" id="CP2-GZ-DoQ"/>
@@ -711,6 +742,8 @@
                             <constraint firstItem="140-yy-deB" firstAttribute="top" secondItem="Jnc-N6-0es" secondAttribute="top" constant="284" id="Hes-AK-FSP"/>
                             <constraint firstItem="ykc-Yu-ju8" firstAttribute="top" secondItem="pu5-FY-8Ej" secondAttribute="bottom" constant="8" symbolic="YES" id="K0h-ZZ-qk4"/>
                             <constraint firstItem="Jnc-N6-0es" firstAttribute="bottom" secondItem="Im1-Oy-Q3k" secondAttribute="bottom" constant="74" id="Np9-pJ-aD6"/>
+                            <constraint firstItem="Jnc-N6-0es" firstAttribute="bottom" secondItem="Oi9-Ra-rUb" secondAttribute="bottom" constant="41" id="Qtf-Xd-grt"/>
+                            <constraint firstItem="Oi9-Ra-rUb" firstAttribute="trailing" secondItem="140-yy-deB" secondAttribute="trailing" id="UJW-1M-oQg"/>
                             <constraint firstItem="pu5-FY-8Ej" firstAttribute="top" secondItem="Jnc-N6-0es" secondAttribute="top" constant="42" id="VeE-ul-Vfw"/>
                             <constraint firstItem="Jnc-N6-0es" firstAttribute="bottom" secondItem="5Yq-GR-cAx" secondAttribute="bottom" constant="94" id="WCX-Mu-7G8"/>
                             <constraint firstItem="140-yy-deB" firstAttribute="leading" secondItem="EY7-UN-OL0" secondAttribute="leadingMargin" id="Xzy-QQ-gS6"/>
@@ -720,6 +753,7 @@
                             <constraint firstItem="ykc-Yu-ju8" firstAttribute="leading" secondItem="Jnc-N6-0es" secondAttribute="leading" constant="32" id="ob3-eL-P4l"/>
                             <constraint firstItem="5Yq-GR-cAx" firstAttribute="centerX" secondItem="Im1-Oy-Q3k" secondAttribute="centerX" id="ph6-FY-Yw0"/>
                             <constraint firstItem="Im1-Oy-Q3k" firstAttribute="leading" secondItem="Jnc-N6-0es" secondAttribute="leading" constant="123" id="seH-8T-RUD"/>
+                            <constraint firstItem="Oi9-Ra-rUb" firstAttribute="top" secondItem="140-yy-deB" secondAttribute="bottom" constant="75" id="vJ7-mc-CM6"/>
                             <constraint firstItem="5Yq-GR-cAx" firstAttribute="leading" secondItem="EY7-UN-OL0" secondAttribute="leading" id="vfh-6C-MpO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jnc-N6-0es"/>
@@ -730,6 +764,7 @@
                         <outlet property="recogTextLabel" destination="140-yy-deB" id="puS-3u-TFB"/>
                         <outlet property="recordBtn" destination="Im1-Oy-Q3k" id="X9V-hT-naw"/>
                         <outlet property="sentenceLabel" destination="pu5-FY-8Ej" id="ybP-lU-Gn2"/>
+                        <outlet property="tagView" destination="Oi9-Ra-rUb" id="5OT-rq-GeN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzm-ap-Lz3" userLabel="First Responder" sceneMemberID="firstResponder"/>

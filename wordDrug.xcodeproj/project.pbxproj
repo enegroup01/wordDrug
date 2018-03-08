@@ -118,6 +118,10 @@
 		AA590CD21FBAC5C900A5691D /* wordBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CD11FBAC5C900A5691D /* wordBg.png */; };
 		AA590CD51FBACF7A00A5691D /* darkElementFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CD31FBACF7A00A5691D /* darkElementFrame.png */; };
 		AA590CD61FBACF7A00A5691D /* lightElementFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA590CD41FBACF7A00A5691D /* lightElementFrame.png */; };
+		AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF413204EC68A005FCC87 /* CloseButton.swift */; };
+		AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF414204EC68A005FCC87 /* TagView.swift */; };
+		AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF415204EC68A005FCC87 /* TagListView.swift */; };
+		AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA5AF416204EC68A005FCC87 /* Info.plist */; };
 		AA5B6B6020458038008624AE /* triangleBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5B6B5F20458038008624AE /* triangleBackBtn.png */; };
 		AA5B6BA720458E18008624AE /* 4-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA5B6B6120458E0C008624AE /* 4-14.txt */; };
 		AA5B6BA820458E18008624AE /* 5-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA5B6B6220458E0C008624AE /* 5-10.txt */; };
@@ -2679,6 +2683,11 @@
 		AA590CD11FBAC5C900A5691D /* wordBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wordBg.png; sourceTree = "<group>"; };
 		AA590CD31FBACF7A00A5691D /* darkElementFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkElementFrame.png; sourceTree = "<group>"; };
 		AA590CD41FBACF7A00A5691D /* lightElementFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightElementFrame.png; sourceTree = "<group>"; };
+		AA5AF412204EC68A005FCC87 /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
+		AA5AF413204EC68A005FCC87 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		AA5AF414204EC68A005FCC87 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		AA5AF415204EC68A005FCC87 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		AA5AF416204EC68A005FCC87 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA5B6B5F20458038008624AE /* triangleBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangleBackBtn.png; sourceTree = "<group>"; };
 		AA5B6B6120458E0C008624AE /* 4-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-14.txt"; sourceTree = "<group>"; };
 		AA5B6B6220458E0C008624AE /* 5-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-10.txt"; sourceTree = "<group>"; };
@@ -5327,6 +5336,18 @@
 				AA590CD11FBAC5C900A5691D /* wordBg.png */,
 			);
 			path = bookVc;
+			sourceTree = "<group>";
+		};
+		AA5AF411204EC68A005FCC87 /* TagListView */ = {
+			isa = PBXGroup;
+			children = (
+				AA5AF412204EC68A005FCC87 /* TagListView.h */,
+				AA5AF413204EC68A005FCC87 /* CloseButton.swift */,
+				AA5AF414204EC68A005FCC87 /* TagView.swift */,
+				AA5AF415204EC68A005FCC87 /* TagListView.swift */,
+				AA5AF416204EC68A005FCC87 /* Info.plist */,
+			);
+			path = TagListView;
 			sourceTree = "<group>";
 		};
 		AA5B6BED20459318008624AE /* Map2mp3 */ = {
@@ -8367,6 +8388,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA5AF411204EC68A005FCC87 /* TagListView */,
 				AAF9DEAA204D20E900D48BB1 /* sMp3 */,
 				AA5879EB203EA9AF00FEA058 /* pageVc */,
 				AA04ED8F203D964000EC0A8E /* stageVc */,
@@ -8811,6 +8833,7 @@
 				AA87EAB21FBD4CDB00830608 /* 3901.png in Resources */,
 				AA5B758020459323008624AE /* congratulations.mp3 in Resources */,
 				AA5B7BC020459326008624AE /* pool.mp3 in Resources */,
+				AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */,
 				AA5B7A5220459325008624AE /* airport.mp3 in Resources */,
 				AA5B747E20459322008624AE /* seesaw.mp3 in Resources */,
 				AA5B7B7920459325008624AE /* graceful.mp3 in Resources */,
@@ -11174,9 +11197,12 @@
 				AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */,
 				AA38612D1FE3D00C00B5FBC6 /* StatsViewController.swift in Sources */,
 				AAE181931F97892D00683896 /* GameScene.swift in Sources */,
+				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,
 				AA8F7FE41FB2FE65000CD84F /* Map1ViewController.swift in Sources */,
+				AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */,
 				AAE181951F97892D00683896 /* GameViewController.swift in Sources */,
+				AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */,
 				AA093E5B1FCBEF0300434ACD /* PetViewController.swift in Sources */,
 				AA00379920497CCD0030F786 /* SwiftSiriWaveformView.swift in Sources */,
 				AA1AF1DF20035BE300C418F3 /* AllPetsViewController.swift in Sources */,
