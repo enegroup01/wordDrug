@@ -629,6 +629,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
  */
     
+    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
+        
+        if available{
+            
+            
+        } else {
+            //重新啟動認證
+            
+            
+        }
+        
+        
+        
+    }
+    
     func checkSentence(){
         
         var recorded = [String]()
@@ -802,21 +817,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-    
-    
-    func recordTimerFunc(){
-       
-        
-    }
-    
-    //單純發音功能
-    
-    func pronounce(finished: @escaping () -> Void){
-        //    let pronounceAction = SKAction.playSoundFileNamed(sentenceToPronounce + ".mp3", waitForCompletion: true)
-        //  run(pronounceAction)
-        
-        //finished()
-    }
     
     
     override func didReceiveMemoryWarning() {
