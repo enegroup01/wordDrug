@@ -190,6 +190,7 @@ class NewGameScene: SKScene {
     
     //控制是否為第二次聽考
     var isBackToSpell = false
+
     
     override func didMove(to view: SKView) {
         
@@ -220,6 +221,9 @@ class NewGameScene: SKScene {
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.practiceNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
         
 
+        //接收停止播放
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.stopPlayAudio), name: NSNotification.Name("stopPlayAudio"), object: nil)
+        
         
         //載入各種字
         loadAllKindsOfWord()
@@ -1991,7 +1995,14 @@ class NewGameScene: SKScene {
             //抓發音句子的檔名
             wordsToPronounce = sentenceToPronounce
          
+            //wordsToPronounce = ""
             //句子發音
+            
+            /*
+            //發音完開始辨識
+            let wordToPass:[String:String] = ["wordToPass":"","currentWordSequence":""]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: wordToPass)
+*/
 
             pronounce(finished: {
                 
@@ -2487,9 +2498,15 @@ class NewGameScene: SKScene {
             let pronounceAction = SKAction.playSoundFileNamed(wordsToPronounce + ".mp3", waitForCompletion: true)
             run(pronounceAction)
             
-            print("pronounce")
-
         finished()
+    }
+    
+    //暫時用不到
+    
+    @objc func stopPlayAudio(){
+        
+        SKAction.stop()
+        
     }
     
     //show單字在畫面上

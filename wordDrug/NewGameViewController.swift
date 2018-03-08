@@ -18,6 +18,7 @@ let backToSpellKey = "backToSpell"
 let prounounceSentenceKey = "pronounceSentence"
 let practiceNextWordKey = "practiceNextWord"
 let tagQuestionKey = "tagQuestion"
+let stopPlayAudioKey = "stopPlayAudio"
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate  {
     
@@ -43,10 +44,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     
     //辨識聲音用的變數
+    
     var speechRecognizer = SFSpeechRecognizer()!
+    
     let audioEngine = AVAudioEngine()
-    var recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-    var recognitionTask = SFSpeechRecognitionTask()
+    var recognitionRequest:SFSpeechAudioBufferRecognitionRequest?
+    var recognitionTask:SFSpeechRecognitionTask?
+ 
+
+    
+    /*
+    var capture: AVCaptureSession?
+    var speechRequest: SFSpeechAudioBufferRecognitionRequest?
+    */
     
     //暫時使用的句子
     var sentenceSets = [String]()
@@ -82,6 +92,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     
     @IBOutlet weak var tagView: TagListView!
+
+    var player: AVAudioPlayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -130,6 +143,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //啟動下個單字
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
         
+        //停止播放
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyStopPlayAudio), name: NSNotification.Name("stopPlayAudio"), object: nil)
         
 
         
@@ -234,6 +249,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         chiSentenceLabel.textColor = pinkColor
+  
         
     }
     
@@ -314,13 +330,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.dismiss(animated: true, completion: nil)
     }
     
-    /*
-     @objc func startToRecognize(){
-     
-     recordBtn.isHidden = false
-     recogTextLabel.isHidden = false
+    
+    
+     @objc func notifyStopPlayAudio(){
      }
-     */
+    
     
     
     
@@ -392,19 +406,37 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    
     //按鈕
     @IBAction func recordClicked(_ sender: Any) {
+
+        /*
+        if audioEngine.isRunning{
+           endRecognizer()
+        } else {
+            startRecognizer()
+         
+        }
+*/
+        
+        
+        //停止播放
+        
+        /*
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopPlayAudio"), object: nil, userInfo: nil)
+        */
         
         //停止
         if audioEngine.isRunning {
-            
+
             //wave 消失停止
             audioView.isHidden = true
             timer?.invalidate()
             
             audioEngine.stop()
-            recognitionRequest.endAudio()
-            recognitionTask.cancel()
+            recognitionRequest?.endAudio()
+            recognitionTask?.cancel()
             
             //辨識的字消失
             self.recogTextLabel.text = ""
@@ -418,28 +450,42 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 self.checkWord()
             }
             
-            
         }  else {
             
             //開啟錄音
-            
             
             //siriWave
             audioView.isHidden = false
             timer = Timer.scheduledTimer(timeInterval: 0.009, target: self, selector: #selector(NewGameViewController.refreshAudioView(_:)), userInfo: nil, repeats: true)
             
             
+            //如果Task還在, 就取消task 等待再次開啟
+            if recognitionTask != nil {
+                recognitionTask?.cancel()
+                recognitionTask = nil
+                print("canceled")
+            }
+
+            
             //開始辨識
+                           let audioSession = AVAudioSession.sharedInstance()
             do {
-                
-                let audioSession = AVAudioSession.sharedInstance()
+ 
                 try audioSession.setCategory(AVAudioSessionCategoryRecord)
                 try audioSession.setMode(AVAudioSessionModeMeasurement)
                 try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
                 
-                
+                /*
+ 
+                */
                 if let inputNode = audioEngine.inputNode as AVAudioInputNode?{
                     
+                    recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+                    
+                    
+                    guard let recognitionRequest = recognitionRequest else {
+                        fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
+                    }
                     
                     recognitionRequest.shouldReportPartialResults = true
                     
@@ -456,6 +502,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 self.audioEngine.stop()
                                 inputNode.removeTap(onBus: 0)
                                 
+                                self.recognitionRequest = nil
+                                self.recognitionTask = nil
+                                
                                 self.recordBtn.setTitle("Start Recording", for: [])
                                 
                                 
@@ -465,14 +514,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                     })
                     
+
+                    
                     let recordingFormat = inputNode.outputFormat(forBus: 0)
+                    
                     
                     inputNode.removeTap(onBus: 0)
                     inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat, block: { (buffer, when) in
                         
-                        self.recognitionRequest.append(buffer)
+                        self.recognitionRequest?.append(buffer)
                         
-                        
+
                     })
                     
                     audioEngine.prepare()
@@ -480,8 +532,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                 }
                 
-                
-                
+    
             } catch {
                 
                 //Handle error
@@ -494,6 +545,89 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    
+    /*
+    func startRecognizer() {
+        SFSpeechRecognizer.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                let locale = NSLocale(localeIdentifier: "en")
+                let sf = SFSpeechRecognizer(locale: locale as Locale)
+                self.speechRequest = SFSpeechAudioBufferRecognitionRequest()
+                sf?.recognitionTask(with: self.speechRequest!, delegate: self)
+                DispatchQueue.main.async {
+                    print("startCapture")
+                    self.startCapture()
+                }
+            case .denied:
+                fallthrough
+            case .notDetermined:
+                fallthrough
+            case.restricted:
+                print("User Autorization Issue.")
+            }
+        }
+        
+    }
+
+    func endRecognizer() {
+        endCapture()
+        speechRequest?.endAudio()
+    }
+
+    func startCapture() {
+        
+        capture = AVCaptureSession()
+        
+        
+        guard let audioDev = AVCaptureDevice.default(for: .audio) else {
+            print("Could not get capture device.")
+            return
+        }
+        
+        /*
+        guard let audioDev = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio) else {
+            print("Could not get capture device.")
+            return
+        }
+        */
+        
+        
+        guard let audioIn = try? AVCaptureDeviceInput(device: audioDev) else {
+            print("Could not create input device.")
+            return
+        }
+        
+        guard true == capture?.canAddInput(audioIn) else {
+            print("Couls not add input device")
+            return
+        }
+        
+        capture?.addInput(audioIn)
+        
+        let audioOut = AVCaptureAudioDataOutput()
+        audioOut.setSampleBufferDelegate(self, queue: DispatchQueue.main)
+        
+        guard true == capture?.canAddOutput(audioOut) else {
+            print("Could not add audio output")
+            return
+        }
+        
+        capture?.addOutput(audioOut)
+        audioOut.connection(with: .audio)
+        //audioOut.connection(withMediaType: AVMediaTypeAudio)
+        capture?.startRunning()
+        
+        
+    }
+    
+    func endCapture() {
+        
+        if true == capture?.isRunning {
+            capture?.stopRunning()
+        }
+    }
+ */
     
     func checkSentence(){
         
@@ -605,7 +739,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     func checkWord(){
         
-        
+
         
         if wordRecorded == wordToReceive{
             
@@ -664,7 +798,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //句子發音NC, 傳送句子的檔名
         let sentenceToPass:[String:String] = ["sentenceToPass":sentenceToPronounce]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceSentence"), object: nil, userInfo: sentenceToPass)
-        
+        //playSound()
         
     }
     
@@ -746,6 +880,31 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     
     
+    func playSound() {
+        guard let url = Bundle.main.url(forResource: sentenceToPronounce, withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            
+            
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            /* iOS 10 and earlier require the following line:
+             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+            
+            guard let player = player else { return }
+            
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+
+    
     
     /*
      // MARK: - Navigation
@@ -758,6 +917,25 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
      */
     
 }
+
+/*
+extension NewGameViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        speechRequest?.appendAudioSampleBuffer(sampleBuffer)
+    }
+    
+}
+
+extension NewGameViewController: SFSpeechRecognitionTaskDelegate {
+    
+    func speechRecognitionTask(_ task: SFSpeechRecognitionTask, didFinishRecognition recognitionResult: SFSpeechRecognitionResult) {
+        //console.text = console.text + "\n" + recognitionResult.bestTranscription.formattedString
+        
+         recogTextLabel.text = recognitionResult.bestTranscription.formattedString.lowercased()
+    }
+}
+ 
+ */
 extension String {
     func removingCharacters(inCharacterSet forbiddenCharacters:CharacterSet) -> String
     {
