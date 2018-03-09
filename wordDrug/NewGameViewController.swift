@@ -15,12 +15,11 @@ import SwiftSiriWaveformView
 
 let showSentenceKey = "showSentence"
 let backToSpellKey = "backToSpell"
-let prounounceSentenceKey = "pronounceSentence"
-let practiceNextWordKey = "practiceNextWord"
-let tagQuestionKey = "tagQuestion"
-let stopPlayAudioKey = "stopPlayAudio"
 
-class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate  {
+let practiceNextWordKey = "practiceNextWord"
+
+
+class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate  {
     
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
@@ -51,12 +50,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var recognitionRequest:SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask:SFSpeechRecognitionTask?
  
-
-    
-    /*
-    var capture: AVCaptureSession?
-    var speechRequest: SFSpeechAudioBufferRecognitionRequest?
-    */
     
     //暫時使用的句子
     var sentenceSets = [String]()
@@ -87,19 +80,30 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var isCheckingSentence = Bool()
     
     
+    //所選到的tag
     var tagsSelected = [String]()
 
-
-    
+    //製作tag
     @IBOutlet weak var tagView: TagListView!
 
+    //這兩個應該用不到
     var player: AVAudioPlayer?
+    var mp3FileName = String()
+    
+    
+    //發音單字
+    var synWord = String()
+    
+    //Text to speech合成器
+    let synth = AVSpeechSynthesizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        // Do any additional setup after loading the view.
+        
+        //設定delegate來監控讀音
+        synth.delegate = self
         
         //設定好tagView
         tagView.backgroundColor = .clear
@@ -121,33 +125,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.waveColor = .darkGray
         
         //離開遊戲
-
-     NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
+        //接收發音 - ok
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pronounceWord), name: NSNotification.Name("pronounceWord"), object: nil)
         //接收口試NC (單字 + 句子)
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.startToRecognize), name: NSNotification.Name("startToRecognize"), object: nil)
         
         //啟動聽考拼寫
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyBackToSpell), name: NSNotification.Name("backToSpell"), object: nil)
-        
         //接收做句子
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showSentence), name: NSNotification.Name("showSentence"), object: nil)
         
-        //啟動句子發音
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPronounceSentence), name: NSNotification.Name("pronounceSentence"), object: nil)
-        
-        
-        //啟動選擇題
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyTagQuestion), name: NSNotification.Name("tagQuestion"), object: nil)
-        
         //啟動下個單字
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
-        
-        //停止播放
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyStopPlayAudio), name: NSNotification.Name("stopPlayAudio"), object: nil)
-        
-
-        
         
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
@@ -157,8 +149,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var sentenceFile:String?
         
         let sentenceName = "s" + String(mapNumber) + "-" + String(spotNumber + 1)
-        
-        print("sName:\(sentenceName)")
         
         if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
             do {
@@ -182,7 +172,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         // including entities and graphs.
         if let scene = GKScene(fileNamed: "NewGameScene") {
             
-            
+     
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! NewGameScene? {
                 
@@ -207,6 +197,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
         }
         
+        //辨識語音的delegate
         speechRecognizer.delegate = self
         
         //先設定為false之後做開啟
@@ -247,7 +238,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-        
+        //中文句子字顏色
         chiSentenceLabel.textColor = pinkColor
   
         
@@ -264,7 +255,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     //造句子
-    @objc func showSentence(){
+    @objc func showSentence(_ notification: NSNotification){
+        
+        //接收單字數字準備做句子
+        
+        if let sequenceToReceive = notification.userInfo?["currentWordSequence"] as? String{
+            
+             //指定好數字
+             wordSequenceToReceive = sequenceToReceive
+            
+        }
         
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         recordBtn.isHidden = true
@@ -273,48 +273,33 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-    @objc func notifyPronounceSentence(){
-        
-        
-    }
     
     @objc func notifyPracticeNextWord(){
-        //開啟聲音
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
-        } catch  {
-            
-        }
-        
+
+
+        //移除tagView
         tagsSelected.removeAll(keepingCapacity: false)
         tagView.isHidden = true
         tagView.removeAllTags()
         
+        //移除輸入字
         recogTextLabel.text = ""
         recogTextLabel.isHidden = true
         
+        //回復recordBtn
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         recordBtn.isHidden = true
         
+        //輸入重置
         sentenceLabel.text = ""
         chiSentenceLabel.text = ""
         
-        
-        
+      
     }
     
     @objc func notifyBackToSpell(){
         
-        
-        //開啟聲音
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
-        } catch  {
-            
-        }
-        
+
         //隱藏錄音字欄位
         recogTextLabel.isHidden = true
         
@@ -326,107 +311,54 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     @objc func leaveGame(){
-        
+
         self.dismiss(animated: true, completion: nil)
     }
     
     
-    
-     @objc func notifyStopPlayAudio(){
-     }
-    
-    
-    
-    
     //開始辨識聲音
     @objc func startToRecognize(_ notification: NSNotification){
-        
+
         //顯示按鈕, 顯示label
         recordBtn.isHidden = false
         recogTextLabel.isHidden = false
         
-        //回復輸入的單字或句子
+        //回復錄音輸入的單字或句子
         wordRecorded = String()
         
-        //抓數值
-        if let wordToCheck = notification.userInfo?["wordToPass"] as? String {
+        //對字
+        isCheckingSentence = false
         
-            //要分辨需要確認的是單字還是句子
-            if wordToCheck != "" {
-                
-                //單字
-                
-                wordToReceive = wordToCheck
-                
-                if let sequenceToReceive = notification.userInfo?["currentWordSequence"] as? String{
-                    
-                    wordSequenceToReceive = sequenceToReceive
-                    
-                    isCheckingSentence = false
-                    
-                }
-                
-            } else {
-                
-                //句子
-                wordToReceive = sentence
-                
-                isCheckingSentence = true
-                
-            }
-            
-            //移除標點符號
-            wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
-            
-            //改成小寫
-            wordToReceive = wordToReceive.lowercased()
-            
-        }
+        //指定答案的字
+        wordToReceive = synWord
         
+        //移除標點符號
+        wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
+        
+        //改成小寫
+        wordToReceive = wordToReceive.lowercased()
+        
+       
     }
     
+    //接收發音單字
     
-    //啟動選擇題
-    @objc func notifyTagQuestion(){
-        //隱藏英文句子 + 錄音鍵
-        
-        //開啟聲音
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
-        } catch  {
-            
-        }
+    @objc func pronounceWord(_ notification: NSNotification){
 
-        sentenceLabel.text = ""
-        recordBtn.isHidden = true
-        
-        
-        
-        
+        if let wordToPronunce = notification.userInfo?["wordToPass"] as? String {
+                //設訂發音的單字
+                synWord = wordToPronunce
+
+        }
+        //發音
+        synPronounce()
+
     }
-    
     
     //按鈕
     @IBAction func recordClicked(_ sender: Any) {
-
-        /*
-        if audioEngine.isRunning{
-           endRecognizer()
-        } else {
-            startRecognizer()
-         
-        }
-*/
-        
-        
-        //停止播放
-        
-        /*
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopPlayAudio"), object: nil, userInfo: nil)
-        */
-        
+  
+    
         //停止
         if audioEngine.isRunning {
 
@@ -434,6 +366,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             audioView.isHidden = true
             timer?.invalidate()
             
+            //停止辨識
             audioEngine.stop()
             recognitionRequest?.endAudio()
             recognitionTask?.cancel()
@@ -441,9 +374,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //辨識的字消失
             self.recogTextLabel.text = ""
             
-            //recordBtn.setTitle("Start Recording", for: [])
             
-            //檢查答案
+            //檢查答案, 句子/單字
             if isCheckingSentence{
                 self.checkSentence()
             } else {
@@ -463,26 +395,22 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if recognitionTask != nil {
                 recognitionTask?.cancel()
                 recognitionTask = nil
-                print("canceled")
             }
 
             
             //開始辨識
-                           let audioSession = AVAudioSession.sharedInstance()
+           
+            let audioSession = AVAudioSession.sharedInstance()
             do {
  
                 try audioSession.setCategory(AVAudioSessionCategoryRecord)
                 try audioSession.setMode(AVAudioSessionModeMeasurement)
                 try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
-                
-                /*
  
-                */
                 if let inputNode = audioEngine.inputNode as AVAudioInputNode?{
                     
                     recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-                    
-                    
+
                     guard let recognitionRequest = recognitionRequest else {
                         fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
                     }
@@ -495,13 +423,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             
                             self.recogTextLabel.text = result.bestTranscription.formattedString.lowercased()
                             
-                            self.wordRecorded = self.recogTextLabel.text!
-                            
+                            //對答案的部分要修掉標點符號
+                            self.wordRecorded = self.recogTextLabel.text!.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
+                          
+    
                             if result.isFinal {
                                 
                                 self.audioEngine.stop()
                                 inputNode.removeTap(onBus: 0)
                                 
+                                //移除掉Request避免Reuse
                                 self.recognitionRequest = nil
                                 self.recognitionTask = nil
                                 
@@ -514,17 +445,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                     })
                     
-
-                    
                     let recordingFormat = inputNode.outputFormat(forBus: 0)
-                    
-                    
+   
+                    //先移除之前的
                     inputNode.removeTap(onBus: 0)
                     inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat, block: { (buffer, when) in
                         
                         self.recognitionRequest?.append(buffer)
-                        
-
+           
                     })
                     
                     audioEngine.prepare()
@@ -538,97 +466,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //Handle error
                 
             }
-            
-            
-            
+    
         }
         
     }
     
-    
-    /*
-    func startRecognizer() {
-        SFSpeechRecognizer.requestAuthorization { (status) in
-            switch status {
-            case .authorized:
-                let locale = NSLocale(localeIdentifier: "en")
-                let sf = SFSpeechRecognizer(locale: locale as Locale)
-                self.speechRequest = SFSpeechAudioBufferRecognitionRequest()
-                sf?.recognitionTask(with: self.speechRequest!, delegate: self)
-                DispatchQueue.main.async {
-                    print("startCapture")
-                    self.startCapture()
-                }
-            case .denied:
-                fallthrough
-            case .notDetermined:
-                fallthrough
-            case.restricted:
-                print("User Autorization Issue.")
-            }
-        }
-        
-    }
-
-    func endRecognizer() {
-        endCapture()
-        speechRequest?.endAudio()
-    }
-
-    func startCapture() {
-        
-        capture = AVCaptureSession()
-        
-        
-        guard let audioDev = AVCaptureDevice.default(for: .audio) else {
-            print("Could not get capture device.")
-            return
-        }
-        
-        /*
-        guard let audioDev = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio) else {
-            print("Could not get capture device.")
-            return
-        }
-        */
-        
-        
-        guard let audioIn = try? AVCaptureDeviceInput(device: audioDev) else {
-            print("Could not create input device.")
-            return
-        }
-        
-        guard true == capture?.canAddInput(audioIn) else {
-            print("Couls not add input device")
-            return
-        }
-        
-        capture?.addInput(audioIn)
-        
-        let audioOut = AVCaptureAudioDataOutput()
-        audioOut.setSampleBufferDelegate(self, queue: DispatchQueue.main)
-        
-        guard true == capture?.canAddOutput(audioOut) else {
-            print("Could not add audio output")
-            return
-        }
-        
-        capture?.addOutput(audioOut)
-        audioOut.connection(with: .audio)
-        //audioOut.connection(withMediaType: AVMediaTypeAudio)
-        capture?.startRunning()
-        
-        
-    }
-    
-    func endCapture() {
-        
-        if true == capture?.isRunning {
-            capture?.stopRunning()
-        }
-    }
- */
-    
+    //假如沒有辦法錄音就要啟動認證
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         
         if available{
@@ -637,11 +480,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         } else {
             //重新啟動認證
             
-            
         }
-        
-        
-        
     }
     
     func checkSentence(){
@@ -674,9 +513,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //假如有字對到
                         
                         pointGet += 1
-                        
-                        
-                        
+      
                     }
                     
                 }
@@ -700,7 +537,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-        if finalPoints >= 80 {
+        //幾分可以過關
+        if finalPoints >= 70 {
             
             print("passed")
             //下一個字
@@ -726,12 +564,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             if self!.isRecogWordCorrect{
                 
-  
-                self!.tagView.isHidden = false
-                //進入選擇題
-                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tagQuestion"), object: nil, userInfo: nil)
-                
-                
+                //做選擇題
+
                 //製作tags
                 var sentenceTag = self!.sentence.components(separatedBy: " ")
                 sentenceTag.shuffled()
@@ -740,7 +574,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     self!.tagView.addTag(w)
                 }
                 
+                self!.tagView.isHidden = false
+                
+                self!.synPronounce()
+                
+                //準備選擇題
+                self!.sentenceLabel.text = ""
+                self!.recordBtn.isHidden = true
      
+                
             } else {
             
             self!.recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
@@ -748,23 +590,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
         
-        print(finalPoints)
+        print("final:\(finalPoints)")
         
     }
     
     func checkWord(){
         
-
-        
         if wordRecorded == wordToReceive{
-            
-            print("correct")
             
             recordBtn.setImage(UIImage(named:"recordCheck.png"), for: .normal)
             isRecogWordCorrect = true
         } else {
             
-            print("try again")
             recordBtn.setImage(UIImage(named:"recordCross.png"), for: .normal)
             isRecogWordCorrect = false
             
@@ -790,31 +627,45 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     func makeSentence(){
         
         
-        //開啟聲音
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
-        } catch  {
-            
-        }
-        
         //英文句子
         sentence = sentenceSets[Int(wordSequenceToReceive)!]
         let halfCount = sentenceSets.count / 2
         let chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
         
-        //此數字要加1, 因為編檔關係,  地圖已加過1
-        sentenceToPronounce = "s\(mapNumber)-\(spotNumber + 1)-\(Int(wordSequenceToReceive)! + 1)"
+        //做好句子檔名: 此數字要加1, 因為編檔關係,  地圖已加過1
+        //sentenceToPronounce = "s\(mapNumber)-\(spotNumber + 1)-\(Int(wordSequenceToReceive)! + 1)"
         
+        //顯示句子文字
         sentenceLabel.text = sentence
         chiSentenceLabel.text = chiSentence
         
         
-        //句子發音NC, 傳送句子的檔名
-        let sentenceToPass:[String:String] = ["sentenceToPass":sentenceToPronounce]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceSentence"), object: nil, userInfo: sentenceToPass)
-        //playSound()
+        //句子發音
+        synWord = sentence
+        synPronounce()
         
+        //接著要辨認句子
+        isCheckingSentence = true
+        wordToReceive = sentence
+        
+        //移除標點符號
+        wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
+        
+        //改成小寫
+        wordToReceive = wordToReceive.lowercased()
+        
+       
+        //準備練習句子
+        //顯示按鈕, 顯示label
+        recordBtn.isHidden = false
+        recogTextLabel.isHidden = false
+        
+        //回復錄音輸入的單字或句子
+        wordRecorded = String()
+        
+        //對句子
+        isCheckingSentence = true
+
     }
     
     
@@ -825,8 +676,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
-    //確認tag的
+    //確認tag的答案
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+       
         tagView.isSelected = !tagView.isSelected
         
         var sentenceShown = String()
@@ -866,7 +718,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if answerEntered! == sentence{
             
-            print("correct")
             
             //跳轉下個字
             //過關進入下個字
@@ -879,15 +730,64 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
 
     
+    //syn發音
+    func synPronounce(){
+        
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+        } catch  {
+            
+        }
+        
+        let string = synWord
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.45
+      
+        synth.speak(utterance)
+
+    }
+    @available(iOS 7.0, *)
+    public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
+     
+        recordBtn.isEnabled = false
+    }
     
+    @available(iOS 7.0, *)
+    public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
+     
+         recordBtn.isEnabled = true
+        
+    }
+    
+    @available(iOS 7.0, *)
+    public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance){
+        
+        recordBtn.isEnabled = true
+    }
+    
+    @available(iOS 7.0, *)
+    public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance){
+          recordBtn.isEnabled = false
+    }
+    
+    @available(iOS 7.0, *)
+    public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance){
+        recordBtn.isEnabled = true
+        
+    }
+
+    
+    /*
     func playSound() {
         guard let url = Bundle.main.url(forResource: sentenceToPronounce, withExtension: "mp3") else { return }
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
-            
-            
             
             /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
@@ -903,7 +803,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             print(error.localizedDescription)
         }
     }
-
+*/
     
     
     /*
@@ -918,24 +818,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
 }
 
-/*
-extension NewGameViewController: AVCaptureAudioDataOutputSampleBufferDelegate {
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        speechRequest?.appendAudioSampleBuffer(sampleBuffer)
-    }
-    
-}
 
-extension NewGameViewController: SFSpeechRecognitionTaskDelegate {
-    
-    func speechRecognitionTask(_ task: SFSpeechRecognitionTask, didFinishRecognition recognitionResult: SFSpeechRecognitionResult) {
-        //console.text = console.text + "\n" + recognitionResult.bestTranscription.formattedString
-        
-         recogTextLabel.text = recognitionResult.bestTranscription.formattedString.lowercased()
-    }
-}
- 
- */
 extension String {
     func removingCharacters(inCharacterSet forbiddenCharacters:CharacterSet) -> String
     {

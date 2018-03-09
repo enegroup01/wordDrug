@@ -11,6 +11,7 @@ import GameplayKit
 
 let leaveGameKey = "leaveGame"
 let startToRecognizeKey = "startToRecognize"
+let pronounceWordKey = "pronounceWord"
 
 class NewGameScene: SKScene {
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
@@ -209,20 +210,17 @@ class NewGameScene: SKScene {
         //啟動造句子Nc
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowSentence), name: NSNotification.Name("showSentence"), object: nil)
         
-        //接收句子發音
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.pronounceSentence), name: NSNotification.Name("pronounceSentence"), object: nil)
-        
-   
-       //接收選擇題
-            NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.tagQuestion), name: NSNotification.Name("tagQuestion"), object: nil)
-        
+
         
         //接收下個單字
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.practiceNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
         
 
-        //接收停止播放
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.stopPlayAudio), name: NSNotification.Name("stopPlayAudio"), object: nil)
+        
+        //重新寫NC
+        //1. 啟動發音
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyPronounceWord), name: NSNotification.Name("pronounceWord"), object: nil)
+
         
         
         //載入各種字
@@ -682,7 +680,6 @@ class NewGameScene: SKScene {
     //Part 3. slideIn: 單字滑進來
     func slideInAnimation(){
         
-        
         UIView.animate(withDuration: 0.3, animations: {[weak self] in
 
             self!.firstEngWordLabel.center.x = 187.5
@@ -695,7 +692,6 @@ class NewGameScene: SKScene {
                 if finished{
                     
                     //設定第一個練習單字
-                    
                     //self!.changeImageAlfa(name: "whiteDot0", toAlpha: 1, time: 0.3)
                     //self!.firstEngWordLabel.attributedText = self!.words[0]  //[0]
                     //self!.firstChiWordLabel.textColor = .white
@@ -704,7 +700,24 @@ class NewGameScene: SKScene {
                     self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                     //self!.currentPracticeSequence += 1
                     
+                    
+                    //傳送發音字NC
+                    
+                    /*
+                    let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce,"currentWordSequence":String(self!.currentWordSequence)]
+                    */
+                   
+                    let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
+
+                    self!.practice()
+                    
+                    //發音完後變色
+                    self!.firstEngWordLabel.textColor = self!.darkWordColor
+                
+                    
                     //然後發音
+                    /*
                     self!.pronounce(finished: {
                         //開始練習
                         self!.practice()
@@ -712,7 +725,7 @@ class NewGameScene: SKScene {
                         
 
                     })
-
+                      */
 
                 }
                 
@@ -780,6 +793,7 @@ class NewGameScene: SKScene {
     }
     
     //選擇題
+    /*
     @objc func tagQuestion(){
         isDragAndPlayEnable = false
         
@@ -792,6 +806,15 @@ class NewGameScene: SKScene {
         
         
     }
+    */
+    
+    
+    @objc func notifyPronounceWord(){
+        
+        print("pronounce Word NC sent")
+
+    }
+    
     
     func practice(){
         
@@ -876,15 +899,26 @@ class NewGameScene: SKScene {
                         break
                     }
                     
+      
                     if shouldPronounce{
+                        
+                        
+                        //發音, 用再seq > 0, backToSpell, practiceNextWord
+                        let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
+                        
+                        
+                        self!.firstEngWordLabel.textColor = self!.darkWordColor
+                        self!.isUserInteractionEnabled = true
+
+                        /*
                         self!.pronounce {
                             
                             self!.firstEngWordLabel.textColor = self!.darkWordColor
-                            
-         self!.isUserInteractionEnabled = true
+                            self!.isUserInteractionEnabled = true
 
-                            
                         }
+ */
                     }
                     //self!.currentEngWordLabel.textColor = self!.darkWordColor
                 }
@@ -1603,8 +1637,33 @@ class NewGameScene: SKScene {
                                 
                             } else {
                             
+                                //再次發音
+                                
+                                /*
+                                let wordToPass:[String:String] = ["wordToPass":wordsToPronounce,"currentWordSequence":String(currentWordSequence)]
+*/
+        
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: nil)
+
+                                //初始化
+                                shownWords.removeAll(keepingCapacity: false)
+                                wordEntered.removeAll(keepingCapacity: false)
+                                
+                                //把順序+1
+                                
+                                //if self!.currentWordSequence < self!.wordSets.count / 4 - 1{
+                                
+                                //口試
+                                recognizeWord()
+                                
+                                //不能dragAndPlay
+                                isDragAndPlayEnable = false
+                                
+                                
                                 
                             //跳到口試
+                                
+                                /*
                             self.pronounce(finished: {[weak self] in
                                 
                                 //初始化
@@ -1658,6 +1717,8 @@ class NewGameScene: SKScene {
                                 }
                                 */
                             })
+                                
+                                */
                             }
                             //輸入正確音節數歸零
                             //alreadyCorrectsyllables = 0
@@ -1799,10 +1860,8 @@ class NewGameScene: SKScene {
         }
         
         
-        //顯示出需要的東西, 發出NC
-        
-        let wordToPass:[String:String] = ["wordToPass":wordsToPronounce,"currentWordSequence":String(currentWordSequence)]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: wordToPass)
+        //開始辨認單字
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: nil)
 
         
     }
@@ -1913,6 +1972,10 @@ class NewGameScene: SKScene {
     @objc func notifyShowSentence(){
         
         //字隱藏
+        
+        //顯示錄音文字背景
+        findImageNode(name: "recogWordsBg").alpha = 1
+        
         firstEngWordLabel.text = ""
         firstChiWordLabel.text = ""
         firstEngWordLabel.isHidden = true
@@ -2740,9 +2803,14 @@ class NewGameScene: SKScene {
         
         //進入句子
         
-        let wordToPass:[String:String] = ["wordToPass":wordsToPronounce,"currentWordSequence":String(currentWordSequence)]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordToPass)
+        //let wordToPass:[String:String] = ["wordToPass":wordsToPronounce,"currentWordSequence":String(currentWordSequence)]
+        
+        let wordSequenceToPass:[String:String] = ["currentWordSequence":String(currentWordSequence)]
+       
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
 
+        isDragAndPlayEnable = false
         
 
     }
