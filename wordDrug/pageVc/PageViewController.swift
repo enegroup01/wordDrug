@@ -224,7 +224,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         self.view.bringSubview(toFront: page3)
         
         //在此確認已過關卡
-        gamePassed = [0:3]
+        gamePassed = [0:9]
         
         //集合所有的球
         balls.append(ball0)
