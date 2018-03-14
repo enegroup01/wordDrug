@@ -101,10 +101,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBOutlet weak var resultBg: UIImageView!
     
     @IBOutlet weak var coverBg: UIImageView!
+    @IBOutlet weak var firstWordBtn: UIButton!
     
-    @IBOutlet weak var thirdWordBtn: UIImageView!
-    @IBOutlet weak var secondWordBtn: UIImageView!
-    @IBOutlet weak var firstWordBtn: UIImageView!
+    @IBOutlet weak var thirdWordBtn: UIButton!
+    @IBOutlet weak var secondWordBtn: UIButton!
     //避免按鍵
     @IBOutlet weak var coverBtn: UIButton!
     
@@ -123,7 +123,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var answerTime = 0
  
     //用來顯示正確與否
-    var wordBtns = [UIImageView]()
+    var wordBtns = [UIButton]()
     
     //我的字集
     var myWords = [String]()
@@ -312,6 +312,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     //最後選字的func
+    /*
     @objc func wordTapped(gestureRcognizer:UITapGestureRecognizer){
         
         let number = gestureRcognizer.numberOfTouches
@@ -337,6 +338,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
 
     }
+ */
 
     @objc func notifyAddScore(){
         
@@ -412,10 +414,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //result畫面
     @objc func leaveGame(_ notification: NSNotification){
         
+        /*
         //啟動成果畫面, 此處在加recognizer才不會跟GameScene互打到
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NewGameViewController.wordTapped(gestureRcognizer:)))
         self.view.addGestureRecognizer(tapGesture)
-        
+        */
         coverBtn.isHidden = false
         coverBg.isHidden = false
         resultBg.isHidden = false
@@ -450,14 +453,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         for i in 0 ..< results.count{
                             
                             if results[i] == "1"{
-                                
-                                wordBtns[i].image = UIImage(named:"wrongWordBtn.png")
-                                
+      
+                                wordBtns[i].setImage(UIImage(named:"wrongWordBtn.png"), for: .normal)
                                 
                                 
                             } else {
                                 
-                                wordBtns[i].image = UIImage(named:"rightWordBtn.png")
+                                wordBtns[i].setImage(UIImage(named:"rightWordBtn.png"), for: .normal)
+          
                             }
                         }
                     
