@@ -133,6 +133,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var thirdEngWordText = String()
     var isParseEnabled = true
     
+    
+    let word1Label = UILabel()
+    let word2Label = UILabel()
+    let word3Label = UILabel()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -152,6 +158,32 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         firstWordBtn.isEnabled = false
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
+        
+        
+        
+        word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
+        word1Label.textColor = .white
+        word1Label.font = UIFont(name: "Helvetica Bold", size: 14)
+        word1Label.text = "加入最愛"
+        word1Label.textAlignment = .center
+        word1Label.alpha = 0
+        self.firstWordBtn.addSubview(word1Label)
+       
+        word2Label.frame = CGRect(x: secondWordBtn.frame.width / 3, y: 0, width: secondWordBtn.frame.width / 3, height: secondWordBtn.frame.height)
+        word2Label.textColor = .white
+        word2Label.font = UIFont(name: "Helvetica Bold", size: 14)
+        word2Label.text = "加入最愛"
+        word2Label.textAlignment = .center
+        word2Label.alpha = 0
+        self.secondWordBtn.addSubview(word2Label)
+
+        word3Label.frame = CGRect(x: thirdWordBtn.frame.width / 3, y: 0, width: thirdWordBtn.frame.width / 3, height: thirdWordBtn.frame.height)
+        word3Label.textColor = .white
+        word3Label.font = UIFont(name: "Helvetica Bold", size: 14)
+        word3Label.text = "加入最愛"
+        word3Label.textAlignment = .center
+        word3Label.alpha = 0
+        self.thirdWordBtn.addSubview(word3Label)
         
         
         //載入我的最愛單字
@@ -497,6 +529,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if isParseEnabled{
                isParseEnabled = false
             addWord(word: firstEngWordText)
+            moveUpAndGone(label: word1Label)
             
         }
         
@@ -505,6 +538,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if isParseEnabled{
             isParseEnabled = false
             addWord(word: secondEngWordText)
+            moveUpAndGone(label: word2Label)
             
         }
     }
@@ -514,10 +548,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if isParseEnabled{
             isParseEnabled = false
             addWord(word: thirdEngWordText)
+            moveUpAndGone(label: word3Label)
             
         }
         
     }
+    
+    
     
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -538,6 +575,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             labelToMove.alpha = 1
             labelToMove.frame.origin.y = originY
   
+        }
+    }
+    
+    func moveUpAndGone(label:UILabel){
+        
+        let labelToMove = label
+        labelToMove.alpha = 1
+
+        UIView.animate(withDuration: 0.7, animations: {
+            labelToMove.alpha = 0
+            labelToMove.frame.origin.y = -20
+        }) { (true) in
+            labelToMove.frame.origin.y = 0
         }
     }
     
@@ -577,6 +627,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         //發音
         synPronounce()
+        
+
+        
+
 
     }
     
@@ -1053,7 +1107,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
 
-    //新增最愛
+    //新增最愛單字
     func addWord(word:String){
         
         //確認該字沒有在最愛之內
@@ -1119,7 +1173,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
     }
     
-    //刪除最愛單字
+    //刪除最愛單字---這部分要到單字集裡面做
+    
     func removeWord(word:String){
         
         if myWords.contains(word) {
