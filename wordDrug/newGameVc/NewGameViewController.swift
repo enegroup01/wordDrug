@@ -110,8 +110,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @IBOutlet weak var firstEngWord: UILabel!
     
-    @IBOutlet weak var thirdEngWord: UILabel!
     @IBOutlet weak var secondEngWord: UILabel!
+    @IBOutlet weak var thirdEngWord: UILabel!
     @IBOutlet weak var firstChiWord: UILabel!
     
     @IBOutlet weak var secondChiWord: UILabel!
@@ -121,6 +121,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @IBOutlet weak var scoreLabel: UILabel!
     var answerTime = 0
+ 
+    //用來顯示正確與否
+    var wordBtns = [UIImageView]()
+    
+    //我的字集
+    var myWords = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +145,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         thirdWordBtn.isHidden = true
         bigOkBtn.isHidden = true
         
+        
+        //載入我的最愛單字
+        if let myWordsString = user!["myWords"] as! String?{
+            myWords = myWordsString.components(separatedBy: ";")
+            
+        }
+        
+   
+        wordBtns.append(firstWordBtn)
+        wordBtns.append(secondWordBtn)
+        wordBtns.append(thirdWordBtn)
         
         //設定delegate來監控讀音
         synth.delegate = self
@@ -306,6 +323,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 print("1st tapped")
                 
+                
             } else if secondWordBtn.frame.contains(point){
                 
                 print("2nd tapped")
@@ -424,18 +442,37 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if let engWords = notification.userInfo?["engWords"] as? [String]{
             if let chiWords = notification.userInfo?["chiWords"] as? [String]{
-                if let score = notification.userInfo?["score"] as? [String] {    
+                if let score = notification.userInfo?["score"] as? [String] {
+                    if let results = notification.userInfo?["correctResults"] as? [String]{
+                        
+                    
+                        
+                        for i in 0 ..< results.count{
+                            
+                            if results[i] == "1"{
+                                
+                                wordBtns[i].image = UIImage(named:"wrongWordBtn.png")
+                                
+                                
+                                
+                            } else {
+                                
+                                wordBtns[i].image = UIImage(named:"rightWordBtn.png")
+                            }
+                        }
                     
                     //做分數動畫+ 單字動畫
-                scoreLabel.text = score[0]
+                    scoreLabel.text = score[0]
                     
-                firstEngWord.text = engWords[0]
-                secondEngWord.text = engWords[1]
-                thirdEngWord.text = engWords[2]
-                
-                firstChiWord.text = chiWords[0]
-                secondChiWord.text = chiWords[1]
-                thirdChiWord.text = chiWords[2]
+                    moveUpAnimation(label: firstEngWord, text: engWords[0])
+                    moveUpAnimation(label: secondEngWord, text: engWords[1])
+                    moveUpAnimation(label: thirdEngWord, text: engWords[2])
+                    
+                    moveUpAnimation(label: firstChiWord, text: chiWords[0])
+                    moveUpAnimation(label: secondChiWord, text: chiWords[1])
+                    moveUpAnimation(label: thirdChiWord, text: chiWords[2])
+
+                }
                 }
             }
         }
@@ -446,6 +483,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.removeObserver(self)
     }
     
+    
+    func moveUpAnimation(label:UILabel,text:String){
+        
+        let labelToMove = label
+        
+        labelToMove.alpha = 0.3
+        labelToMove.text = text
+        let originY = label.frame.origin.y
+        labelToMove.frame.origin.y = originY + 20
+        UIView.animate(withDuration: 0.3) {
+            labelToMove.alpha = 1
+            labelToMove.frame.origin.y = originY
+  
+        }
+    }
     
     //開始辨識聲音
     @objc func startToRecognize(){
@@ -959,6 +1011,112 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
 
+    //新增最愛
+    func addWord(word:String){
+        
+        //確認該字沒有在最愛之內
+        if !myWords.contains(word){
+            
+            let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&word=\(word)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                        
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    } catch{
+                        
+                        print("catch error")
+                        
+                        
+                    }
+                } else {
+                    
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        }
+    }
+    
+    //刪除最愛單字
+    func removeWord(word:String){
+        
+        if myWords.contains(word) {
+            let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&word=\(word)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                        
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        print(user!)
+                        
+                    } catch{
+                        
+                        print("catch error")
+                        
+                    }
+                } else {
+                    
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        }
+    }
     
     /*
     func playSound() {

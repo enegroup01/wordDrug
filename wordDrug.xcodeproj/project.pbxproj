@@ -16,7 +16,6 @@
 		AA04ED8A203D7E9700EC0A8E /* dialogueBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED89203D7E9700EC0A8E /* dialogueBg.png */; };
 		AA04ED8D203D7F6200EC0A8E /* toeflBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED8B203D7F6100EC0A8E /* toeflBg.png */; };
 		AA04ED8E203D7F6200EC0A8E /* toeicBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED8C203D7F6100EC0A8E /* toeicBg.png */; };
-		AA04ED91203D965A00EC0A8E /* stageTopCover.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED90203D965A00EC0A8E /* stageTopCover.png */; };
 		AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04ED96203D968A00EC0A8E /* StageViewController.swift */; };
 		AA04ED9B203D9B7800EC0A8E /* level1Full.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED9A203D9B7800EC0A8E /* level1Full.png */; };
 		AA04ED9D203D9C1E00EC0A8E /* fullTest.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED9C203D9C1D00EC0A8E /* fullTest.png */; };
@@ -241,6 +240,7 @@
 		AA7FA7EC1FB5E7C500315524 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7FA7EB1FB5E7C400315524 /* exit.png */; };
 		AA8158E51FE24B67000AA3D5 /* winBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8158E41FE24B67000AA3D5 /* winBg.png */; };
 		AA8158E91FE25293000AA3D5 /* getButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8158E81FE25293000AA3D5 /* getButton.png */; };
+		AA84608D20591E150002FD49 /* stageTopCover.png in Resources */ = {isa = PBXBuildFile; fileRef = AA84608C20591E140002FD49 /* stageTopCover.png */; };
 		AA86F3AA1FA9BE11004E7997 /* bDot3.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3A71FA9BE10004E7997 /* bDot3.png */; };
 		AA86F3AB1FA9BE11004E7997 /* bDot2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3A81FA9BE11004E7997 /* bDot2.png */; };
 		AA86F3AC1FA9BE11004E7997 /* bDot1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA86F3A91FA9BE11004E7997 /* bDot1.png */; };
@@ -456,7 +456,6 @@
 		AA04ED89203D7E9700EC0A8E /* dialogueBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogueBg.png; sourceTree = "<group>"; };
 		AA04ED8B203D7F6100EC0A8E /* toeflBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toeflBg.png; sourceTree = "<group>"; };
 		AA04ED8C203D7F6100EC0A8E /* toeicBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toeicBg.png; sourceTree = "<group>"; };
-		AA04ED90203D965A00EC0A8E /* stageTopCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stageTopCover.png; sourceTree = "<group>"; };
 		AA04ED96203D968A00EC0A8E /* StageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
 		AA04ED9A203D9B7800EC0A8E /* level1Full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1Full.png; sourceTree = "<group>"; };
 		AA04ED9C203D9C1D00EC0A8E /* fullTest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullTest.png; sourceTree = "<group>"; };
@@ -683,6 +682,7 @@
 		AA7FA7EB1FB5E7C400315524 /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
 		AA8158E41FE24B67000AA3D5 /* winBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = winBg.png; sourceTree = "<group>"; };
 		AA8158E81FE25293000AA3D5 /* getButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = getButton.png; sourceTree = "<group>"; };
+		AA84608C20591E140002FD49 /* stageTopCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stageTopCover.png; sourceTree = "<group>"; };
 		AA86F3A71FA9BE10004E7997 /* bDot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bDot3.png; sourceTree = "<group>"; };
 		AA86F3A81FA9BE11004E7997 /* bDot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bDot2.png; sourceTree = "<group>"; };
 		AA86F3A91FA9BE11004E7997 /* bDot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bDot1.png; sourceTree = "<group>"; };
@@ -934,8 +934,8 @@
 			isa = PBXGroup;
 			children = (
 				AA5B6B5F20458038008624AE /* triangleBackBtn.png */,
+				AA84608C20591E140002FD49 /* stageTopCover.png */,
 				AA04ED96203D968A00EC0A8E /* StageViewController.swift */,
-				AA04ED90203D965A00EC0A8E /* stageTopCover.png */,
 				AA04ED9A203D9B7800EC0A8E /* level1Full.png */,
 				AA04EDB4203DAF3A00EC0A8E /* level1Empty.png */,
 				AA04ED9C203D9C1D00EC0A8E /* fullTest.png */,
@@ -1628,7 +1628,6 @@
 				AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */,
 				AAEAF5CD2029E99C0069C1A2 /* newGameBg-1.png in Resources */,
 				AADC613F1FEBA09900032780 /* fireGem.png in Resources */,
-				AA04ED91203D965A00EC0A8E /* stageTopCover.png in Resources */,
 				AAECC1211FB08A27004ED813 /* monsterExplode.sks in Resources */,
 				AA86F3C61FAC6C15004E7997 /* eButton2.png in Resources */,
 				AA8158E91FE25293000AA3D5 /* getButton.png in Resources */,
@@ -1680,6 +1679,7 @@
 				AA7FA7A81FB5A63500315524 /* le2.png in Resources */,
 				AA0345572021EA68005AC70E /* pauseBtn.png in Resources */,
 				AA5B6BC020458E18008624AE /* 4-7.txt in Resources */,
+				AA84608D20591E150002FD49 /* stageTopCover.png in Resources */,
 				AA87EAAF1FBD4CDB00830608 /* 3601.png in Resources */,
 				AA5B6BE420458E18008624AE /* 2-13.txt in Resources */,
 				AA7FA7BA1FB5A6C600315524 /* e8.png in Resources */,

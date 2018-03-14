@@ -13,6 +13,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     let stageCount = 5
     var mapNumToPass = Int()
     
+    //上方單字總計label
+    @IBOutlet weak var topWordsNumberLabel: UILabel!
+    
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +23,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         // Do any additional setup after loading the view.
         collectionView.backgroundColor = UIColor.init(red: 179/255, green: 78/255, blue: 81/255, alpha: 1)
         collectionView.delegate = self
+        
+        topWordsNumberLabel.text = "1073/2100"
+        
     }
     
 

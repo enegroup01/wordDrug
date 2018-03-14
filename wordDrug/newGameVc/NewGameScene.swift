@@ -83,7 +83,7 @@ class NewGameScene: SKScene {
     
     //紀錄單字有沒有加入最愛
     var wordsLoved = [0,0,0]
-    var myWords = [String]()
+  
     var firstEngWord = String()
     var secondEngWord = String()
     var thirdEngWord = String()
@@ -173,8 +173,14 @@ class NewGameScene: SKScene {
     var scoreAdded = Int()
     var isFinalGetPoint = false
     
+    //紀錄三個字的正確與否
+    var correctResults = ["0","0","0"]
+    
+    //記錄我的最愛以及錯誤單字
     
     override func didMove(to view: SKView) {
+        
+    
         
         //啟動離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -227,15 +233,12 @@ class NewGameScene: SKScene {
     //載入各種字
     func loadAllKindsOfWord(){
         
-        //載入我的最愛單字
-        if let myWordsString = user!["myWords"] as! String?{
-            myWords = myWordsString.components(separatedBy: ";")
-            
-        }
+
         
         //讀取所有錯誤的字供比對
         if let myWrongWordsString = user!["wrongWords"] as! String?{
             myWrongWords = myWrongWordsString.components(separatedBy: ";")
+            print("myWrongWords:\(myWrongWords)")
         }
         
         print("unitNumber:\(unitNumber)")
@@ -1456,6 +1459,13 @@ class NewGameScene: SKScene {
                             answerTime = 0
                             //失去機會
                             
+                            //紀錄錯誤單字
+                            correctResults[currentPracticeSequence] = "1"
+                            let wrongWord = wordSets[currentWordSequence].replacingOccurrences(of: " ", with: "")
+                            wrongWords.append(wrongWord)
+                            print(wrongWords)
+                            
+                            
                             //以下兩兩個是聽考模式的協助功能
                             //移除talk圖示
                             removeSomeNodes(name: "talkPng")
@@ -1723,7 +1733,10 @@ class NewGameScene: SKScene {
                 scoreToPass = String(Int(scoreLabel.text!)! + 500)
             }
             
-            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass]]
+            
+            addWrongWords()
+            
+            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
             
             
@@ -1742,6 +1755,76 @@ class NewGameScene: SKScene {
     }
     
     //*** 以下皆為一些自己建立的func 或是extension ***
+    
+    
+    
+    //新增錯誤單字
+    
+    func addWrongWords(){
+        
+        print("final wrongWords\(wrongWords)")
+        if wrongWords.count > 0 {
+            //確認有錯字
+            
+            for word in wrongWords{
+                
+                //避免重複
+                if !myWrongWords.contains(word){
+                    
+                    print("wrongword:\(word)")
+                    
+                    let id = user?["id"] as! String
+                    
+                    // url to access our php file
+                    let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWrongWord.php")!
+                    
+                    // request url
+                    var request = URLRequest(url: url)
+                    
+                    // method to pass data POST - cause it is secured
+                    request.httpMethod = "POST"
+                    
+                    // body gonna be appended to url
+                    let body = "userID=\(id)&wrongWord=\(word)"
+                    
+                    // append body to our request that gonna be sent
+                    request.httpBody = body.data(using: .utf8)
+                    
+                    URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                        // no error
+                        if error == nil {
+                            
+                            do {
+                                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                
+                                guard let parseJSON = json else {
+                                    print("Error while parsing")
+                                    //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                    return
+                                }
+                                
+                                //再次儲存使用者資訊
+                                UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                                user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                                print(user!)
+                                
+                            } catch{
+                                
+                                print("catch error")
+                                
+                            }
+                        } else {
+                            
+                            print("urlsession has error")
+                            
+                        }
+                    }).resume()
+                    
+                }
+            }
+        }
+        
+    }
     
     //換圖片
     func changeTexture(nodeName:String,newTexture:String){
@@ -2145,15 +2228,23 @@ class NewGameScene: SKScene {
         if isCorrect{
             
             countScore(score: 300)
+        } else {
+            //錯誤的話
+            correctResults[currentPracticeSequence] = "1"
+            let wrongWord = wordSets[currentWordSequence].replacingOccurrences(of: " ", with: "")
+            
+            if !wrongWords.contains(wrongWord){
+                 wrongWords.append(wrongWord)
+            }
+            print(wrongWords)
+
         }
         
         let wordSequenceToPass:[String:String] = ["currentWordSequence":String(currentWordSequence)]
-        
-        
+
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
         
         isDragAndPlayEnable = false
-        
         
     }
     
@@ -2214,6 +2305,9 @@ class NewGameScene: SKScene {
         
         print("notified")
     }
+    
+    
+    
     
 
     
