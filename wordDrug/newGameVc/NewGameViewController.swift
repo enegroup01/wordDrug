@@ -103,8 +103,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBOutlet weak var coverBg: UIImageView!
     @IBOutlet weak var firstWordBtn: UIButton!
     
-    @IBOutlet weak var thirdWordBtn: UIButton!
     @IBOutlet weak var secondWordBtn: UIButton!
+    @IBOutlet weak var thirdWordBtn: UIButton!
     //避免按鍵
     @IBOutlet weak var coverBtn: UIButton!
     
@@ -127,6 +127,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //我的字集
     var myWords = [String]()
+    //抓字上傳後台使用
+    var firstEngWordText = String()
+    var secondEngWordText = String()
+    var thirdEngWordText = String()
+    var isParseEnabled = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +149,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isHidden = true
         thirdWordBtn.isHidden = true
         bigOkBtn.isHidden = true
+        firstWordBtn.isEnabled = false
+        secondWordBtn.isEnabled = false
+        thirdWordBtn.isEnabled = false
         
         
         //載入我的最愛單字
@@ -427,9 +435,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         thirdWordBtn.isHidden = false
         bigOkBtn.isHidden = false
         
-        firstWordBtn.isUserInteractionEnabled = true
-        secondWordBtn.isUserInteractionEnabled = true
-        thirdWordBtn.isUserInteractionEnabled = true
+        firstWordBtn.isEnabled = true
+        secondWordBtn.isEnabled = true
+        thirdWordBtn.isEnabled = true
         
         firstEngWord.adjustsFontSizeToFitWidth = true
         secondEngWord.adjustsFontSizeToFitWidth = true
@@ -463,13 +471,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
           
                             }
                         }
-                    
+                    //抓字
+                        firstEngWordText = engWords[0]
+                        secondEngWordText = engWords[1]
+                        thirdEngWordText = engWords[2]
+                        
                     //做分數動畫+ 單字動畫
                     scoreLabel.text = score[0]
                     
-                    moveUpAnimation(label: firstEngWord, text: engWords[0])
-                    moveUpAnimation(label: secondEngWord, text: engWords[1])
-                    moveUpAnimation(label: thirdEngWord, text: engWords[2])
+                    moveUpAnimation(label: firstEngWord, text: firstEngWordText)
+                    moveUpAnimation(label: secondEngWord, text: secondEngWordText)
+                    moveUpAnimation(label: thirdEngWord, text: thirdEngWordText)
                     
                     moveUpAnimation(label: firstChiWord, text: chiWords[0])
                     moveUpAnimation(label: secondChiWord, text: chiWords[1])
@@ -480,7 +492,34 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
         }
     }
-
+    @IBAction func firstWordClicked(_ sender: Any) {
+        
+        if isParseEnabled{
+               isParseEnabled = false
+            addWord(word: firstEngWordText)
+            
+        }
+        
+    }
+    @IBAction func secondWordClicked(_ sender: Any) {
+        if isParseEnabled{
+            isParseEnabled = false
+            addWord(word: secondEngWordText)
+            
+        }
+    }
+    
+    @IBAction func thirdWordClicked(_ sender: Any) {
+        
+        if isParseEnabled{
+            isParseEnabled = false
+            addWord(word: thirdEngWordText)
+            
+        }
+        
+    }
+    
+    
     override func viewDidDisappear(_ animated: Bool) {
 
         NotificationCenter.default.removeObserver(self)
@@ -1047,24 +1086,36 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         guard let parseJSON = json else {
                             print("Error while parsing")
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                self?.isParseEnabled = true
                             return
                         }
                         
                         //再次儲存使用者資訊
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        //載入我的最愛單字
+                        if let myWordsString = user!["myWords"] as! String?{
+                            self!.myWords = myWordsString.components(separatedBy: ";")
+                            
+                        }
+                        self?.isParseEnabled = true
+
                     } catch{
-                        
+                            self?.isParseEnabled = true
                         print("catch error")
                         
                         
                     }
                 } else {
-                    
+                        self?.isParseEnabled = true
                     print("urlsession has error")
                     
                 }
             }).resume()
+        } else {
+            
+            print("alreaded added")
+            isParseEnabled = true
         }
     }
     
@@ -1098,6 +1149,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         guard let parseJSON = json else {
                             print("Error while parsing")
+                                self?.isParseEnabled = true
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                             return
                         }
@@ -1106,14 +1158,22 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         print(user!)
+                        //載入我的最愛單字
+                        if let myWordsString = user!["myWords"] as! String?{
+                            self!.myWords = myWordsString.components(separatedBy: ";")
+                            
+                        }
+
+                            self?.isParseEnabled = true
                         
                     } catch{
                         
+                            self?.isParseEnabled = true
                         print("catch error")
                         
                     }
                 } else {
-                    
+                        self?.isParseEnabled = true
                     print("urlsession has error")
                     
                 }

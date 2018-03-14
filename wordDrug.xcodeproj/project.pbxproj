@@ -428,7 +428,6 @@
 		AAE3A7472004844F0068ACBF /* useButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A7462004844F0068ACBF /* useButton.png */; };
 		AAE3A74A200486910068ACBF /* lockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A748200486900068ACBF /* lockButton.png */; };
 		AAE3A74B200486910068ACBF /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A749200486910068ACBF /* coverBg.png */; };
-		AAE3A74D2004891B0068ACBF /* 1-1-0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3A74C2004891B0068ACBF /* 1-1-0.png */; };
 		AAEAF5CD2029E99C0069C1A2 /* newGameBg-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEAF5CC2029E99C0069C1A2 /* newGameBg-1.png */; };
 		AAEAF5CF2029E9A40069C1A2 /* threeWordBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEAF5CE2029E9A40069C1A2 /* threeWordBg.png */; };
 		AAECC11D1FB0493B004ED813 /* explode.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAECC11C1FB0493B004ED813 /* explode.sks */; };
@@ -1577,7 +1576,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = playplay;
 				TargetAttributes = {
 					AAE181881F97892D00683896 = {
@@ -1949,7 +1948,6 @@
 				AA4642B61FC7CCD100D34516 /* darkD.png in Resources */,
 				AAB68D501FE8F35400CCF820 /* 1-13-10.png in Resources */,
 				AADC61401FEBA09900032780 /* normalGem.png in Resources */,
-				AAE3A74D2004891B0068ACBF /* 1-1-0.png in Resources */,
 				AA8FAE92202D913A00342CED /* wrongX.png in Resources */,
 				AA5B6BCF20458E18008624AE /* 5-4.txt in Resources */,
 				AA87EA9A1FBD4CDB00830608 /* 1701.png in Resources */,
