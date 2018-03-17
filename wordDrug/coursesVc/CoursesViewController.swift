@@ -37,6 +37,9 @@ class CoursesViewController: UIViewController {
     @IBAction func toeflClicked(_ sender: Any) {
     }
     
+    @IBAction func toNewBookBtn(_ sender: Any) {
+        performSegue(withIdentifier: "toNewBookVc", sender: self)
+    }
     
     /*
     // MARK: - Navigation
