@@ -101,6 +101,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     var likeMode = true
     
+    //collection選到的index
+    var collectionSelectedIndex:Int?
+    //對應的syllable
+    var sylSelected:String?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -416,6 +422,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             engWordsSelected.removeLast()
         }
 
+        //預設collectionView的syl
+        collectionSelectedIndex = 0
         
         
     }
@@ -745,10 +753,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-                let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath)
         
         
-           let syllableLabel = cell.viewWithTag(1) as! UILabel
+      
+        let syllableLabel = cell.viewWithTag(1) as! UILabel
         let engWordLabel = cell.viewWithTag(2) as! UILabel
         let partOfSpeechLabel = cell.viewWithTag(3) as! UILabel
         let chiWordLabel = cell.viewWithTag(4) as! UILabel
@@ -758,6 +768,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row].components(separatedBy: .decimalDigits)
         //let syllableNum = syllablesSelected[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
+
         
         //抓字
         let engWords = engWordsSelected[indexPath.row]
@@ -905,10 +916,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         chiSenLabel.text = chiSen
         
         cell.backgroundColor = .clear
+        
+        
         return cell
         
         
     }
+    
+
     
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -919,14 +934,22 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        //設定選項顏色
         for i in 0 ..< collectionTouched.count{
             collectionTouched[i] = 0
 
         }
         collectionTouched[indexPath.row] = 1
+        
+        
+        //指定文字
+        collectionSelectedIndex = indexPath.row
+        
         collectionView.reloadData()
         
     }
+
+    
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     @available(iOS 6.0, *)
@@ -935,11 +958,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let cell =
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SylCell", for: indexPath as IndexPath)
+        
         let blueBall = cell.viewWithTag(2) as! UIImageView
         let sylText = cell.viewWithTag(1) as!UILabel
         let sylToDisplay = sylArray[indexPath.row]
         sylText.text = sylToDisplay
         sylText.textColor = btnOffColor
+        
+        sylSelected = sylArray[collectionSelectedIndex!]
+        jumpToRow(sylSelected: sylSelected!)
         
         
         
@@ -951,11 +978,49 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             sylText.textColor = .darkGray
             
         }
-
         return cell
         
     }
 
+    func jumpToRow(sylSelected:String){
+        
+         var onlySylTextArray = [String]()
+        
+        //抓當下的元素
+        for i in 0 ..< syllablesSelected.count{
+
+            let syllableText = syllablesSelected[i].components(separatedBy: .decimalDigits)
+            
+            onlySylTextArray.append(syllableText[0])
+            
+        }
+      
+        //找對應的row, 並跳過去
+        for i in 0 ..< onlySylTextArray.count{
+
+            //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
+            if onlySylTextArray[i] == sylSelected{
+                
+                if i < tableView.numberOfRows(inSection: 0){
+                    
+                    if i == 0 {
+                        let index = IndexPath(row: 0, section: 0)
+                        
+                        tableView.scrollToRow(at: index, at: .top, animated: true)
+                        
+                    } else {
+                        
+                        let index = IndexPath(row: i - 1, section: 0)
+                        tableView.scrollToRow(at: index, at: .bottom, animated: true)
+                        
+                    }
+
+                }
+            }
+
+        }
+    }
+    
     @IBAction func backBtnClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
