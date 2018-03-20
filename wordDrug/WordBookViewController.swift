@@ -678,8 +678,7 @@ class WordBookViewController: UIViewController,UITableViewDelegate,UITableViewDa
             for i in 0 ..< engWordArray.count{
                 
                 characters.removeAll(keepingCapacity: false)
-                
-                for i in engWordArray[i]{
+                                for i in engWordArray[i]{
                     
                     characters.append(i)
                 }
