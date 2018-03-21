@@ -14,7 +14,7 @@ import Speech
 class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, AVSpeechSynthesizerDelegate{
     
     
-    
+    //所有音節
     let syllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
                         ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
                         ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
@@ -26,19 +26,24 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         ["ly1","mi1","nd1","no1","nt1","oa1","ob1","o_e1","of1","oi1"],
                         ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
                         ["ph1","pi1","pl1","pr1","cop1","re1","ro1","ry1","sh1","si1"],
-                    ["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],
+                        ["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],
                         ["to1","tr1","ture1","ty1","ub1","u_e1","ui1","um1","un1","up1"],
                         ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     
+    //略過數字的整合音節
     var sylArray = [String]()
+    //選擇到的音節
     var collectionTouched = [Int]()
-
+    
+    //上方的seg
     let segControl = TwicketSegmentedControl()
+    
     let darkPurpleColor = UIColor.init(red: 82/255, green: 90/255, blue: 120/255, alpha: 1)
     let segSliderBgColor = UIColor.init(red: 216/255, green: 216/255, blue: 216/255, alpha: 0.25)
     let btnOffColor = UIColor.init(red: 115/255, green: 115/255, blue: 115/255, alpha: 1)
     let btnOnColor = UIColor.init(red: 223/255, green: 223/255, blue: 223/255, alpha: 1)
     
+    //table & collection
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -51,16 +56,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @IBOutlet weak var playTimesText: UILabel!
     @IBOutlet weak var playTimesImg: UIImageView!
     
-    
     @IBOutlet weak var playSpeedImg: UIImageView!
-    
     @IBOutlet weak var playSpeedText: UILabel!
-    
     
     //所有的單字的array
     var wordSets = [[String]]()
     var sentenceSets = [[String]]()
-
+    
     //殘值的字的array
     var tempWordSets = [[String]]()
     var tempSentenceSets = [[String]]()
@@ -73,17 +75,17 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var engSenToShow = [String]()
     var chiSenToShow = [String]()
     
-    //我的最愛
+    //使用者的字群
     var myFavWords = [String]()
     var myWrongWords = [String]()
     
+    //指定我的最愛
     var myFavEngWordsToShow = [String]()
     var myFavChiWordsToShow = [String]()
     var myFavPartOfSpeechToShow = [String]()
     var myFavSyllablesToShow = [String]()
     var myFavEngSenToShow = [String]()
     var myFavChiSenToShow = [String]()
-    
     
     var myWrongEngWordsToShow = [String]()
     var myWrongChiWordsToShow = [String]()
@@ -102,37 +104,52 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //我的最愛圖片是否要顯示的array
     var myFavImgs = [Int]()
     
+    //之後判斷加入最愛的時刻
     var likeMode = true
     
     //collection選到的index
     var collectionSelectedIndex:Int?
+    
     //對應的syllable
     var sylSelected:String?
     
     //播放發音
     //Text to speech合成器
     var synth = AVSpeechSynthesizer()
+    
     //發音單字
     var synEngWord = String()
     var synChiWord = String()
     var synEngSen = String()
     var synChiSen = String()
-
+    
+    //設定發音次數
     var speakTimes = 1
+    //發音速度：0.5標準
     var speakRate = 0.45
     let lightRed = UIColor.init(red: 1, green: 0, blue: 0, alpha: 0.3)
     
-    
+    //是否要唸句子
     var isPlaySentence = true
     
     //避免tableView & collectionView戶卡
-    
     var isScrolling = false
+    
+    //是否連續播放
     var isAutoPlay = false
+    
+    //endScrolling後才能按collectionView
+    var isCollectionViewSelectabel = true
+    
+    var currentWordIndex = Int()
+    
+    //目前播放過幾次
+    var alreadyPlayTimes = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         //設定好segMent
@@ -151,6 +168,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         segControl.highlightTextColor = .white
         segControl.isSliderShadowHidden = true
         
+        //所有的delegate
         segControl.delegate = self
         collectionView.delegate = self
         tableView.delegate = self
@@ -170,32 +188,37 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playTimesImg.image = UIImage(named:"bookTimes0.png")
         playSpeedImg.image = UIImage(named:"bookSpeed0.png")
         playSpeedText.textColor = btnOffColor
+        playSenText.textColor = btnOnColor
+        playSenImg.image = UIImage(named:"bookSenOn.png")
         
-        //讀取所有syl
+        //讀取所有syl, 排除相同的再次出現
         for group in syllableSets{
             for syl in group{
-
+                
                 let sylBreaks = syl.components(separatedBy: NSCharacterSet.decimalDigits)
                 let syl = sylBreaks[0]
+                
                 if !sylArray.contains(syl){
                     
                     sylArray.append(syl)
                 }
             }
-
+            
         }
         
+        //建立collectionView按鈕數量
         for _ in 0 ..< sylArray.count{
             
             collectionTouched.append(0)
             
         }
-
+        
         //預設第一個元素
         collectionTouched[0] = 1
         
         //讀取單字
         
+        //spot & unit
         gamePassed = [0:9]
         
         for (s,_) in gamePassed!{
@@ -204,7 +227,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             for i in 0 ..< (s){
                 
                 var wordFile:String?
-                
+                //前面的1代表第一張地圖
                 let name = "1-" + String(i + 1)
                 let sName = "s1-" + String(i + 1)
                 
@@ -243,12 +266,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 } else {
                     // example.txt not found!
                 }
-
+                
             }
             
             //再來讀取殘餘的英文字 + 句子
             var wordFile:String?
-        
+            
             
             //讀取最新一層的字
             let name = "1-" + String(s + 1)
@@ -269,7 +292,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             } else {
                 // example.txt not found!
             }
-           
+            
             var sentenceFile:String?
             
             //抓句子
@@ -424,15 +447,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-        /*
-        print(myFavEngWordsToShow)
-        print(myFavChiWordsToShow)
-        print(myFavPartOfSpeechToShow)
-        print(myFavSyllablesToShow)
-*/
-        
-        
-        
         //設定好要show的第一組單字就是全部的單字
         engWordsSelected = engWordsToShow
         chiWordsSelected = chiWordsToShow
@@ -446,13 +460,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         for  _ in 0 ..< 3 {
             engWordsSelected.removeLast()
         }
-
+        
         //預設collectionView的syl
         collectionSelectedIndex = 0
         
-        //預設要播放句子
-        playSenText.textColor = btnOnColor
-        playSenImg.image = UIImage(named:"bookSenOn.png")
+        
         
         
     }
@@ -501,7 +513,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         if let myWordsString = user!["myWords"] as! String?{
             myFavWords = myWordsString.components(separatedBy: ";")
         }
- 
+        
         
         //刪除所有已append的值
         myFavEngWordsToShow.removeAll(keepingCapacity: false)
@@ -529,7 +541,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             for myWord in myFavWords{
                 
                 if myWord == word {
-               
+                    
                     let chiWord = chiWordsToShow[i]
                     let partOfSpeech = partOfSpeechToShow[i]
                     let syllables = syllablesToShow[i]
@@ -561,6 +573,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //不產生動畫的reload
         tableView.reloadData()
+ findMatchCollectionCell()
         
     }
     
@@ -584,7 +597,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         for i in 0 ..< engWordsToShow.count{
             
             let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
-
+            
             //抓我的錯字
             for myWrongWord in myWrongWords{
                 
@@ -611,7 +624,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
             
             
-            
         }
         
         engWordsSelected = myWrongEngWordsToShow
@@ -620,14 +632,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         syllablesSelected = myWrongSyllablesToShow
         engSenSelected = myWrongEngSenToShow
         chiSenSelected = myWrongChiSenToShow
-
+        
         
         tableView.reloadData()
-        
+findMatchCollectionCell()
     }
     
+    //上方segMent選擇
     func didSelect(_ segmentIndex: Int) {
-
         
         //停止所有func
         NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -635,8 +647,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         switch segmentIndex{
             
         case 0:
-            print("all words")
-            
             //再次讀我的最愛反紅部分
             loadAllWordFavs()
             //切換到可以修改最愛的模式
@@ -655,10 +665,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 engWordsSelected.removeLast()
             }
             
+            
             tableView.reloadData()
+            findMatchCollectionCell()
         case 1:
-
-            print("my Wrong Words")
+            
             
             likeMode = false
             //讀取錯字
@@ -666,8 +677,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             
         case 2:
-
-            print("my Fav words")
+            
             
             likeMode = true
             //把所有的func包起來, 供刪除最愛單字即時更新畫面使用
@@ -676,30 +686,355 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         default:
             break
         }
-
+        
         
         
     }
     
-
+    
+    //重複播放鍵
     @IBAction func playClicked(_ sender: Any) {
         
         if isAutoPlay{
+            
+            //立即停止發音 & 停止上次動作
+            synth.stopSpeaking(at: .immediate)
+            
+            /*
+             //NSObject.cancelPreviousPerformRequests(withTarget: self)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
+             */
+            
             autoPlayText.textColor = btnOffColor
             autoPlayImg.image = UIImage(named:"bookPlayOff.png")
             isAutoPlay = false
+            
+            //停止播放
+            
+            
         } else {
+            //立即停止發音 & 停止上次動作
+            synth.stopSpeaking(at: .immediate)
+            
+            /*
+             //NSObject.cancelPreviousPerformRequests(withTarget: self)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
+             */
+            
             autoPlayText.textColor = btnOnColor
             autoPlayImg.image = UIImage(named:"bookPlayOn.png")
             isAutoPlay = true
             
+            
+            //確認是否有字, 才會發音
+            if engWordsSelected.count > 0 {
+            
+            
+            //Part 1. scroll停止
+            tableView.setContentOffset(tableView.contentOffset, animated: false)
+            
+            //Part 2. 抓visible的中間cell
+            if let cells = tableView.visibleCells as [UITableViewCell]?{
+                
+                //設定選擇到的cell
+                var selectedCell = UITableViewCell()
+
+                //首先抓最上方的cell Index
+                let topCell = tableView.indexPathsForVisibleRows![0]
+                
+                //確認有沒有全部顯示
+                let cellRect = tableView.rectForRow(at: topCell)
+                let isCompletelyVisible = tableView.bounds.contains(cellRect)
+    
+                //如果index是0, 又全部顯示, 就選擇第一個cell
+                if topCell.row == 0 && isCompletelyVisible{
+                    
+                    selectedCell = cells[0]
+   
+                    
+                    //其餘狀態選第2個
+                } else if cells.count > 1 {
+                    
+                    selectedCell = cells[1]
+   
+                }
+                
+                //抓目前cell的label
+                let currentEngWordLabel = selectedCell.viewWithTag(2) as! UILabel
+                
+                //比對單字
+                    for i in 0 ..< engWordsSelected.count{
+                        
+                        let engWord = engWordsSelected[i].replacingOccurrences(of: " ", with: "")
+                        
+                        //抓出順序
+                        if engWord == currentEngWordLabel.text!{
+                            
+                            //指定順序及發音單字
+                            currentWordIndex = i
+                            
+                            synEngWord = engWord
+                            synChiWord = chiWordsSelected[i]
+                            synEngSen = engSenSelected[i]
+                            synChiSen = chiSenSelected[i]
+                            
+                        }
+                    }
+                
+                    //跳轉到該個單字
+                    let index = IndexPath(row: currentWordIndex, section: 0)
+                    tableView.scrollToRow(at: index, at: .middle, animated: true)
+                    
+                    let row = tableView.cellForRow(at: index)
+                    UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                        
+                        row?.backgroundColor = self!.lightRed
+                        }, completion: { (finished:Bool) in
+                            if finished{
+                                UIView.animate(withDuration: 0.2, animations: {
+                                    
+                                    row?.backgroundColor = .clear
+                                })
+                                
+                            }
+                    })
+                    
+                    
+                    //Part 3. 往下播放
+                    synPronounce()
+                
+            }
+            }else {
+                
+                //找不到字
+                print("no word")
+            }
+        }
+        
+        
+    }
+    
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        
+        switch step{
+            
+        case 1:
+            
+            switch speakTimes{
+            case 1:
+                print("speakTimes:1")
+                //perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+                alreadyPlayTimes = 0
+                pronounceChi()
+                
+                
+            case 2:
+                
+                print("speakTimes:2")
+                switch alreadyPlayTimes{
+                    
+                case 1:
+                    //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+                    pronounceEng()
+                    print("play one")
+                case 2:
+                    //perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+                    alreadyPlayTimes = 0
+                    pronounceChi()
+                    print("play two")
+                default:
+                    break
+                    
+                }
+                
+            case 3:
+                switch alreadyPlayTimes{
+                case 1:
+                    //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+                    pronounceEng()
+                case 2:
+                    //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+                    pronounceEng()
+                case 3:
+                    //perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+                    alreadyPlayTimes = 0
+                    pronounceChi()
+                    
+                default:
+                    break
+                    
+                    
+                }
+            default:
+                break
+                
+            }
+            print("1")
+            
+        case 2:
+            
+            
+            //假如不播放句子, 就直接重播
+            if !isPlaySentence{
+                
+                if !synth.isSpeaking{
+                    autoPlayFunc()
+                }
+            } else {
+                
+                //或者往下播放句子
+                pronounceEngSen()
+                print("2")
+            }
+            
+            
+            
+        case 3:
+            perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
+            
+            
+            print("3")
+        case 4:
+            print("4")
+            
+            
+            switch speakTimes{
+            case 1:
+                if !synth.isSpeaking{
+                    autoPlayFunc()
+                }
+                alreadyPlayTimes = 0
+                
+            case 2:
+                
+                switch alreadyPlayTimes{
+                case 1:
+                    //perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+                    pronounceEngSen()
+                case 2:
+                    
+                    alreadyPlayTimes = 0
+                    if !synth.isSpeaking{
+                        autoPlayFunc()
+                    }
+                    
+                    
+                default:
+                    break
+                    
+                }
+                
+            case 3:
+                switch alreadyPlayTimes{
+                    
+                case 1:
+                    
+                    //perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+                    pronounceEngSen()
+                case 2:
+                    
+                    //perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+                    pronounceEngSen()
+                case 3:
+                    
+                    alreadyPlayTimes = 0
+                    if !synth.isSpeaking{
+                        autoPlayFunc()
+                    }
+                    
+                    
+                default:
+                    break
+                    
+                    
+                }
+            default:
+                break
+                
+            }
+            
+            
+            
+            /*
+             case 5:
+             print("word2")
+             if speakTimes == 2{
+             //往下了
+             pronounceChi()
+             alreadyPlayTimes = 0
+             } else {
+             //再發音一次
+             pronounceEng()
+             alreadyPlayTimes += 1
+             
+             }
+             
+             case 6:
+             print("word3")
+             case 7:
+             print("engSen2")
+             case 8:
+             print("chiSen2")
+             case 9:
+             print("engSen3")
+             case 10:
+             print("chiSen3")
+             */
+            
+        default:
+            break
             
         }
         
         
     }
     
-
+    func autoPlayFunc(){
+        
+        //繼續往下Play
+        if isAutoPlay{
+            
+            
+            if currentWordIndex < engWordsSelected.count - 1{
+                currentWordIndex += 1
+                
+                synEngWord = engWordsSelected[currentWordIndex].replacingOccurrences(of: " ", with: "")
+                synChiWord = chiWordsSelected[currentWordIndex]
+                synEngSen = engSenSelected[currentWordIndex]
+                synChiSen = chiSenSelected[currentWordIndex]
+                
+                
+                let index = IndexPath(row: currentWordIndex, section: 0)
+                tableView.scrollToRow(at: index, at: .middle, animated: true)
+                
+                let row = tableView.cellForRow(at: index)
+                UIView.animate(withDuration: 0.2, animations: {[weak self] in
+                    
+                    row?.backgroundColor = self!.lightRed
+                    }, completion: { (finished:Bool) in
+                        if finished{
+                            UIView.animate(withDuration: 0.2, animations: {
+                                
+                                row?.backgroundColor = .clear
+                            })
+                            
+                        }
+                })
+                
+                synPronounce()
+                
+            }
+            
+        }
+    }
+    
     @IBAction func playSentenceClicked(_ sender: Any) {
         
         if isPlaySentence{
@@ -715,7 +1050,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         
     }
-
+    
     @IBAction func playTimesClicked(_ sender: Any) {
         
         switch speakTimes{
@@ -725,40 +1060,40 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             speakTimes = 2
         case 2:
             playTimesImg.image = UIImage(named:"bookTimes2.png")
-      
+            
             speakTimes = 3
         case 3:
             playTimesImg.image = UIImage(named:"bookTimes0.png")
             speakTimes = 1
-            default:
-        break
+        default:
+            break
             
         }
-  
+        
     }
     
-
+    
     @IBAction func playSpeedClicked(_ sender: Any) {
         
         switch speakRate{
             
         case 0.45:
             playSpeedImg.image = UIImage(named:"bookSpeed1.png")
-                playSpeedText.textColor = btnOnColor
+            playSpeedText.textColor = btnOnColor
             speakRate = 0.25
             
         case 0.25:
             playSpeedImg.image = UIImage(named:"bookSpeed2.png")
-                        playSpeedText.textColor = btnOnColor
-
- 
+            playSpeedText.textColor = btnOnColor
+            
+            
             speakRate = 0.15
             
         case 0.15:
             playSpeedImg.image = UIImage(named:"bookSpeed0.png")
             playSpeedText.textColor = btnOffColor
-
-
+            
+            
             speakRate = 0.45
             
         default:
@@ -770,9 +1105,17 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //立即停止發音 & 停止上次動作
         
         if synth.isSpeaking{
-        synth.stopSpeaking(at: .immediate)
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        synPronounce()
+            synth.stopSpeaking(at: .immediate)
+            
+            /*
+             //NSObject.cancelPreviousPerformRequests(withTarget: self)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
+             */
+            alreadyPlayTimes = 0
+            synPronounce()
         }
     }
     
@@ -783,7 +1126,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         return engWordsSelected.count
     }
     
-
+    
     
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -792,7 +1135,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath)
         
         
-      
+        
         let syllableLabel = cell.viewWithTag(1) as! UILabel
         let engWordLabel = cell.viewWithTag(2) as! UILabel
         let partOfSpeechLabel = cell.viewWithTag(3) as! UILabel
@@ -803,7 +1146,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row].components(separatedBy: .decimalDigits)
         //let syllableNum = syllablesSelected[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
-
+        
         
         //抓字
         let engWords = engWordsSelected[indexPath.row]
@@ -937,7 +1280,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //chiWordLabel.text = "(" + partOfSpeech + ")" + " " +  chiWord
         chiWordLabel.text = chiWord
-
+        
         partOfSpeechLabel.adjustsFontSizeToFitWidth = true
         partOfSpeechLabel.text = partOfSpeech
         syllableLabel.adjustsFontSizeToFitWidth = true
@@ -961,29 +1304,49 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //立即停止發音 & 停止上次動作
-        synth.stopSpeaking(at: .immediate)
-        //NSObject.cancelPreviousPerformRequests(withTarget: self)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
-
-              synEngWord = engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
         
-
-      
-         synChiWord = chiWordsSelected[indexPath.row]
+        alreadyPlayTimes = 0
+        currentWordIndex = indexPath.row
+        
+        
+        
+        //以下方法似乎不需要
+        //NSObject.cancelPreviousPerformRequests(withTarget: self)
+        
+        
+        synth.stopSpeaking(at: .immediate)
+        synth.delegate = nil
+        synth.delegate = self
+        /*
+         do{
+         try AVAudioSession.sharedInstance().setActive(false)
+         } catch{
+         
+         
+         }
+         */
+        
+        /*
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
+         */
+        
+        synEngWord = engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
+        synChiWord = chiWordsSelected[indexPath.row]
         
         if isPlaySentence{
-          synEngSen = engSenSelected[indexPath.row]
-        synChiSen = chiSenSelected[indexPath.row]
+            synEngSen = engSenSelected[indexPath.row]
+            synChiSen = chiSenSelected[indexPath.row]
         }else {
             
             synEngSen = ""
             synChiSen = ""
         }
-        synPronounce()
         
+        
+        synPronounce()
         
         let row = tableView.cellForRow(at: indexPath)
         UIView.animate(withDuration: 0.2, animations: {[weak self] in
@@ -998,117 +1361,96 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     
                 }
         })
+        let index = IndexPath(row: indexPath.row, section: 0)
+        tableView.scrollToRow(at: index, at: .middle, animated: true)
         
     }
     
-
-
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-      
-        
- 
-    }
+    
+    
     
     //用以下兩個方法來檢測scroll暫停時間
     
-    var isCollectionViewSelectabel = true
+    
     @objc func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        //滾動時不能選擇
         isCollectionViewSelectabel = false
+        
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidEndDecelerating(_:)), object: nil)
         //NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(NewBookViewController.scrollViewDidEndDecelerating(_:)), with: nil, afterDelay: 0.1)
         
     }
-    /*
-  @objc  func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
     
-    NSObject.cancelPreviousPerformRequests(withTarget: self)
-    print("did end scrolling")
     
-    //抓出畫面出現的cell
-    let cells = tableView.visibleCells
-    //抓最後那個cell的音節
-    let sylTextLabel = cells[2].viewWithTag(1) as! UILabel
-    
-    //指定一個數字, 去找符合音節的字
-    var indexToChange:Int?
-    for i in 0 ..< sylArray.count{
+    @objc func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
-        if sylArray[i] == sylTextLabel.text!{
-            
-            indexToChange = i
-            
-        }
-    }
-    
-    //假如找到的話就做collecitonView更新
-    if indexToChange != nil {
-        //設定選項顏色
-        for c in 0 ..< collectionTouched.count{
-            
-            collectionTouched[c] = 0
-        }
-        collectionTouched[indexToChange!] = 1
-        
-    }
-    isScrolling = true
-    
-    
-    collectionView.reloadData()
-        
-    }
-    */
-    
-   @objc func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
+        //滾動停止可以選擇
         isCollectionViewSelectabel = true
-    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidScroll(_:)), object: nil)
-    print("did end scrolling")
-    
-    //抓出畫面出現的cell
-    let cells = tableView.visibleCells
-    //抓最後那個cell的音節
-    
-    var sylTextLabel = UILabel()
-    if cells.count > 3 {
-    sylTextLabel = cells[2].viewWithTag(1) as! UILabel
-        print("index:2")
-    } else {
-    sylTextLabel = cells[cells.count - 1].viewWithTag(1) as! UILabel
         
-        print("index\(cells.count - 1)")
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidScroll(_:)), object: nil)
+        print("did end scrolling")
+        
+        //用這個func來決定collectionView Cell要顯示哪個
+        findMatchCollectionCell()
+        
     }
     
-    //指定一個數字, 去找符合音節的字
-    var indexToChange:Int?
-    for i in 0 ..< sylArray.count{
+    
+    
+    //決定collectionView 那個cell被選擇
+    func findMatchCollectionCell(){
         
-        if sylArray[i] == sylTextLabel.text!{
+        if engWordsSelected.count > 0 {
+        
+        if let cells = tableView.visibleCells as [UITableViewCell]?{
             
-            indexToChange = i
+            //抓最後那個cell的音節
+            //定義音節的label, 有可能因為無值而找不到
+            var sylTextLabel = UILabel()
             
-        }
-    }
-    
-    //假如找到的話就做collecitonView更新
-    if indexToChange != nil {
-        //設定選項顏色
-        for c in 0 ..< collectionTouched.count{
+            if cells.count > 2 {
+                sylTextLabel = cells[1].viewWithTag(1) as! UILabel
+                
+            } else if cells.count > 0{
+                sylTextLabel = cells[cells.count - 1].viewWithTag(1) as! UILabel
+            }
             
-            collectionTouched[c] = 0
-        }
-        collectionTouched[indexToChange!] = 1
-        
-    }
-    isScrolling = true
-    
-    
-    collectionView.reloadData()
-        
-    }
+            
+            //指定一個數字, 去找符合音節的字
+            var indexToChange = Int()
+         
+                for i in 0 ..< sylArray.count{
+                    
+                    if sylArray[i] == sylTextLabel.text! {
+                        indexToChange = i
+                    }
+                }
+            
+            //假如找到的話就做collecitonView更新
+                //設定選項顏色
+                for c in 0 ..< collectionTouched.count{
+                    
+                    collectionTouched[c] = 0
+                }
+                
+                collectionTouched[indexToChange] = 1
 
+        }
+        } else {
+            
+            //找不到任何字, 把所有collection cell選項歸零
+            for c in 0 ..< collectionTouched.count{
+                collectionTouched[c] = 0
+            }
+        }
     
+        //重整collectionView
+        isScrolling = true
+        collectionView.reloadData()
+
+    }
     
     
     @available(iOS 6.0, *)
@@ -1120,25 +1462,22 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-
         if isCollectionViewSelectabel{
-        //設定選項顏色
-        for i in 0 ..< collectionTouched.count{
-            collectionTouched[i] = 0
-
-        }
-        collectionTouched[indexPath.row] = 1
-        
-        //指定文字
-        collectionSelectedIndex = indexPath.row
-
-        isScrolling = false
-    
-        collectionView.reloadData()
+            //設定選項顏色
+            for i in 0 ..< collectionTouched.count{
+                collectionTouched[i] = 0
+                
+            }
+            collectionTouched[indexPath.row] = 1
+            
+            //指定文字
+            collectionSelectedIndex = indexPath.row
+            
+            isScrolling = false
+            
+            collectionView.reloadData()
         }
     }
-
-    
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     @available(iOS 6.0, *)
@@ -1151,13 +1490,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let blueBall = cell.viewWithTag(2) as! UIImageView
         let sylText = cell.viewWithTag(1) as!UILabel
         let sylToDisplay = sylArray[indexPath.row]
+        
         sylText.text = sylToDisplay
         sylText.textColor = btnOffColor
         
         sylSelected = sylArray[collectionSelectedIndex!]
         
         if !isScrolling{
-        jumpToRow(sylSelected: sylSelected!)
+            jumpToRow(sylSelected: sylSelected!)
         }
         
         
@@ -1172,23 +1512,23 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         return cell
         
     }
-
+    
     func jumpToRow(sylSelected:String){
-
-         var onlySylTextArray = [String]()
+        
+        var onlySylTextArray = [String]()
         
         //抓當下的元素
         for i in 0 ..< syllablesSelected.count{
-
+            
             let syllableText = syllablesSelected[i].components(separatedBy: .decimalDigits)
             
             onlySylTextArray.append(syllableText[0])
             
         }
-      
+        
         //找對應的row, 並跳過去
         for i in 0 ..< onlySylTextArray.count{
-
+            
             //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
             if onlySylTextArray[i] == sylSelected{
                 
@@ -1198,26 +1538,32 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let index = IndexPath(row: 0, section: 0)
                         
                         tableView.scrollToRow(at: index, at: .top, animated: true)
-               
+                        
                         
                     } else {
                         
                         let index = IndexPath(row: i - 1, section: 0)
                         tableView.scrollToRow(at: index, at: .bottom, animated: true)
-           
+                        
                         
                     }
-
+                    
                 }
             }
-
+            
         }
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {
-        if synth.isSpeaking{
+        
         synth.stopSpeaking(at: .immediate)
-        }
+        /*
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
+         */
+        synth.delegate = nil
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -1231,86 +1577,113 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //syn發音
     func synPronounce(){
         
-        
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
             
         } catch  {
             
         }
-
-    
-        DispatchQueue.main.async {[weak self] in
-            
-         
-            self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-            
-            switch self!.speakTimes{
-         
-            case 2:
-                 self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-            case 3:
-                self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-                self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-            default:
-                break
-                
-            }
-            
-            self!.perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+        //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
         
-                         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-                       self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-            
-            switch self!.speakTimes{
-                
-            case 2:
-                self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-                self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-                
-            case 3:
-                self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-                self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-                
-                self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-                self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-                
-            default:
-                break
-                
-            }
-            
-        }
-
+        pronounceEng()
+        
+        /*
+         
+         DispatchQueue.main.async {[weak self] in
+         
+         
+         
+         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+         
+         
+         switch self!.speakTimes{
+         
+         case 2:
+         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+         case 3:
+         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+         default:
+         break
+         
+         }
+         
+         self!.perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+         
+         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
+         
+         switch self!.speakTimes{
+         
+         case 2:
+         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
+         
+         case 3:
+         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
+         
+         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
+         
+         default:
+         break
+         
+         }
+         
+         }
+         */
         
     }
-
+    
+    
+    var step = 1
     @objc func pronounceEng(){
+        
+        alreadyPlayTimes += 1
+        step = 1
         let engWord = AVSpeechUtterance(string: synEngWord)
         engWord.voice = AVSpeechSynthesisVoice(language: "en-US")
         engWord.rate = Float(speakRate)
         synth.speak(engWord)
+        print("already:\(alreadyPlayTimes)")
         
     }
     
     @objc func pronounceChi(){
         
+        step = 2
         let chiWord = AVSpeechUtterance(string:synChiWord)
         chiWord.voice = AVSpeechSynthesisVoice(language: "zh-TW")
         chiWord.rate = 0.5
         synth.speak(chiWord)
         
+        
     }
+    
+    //英文句子念完才算結束
+    
     @objc func pronounceEngSen(){
         
+        
+        step = 3
         let engSen = AVSpeechUtterance(string:synEngSen)
         engSen.voice = AVSpeechSynthesisVoice(language: "en-US")
         engSen.rate = Float(speakRate)
         synth.speak(engSen)
         
     }
+    
+    
     @objc func pronounceChiSen(){
+        
+        
+        alreadyPlayTimes += 1
+        step = 4
+        
+        print("alreadyPlay:\(alreadyPlayTimes)")
         
         let chiSen = AVSpeechUtterance(string:synChiSen)
         chiSen.voice = AVSpeechSynthesisVoice(language: "zh-TW")
@@ -1320,16 +1693,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     }
     
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 

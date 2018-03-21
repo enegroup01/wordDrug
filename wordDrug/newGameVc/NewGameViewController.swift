@@ -861,7 +861,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
                 //製作tags
                 var sentenceTag = self!.sentence.components(separatedBy: " ")
-                sentenceTag.shuffled()
+            print("tags:\(sentenceTag)")
+            sentenceTag.shuffled()
                 for w in sentenceTag{
                     
                     self!.tagView.addTag(w)
