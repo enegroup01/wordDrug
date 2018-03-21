@@ -146,6 +146,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //目前播放過幾次
     var alreadyPlayTimes = 0
 
+    //發音階段
+    var step = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -573,7 +575,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //不產生動畫的reload
         tableView.reloadData()
- findMatchCollectionCell()
+ 
+        findMatchCollectionCell()
         
     }
     
@@ -635,7 +638,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         tableView.reloadData()
-findMatchCollectionCell()
+        findMatchCollectionCell()
     }
     
     //上方segMent選擇
@@ -665,14 +668,16 @@ findMatchCollectionCell()
                 engWordsSelected.removeLast()
             }
             
-            
             tableView.reloadData()
             findMatchCollectionCell()
+            
         case 1:
             
             
             likeMode = false
             //讀取錯字
+            
+            //內包含findMatch
             loadMyWrongWords()
             
             
@@ -680,7 +685,7 @@ findMatchCollectionCell()
             
             
             likeMode = true
-            //把所有的func包起來, 供刪除最愛單字即時更新畫面使用
+            //內包含findMatch
             loadMyFavWords()
             
         default:
@@ -692,21 +697,13 @@ findMatchCollectionCell()
     }
     
     
-    //重複播放鍵
+    //自動播放鍵
     @IBAction func playClicked(_ sender: Any) {
         
         if isAutoPlay{
             
             //立即停止發音 & 停止上次動作
-            synth.stopSpeaking(at: .immediate)
-            
-            /*
-             //NSObject.cancelPreviousPerformRequests(withTarget: self)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
-             */
+            stopSpeech()
             
             autoPlayText.textColor = btnOffColor
             autoPlayImg.image = UIImage(named:"bookPlayOff.png")
@@ -716,16 +713,9 @@ findMatchCollectionCell()
             
             
         } else {
+
             //立即停止發音 & 停止上次動作
-            synth.stopSpeaking(at: .immediate)
-            
-            /*
-             //NSObject.cancelPreviousPerformRequests(withTarget: self)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
-             */
+            stopSpeech()
             
             autoPlayText.textColor = btnOnColor
             autoPlayImg.image = UIImage(named:"bookPlayOn.png")
@@ -821,34 +811,35 @@ findMatchCollectionCell()
     }
     
     
+    //播放完每次發音後的行為, 在此控制所有發音順序
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         
+       
         switch step{
-            
+         
+        //英單
         case 1:
             
             switch speakTimes{
             case 1:
-                print("speakTimes:1")
-                //perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+
                 alreadyPlayTimes = 0
                 pronounceChi()
                 
                 
             case 2:
-                
-                print("speakTimes:2")
+   
                 switch alreadyPlayTimes{
                     
                 case 1:
-                    //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+            
                     pronounceEng()
-                    print("play one")
+      
                 case 2:
-                    //perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+    
                     alreadyPlayTimes = 0
                     pronounceChi()
-                    print("play two")
+       
                 default:
                     break
                     
@@ -857,29 +848,26 @@ findMatchCollectionCell()
             case 3:
                 switch alreadyPlayTimes{
                 case 1:
-                    //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
                     pronounceEng()
                 case 2:
-                    //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+              
                     pronounceEng()
                 case 3:
-                    //perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
+            
                     alreadyPlayTimes = 0
                     pronounceChi()
                     
                 default:
                     break
-                    
-                    
+
                 }
             default:
                 break
                 
             }
-            print("1")
-            
+         
+      //中單
         case 2:
-            
             
             //假如不播放句子, 就直接重播
             if !isPlaySentence{
@@ -889,20 +877,23 @@ findMatchCollectionCell()
                 }
             } else {
                 
+                
+                //英句
                 //或者往下播放句子
                 pronounceEngSen()
-                print("2")
+
             }
             
-            
-            
+        
+            //中句
         case 3:
-            perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
+   
+            pronounceChiSen()
             
-            
-            print("3")
+
+            //是否重播
         case 4:
-            print("4")
+
             
             
             switch speakTimes{
@@ -916,7 +907,7 @@ findMatchCollectionCell()
                 
                 switch alreadyPlayTimes{
                 case 1:
-                    //perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+
                     pronounceEngSen()
                 case 2:
                     
@@ -935,12 +926,11 @@ findMatchCollectionCell()
                 switch alreadyPlayTimes{
                     
                 case 1:
-                    
-                    //perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+
                     pronounceEngSen()
                 case 2:
                     
-                    //perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
+
                     pronounceEngSen()
                 case 3:
                     
@@ -959,34 +949,6 @@ findMatchCollectionCell()
                 break
                 
             }
-            
-            
-            
-            /*
-             case 5:
-             print("word2")
-             if speakTimes == 2{
-             //往下了
-             pronounceChi()
-             alreadyPlayTimes = 0
-             } else {
-             //再發音一次
-             pronounceEng()
-             alreadyPlayTimes += 1
-             
-             }
-             
-             case 6:
-             print("word3")
-             case 7:
-             print("engSen2")
-             case 8:
-             print("chiSen2")
-             case 9:
-             print("engSen3")
-             case 10:
-             print("chiSen3")
-             */
             
         default:
             break
@@ -1105,15 +1067,11 @@ findMatchCollectionCell()
         //立即停止發音 & 停止上次動作
         
         if synth.isSpeaking{
-            synth.stopSpeaking(at: .immediate)
+
+            //立即停止
+            stopSpeech()
             
-            /*
-             //NSObject.cancelPreviousPerformRequests(withTarget: self)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
-             */
+            //再次播放
             alreadyPlayTimes = 0
             synPronounce()
         }
@@ -1308,30 +1266,7 @@ findMatchCollectionCell()
         alreadyPlayTimes = 0
         currentWordIndex = indexPath.row
         
-        
-        
-        //以下方法似乎不需要
-        //NSObject.cancelPreviousPerformRequests(withTarget: self)
-        
-        
-        synth.stopSpeaking(at: .immediate)
-        synth.delegate = nil
-        synth.delegate = self
-        /*
-         do{
-         try AVAudioSession.sharedInstance().setActive(false)
-         } catch{
-         
-         
-         }
-         */
-        
-        /*
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
-         */
+        stopSpeech()
         
         synEngWord = engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
         synChiWord = chiWordsSelected[indexPath.row]
@@ -1378,7 +1313,7 @@ findMatchCollectionCell()
         isCollectionViewSelectabel = false
         
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidEndDecelerating(_:)), object: nil)
-        //NSObject.cancelPreviousPerformRequests(withTarget: self)
+
         perform(#selector(NewBookViewController.scrollViewDidEndDecelerating(_:)), with: nil, afterDelay: 0.1)
         
     }
@@ -1390,7 +1325,7 @@ findMatchCollectionCell()
         isCollectionViewSelectabel = true
         
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidScroll(_:)), object: nil)
-        print("did end scrolling")
+
         
         //用這個func來決定collectionView Cell要顯示哪個
         findMatchCollectionCell()
@@ -1556,13 +1491,8 @@ findMatchCollectionCell()
     
     @IBAction func backBtnClicked(_ sender: Any) {
         
+        
         synth.stopSpeaking(at: .immediate)
-        /*
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChi), object: nil)
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEng), object: nil)
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceChiSen), object: nil)
-         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.pronounceEngSen), object: nil)
-         */
         synth.delegate = nil
         self.dismiss(animated: true, completion: nil)
     }
@@ -1573,73 +1503,37 @@ findMatchCollectionCell()
     }
     
     
+    //重設synth & 他的delegate
+    func stopSpeech(){
+        
+        if synth.isSpeaking{
+            
+            synth.stopSpeaking(at: .immediate)
+            synth = AVSpeechSynthesizer()
+            synth.delegate = self
+            
+        }
+    }
     
     //syn發音
     func synPronounce(){
         
         do {
-            
+
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
             
         } catch  {
             
         }
-        //perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
+       
         
         pronounceEng()
         
-        /*
-         
-         DispatchQueue.main.async {[weak self] in
-         
-         
-         
-         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-         
-         
-         switch self!.speakTimes{
-         
-         case 2:
-         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-         case 3:
-         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-         self!.perform(#selector(NewBookViewController.pronounceEng), with: nil, afterDelay: 0.5)
-         default:
-         break
-         
-         }
-         
-         self!.perform(#selector(NewBookViewController.pronounceChi), with: nil, afterDelay: 0.5)
-         
-         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-         
-         switch self!.speakTimes{
-         
-         case 2:
-         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-         
-         case 3:
-         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-         
-         self!.perform(#selector(NewBookViewController.pronounceEngSen), with: nil, afterDelay: 0.5)
-         self!.perform(#selector(NewBookViewController.pronounceChiSen), with: nil, afterDelay: 0.5)
-         
-         default:
-         break
-         
-         }
-         
-         }
-         */
         
     }
     
     
-    var step = 1
     @objc func pronounceEng(){
         
         alreadyPlayTimes += 1
