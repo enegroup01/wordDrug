@@ -80,7 +80,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         mapNumToPass = indexPath.row + 1
         
         //在此先暫時預設mapPassed...之後要寫在過關時做儲存
-        mapPassed = 2
+        mapPassed = 4
         
         //有過地圖才能進關卡
         if mapPassed! >= indexPath.row {

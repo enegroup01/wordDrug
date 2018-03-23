@@ -19,11 +19,11 @@ let practiceNextWordKey = "practiceNextWord"
 let startCountDownKey = "startCountDown"
 let timesUpKey = "timesUp"
 
-
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate  {
     
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
+    let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
     
     //顯示辨識字的label
     @IBOutlet weak var recogTextLabel: UILabel!
@@ -138,6 +138,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let word2Label = UILabel()
     let word3Label = UILabel()
 
+    let inCircle = UIImageView()
+    let midCircle = UIImageView()
+    let outCircle = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,7 +163,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         thirdWordBtn.isEnabled = false
         
         
-        
+        //做三個對話圓
+     /*
+        outCircle.frame.size = CGSize(width: 230, height: 230)
+        outCircle.center = CGPoint(x: 187, y: 500)
+        outCircle.image = UIImage(named:"outCircle.png")
+        view.addSubview(outCircle)
+        midCircle.frame.size = CGSize(width: 150, height: 150)
+        midCircle.center = CGPoint(x: 187, y: 500)
+        midCircle.image = UIImage(named:"midCircle.png")
+        view.addSubview(midCircle)
+        inCircle.frame.size = CGSize(width: 90, height: 90)
+        inCircle.center = CGPoint(x: 187, y: 500)
+        inCircle.image = UIImage(named:"inCircle.png")
+        view.addSubview(inCircle)
+        */
         word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
         word1Label.textColor = .white
         word1Label.font = UIFont(name: "Helvetica Bold", size: 14)
@@ -214,10 +231,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.isHidden = true
         audioView.backgroundColor = .clear
         audioView.density = 1
-        audioView.numberOfWaves =  1
+        audioView.numberOfWaves =  2
+        audioView.secondaryLineWidth = 0.5
         audioView.amplitude = 0.1
-        audioView.alpha = 0.5
-        audioView.waveColor = .darkGray
+        audioView.alpha = 0.7
+        audioView.waveColor = waveColor
         
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -627,11 +645,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         //發音
         synPronounce()
-        
-
-        
-
-
     }
     
     @objc func notifyStartCountDown(){
@@ -986,6 +999,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //準備練習句子
         //顯示按鈕, 顯示label
         recordBtn.isHidden = false
+        
         recogTextLabel.isHidden = false
         
         //回復錄音輸入的單字或句子
