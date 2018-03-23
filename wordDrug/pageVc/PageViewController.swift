@@ -66,20 +66,24 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
     
     
     //以下為各地圖的音節
-    let map1SyllableSets =  [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
-                             ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
-                             ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
-                             ["ck1","cl1","co1","com1","con1","cian1","cr1","ct1","de1","di1"],
-                             ["do1","dr1","dy1","dis1","ea1","ee1","el1","em1","en1","er1"],
-                             ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
-                             ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
-                             ["il1","im1","in1","ing1","ir1","is1","ject1","kn1","le1","li1"],
-                             ["ly1","mi1","nd1","no1","nt1","oa1","ob1","o_e1","of1","oi1"],
-                             ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
-                             ["ph1","pi1","pl1","pr1","cop1","re1","ro1","ry1","sh1","si1"],
-                             ["sk1","so1","sp1","st1","sion1","th1","ti1","tion1","tive1","tle1"],
-                             ["to1","tr1","ture1","ty1","ub1","u_e1","ui1","um1","un1","up1"],
-                             ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
+    
+    //***前三張地圖的第15行探索點syllable都是先亂打的.....之後要改變
+    let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
+                            ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
+                            ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
+                            ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
+                            ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
+                            ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
+                            ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+                            ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
+                            ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
+                            ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
+                            ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
+                            ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
+                            ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
+                            ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
+                            ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+    
     
     let map2SyllableSets = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
                             ["bo2","bu2","ce2","ch2","ck2","cl2","co2","com2","cr2", "con2"],
@@ -94,7 +98,8 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
                             ["ea3","ee3","el3","em3","en3","er3","et3","ex3","ey3","con3"],
                             ["i_e3","igh3","im3","in3","ing3","ir3","o_e3","oa3","oi3", "ge3"],
                             ["on3","ong3","oo3","op3","or3","ot3","ou3","ow3","pr3","gar1"],
-                            ["re3","sh3","st3","th3","tion3","tr3","ty3","u_e3","ui3","ry3"]]
+                            ["re3","sh3","st3","th3","tion3","tr3","ty3","u_e3","ui3","ry3"],
+                            ["er37","er38","er39","er40","er41","er42","er43","er44","er45","er46"]]
     
     let map3SyllableSets = [["un3","ur3","wh3","a_e4","ad4","ai4","al4","am4","an4","um3"],
                             ["ar4","au4","ay4","ce4","ch4","ck4","ea4","ee4","el4","em4"],
@@ -109,7 +114,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
                             ["er6","i_e6","in6","ing6","o_e6","oo6","or6","ou6","ow6","oa6"],
                             ["pr6","buy1","sh6","st6","th6","un6","ur6","a_e7","ai7","tion6"],
                             ["al7","am7","an7","ar7","ay7","ch7","ea7","ee7","el7","ce7"],
-                            ["en7","er7","i_e7","in7","ing7","oo7","or7","ou7","ow7","gy1"]]
+                            ["en7","er7","i_e7","in7","ing7","oo7","or7","ou7","ow7","gy1"],["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","af2","ai2"]]
     
     let map4SyllableSets = [["sh7","st7","th7","a_e8","ai8","al8","am8","an8","ar8","ay8"],
                             ["ce8","ea8","ee8","el8","en8","er8","i_e8","in8","ing8","ch8"],
@@ -140,15 +145,15 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
                             ["ea24","en24","er24","or24","en25","er25","ea25","ea26","en26","or25"],
                             ["er26","ea27","en27","er27","ea28","en28","er28","ea29","en29","er29"],
                             ["ea30","en30","er30","ea31","er31","ea32","er32","ea33","er33","en31"]]
-    
+
     //紀錄所有音節不包含數字
     var pageSyllables = [String]()
     
     //紀錄所有球的名字, 包含數字, 供之後進入關卡使用
     var pageNames = [String]()
     
-    //測試用總頁數, 應該設為count數量, 以目前英檢初來說都是14頁
-    var totalPages = 14
+    //測試用總頁數, 應該設為count數量, 以目前英檢初來說都是15頁
+    var totalPages = 15
     
     //目前頁數
     var currentPage = Int()
@@ -224,7 +229,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         self.view.bringSubview(toFront: page3)
         
         //在此確認已過關卡
-        gamePassed = [13:9]
+        gamePassed = [14:9]
         
         //集合所有的球
         balls.append(ball0)

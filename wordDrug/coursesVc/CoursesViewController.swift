@@ -41,6 +41,20 @@ class CoursesViewController: UIViewController {
         performSegue(withIdentifier: "toNewBookVc", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        /*
+        if segue.identifier == "toNewBookVc"{
+            
+            let destinationVc = segue.destination as! NewBookViewController
+            
+            //之後這裡要傳送的是課程名稱
+
+            
+        }
+        */
+    }
+    
     /*
     // MARK: - Navigation
 

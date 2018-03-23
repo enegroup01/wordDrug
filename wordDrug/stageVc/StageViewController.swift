@@ -28,8 +28,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
     }
     
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -78,36 +76,29 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print(indexPath.row)
         //傳送地圖數字
         mapNumToPass = indexPath.row + 1
         
-        performSegue(withIdentifier: "toPageVc", sender: self)
-
+        //在此先暫時預設mapPassed...之後要寫在過關時做儲存
+        mapPassed = 2
         
-        /*
-        let when = DispatchTime.now() + 0.5
-        
-        //跳轉畫面
-        DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
-            self!.performSegue(withIdentifier: "toPageVc", sender: self)
-        })
-        */
+        //有過地圖才能進關卡
+        if mapPassed! >= indexPath.row {
     
+            performSegue(withIdentifier: "toPageVc", sender: self)
+        }
+    
+        
     }
     
-    
-    
+
+    //重送地圖編號
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        
-        
         if segue.identifier == "toPageVc"{
             let destinationVC = segue.destination as! PageViewController
              destinationVC.mapNumToReceive = mapNumToPass
-
         }
-        
     }
     
     /*

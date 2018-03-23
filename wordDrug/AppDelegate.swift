@@ -9,6 +9,9 @@
 import UIKit
 
 var user : NSDictionary?
+var mapPassed:Int?
+var gamePassed:[Int:Int]?
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,10 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
-        // INSERT THIS LINE BELOW.
-        
-      
-      
+
         
         //抓使用者檔案
         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
@@ -35,6 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //跳轉到角色畫面
                 
                 toStats()
+                
+                if mapPassed == nil{
+                    
+                    mapPassed = 0
+                    let userDefaults = UserDefaults.standard
+                    userDefaults.set(mapPassed!, forKey: "mapPassed")
+                }
                 
                 if gamePassed == nil {
                     //第一次玩

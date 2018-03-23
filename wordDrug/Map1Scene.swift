@@ -9,7 +9,6 @@
 import SpriteKit
 import GameplayKit
 
-var gamePassed:[Int:Int]?
 
 class Map1Scene: SKScene {
     
