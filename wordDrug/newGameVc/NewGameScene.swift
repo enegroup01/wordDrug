@@ -728,8 +728,13 @@ class NewGameScene: SKScene {
                     
                     
                     //發音NC
+                    /*
                     let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
+                    */
+                    let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":2]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
+                    
                     
                     self!.practice()
                     
@@ -923,7 +928,21 @@ class NewGameScene: SKScene {
                     
                     
                     //發音, 用再seq > 0, backToSpell, practiceNextWord
+                    /*
                     let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
+                    */
+                    
+                    
+                    var speakTime = Int()
+                    if self!.isBackToSpell{
+                        speakTime = 1
+                        
+                    } else {
+                        
+                        speakTime = 2
+                    }
+                    let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":speakTime]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     
                     //等一下再變黑
@@ -1521,7 +1540,13 @@ class NewGameScene: SKScene {
                          
                             //第一次練習, 非聽考模式
                             
+                            /*
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: nil)
+                            */
+                            //發音
+                            let contents:[String:Int] = ["pronounceTime":1]
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: contents)
+
                             
                             //初始化
                             shownWords.removeAll(keepingCapacity: false)

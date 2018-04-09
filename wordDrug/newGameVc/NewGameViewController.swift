@@ -656,6 +656,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //接收發音單字
     
+    /*
     @objc func pronounceWord(_ notification: NSNotification){
 
         if let wordToPronunce = notification.userInfo?["wordToPass"] as? String {
@@ -666,7 +667,28 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //發音
         synPronounce()
     }
-    
+    */
+    var pronounceTime = Int()
+    @objc func pronounceWord(_ notification: NSNotification){
+        
+        //一定要指定要說幾次
+        guard let speakTime = notification.userInfo?["pronounceTime"] as? Int else{
+            return
+        }
+        pronounceTime = speakTime
+        
+        //要發音的單字或句子可有可無
+        if let wordToPronunce = notification.userInfo?["wordToPass"] as? String {
+            
+            //設訂發音的單字
+            synWord = wordToPronunce
+            
+            
+        }
+        //發音
+        synPronounce()
+    }
+
     @objc func notifyStartCountDown(){
         
         
@@ -1248,6 +1270,75 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //syn發音
     func synPronounce(){
         
+
+        
+        do {
+            
+            //設置成ambient看能不能避免任何interruption 造成當機
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+        } catch  {
+            print("error")
+        }
+        
+        
+        let string = synWord
+        
+        var rateFloat = Float()
+        
+        let utterance = AVSpeechUtterance(string: string)
+        let utterance2 = AVSpeechUtterance(string: string)
+        
+        if string.contains(" "){
+            
+            rateFloat = 0.4
+            print("唸句子")
+            
+            utterance.postUtteranceDelay = 1
+            
+        } else {
+            print("唸單字")
+            rateFloat = 0.45
+            utterance.postUtteranceDelay = 0
+        }
+        
+        
+        utterance2.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance2.rate = rateFloat
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = rateFloat
+        
+        //發音等待時間
+        let when = DispatchTime.now() + 2.7
+        
+        DispatchQueue.main.async {[weak self] in
+            
+            guard let strongSelf = self else{
+                return
+            }
+            
+            strongSelf.synth.speak(utterance)
+            
+            
+            if strongSelf.pronounceTime == 2 {
+                
+                DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                    strongSelf.synth.speak(utterance2)
+                })
+                
+            }
+        }
+        
+        
+    }
+
+    
+    /*
+    //syn發音
+    func synPronounce(){
+        
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
@@ -1265,6 +1356,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         synth.speak(utterance)
 
     }
+ 
+ */
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
      
