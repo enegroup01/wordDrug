@@ -2407,10 +2407,15 @@ class NewGameScene: SKScene {
 
         }
         
+        let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":2]
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
+        
+        /*
         let wordSequenceToPass:[String:String] = ["currentWordSequence":String(currentWordSequence)]
 
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
-        
+        */
         isDragAndPlayEnable = false
         
     }
