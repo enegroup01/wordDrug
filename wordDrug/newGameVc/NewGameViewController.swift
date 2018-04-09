@@ -905,6 +905,154 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    //檢查句子
+    /*
+    func checkSentence(){
+        
+        var attrSentence = NSMutableAttributedString()
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.magenta]
+        
+        var recorded = [String]()
+        var received = [String]()
+        var completeWords = [String]()
+        
+        recorded = wordRecorded.components(separatedBy: " ")
+        received = wordToReceive.components(separatedBy: " ")
+        completeWords = completeWordsToShow.components(separatedBy: " ")
+        
+        
+        //寫一個對答案比例的func
+        var finalPoints = Int()
+        let unitPoint = 100 / received.count
+        var pointGet = Int()
+        var pointMinus = Int()
+        
+        //計分算法, 基本上還是要按照順序來計算
+        if recorded == received{
+            
+            finalPoints = 100
+            
+        } else {
+            
+            for i in 0 ..< received.count{
+                
+                
+                if i < recorded.count{
+                    if recorded[i] == received[i]{
+                        if i == 0 {
+                            
+                            attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs0)
+                        } else {
+                            
+                            attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs0))
+                        }
+                        
+                    } else {
+                        
+                        if i == 0 {
+                            
+                            attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1)
+                        } else {
+                            
+                            attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1))
+                        }
+                    }
+                } else {
+                    
+                    
+                    if i == 0 {
+                        
+                        attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1)
+                    } else {
+                        
+                        attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1))
+                    }
+                }
+                
+                for r in 0 ..< recorded.count{
+                    
+                    if recorded[r] == received[i]{
+                        
+                        //假如有字對到
+                        
+                        pointGet += 1
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            //顯示正確與否
+            recogTextLabel.attributedText = attrSentence
+            
+            //避免分數超過
+            if pointGet > received.count{
+                pointGet = received.count
+            }
+            
+            finalPoints = pointGet * unitPoint
+        }
+        
+        //如果輸入的字更多要扣分
+        if recorded.count > received.count{
+            
+            pointMinus = recorded.count  - received.count
+            finalPoints = finalPoints - pointMinus * unitPoint / 2
+            
+            if finalPoints < 0 {
+                finalPoints = 0
+            }
+            
+        }
+        
+        //結果決定圖片
+        /*
+         if finalPoints >= 70 {
+         recordBtn.setImage(UIImage(named:"recordCheck.png"), for: .normal)
+         } else{
+         recordBtn.setImage(UIImage(named:"recordCross.png"), for: .normal)
+         }
+         */
+        
+        //計算分數
+        var score = Int()
+        score = 500 * finalPoints / 100
+        
+        //都等一下反應
+        let when = DispatchTime.now() + 0.5
+        
+        //做選擇題
+        DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
+            
+            //製作tags
+            self!.sentenceTag = self!.sentence.components(separatedBy: " ")
+            
+            
+            self!.sentenceTag.shuffled()
+            for i in 0 ..< self!.sentenceTag.count{
+                
+                self!.tagView.addTag(self!.sentenceTag[i])
+            }
+            
+            //準備選擇題
+            self!.sentenceLabel.text = ""
+            //self!.recordBtn.isHidden = true
+            
+            //算分數 + 啟動tag的機制
+            let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
+            
+            
+        }
+        
+        
+    }
+    
+    */
     func checkWord(){
         
         if wordRecorded == wordToReceive{
