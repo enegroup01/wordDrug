@@ -142,6 +142,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let midCircle = UIImageView()
     let outCircle = UIImageView()
     
+    
+    //用來顯示正確答案的變數, 保留標點符號大小寫
+    var completeWordsToShow = String()
+    
+    var sentenceTag = [String]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -790,7 +796,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
-    func checkSentence(){
+    func checkSentence1(){
         
         var recorded = [String]()
         var received = [String]()
@@ -906,7 +912,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     //檢查句子
-    /*
+    
     func checkSentence(){
         
         var attrSentence = NSMutableAttributedString()
@@ -1052,7 +1058,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-    */
+    
     func checkWord(){
         
         if wordRecorded == wordToReceive{
