@@ -290,6 +290,9 @@ class NewGameScene: SKScene {
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyTimesUp), name: NSNotification.Name("timesUp"), object: nil)
 
         
+        //啟動顯示tagView
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowTag), name: NSNotification.Name("showTag"), object: nil)
+        
         //載入各種字
         loadAllKindsOfWord()
         
@@ -738,6 +741,10 @@ class NewGameScene: SKScene {
                 
         })
         
+        
+    }
+    
+    @objc func notifyShowTag(){
         
     }
     

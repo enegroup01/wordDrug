@@ -18,6 +18,8 @@ let backToSpellKey = "backToSpell"
 let practiceNextWordKey = "practiceNextWord"
 let startCountDownKey = "startCountDown"
 let timesUpKey = "timesUp"
+let showTagKey = "showTag"
+
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate  {
     
@@ -271,6 +273,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("timesUp"), object: nil)
 
         
+        //接收顯示tagView內容
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
+
+        
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
         recogTextLabel.isHidden = true
@@ -374,6 +380,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    
+    //顯示tagView
+    @objc func showTag(){
+        
+        tagView.isHidden = false
+        recogTextLabel.text = ""
+    }
+
     
     //最後選字的func
     /*
@@ -1053,6 +1067,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
             
             
+            //隱藏recordBtn
+            self!.recordBtn.isHidden = true
         }
         
         
