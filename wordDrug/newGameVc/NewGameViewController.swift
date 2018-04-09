@@ -1143,6 +1143,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         isCheckingSentence = true
         wordToReceive = sentence
         
+        //提供顯示用的答案, 包含標點符號及大小寫
+        completeWordsToShow = sentence
+        
         //移除標點符號
         wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
         

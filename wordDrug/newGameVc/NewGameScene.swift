@@ -850,7 +850,7 @@ class NewGameScene: SKScene {
             
             
         }
-        
+    
         
     }
     
