@@ -798,6 +798,7 @@ class NewGameScene: SKScene {
         
     }
     
+    /*
     @objc func addScore(_ notification:NSNotification){
         
         if let addScore = notification.userInfo?["addScore"] as? Int{
@@ -807,6 +808,52 @@ class NewGameScene: SKScene {
         
         
     }
+    */
+    
+    @objc func addScore(_ notification:NSNotification){
+        
+        if let addScore = notification.userInfo?["addScore"] as? Int{
+            
+            countScore(score: addScore)
+        }
+        
+        //有finalPoints就是要繼續tagPressed
+        if let finalPoints = notification.userInfo?["finalPoints"] as? Int{
+            
+            //顯示得分比例, 然後再倒數tag Question
+            
+            var color = String()
+            switch finalPoints{
+            case ..<70:
+                color = "red"
+            case 70...:
+                
+                color = "green"
+            default:
+                break
+            }
+            
+            
+                //顯示tag畫面
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showTag"), object: nil, userInfo: nil)
+                
+                //發音句子
+                
+                let contents:[String:Int] = ["pronounceTime":1]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: contents)
+                
+                //tag倒數
+                startCountDown()
+            
+            
+            
+            
+        }
+        
+        
+    }
+    
     
     @objc func notifyPronounceWord(){
         
