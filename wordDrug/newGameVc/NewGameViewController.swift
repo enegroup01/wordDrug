@@ -444,6 +444,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
              wordSequenceToReceive = sequenceToReceive
             
         }
+        if let speakTime = notification.userInfo?["pronounceTime"] as? Int{
+            
+            pronounceTime = speakTime
+        }
+        
         
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         recordBtn.isHidden = true
@@ -1175,7 +1180,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //句子發音
         synWord = sentence
-        synPronounce()
+   
         
         //接著要辨認句子
         isCheckingSentence = true
@@ -1203,6 +1208,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //對句子
         isCheckingSentence = true
 
+        
+        
+        synPronounce()
     }
     
     
@@ -1267,6 +1275,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
 
     
+
     //syn發音
     func synPronounce(){
         
@@ -1326,6 +1335,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 DispatchQueue.main.asyncAfter(deadline: when, execute: {
                     strongSelf.synth.speak(utterance2)
+
                 })
                 
             }
@@ -1360,14 +1370,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
  */
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
-     
+
         recordBtn.isEnabled = false
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
-     
-         recordBtn.isEnabled = true
+
+        recordBtn.isEnabled = true
+        
         
     }
     
