@@ -107,6 +107,7 @@ class NewGameScene: SKScene {
     let selectWordDarkColor = UIColor.init(red: 62/255, green: 60/255, blue: 61/255, alpha: 1)
     //分數顏色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
+    let hintWordBlue = UIColor.init(red: 52/255, green: 136/255, blue: 182/255, alpha: 1)
     
     
     
@@ -292,6 +293,14 @@ class NewGameScene: SKScene {
         
         //啟動顯示tagView
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowTag), name: NSNotification.Name("showTag"), object: nil)
+        
+        
+        //啟動顯示tagView
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.readyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
+        
+        //啟動顯示tagView
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyReadSentence), name: NSNotification.Name("readSentence"), object: nil)
+
         
         //載入各種字
         loadAllKindsOfWord()
@@ -496,10 +505,10 @@ class NewGameScene: SKScene {
         //英文單字的Node
         firstChiWordLabel.frame = CGRect(x: 187.5 + 375, y: 205, width: 90, height: 40)
         //firstChiWordLabel.backgroundColor = .green
-        firstChiWordLabel.textColor = .white
+        firstChiWordLabel.textColor = pinkColor
         firstChiWordLabel.textAlignment = .center
         firstChiWordLabel.adjustsFontSizeToFitWidth = true
-        firstChiWordLabel.font = UIFont(name: "Helvetica Neue", size: 25)
+        firstChiWordLabel.font = UIFont(name: "Helvetica Bold", size: 30)
         firstChiWordLabel.text = ""
         self.view?.addSubview(firstChiWordLabel)
         
@@ -751,6 +760,20 @@ class NewGameScene: SKScene {
     
     @objc func notifyShowTag(){
         
+    }
+    
+    @objc func readyToReadSentence(){
+        
+        hintSlideIn(leftText: "換你", rightText: "發音", waitTime: 1.3) {
+            
+             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readSentence"), object: nil, userInfo: nil)
+            
+        }
+    }
+    
+    @objc func notifyReadSentence(){
+        
+                findImageNode(name: "recogWordsBg").alpha = 1
     }
     
     @objc func startCountDown(){
@@ -1118,6 +1141,8 @@ class NewGameScene: SKScene {
             if let scoreToAdd = userInfo["Score"]{
                 let scoreLabel = findLabelNode(name: "scoreLabel")
               
+                let size = CGSize(width: 100, height: 100)
+        
                 
                 if scoreAdded < scoreToAdd {
                 
@@ -1127,6 +1152,7 @@ class NewGameScene: SKScene {
                     
                     scoreAdded = 0
                     countScoreTimer.invalidate()
+                    
                 }
                 
             }
@@ -1553,15 +1579,53 @@ class NewGameScene: SKScene {
                             shownWords.removeAll(keepingCapacity: false)
                             wordEntered.removeAll(keepingCapacity: false)
                             
+                            //選項alpha變淡+移除選項字
+                            for node in children{
+                                
+                                if (node.name?.contains("filledButton"))!{
+                                    changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                                    
+                                }
+                                
+                                if (node.name?.contains("emptyButton"))!{
+                                    changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                                }
+                                
+                                if (node.name?.contains("Sel"))!{
+                                    node.removeFromParent()
+                                }
+                                
+                            }
                             
-                            //口試
-                            recognizeWord()
                             
-                            //不能dragAndPlay
-                            isDragAndPlayEnable = false
-                            
-                            
+                           
                             countScore(score: 100)
+                            
+                            
+                            //在此卡一個正確動畫
+                            
+                            hintSlideIn(leftText: "很棒", rightText: "喔！", waitTime: 1, finished: {[weak self] in
+                                
+                                
+                                self!.hintSlideIn(leftText: "換你", rightText: "發音", waitTime: 1.5, finished: {
+                                    
+                                    //口試
+                                    //self!.recognizeWord()
+                                    //開始辨認單字NC
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: nil)
+                                    
+                                    //不能dragAndPlay
+                                    self!.isDragAndPlayEnable = false
+                                    
+                                })
+                                
+                            })
+                            
+                           
+        
+                            
+                            
+                    
                             
                            
                         }
@@ -1713,27 +1777,9 @@ class NewGameScene: SKScene {
     func recognizeWord(){
         
         //隱藏不需要的東西
-        //選項alpha變淡+移除選項字
-        for node in children{
-            
-            if (node.name?.contains("filledButton"))!{
-                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
-                
-            }
-            
-            if (node.name?.contains("emptyButton"))!{
-                changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
-            }
-            
-            if (node.name?.contains("Sel"))!{
-                node.removeFromParent()
-            }
-            
-        }
+
         
-        
-        //開始辨認單字NC
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: nil)
+      
         
         
     }
@@ -1813,7 +1859,7 @@ class NewGameScene: SKScene {
         //字隱藏
         
         //顯示錄音文字背景
-        findImageNode(name: "recogWordsBg").alpha = 1
+        //findImageNode(name: "recogWordsBg").alpha = 1
         
         firstEngWordLabel.text = ""
         firstChiWordLabel.text = ""
@@ -2328,9 +2374,9 @@ class NewGameScene: SKScene {
     //答對得分機制
     func rightScore(){
         
-        let cgPoint = CGPoint(x: 0, y: 70)
+        let cgPoint = CGPoint(x: 0, y: firstEngWordLabel.frame.origin.y)
         let flyUp = SKAction.move(to: cgPoint, duration: 0.3)
-        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.2)
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.3)
         
         let combine = SKAction.group([flyUp,fadeOut])
         

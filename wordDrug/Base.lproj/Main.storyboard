@@ -702,7 +702,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="140-yy-deB">
                                 <rect key="frame" x="16" y="304" width="343" height="55"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="40"/>
-                                <color key="textColor" red="0.46648036109703195" green="1" blue="0.22518633590651671" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.99607843160629272" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oi9-Ra-rUb" customClass="TagListView" customModule="wordDrug" customModuleProvider="target">
@@ -2628,7 +2628,7 @@
         <image name="newBookBg.png" width="375" height="667"/>
         <image name="playNow.png" width="470" height="146"/>
         <image name="questionMark.png" width="800" height="800"/>
-        <image name="recordBtn.png" width="256" height="257"/>
+        <image name="recordBtn.png" width="256" height="256"/>
         <image name="registerBtnImg.png" width="66" height="66"/>
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightButton.png" width="60" height="60"/>

@@ -21,6 +21,8 @@ let practiceNextWordKey = "practiceNextWord"
 let startCountDownKey = "startCountDown"
 let timesUpKey = "timesUp"
 let showTagKey = "showTag"
+let readyToReadSentenceKey = "readyToReadSentence"
+let readSentenceKey = "readSentence"
 
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
@@ -155,8 +157,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var sentenceTag = [String]()
     
 
+    //錄音動畫
     var recordingIndicator:NVActivityIndicatorView?
 
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -284,7 +288,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //接收顯示tagView內容
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
+        
 
+        //通知句子念完要準備口試
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyReadyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
+        
+        
+        //準備口試句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.readSentence), name: NSNotification.Name("readSentence"), object: nil)
         
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
@@ -408,10 +419,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //顯示tagView
     @objc func showTag(){
         
+        //避免再次產生hint
+        isCheckingSentence = false
+        
         tagView.isHidden = false
         recogTextLabel.text = ""
     }
 
+    @objc func notifyReadyToReadSentence(){
+        
+        
+    }
+    
+    @objc func readSentence(){
+        
+        recordBtn.isEnabled = true
+        recordBtn.isHidden = false
+        recogTextLabel.isHidden = false
+        
+        
+    }
     
     //最後選字的func
     /*
@@ -955,6 +982,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 //做選擇題
 
+     
+            
                 //製作tags
                 var sentenceTag = self!.sentence.components(separatedBy: " ")
             print("tags:\(sentenceTag)")
@@ -1235,10 +1264,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
        
         //準備練習句子
         //顯示按鈕, 顯示label
-        recordBtn.isHidden = false
 
-        recogTextLabel.isHidden = false
-        
         //回復錄音輸入的單字或句子
         wordRecorded = String()
         
@@ -1414,8 +1440,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
 
-        recordBtn.isEnabled = true
-        
+     
+        if isCheckingSentence{
+            
+            //檢查句子前先發hint
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
+            
+        } else {
+            
+         
+            recordBtn.isEnabled = true
+        }
         
     }
     
