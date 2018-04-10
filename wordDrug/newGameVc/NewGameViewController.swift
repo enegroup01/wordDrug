@@ -12,6 +12,8 @@ import GameplayKit
 import Speech
 import AVFoundation
 import SwiftSiriWaveformView
+import NVActivityIndicatorView
+
 
 let showSentenceKey = "showSentence"
 let backToSpellKey = "backToSpell"
@@ -21,11 +23,12 @@ let timesUpKey = "timesUp"
 let showTagKey = "showTag"
 
 
-class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate  {
+class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
     
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
+    let recordingPinkColor = UIColor.init(red: 1, green: 0, blue: 149/255, alpha: 1)
     
     //顯示辨識字的label
     @IBOutlet weak var recogTextLabel: UILabel!
@@ -144,11 +147,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let midCircle = UIImageView()
     let outCircle = UIImageView()
     
+    @IBOutlet weak var talkCircle: UIView!
     
     //用來顯示正確答案的變數, 保留標點符號大小寫
     var completeWordsToShow = String()
     
     var sentenceTag = [String]()
+    
+
+    var recordingIndicator:NVActivityIndicatorView?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,6 +179,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         thirdWordBtn.isEnabled = false
         
         
+
         //做三個對話圓
      /*
         outCircle.frame.size = CGSize(width: 230, height: 230)
@@ -239,11 +248,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.isHidden = true
         audioView.backgroundColor = .clear
         audioView.density = 1
-        audioView.numberOfWaves =  2
-        audioView.secondaryLineWidth = 0.5
+        audioView.numberOfWaves = 5
+        audioView.secondaryLineWidth = 1
         audioView.amplitude = 0.1
         audioView.alpha = 0.7
-        audioView.waveColor = waveColor
+        audioView.waveColor = recordingPinkColor
         
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -279,6 +288,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
+
         recogTextLabel.isHidden = true
         
         //讀取Bundle裡的句子
@@ -343,6 +353,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en"))!
         
         
+
+        
         //請求授權, 之後要做拒絕的機制
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
             
@@ -373,12 +385,24 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
         }
+
         
         //中文句子字顏色
         chiSentenceLabel.textColor = pinkColor
+        
+        
+        let frame = CGRect(x: recordBtn.frame.origin.x - 8, y: recordBtn.frame.origin.y - 8, width:145, height: 145)
+        recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
+        
+
+        self.view.addSubview(recordingIndicator!)
+        self.view.bringSubview(toFront: recordBtn)
   
         
     }
+    
+
+
     
     
     //顯示tagView
@@ -452,6 +476,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         recordBtn.isHidden = true
+
         //製作句子
         makeSentence()
         
@@ -490,6 +515,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //變回錄音鍵
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         recordBtn.isHidden = true
+      
         
     }
     
@@ -639,6 +665,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         //顯示按鈕, 顯示label
         recordBtn.isHidden = false
+
         recogTextLabel.isHidden = false
         
         //回復錄音輸入的單字或句子
@@ -710,6 +737,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             audioView.isHidden = true
             timer?.invalidate()
             
+            recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
+            recordingIndicator?.stopAnimating()
+
+            
             //停止辨識
             audioEngine.stop()
             recognitionRequest?.endAudio()
@@ -730,10 +761,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //開啟錄音
             
+            recordBtn.setImage(UIImage(named:"recordingBtn.png"), for: .normal)
+            
             //siriWave
             audioView.isHidden = false
             timer = Timer.scheduledTimer(timeInterval: 0.009, target: self, selector: #selector(NewGameViewController.refreshAudioView(_:)), userInfo: nil, repeats: true)
-            
+
+            recordingIndicator?.startAnimating()
             
             //如果Task還在, 就取消task 等待再次開啟
             if recognitionTask != nil {
@@ -741,6 +775,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 recognitionTask = nil
             }
 
+            
+            
             
             //開始辨識
            
@@ -935,7 +971,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //準備選擇題
                 self!.sentenceLabel.text = ""
                 self!.recordBtn.isHidden = true
-            
+
             //算分數
             let addScore:[String:Int] = ["addScore":score]
     
@@ -1096,6 +1132,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //隱藏recordBtn
             self!.recordBtn.isHidden = true
+
         }
         
         
@@ -1199,7 +1236,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //準備練習句子
         //顯示按鈕, 顯示label
         recordBtn.isHidden = false
-        
+
         recogTextLabel.isHidden = false
         
         //回復錄音輸入的單字或句子

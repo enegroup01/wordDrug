@@ -675,6 +675,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Im1-Oy-Q3k">
                                 <rect key="frame" x="123" y="465" width="128" height="128"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="IpL-mA-san"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="eMa-Id-waW"/>
                                     <constraint firstAttribute="height" constant="128" id="zFj-ds-8Jh"/>
                                 </constraints>
                                 <state key="normal" image="recordBtn.png"/>

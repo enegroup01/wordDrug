@@ -732,7 +732,7 @@ class NewGameScene: SKScene {
                     let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     */
-                    let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":2]
+                    let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":1]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     
                     
@@ -893,8 +893,7 @@ class NewGameScene: SKScene {
             if self!.currentPracticeSequence != 0 {
                 waitTime = DispatchTime.now() + 0.6
             }
-            
-            print("curr:\(self!.currentPracticeSequence)")
+
             //首先指定好上方中英文的label
             DispatchQueue.main.asyncAfter(deadline: waitTime) {[weak self] in
                 
@@ -939,13 +938,13 @@ class NewGameScene: SKScene {
                         speakTime = 1
                         
                     } else {
-                        
-                        speakTime = 2
+                        //2改成1
+                        speakTime = 1
                     }
                     let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":speakTime]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     
-                    //等一下再變黑
+                    //發音後等一下再變黑
                     let when = DispatchTime.now() + 0.7
                     
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {
@@ -963,6 +962,7 @@ class NewGameScene: SKScene {
         
         //顯示空格子
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
+        
         
         for node in children{
             
@@ -1080,6 +1080,7 @@ class NewGameScene: SKScene {
         //建立所有單字選項
         //設定5格的位置
         let positions = [[-135,-515],[-230,-295],[135,-515],[230,-295],[0,-105]]
+        
         
         for i in 0 ..< shownWords.count{
             
@@ -2407,7 +2408,7 @@ class NewGameScene: SKScene {
 
         }
         
-        let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":2]
+        let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
         
