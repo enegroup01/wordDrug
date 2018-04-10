@@ -561,7 +561,6 @@ class NewGameScene: SKScene {
             allThreeEngWords.append(word)
         }
         
-        print("all3EngWord:\(allThreeEngWords)")
         
         //append中文字
         allThreeChiWords.append(chiWord0)
@@ -741,14 +740,14 @@ class NewGameScene: SKScene {
                     let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     */
+                    
                     let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":1]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     
                     
                     self!.practice()
                     
-                    //發音完後變色
-                    self!.firstEngWordLabel.textColor = self!.darkWordColor
+                 
                     
                     
                 }
@@ -904,20 +903,24 @@ class NewGameScene: SKScene {
     //練習模式
     func practice(){
         
-        hintSlideIn(leftText: "連線", rightText: "拼字",waitTime: 1.3) {[weak self] in
+        hintSlideIn(leftText: "連線", rightText: "拼字",waitTime: 1) {[weak self] in
             
             
             //是否要發音, 判斷是不是第一個字
             var shouldPronounce = Bool()
             
-            var waitTime = DispatchTime.now()
+            //暫時都不改變等待時間 var - let
+            let waitTime = DispatchTime.now() + 0.6
             
             //等待發音練完後再進入練習
+            /*
             if self!.currentPracticeSequence != 0 {
                 waitTime = DispatchTime.now() + 0.6
             }
-
+*/
             //首先指定好上方中英文的label
+            
+            
             DispatchQueue.main.asyncAfter(deadline: waitTime) {[weak self] in
                 
                 switch self!.currentPracticeSequence{
@@ -926,10 +929,15 @@ class NewGameScene: SKScene {
                     
                     //設定不發音
                     if self!.isBackToSpell{
+                        
                         shouldPronounce = true
+                        
                     } else {
                         shouldPronounce = false
                         self!.isUserInteractionEnabled = true
+                        //發音完後變色
+                        self!.firstEngWordLabel.textColor = self!.darkWordColor
+
                     }
                     
                     
@@ -950,12 +958,8 @@ class NewGameScene: SKScene {
                     
                     
                     //發音, 用再seq > 0, backToSpell, practiceNextWord
-                    /*
-                    let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
-                    */
                     
-                    
+                    //目前都只念一次, 暫時保留
                     var speakTime = Int()
                     if self!.isBackToSpell{
                         speakTime = 1
@@ -964,11 +968,14 @@ class NewGameScene: SKScene {
                         //2改成1
                         speakTime = 1
                     }
+                    
+                    
+                    
                     let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":speakTime]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     
                     //發音後等一下再變黑
-                    let when = DispatchTime.now() + 0.7
+                    let when = DispatchTime.now() + 0.3
                     
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {
                         self!.firstEngWordLabel.textColor = self!.darkWordColor
@@ -982,10 +989,8 @@ class NewGameScene: SKScene {
         }
         
         
-        
         //顯示空格子
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
-        
         
         for node in children{
             
@@ -1547,19 +1552,24 @@ class NewGameScene: SKScene {
                     
                         //如果是聽考模式就跳到選中文
                         if isBackToSpell {
+                            
+                            //計分
                             var score = Int()
+                            
                             if answerTime == 0 {
                                 
                                 score = 300
+                                
                             } else if answerTime == 1 {
                                 
                                 score = 150
+                                
                                 answerTime = 0
                             }
                             
                             countScore(score: score)
                             
-                            
+                            //跳到中文練習
                             testChinese()
                             
                         } else {
@@ -1857,9 +1867,6 @@ class NewGameScene: SKScene {
     @objc func notifyShowSentence(){
         
         //字隱藏
-        
-        //顯示錄音文字背景
-        //findImageNode(name: "recogWordsBg").alpha = 1
         
         firstEngWordLabel.text = ""
         firstChiWordLabel.text = ""
@@ -2436,9 +2443,8 @@ class NewGameScene: SKScene {
     }
     
     func chooseChineseResult(isCorrect:Bool){
-        print("right")
         
-        
+        //正確
         if isCorrect{
             
             countScore(score: 300)
@@ -2450,7 +2456,7 @@ class NewGameScene: SKScene {
             if !wrongWords.contains(wrongWord){
                  wrongWords.append(wrongWord)
             }
-            print(wrongWords)
+
 
         }
         
@@ -2458,11 +2464,7 @@ class NewGameScene: SKScene {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
         
-        /*
-        let wordSequenceToPass:[String:String] = ["currentWordSequence":String(currentWordSequence)]
-
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
-        */
+        //不能拖拉
         isDragAndPlayEnable = false
         
     }
