@@ -162,7 +162,17 @@ open class TagView: UIButton {
     
     public init(title: String) {
         super.init(frame: CGRect.zero)
-        setTitle(title, for: UIControlState())
+        //setTitle(title, for: UIControlState())
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedStringKey.foregroundColor : UIColor.clear]
+        
+        var attrTitle = NSMutableAttributedString()
+        let titles = title.components(separatedBy: " ")
+        attrTitle = NSMutableAttributedString(string: titles[0], attributes: attrs0)
+        attrTitle.append(NSMutableAttributedString(string: titles[1], attributes: attrs1))
+        
+        setAttributedTitle(attrTitle, for: UIControlState())
         
         setupView()
     }

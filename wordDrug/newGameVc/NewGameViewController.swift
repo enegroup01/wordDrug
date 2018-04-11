@@ -89,7 +89,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     //所選到的tag
-    var tagsSelected = [String]()
+    //var tagsSelected = [String]()
+    
+    var attrTagsSelected = [NSMutableAttributedString]()
 
     //製作tag
     @IBOutlet weak var tagView: TagListView!
@@ -489,7 +491,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
 
         //移除tagView
-        tagsSelected.removeAll(keepingCapacity: false)
+        attrTagsSelected.removeAll(keepingCapacity: false)
         tagView.isHidden = true
         tagView.removeAllTags()
         
@@ -499,7 +501,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //回復recordBtn
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
-        recordBtn.isHidden = true
+        //recordBtn.isHidden = true  這應該不用
         
         //輸入重置
         sentenceLabel.text = ""
@@ -1028,7 +1030,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //讓分數停留一下後再消失
         let when = DispatchTime.now() + 1
         
-        //接著做選擇題
+        //接著做選擇題, 所有顯示的func都包在下方
         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
             
             pointImg.removeFromSuperview()
@@ -1039,18 +1041,34 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
             self!.sentenceTag.shuffled()
+            
             for i in 0 ..< self!.sentenceTag.count{
                 
-                self!.tagView.addTag(self!.sentenceTag[i])
+                self!.tagView.addTag(self!.sentenceTag[i] + " " + String(i))
+                
             }
             
             //準備選擇題
             self!.sentenceLabel.text = ""
             
-            //算分數 + 啟動tag的機制
+            //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數）
             let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
+            
+            
+            //隱藏輸入字
+            self!.recogTextLabel.text = ""
+            
+            //顯示出tag
+            self!.tagView.isHidden = false
+            
+            //避免再次產生hint
+            self!.isCheckingSentence = false
+            
+            //發音
+            self!.pronounceTime = 1
+            self!.synPronounce()
             
 
         }
@@ -1204,37 +1222,55 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
        
         tagView.isSelected = !tagView.isSelected
         
+        //抓attrTitle
+        let attr = tagView.attributedTitle(for: .normal) as! NSMutableAttributedString
+        
         var sentenceShown = String()
         
-        if tagsSelected.count > 0 {
-
-            if tagsSelected.contains(title){
+        if attrTagsSelected.count > 0 {
+            
+            if attrTagsSelected.contains(attr){
                 
-                for i in 0 ..< tagsSelected.count{
+                for i in 0 ..< attrTagsSelected.count{
                     
-                    if tagsSelected[i] == title{
-                        print(i)
-                        tagsSelected[i] = ""
+                    if attrTagsSelected[i] == attr{
+                        
+                        
+                        attrTagsSelected[i] = NSMutableAttributedString()
                         
                     }
+                    
                 }
+                
                 
             } else {
                 
-                tagsSelected.append(title)
+                     attrTagsSelected.append(attr)
             }
-        
-        } else {
-        tagsSelected.append(title)
-        }
-        
-        for tag in tagsSelected{
             
-            if tag != ""{
-            sentenceShown += tag + " "
-            }
+            
+        } else {
+            
+            attrTagsSelected.append(attr)
         }
         
+        
+        //把attrTitle的純String顯示在畫面上
+        for attr in attrTagsSelected{
+            
+            
+            if attr != NSMutableAttributedString() {
+                
+                let attrWords = attr.mutableString.components(separatedBy: NSCharacterSet.decimalDigits)
+               
+                sentenceShown += attrWords[0] + " "
+                
+            }
+            
+            
+        }
+        
+ 
         recogTextLabel.text = sentenceShown
         
         let answerEntered = recogTextLabel.text?.dropLast()

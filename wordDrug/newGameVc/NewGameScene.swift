@@ -242,7 +242,7 @@ class NewGameScene: SKScene {
     
     //紀錄已加過的分數
     var scoreAdded = Int()
-    var isFinalGetPoint = false
+    //var isFinalGetPoint = false
     
     //紀錄三個字的正確與否
     var correctResults = ["0","0","0"]
@@ -851,11 +851,12 @@ class NewGameScene: SKScene {
             countScore(score: addScore)
         }
         
-        //有finalPoints就是要繼續tagPressed
+        //有finalPoints就是要啟動倒數Timer
         if let finalPoints = notification.userInfo?["finalPoints"] as? Int{
             
             //顯示得分比例, 然後再倒數tag Question
             
+            /* 暫時換顏色的func不需要
             var color = String()
             switch finalPoints{
             case ..<70:
@@ -866,8 +867,9 @@ class NewGameScene: SKScene {
             default:
                 break
             }
+            */
             
-            
+            /*
                 //顯示tag畫面
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showTag"), object: nil, userInfo: nil)
@@ -876,13 +878,12 @@ class NewGameScene: SKScene {
                 
                 let contents:[String:Int] = ["pronounceTime":1]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: contents)
-                
+                */
+            
                 //tag倒數
                 startCountDown()
             
-            
-            
-            
+
         }
     
         
@@ -940,6 +941,7 @@ class NewGameScene: SKScene {
 
                     }
                     
+                    //第二個字及第三個字
                     
                 case 1...:
 
@@ -1887,10 +1889,11 @@ class NewGameScene: SKScene {
         countScore(score: 500)
         
         practiceNextWord()
-        isFinalGetPoint = true
+        //isFinalGetPoint = true
         
     }
     
+    //練習下個字或是結束本回合
     func practiceNextWord(){
         
         
@@ -1899,12 +1902,12 @@ class NewGameScene: SKScene {
         
         if currentWordSequence < (unitNumber + 1) * 3 - 1{
             
-            
             //把倒數線回復並隱藏
             lineNode.removeAllActions()
             lineNode.size = CGSize(width: 750, height: 5)
             lineNode.alpha = 0
             
+            //順序加一
             currentWordSequence += 1
             currentPracticeSequence += 1
             
@@ -1912,7 +1915,6 @@ class NewGameScene: SKScene {
             wordEntered.removeAll(keepingCapacity: false)
             firstEngWordLabel.isHidden = false
             firstChiWordLabel.isHidden = false
-            
             
             //準備下一個字的練習
             isBackToSpell = false
@@ -1932,7 +1934,6 @@ class NewGameScene: SKScene {
                 }
                 
                 
-                
                 if (node.name?.contains("Sel"))!{
                     node.removeFromParent()
                 }
@@ -1941,7 +1942,7 @@ class NewGameScene: SKScene {
             
             practice()
             
-            isFinalGetPoint = false
+            //isFinalGetPoint = false
             
         } else {
             
@@ -1950,10 +1951,10 @@ class NewGameScene: SKScene {
             let scoreLabel = findLabelNode(name: "scoreLabel")
             
             var scoreToPass = scoreLabel.text!
-            if isFinalGetPoint{
-                scoreToPass = String(Int(scoreLabel.text!)! + 500)
-            }
-            
+            //if isFinalGetPoint{
+            //}
+            scoreToPass = String(Int(scoreLabel.text!)! + 500)
+
             
             addWrongWords()
             
