@@ -436,8 +436,8 @@ class NewGameScene: SKScene {
         let lightHeight:CGFloat = 150
         let darkWidth:CGFloat = 150
         let darkHeight:CGFloat = 150
-        let lightImg:String = "lightSelBtn"
-        let darkImg:String = "darkSelBtn"
+        let lightImg:String = "lightSel"
+        let darkImg:String = "darkSel"
         let positions = [[-135,-500],[-230,-280],[135,-500],[230,-280],[0,-90]]
         
         //選項按鈕
@@ -1955,7 +1955,7 @@ class NewGameScene: SKScene {
             //}
             scoreToPass = String(Int(scoreLabel.text!)! + 500)
 
-            
+            //這是連接後端的func
             addWrongWords()
             
             let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]

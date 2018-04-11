@@ -361,11 +361,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //設定語言
         speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en"))!
-        
-        
 
-        
-        //請求授權, 之後要做拒絕的機制
+        //備註: 請求授權, 之後要做拒絕的機制
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
             
             OperationQueue.main.addOperation({
@@ -530,13 +527,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //result畫面
     @objc func leaveGame(_ notification: NSNotification){
         
-        /*
-        //啟動成果畫面, 此處在加recognizer才不會跟GameScene互打到
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NewGameViewController.wordTapped(gestureRcognizer:)))
-        self.view.addGestureRecognizer(tapGesture)
-        */
+
+        
         coverBtn.isHidden = false
-        //coverBg.isHidden = false
+        coverBg.isHidden = false
         resultBg.isHidden = false
         firstWordBtn.isHidden = false
         secondWordBtn.isHidden = false
@@ -559,6 +553,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //接收單字數字準備做句子
         
+        var wrongWordsCount = 0
+        
         if let engWords = notification.userInfo?["engWords"] as? [String]{
             if let chiWords = notification.userInfo?["chiWords"] as? [String]{
                 if let score = notification.userInfo?["score"] as? [String] {
@@ -570,6 +566,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             if results[i] == "1"{
       
                                 wordBtns[i].setImage(UIImage(named:"wrongWordBtn.png"), for: .normal)
+                                
+                                wrongWordsCount += 1
                                 
                                 
                             } else {
@@ -593,6 +591,30 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     moveUpAnimation(label: firstChiWord, text: chiWords[0])
                     moveUpAnimation(label: secondChiWord, text: chiWords[1])
                     moveUpAnimation(label: thirdChiWord, text: chiWords[2])
+                        
+                        
+                        //如果有錯就不算過關
+                        if wrongWordsCount == 0 {
+                            
+                            //紀錄關卡
+                            if unitNumber == 9{
+                                
+                                gamePassed = [spotNumber + 1:0]
+                            }else {
+                                
+                                gamePassed = [spotNumber: unitNumber + 1]
+                            }
+                            //然後儲存
+                            let userDefaults = UserDefaults.standard
+                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                            userDefaults.set(encodedObject, forKey: "gamePassed")
+                            
+                            print(gamePassed)
+                            
+                        } else {
+                            
+                            
+                        }
 
                 }
                 }

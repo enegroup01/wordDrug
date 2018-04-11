@@ -154,7 +154,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
     //紀錄所有球的名字, 包含數字, 供之後進入關卡使用
     var pageNames = [String]()
     
-    //測試用總頁數, 應該設為count數量, 以目前英檢初來說都是15頁
+    //備註: 測試用總頁數, 應該設為count數量, 以目前英檢初來說都是15頁
     var totalPages = 15
     
     //目前頁數
@@ -231,19 +231,9 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         self.view.bringSubview(toFront: page3)
         
         //在此確認已過關卡
-        gamePassed = [14:9]
+        //gamePassed = [14:9]
         
-        //集合所有的球
-        balls.append(ball0)
-        balls.append(ball1)
-        balls.append(ball2)
-        balls.append(ball3)
-        balls.append(ball4)
-        balls.append(ball5)
-        balls.append(ball6)
-        balls.append(ball7)
-        balls.append(ball8)
-        balls.append(ball9)
+
         
         //集合所有的頁數按鈕
         pageBtns.append(page0)
@@ -251,12 +241,16 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         pageBtns.append(page2)
         pageBtns.append(page3)
         
-        //抓最大顯示unit
-        setMaxInt()
+       
         
+        /*
         //按鈕頁數
         currentPage = 0
+        
+        //抓最大顯示unit
+        setMaxInt()
         setBtnPage(currentPage: currentPage)
+ */
     }
     
     
@@ -290,6 +284,18 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             //跳轉畫面
             DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
                 self!.performSegue(withIdentifier: "toNewGame", sender: self)
+                
+                self!.bigBall.removeFromParent()
+                self!.ball0.removeFromParent()
+                self!.ball1.removeFromParent()
+                self!.ball2.removeFromParent()
+                self!.ball3.removeFromParent()
+                self!.ball4.removeFromParent()
+                self!.ball5.removeFromParent()
+                self!.ball6.removeFromParent()
+                self!.ball7.removeFromParent()
+                self!.ball8.removeFromParent()
+                self!.ball9.removeFromParent()
             })
         }
         }
@@ -648,11 +654,24 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
                     
                 }
                 
-                
             }
             
         }
         
+        //在此決定已過關的球的顏色
+        var colors = [UIColor]()
+        
+        for _ in 0 ..< 10 {
+            
+            colors.append(darkBlueColor)
+        }
+        
+        for i in 0 ..< pageSyllables.count  - 1{
+            
+                
+                colors[i] = UIColor.darkGray
+                
+        }
         
         //接著append空值給未全開放的
         let emptyNums = 10 - (shownMaxInt + 1)
@@ -663,17 +682,83 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             
         }
         
+        /*
+
+        */
+        
+   
+        ball0 = Node(text: pageSyllables[0], image: UIImage(), color: colors[0], radius: 35, name: pageNames[0])
+        ball1 = Node(text: pageSyllables[1], image: UIImage(), color: colors[1], radius: 35, name: pageNames[1])
+        ball2 = Node(text: pageSyllables[2], image: UIImage(), color: colors[2], radius: 35, name: pageNames[2])
+        ball3 = Node(text: pageSyllables[3], image: UIImage(), color: colors[3], radius: 35, name: pageNames[3])
+        ball4 = Node(text: pageSyllables[4], image: UIImage(), color: colors[4], radius: 35, name: pageNames[4])
+        ball5 = Node(text: pageSyllables[5], image: UIImage(), color: colors[5], radius: 35, name: pageNames[5])
+        ball6 = Node(text: pageSyllables[6], image: UIImage(), color: colors[6], radius: 35, name: pageNames[6])
+        ball7 = Node(text: pageSyllables[7], image: UIImage(), color: colors[7], radius: 35, name: pageNames[7])
+        ball8 = Node(text: pageSyllables[8], image: UIImage(), color: colors[8], radius: 35, name: pageNames[8])
+        ball9 = Node(text: pageSyllables[9], image: UIImage(), color: colors[9], radius: 35, name: pageNames[9])
+        
+        
+        
+        //集合所有的球
+        /*
+        balls.append(ball0)
+        balls.append(ball1)
+        balls.append(ball2)
+        balls.append(ball3)
+        balls.append(ball4)
+        balls.append(ball5)
+        balls.append(ball6)
+        balls.append(ball7)
+        balls.append(ball8)
+        balls.append(ball9)
+        
+        
+        for i in 0 ..< pageSyllables.count{
+            
+            if pageSyllables[i] == "" {
+                
+                print(i)
+                balls[i].isHidden = true
+            }
+        }
+ 
+ */
+        
+        /*
         //做球
-        ball0 = Node(text: pageSyllables[0], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[0])
-        ball1 = Node(text: pageSyllables[1], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[1])
-        ball2 = Node(text: pageSyllables[2], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[2])
-        ball3 = Node(text: pageSyllables[3], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[3])
-        ball4 = Node(text: pageSyllables[4], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[4])
-        ball5 = Node(text: pageSyllables[5], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[5])
-        ball6 = Node(text: pageSyllables[6], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[6])
-        ball7 = Node(text: pageSyllables[7], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[7])
-        ball8 = Node(text: pageSyllables[8], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[8])
-        ball9 = Node(text: pageSyllables[9], image: UIImage(), color: darkBlueColor, radius: 35, name: pageNames[9])
+         if pageSyllables[0] != "" {
+       
+        }
+        if pageSyllables[1] != "" {
+        
+        }
+        
+        if pageSyllables[2] != "" {
+            
+        }
+        if pageSyllables[3] != "" {
+            
+        }
+        if pageSyllables[4] != "" {
+            
+        }
+        if pageSyllables[5] != "" {
+            
+        }
+        if pageSyllables[6] != "" {
+            
+        }
+        if pageSyllables[7] != "" {
+            
+        }
+        if pageSyllables[8] != "" {
+            
+        }
+        if pageSyllables[9] != "" {
+            
+        }
+*/
         
         //做大球並隱藏
         bigBall = Node(text: "", image: UIImage(), color: lightBlueColor, radius: 100, name: "bigBall")
@@ -696,7 +781,20 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        
+        print("will appear")
+        
+
+        
+        
+        //抓最大顯示unit
+        setMaxInt()
+        
+        setBtnPage(currentPage: currentPage)
+        
+    }
     //設定要傳送的值
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

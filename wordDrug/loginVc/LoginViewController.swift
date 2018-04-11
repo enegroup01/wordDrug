@@ -79,6 +79,32 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         
                         
+                        
+                        //備註: 後端之後再寫, 基本上一註冊就給予mapPassed及gamePassed的初始值
+                        //抓地圖
+                        if mapPassed == nil{
+                            
+                            mapPassed = 0
+                            let userDefaults = UserDefaults.standard
+                            userDefaults.set(mapPassed!, forKey: "mapPassed")
+                        }
+                        //抓關卡
+                        if gamePassed == nil {
+                            //第一次玩
+                            
+                            
+                            gamePassed = [0:0]
+                            
+                            let userDefaults = UserDefaults.standard
+                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                            userDefaults.set(encodedObject, forKey: "gamePassed")
+                            
+                        }
+
+                        
+                        print("loginVc:\(gamePassed)")
+                        print("loginVc:\(mapPassed)")
+                        
                         // get id from parseJSON dictionary
                         let id = parseJSON["id"]
                         print(id)

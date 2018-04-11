@@ -21,10 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
-
-        
         //抓使用者檔案
         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+        
+        //抓gamePassed
+        let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
+        
+        if let decoded = decodedObject {
+            gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed
+        mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
+        
+
         
         // if user is once logged in / register, keep him logged in
         if user != nil {
@@ -33,32 +43,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id != nil {
 
                 //跳轉到角色畫面
-                
                 toStats()
                 
-                if mapPassed == nil{
-                    
-                    mapPassed = 0
-                    let userDefaults = UserDefaults.standard
-                    userDefaults.set(mapPassed!, forKey: "mapPassed")
-                }
-                
-                if gamePassed == nil {
-                    //第一次玩
-                    
-                
-                    gamePassed = [0:0]
-                    
-                    let userDefaults = UserDefaults.standard
-                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                    userDefaults.set(encodedObject, forKey: "gamePassed")
-                    
-                }
  
          
             }
             
         }
+        
+        
+        print("user:\(user)")
+        print("gamePassed:\(gamePassed)")
+        print("mapPassed:\(mapPassed)")
         
         return true
     }
