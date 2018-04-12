@@ -601,9 +601,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             
                             //如果玩之前的關卡就不改變
                             
-                            if mapPassed! == mapNumber{
+                            if mapPassed! == (mapNumber - 1){
                
                                 for (s,u) in gamePassed! {
+                                    
                                     if s == spotNumber{
                                         
                                         if u == unitNumber{
