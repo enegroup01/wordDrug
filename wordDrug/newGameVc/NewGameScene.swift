@@ -782,7 +782,7 @@ class NewGameScene: SKScene {
         lineNode.alpha = 1
     
         
-         let countDownAction = SKAction.resize(toWidth: 0, duration: 10)
+         let countDownAction = SKAction.resize(toWidth: 0, duration: 15)
         
         lineNode.run(countDownAction) {[weak self] in
             

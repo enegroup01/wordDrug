@@ -151,6 +151,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let midCircle = UIImageView()
     let outCircle = UIImageView()
     
+    var isCelebratingMapPassed = false
+    
     @IBOutlet weak var talkCircle: UIView!
     
     //用來顯示正確答案的變數, 保留標點符號大小寫
@@ -177,6 +179,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isHidden = true
         thirdWordBtn.isHidden = true
         bigOkBtn.isHidden = true
+         bigOkBtn.setImage(UIImage(named:"bigOkBtn.png"), for: .normal)
         firstWordBtn.isEnabled = false
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
@@ -530,7 +533,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         
         coverBtn.isHidden = false
-        coverBg.isHidden = false
+        //coverBg.isHidden = false
         resultBg.isHidden = false
         firstWordBtn.isHidden = false
         secondWordBtn.isHidden = false
@@ -596,10 +599,28 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //如果有錯就不算過關
                         if wrongWordsCount == 0 {
                             
+                            
+                            
                             //紀錄關卡
                             if unitNumber == 9{
-                                
+                                //此探索點已過完
+                                if spotNumber == 14 {
+                                    //備註: 目前map只做4張, 之後要抓正確數字, 以及做全部過關的通知
+                                    mapPassed! += 1
+                                    UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
+                                    
+                                    gamePassed = [0:0]
+                                    let userDefaults = UserDefaults.standard
+                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                    userDefaults.set(encodedObject, forKey: "gamePassed")
+                                    
+                                    isCelebratingMapPassed = true
+                                    
+                                    bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
+                                    
+                                } else {
                                 gamePassed = [spotNumber + 1:0]
+                                }
                             }else {
                                 
                                 gamePassed = [spotNumber: unitNumber + 1]
@@ -905,7 +926,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //準備離開遊戲
     @IBAction func okBtnClicked(_ sender: Any) {
         
+        //在此確認是否已過地圖的確認
+        
+        if isCelebratingMapPassed{
+            
+            
+            
+        } else {
+        
             self.dismiss(animated: true, completion: nil)
+        
+        }
         
         
     }

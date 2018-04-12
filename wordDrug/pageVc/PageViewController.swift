@@ -36,10 +36,10 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
     var selectedChildren: [Node]?
     
     //顏色
-    let lightBlueColor = UIColor.init(red: 52/255, green: 136/255, blue: 182/255, alpha: 1)
-    let darkBlueColor = UIColor.init(red: 55/255, green: 61/255, blue: 106/255, alpha: 1)
-    let darkPurpleColor = UIColor.init(red: 73/255, green: 54/255, blue: 100/255, alpha: 1)
-    let darkTextColor = UIColor.init(red: 189/255, green: 189/255, blue: 189/255, alpha: 34)
+    
+    let lightPurpleColor = UIColor.init(red: 117/255, green: 128/255, blue: 208/255, alpha: 1)
+    let darkPurpleColor = UIColor.init(red: 89/255, green: 60/255, blue: 102/255, alpha: 1)
+    let bigBallBlueColor = UIColor.init(red: 218/255, green: 46/255, blue: 142/255, alpha: 1)
     var fullSize: CGSize!
     
     //所有小球
@@ -346,7 +346,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             page3.isHidden = true
             
             //設定目前頁數的顏色
-            pageBtns[currentPage].setTitleColor(lightBlueColor, for: .normal)
+            pageBtns[currentPage].setTitleColor(lightPurpleColor, for: .normal)
             
             //設定每頁數字
             for i in 0 ..< totalPages{
@@ -379,7 +379,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             page2.isHidden = true
             
             //設定目前頁數的顏色
-            pageBtns[currentPage].setTitleColor(lightBlueColor, for: .normal)
+            pageBtns[currentPage].setTitleColor(lightPurpleColor, for: .normal)
             
             //設定每頁數字
             for i in 0 ..< totalPages{
@@ -414,7 +414,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             page1.isHidden = true
             
             //設定目前頁數的顏色
-            pageBtns[currentPage].setTitleColor(lightBlueColor, for: .normal)
+            pageBtns[currentPage].setTitleColor(lightPurpleColor, for: .normal)
             
             //設定每頁數字
             for i in 0 ..< totalPages{
@@ -453,23 +453,23 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             
             //設定顏色及左右鍵
             if currentPage == 0 {
-                page0.setTitleColor(lightBlueColor, for: .normal)
+                page0.setTitleColor(lightPurpleColor, for: .normal)
                 leftBtn.isHidden = true
                 rightBtn.isHidden = false
                 
             } else if currentPage == 1 {
-                page1.setTitleColor(lightBlueColor, for: .normal)
+                page1.setTitleColor(lightPurpleColor, for: .normal)
                 leftBtn.isHidden = false
                 rightBtn.isHidden = false
             } else if currentPage == (totalPages - 1){
                 
                 //最後一頁
-                page3.setTitleColor(lightBlueColor, for: .normal)
+                page3.setTitleColor(lightPurpleColor, for: .normal)
                 rightBtn.isHidden = true
                 leftBtn.isHidden = false
             } else {
                 //其他的頁數
-                page2.setTitleColor(lightBlueColor, for: .normal)
+                page2.setTitleColor(lightPurpleColor, for: .normal)
                 leftBtn.isHidden = false
                 rightBtn.isHidden = false
                 
@@ -506,7 +506,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             for i in 0 ..< pageBtns.count{
                 
                 //之前那一個Btn
-                if pageBtns[i].currentTitleColor == lightBlueColor{
+                if pageBtns[i].currentTitleColor == lightPurpleColor{
                     newBtnNum = i - (prePage - currentPage)
                     
                 }
@@ -517,7 +517,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             for i in 0 ..< pageBtns.count{
                 
                 //之前那一個Btn
-                if pageBtns[i].currentTitleColor == lightBlueColor{
+                if pageBtns[i].currentTitleColor == lightPurpleColor{
                     newBtnNum = i + (currentPage - prePage)
                     
                 }
@@ -529,7 +529,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             b.setTitleColor(darkPurpleColor, for: .normal)
         }
         
-        pageBtns[newBtnNum].setTitleColor(lightBlueColor, for: .normal)
+        pageBtns[newBtnNum].setTitleColor(lightPurpleColor, for: .normal)
         
         //翻頁
         findPageSyllables(page: currentPage)
@@ -660,17 +660,26 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         
         //在此決定已過關的球的顏色
         var colors = [UIColor]()
+        var isHiddens = [Bool]()
         
         for _ in 0 ..< 10 {
             
-            colors.append(darkBlueColor)
+            colors.append(lightPurpleColor)
+            isHiddens.append(true)
         }
         
+        if pageSyllables.count > 0 {
         for i in 0 ..< pageSyllables.count  - 1{
             
                 
-                colors[i] = UIColor.darkGray
+                colors[i] = darkPurpleColor
                 
+        }
+        
+        for i in 0 ..< pageSyllables.count{
+            
+            isHiddens[i] = false
+        }
         }
         
         //接著append空值給未全開放的
@@ -686,18 +695,19 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
 
         */
         
-   
-        ball0 = Node(text: pageSyllables[0], image: UIImage(), color: colors[0], radius: 35, name: pageNames[0])
-        ball1 = Node(text: pageSyllables[1], image: UIImage(), color: colors[1], radius: 35, name: pageNames[1])
-        ball2 = Node(text: pageSyllables[2], image: UIImage(), color: colors[2], radius: 35, name: pageNames[2])
-        ball3 = Node(text: pageSyllables[3], image: UIImage(), color: colors[3], radius: 35, name: pageNames[3])
-        ball4 = Node(text: pageSyllables[4], image: UIImage(), color: colors[4], radius: 35, name: pageNames[4])
-        ball5 = Node(text: pageSyllables[5], image: UIImage(), color: colors[5], radius: 35, name: pageNames[5])
-        ball6 = Node(text: pageSyllables[6], image: UIImage(), color: colors[6], radius: 35, name: pageNames[6])
-        ball7 = Node(text: pageSyllables[7], image: UIImage(), color: colors[7], radius: 35, name: pageNames[7])
-        ball8 = Node(text: pageSyllables[8], image: UIImage(), color: colors[8], radius: 35, name: pageNames[8])
-        ball9 = Node(text: pageSyllables[9], image: UIImage(), color: colors[9], radius: 35, name: pageNames[9])
+  
         
+        ball0 = Node(text: pageSyllables[0], image: UIImage(), color: colors[0], radius: 35, name: pageNames[0],isHidden:isHiddens[0])
+        ball1 = Node(text: pageSyllables[1], image: UIImage(), color: colors[1], radius: 35, name: pageNames[1],isHidden:isHiddens[1])
+        ball2 = Node(text: pageSyllables[2], image: UIImage(), color: colors[2], radius: 35, name: pageNames[2],isHidden:isHiddens[2])
+        ball3 = Node(text: pageSyllables[3], image: UIImage(), color: colors[3], radius: 35, name: pageNames[3],isHidden:isHiddens[3])
+        ball4 = Node(text: pageSyllables[4], image: UIImage(), color: colors[4], radius: 35, name: pageNames[4],isHidden:isHiddens[4])
+        ball5 = Node(text: pageSyllables[5], image: UIImage(), color: colors[5], radius: 35, name: pageNames[5],isHidden:isHiddens[5])
+        ball6 = Node(text: pageSyllables[6], image: UIImage(), color: colors[6], radius: 35, name: pageNames[6],isHidden:isHiddens[6])
+        ball7 = Node(text: pageSyllables[7], image: UIImage(), color: colors[7], radius: 35, name: pageNames[7],isHidden:isHiddens[7])
+        ball8 = Node(text: pageSyllables[8], image: UIImage(), color: colors[8], radius: 35, name: pageNames[8],isHidden:isHiddens[8])
+        ball9 = Node(text: pageSyllables[9], image: UIImage(), color: colors[9], radius: 35, name: pageNames[9],isHidden:isHiddens[9])
+ 
         
         
         //集合所有的球
@@ -761,8 +771,8 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
 */
         
         //做大球並隱藏
-        bigBall = Node(text: "", image: UIImage(), color: lightBlueColor, radius: 100, name: "bigBall")
-        bigBall.isHidden = true
+        bigBall = Node(text: "", image: UIImage(), color: lightPurpleColor, radius: 100, name: "bigBall", isHidden:true)
+        //bigBall.isHidden = true
         magnetic!.addChild(bigBall)
         
         magnetic!.addChild(ball0)
