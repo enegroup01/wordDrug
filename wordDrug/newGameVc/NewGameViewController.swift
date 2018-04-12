@@ -599,44 +599,63 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //如果有錯就不算過關
                         if wrongWordsCount == 0 {
                             
+                            //如果玩之前的關卡就不改變
                             
-                            
-                            //紀錄關卡
-                            if unitNumber == 9{
-                                //此探索點已過完
-                                if spotNumber == 14 {
-                                    //備註: 目前map只做4張, 之後要抓正確數字, 以及做全部過關的通知
-                                    mapPassed! += 1
-                                    UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
-                                    
-                                    gamePassed = [0:0]
-                                    let userDefaults = UserDefaults.standard
-                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                    userDefaults.set(encodedObject, forKey: "gamePassed")
-                                    
-                                    isCelebratingMapPassed = true
-                                    
-                                    bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
-                                    
-                                } else {
-                                gamePassed = [spotNumber + 1:0]
+                            if mapPassed! == mapNumber{
+               
+                                for (s,u) in gamePassed! {
+                                    if s == spotNumber{
+                                        
+                                        if u == unitNumber{
+                                            
+                                            //紀錄關卡
+                                            if unitNumber == 9{
+                                                //此探索點已過完
+                                                if spotNumber == 14 {
+                                                    //備註: 目前map只做4張, 之後要抓正確數字, 以及做全部過關的通知
+                                                    mapPassed! += 1
+                                                    UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
+                                                    
+                                                    gamePassed = [0:0]
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed")
+                                                    
+                                                    isCelebratingMapPassed = true
+                                                    
+                                                    bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
+                                                    
+                                                } else {
+                                                    gamePassed = [spotNumber + 1:0]
+                                                }
+                                            }else {
+                                                
+                                                gamePassed = [spotNumber: unitNumber + 1]
+                                            }
+                                            //然後儲存
+                                            let userDefaults = UserDefaults.standard
+                                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                            userDefaults.set(encodedObject, forKey: "gamePassed")
+                                            
+                                            print(gamePassed)
+                                            
+                                        } else {
+                                            print("前元素")
+                                            
+                                            
+                                        }
+                                    } else {
+                                        
+                                        print("前探索點")
+                                    }
                                 }
-                            }else {
+         
+                            } else {
                                 
-                                gamePassed = [spotNumber: unitNumber + 1]
+                                print("前地圖")
                             }
-                            //然後儲存
-                            let userDefaults = UserDefaults.standard
-                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                            userDefaults.set(encodedObject, forKey: "gamePassed")
-                            
-                            print(gamePassed)
-                            
-                        } else {
-                            
                             
                         }
-
                 }
                 }
             }
@@ -930,7 +949,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if isCelebratingMapPassed{
             
-            
+            //dimiss掉兩個VCs
+            self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
             
         } else {
         

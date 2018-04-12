@@ -305,6 +305,16 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
     //設定最大可以開放的數字
     func setMaxInt(){
         
+        
+        //如果該地圖已過就全開
+        if (mapNumToReceive - 1) < mapPassed!{
+            
+            shownMaxInt = 9
+            print("map all passed")
+            
+            
+        } else {
+        
         for (s,u) in gamePassed!{
      
             //  如果大於頁數, 則該頁全部的元素都代表過關
@@ -325,7 +335,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             }
             
         }
-        
+        }
     }
     
     //目前按鍵無法改變位置及大小

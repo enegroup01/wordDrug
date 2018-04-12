@@ -744,12 +744,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="resultBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Npy-0N-1SM">
                                 <rect key="frame" x="44" y="111" width="280" height="488"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spF-XH-9qr">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spF-XH-9qr">
                                 <rect key="frame" x="88" y="527" width="210" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="FQJ-WU-wIl"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="bigOkBtn.png"/>
+                                <state key="normal" image="bigOkBtn.png"/>
                                 <connections>
                                     <action selector="okBtnClicked:" destination="v6L-yK-9Lk" eventType="touchUpInside" id="HyJ-5u-t5b"/>
                                 </connections>
