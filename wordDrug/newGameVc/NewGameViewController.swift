@@ -162,6 +162,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //錄音動畫
     var recordingIndicator:NVActivityIndicatorView?
     
+    //紀錄錯誤發音字
+    let relevantWords:[[String:[String]]] = [["ant":["aunt", "and"]], ["ham":["pam"]], ["bake":["bank"]],["aim":["m", "am", "game","i am"]]]
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -184,8 +188,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
         
-        
-
         //做三個對話圓
      /*
         outCircle.frame.size = CGSize(width: 230, height: 230)
@@ -441,7 +443,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //打開輸入字的label
         recogTextLabel.isHidden = false
         
-        
     }
     
 
@@ -476,11 +477,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             pronounceTime = speakTime
         }
         
-        
         //回復錄音btn圖示
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
     
-
         //製作句子
         makeSentence()
         
@@ -507,12 +506,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sentenceLabel.text = ""
         chiSentenceLabel.text = ""
         
-      
     }
     
     @objc func notifyBackToSpell(){
         
-
         //隱藏錄音字欄位
         recogTextLabel.text = ""
         
@@ -523,14 +520,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         recordBtn.isHidden = true
       
-        
     }
     
     
     //result畫面
     @objc func leaveGame(_ notification: NSNotification){
-        
-
         
         coverBtn.isHidden = false
         //coverBg.isHidden = false
@@ -548,11 +542,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondEngWord.adjustsFontSizeToFitWidth = true
         thirdEngWord.adjustsFontSizeToFitWidth = true
 
-        
         firstChiWord.adjustsFontSizeToFitWidth = true
         secondChiWord.adjustsFontSizeToFitWidth = true
         thirdChiWord.adjustsFontSizeToFitWidth = true
-        
         
         //接收單字數字準備做句子
         
@@ -608,6 +600,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                     if s == spotNumber{
                                         
                                         if u == unitNumber{
+                                            
+                                            print("過關卡")
                                             
                                             //紀錄關卡
                                             if unitNumber == 9{
@@ -856,6 +850,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 recognitionTask = nil
             }
 
+            //抓目前單字的相關字
+            var relWords:[String]?
+            
+            
+            //抓發音錯誤字集
+            for i in 0 ..< relevantWords.count{
+                
+                for (word,rels) in relevantWords[i]{
+
+                    //假如有抓到的話
+                    if word == wordToReceive{
+                        
+                        relWords = rels
+  
+                    }
+
+                }
+
+                
+            }
 
             //開始辨識
            
@@ -878,9 +892,29 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     self.recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: {[weak self] (result, error) in
                         
+                        
                         if let result = result {
-                            
-                            self!.recogTextLabel.text = result.bestTranscription.formattedString.lowercased()
+    
+                            if let resultWord = result.bestTranscription.formattedString.lowercased() as String?{
+                                
+                                
+                                if relWords != nil {
+                                    
+                                    if relWords!.contains(resultWord){
+                                        
+                                        self!.recogTextLabel.text = self!.wordToReceive
+                                        
+                                    } else {
+                                        
+                                     self!.recogTextLabel.text = resultWord
+                                    }
+                                } else {
+                                    
+                                     self!.recogTextLabel.text = resultWord
+                                    
+                                }
+                                
+                            }
                             
                             //對答案的部分要修掉標點符號
                             self!.wordRecorded = self!.recogTextLabel.text!.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
