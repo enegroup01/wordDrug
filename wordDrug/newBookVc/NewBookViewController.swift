@@ -17,41 +17,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //所有音節
     var syllableSets = [String]()
     
-    /*
-    let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
-    ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
-    ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
-    ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
-    ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
-    ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
-    ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
-    ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
-    ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
-    ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
-    ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
-    ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
-    ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
-    ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
-    ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
-    
-    
-    let map2SyllableSets = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
-    ["bo2","bu2","ce2","ch2","ck2","cl2","co2","com2","cr2","con2"],
-    ["di2","do2","dr2","ea2","ee2","el2","en2","er2","et2", "em2"],
-    ["ew2","ex2","ey2","fi2","fr2","gr2","hi2","ie2","igh2","ge2"],
-    ["il2","im2","in2","ing2","ir2","is2","ly2","oa2","o_e2", "nd2"],
-    ["oi2","on2","ong2","oo2","op2","or2","ot2","ou2","ow2","ph2"],
-    ["pr2","ness1","re2","ry2","sh2","sk2","st2","th2","tion2","tr2"],
-    ["ture2","u_e2","i_e1","i_e2","ue1","ue2","ui2","um2","un2","ty2"],
-    ["up2","ur2","wh2","a_e3","ai3","al3","am3","an3","ac3","ad3"],
-    ["ar3","at3","aw3","ay3","be3","ce3","ch3","ck3","cl3","au3"],
-    ["ea3","ee3","el3","em3","en3","er3","et3","ex3","ey3","con3"],
-    ["i_e3","igh3","im3","in3","ing3","ir3","o_e3","oa3","oi3", "ge3"],
-    ["on3","ong3","oo3","op3","or3","ot3","ou3","ow3","pr3","gar1"],
-    ["re3","sh3","st3","th3","tion3","tr3","ty3","u_e3","ui3","ry3"],
-    ["er37","er38","er39","er40","er41","er42","er43","er44","er45","er46"]]
-    */
-    
     
     let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
                             ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
@@ -135,8 +100,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 
     
     
-    //略過數字的整合音節
+    //刪掉數字的音節
     var sylArray = [String]()
+    
+    //整理過的音節
+    var sortedSylArray = [String]()
+    
     //選擇到的音節
     var collectionTouched = [Int]()
     
@@ -179,6 +148,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var syllablesToShow = [String]()
     var engSenToShow = [String]()
     var chiSenToShow = [String]()
+    
+    
+    var sortedEndWordsToShow = [String]()
+      var sortedChiWordsToShow = [String]()
+      var sortedPartOfSpeechToShow = [String]()
+      var sortedSyllablesToShow = [String]()
+      var sortedEngSenToShow = [String]()
+      var sortedChiSenToShow = [String]()
     
     //使用者的字群
     var myFavWords = [String]()
@@ -338,6 +315,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         
+        
         //讀取所有syl, 排除相同的再次出現
         for syl in syllableSets{
  
@@ -345,18 +323,24 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 let sylBreaks = syl.components(separatedBy: NSCharacterSet.decimalDigits)
                 let sylOnlyText = sylBreaks[0]
                 
-                if !sylArray.contains(sylOnlyText){
+              //  if !sylArray.contains(sylOnlyText){
                     
                     sylArray.append(sylOnlyText)
-                }
+               // }
             
+            if !sortedSylArray.contains(sylOnlyText){
+                
+                sortedSylArray.append(sylOnlyText)
+            }
             
         }
         
-        print(sylArray.count)
         
+        
+
+ 
         //建立collectionView按鈕數量
-        for _ in 0 ..< sylArray.count{
+        for _ in 0 ..< syllableSets.count{
             
             collectionTouched.append(0)
             
@@ -374,7 +358,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //所有已過關的地圖字都要抓進去
         for m in 0 ..< mapPassed!{
             //要讀取裡面的全部
-            print("m:\(m)")
+    
             //讀取已完整的所有字集 + 句子
             
             //目前設置15的原因因為所有探索點都有15個, 若之後不同課程有不同的探索點數, 要抓動態探索點數字
@@ -384,9 +368,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 //前面的1代表第一張地圖
                 let name = String(m + 1) + "-" + String(i + 1)
                 let sName = "s\(String(m + 1))-" + String(i + 1)
-                
-                print("name:\(name)")
-                print("sName:\(sName)")
+            
                 
                 //抓字
                 if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -521,6 +503,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
             
         }
+        
+        
         //抓所有單字
         //Part 1. 抓完整值
         
@@ -530,8 +514,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 engWordsToShow.append(wordSets[i][w])
                 
-                let syllableSequence = Int(w / 3)
-                syllablesToShow.append(syllableSets[syllableSequence]) //[i]
+                //抓出正確的順序
+                let syllableSequence = Int(i * 10) +  Int(w / 3)
+                syllablesToShow.append(sylArray[syllableSequence]) //[i]
                 
             }
             
@@ -549,11 +534,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //抓完整句子
         for i in 0 ..< sentenceSets.count{
+           
             for e in 0 ..< 30{
                 
                 engSenToShow.append(sentenceSets[i][e])
                 
             }
+            
             for c in 30 ..< 60{
                 
                 chiSenToShow.append(sentenceSets[i][c])
@@ -562,24 +549,37 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         
         //Part 2. 抓殘值 ＆ 抓可能出現錯字的最新三個
-        for (s,g) in gamePassed!{
+        
+        
+        //* * * 抓已append完的音節數量, 之後殘值以此數量append
+        let sequence = Int(syllablesToShow.count / 3)
+        
+        for (_,g) in gamePassed!{
             
             for w in 0 ..< ((g + 1) * 3){
                 engWordsToShow.append(tempWordSets[0][w])
-                let syllableSequence = Int(w / 3)
-                syllablesToShow.append(syllableSets[syllableSequence]) //[s]
+    
+                let syllableSequence = sequence + Int(w / 3)
+
+                syllablesToShow.append(sylArray[syllableSequence]) //[s]
                 
                 engSenToShow.append(tempSentenceSets[0][w])
                 
                 
             }
+            
             for w in 30 ..< (30 + (g + 1) * 3){
+            
                 chiWordsToShow.append(tempWordSets[0][w])
+                
                 chiSenToShow.append(tempSentenceSets[0][w])
+           
             }
             
             for w in 60 ..< (60 + (g + 1) * 3){
+            
                 partOfSpeechToShow.append(tempWordSets[0][w])
+           
             }
             
         }
@@ -651,13 +651,43 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
+        
+        //兩個音節做比對, 抓新字的順序
+        for s in 0 ..< sortedSylArray.count{
+            
+            for i in 0 ..< sylArray.count{
+                
+                if sortedSylArray[s] == sylArray[i]{
+                    
+                    for n in 0 ..< 3 {
+                       
+                        sortedEndWordsToShow.append(engWordsToShow[(i * 3) + n])
+                        sortedChiWordsToShow.append(chiWordsToShow[(i * 3) + n])
+                        sortedPartOfSpeechToShow.append(partOfSpeechToShow[(i * 3) + n])
+                        sortedSyllablesToShow.append(syllablesToShow[(i * 3) + n])
+                        sortedEngSenToShow.append(engSenToShow[(i * 3) + n])
+                        sortedChiSenToShow.append(chiSenToShow[(i * 3) + n])
+
+                        
+                    }
+                    
+    
+                }
+                
+            }
+            
+            
+        }
+        
+        
+        
         //設定好要show的第一組單字就是全部的單字
-        engWordsSelected = engWordsToShow
-        chiWordsSelected = chiWordsToShow
-        partOfSpeechSelected = partOfSpeechToShow
-        syllablesSelected = syllablesToShow
-        engSenSelected = engSenToShow
-        chiSenSelected = chiSenToShow
+        engWordsSelected = sortedEndWordsToShow
+        chiWordsSelected = sortedChiWordsToShow
+        partOfSpeechSelected = sortedPartOfSpeechToShow
+        syllablesSelected = sortedSyllablesToShow
+        engSenSelected = sortedEngSenToShow
+        chiSenSelected = sortedChiSenToShow
         
         
         //移除三個多增加的數量, 這三個是可能會錯的部分?? 為什麼只移除engWordsSelected..應該是因為這樣return cell就直接少三個
@@ -1291,9 +1321,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath)
-        
-        
-        
+    
         let syllableLabel = cell.viewWithTag(1) as! UILabel
         let engWordLabel = cell.viewWithTag(2) as! UILabel
         let partOfSpeechLabel = cell.viewWithTag(3) as! UILabel
@@ -1302,7 +1330,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let chiSenLabel = cell.viewWithTag(6) as! UILabel
         
         //抓音節的字母 +  數字
-        let syllableText = syllablesSelected[indexPath.row].components(separatedBy: .decimalDigits)
+        let syllableText = syllablesSelected[indexPath.row]
+        
         //let syllableNum = syllablesSelected[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
         
         
@@ -1316,12 +1345,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //字型顏色
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.cyan]
         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.orange]
-        
         
         //假如音節是_e, 另外處理
-        if syllableText[0].contains("_") {
-            
+        if syllableText.contains("_") {
+
             var characters = [Character]()
             
             var attrWords = [NSMutableAttributedString]()
@@ -1340,12 +1367,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 if characters.count == 3 {
                     if characters[2] == "e"{
                         if vowels.contains(String(characters[0])){
+
+                            
                             //剛好是_e部首
-                            let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs3)
+                            let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs1)
                             attrWords.append(word)
                             let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs2)
                             attrWords.append(word1)
-                            let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs3)
+                            let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs1)
                             attrWords.append(word2)
                             
                             
@@ -1404,7 +1433,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 if let engWord = engWordArray[i] as String?{
                     
                     //如果此字節是音節字元
-                    if engWord == syllableText[0]{
+                    if engWord == syllableText{
                         
                         let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
                         attrWords.append(word)
@@ -1442,7 +1471,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         partOfSpeechLabel.adjustsFontSizeToFitWidth = true
         partOfSpeechLabel.text = partOfSpeech
         syllableLabel.adjustsFontSizeToFitWidth = true
-        syllableLabel.text = syllableText[0]
+        syllableLabel.text = syllableText
         
         //抓句子
         let engSen = engSenSelected[indexPath.row]
@@ -1556,9 +1585,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             //指定一個數字, 去找符合音節的字
             var indexToChange = Int()
          
-                for i in 0 ..< sylArray.count{
+                for i in 0 ..< sortedSylArray.count{
                     
-                    if sylArray[i] == sylTextLabel.text! {
+                    if sortedSylArray[i] == sylTextLabel.text! {
                         indexToChange = i
                     }
                 }
@@ -1591,7 +1620,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
-        return sylArray.count
+        return sortedSylArray.count
     }
     
     
@@ -1624,12 +1653,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         let blueBall = cell.viewWithTag(2) as! UIImageView
         let sylText = cell.viewWithTag(1) as!UILabel
-        let sylToDisplay = sylArray[indexPath.row]
+        let sylToDisplay = sortedSylArray[indexPath.row]
         
         sylText.text = sylToDisplay
         sylText.textColor = btnOffColor
         
-        sylSelected = sylArray[collectionSelectedIndex!]
+        sylSelected = sortedSylArray[collectionSelectedIndex!]
         
         if !isScrolling{
             jumpToRow(sylSelected: sylSelected!)
@@ -1655,9 +1684,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //抓當下的元素
         for i in 0 ..< syllablesSelected.count{
             
-            let syllableText = syllablesSelected[i].components(separatedBy: .decimalDigits)
+            //let syllableText = syllablesSelected[i].components(separatedBy: .decimalDigits)
             
-            onlySylTextArray.append(syllableText[0])
+            let syllableText = syllablesSelected[i]
+            
+            onlySylTextArray.append(syllableText)
             
         }
         
