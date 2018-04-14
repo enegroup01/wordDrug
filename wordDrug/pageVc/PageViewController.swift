@@ -231,7 +231,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         self.view.bringSubview(toFront: page3)
         
         //在此確認已過關卡
-        //gamePassed = [14:9]
+        gamePassed = [14:9]
         
 
         

@@ -1556,15 +1556,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidScroll(_:)), object: nil)
 
         
+        
         //用這個func來決定collectionView Cell要顯示哪個
-        findMatchCollectionCell()
+        
+        if scrollView == tableView{
+            
+                  findMatchCollectionCell()
+        }
+  
+        print("end scrolling")
         
     }
     
-    
+    //指定一個數字, 去找符合音節的字
+    var indexToChange = Int()
     
     //決定collectionView 那個cell被選擇
     func findMatchCollectionCell(){
+        
+      
         
         if engWordsSelected.count > 0 {
         
@@ -1582,8 +1592,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
             
             
-            //指定一個數字, 去找符合音節的字
-            var indexToChange = Int()
+
          
                 for i in 0 ..< sortedSylArray.count{
                     
@@ -1612,6 +1621,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
         //重整collectionView
         isScrolling = true
+
+        
+        let indexToScroll = IndexPath(row: indexToChange, section: 0)
+        collectionView.scrollToItem(at: indexToScroll, at: .centeredVertically, animated: true)
+        
         collectionView.reloadData()
 
     }
@@ -1638,6 +1652,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             collectionSelectedIndex = indexPath.row
             
             isScrolling = false
+            
             
             collectionView.reloadData()
         }
@@ -1673,6 +1688,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             sylText.textColor = .darkGray
             
         }
+        
+        
+      
+        
+      
         return cell
         
     }
@@ -1682,6 +1702,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         var onlySylTextArray = [String]()
         
         //抓當下的元素
+        /*
         for i in 0 ..< syllablesSelected.count{
             
             //let syllableText = syllablesSelected[i].components(separatedBy: .decimalDigits)
@@ -1691,12 +1712,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             onlySylTextArray.append(syllableText)
             
         }
-        
+        */
         //找對應的row, 並跳過去
-        for i in 0 ..< onlySylTextArray.count{
+        for i in 0 ..< syllablesSelected.count{
             
             //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
-            if onlySylTextArray[i] == sylSelected{
+            if syllablesSelected[i] == sylSelected{
                 
                 if i < tableView.numberOfRows(inSection: 0){
                     
@@ -1816,7 +1837,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         synth.speak(chiSen)
         
     }
-    
+
     
     
     /*
