@@ -191,7 +191,6 @@
 		AA648E9E207CEA05003ACD07 /* 3-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E06207CE9F3003ACD07 /* 3-3.txt */; };
 		AA648E9F207CEA05003ACD07 /* s4-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E07207CE9F4003ACD07 /* s4-13.txt */; };
 		AA648EA0207CEA05003ACD07 /* 2-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E08207CE9F4003ACD07 /* 2-10.txt */; };
-		AA648EA1207CEA05003ACD07 /* 有發音問題的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E09207CE9F4003ACD07 /* 有發音問題的字.txt */; };
 		AA648EA2207CEA05003ACD07 /* s3-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E0A207CE9F4003ACD07 /* s3-1.txt */; };
 		AA648EA3207CEA05003ACD07 /* s4-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E0B207CE9F5003ACD07 /* s4-2.txt */; };
 		AA648EA4207CEA05003ACD07 /* 3-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E0C207CE9F5003ACD07 /* 3-11.txt */; };
@@ -244,7 +243,6 @@
 		AA648ED3207CEA05003ACD07 /* s2-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E3B207CE9FE003ACD07 /* s2-13.txt */; };
 		AA648ED4207CEA05003ACD07 /* s2-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E3C207CE9FE003ACD07 /* s2-15.txt */; };
 		AA648ED5207CEA05003ACD07 /* s3-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E3D207CE9FE003ACD07 /* s3-9.txt */; };
-		AA648ED6207CEA05003ACD07 /* s1-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E3E207CE9FF003ACD07 /* s1-1.txt */; };
 		AA648ED7207CEA05003ACD07 /* 1-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E3F207CE9FF003ACD07 /* 1-8.txt */; };
 		AA648ED8207CEA05003ACD07 /* 5-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E40207CE9FF003ACD07 /* 5-4.txt */; };
 		AA648ED9207CEA05003ACD07 /* s2-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E41207CE9FF003ACD07 /* s2-5.txt */; };
@@ -256,7 +254,6 @@
 		AA648EDF207CEA05003ACD07 /* 2-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E47207CEA00003ACD07 /* 2-5.txt */; };
 		AA648EE0207CEA05003ACD07 /* s2-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E48207CEA00003ACD07 /* s2-10.txt */; };
 		AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E49207CEA01003ACD07 /* s5-12.txt */; };
-		AA648EE2207CEA05003ACD07 /* 1-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E4A207CEA01003ACD07 /* 1-1.txt */; };
 		AA648EE3207CEA05003ACD07 /* s5-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E4B207CEA01003ACD07 /* s5-15.txt */; };
 		AA648EE4207CEA05003ACD07 /* 5-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E4C207CEA01003ACD07 /* 5-7.txt */; };
 		AA648EE5207CEA05003ACD07 /* 4-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E4D207CEA01003ACD07 /* 4-3.txt */; };
@@ -299,6 +296,9 @@
 		AA7D6135203FC4F100E0A94D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7D6134203FC4F100E0A94D /* PageViewController.swift */; };
 		AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D61362040408200E0A94D /* blueBackBtnImg.png */; };
 		AA7D6139204040A400E0A94D /* purpleBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D6138204040A300E0A94D /* purpleBg.png */; };
+		AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */; };
+		AA7DCB952085BE65008AFFDF /* s1-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB942085BE64008AFFDF /* s1-1.txt */; };
+		AA7DCB972085BE71008AFFDF /* 1-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB962085BE70008AFFDF /* 1-1.txt */; };
 		AA7FA7A51FB5A63500315524 /* le9.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7FA79B1FB5A63300315524 /* le9.png */; };
 		AA7FA7A61FB5A63500315524 /* le4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7FA79C1FB5A63400315524 /* le4.png */; };
 		AA7FA7A71FB5A63500315524 /* le5.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7FA79D1FB5A63400315524 /* le5.png */; };
@@ -736,7 +736,6 @@
 		AA648E06207CE9F3003ACD07 /* 3-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-3.txt"; sourceTree = "<group>"; };
 		AA648E07207CE9F4003ACD07 /* s4-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s4-13.txt"; sourceTree = "<group>"; };
 		AA648E08207CE9F4003ACD07 /* 2-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-10.txt"; sourceTree = "<group>"; };
-		AA648E09207CE9F4003ACD07 /* 有發音問題的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "有發音問題的字.txt"; sourceTree = "<group>"; };
 		AA648E0A207CE9F4003ACD07 /* s3-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s3-1.txt"; sourceTree = "<group>"; };
 		AA648E0B207CE9F5003ACD07 /* s4-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s4-2.txt"; sourceTree = "<group>"; };
 		AA648E0C207CE9F5003ACD07 /* 3-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-11.txt"; sourceTree = "<group>"; };
@@ -789,7 +788,6 @@
 		AA648E3B207CE9FE003ACD07 /* s2-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-13.txt"; sourceTree = "<group>"; };
 		AA648E3C207CE9FE003ACD07 /* s2-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-15.txt"; sourceTree = "<group>"; };
 		AA648E3D207CE9FE003ACD07 /* s3-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s3-9.txt"; sourceTree = "<group>"; };
-		AA648E3E207CE9FF003ACD07 /* s1-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s1-1.txt"; sourceTree = "<group>"; };
 		AA648E3F207CE9FF003ACD07 /* 1-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-8.txt"; sourceTree = "<group>"; };
 		AA648E40207CE9FF003ACD07 /* 5-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-4.txt"; sourceTree = "<group>"; };
 		AA648E41207CE9FF003ACD07 /* s2-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-5.txt"; sourceTree = "<group>"; };
@@ -801,7 +799,6 @@
 		AA648E47207CEA00003ACD07 /* 2-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2-5.txt"; sourceTree = "<group>"; };
 		AA648E48207CEA00003ACD07 /* s2-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-10.txt"; sourceTree = "<group>"; };
 		AA648E49207CEA01003ACD07 /* s5-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-12.txt"; sourceTree = "<group>"; };
-		AA648E4A207CEA01003ACD07 /* 1-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-1.txt"; sourceTree = "<group>"; };
 		AA648E4B207CEA01003ACD07 /* s5-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-15.txt"; sourceTree = "<group>"; };
 		AA648E4C207CEA01003ACD07 /* 5-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-7.txt"; sourceTree = "<group>"; };
 		AA648E4D207CEA01003ACD07 /* 4-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-3.txt"; sourceTree = "<group>"; };
@@ -845,6 +842,9 @@
 		AA7D6134203FC4F100E0A94D /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AA7D61362040408200E0A94D /* blueBackBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueBackBtnImg.png; sourceTree = "<group>"; };
 		AA7D6138204040A300E0A94D /* purpleBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleBg.png; sourceTree = "<group>"; };
+		AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "有發音問題的字.txt"; sourceTree = "<group>"; };
+		AA7DCB942085BE64008AFFDF /* s1-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s1-1.txt"; sourceTree = "<group>"; };
+		AA7DCB962085BE70008AFFDF /* 1-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-1.txt"; sourceTree = "<group>"; };
 		AA7FA79B1FB5A63300315524 /* le9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = le9.png; sourceTree = "<group>"; };
 		AA7FA79C1FB5A63400315524 /* le4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = le4.png; sourceTree = "<group>"; };
 		AA7FA79D1FB5A63400315524 /* le5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = le5.png; sourceTree = "<group>"; };
@@ -1398,7 +1398,7 @@
 		AA7FA7CE1FB5BF9900315524 /* words */ = {
 			isa = PBXGroup;
 			children = (
-				AA648E4A207CEA01003ACD07 /* 1-1.txt */,
+				AA7DCB962085BE70008AFFDF /* 1-1.txt */,
 				AA648E60207CEA04003ACD07 /* 1-2.txt */,
 				AA648E19207CE9F8003ACD07 /* 1-3.txt */,
 				AA648E4F207CEA01003ACD07 /* 1-4.txt */,
@@ -1473,9 +1473,9 @@
 				AA648E26207CE9FA003ACD07 /* 5-13.txt */,
 				AA648E2D207CE9FC003ACD07 /* 5-14.txt */,
 				AA648DF8207CE9EF003ACD07 /* 5-15.txt */,
-				AA648E09207CE9F4003ACD07 /* 有發音問題的字.txt */,
 				AA648DFC207CE9F0003ACD07 /* AllElements.txt */,
-				AA648E3E207CE9FF003ACD07 /* s1-1.txt */,
+				AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */,
+				AA7DCB942085BE64008AFFDF /* s1-1.txt */,
 				AA648E17207CE9F7003ACD07 /* s1-2.txt */,
 				AA648DE7207CE9ED003ACD07 /* s1-3.txt */,
 				AA648E52207CEA02003ACD07 /* s1-4.txt */,
@@ -2024,7 +2024,6 @@
 				AA7FA7C31FB5A6C600315524 /* e7.png in Resources */,
 				AA86F3BC1FA9CE03004E7997 /* monsterEffect.png in Resources */,
 				AA648EAF207CEA05003ACD07 /* s1-2.txt in Resources */,
-				AA648ED6207CEA05003ACD07 /* s1-1.txt in Resources */,
 				AAFF77DD200F81D800283482 /* redOrb.png in Resources */,
 				AAA1A685201206AD00C9106B /* xMark.png in Resources */,
 				AAB68D3E1FE8F35400CCF820 /* 1-1.png in Resources */,
@@ -2079,10 +2078,12 @@
 				AA648EA8207CEA05003ACD07 /* 3-14.txt in Resources */,
 				AADC61421FEBA09900032780 /* woodGem.png in Resources */,
 				AA87EA961FBD4CDB00830608 /* 1301.png in Resources */,
+				AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */,
 				AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */,
 				AA8E9F6D1FB17BC600509D39 /* questBoardGreen.png in Resources */,
 				AA648EE6207CEA05003ACD07 /* 5-12.txt in Resources */,
 				AA648EBF207CEA05003ACD07 /* s1-13.txt in Resources */,
+				AA7DCB952085BE65008AFFDF /* s1-1.txt in Resources */,
 				AA648E77207CEA05003ACD07 /* 3-4.txt in Resources */,
 				AADE62B91FDFB99600C9EA42 /* fire.png in Resources */,
 				AA648E8D207CEA05003ACD07 /* 5-2.txt in Resources */,
@@ -2098,6 +2099,7 @@
 				AA648ED0207CEA05003ACD07 /* s2-3.txt in Resources */,
 				AA648ED5207CEA05003ACD07 /* s3-9.txt in Resources */,
 				AA648E68207CEA05003ACD07 /* s3-14.txt in Resources */,
+				AA7DCB972085BE71008AFFDF /* 1-1.txt in Resources */,
 				AA8E9F671FB1752E00509D39 /* attack6.png in Resources */,
 				AA04ED8E203D7F6200EC0A8E /* toeicBg.png in Resources */,
 				AA8E9F541FB1642000509D39 /* flatMonster3.png in Resources */,
@@ -2309,7 +2311,6 @@
 				AA389F0C200C99160032F846 /* diamond.png in Resources */,
 				AA4642B41FC7CCC900D34516 /* lightD.png in Resources */,
 				AA648EF0207CEA05003ACD07 /* 5-9.txt in Resources */,
-				AA648EA1207CEA05003ACD07 /* 有發音問題的字.txt in Resources */,
 				AA648EF9207CEA05003ACD07 /* s1-12.txt in Resources */,
 				AA648EF2207CEA05003ACD07 /* 2-13.txt in Resources */,
 				AA648EB3207CEA05003ACD07 /* s5-8.txt in Resources */,
@@ -2336,7 +2337,6 @@
 				AA648EAD207CEA05003ACD07 /* s2-14.txt in Resources */,
 				AA648E76207CEA05003ACD07 /* s1-8.txt in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
-				AA648EE2207CEA05003ACD07 /* 1-1.txt in Resources */,
 				AAC015B920173C3E00FE675B /* autoplayBtn.png in Resources */,
 				AA648EB2207CEA05003ACD07 /* s3-12.txt in Resources */,
 				AA8F7FF21FB315F1000CD84F /* map1.png in Resources */,

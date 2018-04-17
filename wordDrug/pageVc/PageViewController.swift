@@ -175,6 +175,8 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         
         // Do any additional setup after loading the view.
         
+        
+        
         //進入遊戲nc
         NotificationCenter.default.addObserver(self, selector: #selector(PageViewController.toNewGame), name: NSNotification.Name("toNewGame"), object: nil)
         
@@ -251,6 +253,14 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         setMaxInt()
         setBtnPage(currentPage: currentPage)
  */
+        
+        //用過關數來判斷頁數
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -304,7 +314,10 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
     
     //設定最大可以開放的數字
     func setMaxInt(){
+        //設定頁數是否打開
         
+        
+
         
         //如果該地圖已過就全開
         if (mapNumToReceive - 1) < mapPassed!{
@@ -313,9 +326,41 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             print("map all passed")
             
             
+            
+            
         } else {
         
         for (s,u) in gamePassed!{
+            /*
+            
+            switch s{
+                
+            case 0:
+                pageBtns[0].isHidden = false
+            case 1:
+                pageBtns[0].isHidden = false
+                pageBtns[1].isHidden = false
+            case 2:
+                pageBtns[0].isHidden = false
+                pageBtns[1].isHidden = false
+                pageBtns[2].isHidden = false
+            case 3:
+                pageBtns[0].isHidden = false
+                pageBtns[1].isHidden = false
+                pageBtns[2].isHidden = false
+                pageBtns[3].isHidden = false
+            case 4...:
+                pageBtns[0].isHidden = false
+                pageBtns[1].isHidden = false
+                pageBtns[2].isHidden = false
+                pageBtns[3].isHidden = false
+                rightBtn.isHidden = false
+                
+            default:
+                break
+                
+            }
+            */
      
             //  如果大於頁數, 則該頁全部的元素都代表過關
             if s > currentPage {
@@ -806,7 +851,6 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         
         print("will appear")
         
-
         
         
         //抓最大顯示unit
