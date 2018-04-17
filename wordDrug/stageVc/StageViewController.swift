@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     let stageCount = 5
     var mapNumToPass = Int()
@@ -21,17 +21,28 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     //上方單字總計label
     @IBOutlet weak var topWordsNumberLabel: UILabel!
     
+    @IBOutlet weak var stageTopImg: UIImageView!
+    
+    @IBOutlet weak var backBtn: UIButton!
+    
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         collectionView.backgroundColor = UIColor.init(red: 179/255, green: 78/255, blue: 81/255, alpha: 1)
         collectionView.delegate = self
+       
+        //layOut
+
+        stageTopImg.frame = CGRect(x: 0, y: 0, width: width, height: height * 3.8 / 19)
+    
+        backBtn.frame = CGRect(x: 0, y: 0, width: stageTopImg.frame.height, height: stageTopImg.frame.height)
         
-        
-        
-        
+        collectionView.frame = CGRect(x: 0, y: stageTopImg.frame.maxY, width: width, height: height - stageTopImg.frame.height)
         
     }
     
@@ -118,12 +129,17 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         let cell =
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "stageCell", for: indexPath as IndexPath)
+        
 
         let stageLabel = cell.viewWithTag(1) as! UILabel
         stageLabel.text = String(indexPath.row + 1)
         
         let wordCountLabel = cell.viewWithTag(2) as! UILabel
         wordCountLabel.adjustsFontSizeToFitWidth = true
+        
+        
+        //stageLabel.frame = CGRect(x: cell.frame.midX, y: cell.frame.midY, width: cell.frame.width / 4, height: cell.frame.height / 3)
+        
         let wordCounts = eachCellMyWordsCount[indexPath.row]
         wordCountLabel.text = "\(wordCounts) / 450"
         
@@ -139,6 +155,27 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
          cell.backgroundColor = colors[indexPath.row % colors.count]
         
         return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let size = CGSize(width: width / 2, height: width / 2)
+        return size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout
+        collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -175,11 +175,23 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         
         // Do any additional setup after loading the view.
         
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+        
+        backBtn.frame = CGRect(x: width / 10, y: width / 10, width: 30, height: 45)
+       
+        leftBtn.frame = CGRect(x: width / 3.4, y: height - height / 14, width: 13, height: 20)
+        page0.frame = CGRect(x: leftBtn.frame.origin.x + width / 15, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
+        page1.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 2, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
+        page2.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 3, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
+        page3.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 4, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
+        
+        rightBtn.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 5.7, y: leftBtn.frame.origin.y, width: 13, height: 20)
         
         
         //進入遊戲nc
         NotificationCenter.default.addObserver(self, selector: #selector(PageViewController.toNewGame), name: NSNotification.Name("toNewGame"), object: nil)
-        
+    
         //設定地圖的音節
         switch mapNumToReceive {
         case 1:

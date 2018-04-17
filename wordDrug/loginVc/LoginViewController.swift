@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SSBouncyButton
 
 class LoginViewController: UIViewController,UITextFieldDelegate {
 
@@ -14,6 +15,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var bgView: UIView!
     
+    @IBOutlet weak var bgImg: UIImageView!
+    @IBOutlet weak var loginBtn: SSBouncyButton!
+    @IBOutlet weak var registerBtn: SSBouncyButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,7 +30,49 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         
         // Do any additional setup after loading the view.
+        
+        //layOut
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+        
+        
+        loginBtn.frame = CGRect(x: width / 2 + width / 30, y: height / 2, width: width / 6, height: width / 6)
+        registerBtn.frame = CGRect(x: width / 2 - loginBtn.frame.width - width / 30, y: height / 2, width: width / 6, height: width / 6)
+        
+        var iphoneWidth = CGFloat()
+        var fontSize = CGFloat()
+        switch  height {
+        case 812:
+            iphoneWidth = height * 375/667
+            fontSize = 20
+        case 736:
+            iphoneWidth = width
+            fontSize = 18
+            
+        case 667:
+            iphoneWidth = width
+            fontSize = 18
+
+        case 568:
+            iphoneWidth = width
+            fontSize = 16
+
+        default:
+            break
+            
+        }
+        
+        bgView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        bgImg.frame = CGRect(x: 0, y: 0, width: iphoneWidth, height: height)
+        
+        usernameTxt.frame = CGRect(x: width / 6, y: height / 3.4, width: width * 2 / 3, height: 30)
+        usernameTxt.font = UIFont(name: "Helvetica Neue", size: fontSize)
+        
+        
+        passwordTxt.frame = CGRect(x: width / 6, y: height / 2.5, width: width * 2 / 3, height: 30)
+        passwordTxt.font = UIFont(name: "Helvetica Neue", size: fontSize)
     }
+    
 
     
     //註冊功能
