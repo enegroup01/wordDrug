@@ -14,7 +14,7 @@ class CoursesViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        print("coursesVC:\(user!)")
         
         
     }

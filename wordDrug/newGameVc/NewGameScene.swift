@@ -1958,6 +1958,7 @@ class NewGameScene: SKScene {
             //這是連接後端的func
             addWrongWords()
             
+            
             let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
             

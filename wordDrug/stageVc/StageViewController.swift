@@ -12,6 +12,11 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     let stageCount = 5
     var mapNumToPass = Int()
+    var elemWordsMax = [450,450,450,450,450]
+    var eachCellMyWordsCount = [0,0,0,0,0]
+    var totalWordsLearned = Int()
+    
+    var wordCounts = Int()
     
     //上方單字總計label
     @IBOutlet weak var topWordsNumberLabel: UILabel!
@@ -24,7 +29,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionView.backgroundColor = UIColor.init(red: 179/255, green: 78/255, blue: 81/255, alpha: 1)
         collectionView.delegate = self
         
-        topWordsNumberLabel.text = "1073/2100"
+        
         
         
         
@@ -40,6 +45,65 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
 
         return stageCount
+    }
+    
+    //即時更新學習單字字數
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //抓所有學習單字字數
+
+        
+
+
+        //mapPassed = 4
+        
+        for (s,u) in gamePassed!{
+            
+            wordCounts = s * 30 + u * 3
+            
+        }
+        
+        
+            
+            switch mapPassed!{
+                
+            case 0:
+                eachCellMyWordsCount[0] = wordCounts
+            case 1:
+                eachCellMyWordsCount[0] = 450
+                eachCellMyWordsCount[1] = wordCounts
+            case 2:
+                eachCellMyWordsCount[0] = 450
+                eachCellMyWordsCount[1] = 450
+                eachCellMyWordsCount[2] = wordCounts
+            case 3:
+                eachCellMyWordsCount[0] = 450
+                eachCellMyWordsCount[1] = 450
+                eachCellMyWordsCount[2] = 450
+                eachCellMyWordsCount[3] = wordCounts
+            case 4:
+                eachCellMyWordsCount[0] = 450
+                eachCellMyWordsCount[1] = 450
+                eachCellMyWordsCount[2] = 450
+                eachCellMyWordsCount[3] = 450
+                eachCellMyWordsCount[4] = wordCounts
+       
+            default:
+                break
+            }
+        
+        
+        for c in eachCellMyWordsCount{
+            totalWordsLearned += c
+            
+        }
+        
+        topWordsNumberLabel.text = "\(totalWordsLearned)/2250"
+            
+             collectionView.reloadData()
+        
+        
+        
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {
@@ -60,7 +124,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         let wordCountLabel = cell.viewWithTag(2) as! UILabel
         wordCountLabel.adjustsFontSizeToFitWidth = true
-        wordCountLabel.text = "0 / 420"
+        let wordCounts = eachCellMyWordsCount[indexPath.row]
+        wordCountLabel.text = "\(wordCounts) / 450"
         
        
         //設定cell的顏色
@@ -82,7 +147,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         mapNumToPass = indexPath.row + 1
         
         //在此先暫時預設mapPassed...之後要寫在過關時做儲存
-        mapPassed = 4
+        //mapPassed = 4
         print("mapPassed in stage:\(mapPassed)")
         //有過地圖才能進關卡
         if mapPassed! >= indexPath.row {

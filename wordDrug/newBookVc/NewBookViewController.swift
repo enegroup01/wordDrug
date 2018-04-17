@@ -98,8 +98,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["ea30","en30","er30","ea31","er31","ea32","er32","ea33","er33","en31"],
                             ["bet1","a_e16","ba2","ban1","bar1","bl2","br2","br3","br4","ble3"]]
 
-    
-    
     //刪掉數字的音節
     var sylArray = [String]()
     
@@ -150,7 +148,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var chiSenToShow = [String]()
     
     
-    var sortedEndWordsToShow = [String]()
+    var sortedEngWordsToShow = [String]()
       var sortedChiWordsToShow = [String]()
       var sortedPartOfSpeechToShow = [String]()
       var sortedSyllablesToShow = [String]()
@@ -260,6 +258,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         collectionView.backgroundColor = .clear
         tableView.backgroundColor = .clear
+        
         let bgImg = UIImage(named:"wordTableBg.png")
         tableView.backgroundView = UIImageView(image: bgImg)
         tableView.separatorColor = UIColor.init(red: 215/255, green: 217/255, blue: 226/255, alpha: 1)
@@ -312,14 +311,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 syllableSets.append(syl)
             }
         }
-        
-        
-        
+     
         
         //讀取所有syl, 排除相同的再次出現
         for syl in syllableSets{
  
-                
+     
                 let sylBreaks = syl.components(separatedBy: NSCharacterSet.decimalDigits)
                 let sylOnlyText = sylBreaks[0]
                 
@@ -330,6 +327,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             if !sortedSylArray.contains(sylOnlyText){
                 
+                
                 sortedSylArray.append(sylOnlyText)
             }
             
@@ -337,11 +335,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         
-
- 
         //建立collectionView按鈕數量
-        for _ in 0 ..< syllableSets.count{
+        for _ in 0 ..< sortedSylArray.count{
             
+         
             collectionTouched.append(0)
             
         }
@@ -350,17 +347,21 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         collectionTouched[0] = 1
         
         //讀取已過地圖
-        mapPassed = 4
+        //mapPassed = 1
         
         //spot & unit, 當下已過的地圖裡的關卡數字
-        gamePassed = [14:9]
+        //gamePassed = [0:0]
+        
+        print("book mapPassed:\(mapPassed!)")
+        print("book gamPassed:\(gamePassed!)")
         
         //所有已過關的地圖字都要抓進去
         for m in 0 ..< mapPassed!{
             //要讀取裡面的全部
     
+       
             //讀取已完整的所有字集 + 句子
-            
+            //print("m:\(m)")
             //目前設置15的原因因為所有探索點都有15個, 若之後不同課程有不同的探索點數, 要抓動態探索點數字
             for i in 0 ..< 15{
                 
@@ -413,10 +414,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //接著抓目前最新開放地圖裡的完成字 + 殘字
         for (s,_) in gamePassed!{
+  
+            
             
             //讀取已完整的所有字集 + 句子
             for i in 0 ..< (s){
                 
+
                 var wordFile:String?
                 //前面的1代表第一張地圖
                 let name = String(describing: mapPassed! + 1) + "-" + String(i + 1)
@@ -483,6 +487,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 // example.txt not found!
             }
             
+            
+            
             var sentenceFile:String?
             
             //抓句子
@@ -510,8 +516,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //抓單字
         for i in 0 ..< wordSets.count{
+            
+           
             for w in 0 ..< 30{
                 
+
                 engWordsToShow.append(wordSets[i][w])
                 
                 //抓出正確的順序
@@ -522,11 +531,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             for c in 30 ..< 60{
                 
+
                 chiWordsToShow.append(wordSets[i][c])
             }
             
             for p in 60 ..< 90{
                 
+
                 partOfSpeechToShow.append(wordSets[i][p])
             }
             
@@ -534,15 +545,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //抓完整句子
         for i in 0 ..< sentenceSets.count{
+
            
             for e in 0 ..< 30{
-                
+
                 engSenToShow.append(sentenceSets[i][e])
                 
             }
             
             for c in 30 ..< 60{
-                
+     
                 chiSenToShow.append(sentenceSets[i][c])
             }
             
@@ -556,7 +568,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         for (_,g) in gamePassed!{
             
+
+            
             for w in 0 ..< ((g + 1) * 3){
+                
+                
                 engWordsToShow.append(tempWordSets[0][w])
     
                 let syllableSequence = sequence + Int(w / 3)
@@ -569,6 +585,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
             
             for w in 30 ..< (30 + (g + 1) * 3){
+                
             
                 chiWordsToShow.append(tempWordSets[0][w])
                 
@@ -577,6 +594,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
             
             for w in 60 ..< (60 + (g + 1) * 3){
+                
             
                 partOfSpeechToShow.append(tempWordSets[0][w])
            
@@ -598,27 +616,64 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //填入所有字的數量, 等等準備抓我的最愛的部分
         for _ in 0 ..< engWordsToShow.count - 3{
+
             myFavImgs.append(0)
         }
         
+
+        //兩個音節做比對, 抓新字的順序
+        for s in 0 ..< sortedSylArray.count{
+
+            
+            for i in 0 ..< sylArray.count{
+
+                
+                if sortedSylArray[s] == sylArray[i]{
+                    
+                    
+                    for n in 0 ..< 3 {
+
+                        
+                        //音節過多, 單字不夠多所以要確認數量
+                        if engWordsToShow.count > ((i * 3) + n){
+                        
+                        sortedEngWordsToShow.append(engWordsToShow[(i * 3) + n])
+                        sortedChiWordsToShow.append(chiWordsToShow[(i * 3) + n])
+                        sortedPartOfSpeechToShow.append(partOfSpeechToShow[(i * 3) + n])
+                        sortedSyllablesToShow.append(syllablesToShow[(i * 3) + n])
+                        sortedEngSenToShow.append(engSenToShow[(i * 3) + n])
+                        sortedChiSenToShow.append(chiSenToShow[(i * 3) + n])
+                      
+                        }
+                        
+                    }
+                    
+    
+                }
+                
+            }
+            
+            
+        }
         
+       
         //從所有的單字裡去找match到的我的最愛單字
-        for i in 0 ..< engWordsToShow.count{
+        for i in 0 ..< sortedEngWordsToShow.count{
             
             //這個完整字沒有拆音節
-            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
-            let chiWord = chiWordsToShow[i]
-            let partOfSpeech = partOfSpeechToShow[i]
-            let syllables = syllablesToShow[i]
+            let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            let chiWord = sortedChiWordsToShow[i]
+            let partOfSpeech = sortedPartOfSpeechToShow[i]
+            let syllables = sortedSyllablesToShow[i]
             //這個字才有拆音節
-            let wordToAppend = engWordsToShow[i]
-            let engSenToAppend = engSenToShow[i]
-            let chiSenToAppend = chiSenToShow[i]
+            let wordToAppend = sortedEngWordsToShow[i]
+            let engSenToAppend = sortedEngSenToShow[i]
+            let chiSenToAppend = sortedChiSenToShow[i]
             
             for myWord in myFavWords{
                 
                 if myWord == word {
-                    
+
                     myFavEngWordsToShow.append(wordToAppend)
                     myFavChiWordsToShow.append(chiWord)
                     myFavPartOfSpeechToShow.append(partOfSpeech)
@@ -638,6 +693,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 if myWrongWord == word {
                     
+                    
                     myWrongEngWordsToShow.append(wordToAppend)
                     myWrongChiWordsToShow.append(chiWord)
                     myWrongPartOfSpeechToShow.append(partOfSpeech)
@@ -651,38 +707,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-        
-        //兩個音節做比對, 抓新字的順序
-        for s in 0 ..< sortedSylArray.count{
-            
-            for i in 0 ..< sylArray.count{
-                
-                if sortedSylArray[s] == sylArray[i]{
-                    
-                    for n in 0 ..< 3 {
-                       
-                        sortedEndWordsToShow.append(engWordsToShow[(i * 3) + n])
-                        sortedChiWordsToShow.append(chiWordsToShow[(i * 3) + n])
-                        sortedPartOfSpeechToShow.append(partOfSpeechToShow[(i * 3) + n])
-                        sortedSyllablesToShow.append(syllablesToShow[(i * 3) + n])
-                        sortedEngSenToShow.append(engSenToShow[(i * 3) + n])
-                        sortedChiSenToShow.append(chiSenToShow[(i * 3) + n])
 
-                        
-                    }
-                    
-    
-                }
-                
-            }
-            
-            
-        }
-        
-        
         
         //設定好要show的第一組單字就是全部的單字
-        engWordsSelected = sortedEndWordsToShow
+        engWordsSelected = sortedEngWordsToShow
         chiWordsSelected = sortedChiWordsToShow
         partOfSpeechSelected = sortedPartOfSpeechToShow
         syllablesSelected = sortedSyllablesToShow
@@ -692,6 +720,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //移除三個多增加的數量, 這三個是可能會錯的部分?? 為什麼只移除engWordsSelected..應該是因為這樣return cell就直接少三個
         for  _ in 0 ..< 3 {
+            
+
             engWordsSelected.removeLast()
         }
         
@@ -773,12 +803,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 if myWord == word {
                     
-                    let chiWord = chiWordsToShow[i]
-                    let partOfSpeech = partOfSpeechToShow[i]
-                    let syllables = syllablesToShow[i]
-                    let wordToAppend = engWordsToShow[i]
-                    let engSenToAppend = engSenToShow[i]
-                    let chiSenToAppend = chiSenToShow[i]
+                    let chiWord = sortedChiWordsToShow[i]
+                    let partOfSpeech = sortedPartOfSpeechToShow[i]
+                    let syllables = sortedSyllablesToShow[i]
+                    let wordToAppend = sortedEngWordsToShow[i]
+                    let engSenToAppend = sortedEngSenToShow[i]
+                    let chiSenToAppend = sortedChiSenToShow[i]
                     
                     myFavEngWordsToShow.append(wordToAppend)
                     myFavChiWordsToShow.append(chiWord)
@@ -835,12 +865,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 if myWrongWord == word {
                     
-                    let chiWord = chiWordsToShow[i]
-                    let partOfSpeech = partOfSpeechToShow[i]
-                    let syllables = syllablesToShow[i]
-                    let wordToAppend = engWordsToShow[i]
-                    let engSenToAppend = engSenToShow[i]
-                    let chiSenToAppend = chiSenToShow[i]
+                    let chiWord = sortedChiWordsToShow[i]
+                    let partOfSpeech = sortedPartOfSpeechToShow[i]
+                    let syllables = sortedSyllablesToShow[i]
+                    let wordToAppend = sortedEngWordsToShow[i]
+                    let engSenToAppend = sortedEngSenToShow[i]
+                    let chiSenToAppend = sortedChiSenToShow[i]
                     
                     myWrongEngWordsToShow.append(wordToAppend)
                     myWrongChiWordsToShow.append(chiWord)
@@ -885,12 +915,22 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             likeMode = true
             
             //設定要顯示的字
+            /*
             engWordsSelected = engWordsToShow
             chiWordsSelected = chiWordsToShow
             partOfSpeechSelected = partOfSpeechToShow
             syllablesSelected = syllablesToShow
             engSenSelected = engSenToShow
             chiSenSelected = chiSenToShow
+            */
+            
+            engWordsSelected = sortedEngWordsToShow
+            chiWordsSelected = sortedChiWordsToShow
+            partOfSpeechSelected = sortedPartOfSpeechToShow
+            syllablesSelected = sortedSyllablesToShow
+            engSenSelected = sortedEngSenToShow
+            chiSenSelected = sortedChiSenToShow
+            
             
             //移除三個多增加的數量
             for  _ in 0 ..< 3 {
@@ -1309,8 +1349,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-           print(engWordsSelected.count)
+        print("rows:\(engWordsSelected.count)")
         return engWordsSelected.count
+        //return 5
      
     }
     
@@ -1635,6 +1676,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
         return sortedSylArray.count
+        
     }
     
     
@@ -1689,60 +1731,53 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-        
-      
-        
-      
         return cell
         
     }
     
     func jumpToRow(sylSelected:String){
         
-        var onlySylTextArray = [String]()
-        
-        //抓當下的元素
-        /*
-        for i in 0 ..< syllablesSelected.count{
-            
-            //let syllableText = syllablesSelected[i].components(separatedBy: .decimalDigits)
-            
-            let syllableText = syllablesSelected[i]
-            
-            onlySylTextArray.append(syllableText)
-            
-        }
-        */
+        var isJump = false
         //找對應的row, 並跳過去
-        for i in 0 ..< syllablesSelected.count{
+        
+            for i in 0 ..< syllablesSelected.count{
             
+                if isJump == false {
+                
             //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
             if syllablesSelected[i] == sylSelected{
                 
                 if i < tableView.numberOfRows(inSection: 0){
                     
                     if i == 0 {
+                        
                         let index = IndexPath(row: 0, section: 0)
                         
                         tableView.scrollToRow(at: index, at: .top, animated: true)
                         
+                        isJump = true
                         
                     } else {
                         
-                        let index = IndexPath(row: i - 1, section: 0)
+                        let index = IndexPath(row: i + 1, section: 0)
+                        
                         tableView.scrollToRow(at: index, at: .bottom, animated: true)
                         
+                        isJump = true
                         
                     }
                     
                 }
+    
             }
-            
+                }
         }
+    
+        
+   
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {
-        
         
         synth.stopSpeaking(at: .immediate)
         synth.delegate = nil

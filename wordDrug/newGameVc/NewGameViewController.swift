@@ -607,32 +607,42 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                             if unitNumber == 9{
                                                 //此探索點已過完
                                                 if spotNumber == 14 {
+                                                 
                                                     //備註: 目前map只做4張, 之後要抓正確數字, 以及做全部過關的通知
                                                     mapPassed! += 1
-                                                    UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
                                                     
                                                     gamePassed = [0:0]
-                                                    let userDefaults = UserDefaults.standard
-                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                                    userDefaults.set(encodedObject, forKey: "gamePassed")
-                                                    
+
                                                     isCelebratingMapPassed = true
                                                     
                                                     bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
                                                     
+                                                    //有更新地圖才執行
+                                                    updateMapPassed()
+                                                    
                                                 } else {
+                                                    
                                                     gamePassed = [spotNumber + 1:0]
                                                 }
                                             }else {
                                                 
                                                 gamePassed = [spotNumber: unitNumber + 1]
                                             }
+                                            
+                                            
                                             //然後儲存
                                             let userDefaults = UserDefaults.standard
                                             let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                            UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
                                             userDefaults.set(encodedObject, forKey: "gamePassed")
                                             
-                                            print(gamePassed)
+                                            
+                                            //後端
+                      
+                                            //只要過關都要執行
+                                            updateGamePassed()
+                                            
+                                            
                                             
                                         } else {
                                             print("前元素")
@@ -1509,6 +1519,141 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
 
+    //更新mapPassed
+    
+    func updateMapPassed(){
+        
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/mapPassed.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&mapPassed=\(mapPassed!)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            // no error
+            
+
+            if error == nil {
+            
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+      
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+
+                    
+                    print("mapPassed updated")
+                    
+                } catch{
+              
+                    print("catch error")
+                    
+                    
+                }
+            } else {
+                print("urlsession has error")
+                
+            }
+        }).resume()
+
+        
+        
+    }
+    
+    
+    //更新gamePassed
+    func updateGamePassed(){
+        
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        var gamePassedString = String()
+        
+        for (s,u) in gamePassed!{
+            
+            gamePassedString = String(s) + ":" + String(u)
+            
+        }
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&gamePassed=\(gamePassedString)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            // no error
+            
+            
+            if error == nil {
+                
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    
+                    print("gamePassed updated")
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                    
+                }
+            } else {
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+
+        
+    }
+    
+
+    
+    
     //新增最愛單字
     func addWord(word:String){
         

@@ -78,42 +78,28 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         
+                        //第一次玩
+                        //儲存mapPassed & gamePassed的初始值
+    
+                        mapPassed = 0
+                       
+                        let userDefaults = UserDefaults.standard
                         
+                        userDefaults.set(mapPassed!, forKey: "mapPassed")
+             
+                        gamePassed = [0:0]
                         
-                        //備註: 後端之後再寫, 基本上一註冊就給予mapPassed及gamePassed的初始值
-                        //抓地圖
-                        if mapPassed == nil{
-                            
-                            mapPassed = 0
-                            let userDefaults = UserDefaults.standard
-                            userDefaults.set(mapPassed!, forKey: "mapPassed")
-                        }
-                        //抓關卡
-                        if gamePassed == nil {
-                            //第一次玩
-                            
-                            
-                            gamePassed = [0:0]
-                            
-                            let userDefaults = UserDefaults.standard
-                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                            userDefaults.set(encodedObject, forKey: "gamePassed")
-                            
-                        }
-
-                        
-                        print("loginVc:\(gamePassed)")
-                        print("loginVc:\(mapPassed)")
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                        userDefaults.set(encodedObject, forKey: "gamePassed")
                         
                         // get id from parseJSON dictionary
-                        let id = parseJSON["id"]
-                        print(id)
-                        
+                        let id = user?["id"] as? String
+
                         // successfully registered
                         if id != nil {
 
-                                
-                                //登入
+
+                            //登入
                                 DispatchQueue.main.async(execute: {
                              
                                  
@@ -121,6 +107,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                 })
                                 
                             // error
+                            
+                            
                         } else {
                             
                             // get main queue to communicate back to user
@@ -216,17 +204,47 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     }
                     
                     
-                    let id = parseJSON["id"] as? String
-                    
-                    //先儲存使用者資訊
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    let id = user?["id"] as? String
+                    
+                    //抓mapPassed & gamePassed
+                    
+                    if let mapPassedString = user?["mapPassed"] as! String?{
+                        
+                        mapPassed = Int(mapPassedString)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed!, forKey: "mapPassed")
+                        
+                        print("retrieve mapPassed:\(mapPassed!)")
+                        
+                    }
+                    
+                    
+                    if let gamePassedString = user?["gamePassed"] as! String?{
+                        
+                        let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+                        
+                        let s = gamePassedStringArray[0]
+                        let u = gamePassedStringArray[1]
+                        gamePassed = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                        
+                        print("retrieve gamePassed:\(gamePassed!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                    }
+                    
+                    
+                    //先儲存使用者資訊
                     print(user!)
                     
                     // successfully logged in
                     if id != nil {
-                        
-                        
+                      
                         DispatchQueue.main.async(execute: {
                             print("successfully logged in")
                    
