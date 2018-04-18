@@ -23,7 +23,6 @@
 		AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32920234FA7005437C6 /* NewGameViewController.swift */; };
 		AA34F32C2023516D005437C6 /* NewGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32B2023516D005437C6 /* NewGameScene.swift */; };
 		AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4642841FC4216300D34516 /* LoginViewController.swift */; };
-		AA4663252057B61200481A43 /* resultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4663242057B61100481A43 /* resultBg.png */; };
 		AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */; };
 		AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E71207CCF7A00AAACC3 /* pointImg.png */; };
 		AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E73207CDC2800AAACC3 /* coverBg.png */; };
@@ -36,6 +35,10 @@
 		AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA5AF416204EC68A005FCC87 /* Info.plist */; };
 		AA5E2C46203D3738005E22A0 /* loginBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5E2C45203D3738005E22A0 /* loginBtnImg.png */; };
 		AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5E2C49203D374E005E22A0 /* registerBtnImg.png */; };
+		AA63D1F52087588C000EA088 /* resultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F42087588B000EA088 /* resultBg.png */; };
+		AA63D1F820875DBD000EA088 /* wrongWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F620875DBA000EA088 /* wrongWordBtn.png */; };
+		AA63D1F920875DBD000EA088 /* rightWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F720875DBB000EA088 /* rightWordBtn.png */; };
+		AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1FA2087661A000EA088 /* bigOkBtn.png */; };
 		AA648E65207CEA05003ACD07 /* 5-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648DCD207CE9E9003ACD07 /* 5-10.txt */; };
 		AA648E66207CEA05003ACD07 /* s1-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648DCE207CE9E9003ACD07 /* s1-7.txt */; };
 		AA648E67207CEA05003ACD07 /* s4-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648DCF207CE9E9003ACD07 /* s4-9.txt */; };
@@ -241,9 +244,6 @@
 		AAFAFCB7205BE11F00307264 /* bookPlayOn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAD205BE11E00307264 /* bookPlayOn.png */; };
 		AAFAFCB8205BE11F00307264 /* bookSpeed0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAE205BE11F00307264 /* bookSpeed0.png */; };
 		AAFAFCBA205BE27400307264 /* bookViewBottomBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCB9205BE27400307264 /* bookViewBottomBg.png */; };
-		AAFB00F92053D817003155E5 /* rightWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFB00F52053D816003155E5 /* rightWordBtn.png */; };
-		AAFB00FA2053D817003155E5 /* bigOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFB00F62053D816003155E5 /* bigOkBtn.png */; };
-		AAFB00FB2053D817003155E5 /* wrongWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFB00F72053D816003155E5 /* wrongWordBtn.png */; };
 		BEC32621193E6AA98B13685E /* Pods_wordDrug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59A7E8A0129B76F4791D5AB /* Pods_wordDrug.framework */; };
 /* End PBXBuildFile section */
 
@@ -266,7 +266,6 @@
 		AA34F32920234FA7005437C6 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		AA34F32B2023516D005437C6 /* NewGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScene.swift; sourceTree = "<group>"; };
 		AA4642841FC4216300D34516 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		AA4663242057B61100481A43 /* resultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultBg.png; sourceTree = "<group>"; };
 		AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordCheck.png; sourceTree = "<group>"; };
 		AA4E2E71207CCF7A00AAACC3 /* pointImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointImg.png; sourceTree = "<group>"; };
 		AA4E2E73207CDC2800AAACC3 /* coverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverBg.png; sourceTree = "<group>"; };
@@ -280,6 +279,10 @@
 		AA5AF416204EC68A005FCC87 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA5E2C45203D3738005E22A0 /* loginBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginBtnImg.png; sourceTree = "<group>"; };
 		AA5E2C49203D374E005E22A0 /* registerBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerBtnImg.png; sourceTree = "<group>"; };
+		AA63D1F42087588B000EA088 /* resultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultBg.png; sourceTree = "<group>"; };
+		AA63D1F620875DBA000EA088 /* wrongWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongWordBtn.png; sourceTree = "<group>"; };
+		AA63D1F720875DBB000EA088 /* rightWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightWordBtn.png; sourceTree = "<group>"; };
+		AA63D1FA2087661A000EA088 /* bigOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigOkBtn.png; sourceTree = "<group>"; };
 		AA648DCD207CE9E9003ACD07 /* 5-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-10.txt"; sourceTree = "<group>"; };
 		AA648DCE207CE9E9003ACD07 /* s1-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s1-7.txt"; sourceTree = "<group>"; };
 		AA648DCF207CE9E9003ACD07 /* s4-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s4-9.txt"; sourceTree = "<group>"; };
@@ -488,9 +491,6 @@
 		AAFAFCAD205BE11E00307264 /* bookPlayOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPlayOn.png; sourceTree = "<group>"; };
 		AAFAFCAE205BE11F00307264 /* bookSpeed0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed0.png; sourceTree = "<group>"; };
 		AAFAFCB9205BE27400307264 /* bookViewBottomBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookViewBottomBg.png; sourceTree = "<group>"; };
-		AAFB00F52053D816003155E5 /* rightWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightWordBtn.png; sourceTree = "<group>"; };
-		AAFB00F62053D816003155E5 /* bigOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigOkBtn.png; sourceTree = "<group>"; };
-		AAFB00F72053D816003155E5 /* wrongWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongWordBtn.png; sourceTree = "<group>"; };
 		F59A7E8A0129B76F4791D5AB /* Pods_wordDrug.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wordDrug.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -628,19 +628,19 @@
 				AA98E6032085CBC2001100BA /* rightRoundedSqr.png */,
 				AA4E2E71207CCF7A00AAACC3 /* pointImg.png */,
 				AAF31A0E207E23D9002F8FD8 /* darkSel.png */,
+				AA63D1F42087588B000EA088 /* resultBg.png */,
 				AAF31A0F207E23D9002F8FD8 /* lightSel.png */,
 				AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */,
 				AAAE4EA1207C942900C4A8EB /* recordingBtn.png */,
 				AAA591712064C543006CC5A6 /* inCircle.png */,
 				AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */,
 				AAA591702064C542006CC5A6 /* midCircle.png */,
+				AA63D1FA2087661A000EA088 /* bigOkBtn.png */,
+				AA63D1F720875DBB000EA088 /* rightWordBtn.png */,
+				AA63D1F620875DBA000EA088 /* wrongWordBtn.png */,
 				AAA591722064C543006CC5A6 /* outCircle.png */,
-				AA4663242057B61100481A43 /* resultBg.png */,
 				AA4E2E73207CDC2800AAACC3 /* coverBg.png */,
-				AAFB00F62053D816003155E5 /* bigOkBtn.png */,
 				AAAF4940207F41D100145CA0 /* unlockOkBtn.png */,
-				AAFB00F52053D816003155E5 /* rightWordBtn.png */,
-				AAFB00F72053D816003155E5 /* wrongWordBtn.png */,
 				AA7AE8FF2049675100ADEEDA /* recordCross.png */,
 				AA7AE8F920494EA400ADEEDA /* recogWordsBg.png */,
 				AA7ABB9420579591007884A1 /* countDownLine.png */,
@@ -929,6 +929,7 @@
 				AA648E9D207CEA05003ACD07 /* s3-13.txt in Resources */,
 				AA648EB4207CEA05003ACD07 /* 1-15.txt in Resources */,
 				AA648E87207CEA05003ACD07 /* s4-1.txt in Resources */,
+				AA63D1F52087588C000EA088 /* resultBg.png in Resources */,
 				AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */,
 				AA648EAB207CEA05003ACD07 /* s3-8.txt in Resources */,
 				AA98E6102085E94E001100BA /* block1.png in Resources */,
@@ -967,10 +968,8 @@
 				AAE181981F97892D00683896 /* Main.storyboard in Resources */,
 				AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */,
 				AA648EF5207CEA05003ACD07 /* s1-10.txt in Resources */,
-				AAFB00FB2053D817003155E5 /* wrongWordBtn.png in Resources */,
 				AA7ABB9520579591007884A1 /* countDownLine.png in Resources */,
 				AA98E62020861560001100BA /* block1Title.png in Resources */,
-				AAFB00FA2053D817003155E5 /* bigOkBtn.png in Resources */,
 				AA648E8F207CEA05003ACD07 /* s1-9.txt in Resources */,
 				AA648E6D207CEA05003ACD07 /* 5-6.txt in Resources */,
 				AA648EDC207CEA05003ACD07 /* s5-1.txt in Resources */,
@@ -989,7 +988,6 @@
 				AA7DCB952085BE65008AFFDF /* s1-1.txt in Resources */,
 				AA648E77207CEA05003ACD07 /* 3-4.txt in Resources */,
 				AA648E8D207CEA05003ACD07 /* 5-2.txt in Resources */,
-				AA4663252057B61200481A43 /* resultBg.png in Resources */,
 				AA98E6052085CBC3001100BA /* rightRoundedSqr.png in Resources */,
 				AA648E7A207CEA05003ACD07 /* 3-6.txt in Resources */,
 				AA648EE3207CEA05003ACD07 /* s5-15.txt in Resources */,
@@ -1084,6 +1082,7 @@
 				AAAF4941207F41D200145CA0 /* unlockOkBtn.png in Resources */,
 				AA648EF0207CEA05003ACD07 /* 5-9.txt in Resources */,
 				AA648EF9207CEA05003ACD07 /* s1-12.txt in Resources */,
+				AA63D1F920875DBD000EA088 /* rightWordBtn.png in Resources */,
 				AA648EF2207CEA05003ACD07 /* 2-13.txt in Resources */,
 				AA648EB3207CEA05003ACD07 /* s5-8.txt in Resources */,
 				AA648ECD207CEA05003ACD07 /* s4-8.txt in Resources */,
@@ -1097,7 +1096,6 @@
 				AA98E6112085E94E001100BA /* block3.png in Resources */,
 				AA648EBC207CEA05003ACD07 /* 4-10.txt in Resources */,
 				AAB63B39204E5DFE00F96E9C /* talkPng.png in Resources */,
-				AAFB00F92053D817003155E5 /* rightWordBtn.png in Resources */,
 				AA648EAD207CEA05003ACD07 /* s2-14.txt in Resources */,
 				AA98E6242086197A001100BA /* bookPng.png in Resources */,
 				AA648E76207CEA05003ACD07 /* s1-8.txt in Resources */,
@@ -1125,11 +1123,13 @@
 				AA648E8B207CEA05003ACD07 /* s3-2.txt in Resources */,
 				AA648ED3207CEA05003ACD07 /* s2-13.txt in Resources */,
 				AA04ED8A203D7E9700EC0A8E /* dialogueBg.png in Resources */,
+				AA63D1F820875DBD000EA088 /* wrongWordBtn.png in Resources */,
 				AAFAFCB6205BE11F00307264 /* bookTimes1.png in Resources */,
 				AA648E97207CEA05003ACD07 /* s5-6.txt in Resources */,
 				AA98E62220861560001100BA /* block3Title.png in Resources */,
 				AA648E9A207CEA05003ACD07 /* 2-14.txt in Resources */,
 				AA648E88207CEA05003ACD07 /* s4-6.txt in Resources */,
+				AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */,
 				AAFAFCB1205BE11F00307264 /* bookPlayOff.png in Resources */,
 				AAFAFCB0205BE11F00307264 /* bookSpeed1.png in Resources */,
 				AA648EFA207CEA05003ACD07 /* 1-10.txt in Resources */,

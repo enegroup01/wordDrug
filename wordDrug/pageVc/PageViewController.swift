@@ -65,6 +65,10 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
     var syllableSets = [[String]()]
     
     
+    //螢幕長寬
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
+    
     //以下為各地圖的音節
     
     //***前三張地圖的第15行探索點syllable都是先亂打的.....之後要改變
@@ -181,10 +185,10 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         backBtn.frame = CGRect(x: width / 10, y: width / 10, width: 30, height: 45)
        
         leftBtn.frame = CGRect(x: width / 3.4, y: height - height / 14, width: 13, height: 20)
-        page0.frame = CGRect(x: leftBtn.frame.origin.x + width / 15, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
-        page1.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 2, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
-        page2.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 3, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
-        page3.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 4, y: leftBtn.frame.origin.y - height / 100, width: 30, height: 30)
+        page0.frame = CGRect(x: leftBtn.frame.origin.x + width / 15, y: leftBtn.frame.origin.y - height / 110, width: 30, height: 30)
+        page1.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 2, y: leftBtn.frame.origin.y - height / 110, width: 30, height: 30)
+        page2.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 3, y: leftBtn.frame.origin.y - height / 110, width: 30, height: 30)
+        page3.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 4, y: leftBtn.frame.origin.y - height / 110, width: 30, height: 30)
         
         rightBtn.frame = CGRect(x: leftBtn.frame.origin.x + width / 15 * 5.7, y: leftBtn.frame.origin.y, width: 13, height: 20)
         
@@ -268,11 +272,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         
         //用過關數來判斷頁數
         
-        
-        
-        
-        
-        
+
     }
     
     
@@ -288,6 +288,8 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
                 
             } else {
             //接收元素單位
+                
+                print(syllableReceived)
             for i in  0 ..< syllableSets[currentPage].count{
                 
                 //對比所選擇的元素
@@ -726,20 +728,23 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         }
         
         //在此決定已過關的球的顏色
-        var colors = [UIColor]()
+        var isEnlarge = [Bool]()
         var isHiddens = [Bool]()
         
         for _ in 0 ..< 10 {
             
-            colors.append(lightPurpleColor)
+            isEnlarge.append(true)
             isHiddens.append(true)
         }
+        
+        //紀錄最後一組字給bigBall顯示
+        let lastWordCount = pageSyllables.count - 1
         
         if pageSyllables.count > 0 {
         for i in 0 ..< pageSyllables.count  - 1{
             
                 
-                colors[i] = darkPurpleColor
+                isEnlarge[i] = false
                 
         }
         
@@ -762,21 +767,51 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
 
         */
         
-  
+        var smallRadius = CGFloat()
+        var bigRadius = CGFloat()
         
-        ball0 = Node(text: pageSyllables[0], image: UIImage(), color: colors[0], radius: 35, name: pageNames[0],isHidden:isHiddens[0])
-        ball1 = Node(text: pageSyllables[1], image: UIImage(), color: colors[1], radius: 35, name: pageNames[1],isHidden:isHiddens[1])
-        ball2 = Node(text: pageSyllables[2], image: UIImage(), color: colors[2], radius: 35, name: pageNames[2],isHidden:isHiddens[2])
-        ball3 = Node(text: pageSyllables[3], image: UIImage(), color: colors[3], radius: 35, name: pageNames[3],isHidden:isHiddens[3])
-        ball4 = Node(text: pageSyllables[4], image: UIImage(), color: colors[4], radius: 35, name: pageNames[4],isHidden:isHiddens[4])
-        ball5 = Node(text: pageSyllables[5], image: UIImage(), color: colors[5], radius: 35, name: pageNames[5],isHidden:isHiddens[5])
-        ball6 = Node(text: pageSyllables[6], image: UIImage(), color: colors[6], radius: 35, name: pageNames[6],isHidden:isHiddens[6])
-        ball7 = Node(text: pageSyllables[7], image: UIImage(), color: colors[7], radius: 35, name: pageNames[7],isHidden:isHiddens[7])
-        ball8 = Node(text: pageSyllables[8], image: UIImage(), color: colors[8], radius: 35, name: pageNames[8],isHidden:isHiddens[8])
-        ball9 = Node(text: pageSyllables[9], image: UIImage(), color: colors[9], radius: 35, name: pageNames[9],isHidden:isHiddens[9])
+        
+        switch  height {
+        case 812:
+            smallRadius = 35
+            bigRadius = 100
+
+        case 736:
+
+            smallRadius = 35
+            bigRadius = 100
+
+            
+        case 667:
+            
+            smallRadius = 30
+            bigRadius = 90
+
+            
+        case 568:
+
+            smallRadius = 25
+            bigRadius = 80
+
+            
+        default:
+            break
+            
+        }
+        
+        
+        ball0 = Node(text: pageSyllables[0], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[0],isHidden:isHiddens[0], isEnlarge: isEnlarge[0])
+        ball1 = Node(text: pageSyllables[1], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[1],isHidden:isHiddens[1], isEnlarge: isEnlarge[1])
+        ball2 = Node(text: pageSyllables[2], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[2],isHidden:isHiddens[2], isEnlarge: isEnlarge[2])
+        ball3 = Node(text: pageSyllables[3], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[3],isHidden:isHiddens[3], isEnlarge: isEnlarge[3])
+        ball4 = Node(text: pageSyllables[4], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[4],isHidden:isHiddens[4], isEnlarge: isEnlarge[4])
+        ball5 = Node(text: pageSyllables[5], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[5],isHidden:isHiddens[5], isEnlarge: isEnlarge[5])
+        ball6 = Node(text: pageSyllables[6], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[6],isHidden:isHiddens[6], isEnlarge: isEnlarge[6])
+        ball7 = Node(text: pageSyllables[7], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[7],isHidden:isHiddens[7], isEnlarge: isEnlarge[7])
+        ball8 = Node(text: pageSyllables[8], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[8],isHidden:isHiddens[8], isEnlarge: isEnlarge[8])
+        ball9 = Node(text: pageSyllables[9], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[9],isHidden:isHiddens[9], isEnlarge: isEnlarge[9])
  
-        
-        
+  
         //集合所有的球
         /*
         balls.append(ball0)
@@ -838,9 +873,23 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
 */
         
         //做大球並隱藏
-        bigBall = Node(text: "", image: UIImage(), color: lightPurpleColor, radius: 100, name: "bigBall", isHidden:true)
+       // bigBall = Node(text: pageSyllables[lastWordCount], image: UIImage(), color: lightPurpleColor, radius: 100, name: "bigBall", isHidden:false, isEnlarge:false)
+       
+        let label = SKLabelNode()
+        label.name = "bigBallLabel"
+        label.text = pageSyllables[lastWordCount]
+        label.fontName = "Helvetica Bold"
+        label.fontSize = 50
+        label.fontColor = .white
+        label.position = CGPoint(x: 0, y: -20)
+        
+        
+        
+        bigBall = Node(text: "", image: UIImage(), color: lightPurpleColor, radius: bigRadius, name: "bigBall", isHidden:false, isEnlarge:false)
         //bigBall.isHidden = true
+        bigBall.addChild(label)
         magnetic!.addChild(bigBall)
+        
         
         magnetic!.addChild(ball0)
         magnetic!.addChild(ball1)
@@ -887,10 +936,14 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
     
 }
 
+
+
 extension PageViewController: MagneticDelegate {
     
     func magnetic(_ magnetic: Magnetic, didSelect node: Node) {
         print("didSelect -> \(node)")
+        
+        
     }
     
     func magnetic(_ magnetic: Magnetic, didDeselect node: Node) {
