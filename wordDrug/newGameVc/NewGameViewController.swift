@@ -199,22 +199,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         var dif = CGFloat()
-        
+        var senLabelHeightDif = CGFloat()
         switch  height {
         case 812:
 
             dif = 1.15
+            senLabelHeightDif = 0.7
         case 736:
             
             dif = 1.1
+            senLabelHeightDif = 0.78
             
         case 667:
             
             dif = 1
+            senLabelHeightDif = 0.9
 
         case 568:
             
             dif = 0.9
+            senLabelHeightDif = 1
 
         default:
             break
@@ -252,6 +256,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         wordCountLabel.frame = CGRect(x: resultBg.frame.minX + 50 * dif, y: resultBg.frame.minY + 140 * dif, width: 157 * dif, height: 95 * dif)
         wordCountLabel.adjustsFontSizeToFitWidth = true
+        
+        sentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: height / 10, width: width - 50 * dif, height: height / 4.6 * dif * senLabelHeightDif)
+        chiSentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: sentenceLabel.frame.maxY + 10 * dif, width: sentenceLabel.frame.width, height: height / 10 * dif)
+        
+        coverBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        coverBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         
         //做三個對話圓
@@ -293,6 +303,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         word3Label.alpha = 0
         self.thirdWordBtn.addSubview(word3Label)
         
+        recordBtn.frame = CGRect(x: (width - 128 * dif) / 2, y: height - 180 * dif, width: 128 * dif, height: 128 * dif)
+        
         
         //載入我的最愛單字
         if let myWordsString = user!["myWords"] as! String?{
@@ -308,9 +320,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         synth.delegate = self
         
         //設定好tagView
-        tagView.backgroundColor = .clear
+        tagView.backgroundColor = .green
         tagView.delegate = self
-        tagView.isHidden = true
+        //tagView.isHidden = true
+        
+        tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height / 2.7 * dif * senLabelHeightDif)
         
         tagView.textFont = UIFont.boldSystemFont(ofSize: 30)
        
@@ -326,6 +340,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.amplitude = 0.1
         audioView.alpha = 0.7
         audioView.waveColor = recordingPinkColor
+        audioView.frame = CGRect(x: 0, y: height - 155 * dif, width: width, height: height / 6.5)
         
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -469,7 +484,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //做錄音動畫
-        let frame = CGRect(x: recordBtn.frame.origin.x - 8, y: recordBtn.frame.origin.y - 8, width:145, height: 145)
+        let frame = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:145 * dif, height: 145 * dif)
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
         
 

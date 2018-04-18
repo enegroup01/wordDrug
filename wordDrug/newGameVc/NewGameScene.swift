@@ -249,6 +249,10 @@ class NewGameScene: SKScene {
     
     //記錄我的最愛以及錯誤單字
     
+    
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
+    
     override func didMove(to view: SKView) {
         
     
@@ -410,7 +414,7 @@ class NewGameScene: SKScene {
         //背景
         makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
-        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 1, isAnchoring: false)
         
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
@@ -465,12 +469,36 @@ class NewGameScene: SKScene {
         makeImageNode(name: "4emptyButton", image: darkImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         
         
+        var chiBtnDif = CGFloat()
+        var dif = CGFloat()
+        
+        switch  height {
+        case 812:
+            chiBtnDif = 0.8
+            dif = 1.15
+        case 736:
+            chiBtnDif = 1
+            dif = 1.1
+            
+        case 667:
+            chiBtnDif = 0.95
+            dif = 1
+            
+        case 568:
+            chiBtnDif = 0.9
+            dif = 0.9
+            
+        default:
+            break
+            
+        }
+        
         //製作中文選項
-        makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187, y: -365, width: 320, height: 320, z: 7, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "rightChiBtn", image: "rightRoundedSqr", x: 187, y: -365, width: 320, height: 320, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "rightChiBtn", image: "rightRoundedSqr", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
         
         //加入中文字選項的node
-        leftChiNode.position = CGPoint(x: -187, y: -375)
+        leftChiNode.position = CGPoint(x: -187 * chiBtnDif, y: -375)
         leftChiNode.horizontalAlignmentMode = .center
         leftChiNode.fontSize = 60
         leftChiNode.fontColor = .white
@@ -478,10 +506,12 @@ class NewGameScene: SKScene {
         leftChiNode.name = "leftChi"
         leftChiNode.fontName = "Helvetica Bold"
         
+        
         addChild(leftChiNode)
         
-        rightChiNode.position = CGPoint(x: 187, y: -375)
+        rightChiNode.position = CGPoint(x: 187 * chiBtnDif, y: -375)
         rightChiNode.horizontalAlignmentMode = .center
+      
         rightChiNode.fontSize = 60
         rightChiNode.fontColor = .white
         rightChiNode.zPosition = 8
@@ -491,9 +521,13 @@ class NewGameScene: SKScene {
         addChild(rightChiNode)
         
         
+        
+
         //建立三個單字
         
-        firstEngWordLabel.frame = CGRect(x: 187.5 + 375, y: 110, width: 200, height: 80)
+        //firstEngWordLabel.frame = CGRect(x: 187.5 + 375, y: 110, width: 200, height: 80)
+        firstEngWordLabel.frame = CGRect(x: (width - 200 * dif) / 2 + width, y: 110 * dif, width: 200 * dif, height: 80 * dif)
+
         //firstEngWordLabel.backgroundColor = .cyan
         firstEngWordLabel.textColor = darkWordColor
         firstEngWordLabel.textAlignment = .center
@@ -503,7 +537,8 @@ class NewGameScene: SKScene {
         self.view?.addSubview(firstEngWordLabel)
         
         //英文單字的Node
-        firstChiWordLabel.frame = CGRect(x: 187.5 + 375, y: 205, width: 90, height: 40)
+        //firstChiWordLabel.frame = CGRect(x: 187.5 + 375, y: 205, width: 90, height: 40)
+        firstChiWordLabel.frame = CGRect(x: (width - 90 * dif) / 2 + width, y: 205 * dif, width: 90 * dif, height: 40 * dif)
         //firstChiWordLabel.backgroundColor = .green
         firstChiWordLabel.textColor = pinkColor
         firstChiWordLabel.textAlignment = .center
@@ -722,12 +757,12 @@ class NewGameScene: SKScene {
         
         UIView.animate(withDuration: 0.3, animations: {[weak self] in
             
-            self!.firstEngWordLabel.center.x = 187.5
+            self!.firstEngWordLabel.center.x = self!.width / 2
             
         })
         
         UIView.animate(withDuration: 0.3, animations: {[weak self] in
-            self!.firstChiWordLabel.center.x = 187.5
+            self!.firstChiWordLabel.center.x = self!.width / 2
             }, completion: { [weak self](finished:Bool) in
                 if finished{
                     
@@ -1175,6 +1210,30 @@ class NewGameScene: SKScene {
             let node : SKNode = self.atPoint(location)
             
             
+            var chiBtnDif = CGFloat()
+            var dif = CGFloat()
+            
+            switch  height {
+            case 812:
+                chiBtnDif = 0.8
+                dif = 1.15
+            case 736:
+                chiBtnDif = 1
+                dif = 1.1
+                
+            case 667:
+                chiBtnDif = 0.95
+                dif = 1
+                
+            case 568:
+                chiBtnDif = 0.9
+                dif = 0.9
+                
+            default:
+                break
+                
+            }
+            
             
             //之後要寫中文錯誤的機制
             //確認中文正確與否
@@ -1185,8 +1244,8 @@ class NewGameScene: SKScene {
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     //changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
                     
-                    makeImageNode(name: "mark", image: "rightCircle", x: -190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "mark", image: "wrongX", x: 190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     
                     let when = DispatchTime.now() + 0.3
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
@@ -1198,9 +1257,9 @@ class NewGameScene: SKScene {
                     //答錯
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     //changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
-                    makeImageNode(name: "mark", image: "rightCircle", x: 190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     
-                    makeImageNode(name: "mark", image: "wrongX", x: -190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     
                     /*
                      findLabelNode(name: "tempWord").text = "答錯"
@@ -1225,8 +1284,8 @@ class NewGameScene: SKScene {
                     //changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
                     
-                    makeImageNode(name: "mark", image: "wrongX", x: -190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "mark", image: "rightCircle", x: 190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     
                     
                     let when = DispatchTime.now() + 0.3
@@ -1240,10 +1299,10 @@ class NewGameScene: SKScene {
                     //答錯
                     //changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
-                    makeImageNode(name: "mark", image: "rightCircle", x: -190, y: -355, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     
                     
-                    makeImageNode(name: "mark", image: "wrongX", x: 190, y: -355, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     /*
                      findLabelNode(name: "tempWord").text = "答錯"
                      findLabelNode(name: "tempWord").fontColor = lightPink
