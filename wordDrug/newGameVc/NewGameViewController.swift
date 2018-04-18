@@ -320,9 +320,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         synth.delegate = self
         
         //設定好tagView
-        tagView.backgroundColor = .green
+        tagView.backgroundColor = .clear
         tagView.delegate = self
-        //tagView.isHidden = true
+        tagView.isHidden = true
         
         tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height / 2.7 * dif * senLabelHeightDif)
         
@@ -340,7 +340,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.amplitude = 0.1
         audioView.alpha = 0.7
         audioView.waveColor = recordingPinkColor
-        audioView.frame = CGRect(x: 0, y: height - 155 * dif, width: width, height: height / 6.5)
+        audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -432,8 +432,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     view.ignoresSiblingOrder = true
                     
-                    view.showsFPS = true
-                    view.showsNodeCount = true
+                    view.showsFPS = false
+                    view.showsNodeCount = false
                 }
             }
         }

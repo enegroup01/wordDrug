@@ -411,10 +411,34 @@ class NewGameScene: SKScene {
     //載入畫面
     func setUpScreen(){
         
+        var chiBtnDif = CGFloat()
+        var dif = CGFloat()
+        
+        switch  height {
+        case 812:
+            chiBtnDif = 0.8
+            dif = 1.15
+        case 736:
+            chiBtnDif = 1
+            dif = 1.1
+            
+        case 667:
+            chiBtnDif = 0.95
+            dif = 1
+            
+        case 568:
+            chiBtnDif = 0.9
+            dif = 0.9
+            
+        default:
+            break
+            
+        }
+        
         //背景
         makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
-        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
         
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
@@ -426,7 +450,7 @@ class NewGameScene: SKScene {
         //makeLabelNode(x: 0, y: 600, alignMent: .center, fontColor: lightGreen, fontSize: 40, text: "英檢初級", zPosition: 1, name: "levelTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         //單字量Label, 這部分是新的
-        makeLabelNode(x: 350, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
         //得分Label, 這部分是新的
         //makeLabelNode(x: 330, y: 555, alignMent: .right, fontColor: .white, fontSize: 40, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
@@ -469,29 +493,7 @@ class NewGameScene: SKScene {
         makeImageNode(name: "4emptyButton", image: darkImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         
         
-        var chiBtnDif = CGFloat()
-        var dif = CGFloat()
-        
-        switch  height {
-        case 812:
-            chiBtnDif = 0.8
-            dif = 1.15
-        case 736:
-            chiBtnDif = 1
-            dif = 1.1
-            
-        case 667:
-            chiBtnDif = 0.95
-            dif = 1
-            
-        case 568:
-            chiBtnDif = 0.9
-            dif = 0.9
-            
-        default:
-            break
-            
-        }
+
         
         //製作中文選項
         makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
