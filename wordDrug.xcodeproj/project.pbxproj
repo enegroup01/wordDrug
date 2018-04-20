@@ -22,6 +22,7 @@
 		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
 		AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32920234FA7005437C6 /* NewGameViewController.swift */; };
 		AA34F32C2023516D005437C6 /* NewGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32B2023516D005437C6 /* NewGameScene.swift */; };
+		AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */; };
 		AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4642841FC4216300D34516 /* LoginViewController.swift */; };
 		AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */; };
 		AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E71207CCF7A00AAACC3 /* pointImg.png */; };
@@ -270,6 +271,7 @@
 		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
 		AA34F32920234FA7005437C6 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		AA34F32B2023516D005437C6 /* NewGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScene.swift; sourceTree = "<group>"; };
+		AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		AA4642841FC4216300D34516 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordCheck.png; sourceTree = "<group>"; };
 		AA4E2E71207CCF7A00AAACC3 /* pointImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointImg.png; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 		AA2B64CE205A606C00742226 /* newBookVc */ = {
 			isa = PBXGroup;
 			children = (
+				AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */,
 				AA2B64D3205A63F200742226 /* NewBookViewController.swift */,
 				AA2B64CF205A609D00742226 /* bookBackBtn.png */,
 				AA2B64D1205A612E00742226 /* newBookBg.png */,
@@ -1244,6 +1247,7 @@
 				AA7D6132203FC47E00E0A94D /* PageScene.swift in Sources */,
 				AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */,
 				AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */,
+				AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */,
 				AA34F32C2023516D005437C6 /* NewGameScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

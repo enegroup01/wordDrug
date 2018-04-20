@@ -225,19 +225,110 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     //目前播放過幾次
     var alreadyPlayTimes = 0
-
     //發音階段
     var step = 1
+    @IBOutlet weak var bookViewBottomBg: UIImageView!
+    
+    let width =  UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
+
+    @IBOutlet weak var playSpeedBtn: UIButton!
+    @IBOutlet weak var playTimesBtn: UIButton!
+    @IBOutlet weak var sentenceBtn: UIButton!
+    
+    @IBOutlet weak var playBtn: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var newBookBg: UIImageView!
+    
+    
+    var dif = CGFloat()
+    var cellDif = CGFloat()
+    var seperatorDif = CGFloat()
+    var fontDif = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        
+        switch height {
+        case 812:
+            
+            seperatorDif = 1.1
+            dif = 1.35
+            cellDif = 1.2
+            fontDif = 0
+            
+        case 736:
+            seperatorDif = 1.1
+            dif = 1.1
+            cellDif = 1.1
+            fontDif = 3
+            
+        case 667:
+            
+            seperatorDif = 1
+            dif = 1
+            cellDif = 1
+            fontDif = 4
+            
+        case 568:
+            seperatorDif = 0.9
+            dif = 0.9
+            cellDif = 0.9
+            fontDif = 5
+        default:
+            break
+            
+        }
+        
         // Do any additional setup after loading the view.
+        //layOut
+        newBookBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
+         backBtn.frame = CGRect(x: width / 14, y: width / 10, width: 19, height: 31)
         
         //設定好segMent
-        segControl.frame = CGRect(x: 50, y: 25, width: 300, height: 30)
+        segControl.frame = CGRect(x: backBtn.frame.maxX, y: backBtn.frame.minY,width: width - backBtn.frame.width * 4, height: 30 * dif)
         self.view.addSubview(segControl)
         
+        collectionView.frame = CGRect(x: backBtn.frame.minX, y: segControl.frame.maxY + 5 * dif, width: width - (backBtn.frame.minX * 2), height: height / 3.2)
+        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: width, height: height - collectionView.frame.maxY - 66 * dif)
+        
+        bookViewBottomBg.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width, height: 66 * dif)
+        
+        playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        
+        sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+
+        playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        
+        playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        
+        autoPlayImg.frame = CGRect(x: (width / 4 - 23 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 23 * dif, height: 23 * dif)
+        
+        autoPlayText.frame = CGRect(x:(width / 4 - 72 * dif) / 2, y: height - 21 * 1.2 * dif, width: 72 * dif , height: 21 * dif)
+        
+        playSenImg.frame = CGRect(x: width / 4 + (width / 4 - 27 * dif) / 2 ,y: bookViewBottomBg.frame.minY + 12 * dif, width: 27 * dif, height: 23 * dif)
+ 
+        playSenText.frame = CGRect(x: width / 4 + (width / 4 - 79 * dif) / 2, y: height - 21 * 1.2 * dif, width: 79 * dif , height: 21 * dif)
+        
+        playTimesImg.frame = CGRect(x: width / 2 + (width / 4 - 46 * dif) / 2, y: bookViewBottomBg.frame.minY + 18 * dif, width: 46 * dif, height: 8 * dif)
+        
+        playTimesText.frame = CGRect(x: width / 2 + (width / 4 - 76 * dif) / 2, y: height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        playSpeedImg.frame = CGRect(x: width * 3 / 4 + (width / 4 - 44 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 44 * dif, height: 28 * dif)
+        
+        playSpeedText.frame = CGRect(x: width * 3 / 4 + (width / 4 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        
+
+        /*
+        playBtn.backgroundColor = .green
+        sentenceBtn.backgroundColor = .red
+        playTimesBtn.backgroundColor = .green
+        playSpeedBtn.backgroundColor = .red
+        
+        collectionView.backgroundColor = .red
+        */
         //設定delegate來監控讀音
         synth.delegate = self
         
@@ -256,13 +347,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         tableView.delegate = self
         tableView.isUserInteractionEnabled = true
         
+        
         collectionView.backgroundColor = .clear
         tableView.backgroundColor = .clear
         
         let bgImg = UIImage(named:"wordTableBg.png")
         tableView.backgroundView = UIImageView(image: bgImg)
         tableView.separatorColor = UIColor.init(red: 215/255, green: 217/255, blue: 226/255, alpha: 1)
-        tableView.separatorInset = .init(top: 0, left: 48, bottom: 0, right: 70)
+        tableView.separatorInset = .init(top: 0, left: 50 * seperatorDif, bottom: 0, right: 70)
         
         //設定Btn顏色狀態
         autoPlayText.textColor = btnOffColor
@@ -1349,19 +1441,26 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-        print("rows:\(engWordsSelected.count)")
         return engWordsSelected.count
         //return 5
      
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let cellHight = tableView.frame.height / 2.5 / cellDif
+        return cellHight
+        
+        
+    }
     
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath)
+        let engWordSize = width / 14
+        let chiWordSize = width / 30
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath) as! BookTableViewCell
     
         let syllableLabel = cell.viewWithTag(1) as! UILabel
         let engWordLabel = cell.viewWithTag(2) as! UILabel
@@ -1369,11 +1468,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let chiWordLabel = cell.viewWithTag(4) as! UILabel
         let engSenLabel = cell.viewWithTag(5) as! UILabel
         let chiSenLabel = cell.viewWithTag(6) as! UILabel
+
         
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row]
         
         //let syllableNum = syllablesSelected[indexPath.row].replacingOccurrences(of: syllableText[0], with: "")
+        
+
         
         
         //抓字
@@ -1384,8 +1486,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let vowels = ["a","e","i","o","u"]
         
         //字型顏色
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.cyan]
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engWordSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
+        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engWordSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         
         //假如音節是_e, 另外處理
         if syllableText.contains("_") {
@@ -1509,11 +1611,18 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //chiWordLabel.text = "(" + partOfSpeech + ")" + " " +  chiWord
         chiWordLabel.text = chiWord
         
+        chiWordLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
+        engSenLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
+        chiSenLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
+        
+        partOfSpeechLabel.font = UIFont(name: "Helvetica Neue Medium", size: chiWordSize)
         partOfSpeechLabel.adjustsFontSizeToFitWidth = true
         partOfSpeechLabel.text = partOfSpeech
         syllableLabel.adjustsFontSizeToFitWidth = true
         syllableLabel.text = syllableText
         
+        chiSenLabel.adjustsFontSizeToFitWidth = true
+        engSenLabel.adjustsFontSizeToFitWidth = true
         //抓句子
         let engSen = engSenSelected[indexPath.row]
         let chiSen = chiSenSelected[indexPath.row]
