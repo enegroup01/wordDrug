@@ -162,6 +162,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //錄音動畫
     var recordingIndicator:NVActivityIndicatorView?
+    //var pointsIndicator:NVActivityIndicatorView?
     
     
     let width = UIScreen.main.bounds.width
@@ -487,7 +488,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let frame = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:145 * dif, height: 145 * dif)
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
         
+        
+         //     let frame2 = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:160 * dif, height: 160 * dif)
+        
+       // pointsIndicator = NVActivityIndicatorView(frame: frame2, type: .ballScaleMultiple, color: recordingPinkColor, padding: 2)
+        
 
+       // self.view.addSubview(pointsIndicator!)
         self.view.addSubview(recordingIndicator!)
         self.view.bringSubview(toFront: recordBtn)
   
@@ -1221,18 +1228,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         pointLabel.text = "\(finalPoints)%"
         pointImg.addSubview(pointLabel)
         
+        //pointsIndicator?.startAnimating()
+        
         
         //隱藏recordBtn
-        recordBtn.isHidden = true
+        //recordBtn.isHidden = true
         
         //讓分數停留一下後再消失
-        let when = DispatchTime.now() + 1
+        let when = DispatchTime.now() + 1.5
         
         //接著做選擇題, 所有顯示的func都包在下方
         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
             
             pointImg.removeFromSuperview()
 
+//            self!.pointsIndicator?.stopAnimating()
             
             //製作tags
             self!.sentenceTag = self!.sentence.components(separatedBy: " ")
@@ -1401,8 +1411,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //回復錄音輸入的單字或句子
         wordRecorded = String()
         
-        //對句子
-        isCheckingSentence = true
 
         synPronounce()
     }

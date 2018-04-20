@@ -782,6 +782,8 @@ class NewGameScene: SKScene {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     
                     
+                    //self!.isUserInteractionEnabled = true
+                    //self!.isDragAndPlayEnable = true
                     self!.practice()
                     
                  
@@ -1160,7 +1162,7 @@ class NewGameScene: SKScene {
         }
         
         //可按按鍵
-        isUserInteractionEnabled = true
+        //isUserInteractionEnabled = true
         
         //啟動連線功能
         isDragAndPlayEnable = true
@@ -1169,6 +1171,9 @@ class NewGameScene: SKScene {
 
     
     func countScore(score:Int){
+        
+        isUserInteractionEnabled = false
+        //isDragAndPlayEnable = false
         
         let scoreToPass:[String:Int] = ["Score":score]
 
@@ -1196,6 +1201,9 @@ class NewGameScene: SKScene {
                     
                     scoreAdded = 0
                     countScoreTimer.invalidate()
+        
+                    isUserInteractionEnabled = true
+                   // isDragAndPlayEnable = true
                     
                 }
                 
@@ -1633,6 +1641,7 @@ class NewGameScene: SKScene {
                             countScore(score: score)
                             
                             //跳到中文練習
+                            isDragAndPlayEnable = false
                             testChinese()
                             
                         } else {
@@ -1644,9 +1653,11 @@ class NewGameScene: SKScene {
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: nil)
                             */
                             //發音
+                            
+                            /*
                             let contents:[String:Int] = ["pronounceTime":1]
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: contents)
-
+*/
                             
                             //初始化
                             shownWords.removeAll(keepingCapacity: false)
@@ -1918,7 +1929,7 @@ class NewGameScene: SKScene {
         leftChiBtn.run(showAlpha)
         rightChiBtn.run(showAlpha, completion: {[weak self] in
             
-            self!.isUserInteractionEnabled = true
+            //self!.isUserInteractionEnabled = true
             
         })
         
@@ -2528,7 +2539,7 @@ class NewGameScene: SKScene {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
         
         //不能拖拉
-        isDragAndPlayEnable = false
+        
         
     }
     
