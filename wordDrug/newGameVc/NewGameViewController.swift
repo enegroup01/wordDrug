@@ -200,7 +200,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         var dif = CGFloat()
         var senLabelHeightDif = CGFloat()
-        switch  height {
+        switch height {
         case 812:
 
             dif = 1.15
@@ -389,7 +389,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //讀取Bundle裡的句子
         var sentenceFile:String?
         
-        let sentenceName = "s" + String(mapNumber) + "-" + String(spotNumber + 1)
+        let sentenceName = "s" + String(mapNumber + 1) + "-" + String(spotNumber + 1)
         
         if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
             do {
@@ -673,7 +673,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             
                             //如果玩之前的關卡就不改變
                             
-                            if mapPassed! == (mapNumber - 1){
+                            if mapPassed! == (mapNumber){
                
                                 for (s,u) in gamePassed! {
                                     

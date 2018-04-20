@@ -218,6 +218,11 @@
 		AA98E6242086197A001100BA /* bookPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6232086197A001100BA /* bookPng.png */; };
 		AA98E62620861F26001100BA /* stageTopCover.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E62520861F25001100BA /* stageTopCover.png */; };
 		AA98E6282086226E001100BA /* backBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6272086226D001100BA /* backBtnImg.png */; };
+		AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */; };
+		AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn.png */; };
+		AA9AFC112088FA1B003A61E9 /* enterGameBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC102088FA1B003A61E9 /* enterGameBtn.png */; };
+		AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC122088FB4F003A61E9 /* lessonProgress.png */; };
+		AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC142088FB58003A61E9 /* lessonFullLength.png */; };
 		AAA591732064C543006CC5A6 /* midCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA591702064C542006CC5A6 /* midCircle.png */; };
 		AAA591742064C543006CC5A6 /* inCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA591712064C543006CC5A6 /* inCircle.png */; };
 		AAA591752064C543006CC5A6 /* outCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA591722064C543006CC5A6 /* outCircle.png */; };
@@ -463,6 +468,11 @@
 		AA98E6232086197A001100BA /* bookPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPng.png; sourceTree = "<group>"; };
 		AA98E62520861F25001100BA /* stageTopCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stageTopCover.png; sourceTree = "<group>"; };
 		AA98E6272086226D001100BA /* backBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backBtnImg.png; sourceTree = "<group>"; };
+		AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
+		AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBackBtn.png; sourceTree = "<group>"; };
+		AA9AFC102088FA1B003A61E9 /* enterGameBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterGameBtn.png; sourceTree = "<group>"; };
+		AA9AFC122088FB4F003A61E9 /* lessonProgress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonProgress.png; sourceTree = "<group>"; };
+		AA9AFC142088FB58003A61E9 /* lessonFullLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonFullLength.png; sourceTree = "<group>"; };
 		AAA591702064C542006CC5A6 /* midCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = midCircle.png; sourceTree = "<group>"; };
 		AAA591712064C543006CC5A6 /* inCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inCircle.png; sourceTree = "<group>"; };
 		AAA591722064C543006CC5A6 /* outCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outCircle.png; sourceTree = "<group>"; };
@@ -819,6 +829,18 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		AA9AFC0D2088EDF0003A61E9 /* lessonVc */ = {
+			isa = PBXGroup;
+			children = (
+				AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */,
+				AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn.png */,
+				AA9AFC122088FB4F003A61E9 /* lessonProgress.png */,
+				AA9AFC102088FA1B003A61E9 /* enterGameBtn.png */,
+				AA9AFC142088FB58003A61E9 /* lessonFullLength.png */,
+			);
+			path = lessonVc;
+			sourceTree = "<group>";
+		};
 		AAE181801F97892D00683896 = {
 			isa = PBXGroup;
 			children = (
@@ -841,6 +863,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA9AFC0D2088EDF0003A61E9 /* lessonVc */,
 				AA2B64CE205A606C00742226 /* newBookVc */,
 				AA7C97F52052C97300C834A3 /* newGameVc */,
 				AA5AF411204EC68A005FCC87 /* TagListView */,
@@ -930,6 +953,7 @@
 				AA648EB4207CEA05003ACD07 /* 1-15.txt in Resources */,
 				AA648E87207CEA05003ACD07 /* s4-1.txt in Resources */,
 				AA63D1F52087588C000EA088 /* resultBg.png in Resources */,
+				AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */,
 				AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */,
 				AA648EAB207CEA05003ACD07 /* s3-8.txt in Resources */,
 				AA98E6102085E94E001100BA /* block1.png in Resources */,
@@ -943,6 +967,7 @@
 				AA648E9E207CEA05003ACD07 /* 3-3.txt in Resources */,
 				AA648E6E207CEA05003ACD07 /* s4-15.txt in Resources */,
 				AA648EA5207CEA05003ACD07 /* s2-6.txt in Resources */,
+				AA9AFC112088FA1B003A61E9 /* enterGameBtn.png in Resources */,
 				AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */,
 				AA648EC1207CEA05003ACD07 /* 3-9.txt in Resources */,
 				AA648E67207CEA05003ACD07 /* s4-9.txt in Resources */,
@@ -1014,6 +1039,7 @@
 				AAFAFCB2205BE11F00307264 /* bookSpeed2.png in Resources */,
 				AA648ECB207CEA05003ACD07 /* s1-14.txt in Resources */,
 				AA648EA0207CEA05003ACD07 /* 2-10.txt in Resources */,
+				AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */,
 				AA648EFB207CEA05003ACD07 /* 3-10.txt in Resources */,
 				AA7AE8F82047D8A200ADEEDA /* pauseBtn.png in Resources */,
 				AAAE4EA3207C942A00C4A8EB /* recordingBtn.png in Resources */,
@@ -1131,6 +1157,7 @@
 				AA648E88207CEA05003ACD07 /* s4-6.txt in Resources */,
 				AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */,
 				AAFAFCB1205BE11F00307264 /* bookPlayOff.png in Resources */,
+				AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn.png in Resources */,
 				AAFAFCB0205BE11F00307264 /* bookSpeed1.png in Resources */,
 				AA648EFA207CEA05003ACD07 /* 1-10.txt in Resources */,
 				AA648EE0207CEA05003ACD07 /* s2-10.txt in Resources */,
@@ -1204,6 +1231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */,
 				AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */,
 				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,

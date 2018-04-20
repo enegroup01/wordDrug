@@ -756,6 +756,102 @@
             </objects>
             <point key="canvasLocation" x="-2700" y="1448.7256371814094"/>
         </scene>
+        <!--Lesson View Controller-->
+        <scene sceneID="r6M-ug-vJJ">
+            <objects>
+                <viewController id="j5T-Gi-rw6" customClass="LessonViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ge3-0A-Z4G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2T9-3W-P4V">
+                                <rect key="frame" x="33" y="33" width="30" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="lessonBackBtn.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="目前課程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-lg-gJM">
+                                <rect key="frame" x="300" y="33" width="64" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="16"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTi-eb-Vcw">
+                                <rect key="frame" x="300" y="84" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ab" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8N-yx-MJm">
+                                <rect key="frame" x="43" y="134" width="290" height="167"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="140"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8P-kk-nQP">
+                                <rect key="frame" x="0.0" y="340" width="375" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="40"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Pj-5n-3Oh">
+                                <rect key="frame" x="0.0" y="396" width="375" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="40"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hh-II-Sga">
+                                <rect key="frame" x="1" y="452" width="375" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="40"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVJ-I3-3pi">
+                                <rect key="frame" x="-121" y="609" width="375" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="28"/>
+                                <state key="normal" title="進入課程" backgroundImage="enterGameBtn.png">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="enterGameClicked:" destination="j5T-Gi-rw6" eventType="touchUpInside" id="vot-Wd-uJg"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lessonFullLength.png" translatesAutoresizingMaskIntoConstraints="NO" id="YDd-Fa-66a">
+                                <rect key="frame" x="16" y="519" width="240" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lessonProgress.png" translatesAutoresizingMaskIntoConstraints="NO" id="K3E-2V-8PM">
+                                <rect key="frame" x="16" y="508" width="240" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.11884272843599319" green="0.18226787447929382" blue="0.28189060091972351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="piM-4L-hMb"/>
+                    </view>
+                    <connections>
+                        <outlet property="backBtn" destination="2T9-3W-P4V" id="R6H-XT-F2L"/>
+                        <outlet property="enterBtn" destination="wVJ-I3-3pi" id="mvz-gD-z0x"/>
+                        <outlet property="firstLabel" destination="u8P-kk-nQP" id="yWk-X3-fr4"/>
+                        <outlet property="fullLength" destination="YDd-Fa-66a" id="EmR-yt-j3G"/>
+                        <outlet property="lessonLabel" destination="YTi-eb-Vcw" id="W6x-j2-1UG"/>
+                        <outlet property="lessonTitleLabel" destination="UBD-lg-gJM" id="tEV-wC-ZIZ"/>
+                        <outlet property="progressLength" destination="K3E-2V-8PM" id="TFo-08-RYB"/>
+                        <outlet property="secondLabel" destination="9Pj-5n-3Oh" id="o8S-bO-Z5H"/>
+                        <outlet property="syllableLabel" destination="k8N-yx-MJm" id="5lm-vz-CeE"/>
+                        <outlet property="thirdLabel" destination="8Hh-II-Sga" id="NgP-5Z-DCA"/>
+                        <segue destination="v6L-yK-9Lk" kind="show" identifier="toGameVc" id="jNM-DD-XKH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="61d-qX-ar7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1820" y="1376.7616191904049"/>
+        </scene>
         <!--Courses View Controller-->
         <scene sceneID="nXP-LS-awD">
             <objects>
@@ -995,6 +1091,7 @@
                         <outlet property="stageTopImg" destination="Lbc-9v-iJg" id="Izm-2V-tMh"/>
                         <outlet property="topWordsNumberLabel" destination="1Jk-6s-e2d" id="rvI-mg-XKC"/>
                         <segue destination="YDE-bE-RQd" kind="show" identifier="toPageVc" id="2eU-1Q-1yY"/>
+                        <segue destination="j5T-Gi-rw6" kind="show" identifier="toLessonVc" id="WXl-Md-3ex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29d-aW-u6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1022,7 +1119,11 @@
         <image name="bookTimes1.png" width="46" height="8"/>
         <image name="bookViewBottomBg.png" width="375" height="66"/>
         <image name="dialogueBg.png" width="218" height="33"/>
+        <image name="enterGameBtn.png" width="375" height="66"/>
         <image name="leftPageBtn.png" width="25" height="40"/>
+        <image name="lessonBackBtn.png" width="19" height="31"/>
+        <image name="lessonFullLength.png" width="375" height="3"/>
+        <image name="lessonProgress.png" width="375" height="3"/>
         <image name="loginBgImg.png" width="375" height="667"/>
         <image name="loginBtnImg.png" width="66" height="66"/>
         <image name="newBookBg.png" width="375" height="667"/>
@@ -1034,4 +1135,7 @@
         <image name="stageTopCover.png" width="375" height="133"/>
         <image name="sylBlueBall" width="16" height="16"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="jNM-DD-XKH"/>
+    </inferredMetricsTieBreakers>
 </document>

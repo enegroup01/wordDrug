@@ -798,7 +798,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
             break
             
         }
-        
+        /*
         
         ball0 = Node(text: pageSyllables[0], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[0],isHidden:isHiddens[0], isEnlarge: isEnlarge[0])
         ball1 = Node(text: pageSyllables[1], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[1],isHidden:isHiddens[1], isEnlarge: isEnlarge[1])
@@ -811,7 +811,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         ball8 = Node(text: pageSyllables[8], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[8],isHidden:isHiddens[8], isEnlarge: isEnlarge[8])
         ball9 = Node(text: pageSyllables[9], image: UIImage(), color: darkPurpleColor, radius: smallRadius, name: pageNames[9],isHidden:isHiddens[9], isEnlarge: isEnlarge[9])
  
-  
+  */
         //集合所有的球
         /*
         balls.append(ball0)
@@ -885,7 +885,7 @@ class PageViewController: UIViewController,UIScrollViewDelegate{
         
         
         
-        bigBall = Node(text: "", image: UIImage(), color: lightPurpleColor, radius: bigRadius, name: "bigBall", isHidden:false, isEnlarge:false)
+       // bigBall = Node(text: "", image: UIImage(), color: lightPurpleColor, radius: bigRadius, name: "bigBall", isHidden:false, isEnlarge:false)
         //bigBall.isHidden = true
         bigBall.addChild(label)
         magnetic!.addChild(bigBall)

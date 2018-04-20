@@ -181,7 +181,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         //傳送地圖數字
-        mapNumToPass = indexPath.row + 1
+        mapNumToPass = indexPath.row
         
         //在此先暫時預設mapPassed...之後要寫在過關時做儲存
         //mapPassed = 4
@@ -189,7 +189,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //有過地圖才能進關卡
         if mapPassed! >= indexPath.row {
     
-            performSegue(withIdentifier: "toPageVc", sender: self)
+            performSegue(withIdentifier: "toLessonVc", sender: self)
         }
     
         
@@ -199,8 +199,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     //重送地圖編號
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        if segue.identifier == "toPageVc"{
-            let destinationVC = segue.destination as! PageViewController
+        if segue.identifier == "toLessonVc"{
+            let destinationVC = segue.destination as! LessonViewController
+            
+            
              destinationVC.mapNumToReceive = mapNumToPass
         }
     }
