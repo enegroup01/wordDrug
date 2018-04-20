@@ -735,27 +735,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                             updateGamePassed()
                                             
                                             
-                                            //計算所有字數
-                                            
-                                            var wordsCounts = Int()
-
-                                            wordsCounts += mapPassed! * 450
-                                            
-                                            
-                                            for (s,u) in gamePassed!{
-                                                
-                                                wordsCounts += s * 30 + u * 3
-                                                
-                                            }
-                                            
-                                            wordCountLabel.text = String(wordsCounts)
-                                            
-                                            
                                             
                                         } else {
                                             print("前元素")
                                             
-                                            
+                                    
                                         }
                                     } else {
                                         
@@ -766,14 +750,39 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             } else {
                                 
                                 print("前地圖")
+                                
                             }
-                            
+                        
+                        
+                                //計算所有字數
+                            countWords()
                         
                 }
                 }
             }
         }
     }
+    
+    func countWords(){
+        //計算所有字數
+        
+        var wordsCounts = Int()
+        
+        wordsCounts += mapPassed! * 450
+        
+        
+        for (s,u) in gamePassed!{
+            
+            wordsCounts += s * 30 + u * 3
+            
+        }
+        
+        //顯示出來
+        wordCountLabel.text = String(wordsCounts)
+
+        
+    }
+    
     @IBAction func firstWordClicked(_ sender: Any) {
         
         if isParseEnabled{
