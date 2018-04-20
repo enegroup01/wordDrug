@@ -116,6 +116,8 @@ class LessonViewController: UIViewController {
     var spotNum = Int()
     var unitNum = Int()
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -153,10 +155,6 @@ class LessonViewController: UIViewController {
         
         lessonLabel.frame = CGRect(x: width * 3 / 4, y: lessonTitleLabel.frame.maxY, width: width / 4.5, height: 60 * dif)
         lessonLabel.backgroundColor = .clear
-        
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 45), NSAttributedStringKey.foregroundColor : pinkColor]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.white]
-        
 
         
         syllableLabel.frame = CGRect(x: 0, y: height / 5 * dif, width: width, height: height / 3.5 * dif)
@@ -175,24 +173,30 @@ class LessonViewController: UIViewController {
         
         //thirdLabel.backgroundColor = .yellow
         
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.cyan]
-        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.white]
         
-
         enterBtn.frame = CGRect(x: 0, y: height - 66 * dif, width: width, height: 66 * dif)
         
         fullLength.frame = CGRect(x: 0, y: enterBtn.frame.minY, width: width, height: 3)
-        progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width / 3, height: 3)
         
         
-        //確認進入的地圖是否為當下地圖, 是的話跳轉到目前的元素, 不是的話代表以全過關, 跳轉到第一個重來
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
        
+        //確認進入的地圖是否為當下地圖, 是的話跳轉到目前的元素, 不是的話代表以全過關, 跳轉到第一個重來
+        
         //測試用
-        /*
-        mapNumToReceive = 0
-        gamePassed = [0:3]
-        mapPassed = 0
-        */
+        
+        //mapNumToReceive = 0
+        //gamePassed = [4:3]
+        //mapPassed = 0
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 45), NSAttributedStringKey.foregroundColor : pinkColor]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.cyan]
+        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.white]
+        
         
         switch mapNumToReceive {
         case 0:
@@ -208,16 +212,18 @@ class LessonViewController: UIViewController {
         default:
             break
         }
- 
+        
         var syllablesWithoutDigit = String()
-
+        
+        var progressFloat = CGFloat()
+        
         if mapNumToReceive == mapPassed! {
             //抓目前的元素
             
             for (s,u) in gamePassed! {
                 
-            let syllableChosen = syllableSets[s][u]
-            
+                let syllableChosen = syllableSets[s][u]
+                
                 let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
                 
                 syllablesWithoutDigit = syllableChosenArray[0]
@@ -225,6 +231,9 @@ class LessonViewController: UIViewController {
                 mapNum = mapPassed!
                 spotNum = s
                 unitNum = u
+                progressFloat = CGFloat(u + 1)
+                
+                
                 
             }
             
@@ -235,17 +244,18 @@ class LessonViewController: UIViewController {
             mapNum = mapNumToReceive
             spotNum = 0
             unitNum = 0
-           
+            progressFloat = 10
+            
             let syllableChosen = syllableSets[spotNum][unitNum]
-                
+            
             
             let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                
+            
             
             syllablesWithoutDigit = syllableChosenArray[0]
             
             syllableLabel.text = syllablesWithoutDigit
-        
+            
             
         }
         
@@ -254,6 +264,8 @@ class LessonViewController: UIViewController {
         lessonText.append(NSMutableAttributedString(string: " / 15", attributes: attrs1))
         lessonLabel.attributedText = lessonText
         
+        //進度條
+        progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
         
         //讀取Bundle裡的文字檔
         var wordFile:String?
@@ -275,21 +287,21 @@ class LessonViewController: UIViewController {
         } else {
             // example.txt not found!
         }
-       
+        
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
         var allThreeEngWords = [String]()
         
-         let engWord0 = wordSets[unitNum * 3].components(separatedBy: " ")
-         let engWord1 = wordSets[unitNum * 3 + 1].components(separatedBy: " ")
+        let engWord0 = wordSets[unitNum * 3].components(separatedBy: " ")
+        let engWord1 = wordSets[unitNum * 3 + 1].components(separatedBy: " ")
         let engWord2 = wordSets[unitNum * 3 + 2].components(separatedBy: " ")
         
         allThreeEngWordsArray.append(engWord0)
         allThreeEngWordsArray.append(engWord1)
         allThreeEngWordsArray.append(engWord2)
         
-
+        
         for i in 0 ..< allThreeEngWordsArray.count{
             var word = String()
             
@@ -429,8 +441,6 @@ class LessonViewController: UIViewController {
         secondLabel.attributedText = words[1]
         thirdLabel.attributedText = words[2]
 
-        
-        
     }
 
     @IBAction func enterGameClicked(_ sender: Any) {
@@ -454,7 +464,10 @@ class LessonViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func backBtnClicked(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

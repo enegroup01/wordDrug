@@ -342,15 +342,15 @@ class NewGameScene: SKScene {
         
         //設定地圖的音節
         switch mapNumber {
-        case 1:
+        case 0:
             syllableSets = map1SyllableSets
-        case 2:
+        case 1:
             syllableSets = map2SyllableSets
-        case 3:
+        case 2:
             syllableSets = map3SyllableSets
-        case 4:
+        case 3:
             syllableSets = map4SyllableSets
-        case 5:
+        case 4:
             syllableSets = map5SyllableSets
         default:
             break
@@ -362,7 +362,7 @@ class NewGameScene: SKScene {
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
-        let name = String(mapNumber) + "-" + String(spotNumber + 1)
+        let name = String(mapNumber + 1) + "-" + String(spotNumber + 1)
         print("name:\(name)")
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {

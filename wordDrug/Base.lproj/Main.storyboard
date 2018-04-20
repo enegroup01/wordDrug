@@ -768,6 +768,9 @@
                                 <rect key="frame" x="33" y="33" width="30" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="lessonBackBtn.png"/>
+                                <connections>
+                                    <action selector="backBtnClicked:" destination="j5T-Gi-rw6" eventType="touchUpInside" id="gys-Om-stv"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="目前課程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBD-lg-gJM">
                                 <rect key="frame" x="300" y="33" width="64" height="23"/>
