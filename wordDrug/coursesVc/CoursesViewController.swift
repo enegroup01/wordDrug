@@ -44,6 +44,14 @@ class CoursesViewController: UIViewController {
     
     @IBOutlet weak var block3BookImg: UIImageView!
     @IBOutlet weak var block2TitleImg: UIImageView!
+
+    
+    var alertBg = UIImageView()
+    var alertText = UILabel()
+    var iknowBtn = UIButton()
+    var ghostBtn = UIButton()
+    
+    var noClassBtn = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,6 +61,7 @@ class CoursesViewController: UIViewController {
         //layOut
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
+       
        
         
         var xPos = CGFloat()
@@ -84,6 +93,8 @@ class CoursesViewController: UIViewController {
             break
             
         }
+        
+
         
         let nickname = user?["username"] as! String
         
@@ -135,9 +146,98 @@ class CoursesViewController: UIViewController {
         block2BookImg.frame = CGRect(x: width - width / 6, y: block2WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
         block3BookImg.frame = CGRect(x: width - width / 6, y: block3WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
         
-    
+        
+        var dif = CGFloat()
+        
+        switch height {
+        case 812:
+            
+            dif = 1.15
+            
+        case 736:
+            
+            dif = 1.1
+            
+            
+        case 667:
+            
+            dif = 1
+            
+            
+        case 568:
+            
+            dif = 0.9
+            
+            
+        default:
+            break
+            
+        }
+        
+        // Do any additional setup after loading the view.
+   
+        
+        
+        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 4, width: 237 * dif, height: 156 * dif)
+        alertBg.image = UIImage(named: "noClassAlertBg.png")
+        
+        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 26)
+        alertText.textColor = .white
+        alertText.text = ""
+        alertText.numberOfLines = 0
+        alertText.textAlignment = .center
+        alertText.adjustsFontSizeToFitWidth = true
+        
+        alertBg.addSubview(alertText)
+        
+        iknowBtn.frame = CGRect(x: (width - 150 * dif) / 2, y: height * 1.6 / 4, width: 150 * dif, height: 36 * dif)
+        iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
+        iknowBtn.setTitle("我知道了", for: .normal)
+        iknowBtn.setTitleColor(.white, for: .normal)
+        iknowBtn.addTarget(self, action: #selector(CoursesViewController.iKnowClicked), for: .touchUpInside)
+        self.view.addSubview(ghostBtn)
+        
+        self.view.addSubview(iknowBtn)
+
+        self.view.addSubview(alertBg)
+        
+        
+        
+        removeBtns()
+        
+        noClassBtn.frame = CGRect(x: 0, y: block0LBtn.frame.maxY, width: width, height: height - block0LBtn.frame.maxY)
+
+        //noClassBtn.backgroundColor = .red
+
+        noClassBtn.addTarget(self, action: #selector(CoursesViewController.noClassNotice), for: .touchUpInside)
+        self.view.addSubview(noClassBtn)
+        self.view.bringSubview(toFront: iknowBtn)
     }
 
+    @objc func noClassNotice(){
+        
+        openAlert(text: "目前只開放英檢初級課程喔！其餘課程將於6月正式上線開放！")
+    }
+    
+    
+    @objc func iKnowClicked(){
+        
+        print("clicked")
+        removeBtns()
+    }
+    
+    func removeBtns(){
+        
+        alertBg.isHidden = true
+        iknowBtn.isHidden = true
+        ghostBtn.isHidden = true
+        alertText.text = ""
+        iknowBtn.isEnabled = false
+        
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -147,17 +247,31 @@ class CoursesViewController: UIViewController {
         performSegue(withIdentifier: "toStageVc", sender: self)
     }
     
+    /*
     @IBAction func intermediateClicked(_ sender: Any) {
+
     }
     
     @IBAction func toeicClicked(_ sender: Any) {
+
     }
     
     @IBAction func toeflClicked(_ sender: Any) {
+       
     }
-    
+    */
     @IBAction func toNewBookBtn(_ sender: Any) {
         performSegue(withIdentifier: "toNewBookVc", sender: self)
+    }
+    
+    func openAlert(text:String){
+        
+        alertBg.isHidden = false
+        iknowBtn.isHidden = false
+        ghostBtn.isHidden = false
+        alertText.text = text
+        iknowBtn.isEnabled = true
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

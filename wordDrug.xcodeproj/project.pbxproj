@@ -17,6 +17,11 @@
 		AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04ED96203D968A00EC0A8E /* StageViewController.swift */; };
 		AA21142F2043F0200047B866 /* leftPageBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA21142D2043F0200047B866 /* leftPageBtn.png */; };
 		AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2114312043F16C0047B866 /* rightPageBtn.png */; };
+		AA277115208A0CAA00414E5D /* lockPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA277114208A0CA900414E5D /* lockPng.png */; };
+		AA27711D208A186100414E5D /* alertBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27711C208A186100414E5D /* alertBg.png */; };
+		AA277121208A190800414E5D /* iKnowBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA277120208A190700414E5D /* iKnowBtn.png */; };
+		AA277125208A281600414E5D /* noClassAlertBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA277124208A281600414E5D /* noClassAlertBg.png */; };
+		AA277129208A28BA00414E5D /* noClassOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA277128208A28B900414E5D /* noClassOkBtn.png */; };
 		AA2B64D0205A609D00742226 /* bookBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2B64CF205A609D00742226 /* bookBackBtn.png */; };
 		AA2B64D2205A612E00742226 /* newBookBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2B64D1205A612E00742226 /* newBookBg.png */; };
 		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
@@ -266,6 +271,11 @@
 		AA04ED96203D968A00EC0A8E /* StageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
 		AA21142D2043F0200047B866 /* leftPageBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftPageBtn.png; sourceTree = "<group>"; };
 		AA2114312043F16C0047B866 /* rightPageBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightPageBtn.png; sourceTree = "<group>"; };
+		AA277114208A0CA900414E5D /* lockPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lockPng.png; sourceTree = "<group>"; };
+		AA27711C208A186100414E5D /* alertBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alertBg.png; sourceTree = "<group>"; };
+		AA277120208A190700414E5D /* iKnowBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iKnowBtn.png; sourceTree = "<group>"; };
+		AA277124208A281600414E5D /* noClassAlertBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noClassAlertBg.png; sourceTree = "<group>"; };
+		AA277128208A28B900414E5D /* noClassOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noClassOkBtn.png; sourceTree = "<group>"; };
 		AA2B64CF205A609D00742226 /* bookBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookBackBtn.png; sourceTree = "<group>"; };
 		AA2B64D1205A612E00742226 /* newBookBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookBg.png; sourceTree = "<group>"; };
 		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
@@ -542,7 +552,9 @@
 				AA98E6232086197A001100BA /* bookPng.png */,
 				AA04ED84203D7E9100EC0A8E /* elementaryBg.png */,
 				AA04ED81203D7E9000EC0A8E /* intermediateBg.png */,
+				AA277124208A281600414E5D /* noClassAlertBg.png */,
 				AA04ED89203D7E9700EC0A8E /* dialogueBg.png */,
+				AA277128208A28B900414E5D /* noClassOkBtn.png */,
 				AA04ED8B203D7F6100EC0A8E /* toeflBg.png */,
 				AA04ED8C203D7F6100EC0A8E /* toeicBg.png */,
 				AA98E60B2085E8A8001100BA /* block0.png */,
@@ -561,6 +573,9 @@
 			isa = PBXGroup;
 			children = (
 				AA04ED96203D968A00EC0A8E /* StageViewController.swift */,
+				AA277120208A190700414E5D /* iKnowBtn.png */,
+				AA27711C208A186100414E5D /* alertBg.png */,
+				AA277114208A0CA900414E5D /* lockPng.png */,
 				AA98E62520861F25001100BA /* stageTopCover.png */,
 				AA98E6272086226D001100BA /* backBtnImg.png */,
 			);
@@ -1021,6 +1036,8 @@
 				AA648EE3207CEA05003ACD07 /* s5-15.txt in Resources */,
 				AA648EBE207CEA05003ACD07 /* 5-13.txt in Resources */,
 				AA648E98207CEA05003ACD07 /* s4-10.txt in Resources */,
+				AA27711D208A186100414E5D /* alertBg.png in Resources */,
+				AA277115208A0CAA00414E5D /* lockPng.png in Resources */,
 				AA648ED2207CEA05003ACD07 /* 5-8.txt in Resources */,
 				AA648ED0207CEA05003ACD07 /* s2-3.txt in Resources */,
 				AA648ED5207CEA05003ACD07 /* s3-9.txt in Resources */,
@@ -1141,6 +1158,7 @@
 				AAE181911F97892D00683896 /* Actions.sks in Resources */,
 				AA648EC6207CEA05003ACD07 /* s2-2.txt in Resources */,
 				AA7AE9002049675200ADEEDA /* recordCross.png in Resources */,
+				AA277129208A28BA00414E5D /* noClassOkBtn.png in Resources */,
 				AA648E6A207CEA05003ACD07 /* s3-15.txt in Resources */,
 				AA04ED8D203D7F6200EC0A8E /* toeflBg.png in Resources */,
 				AA648E99207CEA05003ACD07 /* s4-14.txt in Resources */,
@@ -1164,12 +1182,14 @@
 				AAFAFCB0205BE11F00307264 /* bookSpeed1.png in Resources */,
 				AA648EFA207CEA05003ACD07 /* 1-10.txt in Resources */,
 				AA648EE0207CEA05003ACD07 /* s2-10.txt in Resources */,
+				AA277121208A190800414E5D /* iKnowBtn.png in Resources */,
 				AA648EA3207CEA05003ACD07 /* s4-2.txt in Resources */,
 				AA648EF6207CEA05003ACD07 /* s3-11.txt in Resources */,
 				AA648EDF207CEA05003ACD07 /* 2-5.txt in Resources */,
 				AA648EE5207CEA05003ACD07 /* 4-3.txt in Resources */,
 				AA98E6082085DC5F001100BA /* loginBgImg.png in Resources */,
 				AA648EF7207CEA05003ACD07 /* 3-7.txt in Resources */,
+				AA277125208A281600414E5D /* noClassAlertBg.png in Resources */,
 				AAFAFCA2205BDD6500307264 /* sylBlueBall.png in Resources */,
 				AA648E83207CEA05003ACD07 /* s3-3.txt in Resources */,
 				AA648E8A207CEA05003ACD07 /* 1-11.txt in Resources */,

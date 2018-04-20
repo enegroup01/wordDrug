@@ -1480,8 +1480,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //抓字
         let engWords = engWordsSelected[indexPath.row]
+
+        
         //拆音節成array
         let engWordArray = engWords.components(separatedBy: " ")
+       
         //定義母音
         let vowels = ["a","e","i","o","u"]
         
@@ -1502,9 +1505,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 characters.removeAll(keepingCapacity: false)
                 
                 for i in engWordArray[i]{
+
                     
+
                     characters.append(i)
+                    
                 }
+                
                 
                 //確認是不是_e部首, 目前設定為三個字母, 若要增加要在這裡修改
                 if characters.count == 3 {
@@ -1576,7 +1583,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 if let engWord = engWordArray[i] as String?{
                     
                     //如果此字節是音節字元
-                    if engWord == syllableText{
+                    if engWord.lowercased() == syllableText{
                         
                         let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
                         attrWords.append(word)

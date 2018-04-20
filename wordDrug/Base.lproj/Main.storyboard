@@ -911,7 +911,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="efP-R3-6Xh"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="20"/>
-                                                    <color key="textColor" red="0.77809077501296997" green="0.50072705745697021" blue="0.48513954877853394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.51683805199430199" green="0.023938429513807823" blue="0.46624391492104295" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64E-ac-1mX">
@@ -924,13 +924,22 @@
                                                     <color key="textColor" red="0.32046890258789062" green="0.17176854610443115" blue="0.16581898927688599" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lockPng.png" translatesAutoresizingMaskIntoConstraints="NO" id="uif-eW-Q9g">
+                                                    <rect key="frame" x="37" y="17" width="113" height="144"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="144" id="0Xh-PF-Vud"/>
+                                                        <constraint firstAttribute="width" constant="113" id="1wY-tL-Avh"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="2T3-JV-DD1" firstAttribute="top" secondItem="64E-ac-1mX" secondAttribute="bottom" constant="2" id="5wn-Fw-XMI"/>
+                                            <constraint firstItem="uif-eW-Q9g" firstAttribute="centerX" secondItem="bDn-yw-ffc" secondAttribute="centerX" id="7zL-Iu-eDu"/>
                                             <constraint firstItem="64E-ac-1mX" firstAttribute="centerY" secondItem="bDn-yw-ffc" secondAttribute="centerY" id="Xm7-b3-dwl"/>
                                             <constraint firstItem="64E-ac-1mX" firstAttribute="centerX" secondItem="bDn-yw-ffc" secondAttribute="centerX" id="jGy-BB-gdN"/>
                                             <constraint firstItem="2T3-JV-DD1" firstAttribute="centerX" secondItem="bDn-yw-ffc" secondAttribute="centerX" id="kVi-dR-0Tn"/>
+                                            <constraint firstItem="uif-eW-Q9g" firstAttribute="centerY" secondItem="bDn-yw-ffc" secondAttribute="centerY" id="ono-Bo-lnf"/>
                                         </constraints>
                                     </collectionViewCell>
                                 </cells>
@@ -998,6 +1007,7 @@
         <image name="lessonBackBtn.png" width="19" height="31"/>
         <image name="lessonFullLength.png" width="375" height="3"/>
         <image name="lessonProgress.png" width="375" height="3"/>
+        <image name="lockPng.png" width="113" height="144"/>
         <image name="loginBgImg.png" width="375" height="667"/>
         <image name="loginBtnImg.png" width="66" height="66"/>
         <image name="newBookBg.png" width="375" height="667"/>

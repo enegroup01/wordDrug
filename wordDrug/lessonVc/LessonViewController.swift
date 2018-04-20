@@ -153,7 +153,7 @@ class LessonViewController: UIViewController {
         backBtn.frame = CGRect(x: width / 10, y: width / 8, width: 19, height: 31)
         lessonTitleLabel.frame = CGRect(x: width * 5.5 / 7, y: backBtn.frame.minY - 10 * dif, width: 66 , height: 22)
         
-        lessonLabel.frame = CGRect(x: width * 3 / 4, y: lessonTitleLabel.frame.maxY, width: width / 4.5, height: 60 * dif)
+        lessonLabel.frame = CGRect(x: width * 3 / 4, y: lessonTitleLabel.frame.maxY, width: width / 4, height: 60 * dif)
         lessonLabel.backgroundColor = .clear
 
         

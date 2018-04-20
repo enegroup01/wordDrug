@@ -29,8 +29,44 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
+    
+    var locks = [1,1,1,1,1]
+    
+    var alertBg = UIImageView()
+    var alertText = UILabel()
+    var iknowBtn = UIButton()
+    var ghostBtn = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
+        var dif = CGFloat()
+        
+        switch height {
+        case 812:
+            
+            dif = 1.15
+            
+        case 736:
+            
+            dif = 1.1
+            
+            
+        case 667:
+            
+            dif = 1
+            
+            
+        case 568:
+            
+            dif = 0.9
+            
+            
+        default:
+            break
+            
+        }
 
         // Do any additional setup after loading the view.
         collectionView.backgroundColor = UIColor.init(red: 179/255, green: 78/255, blue: 81/255, alpha: 1)
@@ -44,11 +80,56 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         collectionView.frame = CGRect(x: 0, y: stageTopImg.frame.maxY, width: width, height: height - stageTopImg.frame.height)
         
+        
+        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 5, width: 237 * dif, height: 156 * dif)
+        alertBg.image = UIImage(named: "alertBg.png")
+
+        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 26)
+        alertText.textColor = .white
+        alertText.text = ""
+        alertText.numberOfLines = 0
+        alertText.textAlignment = .center
+        alertText.adjustsFontSizeToFitWidth = true
+        
+        alertBg.addSubview(alertText)
+
+        iknowBtn.frame = CGRect(x: (width - 150 * dif) / 2, y: height * 1.75 / 5, width: 150 * dif, height: 36 * dif)
+        iknowBtn.setBackgroundImage(UIImage(named:"iKnowBtn.png"), for: .normal)
+        iknowBtn.setTitle("我知道了", for: .normal)
+        iknowBtn.setTitleColor(.white, for: .normal)
+        iknowBtn.addTarget(self, action: #selector(StageViewController.iKnowClicked), for: .touchUpInside)
+        collectionView.addSubview(ghostBtn)
+        collectionView.addSubview(iknowBtn)
+        collectionView.addSubview(alertBg)
+        collectionView.bringSubview(toFront: iknowBtn)
+ 
+        removeBtns()
+
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func iKnowClicked(){
+        
+        print("clicked")
+        removeBtns()
+    }
+    
+    func removeBtns(){
+        
+        alertBg.isHidden = true
+        iknowBtn.isHidden = true
+        ghostBtn.isHidden = true
+        alertText.text = ""
+        iknowBtn.isEnabled = false
+        
+        
     }
     
     @available(iOS 6.0, *)
@@ -83,6 +164,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             case 1:
                 eachCellMyWordsCount[0] = 450
                 eachCellMyWordsCount[1] = wordCounts
+              
             case 2:
                 eachCellMyWordsCount[0] = 450
                 eachCellMyWordsCount[1] = 450
@@ -103,6 +185,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 break
             }
         
+        locks = [1,1,1,1,1]
+        
+        for i in 0 ..< mapPassed! + 1{
+            
+            locks[i] = 0
+            
+        }
         
         for c in eachCellMyWordsCount{
             totalWordsLearned += c
@@ -130,6 +219,16 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "stageCell", for: indexPath as IndexPath)
         
+
+        let lockImg = cell.viewWithTag(3) as! UIImageView
+        if locks[indexPath.row] == 0 {
+            
+            lockImg.isHidden = true
+        } else {
+            
+            lockImg.isHidden = false
+        }
+
 
         let stageLabel = cell.viewWithTag(1) as! UILabel
         stageLabel.text = String(indexPath.row + 1)
@@ -187,9 +286,19 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //mapPassed = 2
         print("mapPassed in stage:\(mapPassed)")
         //有過地圖才能進關卡
-        if mapPassed! >= indexPath.row {
+        if mapPassed! == indexPath.row {
     
             performSegue(withIdentifier: "toLessonVc", sender: self)
+        } else if mapPassed! > indexPath.row{
+            
+            //show已過關訊息
+            
+            openAlert(text: "此單元已全部學習完成，請至單字本複習！")
+            
+            
+        } else if mapPassed! < indexPath.row{
+            
+            openAlert(text: "此單元尚未解鎖，請加油！")
         }
     
         
@@ -205,6 +314,16 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
              destinationVC.mapNumToReceive = mapNumToPass
         }
+    }
+    
+    func openAlert(text:String){
+        
+        alertBg.isHidden = false
+        iknowBtn.isHidden = false
+        ghostBtn.isHidden = false
+        alertText.text = text
+        iknowBtn.isEnabled = true
+        
     }
     
     /*
