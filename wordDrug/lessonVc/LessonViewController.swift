@@ -441,10 +441,14 @@ class LessonViewController: UIViewController {
         secondLabel.attributedText = words[1]
         thirdLabel.attributedText = words[2]
 
+        
+        enterBtn.isEnabled = true
+        
     }
 
     @IBAction func enterGameClicked(_ sender: Any) {
         
+        enterBtn.isEnabled = false
            performSegue(withIdentifier: "toGameVc", sender: self)
     }
     

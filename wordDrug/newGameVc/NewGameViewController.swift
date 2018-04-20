@@ -675,9 +675,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     moveUpAnimation(label: thirdChiWord, text: chiWords[2])
                         
                         
-                        //如果有錯就不算過關
-                        if wrongWordsCount == 0 {
-                            
+                        
+                        //如果有錯就不算過關的條件
+                        
+                        // if wrongWordsCount == 0 {}
+                        
+                        //目前這裡就先寫成都可以過關
+
+                        
                             //如果玩之前的關卡就不改變
                             
                             if mapPassed! == (mapNumber){
@@ -730,6 +735,22 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                             updateGamePassed()
                                             
                                             
+                                            //計算所有字數
+                                            
+                                            var wordsCounts = Int()
+
+                                            wordsCounts += mapPassed! * 450
+                                            
+                                            
+                                            for (s,u) in gamePassed!{
+                                                
+                                                wordsCounts += s * 30 + u * 3
+                                                
+                                            }
+                                            
+                                            wordCountLabel.text = String(wordsCounts)
+                                            
+                                            
                                             
                                         } else {
                                             print("前元素")
@@ -747,7 +768,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 print("前地圖")
                             }
                             
-                        }
+                        
                 }
                 }
             }

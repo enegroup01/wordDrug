@@ -950,7 +950,7 @@ class NewGameScene: SKScene {
             var shouldPronounce = Bool()
             
             //暫時都不改變等待時間 var - let
-            let waitTime = DispatchTime.now() + 0.6
+            let waitTime = DispatchTime.now()
             
             //等待發音練完後再進入練習
             /*
@@ -1030,17 +1030,6 @@ class NewGameScene: SKScene {
         }
         
         
-        //顯示空格子
-        let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
-        
-        for node in children{
-            
-            //顯示選項罐子
-            if (node.name?.contains("emptyButton"))!{
-                
-                node.run(fadeIn)
-            }
-        }
         
         //抓目前單字
         let currentWord = wordSets[currentWordSequence]
@@ -1150,22 +1139,43 @@ class NewGameScene: SKScene {
         //設定5格的位置
         let positions = [[-135,-515],[-230,-295],[135,-515],[230,-295],[0,-105]]
         
-        
-        for i in 0 ..< shownWords.count{
-            
-            makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1]), alignMent: .center, fontColor: .white, fontSize: 50, text: shownWords[i], zPosition: 5, name: shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
-            
-            
-            //把建立的選項名稱放入array裡
-            selNodeNames.append(shownWords[i] + String(i) + "Sel")
-            
+        var waitMoreTime = DispatchTime.now()
+        if isBackToSpell {
+            waitMoreTime = DispatchTime.now() + 1
         }
         
-        //可按按鍵
-        //isUserInteractionEnabled = true
-        
-        //啟動連線功能
-        isDragAndPlayEnable = true
+        DispatchQueue.main.asyncAfter(deadline: waitMoreTime) {[weak self] in
+            
+            //顯示空格子
+            let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
+            
+            for node in self!.children{
+                
+                //顯示選項罐子
+                if (node.name?.contains("emptyButton"))!{
+                    
+                    node.run(fadeIn)
+                }
+            }
+
+          
+            for i in 0 ..< self!.shownWords.count{
+                
+               self!.makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1]), alignMent: .center, fontColor: .white, fontSize: 50, text: self!.shownWords[i], zPosition: 5, name: self!.shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
+                
+                
+                //把建立的選項名稱放入array裡
+                self!.selNodeNames.append(self!.shownWords[i] + String(i) + "Sel")
+                
+            }
+            
+            //可按按鍵
+            //isUserInteractionEnabled = true
+            
+            //啟動連線功能
+            self!.isDragAndPlayEnable = true
+        }
+
         
     }
 
@@ -1642,6 +1652,8 @@ class NewGameScene: SKScene {
                             
                             //跳到中文練習
                             isDragAndPlayEnable = false
+                            
+                            //要卡這個
                             testChinese()
                             
                         } else {
