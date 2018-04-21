@@ -14,7 +14,7 @@
         <!--Login View Controller-->
         <scene sceneID="quZ-1J-VlG">
             <objects>
-                <viewController id="MDq-zg-zeG" customClass="LoginViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVc" id="MDq-zg-zeG" customClass="LoginViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ikj-M1-gwi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -841,6 +841,14 @@
                                 <rect key="frame" x="312" y="561" width="41" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1e-Ia-agD">
+                                <rect key="frame" x="16" y="14" width="31" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="logout.png"/>
+                                <connections>
+                                    <action selector="logOutClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="uag-Nl-stu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.15294117647058825" green="0.18823529411764706" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="GuU-GK-hfX"/>
@@ -866,6 +874,7 @@
                         <outlet property="block3WordCountLabel" destination="BJU-Ol-xOV" id="7Ml-Tl-KLB"/>
                         <outlet property="dialogueBg" destination="cLz-3m-g61" id="ZCg-Qb-Aii"/>
                         <outlet property="dialogueLabel" destination="YQz-Vd-la3" id="3xk-P5-VZp"/>
+                        <outlet property="logOutBtn" destination="a1e-Ia-agD" id="x1z-Oy-SAr"/>
                         <segue destination="Xm8-zq-UdH" kind="show" identifier="toStageVc" id="IAO-5U-K2i"/>
                         <segue destination="1ci-A8-OIj" kind="show" identifier="toNewBookVc" id="heL-at-VN6"/>
                     </connections>
@@ -1010,6 +1019,7 @@
         <image name="lockPng.png" width="113" height="144"/>
         <image name="loginBgImg.png" width="375" height="667"/>
         <image name="loginBtnImg.png" width="66" height="66"/>
+        <image name="logout.png" width="58" height="70"/>
         <image name="newBookBg.png" width="375" height="667"/>
         <image name="recordBtn.png" width="256" height="256"/>
         <image name="registerBtnImg.png" width="66" height="66"/>

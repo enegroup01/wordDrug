@@ -46,6 +46,7 @@ class CoursesViewController: UIViewController {
     @IBOutlet weak var block2TitleImg: UIImageView!
 
     
+    @IBOutlet weak var logOutBtn: UIButton!
     var alertBg = UIImageView()
     var alertText = UILabel()
     var iknowBtn = UIButton()
@@ -62,32 +63,36 @@ class CoursesViewController: UIViewController {
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
        
-       
-        
+ 
         var xPos = CGFloat()
         var fontSize = CGFloat()
         var titleDif = CGFloat()
+        var dif = CGFloat()
         switch  height {
         case 812:
             fontSize = 20
             xPos = -22
             titleDif = 1
+            dif = 1.15
         case 736:
      
             fontSize = 18
             xPos = 0
             titleDif = 1
+            dif = 1.1
             
         case 667:
 
             fontSize = 18
             xPos = 0
             titleDif = 0.9
+            dif = 1
             
         case 568:
             fontSize = 16
             xPos = 0
             titleDif = 0.8
+            dif = 0.9
             
         default:
             break
@@ -114,6 +119,9 @@ class CoursesViewController: UIViewController {
        dialogueLabel.adjustsFontSizeToFitWidth = true
        dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
         
+        
+        
+        logOutBtn.frame = CGRect(x: width / 18, y: dialogueLabel.frame.minY - 10 * dif, width: 20 * dif, height: 23 * dif)
         
         block0WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block0.frame.height / 2, width: width / 2.8, height: block0.frame.height / 3)
         //block0WordCountLabel.backgroundColor = .red
@@ -146,39 +154,14 @@ class CoursesViewController: UIViewController {
         block2BookImg.frame = CGRect(x: width - width / 6, y: block2WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
         block3BookImg.frame = CGRect(x: width - width / 6, y: block3WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
         
-        
-        var dif = CGFloat()
-        
-        switch height {
-        case 812:
-            
-            dif = 1.15
-            
-        case 736:
-            
-            dif = 1.1
-            
-            
-        case 667:
-            
-            dif = 1
-            
-            
-        case 568:
-            
-            dif = 0.9
-            
-            
-        default:
-            break
-            
-        }
-        
+
         // Do any additional setup after loading the view.
    
         
         
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+        ghostBtn.backgroundColor = lightGray
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 4, width: 237 * dif, height: 156 * dif)
         alertBg.image = UIImage(named: "noClassAlertBg.png")
         
@@ -191,19 +174,17 @@ class CoursesViewController: UIViewController {
         alertText.adjustsFontSizeToFitWidth = true
         
         alertBg.addSubview(alertText)
-        
+        let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
         iknowBtn.frame = CGRect(x: (width - 150 * dif) / 2, y: height * 1.6 / 4, width: 150 * dif, height: 36 * dif)
         iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
         iknowBtn.setTitle("我知道了", for: .normal)
-        iknowBtn.setTitleColor(.white, for: .normal)
+        iknowBtn.setTitleColor(darkRed, for: .normal)
         iknowBtn.addTarget(self, action: #selector(CoursesViewController.iKnowClicked), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
         
         self.view.addSubview(iknowBtn)
 
         self.view.addSubview(alertBg)
-        
-        
         
         removeBtns()
         
@@ -264,6 +245,22 @@ class CoursesViewController: UIViewController {
         performSegue(withIdentifier: "toNewBookVc", sender: self)
     }
     
+    @IBAction func logOutClicked(_ sender: Any) {
+        
+        
+        UserDefaults.standard.removeObject(forKey: "parseJSON")
+        UserDefaults.standard.removeObject(forKey: "mapPassed")
+        UserDefaults.standard.removeObject(forKey: "gamePassed")
+     
+        
+        let loginVc = storyboard?.instantiateViewController(withIdentifier: "loginVc")
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = loginVc!
+        
+        
+        
+    }
     func openAlert(text:String){
         
         alertBg.isHidden = false

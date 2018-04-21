@@ -36,6 +36,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var alertText = UILabel()
     var iknowBtn = UIButton()
     var ghostBtn = UIButton()
+    var ghost2Btn = UIButton()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,9 +83,17 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionView.frame = CGRect(x: 0, y: stageTopImg.frame.maxY, width: width, height: height - stageTopImg.frame.height)
         
         
+        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+        ghost2Btn.frame = CGRect(x: 0, y: 0, width: width, height: stageTopImg.frame.height)
+        ghost2Btn.backgroundColor = lightGray
+        stageTopImg.addSubview(ghost2Btn)
+        
+        
+        
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        ghostBtn.backgroundColor = lightGray
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 5, width: 237 * dif, height: 156 * dif)
-        alertBg.image = UIImage(named: "alertBg.png")
+        alertBg.image = UIImage(named: "noClassAlertBg.png")
 
         alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
         alertText.font = UIFont(name: "Helvetica Neue Bold", size: 26)
@@ -95,10 +105,11 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         alertBg.addSubview(alertText)
 
+             let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
         iknowBtn.frame = CGRect(x: (width - 150 * dif) / 2, y: height * 1.75 / 5, width: 150 * dif, height: 36 * dif)
-        iknowBtn.setBackgroundImage(UIImage(named:"iKnowBtn.png"), for: .normal)
+        iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
         iknowBtn.setTitle("我知道了", for: .normal)
-        iknowBtn.setTitleColor(.white, for: .normal)
+        iknowBtn.setTitleColor(darkRed, for: .normal)
         iknowBtn.addTarget(self, action: #selector(StageViewController.iKnowClicked), for: .touchUpInside)
         collectionView.addSubview(ghostBtn)
         collectionView.addSubview(iknowBtn)
@@ -122,7 +133,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func removeBtns(){
-        
+        backBtn.isEnabled = true
+        ghost2Btn.isHidden = true
         alertBg.isHidden = true
         iknowBtn.isHidden = true
         ghostBtn.isHidden = true
@@ -317,8 +329,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func openAlert(text:String){
-        
+        backBtn.isEnabled = false
         alertBg.isHidden = false
+        ghost2Btn.isHidden = false
         iknowBtn.isHidden = false
         ghostBtn.isHidden = false
         alertText.text = text
