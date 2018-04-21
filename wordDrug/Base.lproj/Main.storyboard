@@ -66,6 +66,13 @@
                                             <action selector="registerClick:" destination="MDq-zg-zeG" eventType="touchUpInside" id="SO0-Wc-Lus"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MissWord " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGd-pm-PxV">
+                                        <rect key="frame" x="134" y="64" width="106" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="23"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -83,6 +90,7 @@
                         <outlet property="bgImg" destination="YSu-Qz-GEC" id="YE8-yF-nNR"/>
                         <outlet property="bgView" destination="lGh-Sh-duR" id="HAM-M7-EWg"/>
                         <outlet property="loginBtn" destination="hc6-PM-dcI" id="Mdc-eJ-DCL"/>
+                        <outlet property="logoLabel" destination="CGd-pm-PxV" id="woy-o6-MxJ"/>
                         <outlet property="passwordTxt" destination="7n9-4j-B2s" id="Ao1-QP-e6U"/>
                         <outlet property="registerBtn" destination="JBJ-HI-heC" id="Qrm-3W-C4j"/>
                         <outlet property="usernameTxt" destination="cfg-84-fds" id="VEs-LI-UbD"/>
@@ -91,7 +99,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IRQ-Nb-WFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4116" y="2194"/>
+            <point key="canvasLocation" x="-4116" y="2193.5532233883059"/>
         </scene>
         <!--New Game View Controller-->
         <scene sceneID="5PR-vQ-Hl8">

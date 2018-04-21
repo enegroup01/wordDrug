@@ -15,6 +15,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var bgView: UIView!
     
+    @IBOutlet weak var logoLabel: UILabel!
+ 
     @IBOutlet weak var bgImg: UIImageView!
     @IBOutlet weak var loginBtn: SSBouncyButton!
     @IBOutlet weak var registerBtn: SSBouncyButton!
@@ -35,32 +37,42 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
         
+       
         
         loginBtn.frame = CGRect(x: width / 2 + width / 30, y: height / 2, width: width / 6, height: width / 6)
         registerBtn.frame = CGRect(x: width / 2 - loginBtn.frame.width - width / 30, y: height / 2, width: width / 6, height: width / 6)
         
         var iphoneWidth = CGFloat()
         var fontSize = CGFloat()
+        var dif = CGFloat()
+     
         switch  height {
         case 812:
             iphoneWidth = height * 375/667
             fontSize = 20
+            dif = 1.15
+      
         case 736:
             iphoneWidth = width
             fontSize = 18
-            
+            dif = 1.1
         case 667:
             iphoneWidth = width
             fontSize = 18
-
+     
+dif = 1
         case 568:
             iphoneWidth = width
             fontSize = 16
+ dif = 0.9
 
         default:
             break
             
         }
+        
+        logoLabel.frame = CGRect(x: (width - 106 * dif) / 2, y: height / 10, width: 106 * dif, height: 43 * dif)
+        
         
         bgView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         bgImg.frame = CGRect(x: 0, y: 0, width: iphoneWidth, height: height)

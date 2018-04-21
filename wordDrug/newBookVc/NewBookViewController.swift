@@ -747,7 +747,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             
         }
-        
+        print("sorted:\(sortedEngWordsToShow.count)")
+        print("notSorted:\(engWordsToShow.count)")
        
         //從所有的單字裡去找match到的我的最愛單字
         for i in 0 ..< sortedEngWordsToShow.count{
@@ -774,7 +775,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     myFavChiSenToShow.append(chiSenToAppend)
                     
                     //抓全部單字要反紅的部分
-                    myFavImgs[i] = 1
+                    //myFavImgs[i] = 1
                     
                 }
                 
@@ -830,6 +831,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             myFavWords = myWordsString.components(separatedBy: ";")
         }
         
+        /*
         myFavImgs.removeAll(keepingCapacity: false)
         
         //填入所有字的數量, 等等準備抓我的最愛的部分
@@ -837,8 +839,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             myFavImgs.append(0)
             
         }
-        
+        */
         //去對有沒有符合我的最愛然後將其反紅
+        /*
         for i in 0 ..< engWordsToShow.count{
             
             let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
@@ -848,14 +851,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 if myWord == word {
                     
                     //抓全部單字要反紅的部分
-                    myFavImgs[i] = 1
+                    //myFavImgs[i] = 1
                     
                 }
                 
             }
             
         }
-        
+        */
     }
     
     
@@ -875,22 +878,23 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         myFavSyllablesToShow.removeAll(keepingCapacity: false)
         myFavEngSenToShow.removeAll(keepingCapacity: false)
         myFavChiSenToShow.removeAll(keepingCapacity: false)
-        myFavImgs.removeAll(keepingCapacity: false)
+       // myFavImgs.removeAll(keepingCapacity: false)
         
         
         //所有單字反紅
+        /*
         for _ in 0 ..< myFavWords.count{
             
             myFavImgs.append(1)
             
         }
-        
+        */
         
         //以所有的單字來match我的最愛單字的資訊
-        for i in 0 ..< engWordsToShow.count{
+        for i in 0 ..< sortedEngWordsToShow.count{
             
             //做比對使用
-            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
             for myWord in myFavWords{
                 
                 if myWord == word {
@@ -948,9 +952,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         myWrongChiSenToShow.removeAll(keepingCapacity: false)
         
         
-        for i in 0 ..< engWordsToShow.count{
+        for i in 0 ..< sortedEngWordsToShow.count{
             
-            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
             
             //抓我的錯字
             for myWrongWord in myWrongWords{
@@ -1441,7 +1445,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
+        print(engWordsSelected.count)
+        
         return engWordsSelected.count
+        
         //return 5
      
     }
@@ -1774,6 +1781,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             for c in 0 ..< collectionTouched.count{
                 collectionTouched[c] = 0
             }
+
         }
     
         //重整collectionView

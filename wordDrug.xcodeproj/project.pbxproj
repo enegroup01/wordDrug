@@ -31,6 +31,7 @@
 		AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E73207CDC2800AAACC3 /* coverBg.png */; };
 		AA523FCC208AC2AB004CD863 /* noClassOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FCB208AC2AA004CD863 /* noClassOkBtn.png */; };
 		AA523FCE208AC4FC004CD863 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FCD208AC4FB004CD863 /* logout.png */; };
+		AA523FD2208AD862004CD863 /* volume.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FD1208AD861004CD863 /* volume.png */; };
 		AA5879F1203EAB1800FEA058 /* bigBlueBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5879F0203EAB1800FEA058 /* bigBlueBall.png */; };
 		AA5879F5203EAC1A00FEA058 /* smallBlueBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5879F3203EAC1A00FEA058 /* smallBlueBall.png */; };
 		AA5879F9203EADE100FEA058 /* smallDarkBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5879F8203EADE100FEA058 /* smallDarkBall.png */; };
@@ -284,6 +285,7 @@
 		AA4E2E73207CDC2800AAACC3 /* coverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverBg.png; sourceTree = "<group>"; };
 		AA523FCB208AC2AA004CD863 /* noClassOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noClassOkBtn.png; sourceTree = "<group>"; };
 		AA523FCD208AC4FB004CD863 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
+		AA523FD1208AD861004CD863 /* volume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume.png; sourceTree = "<group>"; };
 		AA5879F0203EAB1800FEA058 /* bigBlueBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigBlueBall.png; sourceTree = "<group>"; };
 		AA5879F3203EAC1A00FEA058 /* smallBlueBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallBlueBall.png; sourceTree = "<group>"; };
 		AA5879F8203EADE100FEA058 /* smallDarkBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallDarkBall.png; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 			children = (
 				AA4642841FC4216300D34516 /* LoginViewController.swift */,
 				AA5E2C45203D3738005E22A0 /* loginBtnImg.png */,
+				AA523FD1208AD861004CD863 /* volume.png */,
 				AA5E2C49203D374E005E22A0 /* registerBtnImg.png */,
 				AA98E6072085DC5E001100BA /* loginBgImg.png */,
 			);
@@ -1082,6 +1085,7 @@
 				AA648E92207CEA05003ACD07 /* 4-1.txt in Resources */,
 				AA648EB9207CEA05003ACD07 /* 4-12.txt in Resources */,
 				AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */,
+				AA523FD2208AD862004CD863 /* volume.png in Resources */,
 				AA648E91207CEA05003ACD07 /* s4-4.txt in Resources */,
 				AA648EED207CEA05003ACD07 /* s3-5.txt in Resources */,
 				AA648E7F207CEA05003ACD07 /* s1-3.txt in Resources */,
@@ -1409,7 +1413,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				INFOPLIST_FILE = wordDrug/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.wordDrug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1426,7 +1430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				INFOPLIST_FILE = wordDrug/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.wordDrug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
