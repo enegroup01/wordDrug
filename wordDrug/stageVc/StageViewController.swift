@@ -305,7 +305,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             //show已過關訊息
             
-            openAlert(text: "此單元已全部學習完成，請至單字本複習！")
+            openAlert(text: "此單元已全部學習完成，請選擇未完成的單元！")
             
             
         } else if mapPassed! < indexPath.row{

@@ -77,6 +77,52 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     //註冊功能
     @IBAction func registerClick(_ sender: Any) {
+        
+        
+        if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
+            
+            
+            
+            usernameTxt.text = ""
+            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            
+            if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
+                
+                passwordTxt.text = ""
+                
+                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+
+                
+                
+                
+            }
+            
+        } else if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
+            
+            passwordTxt.text = ""
+            
+            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            
+            if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
+                
+                
+                
+                usernameTxt.text = ""
+                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                
+                
+            }
+            
+        } else {
+            
+        
+        
+        
+        
+        
+        
+        
+        
         print("register")
         // shortcuts
         let username = usernameTxt.text!.lowercased()
@@ -159,10 +205,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             
                             // get main queue to communicate back to user
                             DispatchQueue.main.async(execute: {
+                                
+                                print("1")
                                 self?.usernameTxt.text = ""
                                 self?.passwordTxt.text = ""
-                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
                                 
                             })
                             return
@@ -174,10 +222,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         
                         // get main queue to communicate back to user
                         DispatchQueue.main.async(execute: {
+                            
+                                     print("2")
                             self?.usernameTxt.text = ""
                             self?.passwordTxt.text = ""
-                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
                         })
                         return
                         
@@ -190,12 +240,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 
                 // get main queue to communicate back to user
                 DispatchQueue.main.async(execute: {
+                    
+                             print("3")
                     let message = error!.localizedDescription
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
                 })
                 return
                 
@@ -206,13 +258,52 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         
 
-        
+        }
         
         
     }
     
     //登入功能
     @IBAction func loginclick(_ sender: Any) {
+        
+        
+        
+        if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
+            
+            
+            
+            usernameTxt.text = ""
+            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            
+            if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
+                
+                passwordTxt.text = ""
+                
+                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                
+                
+                
+                
+            }
+            
+        } else if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
+            
+            passwordTxt.text = ""
+            
+            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            
+            if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
+                
+                
+                
+                usernameTxt.text = ""
+                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                
+                
+            }
+            
+        } else {
+        
         
         // shortcuts
         let username = usernameTxt.text!.lowercased()
@@ -309,16 +400,16 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                     
                                     self?.usernameTxt.text = ""
                                     self?.passwordTxt.text = ""
-                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
                                     
                                     
                                 } else if errorStatus == "401"{
                                     
                                     self?.usernameTxt.text = ""
                                     self?.passwordTxt.text = ""
-                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
                                     
                                     
                                 }
@@ -336,8 +427,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     DispatchQueue.main.async(execute: {
                         self?.usernameTxt.text = ""
                         self?.passwordTxt.text = ""
-                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
                         
                         
                     })
@@ -353,15 +444,15 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "Error", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
                 })
                 return
                 
             }
             
             }.resume()
-        
+        }
     }
     
     func toCourses(){
@@ -382,6 +473,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
     }
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        usernameTxt.placeholder = nil
+        passwordTxt.placeholder = nil
+    }
+    
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
