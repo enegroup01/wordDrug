@@ -54,19 +54,16 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             dif = 1.1
             
-            
         case 667:
             
             dif = 1
-            
             
         case 568:
             
             dif = 0.9
             
-            
         default:
-            break
+            dif = 0.9
             
         }
 

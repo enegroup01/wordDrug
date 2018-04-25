@@ -145,7 +145,7 @@ class LessonViewController: UIViewController {
 
             
         default:
-            break
+            dif = 0.9
             
         }
 

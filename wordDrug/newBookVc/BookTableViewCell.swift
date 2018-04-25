@@ -49,7 +49,7 @@ class BookTableViewCell: UITableViewCell {
       
             dif = 1
         default:
-            break
+            dif = 1
             
         }
 

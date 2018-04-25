@@ -173,9 +173,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     let relevantWords:[[String:[String]]] = [["and":["n","end","in"]], ["ant":["aunt", "and"]], ["ham":["pam"]], ["age":["h"]], ["base":["pace", "bass"]], ["bake":["bank"]], ["aim":["m", "am", "game", "i am", "came"]], ["yam":["yeah", "I'm", "game", "damn"]], ["cause":["calls", "plus", "cost", "course", "cocks", "cox"]], ["pause":["paul's", "pose", "pass"]], ["be":["b", "bit", "been", "p"]], ["beneath":["the neath"]], ["bass":["based", "base", "best"]], ["bag":["back"]], ["badge":["batch", "bage"]], ["bin":["pen", "been"]], ["as":["s"]], ["dawn":["don", "done", "dan"]], ["draw":["drawl", "jaw"]], ["bit":["but", "beat"]], ["by":["bye", "buy"]], ["bomb":["mom"]], ["bond":["pond", "and on"]], ["crab":["crap", "cram"]], ["bee":["b", "bg", "be", "p"]], ["employ":["i love ploy", "employee"]], ["ear":["here"]], ["few":["feel"]], ["sea":["c", "see", "sing"]], ["end":["and"]], ["hen":["hand", "ham"]], ["pet":["pat", "at"]], ["fog":["fuck"]], ["dew":["do you", "due", "do"]], ["lift":["left"]], ["donkey":["thank u"]], ["fill":["feel"]], ["grade":["great"]], ["grape":["greatg"]], ["grass":["quest"]], ["hill":["he'll"]], ["his":["yes", "he's"]], ["kid":["can't"]], ["lid":["lead", "let"]], ["high":["hi"]], ["miss":["mess", "bass"]], ["sir":["siri"]], ["ill":["io", "yell"]], ["lip":["that", "nap", "leap"]], ["leg":["lag"]], ["less":["les"]], ["kneepad":["hey pat", "we pack", "kneepad", "the pad"]], ["ring":["rain", "rheem"]], ["king":["teen", "10"]], ["ink":["inc."]], ["pin":["pain", "penn"]], ["did":["dead", "dig"]], ["dig":["dick"]], ["rhino":["right now"]], ["mind":["mine"]], ["bone":["born"]], ["tone":["porn", "turn"]], ["omit":["almonds", "almond", "i meet", "i'll meet", "a mitt"]], ["of":["off"]], ["offspring":["of spring"]], ["old":["owed"]], ["cold":["code"]], ["bow":["wow"]], ["sit":["set"]], ["sin":["send", "seen"]], ["red":["read", "rat"]], ["pig":["pick"]], ["very":["barry"]], ["carry":["carrie"]], ["ski":["schey"]], ["skill":["scale"]], ["tick":["take"]], ["tin":["10", "ten", "teen"]], ["fifty":["50"]], ["sixty":["60"]], ["to":["2", "two"]], ["rub":["rob"]], ["bun":["bon"]], ["gun":["gone"]], ["cup":["prop", "cop"]], ["drum":["john", "from"]], ["dumb":["dom", "damn"]], ["gain":["can", "game", "dan"]], ["cut":["caught"]], ["nut":["not", "nuts", "that's"]], ["burn":["born"]], ["surf":["sorry", "serve"]], ["sad":["said"]], ["accept":["a sept", "except"]], ["principle":["principal"]], ["atom":["adam", "at tom", "at ten", "at them"]], ["far":["fart"]], ["lawyer":["law yer", "law your"]], ["seesaw":["cecil"]], ["mat":["matt", "that"]], ["May":["mei", "main"]], ["gram":["graham"]], ["jam":["jan"]], ["pan":["pam"]], ["behave":["behalf", "we have"]], ["mass":["mas"]], ["haunted":["hunted"]], ["lack":["leg"]], ["neck":["nick", "mac"]], ["niece":["nice"]], ["column":["caller", "call him"]], ["colleague":["cardi", "kolic", "connie"]], ["wet":["what"]], ["media":["pedia"]], ["done":["don", "dan"]], ["dollar":["daughter"]], ["dry":["trying"]], ["bean":["being", "been"]], ["tea":["t", "tee"]], ["pen":["pam", "pan"]], ["lend":["land"]], ["sight":["site"]], ["hit":["hits"]], ["hippo":["hipple", "people"]], ["goal":["call"]], ["loaf":["love"]], ["sing":["seen", "same"]], ["thing":["fin", "fan", "thin"]], ["will":["we'll"]], ["till":["teal"]], ["mill":["mail", "male", "meal"]], ["win":["when", "wayne"]], ["wing":["wayne", "win", "when"]], ["among":["a man", "i'm on"]], ["iron":["i am"]], ["neon":["young"]], ["ours":["hours"]], ["rot":["rat"]], ["pot":["part"]], ["born":["porn"]], ["door":["don't worry", "dori"]], ["cow":["cal"]], ["town":["towel"]], ["prize":["price"]], ["marry":["merry", "mary"]], ["both":["bath", "ballf"]], ["sun":["son"]], ["hide":["height", "hi"]], ["due":["do you", "do", "dew", "dude"]], ["June":["john", "joan"]], ["rule":["drool"]], ["rude":["dude"]], ["gesture":["chester", "just trailer", "just your", "juster"]], ["eighty":["80", "eddie"]], ["thumb":["foam", "psalm"]], ["ketchup":["catch up"]], ["main":["man", "mane"]], ["band":["and"]], ["ladder":["leather", "other"]], ["daddy":["that he"]], ["whale":["well", "we'll"]], ["burst":["first"]], ["lamb":["let", "land"]], ["climate":["climb at", "climat"]], ["piece":["peace"]], ["place":["please", "play's"]], ["rat":["got", "rhett"]], ["battle":["that'll"]], ["drawer":["droller"]], ["autumn":["i'll touch", "alton"]], ["way":["we"]], ["liter":["litter", "letter", "later"]], ["ten":["pam", "can", "tin", "10"]], ["tent":["pant"]], ["deer":["beer", "dear"]], ["grey":["gray"]], ["obey":["i'll be"]], ["bucket":["buckets"]], ["tempo":["temple"]], ["nose":["knows"]], ["role":["roll", "raw"]], ["hire":["higher"]], ["skirt":["scarred"]], ["thirty":["30"]], ["bowling":["morning", "welding"]], ["ceiling":["sitting"]], ["fork":["fort"]], ["form":["foreign"]], ["more":["morning"]], ["fool":["for"]], ["aloud":["allowed"]], ["parrot":["pirate"]], ["ninety":["nighty", "90"]], ["quiz":["chris", "please"]], ["path":["pat", "pass"]], ["than":["then", "van"]], ["shoe":["she'll", "sure"]], ["gate":["kate"]], ["hate":["eight"]], ["hang":["hannah", "hand", "i am", "ham"]], ["sand":["send"]], ["admire":["at the meyer", "edmeyer"]], ["advise":["advice", "a device"]], ["whole":["call", "hall"]], ["whose":["who's", "who is"]], ["wheel":["we'll", "we"]], ["tall":["call", "paul"]], ["pair":["prayer"]], ["ease":["is"]], ["crayon":["korean", "quinn"]], ["dock":["talk", "dark"]], ["faucet":["fossett"]], ["itself":["it's self"]], ["race":["raise"]], ["knight":["night", "nights"]], ["rose":["roast"]], ["toad":["told", "towed"]], ["fond":["found"]], ["monk":["monarch", "month"]], ["noon":["no", "no one"]], ["move":["movie"]], ["foul":["fall", "follow"]], ["bounce":["taos"]], ["male":["mail"]], ["shut":["shot"]], ["bathe":["beef"]], ["badminton":["that minton", "abington", "babington"]], ["naughty":["knotty"]], ["granddaughter":["when dollar", "where daughter", "when daughter"]], ["twice":["pies"]], ["sail":["sale"]], ["tail":["pale"]], ["star":["*", "start"]], ["trial":["kyle", "child", "cheil"]], ["dial":["i'll", "kyle"]], ["coin":["calling"]], ["thin":["then", "fin"]], ["maximum":["messy mom"]], ["knee":["me"]], ["owner":["almost there", "on their"]], ["sell":["sale", "cell"]], ["leaf":["leave"]], ["flour":["flower"]], ["root":["route"]], ["blow":["hello", "below"]], ["bowl":["ball"]], ["grow":["grill", "roll"]], ["railroad":["rail road"]], ["raincoat":["wrinkled"]], ["alone":["along"]], ["mole":["ball", "more", "mall"]], ["hose":["house", "holes"]], ["word":["where"]], ["wedding":["waiting"]], ["thirtieth":["30th"]], ["twirl":["pearl", "twhirl", "thorough"]], ["ego":["eagle"]], ["name":["ma'am"]], ["ninth":["knife", "nice", "mines"]], ["shall":["sure", "scholl", "shell"]], ["six":["6"]], ["curtain":["carton"]], ["lead":["bead", "dead", "did"]], ["angel":["angil"]], ["need":["me"]], ["seem":["seeing", "same"]], ["pound":["pilot", "now"]], ["forty":["40"]], ["room":["ram"]], ["soon":["so in", "sean"]], ["ride":["right"]], ["rise":["lies", "rice"]], ["low":["no", "loel", "lol"]], ["own":["on", "all"]], ["know":["no"]], ["ruler":["reuther"]], ["their":["there"]], ["pale":["pio"]], ["race":["raise"]], ["plain":["plane"]], ["raise":["race"]], ["buy":["bye", "by"]], ["garden":["pardon"]], ["kilogram":["program"]], ["necklace":["nicolas"]], ["seek":["see"]], ["tool":["cool", "pool"]], ["wood":["would"]], ["woods":["what's"]], ["gym":["jane", "james", "jim", "jean", "gen"]], ["north":["no wife"]], ["row":["roll", "raw"]], ["fence":["sence", "sense", "thanks"]], ["deaf":["-", "def"]], ["tangerine":["thank you rain"]], ["beam":["boehm", "been"]], ["cent":["sent"]], ["thick":["fake", "sick", "fick"]], ["thief":["fief"]], ["safe":["save"]], ["shine":["shall i"]], ["childish":["ciao dish"]], ["guard":["god"]], ["wife":["weiss"]], ["sting":["stain", "steam"]], ["yourself":["your self"]], ["yourselves":["your selves"]], ["invent":["event"]], ["since":["sence", "scenes", "sense", "sings"]], ["sincere":["since year", "since you"]], ["tear":["cheer"]], ["boost":["post"]], ["goose":["close"]], ["train":["chain", "friend"]], ["waist":["waste"]], ["stair":["stare"]], ["twelfth":["12th"]], ["cellphone":["cell phone"]], ["many":["manny", "manning"]], ["planner":["planer"]], ["passenger":["messenger"]], ["alike":["i like"]], ["alive":["i life", "a life", "life"]], ["narrow":["nero", "natural"]], ["ground":["grounded", "grout"]], ["shore":["sure"]], ["spoon":["spohn", "splinter"]], ["crust":["quest", "cost", "cross", "crossed"]], ["eleven":["11"]], ["were":["where"]], ["daredevil":["there devil"]], ["pillow":["pelo"]], ["chin":["chain"]], ["stray":["straight"]], ["playground": ["play ground"]], ["write":["right"]], ["spend":["spand"]], ["yellow":["hello"]], ["still":["steel"]], ["tenth":["10", "10th"]], ["twenty":["20"]], ["restroom":["restaurant"]], ["eager":["either"]], ["omnipresent":["omni present", "i'm the present"]], ["scan":["scam"]], ["dazzle":["diesel"]], ["barber":["bubber", "barbara"]], ["armchair":["i'm chair", "arm chair"]], ["bed":["bad", "that"]], ["bedding":["heading", "betting"]], ["tailor":["paid her", "pedro", "taylor", "tater"]], ["debt":["that"]], ["doubtful":["duffel"]], ["amend":["amended"]], ["cable":["table"]], ["careless":["care less", "kelis"]], ["bitter":["peter"]], ["hear":["here"]], ["weary":["wearing"]], ["hobby":["abi", "happy"]], ["display":["let's play"]], ["dismiss":["this mess"]], ["cycle":["psycho"]], ["watermelon":["what a melon"]], ["laugh":["left"]], ["numb":["nom", "mom", "num", "nam"]], ["bomb":["mom"]], ["comb":["calm"]], ["humid":["you meant"]], ["assign":["a sign"]], ["housework":["how's work"]], ["noun":["known", "now"]], ["exist":["it's sixth"]], ["vest":["best"]], ["fist":["thirst"]], ["Walkman":["look man"]], ["strong":["stronger"]], ["young":["john"]], ["lung":["lawn", "loan", "lon"]], ["slang":["slam"]], ["taxi":["taxie"]], ["calm":["come"]], ["foreign":["flooring", "forane"]], ["golf":["cough"]], ["typhoon":["iphone"]], ["miner":["minor"]], ["microwave":["michael way"]], ["hound":["hi loved", "how", "hell", "how old"]], ["mud":["martha"]], ["mudslide":["must light", "mud slide", "most light"]], ["stove":["stealth"]], ["meat":["meet"]], ["least":["beast"]], ["kettle":["cuddle", "cattle"]], ["swan":["suong"]], ["cattle":["tattle"]], ["decide":["decided"]], ["carpet":["corporate"]], ["cartoon":["carton"]], ["course":["coris"]], ["balloon":["but when"]], ["fifteen":["15"]], ["fifteenth":["15th"]], ["yarn":["john", "jan"]], ["bookcase":["book case", "bouquets"]], ["manner":["mandor"]], ["clerk":["bonarck", "croak", "craig", "choleric"]], ["think":["thank", "fin"]], ["fourteen":["14"]], ["fourteenth":["14th"]], ["shorten":["sorry"]], ["four":["fort", "4", "for"]], ["fancy":["thanks he"]], ["blanket":["blankets"]], ["desert":["dessert"]], ["kangaroo":["bangaru"]], ["sidewalk":["so i walk"]], ["nineteen":["19"]], ["nineteenth":["19th"]], ["boast":["post"]], ["platform":["my phone"]], ["kindergarten":["can you gotten", "can you garden"]], ["steal":["steel"]], ["stream":["straight"]], ["dozen":["doesn't", "does"]], ["woolly":["hooley"]], ["decorate":["the correct"]], ["seventeen":["17"]], ["sleepover":["sleep over"]], ["wound":["warned", "owned", "wind", "orland"]], ["entrance":["entress"]], ["sixteen":["six team", "16"]], ["sixteenth":["16th"]], ["altogether":["i'll together"]], ["factory":["factoring"]], ["mourn":["morning"]], ["dough":["door", "dough"]], ["doughnut":["donut", "donuts", "doughnuts"]], ["medal":["metal", "middle"]], ["alright":["all right"]], ["evening":["evelyn"]], ["gentleman":["gentlemen"]], ["meaning":["minute", "minden"]], ["honor":["partner"]], ["forehead":["for head"]], ["icecream":["ice cream"]], ["succeed":["secede"]], ["thirteen":["13"]], ["thirteenth":["13th"]], ["color":["caller"]], ["honor":["other", "on their"]], ["eighteen":["18"]], ["eighteenth":["18th"]], ["influence":["inference"]], ["error":["eric"]], ["sightseeing":["sizing", "site seeing", "sight seeing"]], ["sailor":["saito", "seller", "seiter"]], ["weekend":["we can", "we can't"]], ["oven":["arvin", "alvin"]], ["river":["reverb"]], ["head":["had"]], ["seventy":["70"]], ["seventh":["7th"]], ["steak":["stick", "stuck"]], ["pleasure":["plazier"]], ["breath":["breast"]], ["breathe":["brief", "breeze", "breve"]], ["brand":["brenda"]], ["bet":["but"]], ["bettor":["better"]], ["barn":["born"]], ["ban":["bam"]], ["concern":["concerned"]], ["wear":["where"]], ["whether":["weather"]], ["sweater":["sweeter", "spider"]], ["pear":["pair"]], ["sudden":["southern"]], ["awaken":["we can"]], ["aware":["where"]], ["ban":["been", "bam", "bang", "ben"]], ["bang":["banging"]], ["bar":["art", "barley", "bari"]], ["bargain":["oregon"]], ["barn":["on", "porn"]], ["bleed":["plead", "believe it", "believe", "belief"]], ["breast":["rest"]], ["marble":["mobile", "moble"]]]
     
-    /*
-    let relevantWords:[[String:[String]]] = [["and":["n","end","in"]], ["ant":["aunt", "and"]], ["ham":["pam"]], ["bake":["bank"]], ["aim":["m", "am", "game", "i am"]], ["yam":["yeah", "I'm", "game"]], ["cause":["calls", "plus", "cost"]], ["pause":["paul's", "pose", "pass"]], ["be":["b", "bit", "been"]], ["bag":["back"]], ["bin":["pen", "been"]], ["as":["s"]], ["dawn":["don", "done"]], ["bit":["but", "beat"]], ["by":["bye", "buy"]], ["bomb":["mom"]], ["bond":["pond", "and on"]], ["crab":["crap", "cram"]], ["bee":["b", "bg", "be"]], ["employ":["i love ploy", "employee"]], ["sea":["c", "see", "sing"]], ["end":["and"]], ["hen":["hand", "ham"]], ["pet":["pat", "at"]], ["fog":["fuck"]], ["dew":["do you", "due"]], ["lift":["left"]], ["donkey":["thank u"]], ["fill":["feel"]], ["grade":["great"]], ["hill":["he'll"]], ["his":["yes", "he's"]], ["kid":["can't"]], ["lid":["lead", "let"]], ["igh1":["hi"]], ["miss":["mess", "bass"]], ["sir":["siri"]], ["ill":["io", "yell"]], ["lip":["that", "nap", "leap"]], ["leg":["lag"]], ["kneepad":["hey pat", "we pack"]], ["ring":["rain"]], ["ink":["inc."]], ["pin":["pain"]], ["did":["dead", "dig"]], ["dig":["dick"]], ["rhino":["right now"]], ["mind":["mine"]], ["bone":["born"]], ["tone":["porn"]], ["omit":["almonds", "almond"]], ["of":["off"]], ["offspring":["of spring"]], ["old":["owed"]], ["bow":["wow"]], ["sin":["send", "seen"]], ["red":["read", "rat"]], ["pig":["pick"]], ["very":["barry"]], ["carry":["carrie"]], ["skill":["scale"]], ["tick":["take"]], ["tin":["10", "ten", "teen"]], ["fifty":["50"]], ["sixty":["60"]], ["to":["2"]], ["rub":["rob"]], ["bun":["bon"]], ["gun":["gone"]], ["cup":["prop"]], ["dumb":["dom"]], ["gain":["can", "game", "dan"]], ["nut":["not", "nuts", "that's"]], ["surf":["sorry", "serve"]], ["sad":["said"]], ["accept":["a sept", "except"]], ["principle":["principal"]], ["atom":["adam", "at tom", "at ten", "at them"]], ["far":["fart"]], ["seesaw":["cecil"]], ["mat":["matt"]], ["may":["mei", "main"]], ["gram":["graham"]], ["pan":["pam"]], ["behave":["behalf", "we have"]], ["mass":["mas"]], ["haunted":["hunted"]], ["lack":["leg"]], ["niece":["nice"]], ["column":["caller"]], ["colleague":["cardi"]], ["wet":["what"]], ["media":["pedia"]], ["done":["don"]], ["dry":["trying"]], ["bean":["being", "been"]], ["tea":["t", "tee"]], ["pen":["pam", "pan"]], ["lend":["land"]], ["sight":["site"]], ["hit":["hits"]], ["goal":["call"]], ["loaf":["love"]], ["sing":["seen"]], ["thing":["fin"]], ["will":["we'll"]], ["till":["teal"]], ["mill":["mail", "male", "meal"]], ["wing":["wayne"]], ["among":["a man"]], ["iron":["i am"]], ["neon":["young"]], ["ours":["hours"]], ["pot":["part"]], ["born":["porn"]], ["door":["don't worry", "dori"]], ["cow":["cal"]], ["town":["towel"]], ["prize":["price"]], ["marry":["merry"]], ["both":["bath"]], ["sun":["son"]], ["hide":["height", "hi"]], ["due":["do you"]], ["June":["john"]], ["rule":["drool"]], ["rude":["dude"]], ["gesture":["chester", "just trailer"]], ["eighty":["80"]], ["thumb":["foam"]], ["ketchup":["catch up"]], ["main":["man", "mane"]], ["band":["and"]], ["ladder":["leather"]], ["daddy":["that he"]], ["whale":["well", "we'll"]], ["burst":["first"]], ["lamb":["let", "land"]], ["climate":["climb at"]], ["piece":["peace"]], ["place":["please"]], ["rat":["got", "rhett"]], ["battle":["that'll"]], ["drawer":["droller"]], ["autumn":["i'll touch", "alton"]], ["way":["we"]], ["liter":["litter"]], ["ten":["pam", "can", "tin", "10"]], ["tent":["pant"]], ["deer":["beer", "dear"]], ["grey":["gray"]], ["obey":["i'll be"]], ["bucket":["buckets"]], ["tempo":["temple"]], ["nose":["knows"]], ["role":["roll", "raw"]], ["hire":["higher"]], ["thirty":["30"]], ["bowling":["morning"]], ["ceiling":["sitting"]], ["fork":["fort"]], ["form":["foreign"]], ["more":["morning"]], ["fool":["for"]], ["aloud":["allowed"]], ["parrot":["pirate"]], ["ninety":["nighty", "90"]], ["quiz":["chris"]], ["path":["pat"]], ["than":["then", "van"]], ["shoe":["she'll", "sure"]], ["gate":["kate"]], ["hate":["eight"]], ["hang":["hannah"]], ["sand":["send"]], ["admire":["at the meyer", "edmeyer"]], ["advise":["advice"]], ["whole":["call"]], ["whose":["who's", "who is"]], ["wheel":["we'll", "we"]], ["tall":["call", "paul"]], ["pair":["prayer"]], ["ease":["is"]], ["crayon":["korean"]], ["dock":["talk"]], ["faucet":["fossett"]], ["itself":["it's self"]], ["race":["raise"]], ["knight":["night"]], ["rose":["roast"]], ["toad":["told"]], ["fond":["found"]], ["monk":["monarch", "month"]], ["noon":["no"]], ["move":["movie"]], ["foul":["fall"]], ["bounce":["taos"]], ["male":["mail"]], ["shut":["shot"]], ["bathe":["beef"]], ["badminton":["that minton"]], ["naughty":["knotty"]], ["granddaughter":["when dollar"]], ["twice":["pies"]], ["sail":["sale"]], ["tail":["pale"]], ["star":["*", "start"]], ["dial":["i'll", "kyle"]], ["thin":["then"]], ["maximum":["messy mom"]], ["knee":["me"]], ["owner":["almost there", "on their"]], ["sell":["sale", "cell"]], ["leaf":["leave"]], ["flour":["flower"]], ["root":["route"]], ["bowl":["ball"]], ["grow":["grill", "roll"]], ["railroad":["rail road"]], ["raincoat":["wrinkled"]], ["mole":["ball", "more"]], ["hose":["house", "holes"]], ["word":["where"]], ["wedding":["waiting"]], ["thirtieth":["30th"]], ["twirl":["pearl"]], ["ego":["eagle"]], ["name":["ma'am"]], ["ninth":["knife"]], ["shall":["sure", "scholl"]], ["six":["6"]], ["curtain":["carton"]], ["lead":["bead"]], ["angel":["angil"]], ["need":["me"]], ["seem":["seeing", "same"]], ["pound":["pilot", "now"]], ["forty":["40"]], ["room":["ram"]], ["soon":["so in", "sean"]], ["ride":["right"]], ["rise":["lies", "rice"]], ["low":["no", "loel"]], ["own":["on", "all"]], ["know":["no"]], ["ruler":["reuther"]], ["their":["there"]], ["pale":["pio"]], ["race":["raise"]], ["plain":["plane"]], ["raise":["race"]], ["buy":["bye"]], ["garden":["pardon"]], ["kilogram":["program"]], ["necklace":["nicolas"]], ["seek":["see"]], ["tool":["cool", "pool"]], ["wood":["would"]], ["woods":["what's"]], ["gym":["jane", "james"]], ["north":["no wife"]], ["row":["roll", "raw"]], ["fence":["sence"]], ["deaf":["-", "def"]], ["tangerine":["thank you rain"]], ["beam":["boehm"]], ["cent":["sent"]], ["thick":["fake"]], ["thief":["fief"]], ["safe":["save"]], ["shine":["shall i"]], ["childish":["ciao dish"]], ["guard":["god"]], ["wife":["weiss"]], ["sting":["stain"]], ["yourselves":["your selves"]], ["invent":["event"]], ["since":["sence", "scenes"]], ["sincere":["since year"]], ["tear":["cheer"]], ["boost":["post"]], ["goose":["close"]], ["train":["chain", "friend"]], ["waist":["waste"]], ["stair":["stare"]], ["twelfth":["12th"]], ["cellphone":["cell phone"]], ["many":["manny"]], ["planner":["planer"]], ["passenger":["messenger"]], ["alike":["i like"]], ["alive":["i life", "a life"]], ["narrow":["nero", "natural"]], ["ground":["grounded", "grout"]], ["shore":["sure"]], ["spoon":["spohn", "splinter"]], ["crust":["quest"]], ["eleven":["11"]], ["were":["where"]], ["daredevil":["there devil"]], ["pillow":["pelo"]], ["chin":["chain"]], ["playground": ["play ground"]], ["write":["right"]], ["spend":["spand"]], ["yellow":["hello"]], ["still":["steel"]], ["tenth":["10", "10th"]], ["twenty":["20"]], ["restroom":["restaurant"]], ["eager":["either"]], ["omnipresent":["omni present"]], ["scan":["scam"]], ["dazzle":["diesel"]], ["armchair":["i'm chair", "arm chair"]], ["bed":["bad", "that"]], ["bedding":["heading"]], ["tailor":["paid her"]], ["debt":["that"]], ["doubtful":["duffel"]], ["amend":["amended"]], ["tailor":["tater", "taylor"]], ["cable":["table"]], ["careless":["care less"]], ["wheel":["we'll"]],["bitter":["peter"]], ["hear":["here"]], ["weary":["wearing"]], ["hobby":["abi"]], ["display":["let's play"]], ["dismiss":["this mess"]], ["cycle":["psycho"]], ["watermelon":["what a melon"]], ["laugh":["left"]], ["numb":["nom"]], ["bomb":["mom"]], ["comb":["calm"]], ["humid":["you meant"]], ["assign":["a sign"]], ["housework":["how's work"]], ["noun":["known"]], ["exist":["it's sixth"]], ["vest":["best"]], ["fist":["thirst"]], ["Walkman":["look man"]], ["strong":["stronger"]], ["lung":["lawn", "loan"]], ["calm":["come"]], ["foreign":["flooring", "forane"]], ["miner":["minor"]], ["microwave":["michael way"]], ["hound":["hi loved"]], ["mud":["martha"]], ["mudslide":["must light", "mud slide"]], ["meat":["meet"]], ["least":["beast"]], ["kettle":["cuddle"]], ["swan":["suong"]], ["carpet":["corporate"]], ["cartoon":["carton"]], ["balloon":["but when"]], ["fifteen":["15"]], ["fifteenth":["15th"]], ["yarn":["john"]], ["bookcase":["book case"]], ["manner":["mandor"]], ["clerk":["bonarck"]], ["think":["thank", "fin"]], ["fourteen":["14"]], ["fourteenth":["14th"]], ["shorten":["sorry"]], ["four":["fort", "4", "for"]], ["fancy":["thanks he"]], ["blanket":["blankets"]], ["desert":["dessert"]], ["kangaroo":["bangaru"]], ["sidewalk":["so i walk"]], ["nineteen":["19"]], ["nineteenth":["19th"]], ["boast":["post"]], ["platform":["my phone"]], ["kindergarten":["can you gotten"]], ["steal":["steel"]], ["stream":["straight"]], ["dozen":["doesn't", "does"]], ["decorate":["the correct"]], ["seventeen":["17"]], ["sleepover":["sleep over"]], ["wound":["warned"]], ["sixteen":["six team", "16"]], ["sixteenth":["16th"]], ["altogether":["i'll together"]], ["mourn":["morning"]], ["dough":["door"]], ["medal":["metal"]], ["alright":["all right"]], ["evening":["evelyn"]], ["gentleman":["gentelmen"]], ["meaning":["minute", "minden"]], ["honor":["partner"]], ["forehead":["for head"]], ["icecream":["ice cream"]], ["thirteen":["13"]], ["thirteenth":["13th"]], ["eighteen":["18"]], ["eighteenth":["18th"]], ["error":["eric"]], ["weekend":["we can", "we can't"]], ["oven":["arvin"]], ["river":["reverb"]], ["head":["had"]], ["seventy":["70"]], ["seventh":["7th"]], ["breath":["breast"]], ["breathe":["brief"]], ["brand":["brenda"]], ["bettor":["better"]], ["barn":["born"]], ["ban":["bam"]], ["concern":["concerned"]], ["wear":["where"]], ["whether":["weather"]], ["sweater":["sweeter"]], ["pear":["pair"]], ["sudden":["southern"]], ["bleed":["believed"]]]
-*/
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -199,34 +196,38 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
  
-        
-        
-        
-        
         var dif = CGFloat()
         var senLabelHeightDif = CGFloat()
+        var iPadDif = CGFloat()
+        
         switch height {
         case 812:
 
             dif = 1.15
             senLabelHeightDif = 0.7
+            iPadDif = 1
         case 736:
             
             dif = 1.1
             senLabelHeightDif = 0.78
+            iPadDif = 1
             
         case 667:
             
             dif = 1
             senLabelHeightDif = 0.9
+            iPadDif = 1
 
         case 568:
             
             dif = 0.9
             senLabelHeightDif = 1
+            iPadDif = 1
 
         default:
-            break
+            dif = 0.9
+            senLabelHeightDif = 1
+            iPadDif = 1.2
             
         }
         
@@ -253,7 +254,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         thirdChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: thirdWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
         
         
-        bigOkBtn.frame = CGRect(x: resultBg.frame.minX + ((resultBg.frame.width - (210 * dif)) / 2), y: resultBg.frame.maxY - 40 * dif, width: 210 * dif, height: 29 * dif)
+        bigOkBtn.frame = CGRect(x: resultBg.frame.minX + ((resultBg.frame.width - (210 * dif)) / 2), y: resultBg.frame.maxY - 40 * dif * iPadDif, width: 210 * dif, height: 29 * dif)
         
         
         scoreLabel.frame = CGRect(x: resultBg.frame.maxX - 140 * dif, y: resultBg.frame.minY + 53 * dif, width: 106 * dif, height: 21 * dif)
@@ -264,13 +265,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         sentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: height / 10, width: width - 50 * dif, height: height / 4.6 * dif * senLabelHeightDif)
         chiSentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: sentenceLabel.frame.maxY + 10 * dif, width: sentenceLabel.frame.width, height: height / 10 * dif)
-        
+        sentenceLabel.adjustsFontSizeToFitWidth = true
+        chiSentenceLabel.adjustsFontSizeToFitWidth = true
         coverBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         coverBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
-        
+        recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5)
+       //recogTextLabel.backgroundColor = .yellow
         //做三個對話圓
-     /*
+
+        /*
         outCircle.frame.size = CGSize(width: 230, height: 230)
         outCircle.center = CGPoint(x: 187, y: 500)
         outCircle.image = UIImage(named:"outCircle.png")
@@ -329,7 +333,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         tagView.delegate = self
         tagView.isHidden = true
         
-        tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height / 2.7 * dif * senLabelHeightDif)
+        tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height / 2.7 * dif * senLabelHeightDif / iPadDif)
         
         tagView.textFont = UIFont.boldSystemFont(ofSize: 30)
        
@@ -506,9 +510,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
 
-
-    
-    
     //顯示tagView
     @objc func showTag(){
         
@@ -541,7 +542,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
     }
-    
+
+
     //wave動畫
     @objc internal func refreshAudioView(_:Timer) {
         if self.audioView.amplitude <= self.audioView.idleAmplitude || self.audioView.amplitude > 1.0 {
@@ -662,13 +664,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
           
                             }
                         }
-                    //抓字
+                    
+                        //抓字
                         firstEngWordText = engWords[0]
                         secondEngWordText = engWords[1]
                         thirdEngWordText = engWords[2]
                         
-                    //做分數動畫+ 單字動畫
-                    scoreLabel.text = score[0]
+                    
+                        //做分數動畫+ 單字動畫
+                    
+                        scoreLabel.text = score[0]
                     
                     moveUpAnimation(label: firstEngWord, text: firstEngWordText)
                     moveUpAnimation(label: secondEngWord, text: secondEngWordText)
@@ -678,8 +683,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     moveUpAnimation(label: secondChiWord, text: chiWords[1])
                     moveUpAnimation(label: thirdChiWord, text: chiWords[2])
                         
-                        
-                        
+
                         //如果有錯就不算過關的條件
                         
                         // if wrongWordsCount == 0 {}
@@ -738,11 +742,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                             //只要過關都要執行
                                             updateGamePassed()
                                             
-                                            
-                                            
+
                                         } else {
                                             print("前元素")
-                                            
                                     
                                         }
                                     } else {
@@ -1516,7 +1518,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let answerEntered = recogTextLabel.text?.dropLast()
         
         if answerEntered! == sentence{
-            
             
             //跳轉下個字
             //過關進入下個字

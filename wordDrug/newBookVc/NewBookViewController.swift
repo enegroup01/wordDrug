@@ -131,6 +131,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @IBOutlet weak var playSpeedImg: UIImageView!
     @IBOutlet weak var playSpeedText: UILabel!
     
+    @IBOutlet weak var practiceText: UILabel!
+    @IBOutlet weak var practiceImg: UIImageView!
     //所有的單字的array
     var wordSets = [[String]]()
     var sentenceSets = [[String]]()
@@ -235,6 +237,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @IBOutlet weak var playSpeedBtn: UIButton!
     @IBOutlet weak var playTimesBtn: UIButton!
     @IBOutlet weak var sentenceBtn: UIButton!
+    @IBOutlet weak var practiceBtn: UIButton!
     
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
@@ -246,10 +249,23 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var seperatorDif = CGFloat()
     var fontDif = Int()
     
+    
+    //所有alertView的變數
+    var alertBg = UIImageView()
+    var alertText = UILabel()
+    var iknowBtn = UIButton()
+    var ghostBtn = UIButton()
+    var ghost2Btn = UIButton()
+    var practiceWordBtn = UIButton()
+    var practiceSenBtn = UIButton()
+    var leftBtnClickedImg = UIImageView()
+    var rightBtnClickedImg = UIImageView()
+    let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         
         switch height {
         case 812:
@@ -278,10 +294,65 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 0.9
             fontDif = 5
         default:
-            break
+            seperatorDif = 0.9
+            dif = 0.9
+            cellDif = 0.9
+            fontDif = 5
+            
             
         }
         
+        //加入alertView
+       let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        ghostBtn.backgroundColor = lightGray
+        ghostBtn.addTarget(self, action: #selector(NewBookViewController.removeBtns), for: .touchUpInside)
+        self.view.addSubview(ghostBtn)
+        
+    
+        
+        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        alertBg.image = UIImage(named: "reviewSelectBg.png")
+        self.view.addSubview(alertBg)
+        
+        ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        self.view.addSubview(ghost2Btn)
+        
+        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 28)
+        alertText.textColor = .white
+        alertText.text = "選擇練習模式"
+        alertText.numberOfLines = 0
+        alertText.textAlignment = .center
+        alertText.adjustsFontSizeToFitWidth = true
+        alertBg.addSubview(alertText)
+        
+        
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+   
+        practiceWordBtn.setTitle("複習單字", for: .normal)
+        practiceWordBtn.setTitleColor(darkRed, for: .normal)
+        practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
+        self.view.addSubview(practiceWordBtn)
+        
+        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceSenBtn.setTitle("複習句型", for: .normal)
+        practiceSenBtn.setTitleColor(darkRed, for: .normal)
+        practiceSenBtn.addTarget(self, action: #selector(NewBookViewController.practiceSen), for: .touchUpInside)
+        self.view.addSubview(practiceSenBtn)
+
+        leftBtnClickedImg.frame = practiceWordBtn.frame
+        leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
+        
+        rightBtnClickedImg.frame = practiceSenBtn.frame
+        rightBtnClickedImg.image = UIImage(named: "rightBtnClickedImg.png")
+        
+        self.view.addSubview(leftBtnClickedImg)
+        self.view.addSubview(rightBtnClickedImg)
+        leftBtnClickedImg.alpha = 0
+        rightBtnClickedImg.alpha = 0
+        
+
         // Do any additional setup after loading the view.
         //layOut
         newBookBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
@@ -297,30 +368,36 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         bookViewBottomBg.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width, height: 66 * dif)
         
-        playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
         
-        sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
-
-        playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        autoPlayImg.frame = CGRect(x: (width / 5 - 23 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 23 * dif, height: 23 * dif)
+        autoPlayText.frame = CGRect(x:(width / 5 - 72 * dif) / 2, y: height - 21 * 1.2 * dif, width: 72 * dif , height: 21 * dif)
         
-        playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
         
-        autoPlayImg.frame = CGRect(x: (width / 4 - 23 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 23 * dif, height: 23 * dif)
+        sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
+        playSenImg.frame = CGRect(x: width / 5 + (width / 5 - 27 * dif) / 2 ,y: bookViewBottomBg.frame.minY + 12 * dif, width: 27 * dif, height: 23 * dif)
+        playSenText.frame = CGRect(x: width / 5 + (width / 5 - 79 * dif) / 2, y: height - 21 * 1.2 * dif, width: 79 * dif , height: 21 * dif)
         
-        autoPlayText.frame = CGRect(x:(width / 4 - 72 * dif) / 2, y: height - 21 * 1.2 * dif, width: 72 * dif , height: 21 * dif)
         
-        playSenImg.frame = CGRect(x: width / 4 + (width / 4 - 27 * dif) / 2 ,y: bookViewBottomBg.frame.minY + 12 * dif, width: 27 * dif, height: 23 * dif)
- 
-        playSenText.frame = CGRect(x: width / 4 + (width / 4 - 79 * dif) / 2, y: height - 21 * 1.2 * dif, width: 79 * dif , height: 21 * dif)
+        playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
+        playTimesImg.frame = CGRect(x: width * 2 / 5 + (width / 5 - 46 * dif) / 2, y: bookViewBottomBg.frame.minY + 18 * dif, width: 46 * dif, height: 8 * dif)
         
-        playTimesImg.frame = CGRect(x: width / 2 + (width / 4 - 46 * dif) / 2, y: bookViewBottomBg.frame.minY + 18 * dif, width: 46 * dif, height: 8 * dif)
+        playTimesText.frame = CGRect(x: width * 2 / 5 + (width / 5 - 76 * dif) / 2, y: height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
         
-        playTimesText.frame = CGRect(x: width / 2 + (width / 4 - 76 * dif) / 2, y: height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
-        playSpeedImg.frame = CGRect(x: width * 3 / 4 + (width / 4 - 44 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 44 * dif, height: 28 * dif)
         
-        playSpeedText.frame = CGRect(x: width * 3 / 4 + (width / 4 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
         
-
+        playSpeedImg.frame = CGRect(x: width * 3 / 5 + (width / 5 - 44 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 44 * dif, height: 28 * dif)
+        
+        playSpeedText.frame = CGRect(x: width * 3 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        
+        practiceBtn.frame = CGRect(x: playSpeedBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
+        
+        practiceImg.frame = CGRect(x: width * 4 / 5 + (width / 5 - 24 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 24 * dif, height: 24 * dif)
+        
+        practiceText.frame = CGRect(x: width * 4 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        
+        
         /*
         playBtn.backgroundColor = .green
         sentenceBtn.backgroundColor = .red
@@ -712,7 +789,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             myFavImgs.append(0)
         }
         
-
         //兩個音節做比對, 抓新字的順序
         for s in 0 ..< sortedSylArray.count{
 
@@ -740,11 +816,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                     }
                     
-    
                 }
                 
             }
-            
             
         }
         print("sorted:\(sortedEngWordsToShow.count)")
@@ -786,7 +860,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 if myWrongWord == word {
                     
-                    
                     myWrongEngWordsToShow.append(wordToAppend)
                     myWrongChiWordsToShow.append(chiWord)
                     myWrongPartOfSpeechToShow.append(partOfSpeech)
@@ -800,8 +873,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-
-        
         //設定好要show的第一組單字就是全部的單字
         engWordsSelected = sortedEngWordsToShow
         chiWordsSelected = sortedChiWordsToShow
@@ -810,16 +881,78 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         engSenSelected = sortedEngSenToShow
         chiSenSelected = sortedChiSenToShow
         
-        
         //移除三個多增加的數量, 這三個是可能會錯的部分?? 為什麼只移除engWordsSelected..應該是因為這樣return cell就直接少三個
         for  _ in 0 ..< 3 {
             
-
             engWordsSelected.removeLast()
         }
         
         //預設collectionView的syl
         collectionSelectedIndex = 0
+        
+        //拉到最前方
+        self.view.bringSubview(toFront: ghostBtn)
+        self.view.bringSubview(toFront: alertBg)
+        self.view.bringSubview(toFront: ghost2Btn)
+        self.view.bringSubview(toFront: practiceWordBtn)
+        self.view.bringSubview(toFront: practiceSenBtn)
+        self.view.bringSubview(toFront: leftBtnClickedImg)
+        self.view.bringSubview(toFront: rightBtnClickedImg)
+        
+        removeBtns()
+        
+    }
+    
+    @objc func removeBtns(){
+        
+        ghostBtn.isHidden = true
+        alertBg.isHidden = true
+        ghost2Btn.isHidden = true
+        practiceWordBtn.isHidden = true
+        practiceSenBtn.isHidden = true
+        leftBtnClickedImg.isHidden = true
+        rightBtnClickedImg.isHidden = true
+    }
+    
+    @objc func practiceWord(){
+        print("practice word")
+        
+        
+        UIView.animate(withDuration: 0.06, animations: {[weak self] in
+            
+            self!.leftBtnClickedImg.alpha = 1
+           
+            
+        }) {[weak self] (finished:Bool) in
+            
+            
+            if finished {
+                self!.leftBtnClickedImg.alpha = 0
+        
+            }
+        }
+        
+        
+    }
+    
+    @objc func practiceSen(){
+        print("practice Sen")
+        
+        
+        UIView.animate(withDuration: 0.06, animations: {[weak self] in
+            
+            self!.rightBtnClickedImg.alpha = 1
+            
+            
+        }) {[weak self] (finished:Bool) in
+            
+            
+            if finished {
+                self!.rightBtnClickedImg.alpha = 0
+                
+            }
+        }
+        
         
     }
     
@@ -1175,6 +1308,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+    @IBAction func practiceBtnClicked(_ sender: Any) {
+        print("enter practice")
+        
+        ghostBtn.isHidden = false
+        alertBg.isHidden = false
+        ghost2Btn.isHidden = false
+        practiceWordBtn.isHidden = false
+        practiceSenBtn.isHidden = false
+        leftBtnClickedImg.isHidden = false
+        rightBtnClickedImg.isHidden = false
+        
+        
+    }
     
     //播放完每次發音後的行為, 在此控制所有發音順序
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
@@ -1694,16 +1840,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
-    
-    
-    
     //用以下兩個方法來檢測scroll暫停時間
-    
     
     @objc func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //滾動時不能選擇
         isCollectionViewSelectabel = false
+        segControl.isEnabled = false
         
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidEndDecelerating(_:)), object: nil)
 
@@ -1711,16 +1854,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
-    
     @objc func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         //滾動停止可以選擇
         isCollectionViewSelectabel = true
+        segControl.isEnabled = true
         
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(NewBookViewController.scrollViewDidScroll(_:)), object: nil)
-
-        
-        
+    
         //用這個func來決定collectionView Cell要顯示哪個
         
         if scrollView == tableView{
@@ -1962,7 +2103,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         step = 2
         let chiWord = AVSpeechUtterance(string:synChiWord)
         chiWord.voice = AVSpeechSynthesisVoice(language: "zh-TW")
-        chiWord.rate = 0.5
+        chiWord.rate = 0.48
         synth.speak(chiWord)
         
         
@@ -1992,7 +2133,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         let chiSen = AVSpeechUtterance(string:synChiSen)
         chiSen.voice = AVSpeechSynthesisVoice(language: "zh-TW")
-        chiSen.rate = 0.5
+        chiSen.rate = 0.48
         synth.speak(chiSen)
         
     }

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MDq-zg-zeG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MDq-zg-zeG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,12 +13,17 @@
         <scene sceneID="quZ-1J-VlG">
             <objects>
                 <viewController storyboardIdentifier="loginVc" id="MDq-zg-zeG" customClass="LoginViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="elm-Jh-igl"/>
+                        <viewControllerLayoutGuide type="bottom" id="TqD-WG-xHT"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ikj-M1-gwi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lGh-Sh-duR">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lGh-Sh-duR">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="loginBgImg.png" translatesAutoresizingMaskIntoConstraints="NO" id="YSu-Qz-GEC">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -78,13 +81,6 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="lGh-Sh-duR" firstAttribute="leading" secondItem="Ikj-M1-gwi" secondAttribute="leading" id="5hI-qA-ons"/>
-                            <constraint firstAttribute="trailing" secondItem="lGh-Sh-duR" secondAttribute="trailing" id="Nfs-I2-l7f"/>
-                            <constraint firstItem="lGh-Sh-duR" firstAttribute="top" secondItem="Ikj-M1-gwi" secondAttribute="top" id="gVO-Av-VIz"/>
-                            <constraint firstItem="lGh-Sh-duR" firstAttribute="bottom" secondItem="yBh-SO-02S" secondAttribute="bottom" id="rXA-z6-8re"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="yBh-SO-02S"/>
                     </view>
                     <connections>
                         <outlet property="bgImg" destination="YSu-Qz-GEC" id="YE8-yF-nNR"/>
@@ -94,7 +90,7 @@
                         <outlet property="passwordTxt" destination="7n9-4j-B2s" id="Ao1-QP-e6U"/>
                         <outlet property="registerBtn" destination="JBJ-HI-heC" id="Qrm-3W-C4j"/>
                         <outlet property="usernameTxt" destination="cfg-84-fds" id="VEs-LI-UbD"/>
-                        <segue destination="2JK-8B-Ztd" kind="show" identifier="toCoursesVc" id="Qsn-eF-t3O"/>
+                        <segue destination="2JK-8B-Ztd" kind="presentation" identifier="toCoursesVc" id="Qsn-eF-t3O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IRQ-Nb-WFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -105,6 +101,10 @@
         <scene sceneID="5PR-vQ-Hl8">
             <objects>
                 <viewController id="v6L-yK-9Lk" customClass="NewGameViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gxe-As-aHG"/>
+                        <viewControllerLayoutGuide type="bottom" id="NZz-i2-0uI"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EY7-UN-OL0" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -136,8 +136,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="140-yy-deB">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="140-yy-deB">
                                 <rect key="frame" x="16" y="304" width="343" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="40"/>
                                 <color key="textColor" red="0.99607843160629272" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -278,13 +279,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="140-yy-deB" firstAttribute="trailing" secondItem="EY7-UN-OL0" secondAttribute="trailingMargin" id="8jC-vP-N9J"/>
-                            <constraint firstItem="140-yy-deB" firstAttribute="top" secondItem="Jnc-N6-0es" secondAttribute="top" constant="284" id="Hes-AK-FSP"/>
-                            <constraint firstItem="140-yy-deB" firstAttribute="leading" secondItem="EY7-UN-OL0" secondAttribute="leadingMargin" id="Xzy-QQ-gS6"/>
-                            <constraint firstItem="140-yy-deB" firstAttribute="centerY" secondItem="EY7-UN-OL0" secondAttribute="centerY" constant="-2" id="aSz-pr-6QA"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Jnc-N6-0es"/>
                     </view>
                     <connections>
                         <outlet property="audioView" destination="5Yq-GR-cAx" id="xn4-dn-3L6"/>
@@ -312,94 +306,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzm-ap-Lz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-692" y="2193.5532233883059"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="0NM-bS-CfU">
-            <objects>
-                <viewController id="YDE-bE-RQd" customClass="PageViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Rxs-zd-sMI" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErL-oP-K61">
-                                <rect key="frame" x="30" y="20" width="30" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="blueBackBtnImg.png"/>
-                                <connections>
-                                    <action selector="backBtnClicked:" destination="YDE-bE-RQd" eventType="touchUpInside" id="9A0-ab-F2j"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9j-ch-dez">
-                                <rect key="frame" x="274" y="622" width="13" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="rightPageBtn.png"/>
-                                <connections>
-                                    <action selector="rightBtnClicked:" destination="YDE-bE-RQd" eventType="touchUpInside" id="smd-mL-8Ka"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Arx-FF-c2I">
-                                <rect key="frame" x="134" y="617" width="24" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <connections>
-                                    <action selector="page0Clicked:" destination="YDE-bE-RQd" eventType="touchUpInside" id="fzo-bp-ckW"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8v-N1-Viq">
-                                <rect key="frame" x="164" y="617" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <connections>
-                                    <action selector="page1Clicked:" destination="YDE-bE-RQd" eventType="touchUpInside" id="T3w-Jl-XOJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8w9-9o-iff">
-                                <rect key="frame" x="230" y="617" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <connections>
-                                    <action selector="page3Clicked:" destination="YDE-bE-RQd" eventType="touchUpInside" id="Zi8-yd-Suv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DgA-jg-Z8W">
-                                <rect key="frame" x="106" y="622" width="13" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="leftPageBtn.png"/>
-                                <connections>
-                                    <action selector="leftBtnClicked:" destination="YDE-bE-RQd" eventType="touchUpInside" id="YRp-6c-dqo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJk-5H-QUD">
-                                <rect key="frame" x="196" y="617" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <connections>
-                                    <action selector="page2Clicked:" destination="YDE-bE-RQd" eventType="touchUpInside" id="zUY-J5-F9l"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="xZl-yk-OXf"/>
-                    </view>
-                    <connections>
-                        <outlet property="backBtn" destination="ErL-oP-K61" id="yRm-cu-FQH"/>
-                        <outlet property="leftBtn" destination="DgA-jg-Z8W" id="q2y-YL-eWI"/>
-                        <outlet property="page0" destination="Arx-FF-c2I" id="rA3-Jp-JHl"/>
-                        <outlet property="page1" destination="o8v-N1-Viq" id="h9i-RC-EbC"/>
-                        <outlet property="page2" destination="eJk-5H-QUD" id="QIA-K0-LH0"/>
-                        <outlet property="page3" destination="8w9-9o-iff" id="paa-yd-tjx"/>
-                        <outlet property="rightBtn" destination="q9j-ch-dez" id="0IC-GA-TuO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="K3D-uq-axs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1479" y="2194"/>
+            <point key="canvasLocation" x="-1454" y="2246"/>
         </scene>
         <!--New Book View Controller-->
         <scene sceneID="iue-Lt-fS9">
             <objects>
                 <viewController id="1ci-A8-OIj" customClass="NewBookViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="i1D-il-enu"/>
+                        <viewControllerLayoutGuide type="bottom" id="LnG-SM-DaC"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0Ia-T5-Ssc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -532,7 +448,7 @@
                                     <outlet property="delegate" destination="1ci-A8-OIj" id="6fx-Td-ZFi"/>
                                 </connections>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bookViewBottomBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-TV-TRj">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bookViewBottomBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-TV-TRj">
                                 <rect key="frame" x="0.0" y="601" width="375" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -602,15 +518,32 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5K-SM-d0X">
-                                <rect key="frame" x="280" y="601" width="92" height="66"/>
+                                <rect key="frame" x="325" y="626" width="25" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="playSpeedClicked:" destination="1ci-A8-OIj" eventType="touchUpInside" id="1RX-YX-LGG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tz-YL-9hu">
+                                <rect key="frame" x="295" y="601" width="80" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="practiceBtnClicked:" destination="1ci-A8-OIj" eventType="touchUpInside" id="Z8t-VD-pLF"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="practiceBook.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cts-E1-Xwb">
+                                <rect key="frame" x="262" y="609" width="26" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="進入複習" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRe-UJ-tdu">
+                                <rect key="frame" x="210" y="641" width="78" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <color key="textColor" red="0.87003046269999995" green="0.87005096670000004" blue="0.87003988030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="wdk-hO-GnS"/>
                     </view>
                     <connections>
                         <outlet property="autoPlayImg" destination="Y8I-Dg-vfB" id="tmK-uQ-QDy"/>
@@ -628,6 +561,9 @@
                         <outlet property="playTimesBtn" destination="JW6-U1-pTM" id="KhV-Pt-IzW"/>
                         <outlet property="playTimesImg" destination="NE7-fY-Sev" id="5ft-g2-lUO"/>
                         <outlet property="playTimesText" destination="1Nw-SV-TBr" id="zK3-cy-F49"/>
+                        <outlet property="practiceBtn" destination="5tz-YL-9hu" id="yCM-Dv-gdl"/>
+                        <outlet property="practiceImg" destination="Cts-E1-Xwb" id="vSw-7w-ZE3"/>
+                        <outlet property="practiceText" destination="tRe-UJ-tdu" id="C2G-ug-XWZ"/>
                         <outlet property="sentenceBtn" destination="OGf-5E-Wy6" id="TN2-T9-TbK"/>
                         <outlet property="tableView" destination="xjW-Qq-Bt6" id="49m-YX-bON"/>
                     </connections>
@@ -640,6 +576,10 @@
         <scene sceneID="r6M-ug-vJJ">
             <objects>
                 <viewController id="j5T-Gi-rw6" customClass="LessonViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XtO-7K-Dtc"/>
+                        <viewControllerLayoutGuide type="bottom" id="c1p-gg-HfO"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ge3-0A-Z4G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -715,7 +655,6 @@
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.11884272843599319" green="0.18226787447929382" blue="0.28189060091972351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="piM-4L-hMb"/>
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="2T9-3W-P4V" id="R6H-XT-F2L"/>
@@ -728,7 +667,7 @@
                         <outlet property="secondLabel" destination="9Pj-5n-3Oh" id="o8S-bO-Z5H"/>
                         <outlet property="syllableLabel" destination="k8N-yx-MJm" id="5lm-vz-CeE"/>
                         <outlet property="thirdLabel" destination="8Hh-II-Sga" id="NgP-5Z-DCA"/>
-                        <segue destination="v6L-yK-9Lk" kind="show" identifier="toGameVc" id="jNM-DD-XKH"/>
+                        <segue destination="v6L-yK-9Lk" kind="presentation" identifier="toGameVc" id="jNM-DD-XKH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61d-qX-ar7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -739,6 +678,10 @@
         <scene sceneID="nXP-LS-awD">
             <objects>
                 <viewController storyboardIdentifier="coursesVc" id="2JK-8B-Ztd" customClass="CoursesViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2OA-sc-aB6"/>
+                        <viewControllerLayoutGuide type="bottom" id="URI-g9-fJb"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nLw-xf-a6h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -859,7 +802,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.15294117647058825" green="0.18823529411764706" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
-                        <viewLayoutGuide key="safeArea" id="GuU-GK-hfX"/>
                     </view>
                     <connections>
                         <outlet property="block0" destination="Rwt-fO-uJR" id="gI5-vp-agZ"/>
@@ -883,8 +825,8 @@
                         <outlet property="dialogueBg" destination="cLz-3m-g61" id="ZCg-Qb-Aii"/>
                         <outlet property="dialogueLabel" destination="YQz-Vd-la3" id="3xk-P5-VZp"/>
                         <outlet property="logOutBtn" destination="a1e-Ia-agD" id="x1z-Oy-SAr"/>
-                        <segue destination="Xm8-zq-UdH" kind="show" identifier="toStageVc" id="IAO-5U-K2i"/>
-                        <segue destination="1ci-A8-OIj" kind="show" identifier="toNewBookVc" id="heL-at-VN6"/>
+                        <segue destination="Xm8-zq-UdH" kind="presentation" identifier="toStageVc" id="IAO-5U-K2i"/>
+                        <segue destination="1ci-A8-OIj" kind="presentation" identifier="toNewBookVc" id="heL-at-VN6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOz-KG-elN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -895,6 +837,10 @@
         <scene sceneID="uAY-7P-Q8w">
             <objects>
                 <viewController id="Xm8-zq-UdH" customClass="StageViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Tc4-4s-tSD"/>
+                        <viewControllerLayoutGuide type="bottom" id="NRt-eV-Ke6"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wdj-0c-q3t">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -982,14 +928,13 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.047058823529411764" green="0.070588235294117646" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
-                        <viewLayoutGuide key="safeArea" id="sCw-XC-OQD"/>
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="sNQ-Be-E96" id="rjM-Vb-RKE"/>
                         <outlet property="collectionView" destination="TGO-9a-ASW" id="J1z-GX-7Io"/>
                         <outlet property="stageTopImg" destination="Lbc-9v-iJg" id="Izm-2V-tMh"/>
                         <outlet property="topWordsNumberLabel" destination="1Jk-6s-e2d" id="rvI-mg-XKC"/>
-                        <segue destination="j5T-Gi-rw6" kind="show" identifier="toLessonVc" id="WXl-Md-3ex"/>
+                        <segue destination="j5T-Gi-rw6" kind="presentation" identifier="toLessonVc" id="WXl-Md-3ex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29d-aW-u6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1008,7 +953,6 @@
         <image name="block2Title.png" width="85" height="66"/>
         <image name="block3.png" width="375" height="167"/>
         <image name="block3Title.png" width="91" height="66"/>
-        <image name="blueBackBtnImg.png" width="48" height="79"/>
         <image name="bookBackBtn.png" width="19" height="31"/>
         <image name="bookPlayOff.png" width="21" height="21"/>
         <image name="bookPng.png" width="41" height="45"/>
@@ -1018,7 +962,6 @@
         <image name="bookViewBottomBg.png" width="375" height="66"/>
         <image name="dialogueBg.png" width="218" height="33"/>
         <image name="enterGameBtn.png" width="375" height="66"/>
-        <image name="leftPageBtn.png" width="25" height="40"/>
         <image name="lessonBackBtn.png" width="19" height="31"/>
         <image name="lessonFullLength.png" width="375" height="3"/>
         <image name="lessonProgress.png" width="375" height="3"/>
@@ -1027,10 +970,10 @@
         <image name="loginBtnImg.png" width="66" height="66"/>
         <image name="logout.png" width="58" height="70"/>
         <image name="newBookBg.png" width="375" height="667"/>
+        <image name="practiceBook.png" width="20" height="24"/>
         <image name="recordBtn.png" width="256" height="256"/>
         <image name="registerBtnImg.png" width="66" height="66"/>
         <image name="resultBg.png" width="560" height="976"/>
-        <image name="rightPageBtn.png" width="25" height="40"/>
         <image name="rightWordBtn.png" width="519" height="114"/>
         <image name="stageTopCover.png" width="375" height="133"/>
         <image name="sylBlueBall" width="16" height="16"/>

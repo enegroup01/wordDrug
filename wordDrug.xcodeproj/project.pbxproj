@@ -200,8 +200,6 @@
 		AA7AE8F82047D8A200ADEEDA /* pauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */; };
 		AA7AE8FA20494EA400ADEEDA /* recogWordsBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F920494EA400ADEEDA /* recogWordsBg.png */; };
 		AA7AE9002049675200ADEEDA /* recordCross.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8FF2049675100ADEEDA /* recordCross.png */; };
-		AA7D6132203FC47E00E0A94D /* PageScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7D6131203FC47E00E0A94D /* PageScene.swift */; };
-		AA7D6135203FC4F100E0A94D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7D6134203FC4F100E0A94D /* PageViewController.swift */; };
 		AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D61362040408200E0A94D /* blueBackBtnImg.png */; };
 		AA7D6139204040A400E0A94D /* purpleBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D6138204040A300E0A94D /* purpleBg.png */; };
 		AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */; };
@@ -210,6 +208,11 @@
 		AA8B69F62024777D0023E0FD /* NewGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA8B69F52024777D0023E0FD /* NewGameScene.sks */; };
 		AA8FAE90202D912600342CED /* rightCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8FAE8F202D912600342CED /* rightCircle.png */; };
 		AA8FAE92202D913A00342CED /* wrongX.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8FAE91202D913A00342CED /* wrongX.png */; };
+		AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA96556020909461003E5AB7 /* reviewSelectBg.png */; };
+		AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */; };
+		AA9655652090A048003E5AB7 /* rightBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */; };
+		AA9655672090B0C2003E5AB7 /* bookViewBottomBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655662090B0C2003E5AB7 /* bookViewBottomBg.png */; };
+		AA9655692090B7E3003E5AB7 /* practiceBook.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655682090B7E2003E5AB7 /* practiceBook.png */; };
 		AA98E6052085CBC3001100BA /* rightRoundedSqr.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6032085CBC2001100BA /* rightRoundedSqr.png */; };
 		AA98E6062085CBC3001100BA /* leftRoundedSqr.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6042085CBC3001100BA /* leftRoundedSqr.png */; };
 		AA98E6082085DC5F001100BA /* loginBgImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6072085DC5E001100BA /* loginBgImg.png */; };
@@ -254,7 +257,6 @@
 		AAFAFCB6205BE11F00307264 /* bookTimes1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAC205BE11E00307264 /* bookTimes1.png */; };
 		AAFAFCB7205BE11F00307264 /* bookPlayOn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAD205BE11E00307264 /* bookPlayOn.png */; };
 		AAFAFCB8205BE11F00307264 /* bookSpeed0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAE205BE11F00307264 /* bookSpeed0.png */; };
-		AAFAFCBA205BE27400307264 /* bookViewBottomBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCB9205BE27400307264 /* bookViewBottomBg.png */; };
 		BEC32621193E6AA98B13685E /* Pods_wordDrug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59A7E8A0129B76F4791D5AB /* Pods_wordDrug.framework */; };
 /* End PBXBuildFile section */
 
@@ -455,9 +457,6 @@
 		AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseBtn.png; sourceTree = "<group>"; };
 		AA7AE8F920494EA400ADEEDA /* recogWordsBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recogWordsBg.png; sourceTree = "<group>"; };
 		AA7AE8FF2049675100ADEEDA /* recordCross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordCross.png; sourceTree = "<group>"; };
-		AA7D6131203FC47E00E0A94D /* PageScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScene.swift; sourceTree = "<group>"; };
-		AA7D6133203FC4B400E0A94D /* PageScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PageScene.sks; path = /Users/ethan/Desktop/wordDrug/wordDrug/pageVc/PageScene.sks; sourceTree = "<absolute>"; };
-		AA7D6134203FC4F100E0A94D /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		AA7D61362040408200E0A94D /* blueBackBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueBackBtnImg.png; sourceTree = "<group>"; };
 		AA7D6138204040A300E0A94D /* purpleBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleBg.png; sourceTree = "<group>"; };
 		AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "有發音問題的字.txt"; sourceTree = "<group>"; };
@@ -466,6 +465,11 @@
 		AA8B69F52024777D0023E0FD /* NewGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NewGameScene.sks; sourceTree = "<group>"; };
 		AA8FAE8F202D912600342CED /* rightCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightCircle.png; sourceTree = "<group>"; };
 		AA8FAE91202D913A00342CED /* wrongX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongX.png; sourceTree = "<group>"; };
+		AA96556020909461003E5AB7 /* reviewSelectBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSelectBg.png; sourceTree = "<group>"; };
+		AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftBtnClickedImg.png; sourceTree = "<group>"; };
+		AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightBtnClickedImg.png; sourceTree = "<group>"; };
+		AA9655662090B0C2003E5AB7 /* bookViewBottomBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookViewBottomBg.png; sourceTree = "<group>"; };
+		AA9655682090B7E2003E5AB7 /* practiceBook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = practiceBook.png; sourceTree = "<group>"; };
 		AA98E6032085CBC2001100BA /* rightRoundedSqr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightRoundedSqr.png; sourceTree = "<group>"; };
 		AA98E6042085CBC3001100BA /* leftRoundedSqr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftRoundedSqr.png; sourceTree = "<group>"; };
 		AA98E6072085DC5E001100BA /* loginBgImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginBgImg.png; sourceTree = "<group>"; };
@@ -512,7 +516,6 @@
 		AAFAFCAC205BE11E00307264 /* bookTimes1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTimes1.png; sourceTree = "<group>"; };
 		AAFAFCAD205BE11E00307264 /* bookPlayOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPlayOn.png; sourceTree = "<group>"; };
 		AAFAFCAE205BE11F00307264 /* bookSpeed0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed0.png; sourceTree = "<group>"; };
-		AAFAFCB9205BE27400307264 /* bookViewBottomBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookViewBottomBg.png; sourceTree = "<group>"; };
 		F59A7E8A0129B76F4791D5AB /* Pods_wordDrug.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wordDrug.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -586,7 +589,11 @@
 			children = (
 				AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */,
 				AA2B64D3205A63F200742226 /* NewBookViewController.swift */,
+				AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */,
+				AA96556020909461003E5AB7 /* reviewSelectBg.png */,
+				AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */,
 				AA2B64CF205A609D00742226 /* bookBackBtn.png */,
+				AA9655682090B7E2003E5AB7 /* practiceBook.png */,
 				AA2B64D1205A612E00742226 /* newBookBg.png */,
 				AAFAFCA1205BDD6500307264 /* sylBlueBall.png */,
 				AAFAFC9F205BD9C900307264 /* wordTableBg.png */,
@@ -600,7 +607,7 @@
 				AAFAFCAB205BE11D00307264 /* bookTimes0.png */,
 				AAFAFCAC205BE11E00307264 /* bookTimes1.png */,
 				AAFAFCA5205BE11A00307264 /* bookTimes2.png */,
-				AAFAFCB9205BE27400307264 /* bookViewBottomBg.png */,
+				AA9655662090B0C2003E5AB7 /* bookViewBottomBg.png */,
 			);
 			path = newBookVc;
 			sourceTree = "<group>";
@@ -608,9 +615,6 @@
 		AA5879EB203EA9AF00FEA058 /* pageVc */ = {
 			isa = PBXGroup;
 			children = (
-				AA7D6133203FC4B400E0A94D /* PageScene.sks */,
-				AA7D6131203FC47E00E0A94D /* PageScene.swift */,
-				AA7D6134203FC4F100E0A94D /* PageViewController.swift */,
 				AA5879F0203EAB1800FEA058 /* bigBlueBall.png */,
 				AA5879F8203EADE100FEA058 /* smallDarkBall.png */,
 				AA5879F3203EAC1A00FEA058 /* smallBlueBall.png */,
@@ -886,9 +890,9 @@
 				AA7C97F52052C97300C834A3 /* newGameVc */,
 				AA5AF411204EC68A005FCC87 /* TagListView */,
 				AA5879EB203EA9AF00FEA058 /* pageVc */,
+				AA5E2C40203D32D7005E22A0 /* loginVc */,
 				AA04ED8F203D964000EC0A8E /* stageVc */,
 				AA04ED80203D7B1E00EC0A8E /* coursesVc */,
-				AA5E2C40203D32D7005E22A0 /* loginVc */,
 				AAE1818C1F97892D00683896 /* AppDelegate.swift */,
 				AA00379820497CCD0030F786 /* SwiftSiriWaveformView.swift */,
 				AAE181901F97892D00683896 /* Actions.sks */,
@@ -1014,6 +1018,7 @@
 				AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */,
 				AA648EF5207CEA05003ACD07 /* s1-10.txt in Resources */,
 				AA7ABB9520579591007884A1 /* countDownLine.png in Resources */,
+				AA9655652090A048003E5AB7 /* rightBtnClickedImg.png in Resources */,
 				AA98E62020861560001100BA /* block1Title.png in Resources */,
 				AA648E8F207CEA05003ACD07 /* s1-9.txt in Resources */,
 				AA648E6D207CEA05003ACD07 /* 5-6.txt in Resources */,
@@ -1029,6 +1034,7 @@
 				AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */,
 				AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */,
 				AA648EE6207CEA05003ACD07 /* 5-12.txt in Resources */,
+				AA9655672090B0C2003E5AB7 /* bookViewBottomBg.png in Resources */,
 				AA648EBF207CEA05003ACD07 /* s1-13.txt in Resources */,
 				AA7DCB952085BE65008AFFDF /* s1-1.txt in Resources */,
 				AA648E77207CEA05003ACD07 /* 3-4.txt in Resources */,
@@ -1054,10 +1060,12 @@
 				AA648EC0207CEA05003ACD07 /* 3-2.txt in Resources */,
 				AA648ED1207CEA05003ACD07 /* s2-1.txt in Resources */,
 				AAF31A11207E23DA002F8FD8 /* lightSel.png in Resources */,
+				AA9655692090B7E3003E5AB7 /* practiceBook.png in Resources */,
 				AA648E6B207CEA05003ACD07 /* 1-5.txt in Resources */,
 				AA648EC2207CEA05003ACD07 /* s2-7.txt in Resources */,
 				AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */,
 				AAFAFCB2205BE11F00307264 /* bookSpeed2.png in Resources */,
+				AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */,
 				AA648ECB207CEA05003ACD07 /* s1-14.txt in Resources */,
 				AA648EA0207CEA05003ACD07 /* 2-10.txt in Resources */,
 				AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */,
@@ -1073,7 +1081,6 @@
 				AA648EA9207CEA05003ACD07 /* 4-8.txt in Resources */,
 				AA648EEF207CEA05003ACD07 /* 3-1.txt in Resources */,
 				AA648EB5207CEA05003ACD07 /* s4-5.txt in Resources */,
-				AAFAFCBA205BE27400307264 /* bookViewBottomBg.png in Resources */,
 				AA648E7E207CEA05003ACD07 /* 5-3.txt in Resources */,
 				AA648EBA207CEA05003ACD07 /* 3-13.txt in Resources */,
 				AAFAFCB5205BE11F00307264 /* bookTimes0.png in Resources */,
@@ -1149,6 +1156,7 @@
 				AA648E76207CEA05003ACD07 /* s1-8.txt in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
 				AA648EB2207CEA05003ACD07 /* s3-12.txt in Resources */,
+				AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */,
 				AA648ED7207CEA05003ACD07 /* 1-8.txt in Resources */,
 				AA8FAE92202D913A00342CED /* wrongX.png in Resources */,
 				AA648EA2207CEA05003ACD07 /* s3-1.txt in Resources */,
@@ -1262,9 +1270,7 @@
 				AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */,
 				AA00379920497CCD0030F786 /* SwiftSiriWaveformView.swift in Sources */,
 				AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */,
-				AA7D6135203FC4F100E0A94D /* PageViewController.swift in Sources */,
 				AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */,
-				AA7D6132203FC47E00E0A94D /* PageScene.swift in Sources */,
 				AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */,
 				AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */,
 				AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */,
@@ -1399,6 +1405,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -1415,7 +1422,8 @@
 				INFOPLIST_FILE = wordDrug/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.wordDrug;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.missWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1432,7 +1440,7 @@
 				INFOPLIST_FILE = wordDrug/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.wordDrug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.missWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

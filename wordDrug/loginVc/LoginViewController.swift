@@ -37,13 +37,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
         
-       
-        
         loginBtn.frame = CGRect(x: width / 2 + width / 30, y: height / 2, width: width / 6, height: width / 6)
         registerBtn.frame = CGRect(x: width / 2 - loginBtn.frame.width - width / 30, y: height / 2, width: width / 6, height: width / 6)
         
-        var iphoneWidth = CGFloat()
-        var fontSize = CGFloat()
+       var iphoneWidth = CGFloat()
+       var fontSize = CGFloat()
         var dif = CGFloat()
      
         switch  height {
@@ -67,7 +65,10 @@ dif = 1
  dif = 0.9
 
         default:
-            break
+            iphoneWidth = width
+            fontSize = 16
+            dif = 0.9
+
             
         }
         
@@ -75,15 +76,19 @@ dif = 1
         
         
         bgView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        bgImg.frame = CGRect(x: 0, y: 0, width: iphoneWidth, height: height)
+        bgImg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         usernameTxt.frame = CGRect(x: width / 6, y: height / 3.4, width: width * 2 / 3, height: 30)
-        usernameTxt.font = UIFont(name: "Helvetica Neue", size: fontSize)
+        usernameTxt.font = UIFont(name: "Helvetica Neue", size: 18)
+        //usernameTxt.backgroundColor = .red
         
         
         passwordTxt.frame = CGRect(x: width / 6, y: height / 2.5, width: width * 2 / 3, height: 30)
-        passwordTxt.font = UIFont(name: "Helvetica Neue", size: fontSize)
+        passwordTxt.font = UIFont(name: "Helvetica Neue", size: 18)
+        //passwordTxt.backgroundColor = .blue
+        
     }
+
     
 
     

@@ -413,26 +413,29 @@ class NewGameScene: SKScene {
         
         var chiBtnDif = CGFloat()
         var dif = CGFloat()
+        var iPadDif = CGFloat()
         
         switch  height {
         case 812:
             chiBtnDif = 0.8
             dif = 1.15
+            iPadDif = 1
         case 736:
             chiBtnDif = 1
             dif = 1.1
-            
+            iPadDif = 1
         case 667:
             chiBtnDif = 0.95
             dif = 1
-            
+            iPadDif = 1
         case 568:
             chiBtnDif = 0.9
             dif = 0.9
-            
+            iPadDif = 1
         default:
-            break
-            
+            chiBtnDif = 0.9
+            dif = 0.9
+            iPadDif = 1.2
         }
         
         //背景
@@ -470,27 +473,27 @@ class NewGameScene: SKScene {
         
         //選項按鈕
         
-        makeNode(name: "se0", color: .clear, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se1", color: .clear, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se2", color: .clear, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se3", color: .clear, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se4", color: .clear, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se0", color: .clear, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se1", color: .clear, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se2", color: .clear, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se3", color: .clear, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se4", color: .clear, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
         
         //填滿按鈕
         
-        makeImageNode(name: "0filledButton", image: lightImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1filledButton", image: lightImg, x:CGFloat(positions[1][0]), y: CGFloat(positions[1][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2filledButton", image: lightImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3filledButton", image: lightImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "4filledButton", image: lightImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0filledButton", image: lightImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1filledButton", image: lightImg, x:CGFloat(positions[1][0]), y: CGFloat(positions[1][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2filledButton", image: lightImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3filledButton", image: lightImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "4filledButton", image: lightImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
         
         
         //空的按鈕
-        makeImageNode(name: "0emptyButton", image: darkImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1emptyButton", image: darkImg, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2emptyButton", image: darkImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3emptyButton", image: darkImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "4emptyButton", image: darkImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]), width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0emptyButton", image: darkImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1emptyButton", image: darkImg, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2emptyButton", image: darkImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3emptyButton", image: darkImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "4emptyButton", image: darkImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         
         
 
@@ -522,13 +525,13 @@ class NewGameScene: SKScene {
         
         addChild(rightChiNode)
         
-        
+
         
 
         //建立三個單字
         
         //firstEngWordLabel.frame = CGRect(x: 187.5 + 375, y: 110, width: 200, height: 80)
-        firstEngWordLabel.frame = CGRect(x: (width - 200 * dif) / 2 + width, y: 110 * dif, width: 200 * dif, height: 80 * dif)
+        firstEngWordLabel.frame = CGRect(x: (width - 200 * dif) / 2 + width, y: 110 * dif / iPadDif, width: 200 * dif, height: 80 * dif)
 
         //firstEngWordLabel.backgroundColor = .cyan
         firstEngWordLabel.textColor = darkWordColor
@@ -540,7 +543,7 @@ class NewGameScene: SKScene {
         
         //英文單字的Node
         //firstChiWordLabel.frame = CGRect(x: 187.5 + 375, y: 205, width: 90, height: 40)
-        firstChiWordLabel.frame = CGRect(x: (width - 90 * dif) / 2 + width, y: 205 * dif, width: 90 * dif, height: 40 * dif)
+        firstChiWordLabel.frame = CGRect(x: (width - 90 * dif) / 2 + width, y: 205 * dif / iPadDif, width: 90 * dif, height: 40 * dif)
         //firstChiWordLabel.backgroundColor = .green
         firstChiWordLabel.textColor = pinkColor
         firstChiWordLabel.textAlignment = .center
@@ -943,6 +946,27 @@ class NewGameScene: SKScene {
     //練習模式
     func practice(){
         
+        
+        var iPadDif = CGFloat()
+        
+        switch  height {
+        case 812:
+
+            iPadDif = 1
+        case 736:
+
+            iPadDif = 1
+        case 667:
+     
+            iPadDif = 1
+        case 568:
+     
+            iPadDif = 1
+        default:
+    
+            iPadDif = 1.2
+        }
+        
         hintSlideIn(leftText: "連線", rightText: "拼字",waitTime: 1) {[weak self] in
             
             
@@ -1161,7 +1185,7 @@ class NewGameScene: SKScene {
           
             for i in 0 ..< self!.shownWords.count{
                 
-               self!.makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1]), alignMent: .center, fontColor: .white, fontSize: 50, text: self!.shownWords[i], zPosition: 5, name: self!.shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
+               self!.makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1])  / iPadDif, alignMent: .center, fontColor: .white, fontSize: 50, text: self!.shownWords[i], zPosition: 5, name: self!.shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
                 
                 
                 //把建立的選項名稱放入array裡
@@ -1250,7 +1274,9 @@ class NewGameScene: SKScene {
                 dif = 0.9
                 
             default:
-                break
+                
+                chiBtnDif = 0.9
+                dif = 0.9
                 
             }
             
