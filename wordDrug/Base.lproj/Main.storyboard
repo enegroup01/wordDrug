@@ -635,10 +635,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVJ-I3-3pi">
-                                <rect key="frame" x="-121" y="609" width="375" height="66"/>
+                                <rect key="frame" x="-27" y="609" width="188" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="28"/>
-                                <state key="normal" title="進入課程" backgroundImage="enterGameBtn.png">
+                                <state key="normal" title="進入課程" backgroundImage="lessonBtn.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -653,6 +653,17 @@
                                 <rect key="frame" x="16" y="508" width="240" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXY-KJ-lEh">
+                                <rect key="frame" x="110" y="601" width="188" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="28"/>
+                                <state key="normal" title="複習單字" backgroundImage="lessonBtn.png">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="reviewBtnClicked:" destination="j5T-Gi-rw6" eventType="touchUpInside" id="K4i-qV-h0A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.11884272843599319" green="0.18226787447929382" blue="0.28189060091972351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -664,6 +675,7 @@
                         <outlet property="lessonLabel" destination="YTi-eb-Vcw" id="W6x-j2-1UG"/>
                         <outlet property="lessonTitleLabel" destination="UBD-lg-gJM" id="tEV-wC-ZIZ"/>
                         <outlet property="progressLength" destination="K3E-2V-8PM" id="TFo-08-RYB"/>
+                        <outlet property="reviewBtn" destination="VXY-KJ-lEh" id="rim-7a-PZF"/>
                         <outlet property="secondLabel" destination="9Pj-5n-3Oh" id="o8S-bO-Z5H"/>
                         <outlet property="syllableLabel" destination="k8N-yx-MJm" id="5lm-vz-CeE"/>
                         <outlet property="thirdLabel" destination="8Hh-II-Sga" id="NgP-5Z-DCA"/>
@@ -961,8 +973,8 @@
         <image name="bookTimes1.png" width="46" height="8"/>
         <image name="bookViewBottomBg.png" width="375" height="66"/>
         <image name="dialogueBg.png" width="218" height="33"/>
-        <image name="enterGameBtn.png" width="375" height="66"/>
         <image name="lessonBackBtn.png" width="19" height="31"/>
+        <image name="lessonBtn.png" width="188" height="66"/>
         <image name="lessonFullLength.png" width="375" height="3"/>
         <image name="lessonProgress.png" width="375" height="3"/>
         <image name="lockPng.png" width="113" height="144"/>

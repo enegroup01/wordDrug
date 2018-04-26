@@ -48,6 +48,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var spotNumber = Int()
     var unitNumber = Int()
     var mapNumber = Int()
+    var gameMode = Int()
 
     
     //辨識聲音用的變數
@@ -431,6 +432,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 sceneNode.unitNumber = unitNumber
                 sceneNode.spotNumber = spotNumber
                 sceneNode.mapNumber =  mapNumber
+                sceneNode.gameMode = gameMode
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill

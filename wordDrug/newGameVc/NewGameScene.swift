@@ -134,6 +134,8 @@ class NewGameScene: SKScene {
     //被設定好的頁數
     var spotNumber = Int()
     var unitNumber = Int()
+    var gameMode = Int()
+    var mapNumber = Int()
     
     //紀錄第一個sequence
     var firstSequence = Int()
@@ -150,7 +152,6 @@ class NewGameScene: SKScene {
     //造字時的當下音節
     var syllablesToCheck = String()
     var syllablesWithoutDigit = String()
-    
     
     //紀錄單字有沒有加入最愛
     var wordsLoved = [0,0,0]
@@ -230,7 +231,7 @@ class NewGameScene: SKScene {
     var allThreeChiWords = [String]()
     var allThreeEngWords = [String]()
 
-    var mapNumber = Int()
+
     
     //控制是否為第二次聽考
     var isBackToSpell = false
@@ -743,10 +744,17 @@ class NewGameScene: SKScene {
         
         
         //造完字後顯示出英文部分
+        
+        if gameMode == 1 {
+            
+            //隱藏上方的單字換成對話框
+            firstEngWordLabel.isHidden = true
+            firstChiWordLabel.isHidden = true
+
+            
+        }
+        
         firstEngWordLabel.attributedText = words[0]
-        
-        
-        //顯示中文字
         firstChiWordLabel.text = chiWord0
         
         
@@ -781,14 +789,23 @@ class NewGameScene: SKScene {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     */
                     
-                    let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":1]
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
+                 
                     
                     
                     //self!.isUserInteractionEnabled = true
                     //self!.isDragAndPlayEnable = true
-                    self!.practice()
                     
+                    if self!.gameMode == 1 {
+                    //reviewMode不發音
+                     self!.reviewWordMode()
+                    
+                    
+                    } else {
+                    
+                    self!.practice()
+                        let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":1]
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
+                    }
                  
                     
                     
@@ -858,6 +875,25 @@ class NewGameScene: SKScene {
         //隱藏上方的單字換成對話框
         firstEngWordLabel.isHidden = true
         firstChiWordLabel.isHidden = true
+        
+        //錄音字欄位
+        findImageNode(name: "recogWordsBg").alpha = 0
+        
+        //建立說話圖示
+        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380, width: 256, height: 210, z: 1, alpha: 1, isAnchoring: false)
+        
+        
+        //宣告此為第二次練習
+        isBackToSpell = true
+        
+        //練習
+        practice()
+        
+    }
+    
+    func reviewWordMode(){
+        isUserInteractionEnabled = false
+        
         
         //錄音字欄位
         findImageNode(name: "recogWordsBg").alpha = 0
@@ -1656,6 +1692,7 @@ class NewGameScene: SKScene {
                         //不能按畫面
                         self.isUserInteractionEnabled = false
                     
+                         //直接轉換isBackToSpell
                     
                         //如果是聽考模式就跳到選中文
                         if isBackToSpell {
@@ -2023,8 +2060,16 @@ class NewGameScene: SKScene {
             
             shownWords.removeAll(keepingCapacity: false)
             wordEntered.removeAll(keepingCapacity: false)
+            
+            //卡
+            if gameMode == 1 {
+                
+                
+            } else {
             firstEngWordLabel.isHidden = false
             firstChiWordLabel.isHidden = false
+            }
+            
             
             //準備下一個字的練習
             isBackToSpell = false
@@ -2050,8 +2095,13 @@ class NewGameScene: SKScene {
                 
             }
             
-            practice()
+            if gameMode == 1 {
+                
+                reviewWordMode()
+            } else {
             
+                practice()
+            }
             //isFinalGetPoint = false
             
         } else {
@@ -2572,10 +2622,22 @@ class NewGameScene: SKScene {
 
         }
         
+        
+        //在此卡gameMode
+        
+        if gameMode == 1 {
+            
+            practiceNextWord()
+            
+            //刪掉一些不該出現的
+            notifyShowSentence()
+            
+        } else {
+        
         let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
-        
+        }
         //不能拖拉
         
         

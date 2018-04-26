@@ -253,7 +253,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //所有alertView的變數
     var alertBg = UIImageView()
     var alertText = UILabel()
-    var iknowBtn = UIButton()
     var ghostBtn = UIButton()
     var ghost2Btn = UIButton()
     var practiceWordBtn = UIButton()

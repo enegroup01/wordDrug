@@ -104,6 +104,7 @@ class LessonViewController: UIViewController {
     @IBOutlet weak var enterBtn: UIButton!
     let pinkColor = UIColor.init(red: 247/255, green: 127/255, blue: 124/255, alpha: 1)
     var mapNumToReceive = Int()
+   
     
     //被選擇到的音節
     var syllableSets = [[String]()]
@@ -115,8 +116,21 @@ class LessonViewController: UIViewController {
     var mapNum = Int()
     var spotNum = Int()
     var unitNum = Int()
+    var gameMode = Int()
     
-
+    @IBOutlet weak var reviewBtn: UIButton!
+    
+    //所有alertView的變數
+    var alertBg = UIImageView()
+    var alertText = UILabel()
+    var ghostBtn = UIButton()
+    var ghost2Btn = UIButton()
+    var practiceWordBtn = UIButton()
+    var practiceSenBtn = UIButton()
+    var leftBtnClickedImg = UIImageView()
+    var rightBtnClickedImg = UIImageView()
+    let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,6 +164,57 @@ class LessonViewController: UIViewController {
         }
 
         
+        //加入alertView
+        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        ghostBtn.backgroundColor = lightGray
+        ghostBtn.addTarget(self, action: #selector(LessonViewController.removeBtns), for: .touchUpInside)
+        self.view.addSubview(ghostBtn)
+        
+        
+        
+        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        alertBg.image = UIImage(named: "reviewSelectBg.png")
+        self.view.addSubview(alertBg)
+        
+        ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        self.view.addSubview(ghost2Btn)
+        
+        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 28)
+        alertText.textColor = .white
+        alertText.text = "選擇練習模式"
+        alertText.numberOfLines = 0
+        alertText.textAlignment = .center
+        alertText.adjustsFontSizeToFitWidth = true
+        alertBg.addSubview(alertText)
+        
+        
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        
+        practiceWordBtn.setTitle("複習單字", for: .normal)
+        practiceWordBtn.setTitleColor(darkRed, for: .normal)
+        practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
+        self.view.addSubview(practiceWordBtn)
+        
+        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceSenBtn.setTitle("複習句型", for: .normal)
+        practiceSenBtn.setTitleColor(darkRed, for: .normal)
+        practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
+        self.view.addSubview(practiceSenBtn)
+        
+        leftBtnClickedImg.frame = practiceWordBtn.frame
+        leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
+        
+        rightBtnClickedImg.frame = practiceSenBtn.frame
+        rightBtnClickedImg.image = UIImage(named: "rightBtnClickedImg.png")
+        
+        self.view.addSubview(leftBtnClickedImg)
+        self.view.addSubview(rightBtnClickedImg)
+        leftBtnClickedImg.alpha = 0
+        rightBtnClickedImg.alpha = 0
+
+        
         backBtn.frame = CGRect(x: width / 10, y: width / 8, width: 19, height: 31)
         lessonTitleLabel.frame = CGRect(x: width * 5.5 / 7, y: backBtn.frame.minY - 10 * dif, width: 66 , height: 22)
         
@@ -174,9 +239,80 @@ class LessonViewController: UIViewController {
         //thirdLabel.backgroundColor = .yellow
         
         
-        enterBtn.frame = CGRect(x: 0, y: height - 66 * dif, width: width, height: 66 * dif)
+        enterBtn.frame = CGRect(x: width / 2, y: height - 66 * dif, width: width / 2, height: 66 * dif)
+        
+        reviewBtn.frame = CGRect(x: 0, y: height - 66 * dif, width: width / 2, height: 66 * dif)
         
         fullLength.frame = CGRect(x: 0, y: enterBtn.frame.minY, width: width, height: 3)
+        
+        
+        //拉到最前方
+        self.view.bringSubview(toFront: ghostBtn)
+        self.view.bringSubview(toFront: alertBg)
+        self.view.bringSubview(toFront: ghost2Btn)
+        self.view.bringSubview(toFront: practiceWordBtn)
+        self.view.bringSubview(toFront: practiceSenBtn)
+        self.view.bringSubview(toFront: leftBtnClickedImg)
+        self.view.bringSubview(toFront: rightBtnClickedImg)
+        
+        removeBtns()
+
+        
+    }
+    @objc func removeBtns(){
+        
+        ghostBtn.isHidden = true
+        alertBg.isHidden = true
+        ghost2Btn.isHidden = true
+        practiceWordBtn.isHidden = true
+        practiceSenBtn.isHidden = true
+        leftBtnClickedImg.isHidden = true
+        rightBtnClickedImg.isHidden = true
+    }
+    
+    @objc func practiceSen(){
+        print("practice Sen")
+        
+        gameMode = 2
+        
+        UIView.animate(withDuration: 0.06, animations: {[weak self] in
+            
+            self!.rightBtnClickedImg.alpha = 1
+            
+            
+        }) {[weak self] (finished:Bool) in
+            
+            
+            if finished {
+                self!.rightBtnClickedImg.alpha = 0
+                
+            }
+        }
+        
+        
+    }
+    
+    @objc func practiceWord(){
+        print("practice word")
+        
+        gameMode = 1
+        
+        UIView.animate(withDuration: 0.06, animations: {[weak self] in
+            
+            self!.leftBtnClickedImg.alpha = 1
+            
+            
+        }) {[weak self] (finished:Bool) in
+            
+            
+            if finished {
+                self!.leftBtnClickedImg.alpha = 0
+                
+                self?.practiceWordBtn.isEnabled = false
+                self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                
+            }
+        }
         
         
     }
@@ -448,10 +584,24 @@ class LessonViewController: UIViewController {
 
     @IBAction func enterGameClicked(_ sender: Any) {
         
+       gameMode = 0
         enterBtn.isEnabled = false
            performSegue(withIdentifier: "toGameVc", sender: self)
     }
     
+    @IBAction func reviewBtnClicked(_ sender: Any) {
+        
+        
+        ghostBtn.isHidden = false
+        alertBg.isHidden = false
+        ghost2Btn.isHidden = false
+        practiceWordBtn.isHidden = false
+        practiceSenBtn.isHidden = false
+        leftBtnClickedImg.isHidden = false
+        rightBtnClickedImg.isHidden = false
+        
+        
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -460,6 +610,7 @@ class LessonViewController: UIViewController {
             destinationVC.spotNumber = spotNum
             destinationVC.unitNumber = unitNum
             destinationVC.mapNumber = mapNum
+            destinationVC.gameMode = gameMode
             
         }
     }
