@@ -286,6 +286,10 @@ class LessonViewController: UIViewController {
             if finished {
                 self!.rightBtnClickedImg.alpha = 0
                 
+                self?.practiceWordBtn.isEnabled = false
+                self?.practiceSenBtn.isEnabled = false
+                self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                
             }
         }
         
@@ -307,13 +311,21 @@ class LessonViewController: UIViewController {
             
             if finished {
                 self!.leftBtnClickedImg.alpha = 0
-                
+                self?.practiceSenBtn.isEnabled = false
                 self?.practiceWordBtn.isEnabled = false
                 self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 
             }
         }
         
+        
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        practiceSenBtn.isEnabled = true
+        practiceWordBtn.isEnabled = true
+        removeBtns()
         
     }
     
@@ -577,7 +589,6 @@ class LessonViewController: UIViewController {
         secondLabel.attributedText = words[1]
         thirdLabel.attributedText = words[2]
 
-        
         enterBtn.isEnabled = true
         
     }

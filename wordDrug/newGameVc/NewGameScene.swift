@@ -254,6 +254,12 @@ class NewGameScene: SKScene {
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
+         var allUnitSpotNums = [[Int]]()
+    
+    var randomSpots = [Int]()
+    var randomUnits = [Int]()
+    
+    
     override func didMove(to view: SKView) {
         
     
@@ -305,14 +311,82 @@ class NewGameScene: SKScene {
         
         //啟動顯示tagView
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyReadSentence), name: NSNotification.Name("readSentence"), object: nil)
+        
+        //啟動顯示tagView
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyOnlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
 
         
-        //載入各種字
-        loadAllKindsOfWord()
+        //先解決算出wordSequence之後再來讀取所有的字
         
-        //設定畫面
-        setUpScreen()
+        if gameMode == 2 {
         
+            //進入純粹練習句子的func
+            
+            //在此的func都只會執行一次
+            //載入各種字
+            loadAllKindsOfWord()
+            
+            currentWordSequence = 0
+            setUpSentenceScreen()
+            
+        } else if gameMode == 1 {
+       
+            
+            //隨機單字
+            if gameMode == 1 {
+                //在此抓測驗單字的亂數順序
+                
+                
+                for (s,u) in gamePassed!{
+                    
+                    //1. 填入spot上限供亂數選擇
+                    
+                    allUnitSpotNums = [Array<Any>](repeating: [Int](), count: s) as! [[Int]]
+                    
+                    
+                    //填入全部
+                    if s > 0 {
+                        
+                        for i in 0 ..< (s - 1) {
+                            
+                            for n in 0 ..< 10{
+                                
+                                allUnitSpotNums[i].append(n)
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    if u > 0 {
+                        
+                        for i in 0 ..< u {
+                            
+                            allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
+                            
+                        }
+                    }
+                    
+                    print(allUnitSpotNums)
+                    
+                }
+                
+            }
+            
+            //載入各種字
+            loadAllKindsOfWord()
+            //設定畫面
+            setUpScreen()
+            
+            
+        } else if gameMode == 0{
+        
+            //載入各種字
+            loadAllKindsOfWord()
+            //設定畫面
+            setUpScreen()
+        }
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
     }
@@ -320,7 +394,74 @@ class NewGameScene: SKScene {
     //載入各種字
     func loadAllKindsOfWord(){
         
+        
+        //var randomSpot = Int()
+        //var randomUnit = Int()
 
+     
+        
+        
+        
+        
+        
+        if gameMode == 1 {
+            
+            
+            for _ in 0 ..< 3 {
+                
+                let spotIndex = Int(arc4random_uniform(UInt32(allUnitSpotNums.count)))
+                randomSpots.append(spotIndex)
+                
+                let unitCount = allUnitSpotNums[spotIndex].count
+                let unitIndex = Int(arc4random_uniform(UInt32(unitCount)))
+                randomUnits.append(unitIndex)
+                
+                
+                //移除
+                
+                allUnitSpotNums[spotIndex].remove(at: unitIndex)
+                if allUnitSpotNums[spotIndex].count == 0 {
+                    
+                    allUnitSpotNums.remove(at: spotIndex)
+                }
+
+            }
+            
+            print(randomSpots)
+            print(randomUnits)
+        /*
+        randomSpot = Int(arc4random_uniform(UInt32(allUnitSpotNums.count)))
+        
+            
+        let unitCount = allUnitSpotNums[randomSpot].count
+        randomUnit = Int(arc4random_uniform(UInt32(unitCount)))
+        
+        
+        //馬上移除已選到的seq
+        allUnitSpotNums[randomSpot].remove(at: randomUnit)
+        
+        //如果已經移除光了
+        if allUnitSpotNums[randomSpot].count == 0 {
+            
+            allUnitSpotNums.remove(at: randomSpot)
+            
+        }
+        if allUnitSpotNums.count == 0 {
+            
+            //遊戲要結束了
+            print("game over")
+            
+        }
+
+            
+        //改變spotNumber
+            //spotNumber = randomSpot
+            //unitNumber = randomUnit
+            
+            print("changeSpotNum:\(spotNumber)")
+            print("changeUnitNum:\(unitNumber)")
+*/
+        }
         
         //讀取所有錯誤的字供比對
         if let myWrongWordsString = user!["wrongWords"] as! String?{
@@ -381,33 +522,62 @@ class NewGameScene: SKScene {
         }
         
         
-        /*
-         //讀取Bundle裡的文字檔
-         var sentenceFile:String?
-         
-         let sentenceName = "s" + String(mapNumber) + "-" + String(spotNumber + 1)
-         
-         if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
-         do {
-         sentenceFile = try String(contentsOfFile: filepath)
-         let sentences = sentenceFile?.components(separatedBy: "; ")
-         
-         //把字讀取到wordSets裡
-         sentenceSets = sentences!
-         //print(contents)
-         } catch {
-         // contents could not be loaded
-         }
-         } else {
-         // example.txt not found!
-         }
-         */
-        //print(sentenceSets)
+    }
+    
+    
+    @objc func notifyOnlyPracticeSentence(){
         
-        //print(wordSets)
         
     }
     
+    //只做句子練習畫面
+    
+    func setUpSentenceScreen(){
+        
+        var chiBtnDif = CGFloat()
+        
+        switch  height {
+        case 812:
+            chiBtnDif = 0.8
+   
+        case 736:
+            chiBtnDif = 1
+
+        case 667:
+            chiBtnDif = 0.95
+
+        case 568:
+            chiBtnDif = 0.9
+
+        default:
+            chiBtnDif = 0.9
+
+        }
+        
+        //背景
+        makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        
+        makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
+        
+        makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
+        
+        
+        //單字量Label, 這部分是新的
+        makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+    
+        //提示字
+        makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        
+        
+        
+        //send Nc
+         let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
+        
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
+        
+    }
     
     //載入畫面
     func setUpScreen(){
@@ -527,8 +697,6 @@ class NewGameScene: SKScene {
         addChild(rightChiNode)
         
 
-        
-
         //建立三個單字
         
         //firstEngWordLabel.frame = CGRect(x: 187.5 + 375, y: 110, width: 200, height: 80)
@@ -575,16 +743,36 @@ class NewGameScene: SKScene {
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
-        
+        var engWord0 = [String]()
+        var chiWord0 = String()
+        var engWord1 = [String]()
+        var chiWord1 = String()
+        var engWord2 = [String]()
+        var chiWord2 = String()
         
         let quarterCount = wordSets.count / 3
-        let engWord0 = wordSets[currentWordSequence].components(separatedBy: " ")
-        let chiWord0 = wordSets[quarterCount +  currentWordSequence]
-        let engWord1 = wordSets[currentWordSequence + 1].components(separatedBy: " ")
-        let chiWord1 = wordSets [quarterCount +  currentWordSequence + 1]
-        let engWord2 = wordSets[currentWordSequence + 2].components(separatedBy: " ")
-        let chiWord2 = wordSets [quarterCount +  currentWordSequence + 2]
         
+        if gameMode == 1 {
+            
+            
+            //random unit兩個都要放入去抓, 要找正確的地方放
+            
+            engWord0 = wordSets[currentWordSequence].components(separatedBy: " ")
+            chiWord0 = wordSets[quarterCount +  currentWordSequence]
+            engWord1 = wordSets[currentWordSequence + 1].components(separatedBy: " ")
+            chiWord1 = wordSets [quarterCount +  currentWordSequence + 1]
+            engWord2 = wordSets[currentWordSequence + 2].components(separatedBy: " ")
+            chiWord2 = wordSets [quarterCount +  currentWordSequence + 2]
+            
+            
+        } else if gameMode == 0 {
+        engWord0 = wordSets[currentWordSequence].components(separatedBy: " ")
+        chiWord0 = wordSets[quarterCount +  currentWordSequence]
+        engWord1 = wordSets[currentWordSequence + 1].components(separatedBy: " ")
+        chiWord1 = wordSets [quarterCount +  currentWordSequence + 1]
+        engWord2 = wordSets[currentWordSequence + 2].components(separatedBy: " ")
+        chiWord2 = wordSets [quarterCount +  currentWordSequence + 2]
+        }
         
         allThreeEngWordsArray.append(engWord0)
         allThreeEngWordsArray.append(engWord1)
@@ -866,8 +1054,9 @@ class NewGameScene: SKScene {
         
         //抓分數
         if let addScore = notification.userInfo?["addScore"] as? Int{
-            
+            if addScore != 0 {
             countScore(score: addScore)
+            }
         }
         
         isUserInteractionEnabled = false
@@ -924,11 +1113,14 @@ class NewGameScene: SKScene {
     
     @objc func addScore(_ notification:NSNotification){
         
+        
+        print("enter addScore")
+        
         if let addScore = notification.userInfo?["addScore"] as? Int{
-            
+            if addScore != 0 {
             countScore(score: addScore)
         }
-        
+        }
         //有finalPoints就是要啟動倒數Timer
         if let finalPoints = notification.userInfo?["finalPoints"] as? Int{
             
@@ -1246,7 +1438,7 @@ class NewGameScene: SKScene {
         //isDragAndPlayEnable = false
         
         let scoreToPass:[String:Int] = ["Score":score]
-
+        print("score:\(score)")
         countScoreTimer = Timer.scheduledTimer(timeInterval: 0.005, target: self, selector: #selector(NewGameScene.startCounting), userInfo: scoreToPass, repeats: true)
         
         
@@ -1255,20 +1447,24 @@ class NewGameScene: SKScene {
 
     @objc func startCounting(){
 
-        
+        print("1")
         if let userInfo = countScoreTimer.userInfo as? Dictionary<String, Int>{
+            print("2")
             if let scoreToAdd = userInfo["Score"]{
+                print("3")
+                
                 let scoreLabel = findLabelNode(name: "scoreLabel")
               
-                let size = CGSize(width: 100, height: 100)
+                //let size = CGSize(width: 100, height: 100)
         
-                
+                print("scoreAdded:\(scoreAdded) and score:\(scoreToAdd)")
                 if scoreAdded < scoreToAdd {
+                print("4")
                 
                 scoreAdded += 10
                     scoreLabel.text = String(Int(scoreLabel.text!)! + 10)
                 } else {
-                    
+                    print("5")
                     scoreAdded = 0
                     countScoreTimer.invalidate()
         
@@ -2061,16 +2257,8 @@ class NewGameScene: SKScene {
             shownWords.removeAll(keepingCapacity: false)
             wordEntered.removeAll(keepingCapacity: false)
             
-            //卡
-            if gameMode == 1 {
-                
-                
-            } else {
-            firstEngWordLabel.isHidden = false
-            firstChiWordLabel.isHidden = false
-            }
             
-            
+
             //準備下一個字的練習
             isBackToSpell = false
             
@@ -2095,16 +2283,33 @@ class NewGameScene: SKScene {
                 
             }
             
+            //卡
             if gameMode == 1 {
                 
                 reviewWordMode()
-            } else {
-            
+                
+                
+            } else if gameMode == 2 {
+                
+                print("practice next sentence")
+                
+                //send Nc
+     
+                let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
+                
+                
+            } else if gameMode == 0{
+                firstEngWordLabel.isHidden = false
+                firstChiWordLabel.isHidden = false
                 practice()
             }
             //isFinalGetPoint = false
             
         } else {
+            //三個字以練習完
+            
             
             //抓三個單字的狀態 + 分數
             lineNode.removeAllActions()

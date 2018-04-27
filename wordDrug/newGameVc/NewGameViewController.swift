@@ -23,6 +23,7 @@ let timesUpKey = "timesUp"
 let showTagKey = "showTag"
 let readyToReadSentenceKey = "readyToReadSentence"
 let readSentenceKey = "readSentence"
+let onlyPracticeSentenceKey = "onlyPracticeSentence"
 
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
@@ -391,6 +392,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //準備口試句子
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.readSentence), name: NSNotification.Name("readSentence"), object: nil)
         
+        
+        //接收練習句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.onlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
+        
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
 
@@ -594,8 +599,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recogTextLabel.isHidden = true
         
         //回復recordBtn
+        if gameMode == 0 {
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         //recordBtn.isHidden = true  這應該不用
+        }
         
         //輸入重置
         sentenceLabel.text = ""
@@ -1408,28 +1415,83 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    @objc func onlyPracticeSentence(_ notification: NSNotification){
+        
+        if let wordSeq = notification.userInfo?["wordSequence"] as? Int {
+            //設訂發音的單字
+            
+            wordSequenceToReceive = String(wordSeq)
+        }
+        
+        //做句子
+        makeSentence()
+
+    }
+    
+    
+    
     //做句子, 傳送nc去發音
     func makeSentence(){
         
-        
+
         //英文句子
         sentence = sentenceSets[Int(wordSequenceToReceive)!]
         let halfCount = sentenceSets.count / 2
         let chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
         
-        
         //顯示句子文字
-        sentenceLabel.text = sentence
-        chiSentenceLabel.text = chiSentence
         
+        if gameMode == 2 {
+            
+   
+            
+            //無用的數字為了啟動NC而宣告
+            let finalPoints = 0
+            let score = 0
+            
+            //製作tags
+            sentenceTag = sentence.components(separatedBy: " ")
+            
+            sentenceTag.shuffled()
+            
+            for i in 0 ..< sentenceTag.count{
+                
+                tagView.addTag(sentenceTag[i] + " " + String(i))
+                
+            }
+            
+            //準備選擇題
+            sentenceLabel.text = ""
+            
+            //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數）
+            let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
+            
+            //隱藏輸入字
+            recogTextLabel.text = ""
+            
+            //顯示出tag
+            tagView.isHidden = false
+            
+            //避免再次產生hint
+            isCheckingSentence = false
+            
+        } else{
+            
+            sentenceLabel.text = sentence
+            
+            //接著要辨認句子, 用此來讓delegate send NC給gameScene
+            
+            isCheckingSentence = true
+        }
+
+        
+        chiSentenceLabel.text = chiSentence
         
         //句子發音
         synWord = sentence
    
-        
-        //接著要辨認句子, 用此來讓delegate send NC給gameScene
-        isCheckingSentence = true
-        
         //對答案用
         wordToReceive = sentence
         
@@ -1442,14 +1504,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //改成小寫
         wordToReceive = wordToReceive.lowercased()
         
-       
         //準備練習句子
         //顯示按鈕, 顯示label
 
         //回復錄音輸入的單字或句子
         wordRecorded = String()
         
-
         synPronounce()
     }
     
