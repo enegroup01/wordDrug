@@ -237,15 +237,11 @@ class NewGameScene: SKScene {
     var allThreeChiWords = [String]()
     var allThreeEngWords = [String]()
 
-
-    
     //控制是否為第二次聽考
     var isBackToSpell = false
     
     var countScoreTimer = Timer()
     var answerTime = 0
-    
-
     
     //紀錄已加過的分數
     var scoreAdded = Int()
@@ -256,11 +252,10 @@ class NewGameScene: SKScene {
     
     //記錄我的最愛以及錯誤單字
     
-    
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
-         var allUnitSpotNums = [[Int]]()
+    var allUnitSpotNums = [[Int]]()
     
     var randomSpots = [Int]()
     var randomUnits = [Int]()
@@ -268,7 +263,9 @@ class NewGameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-
+       
+        gamePassed = [1:2]
+        //讀取字數還是有錯的 
         
         //啟動離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -298,7 +295,7 @@ class NewGameScene: SKScene {
         
         
         //計分
-                NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.addScore), name: NSNotification.Name("addScore"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.addScore), name: NSNotification.Name("addScore"), object: nil)
         
       //接受倒數
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.startCountDown), name: NSNotification.Name("startCountDown"), object: nil)
@@ -324,8 +321,6 @@ class NewGameScene: SKScene {
         
         //先解決算出wordSequence之後再來讀取所有的字
         
-        
-        
         if gameMode == 2 {
         
             //進入純粹練習句子的func
@@ -342,18 +337,17 @@ class NewGameScene: SKScene {
             //做所有亂數可能性的array
             
             //隨機單字
-            if gameMode == 1 {
                 //在此抓測驗單字的亂數順序
                 
                 for (s,u) in gamePassed!{
                     
                     //1. 填入spot上限供亂數選擇
-                    
-                    allUnitSpotNums = [Array<Any>](repeating: [Int](), count: s) as! [[Int]]
-                    
+           
                     
                     //填入全部
                     if s > 0 {
+                        
+                        allUnitSpotNums = [Array<Any>](repeating: [Int](), count: s) as! [[Int]]
                         
                         for i in 0 ..< (s - 1) {
                             
@@ -365,22 +359,37 @@ class NewGameScene: SKScene {
                             
                         }
                         
-                    }
-                    
-                    if u > 0 {
-                        
-                        for i in 0 ..< u {
+                        //填入殘值
+                        if u > 0 {
                             
-                            allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
-                            
+                            for i in 0 ..< u * 3 {
+                                
+                                allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
+                                
+                            }
                         }
+
+                        
+                    } else {
+                        
+                        allUnitSpotNums = [Array<Any>](repeating: [Int](), count: 1) as! [[Int]]
+                        //填入殘值
+                        if u > 0 {
+                            
+                            for i in 0 ..< u * 3 {
+                                
+                                allUnitSpotNums[0].append(i)
+                                
+                            }
+                        }
+                        
+                        
                     }
                     
-                    print(allUnitSpotNums)
                     
                 }
                 
-            }
+            
             
             //載入各種字
             loadAllKindsOfWord()
@@ -413,12 +422,15 @@ class NewGameScene: SKScene {
             
             for _ in 0 ..< 3 {
                 
+                
+                //新增目前能選擇的spotIndex
                 let spotIndex = Int(arc4random_uniform(UInt32(allUnitSpotNums.count)))
                 randomSpots.append(spotIndex)
                 
+                //從目前能選的spotIndex中選擇能選的unitIndex
                 let unitCount = allUnitSpotNums[spotIndex].count
                 let unitIndex = Int(arc4random_uniform(UInt32(unitCount)))
-                randomUnits.append(unitIndex)
+                randomUnits.append(allUnitSpotNums[spotIndex][unitIndex])
                 
                 
                 //移除
@@ -432,8 +444,8 @@ class NewGameScene: SKScene {
 
             }
             
-         //   print(randomSpots)
-         //   print(randomUnits)
+            //print(randomSpots)
+            //print(randomUnits)
         /*
         randomSpot = Int(arc4random_uniform(UInt32(allUnitSpotNums.count)))
         
@@ -536,7 +548,8 @@ class NewGameScene: SKScene {
             for (s,_) in gamePassed!{
                 
                 //讀取已完整的所有字集
-                for i in 0 ..< (s){
+                
+                for i in 0 ..< (s + 1){
                     
                     var wordFile:String?
                     //前面的1代表第一張地圖
@@ -561,6 +574,8 @@ class NewGameScene: SKScene {
                     
                 }
                 
+                
+                /*
                 //再來讀取殘餘的英文字
                 var wordFile:String?
                 
@@ -583,7 +598,7 @@ class NewGameScene: SKScene {
                     // example.txt not found!
                 }
                 
-                
+                */
             }
 
             print("allWordSets:\(allWordSets.count)")
@@ -860,7 +875,6 @@ class NewGameScene: SKScene {
             
             allThreeEngWords.append(word)
         }
-        
         
         //append中文字
         allThreeChiWords.append(chiWord0)
@@ -2486,8 +2500,74 @@ class NewGameScene: SKScene {
             //確認allunitspotnums有無用完
             if allUnitSpotNums.count == 0 {
                 
-                print("練完了")
+            
+                //練完的機制要先確認這次loadAllKindsOfWord的三個字是否已經用完
+                if currentPracticeSequence == 2 {
+                    
+                        print("練完了")
+                    
+                } else {
+                    
+                    print("繼續練")
+                    
+                    //把倒數線回復並隱藏
+                    lineNode.removeAllActions()
+                    lineNode.size = CGSize(width: 750, height: 5)
+                    lineNode.alpha = 0
+                    
+                    //順序加一
+                    
+                    if currentPracticeSequence == 2 {
+                        
+                        currentPracticeSequence = 0
+                    } else {
+                        
+                        currentPracticeSequence += 1
+                        
+                    }
+                    shownWords.removeAll(keepingCapacity: false)
+                    wordEntered.removeAll(keepingCapacity: false)
+                    
+                    
+                    
+                    //準備下一個字的練習
+                    isBackToSpell = false
+                    
+                    findImageNode(name: "recogWordsBg").alpha = 0
+                    
+                    //選項alpha變淡+移除選項字
+                    for node in children{
+                        
+                        if (node.name?.contains("filledButton"))!{
+                            changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                            
+                        }
+                        
+                        if (node.name?.contains("emptyButton"))!{
+                            changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
+                        }
+                        
+                        
+                        if (node.name?.contains("Sel"))!{
+                            node.removeFromParent()
+                        }
+                        
+                    }
+                    
+                    if currentPracticeSequence == 0 {
+                        
+                        loadAllKindsOfWord()
+                        makeWords()
+                        
+                    } else {
+                        reviewWordMode()
+                    }
+
+                    
+                    
+                }
                 
+
             } else {
                 print("繼續練")
                 
