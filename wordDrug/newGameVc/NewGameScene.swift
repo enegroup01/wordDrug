@@ -263,9 +263,7 @@ class NewGameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-       
-        gamePassed = [1:2]
-        //讀取字數還是有錯的 
+        //讀取字數還是有錯的
         
         //啟動離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -286,7 +284,6 @@ class NewGameScene: SKScene {
         
         //接收下個單字
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.receiveCorrectPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
-        
         
         
         //重新寫NC
@@ -347,11 +344,11 @@ class NewGameScene: SKScene {
                     //填入全部
                     if s > 0 {
                         
-                        allUnitSpotNums = [Array<Any>](repeating: [Int](), count: s) as! [[Int]]
+                        allUnitSpotNums = [Array<Any>](repeating: [Int](), count: s + 1) as! [[Int]]
                         
-                        for i in 0 ..< (s - 1) {
+                        for i in 0 ..< (s) {
                             
-                            for n in 0 ..< 10{
+                            for n in 0 ..< 30{
                                 
                                 allUnitSpotNums[i].append(n)
                                 
@@ -367,8 +364,14 @@ class NewGameScene: SKScene {
                                 allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
                                 
                             }
+                        } else {
+                            
+                            
+                            allUnitSpotNums.remove(at: allUnitSpotNums.count - 1)
+                            
                         }
 
+                        print(allUnitSpotNums)
                         
                     } else {
                         
@@ -514,6 +517,7 @@ class NewGameScene: SKScene {
             break
         }
         
+        //音標還沒寫
         syllables = syllableSets[spotNumber]
         
         
