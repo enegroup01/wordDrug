@@ -2468,28 +2468,10 @@ class NewGameScene: SKScene {
                 
             }
             
-            //卡
-            if gameMode == 1 {
-                
-                reviewWordMode()
-                
-                
-            } else if gameMode == 2 {
-                
-                print("practice next sentence")
-                
-                //send Nc
-     
-                let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
-                
-                
-            } else if gameMode == 0{
                 firstEngWordLabel.isHidden = false
                 firstChiWordLabel.isHidden = false
                 practice()
-            }
+            
             //isFinalGetPoint = false
             
         } else {
@@ -2646,6 +2628,25 @@ class NewGameScene: SKScene {
                 }
             }
    
+            
+        } else if gameMode == 2 {
+            //只練習句子
+            
+                print("practice next sentence")
+                
+                //把倒數線回復並隱藏
+                lineNode.removeAllActions()
+                lineNode.size = CGSize(width: 750, height: 5)
+                lineNode.alpha = 0
+                
+                //send Nc
+            
+            /*
+                let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
+              */
+ 
             
         }
         

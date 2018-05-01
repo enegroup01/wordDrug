@@ -234,6 +234,7 @@
 		AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC122088FB4F003A61E9 /* lessonProgress.png */; };
 		AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC142088FB58003A61E9 /* lessonFullLength.png */; };
 		AAA0E10320982A3D007148EB /* senBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA0E10220982A3D007148EB /* senBlock.png */; };
+		AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA0E10420987FF5007148EB /* wrongSenBlock.png */; };
 		AAA591732064C543006CC5A6 /* midCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA591702064C542006CC5A6 /* midCircle.png */; };
 		AAA591742064C543006CC5A6 /* inCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA591712064C543006CC5A6 /* inCircle.png */; };
 		AAA591752064C543006CC5A6 /* outCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA591722064C543006CC5A6 /* outCircle.png */; };
@@ -493,6 +494,7 @@
 		AA9AFC122088FB4F003A61E9 /* lessonProgress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonProgress.png; sourceTree = "<group>"; };
 		AA9AFC142088FB58003A61E9 /* lessonFullLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonFullLength.png; sourceTree = "<group>"; };
 		AAA0E10220982A3D007148EB /* senBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senBlock.png; sourceTree = "<group>"; };
+		AAA0E10420987FF5007148EB /* wrongSenBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongSenBlock.png; sourceTree = "<group>"; };
 		AAA591702064C542006CC5A6 /* midCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = midCircle.png; sourceTree = "<group>"; };
 		AAA591712064C543006CC5A6 /* inCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inCircle.png; sourceTree = "<group>"; };
 		AAA591722064C543006CC5A6 /* outCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outCircle.png; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
 				AAA0E10220982A3D007148EB /* senBlock.png */,
+				AAA0E10420987FF5007148EB /* wrongSenBlock.png */,
 				AA98E6042085CBC3001100BA /* leftRoundedSqr.png */,
 				AA98E6032085CBC2001100BA /* rightRoundedSqr.png */,
 				AA4E2E71207CCF7A00AAACC3 /* pointImg.png */,
@@ -1183,6 +1186,7 @@
 				AA648EB8207CEA05003ACD07 /* s5-14.txt in Resources */,
 				AA648E6F207CEA05003ACD07 /* 3-15.txt in Resources */,
 				AA648EEA207CEA05003ACD07 /* s1-4.txt in Resources */,
+				AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */,
 				AA648E73207CEA05003ACD07 /* s5-13.txt in Resources */,
 				AA648E8B207CEA05003ACD07 /* s3-2.txt in Resources */,
 				AA648ED3207CEA05003ACD07 /* s2-13.txt in Resources */,
