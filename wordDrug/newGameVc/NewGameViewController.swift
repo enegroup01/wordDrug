@@ -64,6 +64,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //暫時使用的句子
     var sentenceSets = [String]()
     
+     var allSentenceSets = [[String]]()
+    
     //音波用的變數
     var timer:Timer?
     var change:CGFloat = 0.01
@@ -175,6 +177,28 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     let relevantWords:[[String:[String]]] = [["and":["n","end","in"]], ["ant":["aunt", "and"]], ["ham":["pam"]], ["age":["h"]], ["base":["pace", "bass"]], ["bake":["bank"]], ["aim":["m", "am", "game", "i am", "came"]], ["yam":["yeah", "I'm", "game", "damn"]], ["cause":["calls", "plus", "cost", "course", "cocks", "cox"]], ["pause":["paul's", "pose", "pass"]], ["be":["b", "bit", "been", "p"]], ["beneath":["the neath"]], ["bass":["based", "base", "best"]], ["bag":["back"]], ["badge":["batch", "bage"]], ["bin":["pen", "been"]], ["as":["s"]], ["dawn":["don", "done", "dan"]], ["draw":["drawl", "jaw"]], ["bit":["but", "beat"]], ["by":["bye", "buy"]], ["bomb":["mom"]], ["bond":["pond", "and on"]], ["crab":["crap", "cram"]], ["bee":["b", "bg", "be", "p"]], ["employ":["i love ploy", "employee"]], ["ear":["here"]], ["few":["feel"]], ["sea":["c", "see", "sing"]], ["end":["and"]], ["hen":["hand", "ham"]], ["pet":["pat", "at"]], ["fog":["fuck"]], ["dew":["do you", "due", "do"]], ["lift":["left"]], ["donkey":["thank u"]], ["fill":["feel"]], ["grade":["great"]], ["grape":["greatg"]], ["grass":["quest"]], ["hill":["he'll"]], ["his":["yes", "he's"]], ["kid":["can't"]], ["lid":["lead", "let"]], ["high":["hi"]], ["miss":["mess", "bass"]], ["sir":["siri"]], ["ill":["io", "yell"]], ["lip":["that", "nap", "leap"]], ["leg":["lag"]], ["less":["les"]], ["kneepad":["hey pat", "we pack", "kneepad", "the pad"]], ["ring":["rain", "rheem"]], ["king":["teen", "10"]], ["ink":["inc."]], ["pin":["pain", "penn"]], ["did":["dead", "dig"]], ["dig":["dick"]], ["rhino":["right now"]], ["mind":["mine"]], ["bone":["born"]], ["tone":["porn", "turn"]], ["omit":["almonds", "almond", "i meet", "i'll meet", "a mitt"]], ["of":["off"]], ["offspring":["of spring"]], ["old":["owed"]], ["cold":["code"]], ["bow":["wow"]], ["sit":["set"]], ["sin":["send", "seen"]], ["red":["read", "rat"]], ["pig":["pick"]], ["very":["barry"]], ["carry":["carrie"]], ["ski":["schey"]], ["skill":["scale"]], ["tick":["take"]], ["tin":["10", "ten", "teen"]], ["fifty":["50"]], ["sixty":["60"]], ["to":["2", "two"]], ["rub":["rob"]], ["bun":["bon"]], ["gun":["gone"]], ["cup":["prop", "cop"]], ["drum":["john", "from"]], ["dumb":["dom", "damn"]], ["gain":["can", "game", "dan"]], ["cut":["caught"]], ["nut":["not", "nuts", "that's"]], ["burn":["born"]], ["surf":["sorry", "serve"]], ["sad":["said"]], ["accept":["a sept", "except"]], ["principle":["principal"]], ["atom":["adam", "at tom", "at ten", "at them"]], ["far":["fart"]], ["lawyer":["law yer", "law your"]], ["seesaw":["cecil"]], ["mat":["matt", "that"]], ["May":["mei", "main"]], ["gram":["graham"]], ["jam":["jan"]], ["pan":["pam"]], ["behave":["behalf", "we have"]], ["mass":["mas"]], ["haunted":["hunted"]], ["lack":["leg"]], ["neck":["nick", "mac"]], ["niece":["nice"]], ["column":["caller", "call him"]], ["colleague":["cardi", "kolic", "connie"]], ["wet":["what"]], ["media":["pedia"]], ["done":["don", "dan"]], ["dollar":["daughter"]], ["dry":["trying"]], ["bean":["being", "been"]], ["tea":["t", "tee"]], ["pen":["pam", "pan"]], ["lend":["land"]], ["sight":["site"]], ["hit":["hits"]], ["hippo":["hipple", "people"]], ["goal":["call"]], ["loaf":["love"]], ["sing":["seen", "same"]], ["thing":["fin", "fan", "thin"]], ["will":["we'll"]], ["till":["teal"]], ["mill":["mail", "male", "meal"]], ["win":["when", "wayne"]], ["wing":["wayne", "win", "when"]], ["among":["a man", "i'm on"]], ["iron":["i am"]], ["neon":["young"]], ["ours":["hours"]], ["rot":["rat"]], ["pot":["part"]], ["born":["porn"]], ["door":["don't worry", "dori"]], ["cow":["cal"]], ["town":["towel"]], ["prize":["price"]], ["marry":["merry", "mary"]], ["both":["bath", "ballf"]], ["sun":["son"]], ["hide":["height", "hi"]], ["due":["do you", "do", "dew", "dude"]], ["June":["john", "joan"]], ["rule":["drool"]], ["rude":["dude"]], ["gesture":["chester", "just trailer", "just your", "juster"]], ["eighty":["80", "eddie"]], ["thumb":["foam", "psalm"]], ["ketchup":["catch up"]], ["main":["man", "mane"]], ["band":["and"]], ["ladder":["leather", "other"]], ["daddy":["that he"]], ["whale":["well", "we'll"]], ["burst":["first"]], ["lamb":["let", "land"]], ["climate":["climb at", "climat"]], ["piece":["peace"]], ["place":["please", "play's"]], ["rat":["got", "rhett"]], ["battle":["that'll"]], ["drawer":["droller"]], ["autumn":["i'll touch", "alton"]], ["way":["we"]], ["liter":["litter", "letter", "later"]], ["ten":["pam", "can", "tin", "10"]], ["tent":["pant"]], ["deer":["beer", "dear"]], ["grey":["gray"]], ["obey":["i'll be"]], ["bucket":["buckets"]], ["tempo":["temple"]], ["nose":["knows"]], ["role":["roll", "raw"]], ["hire":["higher"]], ["skirt":["scarred"]], ["thirty":["30"]], ["bowling":["morning", "welding"]], ["ceiling":["sitting"]], ["fork":["fort"]], ["form":["foreign"]], ["more":["morning"]], ["fool":["for"]], ["aloud":["allowed"]], ["parrot":["pirate"]], ["ninety":["nighty", "90"]], ["quiz":["chris", "please"]], ["path":["pat", "pass"]], ["than":["then", "van"]], ["shoe":["she'll", "sure"]], ["gate":["kate"]], ["hate":["eight"]], ["hang":["hannah", "hand", "i am", "ham"]], ["sand":["send"]], ["admire":["at the meyer", "edmeyer"]], ["advise":["advice", "a device"]], ["whole":["call", "hall"]], ["whose":["who's", "who is"]], ["wheel":["we'll", "we"]], ["tall":["call", "paul"]], ["pair":["prayer"]], ["ease":["is"]], ["crayon":["korean", "quinn"]], ["dock":["talk", "dark"]], ["faucet":["fossett"]], ["itself":["it's self"]], ["race":["raise"]], ["knight":["night", "nights"]], ["rose":["roast"]], ["toad":["told", "towed"]], ["fond":["found"]], ["monk":["monarch", "month"]], ["noon":["no", "no one"]], ["move":["movie"]], ["foul":["fall", "follow"]], ["bounce":["taos"]], ["male":["mail"]], ["shut":["shot"]], ["bathe":["beef"]], ["badminton":["that minton", "abington", "babington"]], ["naughty":["knotty"]], ["granddaughter":["when dollar", "where daughter", "when daughter"]], ["twice":["pies"]], ["sail":["sale"]], ["tail":["pale"]], ["star":["*", "start"]], ["trial":["kyle", "child", "cheil"]], ["dial":["i'll", "kyle"]], ["coin":["calling"]], ["thin":["then", "fin"]], ["maximum":["messy mom"]], ["knee":["me"]], ["owner":["almost there", "on their"]], ["sell":["sale", "cell"]], ["leaf":["leave"]], ["flour":["flower"]], ["root":["route"]], ["blow":["hello", "below"]], ["bowl":["ball"]], ["grow":["grill", "roll"]], ["railroad":["rail road"]], ["raincoat":["wrinkled"]], ["alone":["along"]], ["mole":["ball", "more", "mall"]], ["hose":["house", "holes"]], ["word":["where"]], ["wedding":["waiting"]], ["thirtieth":["30th"]], ["twirl":["pearl", "twhirl", "thorough"]], ["ego":["eagle"]], ["name":["ma'am"]], ["ninth":["knife", "nice", "mines"]], ["shall":["sure", "scholl", "shell"]], ["six":["6"]], ["curtain":["carton"]], ["lead":["bead", "dead", "did"]], ["angel":["angil"]], ["need":["me"]], ["seem":["seeing", "same"]], ["pound":["pilot", "now"]], ["forty":["40"]], ["room":["ram"]], ["soon":["so in", "sean"]], ["ride":["right"]], ["rise":["lies", "rice"]], ["low":["no", "loel", "lol"]], ["own":["on", "all"]], ["know":["no"]], ["ruler":["reuther"]], ["their":["there"]], ["pale":["pio"]], ["race":["raise"]], ["plain":["plane"]], ["raise":["race"]], ["buy":["bye", "by"]], ["garden":["pardon"]], ["kilogram":["program"]], ["necklace":["nicolas"]], ["seek":["see"]], ["tool":["cool", "pool"]], ["wood":["would"]], ["woods":["what's"]], ["gym":["jane", "james", "jim", "jean", "gen"]], ["north":["no wife"]], ["row":["roll", "raw"]], ["fence":["sence", "sense", "thanks"]], ["deaf":["-", "def"]], ["tangerine":["thank you rain"]], ["beam":["boehm", "been"]], ["cent":["sent"]], ["thick":["fake", "sick", "fick"]], ["thief":["fief"]], ["safe":["save"]], ["shine":["shall i"]], ["childish":["ciao dish"]], ["guard":["god"]], ["wife":["weiss"]], ["sting":["stain", "steam"]], ["yourself":["your self"]], ["yourselves":["your selves"]], ["invent":["event"]], ["since":["sence", "scenes", "sense", "sings"]], ["sincere":["since year", "since you"]], ["tear":["cheer"]], ["boost":["post"]], ["goose":["close"]], ["train":["chain", "friend"]], ["waist":["waste"]], ["stair":["stare"]], ["twelfth":["12th"]], ["cellphone":["cell phone"]], ["many":["manny", "manning"]], ["planner":["planer"]], ["passenger":["messenger"]], ["alike":["i like"]], ["alive":["i life", "a life", "life"]], ["narrow":["nero", "natural"]], ["ground":["grounded", "grout"]], ["shore":["sure"]], ["spoon":["spohn", "splinter"]], ["crust":["quest", "cost", "cross", "crossed"]], ["eleven":["11"]], ["were":["where"]], ["daredevil":["there devil"]], ["pillow":["pelo"]], ["chin":["chain"]], ["stray":["straight"]], ["playground": ["play ground"]], ["write":["right"]], ["spend":["spand"]], ["yellow":["hello"]], ["still":["steel"]], ["tenth":["10", "10th"]], ["twenty":["20"]], ["restroom":["restaurant"]], ["eager":["either"]], ["omnipresent":["omni present", "i'm the present"]], ["scan":["scam"]], ["dazzle":["diesel"]], ["barber":["bubber", "barbara"]], ["armchair":["i'm chair", "arm chair"]], ["bed":["bad", "that"]], ["bedding":["heading", "betting"]], ["tailor":["paid her", "pedro", "taylor", "tater"]], ["debt":["that"]], ["doubtful":["duffel"]], ["amend":["amended"]], ["cable":["table"]], ["careless":["care less", "kelis"]], ["bitter":["peter"]], ["hear":["here"]], ["weary":["wearing"]], ["hobby":["abi", "happy"]], ["display":["let's play"]], ["dismiss":["this mess"]], ["cycle":["psycho"]], ["watermelon":["what a melon"]], ["laugh":["left"]], ["numb":["nom", "mom", "num", "nam"]], ["bomb":["mom"]], ["comb":["calm"]], ["humid":["you meant"]], ["assign":["a sign"]], ["housework":["how's work"]], ["noun":["known", "now"]], ["exist":["it's sixth"]], ["vest":["best"]], ["fist":["thirst"]], ["Walkman":["look man"]], ["strong":["stronger"]], ["young":["john"]], ["lung":["lawn", "loan", "lon"]], ["slang":["slam"]], ["taxi":["taxie"]], ["calm":["come"]], ["foreign":["flooring", "forane"]], ["golf":["cough"]], ["typhoon":["iphone"]], ["miner":["minor"]], ["microwave":["michael way"]], ["hound":["hi loved", "how", "hell", "how old"]], ["mud":["martha"]], ["mudslide":["must light", "mud slide", "most light"]], ["stove":["stealth"]], ["meat":["meet"]], ["least":["beast"]], ["kettle":["cuddle", "cattle"]], ["swan":["suong"]], ["cattle":["tattle"]], ["decide":["decided"]], ["carpet":["corporate"]], ["cartoon":["carton"]], ["course":["coris"]], ["balloon":["but when"]], ["fifteen":["15"]], ["fifteenth":["15th"]], ["yarn":["john", "jan"]], ["bookcase":["book case", "bouquets"]], ["manner":["mandor"]], ["clerk":["bonarck", "croak", "craig", "choleric"]], ["think":["thank", "fin"]], ["fourteen":["14"]], ["fourteenth":["14th"]], ["shorten":["sorry"]], ["four":["fort", "4", "for"]], ["fancy":["thanks he"]], ["blanket":["blankets"]], ["desert":["dessert"]], ["kangaroo":["bangaru"]], ["sidewalk":["so i walk"]], ["nineteen":["19"]], ["nineteenth":["19th"]], ["boast":["post"]], ["platform":["my phone"]], ["kindergarten":["can you gotten", "can you garden"]], ["steal":["steel"]], ["stream":["straight"]], ["dozen":["doesn't", "does"]], ["woolly":["hooley"]], ["decorate":["the correct"]], ["seventeen":["17"]], ["sleepover":["sleep over"]], ["wound":["warned", "owned", "wind", "orland"]], ["entrance":["entress"]], ["sixteen":["six team", "16"]], ["sixteenth":["16th"]], ["altogether":["i'll together"]], ["factory":["factoring"]], ["mourn":["morning"]], ["dough":["door", "dough"]], ["doughnut":["donut", "donuts", "doughnuts"]], ["medal":["metal", "middle"]], ["alright":["all right"]], ["evening":["evelyn"]], ["gentleman":["gentlemen"]], ["meaning":["minute", "minden"]], ["honor":["partner"]], ["forehead":["for head"]], ["icecream":["ice cream"]], ["succeed":["secede"]], ["thirteen":["13"]], ["thirteenth":["13th"]], ["color":["caller"]], ["honor":["other", "on their"]], ["eighteen":["18"]], ["eighteenth":["18th"]], ["influence":["inference"]], ["error":["eric"]], ["sightseeing":["sizing", "site seeing", "sight seeing"]], ["sailor":["saito", "seller", "seiter"]], ["weekend":["we can", "we can't"]], ["oven":["arvin", "alvin"]], ["river":["reverb"]], ["head":["had"]], ["seventy":["70"]], ["seventh":["7th"]], ["steak":["stick", "stuck"]], ["pleasure":["plazier"]], ["breath":["breast"]], ["breathe":["brief", "breeze", "breve"]], ["brand":["brenda"]], ["bet":["but"]], ["bettor":["better"]], ["barn":["born"]], ["ban":["bam"]], ["concern":["concerned"]], ["wear":["where"]], ["whether":["weather"]], ["sweater":["sweeter", "spider"]], ["pear":["pair"]], ["sudden":["southern"]], ["awaken":["we can"]], ["aware":["where"]], ["ban":["been", "bam", "bang", "ben"]], ["bang":["banging"]], ["bar":["art", "barley", "bari"]], ["bargain":["oregon"]], ["barn":["on", "porn"]], ["bleed":["plead", "believe it", "believe", "belief"]], ["breast":["rest"]], ["marble":["mobile", "moble"]]]
     
+    
+    @IBOutlet weak var sen1Btn: UIButton!
+    
+    @IBOutlet weak var sen2Btn: UIButton!
+    
+    @IBOutlet weak var sen3Btn: UIButton!
+    
+    @IBOutlet weak var sen4Btn: UIButton!
+    
+    
+    var allUnitSpotNums = [[Int]]()
+    
+    var randomSpots = [Int]()
+    var randomUnits = [Int]()
+    
+    
+    var allRandomSens = [[Int:Int]]()
+    
+            var allBtns = [UIButton]()
+    
+    var correctRandom = Int()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -197,6 +221,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         firstWordBtn.isEnabled = false
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
+        
+        sen1Btn.isHidden = true
+        sen2Btn.isHidden = true
+        sen3Btn.isHidden = true
+        sen4Btn.isHidden = true
+        
  
         var dif = CGFloat()
         var senLabelHeightDif = CGFloat()
@@ -404,6 +434,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //讀取Bundle裡的句子
         var sentenceFile:String?
         
+        
+        if gameMode == 0 {
+        
+        
         let sentenceName = "s" + String(mapNumber + 1) + "-" + String(spotNumber + 1)
         
         if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
@@ -422,6 +456,109 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             // example.txt not found!
             print("txt can't be found")
         }
+        } else if gameMode == 2 {
+            
+            
+            //隨機單字
+            //在此抓測驗單字的亂數順序
+            
+            for (s,u) in gamePassed!{
+                
+                //1. 填入spot上限供亂數選擇
+                
+                
+                //填入全部
+                if s > 0 {
+                    
+                    allUnitSpotNums = [Array<Any>](repeating: [Int](), count: s + 1) as! [[Int]]
+                    
+                    for i in 0 ..< (s) {
+                        
+                        for n in 0 ..< 30{
+                            
+                            allUnitSpotNums[i].append(n)
+                            
+                        }
+                        
+                    }
+                    
+                    //填入殘值
+                    if u > 0 {
+                        
+                        for i in 0 ..< u * 3 {
+                            
+                            allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
+                            
+                        }
+                    } else {
+                        
+                        
+                        allUnitSpotNums.remove(at: allUnitSpotNums.count - 1)
+                        
+                    }
+                    
+                    print(allUnitSpotNums)
+                    
+                } else {
+                    
+                    allUnitSpotNums = [Array<Any>](repeating: [Int](), count: 1) as! [[Int]]
+                    //填入殘值
+                    if u > 0 {
+                        
+                        for i in 0 ..< u * 3 {
+                            
+                            allUnitSpotNums[0].append(i)
+                            
+                        }
+                    }
+                    
+                    
+                }
+                
+                
+            }
+            
+            
+            
+            
+            //Part 2. 讀取所有句子
+            
+            for (s,_) in gamePassed!{
+                
+                //讀取已完整的所有字集
+                
+                for i in 0 ..< (s + 1){
+                    
+                    var wordFile:String?
+                    //前面的1代表第一張地圖
+                    let name = "s" + String(describing: mapPassed! + 1) + "-" + String(i + 1)
+                    
+                    //抓字
+                    if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+                        do {
+                            wordFile = try String(contentsOfFile: filepath)
+                            let words = wordFile?.components(separatedBy: "; ")
+                            
+                            //把字讀取到wordSets裡
+                            allSentenceSets.append(words!)
+                            //print(contents)
+                            
+                        } catch {
+                            // contents could not be loaded
+                        }
+                    } else {
+                        // example.txt not found!
+                    }
+                    
+                }
+                
+                
+            }
+
+        }
+            
+        print(allSentenceSets)
+            
         
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
@@ -1417,6 +1554,57 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @objc func onlyPracticeSentence(_ notification: NSNotification){
         
+        
+        
+        
+        //抓三個random, 抓完之後移除
+        
+        /*
+        allSentenceSets.removeAll(keepingCapacity: false)
+        
+        randomSpots.removeAll(keepingCapacity: false)
+        randomUnits.removeAll(keepingCapacity: false)
+        */
+        var totalNum = Int()
+        
+        for s in allUnitSpotNums{
+            
+            for _ in s{
+                
+                totalNum += 1
+            }
+        }
+
+        
+        for _ in 0 ..< totalNum {
+            
+            //新增目前能選擇的spotIndex
+            let spotIndex = Int(arc4random_uniform(UInt32(allUnitSpotNums.count)))
+            randomSpots.append(spotIndex)
+            
+            //從目前能選的spotIndex中選擇能選的unitIndex
+            let unitCount = allUnitSpotNums[spotIndex].count
+            let unitIndex = Int(arc4random_uniform(UInt32(unitCount)))
+            randomUnits.append(allUnitSpotNums[spotIndex][unitIndex])
+            
+            
+            //移除
+            
+            allUnitSpotNums[spotIndex].remove(at: unitIndex)
+            
+            if allUnitSpotNums[spotIndex].count == 0 {
+                
+                allUnitSpotNums.remove(at: spotIndex)
+            }
+            
+        }
+
+        print(randomSpots)
+        print(randomUnits)
+        
+        
+        
+        
         if let wordSeq = notification.userInfo?["wordSequence"] as? Int {
             //設訂發音的單字
             
@@ -1433,18 +1621,136 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //做句子, 傳送nc去發音
     func makeSentence(){
         
+        var dif = CGFloat()
+        var senLabelHeightDif = CGFloat()
+        var iPadDif = CGFloat()
+        
+        switch height {
+        case 812:
+            
+            dif = 1
+            
+            senLabelHeightDif = 0.7
+            iPadDif = 1
+        case 736:
+            
+            dif = 1.1
+            senLabelHeightDif = 0.78
+            iPadDif = 1
+            
+        case 667:
+            
+            dif = 1
+            senLabelHeightDif = 0.9
+            iPadDif = 1
+            
+        case 568:
+            
+            dif = 0.9
+            senLabelHeightDif = 1
+            iPadDif = 1
+            
+        default:
+            dif = 0.9
+            senLabelHeightDif = 1
+            iPadDif = 1.2
+            
+        }
+        
 
-        //英文句子
-        sentence = sentenceSets[Int(wordSequenceToReceive)!]
-        let halfCount = sentenceSets.count / 2
-        let chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
+
         
         //顯示句子文字
         
         if gameMode == 2 {
             
-   
+            print(wordSequenceToReceive)
             
+            print(allSentenceSets.count)
+            print(randomSpots[Int(wordSequenceToReceive)!])
+            //英文句子
+            sentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!]]
+            //sentence = sentenceSets[Int(wordSequenceToReceive)!]
+            //let halfCount = sentenceSets.count / 2
+            
+
+            
+            let halfCount = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]].count / 2
+            let chiSentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!] + halfCount]
+            
+            
+            print(sentence)
+            print(chiSentence)
+            
+            
+            
+            //製作4個中文選項Btn
+            
+            sen1Btn.isHidden = false
+            sen2Btn.isHidden = false
+            sen3Btn.isHidden = false
+            sen4Btn.isHidden = false
+            
+            sen1Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: height / 2 , width: 350 * dif, height: 57 * dif)
+            
+            sen2Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen1Btn.frame.maxY + 25 * dif, width: 350 * dif, height: 57 * dif)
+            
+            sen3Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen2Btn.frame.maxY + 25 * dif , width: 350 * dif, height: 57 * dif)
+            
+            sen4Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen3Btn.frame.maxY + 25 * dif , width: 350 * dif, height: 57 * dif)
+            
+            
+            sentenceLabel.text = sentence
+            chiSentenceLabel.text = "請選出正確中文翻譯"
+
+            var senBtnTitles = ["","","",""]
+           
+            //填入中文
+            correctRandom = Int(arc4random_uniform(UInt32(4)))
+            senBtnTitles[correctRandom] = chiSentence
+            
+            //填入數字
+            allRandomSens = Array(repeating: [Int:Int](), count: 4)
+            
+            allRandomSens[correctRandom] = [randomSpots[Int(wordSequenceToReceive)!]:randomUnits[Int(wordSequenceToReceive)!]]
+            
+
+            allBtns.append(sen1Btn)
+            allBtns.append(sen2Btn)
+            allBtns.append(sen3Btn)
+            allBtns.append(sen4Btn)
+            
+            allBtns[correctRandom].addTarget(self, action: #selector(NewGameViewController.rightSenButtonClicked), for: .touchUpInside)
+            allBtns[correctRandom].tag = correctRandom
+            
+            for i in 0 ..< 4 where i != correctRandom{
+                
+                //抓四個隨機數
+                allRandomSens[i] = getRandom()
+                
+                for (s,u) in allRandomSens[i] {
+                    
+                    
+                    senBtnTitles[i] = allSentenceSets[s][u + halfCount]
+                    
+                }
+
+                allBtns[i].tag = i
+                
+                allBtns[i].addTarget(self, action: #selector(NewGameViewController.wrongSenButtonClicked), for: .touchUpInside)
+                
+            }
+            
+ 
+            for i in 0 ..< allBtns.count {
+            allBtns[i].contentHorizontalAlignment = .left
+               allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
+          
+            
+            }
+
+
+            /*
             //無用的數字為了啟動NC而宣告
             let finalPoints = 0
             let score = 0
@@ -1473,46 +1779,106 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //顯示出tag
             tagView.isHidden = false
-            
+            */
             //避免再次產生hint
             isCheckingSentence = false
             
         } else{
+            
+            //英文句子
+            sentence = sentenceSets[Int(wordSequenceToReceive)!]
+            let halfCount = sentenceSets.count / 2
+            let chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
             
             sentenceLabel.text = sentence
             
             //接著要辨認句子, 用此來讓delegate send NC給gameScene
             
             isCheckingSentence = true
+            chiSentenceLabel.text = chiSentence
+            
+            
+            //對答案用
+            wordToReceive = sentence
+            
+            //提供顯示用的答案, 包含標點符號及大小寫
+            completeWordsToShow = sentence
+            
+            //移除標點符號
+            wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
+            
+            //改成小寫
+            wordToReceive = wordToReceive.lowercased()
+            
+            //準備練習句子
+            //顯示按鈕, 顯示label
+            
+            //回復錄音輸入的單字或句子
+            wordRecorded = String()
+            
         }
 
         
-        chiSentenceLabel.text = chiSentence
         
         //句子發音
         synWord = sentence
    
-        //對答案用
-        wordToReceive = sentence
-        
-        //提供顯示用的答案, 包含標點符號及大小寫
-        completeWordsToShow = sentence
-        
-        //移除標點符號
-        wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
-        
-        //改成小寫
-        wordToReceive = wordToReceive.lowercased()
-        
-        //準備練習句子
-        //顯示按鈕, 顯示label
-
-        //回復錄音輸入的單字或句子
-        wordRecorded = String()
+      
         
         synPronounce()
     }
     
+    
+    @objc func rightSenButtonClicked(){
+        print("correct")
+        
+        
+        for i in 0 ..< 4 where i != correctRandom{
+
+        allBtns[i].isHidden = true
+            
+        }
+        
+    }
+    
+    
+    @objc func wrongSenButtonClicked(sender:UIButton) {
+        print("wrong")
+        
+        sender.setTitleColor(.red, for: .normal)
+        
+        
+        for i in 0 ..< 4 where i != correctRandom && i != sender.tag{
+            
+            allBtns[i].isHidden = true
+            
+        }
+        
+    }
+    
+    
+    //取亂數不重複的func
+    
+    func getRandom() -> [Int:Int] {
+        
+        var selRan = [Int:Int]()
+      
+        print("getRandom")
+        let ranSpot = Int(arc4random_uniform(UInt32(randomSpots.count)))
+      
+        let ranUnit = Int(arc4random_uniform(UInt32(randomUnits.count)))
+        selRan = [randomSpots[ranSpot]:randomUnits[ranUnit]]
+        
+        print(selRan)
+
+        if allRandomSens.contains(selRan){
+            
+            return getRandom()
+        }
+                return selRan
+        
+        
+    }
     
     
     override func didReceiveMemoryWarning() {

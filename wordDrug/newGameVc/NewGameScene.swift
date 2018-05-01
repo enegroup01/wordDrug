@@ -128,7 +128,7 @@ class NewGameScene: SKScene {
     var wordSets = [String]()
     //要抓全+殘的全部單字
     var allWordSets = [[String]]()
-    var tempWordSets = [[String]]()
+
     
     
     //暫時使用的句子
@@ -411,7 +411,7 @@ class NewGameScene: SKScene {
         self.view?.isMultipleTouchEnabled = false
     }
     
-    //載入各種字
+    //載入各種字, 這裡面的load word要換位置避免浪費資源
     func loadAllKindsOfWord(){
         
         
@@ -419,7 +419,7 @@ class NewGameScene: SKScene {
         if gameMode == 1 {
             
             allWordSets.removeAll(keepingCapacity: false)
-            tempWordSets.removeAll(keepingCapacity: false)
+         
             randomSpots.removeAll(keepingCapacity: false)
             randomUnits.removeAll(keepingCapacity: false)
             
@@ -606,7 +606,7 @@ class NewGameScene: SKScene {
             }
 
             print("allWordSets:\(allWordSets.count)")
-            print("tempWordSets:\(tempWordSets.count)")
+            
             
         }
         
@@ -650,6 +650,8 @@ class NewGameScene: SKScene {
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
         
+        
+        
         //單字量Label, 這部分是新的
         makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
     
@@ -658,13 +660,28 @@ class NewGameScene: SKScene {
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         
+        //做四選項
+        /*
+        makeImageNode(name: "senBlock1", image: "senBlock", x: 0, y: -50 * chiBtnDif, width: 699 * chiBtnDif, height: 114 * chiBtnDif, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "senBlock2", image: "senBlock", x: 0, y: -164 * chiBtnDif - (114 * chiBtnDif / 3), width: 699 * chiBtnDif, height: 114 * chiBtnDif, z: 1, alpha: 1, isAnchoring: false)
         
+         makeImageNode(name: "senBlock3", image: "senBlock", x: 0, y: -164 * chiBtnDif -  2 * (114 * chiBtnDif / 3) - (114 * chiBtnDif), width: 699 * chiBtnDif, height: 114 * chiBtnDif, z: 1, alpha: 1, isAnchoring: false)
+        
+        
+        makeImageNode(name: "senBlock4", image: "senBlock", x: 0, y: -164 * chiBtnDif - 3 * (114 * chiBtnDif / 3) - 2 * (114 * chiBtnDif), width: 699 * chiBtnDif, height: 114 * chiBtnDif, z: 1, alpha: 1, isAnchoring: false)
+        
+        
+        
+        makeLabelNode(x: (-699 * chiBtnDif) / 2, y: -50, alignMent: .left, fontColor: .white, fontSize: 34, text: " 1. 他是一個勇敢的人因為他不害怕失敗", zPosition: 2, name: "sen1", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        */
         
         //send Nc
+        
+        
          let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
         
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
-        
+
     }
     
     //載入畫面

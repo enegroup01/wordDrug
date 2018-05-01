@@ -277,6 +277,34 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQQ-Xg-Y2O">
+                                <rect key="frame" x="157" y="291" width="125" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="senBlock.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EYV-AN-idX">
+                                <rect key="frame" x="167" y="301" width="125" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="senBlock.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBY-QK-YBs">
+                                <rect key="frame" x="177" y="311" width="125" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="senBlock.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAF-y4-eci">
+                                <rect key="frame" x="187" y="321" width="125" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="" backgroundImage="senBlock.png">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -296,6 +324,10 @@
                         <outlet property="secondChiWord" destination="j6O-fO-8ag" id="4tF-gI-8MX"/>
                         <outlet property="secondEngWord" destination="85M-8T-ARB" id="cbh-fw-8Ms"/>
                         <outlet property="secondWordBtn" destination="20O-0q-JMR" id="Wn2-hk-2Vl"/>
+                        <outlet property="sen1Btn" destination="bQQ-Xg-Y2O" id="KZ1-fK-WZ6"/>
+                        <outlet property="sen2Btn" destination="EYV-AN-idX" id="LTA-Jk-Pbi"/>
+                        <outlet property="sen3Btn" destination="DBY-QK-YBs" id="SKl-Ko-oU7"/>
+                        <outlet property="sen4Btn" destination="MAF-y4-eci" id="7gY-1h-DcD"/>
                         <outlet property="sentenceLabel" destination="pu5-FY-8Ej" id="ybP-lU-Gn2"/>
                         <outlet property="tagView" destination="Oi9-Ra-rUb" id="5OT-rq-GeN"/>
                         <outlet property="thirdChiWord" destination="Oot-Xx-uRy" id="rYe-la-K1a"/>
@@ -306,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzm-ap-Lz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1454" y="2246"/>
+            <point key="canvasLocation" x="-1455.2" y="2245.7271364317844"/>
         </scene>
         <!--New Book View Controller-->
         <scene sceneID="iue-Lt-fS9">
@@ -987,6 +1019,7 @@
         <image name="registerBtnImg.png" width="66" height="66"/>
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="519" height="114"/>
+        <image name="senBlock.png" width="699" height="114"/>
         <image name="stageTopCover.png" width="375" height="133"/>
         <image name="sylBlueBall" width="16" height="16"/>
     </resources>

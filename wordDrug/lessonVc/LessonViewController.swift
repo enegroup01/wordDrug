@@ -137,28 +137,29 @@ class LessonViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         var dif = CGFloat()
-     
+        var xDif = CGFloat()
         switch height {
         case 812:
-            
-            dif = 1.15
+            xDif = 1.2
+            dif = 1
 
         case 736:
-            
+            xDif = 1
             dif = 1.1
       
             
         case 667:
-            
+            xDif = 1
             dif = 1
 
             
         case 568:
-            
+            xDif = 1
             dif = 0.9
 
             
         default:
+            xDif = 1
             dif = 0.9
             
         }
@@ -190,14 +191,14 @@ class LessonViewController: UIViewController {
         alertBg.addSubview(alertText)
         
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         
         practiceWordBtn.setTitle("複習單字", for: .normal)
         practiceWordBtn.setTitleColor(darkRed, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
         
-        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         practiceSenBtn.setTitle("複習句型", for: .normal)
         practiceSenBtn.setTitleColor(darkRed, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
