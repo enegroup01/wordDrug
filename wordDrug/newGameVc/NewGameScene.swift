@@ -316,6 +316,9 @@ class NewGameScene: SKScene {
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyOnlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
 
         
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyRestartGame2), name: NSNotification.Name("restartGame2"), object: nil)
+       
+        
         //先解決算出wordSequence之後再來讀取所有的字
         
         if gameMode == 2 {
@@ -327,6 +330,7 @@ class NewGameScene: SKScene {
             loadAllKindsOfWord()
             
             currentWordSequence = 0
+          
             setUpSentenceScreen()
             
         } else if gameMode == 1 {
@@ -340,7 +344,6 @@ class NewGameScene: SKScene {
                     
                     //1. 填入spot上限供亂數選擇
            
-                    
                     //填入全部
                     if s > 0 {
                         
@@ -364,6 +367,7 @@ class NewGameScene: SKScene {
                                 allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
                                 
                             }
+                            
                         } else {
                             
                             
@@ -386,13 +390,9 @@ class NewGameScene: SKScene {
                             }
                         }
                         
-                        
                     }
                     
-                    
                 }
-                
-            
             
             //載入各種字
             loadAllKindsOfWord()
@@ -1155,6 +1155,12 @@ class NewGameScene: SKScene {
                 //timesUp
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "timesUp"), object: nil, userInfo: nil)
             
+            //send Nc
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartGame2"), object: nil, userInfo: nil)
+
+            
+            //在此的功能為刪除倒數線
                 self!.practiceNextWord()
 
             
@@ -2639,7 +2645,9 @@ class NewGameScene: SKScene {
                 lineNode.size = CGSize(width: 750, height: 5)
                 lineNode.alpha = 0
                 
-                //send Nc
+
+            
+            
             
             /*
                 let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
@@ -2653,7 +2661,10 @@ class NewGameScene: SKScene {
     }
     
     
-
+    @objc func notifyRestartGame2(){
+        
+        
+    }
     
     override func update(_ currentTime: TimeInterval) {
         
@@ -3162,7 +3173,9 @@ class NewGameScene: SKScene {
             //刪掉一些不該出現的
             notifyShowSentence()
             
-        } else {
+            
+            //或者是else就好, 嘗試看看
+        } else if gameMode == 0{
         
         let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
         
