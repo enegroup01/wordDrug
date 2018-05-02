@@ -157,7 +157,9 @@ class NewGameScene: SKScene {
     
     //造字時的當下音節
     var syllablesToCheck = String()
-    var syllablesWithoutDigit = String()
+    var firstSyllablesWithoutDigit = String()
+        var secondSyllablesWithoutDigit = String()
+        var thirdSyllablesWithoutDigit = String()
     
     //紀錄單字有沒有加入最愛
     var wordsLoved = [0,0,0]
@@ -893,8 +895,8 @@ class NewGameScene: SKScene {
                 word = word + syl
             }
             
-            
             allThreeEngWords.append(word)
+      
         }
         
         //append中文字
@@ -908,11 +910,43 @@ class NewGameScene: SKScene {
         
         
         //先抓音節, 待寫gameMode==1的條件式
-        syllablesToCheck = syllables[unitNumber]
+        
+        var firstSyllablesToCheck = String()
+        var secondSyllablesToCheck = String()
+        var thirdSyllablesToCheck = String()
+        var threeSyllables = ["","",""]
+        
+        if gameMode == 0 {
+        
+            syllablesToCheck = syllables[unitNumber]
+            threeSyllables = [syllablesToCheck,syllablesToCheck,syllablesToCheck]
+       
+      
+        } else if gameMode == 1 {
+            firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0] / 3]
+            secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1] / 3]
+            thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2] / 3]
+          
+            threeSyllables = [firstSyllablesToCheck,secondSyllablesToCheck,thirdSyllablesToCheck]
+            
+        }
+
         
 
         //去掉數字
-        syllablesWithoutDigit = (syllablesToCheck.components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
+        
+
+        firstSyllablesWithoutDigit = (threeSyllables[0].components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
+        secondSyllablesWithoutDigit = (threeSyllables[1].components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
+
+        thirdSyllablesWithoutDigit = (threeSyllables[2].components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
+
+        
+        var syllablesGroup = [String]()
+        
+        syllablesGroup.append(firstSyllablesWithoutDigit)
+        syllablesGroup.append(secondSyllablesWithoutDigit)
+        syllablesGroup.append(thirdSyllablesWithoutDigit)
         
         
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
@@ -920,20 +954,23 @@ class NewGameScene: SKScene {
         //以下為生成attr的步驟
         //1. 確認是否是specialE
         
-        if syllablesWithoutDigit.contains("_"){
+        
+        for sg in 0 ..< syllablesGroup.count {
+        
+        if syllablesGroup[sg].contains("_"){
             //specialE的作法
             
             var characters = [Character]()
             let vowels = ["a","e","i","o","u"]
             
             //每一個英文字節拆字母
-            for w in 0 ..< allThreeEngWordsArray.count{
+          //  for w in 0 ..< allThreeEngWordsArray.count{
                 
-                for i in 0 ..< allThreeEngWordsArray[w].count{
+                for i in 0 ..< allThreeEngWordsArray[sg].count{
                     
                     characters.removeAll(keepingCapacity: false)
                     
-                    for c in allThreeEngWordsArray[w][i]{
+                    for c in allThreeEngWordsArray[sg][i]{
                         
                         characters.append(c)
                     }
@@ -946,11 +983,11 @@ class NewGameScene: SKScene {
                                 
                                 //剛好是_e部首
                                 let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs1)
-                                attrWords[w].append(word)
+                                attrWords[sg].append(word)
                                 let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs0)
-                                attrWords[w].append(word1)
+                                attrWords[sg].append(word1)
                                 let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs1)
-                                attrWords[w].append(word2)
+                                attrWords[sg].append(word2)
                                 
                                 
                             } else {
@@ -958,7 +995,7 @@ class NewGameScene: SKScene {
                                 for c in 0 ..< characters.count {
                                     
                                     let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs0)
-                                    attrWords[w].append(word)
+                                    attrWords[sg].append(word)
                                 }
                                 
                             }
@@ -968,7 +1005,7 @@ class NewGameScene: SKScene {
                             for c in 0 ..< characters.count {
                                 
                                 let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs0)
-                                attrWords[w].append(word)
+                                attrWords[sg].append(word)
                             }
                             
                         }
@@ -978,7 +1015,7 @@ class NewGameScene: SKScene {
                         for c in 0 ..< characters.count {
                             
                             let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs0)
-                            attrWords[w].append(word)
+                            attrWords[sg].append(word)
                         }
                         
                         
@@ -986,24 +1023,24 @@ class NewGameScene: SKScene {
                     
                     
                 }
-            }
+           // }
             
         } else {
             //非specialE的作法
             
             //抓三個字的array
-            for w in 0 ..< allThreeEngWordsArray.count{
+         //   for w in 0 ..< allThreeEngWordsArray.count{
                 
                 //抓array的音節,  只抓一個字
-                for i in 0 ..< allThreeEngWordsArray[w].count{
+                for i in 0 ..< allThreeEngWordsArray[sg].count{
                     
-                    if let engWord = allThreeEngWordsArray[w][i] as String?{
+                    if let engWord = allThreeEngWordsArray[sg][i] as String?{
                         
-                        if engWord == syllablesWithoutDigit{
+                        if engWord == syllablesGroup[sg]{
                             //符合部首字
                             
                             let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
-                            attrWords[w].append(word)
+                            attrWords[sg].append(word)
                             
                             
                         } else{
@@ -1011,18 +1048,18 @@ class NewGameScene: SKScene {
                             
                             let word = NSMutableAttributedString(string: engWord, attributes: attrs0)
                             
-                            attrWords[w].append(word)
+                            attrWords[sg].append(word)
                             
                         }
                     }
                     
                 }
                 
-            }
+         //   }
             
         }
         
-        
+        }
         //*** 以下為共同的造字func, 把字造到words裡
         
         for w in 0 ..< attrWords.count {
