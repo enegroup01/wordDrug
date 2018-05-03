@@ -1104,7 +1104,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //設訂發音的單字
             synWord = wordToPronunce
             
-            
         }
         //發音
         synPronounce()

@@ -412,8 +412,7 @@ class NewGameScene: SKScene {
     //載入各種字, 這裡面的load word要換位置避免浪費資源
     func loadAllKindsOfWord(){
         
-        
-        //抓三個random, 抓完之後移除
+        //抓三個random, 抓完之後移除, 然後再抓三個, 為了配合原本的機制
         if gameMode == 1 {
             
             allWordSets.removeAll(keepingCapacity: false)
@@ -446,38 +445,7 @@ class NewGameScene: SKScene {
             
             //print(randomSpots)
             //print(randomUnits)
-        /*
-        randomSpot = Int(arc4random_uniform(UInt32(allUnitSpotNums.count)))
-        
-            
-        let unitCount = allUnitSpotNums[randomSpot].count
-        randomUnit = Int(arc4random_uniform(UInt32(unitCount)))
-        
-        
-        //馬上移除已選到的seq
-        allUnitSpotNums[randomSpot].remove(at: randomUnit)
-        
-        //如果已經移除光了
-        if allUnitSpotNums[randomSpot].count == 0 {
-            
-            allUnitSpotNums.remove(at: randomSpot)
-            
-        }
-        if allUnitSpotNums.count == 0 {
-            
-            //遊戲要結束了
-            print("game over")
-            
-        }
-
-            
-        //改變spotNumber
-            //spotNumber = randomSpot
-            //unitNumber = randomUnit
-            
-            print("changeSpotNum:\(spotNumber)")
-            print("changeUnitNum:\(unitNumber)")
-*/
+       
         }
         
         //讀取所有錯誤的字供比對
@@ -514,7 +482,7 @@ class NewGameScene: SKScene {
             break
         }
         
-        //音標還沒寫
+        //在此設定gameMode0的指定音標, gameMode1的分別音標在makeword裡面
         syllables = syllableSets[spotNumber]
         
         
@@ -576,33 +544,9 @@ class NewGameScene: SKScene {
                 }
                 
                 
-                /*
-                //再來讀取殘餘的英文字
-                var wordFile:String?
-                
-                //讀取最新一層的字
-                let name = String(describing: mapPassed! + 1) + "-" + String(s + 1)
-                
-                if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-                    do {
-                        wordFile = try String(contentsOfFile: filepath)
-                        let words = wordFile?.components(separatedBy: "; ")
-                        
-                        //把字讀取到wordSets裡
-                        tempWordSets.append(words!)
-                        //print(contents)
-                        
-                    } catch {
-                        // contents could not be loaded
-                    }
-                } else {
-                    // example.txt not found!
-                }
-                
-                */
             }
 
-            print("allWordSets:\(allWordSets.count)")
+            //print("allWordSets:\(allWordSets.count)")
             
             
         }
@@ -611,7 +555,6 @@ class NewGameScene: SKScene {
     
     
     @objc func notifyOnlyPracticeSentence(){
-        
         
     }
     
@@ -847,10 +790,11 @@ class NewGameScene: SKScene {
             engWord2 = allWordSets[randomSpots[2]][randomUnits[2]].components(separatedBy: " ")
             chiWord2 = allWordSets[randomSpots[2]][randomUnits[2 + quarterCount]]
             
-            print(engWord0)
+            //print(engWord0)
             
             
         } else if gameMode == 0 {
+            
         engWord0 = wordSets[currentWordSequence].components(separatedBy: " ")
         chiWord0 = wordSets[quarterCount +  currentWordSequence]
         engWord1 = wordSets[currentWordSequence + 1].components(separatedBy: " ")
@@ -891,6 +835,8 @@ class NewGameScene: SKScene {
         var firstSyllablesToCheck = String()
         var secondSyllablesToCheck = String()
         var thirdSyllablesToCheck = String()
+        
+        //三個音節供去掉數字
         var threeSyllables = ["","",""]
         
         if gameMode == 0 {
@@ -909,16 +855,14 @@ class NewGameScene: SKScene {
         }
 
         
-
         //去掉數字
         
-
         firstSyllablesWithoutDigit = (threeSyllables[0].components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
         secondSyllablesWithoutDigit = (threeSyllables[1].components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
-
         thirdSyllablesWithoutDigit = (threeSyllables[2].components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
 
         
+        //去掉數字後加入到group供辨認
         var syllablesGroup = [String]()
         
         syllablesGroup.append(firstSyllablesWithoutDigit)
@@ -1061,12 +1005,10 @@ class NewGameScene: SKScene {
             firstEngWordLabel.isHidden = true
             firstChiWordLabel.isHidden = true
 
-            
         }
         
         firstEngWordLabel.attributedText = words[0]
         firstChiWordLabel.text = chiWord0
-        
         
         //造完字單字滑入 - 一次性動畫
         slideInAnimation()
@@ -1091,38 +1033,27 @@ class NewGameScene: SKScene {
                     
                     //設定發音單字
                     if self!.gameMode == 0 {
-                          self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
+                        
+                        self!.wordsToPronounce = self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                         
                     } else if self!.gameMode == 1 {
                         
-                        
-                                self!.wordsToPronounce = self!.allWordSets[self!.randomSpots[0]][self!.randomUnits[0]].replacingOccurrences(of: " ", with: "")
+                        self!.wordsToPronounce = self!.allWordSets[self!.randomSpots[0]][self!.randomUnits[0]].replacingOccurrences(of: " ", with: "")
                         
                     }
                     
-                  
-                    
-                    
-                    //發音NC
-                    /*
-                    let wordToPass:[String:String] = ["wordToPass":self!.wordsToPronounce]
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
-                    */
-                    
-                 
-                    
-                    
-                    //self!.isUserInteractionEnabled = true
-                    //self!.isDragAndPlayEnable = true
+
                     
                     if self!.gameMode == 1 {
-                    //reviewMode不發音
-                     self!.reviewWordMode()
-                    
+                   
+                        //reviewMode不發音 , 留到後方practice發音, 原因好像不明顯...
+                     
+                        self!.reviewWordMode()
                     
                     } else {
                     
-                    self!.practice()
+                        self!.practice()
+                        
                         let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":1]
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
                     }
@@ -1193,7 +1124,7 @@ class NewGameScene: SKScene {
         //抓分數
         if let addScore = notification.userInfo?["addScore"] as? Int{
             if addScore != 0 {
-            countScore(score: addScore)
+                countScore(score: addScore)
             }
         }
         
@@ -1392,6 +1323,7 @@ class NewGameScene: SKScene {
                 
                 if shouldPronounce{
                     
+       
                     
                     //發音, 用再seq > 0, backToSpell, practiceNextWord
                     
