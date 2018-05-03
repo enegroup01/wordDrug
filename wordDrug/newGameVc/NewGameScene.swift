@@ -111,8 +111,6 @@ class NewGameScene: SKScene {
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let hintWordBlue = UIColor.init(red: 52/255, green: 136/255, blue: 182/255, alpha: 1)
     
-    
-    
     //中文字左右對錯
     var leftOrRight = Int()
     let leftChiNode = SKLabelNode()
@@ -129,8 +127,6 @@ class NewGameScene: SKScene {
     //要抓全+殘的全部單字
     var allWordSets = [[String]]()
 
-    
-    
     //暫時使用的句子
     var sentenceSets = [String]()
     
@@ -158,8 +154,8 @@ class NewGameScene: SKScene {
     //造字時的當下音節
     var syllablesToCheck = String()
     var firstSyllablesWithoutDigit = String()
-        var secondSyllablesWithoutDigit = String()
-        var thirdSyllablesWithoutDigit = String()
+    var secondSyllablesWithoutDigit = String()
+    var thirdSyllablesWithoutDigit = String()
     
     //紀錄單字有沒有加入最愛
     var wordsLoved = [0,0,0]
@@ -262,7 +258,6 @@ class NewGameScene: SKScene {
     var randomSpots = [Int]()
     var randomUnits = [Int]()
     
-    
     override func didMove(to view: SKView) {
         
         //讀取字數還是有錯的
@@ -325,6 +320,7 @@ class NewGameScene: SKScene {
         
         if gameMode == 2 {
         
+            
             //進入純粹練習句子的func
             
             //在此的func都只會執行一次
@@ -378,7 +374,7 @@ class NewGameScene: SKScene {
                             
                         }
 
-                        print(allUnitSpotNums)
+                        //print(allUnitSpotNums)
                         
                     } else {
                         
@@ -392,7 +388,6 @@ class NewGameScene: SKScene {
                                 
                             }
                         }
-                        
                     }
                     
                 }
@@ -422,7 +417,6 @@ class NewGameScene: SKScene {
         if gameMode == 1 {
             
             allWordSets.removeAll(keepingCapacity: false)
-         
             randomSpots.removeAll(keepingCapacity: false)
             randomUnits.removeAll(keepingCapacity: false)
             

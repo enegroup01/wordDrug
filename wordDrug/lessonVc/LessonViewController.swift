@@ -285,11 +285,29 @@ class LessonViewController: UIViewController {
             
             
             if finished {
+                
                 self!.rightBtnClickedImg.alpha = 0
                 
                 self?.practiceWordBtn.isEnabled = false
                 self?.practiceSenBtn.isEnabled = false
-                self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                
+                if mapPassed == 0 {
+                    
+                    if gamePassed == [0:0] {
+                        
+                        
+                        
+                    } else {
+                        self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                        
+                    }
+                } else {
+   
+                    self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                    
+                }
+                
+
                 
             }
         }
@@ -314,8 +332,23 @@ class LessonViewController: UIViewController {
                 self!.leftBtnClickedImg.alpha = 0
                 self?.practiceSenBtn.isEnabled = false
                 self?.practiceWordBtn.isEnabled = false
-                self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 
+                if mapPassed == 0 {
+                    
+                    if gamePassed == [0:0] {
+                        
+                        print("不能練習")
+                    } else {
+                        
+
+                        self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                    }
+                    
+                } else {
+                
+
+                self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                }
             }
         }
         
