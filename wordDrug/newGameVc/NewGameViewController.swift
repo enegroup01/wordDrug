@@ -490,6 +490,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             // example.txt not found!
             print("txt can't be found")
         }
+            
         } else if gameMode == 2 {
             
             
@@ -531,13 +532,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                     }
                     
-                    print(allUnitSpotNums)
+                //    print(allUnitSpotNums)
                     
                 } else {
                     
                     allUnitSpotNums = [Array<Any>](repeating: [Int](), count: 1) as! [[Int]]
                     //填入殘值
                     
+                    //如果只過一關, 加入四個句子去隨機選項
                     if u == 1 {
                         
                         for i in 0 ..< 4 {
@@ -548,10 +550,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
                         
                         
-                        
-                    } else
-                    
-                    if u > 0 {
+                        //超過一關就直接隨機所有學過句子
+                    } else if u > 0 {
                         
                         for i in 0 ..< u * 3 {
                             
@@ -605,7 +605,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         }
             
-        print(allSentenceSets)
+        //print(allSentenceSets)
             
         
         
@@ -689,12 +689,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
         
         
-         //     let frame2 = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:160 * dif, height: 160 * dif)
-        
-       // pointsIndicator = NVActivityIndicatorView(frame: frame2, type: .ballScaleMultiple, color: recordingPinkColor, padding: 2)
-        
-
-       // self.view.addSubview(pointsIndicator!)
         self.view.addSubview(recordingIndicator!)
         self.view.bringSubview(toFront: recordBtn)
   
@@ -714,7 +708,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     @objc func notifyReadyToReadSentence(){
         
-        
     }
     
     @objc func readSentence(){
@@ -731,7 +724,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
 
     @objc func notifyAddScore(){
-        
         
     }
 
@@ -1650,9 +1642,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //print(randomSpots)
         //print(randomUnits)
         
-        
-        
-        
         //抓到的順序為0
         if let wordSeq = notification.userInfo?["wordSequence"] as? Int {
           
@@ -1672,33 +1661,30 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //顯示句子文字
         
         if gameMode == 2 {
-            
+            //只練習句子
             
             //英文句子
             sentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!]]
             
             let halfCount = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]].count / 2
+            
+            //中文句子
             chiSentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!] + halfCount]
             
             /*
             print(sentence)
             print(chiSentence)
-            
             */
             
             //製作4個中文選項Btn
-            
             for btn in allBtns{
-                print(btn)
                 btn.isHidden = false
             }
-
 
             //抓好中英文句子答案
             sentenceLabel.text = sentence
             chiSentenceLabel.text = "請選出正確中文翻譯"
 
-            
             //準備做四個選項
             var senBtnTitles = ["","","",""]
            
@@ -1740,6 +1726,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
             
  
+            //設定所有案件的中文內文
             for i in 0 ..< allBtns.count {
          
                 allBtns[i].contentHorizontalAlignment = .left
@@ -1749,37 +1736,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             }
 
-
-            /*
-            //無用的數字為了啟動NC而宣告
-            let finalPoints = 0
-            let score = 0
-            
-            //製作tags
-            sentenceTag = sentence.components(separatedBy: " ")
-            
-            sentenceTag.shuffled()
-            
-            for i in 0 ..< sentenceTag.count{
-                
-                tagView.addTag(sentenceTag[i] + " " + String(i))
-                
-            }
-            
-            //準備選擇題
-            sentenceLabel.text = ""
-            
-            //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數）
-            let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
-            
-            //隱藏輸入字
-            recogTextLabel.text = ""
-            
-            //顯示出tag
-            tagView.isHidden = false
-            */
             //避免再次產生hint
             isCheckingSentence = false
             
@@ -1828,26 +1784,28 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @objc func rightSenButtonClicked(){
         print("correct")
         
+        //做圈圈記號
         correctSign.frame = CGRect(x: allBtns[correctRandom].frame.midX - allBtns[correctRandom].frame.width / 10, y: allBtns[correctRandom].frame.minY - allBtns[correctRandom].frame.height * 0.1, width: allBtns[correctRandom].frame.height * 1.2, height: allBtns[correctRandom].frame.height * 1.2)
         correctSign.image = UIImage(named:"rightCircle.png")
         self.view.addSubview(correctSign)
         self.view.bringSubview(toFront: correctSign)
         
 
+        //錯誤的隱藏
         for i in 0 ..< 4 where i != correctRandom{
 
         allBtns[i].isHidden = true
             
         }
         
+        //所有按鍵都不要有反應
         for btn in allBtns{
             
                 btn.isUserInteractionEnabled = false
             
         }
         
-
-        
+        //等待1.5秒
         btnTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(NewGameViewController.btnCounting), userInfo: nil, repeats: true)
         
     }
@@ -1857,30 +1815,37 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @objc func wrongSenButtonClicked(sender:UIButton) {
         print("wrong")
         
+        //錯誤按鈕改圖片
         sender.setBackgroundImage(UIImage(named:"wrongSenBlock.png"), for: .normal)
         
+        
+        //留下對錯兩按鈕, 其餘隱藏
         for i in 0 ..< 4 where i != correctRandom && i != sender.tag{
             
             allBtns[i].isHidden = true
             
         }
         
+        //所有按鈕不能按
         for btn in allBtns{
-            
             
             btn.isUserInteractionEnabled = false
         }
         
+        //做錯誤符號
         wrongSign.frame = CGRect(x: allBtns[sender.tag].frame.midX - allBtns[sender.tag].frame.width / 10, y: allBtns[sender.tag].frame.minY - allBtns[sender.tag].frame.height * 0.1, width: allBtns[sender.tag].frame.height * 1.2, height: allBtns[sender.tag].frame.height * 1.2)
         wrongSign.image = UIImage(named:"wrongX.png")
         self.view.addSubview(wrongSign)
         self.view.bringSubview(toFront: wrongSign)
         
-          btnTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(NewGameViewController.btnCounting), userInfo: nil, repeats: true)
+        
+        //等待1.5秒
+        btnTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(NewGameViewController.btnCounting), userInfo: nil, repeats: true)
         
     }
     
     
+    //倒數秒數, 倒數玩跳下一題
     @objc func btnCounting(){
         
         if timerCount < 2 {
@@ -1891,6 +1856,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             btnTimer.invalidate()
             timerCount = 0
             
+            //跳下一題
             jumpToTagPractice()
             
         }
@@ -1899,6 +1865,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
 
+    //進入選擇題
     func jumpToTagPractice(){
         
         correctSign.removeFromSuperview()
@@ -1920,16 +1887,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
+    //選擇題
     func makeTag(){
         
         //製作tags
         sentenceTag = sentence.components(separatedBy: " ")
         
-        
+        //亂數
         sentenceTag.shuffled()
         
+        //加入tag裡
         for i in 0 ..< sentenceTag.count{
             
+            //後方加入數字做辨認
             tagView.addTag(sentenceTag[i] + " " + String(i))
             
         }
@@ -1938,8 +1908,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sentenceLabel.text = ""
         
         //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數）
-        var score = Int()
-        var finalPoints = Int()
+        let score = Int()
+        let finalPoints = Int()
         
         let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
         
@@ -2009,14 +1979,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     if attrTagsSelected[i] == attr{
                         
-                        
                         attrTagsSelected[i] = NSMutableAttributedString()
                         
                     }
                     
                 }
                 
-                
+
             } else {
                 
                      attrTagsSelected.append(attr)
@@ -2045,8 +2014,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
  
+        //show出選擇的字
         recogTextLabel.text = sentenceShown
         
+        //抓輸入答案來對
         let answerEntered = recogTextLabel.text?.dropLast()
         
         if answerEntered! == sentence{
@@ -2059,17 +2030,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             } else if gameMode == 2{
                 
                 //確認是否還有字
-                
-                
-                
                 //繼續練習下一個字
-                
                 //如果是的話代表是練習最後一個
                 
                 
                 //在此抓共有幾題
                 var randomSpotsCount = randomSpots.count
-                
                 
                 //避免只有三題卻出四次
                 for (s,u) in gamePassed! {
@@ -2081,51 +2047,55 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         }
                     }
                     
-                    
                 }
                 
                 if Int(wordSequenceToReceive) == (randomSpotsCount - 1){
                     print("結束練習")
                     
-                    //過關進入下個字, 在此功能為刪除倒數線
+                    //過關進入下個字, 在此功能在gameMode == 2為刪除倒數線
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
                     
                     
+                    //要跳出練習總結畫面
                     
                 } else {
                 
-                
-                
-                //過關進入下個字, 在此功能為刪除倒數線
+
+                    //過關進入下個字, 在此功能在gameMode == 2為刪除倒數線
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
                 
-         
                 //這裡包含了重新開始的所有功能, 另外建功能是要為了接收gameScene發出來的NC, 避免以上的再次send Nc到gameScene
-                game2RestartFunc()
+                
+                    game2RestartFunc()
                 
                 }
+         
             }
             
     
         } else {
             
             print("not yet correct")
+    
         }
+   
     }
 
     
     @objc func game2RestartFunc(){
         
-        
         let seq = Int(wordSequenceToReceive)
+    
+        //順序 + 1
         wordSequenceToReceive = String(seq! + 1)
         
+        //移除按鈕target
         for btn in allBtns {
             
             btn.removeTarget(nil, action: nil, for: .allEvents)
         }
         
-        makeSentence()
+
         
         allRandomSens.removeAll(keepingCapacity: false)
         
@@ -2137,6 +2107,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //移除輸入字
         recogTextLabel.text = ""
         recogTextLabel.isHidden = true
+        
+        //製作句子
+        makeSentence()
     }
     
     @objc func removeAll(){
