@@ -197,6 +197,10 @@
 		AA648EFA207CEA05003ACD07 /* 1-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E62207CEA04003ACD07 /* 1-10.txt */; };
 		AA648EFB207CEA05003ACD07 /* 3-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E63207CEA05003ACD07 /* 3-10.txt */; };
 		AA648EFC207CEA05003ACD07 /* 4-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648E64207CEA05003ACD07 /* 4-14.txt */; };
+		AA6AA727209C992B00374241 /* popQuizBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6AA726209C992B00374241 /* popQuizBg.png */; };
+		AA6AA729209C99EE00374241 /* timerBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6AA728209C99EE00374241 /* timerBg.png */; };
+		AA6AA72B209C99F500374241 /* timerCover.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6AA72A209C99F400374241 /* timerCover.png */; };
+		AA6AA72D209C9A3200374241 /* popQuizBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6AA72C209C9A3200374241 /* popQuizBlock.png */; };
 		AA7ABB9520579591007884A1 /* countDownLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7ABB9420579591007884A1 /* countDownLine.png */; };
 		AA7AE8F62047D88900ADEEDA /* newGameBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F52047D88900ADEEDA /* newGameBg.png */; };
 		AA7AE8F82047D8A200ADEEDA /* pauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */; };
@@ -457,6 +461,10 @@
 		AA648E62207CEA04003ACD07 /* 1-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-10.txt"; sourceTree = "<group>"; };
 		AA648E63207CEA05003ACD07 /* 3-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-10.txt"; sourceTree = "<group>"; };
 		AA648E64207CEA05003ACD07 /* 4-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "4-14.txt"; sourceTree = "<group>"; };
+		AA6AA726209C992B00374241 /* popQuizBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popQuizBg.png; sourceTree = "<group>"; };
+		AA6AA728209C99EE00374241 /* timerBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timerBg.png; sourceTree = "<group>"; };
+		AA6AA72A209C99F400374241 /* timerCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timerCover.png; sourceTree = "<group>"; };
+		AA6AA72C209C9A3200374241 /* popQuizBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popQuizBlock.png; sourceTree = "<group>"; };
 		AA7ABB9420579591007884A1 /* countDownLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countDownLine.png; sourceTree = "<group>"; };
 		AA7AE8F52047D88900ADEEDA /* newGameBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newGameBg.png; sourceTree = "<group>"; };
 		AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseBtn.png; sourceTree = "<group>"; };
@@ -663,6 +671,9 @@
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
 				AAA0E10220982A3D007148EB /* senBlock.png */,
+				AA6AA72C209C9A3200374241 /* popQuizBlock.png */,
+				AA6AA72A209C99F400374241 /* timerCover.png */,
+				AA6AA728209C99EE00374241 /* timerBg.png */,
 				AAA0E10420987FF5007148EB /* wrongSenBlock.png */,
 				AA98E6042085CBC3001100BA /* leftRoundedSqr.png */,
 				AA98E6032085CBC2001100BA /* rightRoundedSqr.png */,
@@ -686,6 +697,7 @@
 				AA7ABB9420579591007884A1 /* countDownLine.png */,
 				AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */,
 				AA7AE8F52047D88900ADEEDA /* newGameBg.png */,
+				AA6AA726209C992B00374241 /* popQuizBg.png */,
 				AA8FAE8F202D912600342CED /* rightCircle.png */,
 				AA8FAE91202D913A00342CED /* wrongX.png */,
 				AAB63B38204E5DFD00F96E9C /* talkPng.png */,
@@ -1042,6 +1054,7 @@
 				AA648EA8207CEA05003ACD07 /* 3-14.txt in Resources */,
 				AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */,
 				AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */,
+				AA6AA72D209C9A3200374241 /* popQuizBlock.png in Resources */,
 				AA648EE6207CEA05003ACD07 /* 5-12.txt in Resources */,
 				AA9655672090B0C2003E5AB7 /* bookViewBottomBg.png in Resources */,
 				AA648EBF207CEA05003ACD07 /* s1-13.txt in Resources */,
@@ -1073,6 +1086,7 @@
 				AA648E6B207CEA05003ACD07 /* 1-5.txt in Resources */,
 				AA648EC2207CEA05003ACD07 /* s2-7.txt in Resources */,
 				AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */,
+				AA6AA727209C992B00374241 /* popQuizBg.png in Resources */,
 				AAFAFCB2205BE11F00307264 /* bookSpeed2.png in Resources */,
 				AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */,
 				AA648ECB207CEA05003ACD07 /* s1-14.txt in Resources */,
@@ -1167,12 +1181,14 @@
 				AA648E76207CEA05003ACD07 /* s1-8.txt in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
 				AA648EB2207CEA05003ACD07 /* s3-12.txt in Resources */,
+				AA6AA72B209C99F500374241 /* timerCover.png in Resources */,
 				AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */,
 				AA648ED7207CEA05003ACD07 /* 1-8.txt in Resources */,
 				AA8FAE92202D913A00342CED /* wrongX.png in Resources */,
 				AA648EA2207CEA05003ACD07 /* s3-1.txt in Resources */,
 				AA648EDA207CEA05003ACD07 /* 2-7.txt in Resources */,
 				AA98E62120861560001100BA /* block2Title.png in Resources */,
+				AA6AA729209C99EE00374241 /* timerBg.png in Resources */,
 				AA98E6122085E94E001100BA /* block2.png in Resources */,
 				AA648E95207CEA05003ACD07 /* s2-8.txt in Resources */,
 				AA648EAC207CEA05003ACD07 /* s5-11.txt in Resources */,

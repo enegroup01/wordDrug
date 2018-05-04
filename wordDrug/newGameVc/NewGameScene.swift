@@ -637,24 +637,35 @@ class NewGameScene: SKScene {
         }
         
         //背景
-        makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        
+        //暫時測試用
+        //makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        
+        makeImageNode(name: "gameBg", image: "popQuizBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        
+        
+        // 製作TimerBg * timer label
+        makeImageNode(name: "timerBg", image: "timerBg", x: 0, y: height * 2 / 5 * dif, width: 277 * dif, height: 185 * dif, z: 1, alpha: 1, isAnchoring: false)
+        
+        makeLabelNode(x: -65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "0", zPosition: 2, name: "bigNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        
+        makeLabelNode(x: 65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "3", zPosition: 2, name: "smallNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+
+        makeLabelNode(x: 0, y: -50 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "勇敢的", zPosition: 1, name: "bigChineseLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        
         
         makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
         
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
         
-        //單字元素, 這部分是新的
-        //makeImageNode(name: "elementToShow", image: "elemExample", x: -290, y: 590, width: 80, height: 80, z: 1, alpha: 1, isAnchoring: false)
-        
-        //單字等級label
-        //makeLabelNode(x: 0, y: 600, alignMent: .center, fontColor: lightGreen, fontSize: 40, text: "英檢初級", zPosition: 1, name: "levelTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+      
         
         //單字量Label, 這部分是新的
-        makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+     //   makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
-        //得分Label, 這部分是新的
-        //makeLabelNode(x: 330, y: 555, alignMent: .right, fontColor: .white, fontSize: 40, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+   
         
         //提示字
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
@@ -697,8 +708,13 @@ class NewGameScene: SKScene {
 
         
         //製作中文選項
-        makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "rightChiBtn", image: "rightRoundedSqr", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        
+        //暫時測試用
+        //makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        //makeImageNode(name: "rightChiBtn", image: "rightRoundedSqr", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        
+        makeImageNode(name: "leftChiBtn", image: "popQuizBlock", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "rightChiBtn", image: "popQuizBlock", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
         
         //加入中文字選項的node
         leftChiNode.position = CGPoint(x: -187 * chiBtnDif, y: -375)
@@ -749,7 +765,7 @@ class NewGameScene: SKScene {
         self.view?.addSubview(firstChiWordLabel)
         
         //建立好畫面後開始動畫
-        introAnimation()
+     //   introAnimation()
         
     }
     
@@ -2426,24 +2442,55 @@ class NewGameScene: SKScene {
         } else {
             //三個字以練習完
             
+            //在此確認是否為雙數結束
             
-            //抓三個單字的狀態 + 分數
-            lineNode.removeAllActions()
-            let scoreLabel = findLabelNode(name: "scoreLabel")
-            
-            var scoreToPass = scoreLabel.text!
-            //if isFinalGetPoint{
-            //}
-            scoreToPass = String(Int(scoreLabel.text!)! + 500)
+            if (unitNumber + 1) % 2 == 0{
+                
+                print("雙數結尾")
+                
+                //進入pop quiz
+                
+                // 載入新背景
+                // 刪除舊畫面
+                // 載入新畫面
+                // 載入前二組單字
+                
+                changeTexture(nodeName: "gameBg", newTexture: "popQuizBg")
+                
+                findImageNode(name: "recogWordsBg").alpha = 0
+                
+                
+                
+                
+                
+                
+                
+                
+            } else {
+                
+                print("單數結尾")
+                
+                
+                //抓三個單字的狀態 + 分數
+                lineNode.removeAllActions()
+               
+                let scoreLabel = findLabelNode(name: "scoreLabel")
+                
+                var scoreToPass = scoreLabel.text!
+                //if isFinalGetPoint{
+                //}
+                scoreToPass = String(Int(scoreLabel.text!)! + 500)
+                
+                //這是連接後端的func
+                addWrongWords()
+                
+                
+                let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
 
-            //這是連接後端的func
-            addWrongWords()
+            }
             
-            
-            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
-            
-            
+
             
         }
         } else if gameMode == 1 {

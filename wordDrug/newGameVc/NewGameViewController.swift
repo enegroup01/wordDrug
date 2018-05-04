@@ -61,6 +61,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var recognitionRequest:SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask:SFSpeechRecognitionTask?
  
+  
     
     //暫時使用的句子
     var sentenceSets = [String]()
@@ -267,6 +268,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         firstWordBtn.isEnabled = false
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
+        
+        
         
         sen1Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: height / 2 , width: 350 * dif, height: 57 * dif)
         
