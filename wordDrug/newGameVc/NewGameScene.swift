@@ -1285,7 +1285,7 @@ class NewGameScene: SKScene {
                     
                 case 0:
                     
-                    //設定不發音
+                    //設定發不發音, gameMode1也被引導到這邊來
                     if self!.isBackToSpell{
                         
                         shouldPronounce = true
@@ -1364,7 +1364,8 @@ class NewGameScene: SKScene {
         if gameMode == 0 {
         
             currentWord = wordSets[currentWordSequence]
-        } else {
+        
+        } else if gameMode == 1{
             
             currentWord = allWordSets[randomSpots[currentPracticeSequence]][randomUnits[currentPracticeSequence]]
             
@@ -1400,7 +1401,7 @@ class NewGameScene: SKScene {
                 
                 let randomSpot = Int(arc4random_uniform(UInt32(s)))
                 
-                //在所有亂數spor英文字裡面, 如果音節沒有重複目前顯示的音節, 就把它加入到otherWords裡
+                //在所有亂數spot英文字裡面, 如果音節沒有重複目前顯示的音節, 就把它加入到otherWords裡來做選項
                 for i in 0 ..< allWordSets[randomSpot].count / 3{
                     
                     let word = allWordSets[randomSpot][i]
@@ -1435,7 +1436,6 @@ class NewGameScene: SKScene {
         
         //產生真正來顯示用的多餘單字
         var extraWords = [String]()
-        
         
         //補不足的選項
         switch currentWordSyllableCounts {
@@ -1596,28 +1596,28 @@ class NewGameScene: SKScene {
             let node : SKNode = self.atPoint(location)
             
             var chiBtnDif = CGFloat()
-            var dif = CGFloat()
+            //var dif = CGFloat()
             
             switch  height {
             case 812:
                 chiBtnDif = 0.8
-                dif = 1.15
+              //  dif = 1.15
             case 736:
                 chiBtnDif = 1
-                dif = 1.1
+              //  dif = 1.1
                 
             case 667:
                 chiBtnDif = 0.95
-                dif = 1
+              //  dif = 1
                 
             case 568:
                 chiBtnDif = 0.9
-                dif = 0.9
+              //  dif = 0.9
                 
             default:
                 
                 chiBtnDif = 0.9
-                dif = 0.9
+              //  dif = 0.9
                 
             }
             
@@ -1931,8 +1931,7 @@ class NewGameScene: SKScene {
         
         if touchTimes > 0{
             
-            
-            print(touchTimes)
+   
             if isDragAndPlayEnable{
                 print("dragAndPlay")
                 
@@ -1998,7 +1997,7 @@ class NewGameScene: SKScene {
                     
                          //直接轉換isBackToSpell
                     
-                        //如果是聽考模式就跳到選中文
+                        //如果是聽考模式就跳到選中文, gameMode1也是跳到這裡
                         if isBackToSpell {
                             
                             //計分
@@ -2291,22 +2290,17 @@ class NewGameScene: SKScene {
             //抓亂數中文
             let quarterCount = allWordSets[randomSpots[currentPracticeSequence]].count / 3
             let halfCount = allWordSets[randomSpots[currentPracticeSequence]].count / 3 * 2
+
             
-            print(quarterCount)
-            print(halfCount)
-           
-            
-            print(currentPracticeSequence)
             chiWord = allWordSets[randomSpots[currentPracticeSequence]][randomUnits[currentPracticeSequence] + quarterCount]
-            print(chiWord)
             
             
             for i in quarterCount ..< halfCount{
                 allChiWords.append(allWordSets[randomSpots[currentPracticeSequence]][i])
             }
           
+            //移除掉正確答案
             allChiWords.remove(at: randomUnits[currentPracticeSequence])
-
 
         }
         
@@ -2338,12 +2332,15 @@ class NewGameScene: SKScene {
         
         let showAlpha = SKAction.fadeAlpha(to: 1, duration: 0.1)
         leftChiBtn.run(showAlpha)
+        
+        rightChiBtn.run(showAlpha)
+        /*
         rightChiBtn.run(showAlpha, completion: {[weak self] in
             
             //self!.isUserInteractionEnabled = true
             
         })
-        
+        */
     }
     
     //show句子
@@ -2459,6 +2456,8 @@ class NewGameScene: SKScene {
                 //練完的機制要先確認這次loadAllKindsOfWord的三個字是否已經用完
                 if currentPracticeSequence == 2 {
                     
+                    
+                    //之後要接續練完的畫面
                         print("練完了")
                     
                 } else {
@@ -2484,8 +2483,7 @@ class NewGameScene: SKScene {
                     wordEntered.removeAll(keepingCapacity: false)
                     
                     
-                    
-                    //準備下一個字的練習
+                    //準備下一個字的練習, 這裡是否需要不一定
                     isBackToSpell = false
                     
                     findImageNode(name: "recogWordsBg").alpha = 0
@@ -2510,11 +2508,13 @@ class NewGameScene: SKScene {
                     }
                     
                     if currentPracticeSequence == 0 {
-                        
+                        //重新做三個字
                         loadAllKindsOfWord()
                         makeWords()
                         
                     } else {
+                        
+                        //直接複習下個字
                         reviewWordMode()
                     }
 
@@ -2570,13 +2570,16 @@ class NewGameScene: SKScene {
                     
                 }
                 
+                
                 if currentPracticeSequence == 0 {
-             
+                    //重新做三個字
                     loadAllKindsOfWord()
                     makeWords()
                     
                 } else {
-                   reviewWordMode()
+                    
+                    //直接複習下個字
+                    reviewWordMode()
                 }
             }
    
@@ -3087,9 +3090,14 @@ class NewGameScene: SKScene {
     func chooseChineseResult(isCorrect:Bool){
         
         //正確
+        
+        //計分部分, 之後要寫複習的計分
+        
         if isCorrect{
             
             countScore(score: 300)
+            
+            
         } else {
             //錯誤的話
             correctResults[currentPracticeSequence] = "1"
