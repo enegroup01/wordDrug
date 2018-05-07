@@ -834,8 +834,38 @@ class NewGameScene: SKScene {
             
         } else {
             
-            //timer.invalidate()
+
+            //倒數停止
+            //不能按鈕
+            //顯示時間到
+            //顯示正確打圈
+            //秒數變紅色
+            //暫停一秒後繼續下一題
+            
+
             popQuizTimer.invalidate()
+            
+            isUserInteractionEnabled = false
+            
+            findLabelNode(name: "quizTitle").text = "時間到！"
+            findLabelNode(name: "quizTitle").fontColor = .red
+            findLabelNode(name: "bigNumber").fontColor = .red
+            findLabelNode(name: "smallNumber").fontColor = .red
+            
+            let wait = SKAction.wait(forDuration: 1)
+            
+            self.run(wait) {[weak self] in
+                self!.chooseChineseResult(isCorrect: false)
+                
+                self!.findLabelNode(name: "quizTitle").text = "限時挑戰"
+                self!.findLabelNode(name: "quizTitle").fontColor = .white
+                self!.findLabelNode(name: "bigNumber").fontColor = .white
+                self!.findLabelNode(name: "smallNumber").fontColor = .white
+                self!.findLabelNode(name: "smallNumer").text = "3"
+
+
+            }
+            
         }
         
         findLabelNode(name: "bigNumber").text = String(bigNum)
@@ -1771,6 +1801,7 @@ class NewGameScene: SKScene {
             //之後要寫中文錯誤的機制
             //確認中文正確與否
             if node.name == "leftChiBtn" || node.name == "leftChi"{
+                
                 if leftOrRight == 0 {
                     //答對
                     
@@ -2230,16 +2261,9 @@ class NewGameScene: SKScene {
                             })
                             
                            
-        
-                            
-                            
-                    
-                            
-                           
                         }
                     
-    
-                    
+               
                 } else {
                     
                     //答案錯誤的機制
@@ -2530,15 +2554,22 @@ class NewGameScene: SKScene {
     func practiceNextWord(){
         
         let lineNode = findImageNode(name: "countDownLine")
+        //把倒數線回復並隱藏
+        lineNode.removeAllActions()
+        lineNode.size = CGSize(width: 750, height: 5)
+        lineNode.alpha = 0
+
         
         if gameMode == 0 {
         
         if currentWordSequence < (unitNumber + 1) * 3 - 1{
             
+            /*
             //把倒數線回復並隱藏
             lineNode.removeAllActions()
             lineNode.size = CGSize(width: 750, height: 5)
             lineNode.alpha = 0
+            */
             
             //順序加一
             currentWordSequence += 1
@@ -2672,11 +2703,12 @@ class NewGameScene: SKScene {
                     
                     print("繼續練")
                     
+                    /*
                     //把倒數線回復並隱藏
                     lineNode.removeAllActions()
                     lineNode.size = CGSize(width: 750, height: 5)
                     lineNode.alpha = 0
-                    
+                    */
                     //順序加一
                     
                     if currentPracticeSequence == 2 {
@@ -2734,10 +2766,13 @@ class NewGameScene: SKScene {
             } else {
                 print("繼續練")
                 
+                /*
                 //把倒數線回復並隱藏
                 lineNode.removeAllActions()
                 lineNode.size = CGSize(width: 750, height: 5)
                 lineNode.alpha = 0
+                */
+                
                 
                 //順序加一
                 
@@ -2797,11 +2832,7 @@ class NewGameScene: SKScene {
             
                 print("practice next sentence")
                 
-                //把倒數線回復並隱藏
-                lineNode.removeAllActions()
-                lineNode.size = CGSize(width: 750, height: 5)
-                lineNode.alpha = 0
-                
+            
 
             
             
@@ -2827,8 +2858,9 @@ class NewGameScene: SKScene {
             print("3 pop quizes over")
             
         } else {
-        
-       
+            
+            //啟動timer
+            popQuizTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameScene.popQuizCountDown), userInfo: nil, repeats: true)
         
             var twoEngAnswers = [String]()
        
@@ -2841,9 +2873,7 @@ class NewGameScene: SKScene {
             
             let ran = Int(arc4random_uniform(UInt32(engRandomNums.count)))
             let wrongEng = allPopQuizEngWords[engRandomNums[ran]]
-            
 
-            
             let rightRan = Int(arc4random_uniform(UInt32(2)))
             if rightRan == 0 {
                 
@@ -2858,14 +2888,12 @@ class NewGameScene: SKScene {
                 
             }
             
-        findLabelNode(name: "bigChineseLabel").text = chiQuestion
+     
+            findLabelNode(name: "bigChineseLabel").text = chiQuestion
             findLabelNode(name: "leftChi").text = twoEngAnswers[0]
             findLabelNode(name: "rightChi").text = twoEngAnswers[1]
         
-        
-        
-
-        popQuizSeq += 1
+            popQuizSeq += 1
         
         }
         
@@ -3348,6 +3376,9 @@ class NewGameScene: SKScene {
         
     }
     
+    
+    //popQuiz的計分邏輯還沒寫
+    
     func chooseChineseResult(isCorrect:Bool){
         
         //正確
@@ -3392,9 +3423,25 @@ class NewGameScene: SKScene {
             //或者是else就好, 嘗試看看
         } else if gameMode == 0{
         
+            
+            //如果是popQuiz就繼續挑戰
+            if isPopQuiz {
+                
+                findImageNode(name: "leftChiBtn").alpha = 1
+                findImageNode(name: "rightChiBtn").alpha = 1
+                
+                leftChiNode.text = ""
+                rightChiNode.text = ""
+                removeSomeNodes(name: "mark")
+                
+                popQuiz()
+                
+            } else {
+            
         let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
+        }
         }
         //不能拖拉
         
