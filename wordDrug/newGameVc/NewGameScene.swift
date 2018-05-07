@@ -110,6 +110,8 @@ class NewGameScene: SKScene {
     //分數顏色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let hintWordBlue = UIColor.init(red: 52/255, green: 136/255, blue: 182/255, alpha: 1)
+    let specialYellow = UIColor.init(red: 239/255, green: 196/255, blue: 92/255, alpha: 1)
+    
     
     //中文字左右對錯
     var leftOrRight = Int()
@@ -257,6 +259,8 @@ class NewGameScene: SKScene {
     
     var randomSpots = [Int]()
     var randomUnits = [Int]()
+    
+    var popQuizTimer = Timer()
     
     override func didMove(to view: SKView) {
         
@@ -644,24 +648,25 @@ class NewGameScene: SKScene {
         makeImageNode(name: "gameBg", image: "popQuizBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
         
-        // 製作TimerBg * timer label
+        // 製作TimerBg & timer label
+        
+        makeLabelNode(x: 0, y: height * 3 / 5 * dif, alignMent: .center, fontColor: specialYellow, fontSize: 50, text: "限時挑戰", zPosition: 2, name: "quizTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        
         makeImageNode(name: "timerBg", image: "timerBg", x: 0, y: height * 2 / 5 * dif, width: 277 * dif, height: 185 * dif, z: 1, alpha: 1, isAnchoring: false)
         
         makeLabelNode(x: -65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "0", zPosition: 2, name: "bigNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
         makeLabelNode(x: 65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "3", zPosition: 2, name: "smallNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
 
-        makeLabelNode(x: 0, y: -50 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "勇敢的", zPosition: 1, name: "bigChineseLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-        
+        makeLabelNode(x: 0, y: -50 * dif, alignMent: .center, fontColor: .white, fontSize: 110, text: "勇敢的", zPosition: 1, name: "bigChineseLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         
         makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
         
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
-        
-      
-        
+
         //單字量Label, 這部分是新的
      //   makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
@@ -704,9 +709,7 @@ class NewGameScene: SKScene {
         makeImageNode(name: "3emptyButton", image: darkImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         makeImageNode(name: "4emptyButton", image: darkImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         
-        
 
-        
         //製作中文選項
         
         //暫時測試用
@@ -719,27 +722,31 @@ class NewGameScene: SKScene {
         //加入中文字選項的node
         leftChiNode.position = CGPoint(x: -187 * chiBtnDif, y: -375)
         leftChiNode.horizontalAlignmentMode = .center
-        leftChiNode.fontSize = 60
+        //leftChiNode.fontSize = 100
         leftChiNode.fontColor = .white
         leftChiNode.zPosition = 8
         leftChiNode.name = "leftChi"
         leftChiNode.fontName = "Helvetica Bold"
-        
-        
+        leftChiNode.text = "age"
+       adjustLabelFontSizeToFitRect(labelNode: leftChiNode, rect: findImageNode(name: "leftChiBtn").frame)
+
         addChild(leftChiNode)
         
         rightChiNode.position = CGPoint(x: 187 * chiBtnDif, y: -375)
         rightChiNode.horizontalAlignmentMode = .center
       
-        rightChiNode.fontSize = 60
+        //rightChiNode.fontSize = 100
         rightChiNode.fontColor = .white
         rightChiNode.zPosition = 8
         rightChiNode.name = "rightChi"
         rightChiNode.fontName = "Helvetica Bold"
+        rightChiNode.text = "congratulations"
+        adjustLabelFontSizeToFitRect(labelNode: rightChiNode, rect: findImageNode(name: "rightChiBtn").frame)
         
         addChild(rightChiNode)
         
-
+        
+        
         //建立三個單字
         
         //firstEngWordLabel.frame = CGRect(x: 187.5 + 375, y: 110, width: 200, height: 80)
@@ -764,12 +771,63 @@ class NewGameScene: SKScene {
         firstChiWordLabel.text = ""
         self.view?.addSubview(firstChiWordLabel)
         
+        popQuizTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameScene.popQuizCountDown), userInfo: nil, repeats: true)
+        
         //建立好畫面後開始動畫
      //   introAnimation()
         
     }
     
+    func adjustLabelFontSizeToFitRect(labelNode:SKLabelNode, rect:CGRect) {
+        
+        // Determine the font scaling factor that should let the label text fit in the given rectangle.
+        let scalingFactor = min(rect.width / labelNode.frame.width, rect.height / labelNode.frame.height)
+        
+        // Change the fontSize.
+        
+        labelNode.fontSize *= scalingFactor * 0.95
+        
+        if labelNode.fontSize > 100 {
+            
+            labelNode.fontSize = 100
+        }
+ 
+        // Optionally move the SKLabelNode to the center of the rectangle.
+        labelNode.position = CGPoint(x: rect.midX, y: rect.midY - labelNode.frame.height / 2.0)
+    }
+    
     //Part 1. intro: 開始學習單字的提示字樣滑入, 飛出
+    
+    
+    @objc func popQuizCountDown(){
+        
+        
+        var bigNum = Int(findLabelNode(name: "bigNumber").text!)!
+        var smallNum = Int(findLabelNode(name: "smallNumber").text!)!
+        
+        if smallNum > 0 {
+            
+            smallNum -= 1
+            
+            //smallNumBlink()
+            
+        } else if bigNum > 0 {
+            
+            bigNum -= 1
+            smallNum = 9
+            //smallNumBlink()
+            //bigNumBlink()
+            
+        } else {
+            
+            //timer.invalidate()
+            popQuizTimer.invalidate()
+        }
+        
+        findLabelNode(name: "bigNumber").text = String(bigNum)
+        findLabelNode(name: "smallNumber").text = String(smallNum)
+        
+    }
     
     func introAnimation(){
         
