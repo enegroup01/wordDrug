@@ -236,6 +236,9 @@ class NewGameScene: SKScene {
     //存放三個中文字
     var allThreeChiWords = [String]()
     var allThreeEngWords = [String]()
+    
+    var popQuizThreeChiWords = [String]()
+    var popQuizThreeEngWords = [String]()
 
     //控制是否為第二次聽考
     var isBackToSpell = false
@@ -261,6 +264,17 @@ class NewGameScene: SKScene {
     var randomUnits = [Int]()
     
     var popQuizTimer = Timer()
+    
+    var isChangeYPos = false
+    
+    var isPopQuiz = false
+    
+    var allPopQuizEngWords = [String]()
+    var allPopQuizChiWords = [String]()
+    var randomNums = [0,1,2,3,4,5]
+    var engRandomNums = [Int]()
+    
+    var popQuizSeq = 0
     
     override func didMove(to view: SKView) {
         
@@ -643,23 +657,23 @@ class NewGameScene: SKScene {
         //背景
         
         //暫時測試用
-        //makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
-        makeImageNode(name: "gameBg", image: "popQuizBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
+        //makeImageNode(name: "gameBg", image: "popQuizBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
         
         // 製作TimerBg & timer label
         
-        makeLabelNode(x: 0, y: height * 3 / 5 * dif, alignMent: .center, fontColor: specialYellow, fontSize: 50, text: "限時挑戰", zPosition: 2, name: "quizTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: height * 3 / 5 * dif, alignMent: .center, fontColor: specialYellow, fontSize: 50, text: "限時挑戰", zPosition: 2, name: "quizTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
-        makeImageNode(name: "timerBg", image: "timerBg", x: 0, y: height * 2 / 5 * dif, width: 277 * dif, height: 185 * dif, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "timerBg", image: "timerBg", x: 0, y: height * 2 / 5 * dif, width: 277 * dif, height: 185 * dif, z: 1, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: -65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "0", zPosition: 2, name: "bigNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        makeLabelNode(x: -65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "0", zPosition: 2, name: "bigNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: 65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "3", zPosition: 2, name: "smallNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        makeLabelNode(x: 65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "3", zPosition: 2, name: "smallNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 0)
 
-        makeLabelNode(x: 0, y: -50 * dif, alignMent: .center, fontColor: .white, fontSize: 110, text: "勇敢的", zPosition: 1, name: "bigChineseLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: -50 * dif, alignMent: .center, fontColor: .white, fontSize: 110, text: "", zPosition: 1, name: "bigChineseLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
         makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
@@ -667,11 +681,10 @@ class NewGameScene: SKScene {
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
 
-        //單字量Label, 這部分是新的
-     //   makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        //分數Label, 這部分是新的
+         makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
-   
-        
+
         //提示字
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
@@ -713,11 +726,11 @@ class NewGameScene: SKScene {
         //製作中文選項
         
         //暫時測試用
-        //makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
-        //makeImageNode(name: "rightChiBtn", image: "rightRoundedSqr", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "leftChiBtn", image: "leftRoundedSqr", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "rightChiBtn", image: "rightRoundedSqr", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "leftChiBtn", image: "popQuizBlock", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "rightChiBtn", image: "popQuizBlock", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
+        //makeImageNode(name: "leftChiBtn", image: "popQuizBlock", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
+        //makeImageNode(name: "rightChiBtn", image: "popQuizBlock", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
         
         //加入中文字選項的node
         leftChiNode.position = CGPoint(x: -187 * chiBtnDif, y: -375)
@@ -727,7 +740,7 @@ class NewGameScene: SKScene {
         leftChiNode.zPosition = 8
         leftChiNode.name = "leftChi"
         leftChiNode.fontName = "Helvetica Bold"
-        leftChiNode.text = "age"
+        //leftChiNode.text = "age"
        adjustLabelFontSizeToFitRect(labelNode: leftChiNode, rect: findImageNode(name: "leftChiBtn").frame)
 
         addChild(leftChiNode)
@@ -740,7 +753,7 @@ class NewGameScene: SKScene {
         rightChiNode.zPosition = 8
         rightChiNode.name = "rightChi"
         rightChiNode.fontName = "Helvetica Bold"
-        rightChiNode.text = "congratulations"
+        //rightChiNode.text = "congratulations"
         adjustLabelFontSizeToFitRect(labelNode: rightChiNode, rect: findImageNode(name: "rightChiBtn").frame)
         
         addChild(rightChiNode)
@@ -771,10 +784,11 @@ class NewGameScene: SKScene {
         firstChiWordLabel.text = ""
         self.view?.addSubview(firstChiWordLabel)
         
-        popQuizTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameScene.popQuizCountDown), userInfo: nil, repeats: true)
+        //popQuizTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameScene.popQuizCountDown), userInfo: nil, repeats: true)
         
         //建立好畫面後開始動畫
-     //   introAnimation()
+        
+        introAnimation()
         
     }
     
@@ -844,12 +858,25 @@ class NewGameScene: SKScene {
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
+    
         var engWord0 = [String]()
         var chiWord0 = String()
         var engWord1 = [String]()
         var chiWord1 = String()
         var engWord2 = [String]()
         var chiWord2 = String()
+        
+        
+        //popQuiz使用
+        var allThreePopQuizEngWordsArray = [[String]]()
+        
+        var engWord3 = [String]()
+        var chiWord3 = String()
+        var engWord4 = [String]()
+        var chiWord4 = String()
+        var engWord5 = [String]()
+        var chiWord5 = String()
+        
         
         let quarterCount = wordSets.count / 3
         
@@ -875,6 +902,49 @@ class NewGameScene: SKScene {
         chiWord1 = wordSets [quarterCount +  currentWordSequence + 1]
         engWord2 = wordSets[currentWordSequence + 2].components(separatedBy: " ")
         chiWord2 = wordSets [quarterCount +  currentWordSequence + 2]
+            
+            
+            if (unitNumber + 1) % 2 == 0{
+
+            
+        //popQuiz使用
+            
+            engWord3 = wordSets[currentWordSequence - 3].components(separatedBy: " ")
+            chiWord3 = wordSets[quarterCount +  currentWordSequence - 3]
+            engWord4 = wordSets[currentWordSequence - 2].components(separatedBy: " ")
+            chiWord4 = wordSets[quarterCount +  currentWordSequence - 2]
+            engWord5 = wordSets[currentWordSequence - 1].components(separatedBy: " ")
+            chiWord5 = wordSets[quarterCount +  currentWordSequence - 1]
+            
+     
+                allThreePopQuizEngWordsArray.append(engWord3)
+                allThreePopQuizEngWordsArray.append(engWord4)
+                allThreePopQuizEngWordsArray.append(engWord5)
+                
+                
+                for i in 0 ..< allThreePopQuizEngWordsArray.count{
+                    var word = String()
+                    
+                    for syl in allThreePopQuizEngWordsArray[i]{
+                        
+                        word = word + syl
+                    }
+                    
+                    popQuizThreeEngWords.append(word)
+                    
+                }
+                
+                
+                
+                //append中文字
+                popQuizThreeChiWords.append(chiWord3)
+                popQuizThreeChiWords.append(chiWord4)
+                popQuizThreeChiWords.append(chiWord5)
+                
+                print(popQuizThreeEngWords)
+                print(popQuizThreeChiWords)
+            }
+            
         }
         
         allThreeEngWordsArray.append(engWord0)
@@ -893,6 +963,8 @@ class NewGameScene: SKScene {
             allThreeEngWords.append(word)
       
         }
+        
+        
         
         //append中文字
         allThreeChiWords.append(chiWord0)
@@ -2401,6 +2473,15 @@ class NewGameScene: SKScene {
         leftChiNode.text = selChiWords[randomL]
         rightChiNode.text = selChiWords[randomR]
         
+        
+        //只修正一次Y的位置
+        if isChangeYPos == false {
+        leftChiNode.position.y = leftChiNode.frame.origin.y - leftChiNode.frame.height / 6
+        rightChiNode.position.y = rightChiNode.frame.origin.y - rightChiNode.frame.height / 6
+        isChangeYPos = true
+        }
+
+        
         let leftChiBtn = findImageNode(name: "leftChiBtn")
         let rightChiBtn = findImageNode(name:"rightChiBtn")
         
@@ -2506,22 +2587,44 @@ class NewGameScene: SKScene {
                 
                 print("雙數結尾")
                 
+
                 //進入pop quiz
                 
+                isPopQuiz = true
+                
                 // 載入新背景
-                // 刪除舊畫面
-                // 載入新畫面
-                // 載入前二組單字
-                
+          
                 changeTexture(nodeName: "gameBg", newTexture: "popQuizBg")
-                
+                findLabelNode(name: "quizTitle").alpha = 1
+                findImageNode(name: "timerBg").alpha = 1
+                findLabelNode(name: "bigNumber").alpha = 1
+                findLabelNode(name: "smallNumber").alpha = 1
+                findLabelNode(name: "bigChineseLabel").alpha = 1
+                findImageNode(name: "leftChiBtn").alpha = 1
+                findImageNode(name: "rightChiBtn").alpha = 1
+                changeTexture(nodeName: "leftChiBtn", newTexture: "popQuizBlock")
+                changeTexture(nodeName: "rightChiBtn", newTexture: "popQuizBlock")
+
+                // 刪除舊畫面
                 findImageNode(name: "recogWordsBg").alpha = 0
                 
+
+                // 載入前二組單字
+
                 
+                for i in 0 ..< 3{
+                    
+                    allPopQuizEngWords.append(allThreeEngWords[i])
+                    allPopQuizEngWords.append(popQuizThreeEngWords[i])
+                    allPopQuizChiWords.append(allThreeChiWords[i])
+                    allPopQuizChiWords.append(popQuizThreeChiWords[i])
+        
+                }
                 
+                randomNums.shuffled()
+                engRandomNums = randomNums
                 
-                
-                
+                popQuiz()
                 
                 
             } else {
@@ -2714,6 +2817,59 @@ class NewGameScene: SKScene {
         
     }
     
+    
+    //製作popQuiz的字及答案
+    func popQuiz(){
+        
+        
+        if popQuizSeq > 2 {
+            
+            print("3 pop quizes over")
+            
+        } else {
+        
+       
+        
+            var twoEngAnswers = [String]()
+       
+            let chiQuestion = allPopQuizChiWords[randomNums[popQuizSeq]]
+        
+            let correctEng = allPopQuizEngWords[randomNums[popQuizSeq]]
+        
+            //抓另一個英文選項
+            engRandomNums.remove(at: popQuizSeq)
+            
+            let ran = Int(arc4random_uniform(UInt32(engRandomNums.count)))
+            let wrongEng = allPopQuizEngWords[engRandomNums[ran]]
+            
+
+            
+            let rightRan = Int(arc4random_uniform(UInt32(2)))
+            if rightRan == 0 {
+                
+                twoEngAnswers.append(correctEng)
+                twoEngAnswers.append(wrongEng)
+                leftOrRight = 0
+                
+            } else {
+                twoEngAnswers.append(wrongEng)
+                twoEngAnswers.append(correctEng)
+                leftOrRight = 1
+                
+            }
+            
+        findLabelNode(name: "bigChineseLabel").text = chiQuestion
+            findLabelNode(name: "leftChi").text = twoEngAnswers[0]
+            findLabelNode(name: "rightChi").text = twoEngAnswers[1]
+        
+        
+        
+
+        popQuizSeq += 1
+        
+        }
+        
+    }
     
     @objc func notifyRestartGame2(){
         
