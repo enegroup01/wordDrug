@@ -305,6 +305,14 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FL0-p7-P4u">
+                                <rect key="frame" x="332" y="624" width="37" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="soundPng.png"/>
+                                <connections>
+                                    <action selector="playSoundClicked:" destination="v6L-yK-9Lk" eventType="touchUpInside" id="P7g-wN-F5d"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -317,6 +325,7 @@
                         <outlet property="firstChiWord" destination="gb0-cF-7Qd" id="8cq-Yf-iIp"/>
                         <outlet property="firstEngWord" destination="9Px-Py-9y0" id="dKK-kz-bpb"/>
                         <outlet property="firstWordBtn" destination="dx5-tV-myf" id="23x-iR-PnO"/>
+                        <outlet property="playSoundBtn" destination="FL0-p7-P4u" id="GsL-Kz-Lxi"/>
                         <outlet property="recogTextLabel" destination="140-yy-deB" id="puS-3u-TFB"/>
                         <outlet property="recordBtn" destination="Im1-Oy-Q3k" id="X9V-hT-naw"/>
                         <outlet property="resultBg" destination="Npy-0N-1SM" id="jdQ-uh-uVg"/>
@@ -1020,6 +1029,7 @@
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="519" height="114"/>
         <image name="senBlock.png" width="699" height="114"/>
+        <image name="soundPng.png" width="70" height="46"/>
         <image name="stageTopCover.png" width="375" height="133"/>
         <image name="sylBlueBall" width="16" height="16"/>
     </resources>

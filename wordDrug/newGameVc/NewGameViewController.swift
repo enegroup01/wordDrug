@@ -222,6 +222,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     var isCountingTriggered = false
     
+    @IBOutlet weak var playSoundBtn: UIButton!
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -304,7 +305,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(cancelBtn)
         
         quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        quitBtn.setTitle("確定", for: .normal)
+        quitBtn.setTitle("離開", for: .normal)
         quitBtn.setTitleColor(darkRed, for: .normal)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         self.view.addSubview(quitBtn)
@@ -341,11 +342,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         sen1Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: height / 2 , width: 350 * dif, height: 57 * dif)
         
-        sen2Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen1Btn.frame.maxY + 25 * dif, width: 350 * dif, height: 57 * dif)
+        sen2Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * dif, height: 57 * dif)
         
-        sen3Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen2Btn.frame.maxY + 25 * dif , width: 350 * dif, height: 57 * dif)
+        sen3Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * dif, height: 57 * dif)
         
-        sen4Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen3Btn.frame.maxY + 25 * dif , width: 350 * dif, height: 57 * dif)
+        sen4Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * dif, height: 57 * dif)
         
 
         allBtns.append(sen1Btn)
@@ -482,6 +483,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.alpha = 0.7
         audioView.waveColor = recordingPinkColor
         audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
+        
+        //設定發音鍵
+        playSoundBtn.frame = CGRect(x: width - 35 * dif * 1.5, y: height - 23 * dif * 1.5, width: 35 * dif, height: 23 * dif)
+        
         
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -799,6 +804,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+
+    @IBAction func playSoundClicked(_ sender: Any) {
+        
+
+        if synWord != String(){
+         
+            playSoundBtn.isEnabled = false
+            synPronounce()
+        }
+        
+        
+    }
     @objc func leaveWithoutSaving(){
         
         UIView.animate(withDuration: 0.06, animations: {[weak self] in
@@ -876,6 +893,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recordBtn.isEnabled = true
         
         recordBtn.isHidden = false
+        
+        playSoundBtn.isEnabled = true
         
         //打開輸入字的label
         recogTextLabel.isHidden = false
@@ -972,6 +991,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //result畫面
     @objc func leaveGame(_ notification: NSNotification){
         
+        playSoundBtn.isEnabled = false
+
         coverBtn.isHidden = false
         //coverBg.isHidden = false
         resultBg.isHidden = false
@@ -1266,6 +1287,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         //發音
+
         synPronounce()
     }
 
@@ -1280,6 +1302,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
         //停止
         if audioEngine.isRunning {
+            
+            
 
             //wave 消失停止
             audioView.isHidden = true
@@ -1297,6 +1321,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             recognitionRequest?.endAudio()
             recognitionTask?.cancel()
             
+            playSoundBtn.isEnabled = true
             
             
             //檢查答案, 句子/單字
@@ -1317,6 +1342,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }  else {
             
             //開啟錄音
+                 playSoundBtn.isEnabled = false
             
             //btn圖案更改成錄音
             recordBtn.setImage(UIImage(named:"recordingBtn.png"), for: .normal)
@@ -1666,6 +1692,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //發音
             self!.pronounceTime = 1
+   
             self!.synPronounce()
             
 
@@ -1938,6 +1965,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //句子發音
         synWord = sentence
    
+
         synPronounce()
     }
     
@@ -2088,6 +2116,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //發音
         pronounceTime = 1
+
         synPronounce()
         
     }
@@ -2296,7 +2325,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             print("error")
         }
         
-        
+
         let string = synWord
         
         var rateFloat = Float()
@@ -2323,6 +2352,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = rateFloat
         
+        
         //發音等待時間
         let when = DispatchTime.now() + 2.7
         
@@ -2333,7 +2363,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
             
             strongSelf.synth.speak(utterance)
-            
+
             
             if strongSelf.pronounceTime == 2 {
                 
@@ -2353,25 +2383,78 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
 
+        playSoundBtn.isEnabled = false
         recordBtn.isEnabled = false
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
 
-     
+
+  
+      
+            
+            if isCheckingSentence{
+
+                //檢查句子前先發hint
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
+                    
+
+            } else {
+                
+                
+                
+                recordBtn.isEnabled = true
+                playSoundBtn.isEnabled = true
+            }
+            
+            
+            
+            
+        
+        
+        
+        /*  原先備份版本
         //用此來send Nc
         if isCheckingSentence{
-            
+         
             //檢查句子前先發hint
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
-            
+         
         } else {
-            
+         
          
             recordBtn.isEnabled = true
         }
+        */
         
+        /*
+        //用此來send Nc
+        if isCheckingSentence{
+            
+            if !isSimplyPlaySound {
+            
+            //檢查句子前先發hint
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
+                
+                print("auto play")
+                
+                
+            } else {
+              
+                print("simply play")
+                recordBtn.isEnabled = true
+                
+     
+            }
+            
+        } else {
+          
+            
+        }
+        
+        isSimplyPlaySound = false
+ */
     }
     
     @available(iOS 7.0, *)

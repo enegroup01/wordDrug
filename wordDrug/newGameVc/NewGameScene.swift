@@ -1286,13 +1286,32 @@ class NewGameScene: SKScene {
         
     }
     
+    var hintTime = 0
     @objc func readyToReadSentence(){
         
-        hintSlideIn(leftText: "換你", rightText: "發音", waitTime: 1.3) {
+        
+        if hintTime == 0 {
             
-             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readSentence"), object: nil, userInfo: nil)
+            hintSlideIn(leftText: "換你", rightText: "發音", waitTime: 1.3) {[weak self] in
+                
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readSentence"), object: nil, userInfo: nil)
+                
+                self!.hintTime += 1
+                
+            }
+        } else {
+            
+     
+                
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readSentence"), object: nil, userInfo: nil)
             
         }
+     
+ 
+        
+    
+ 
     }
     
     @objc func notifyReadSentence(){
@@ -2644,7 +2663,7 @@ class NewGameScene: SKScene {
         lineNode.removeAllActions()
         lineNode.size = CGSize(width: 750, height: 5)
         lineNode.alpha = 0
-
+        hintTime = 0
         
         if gameMode == 0 {
         
