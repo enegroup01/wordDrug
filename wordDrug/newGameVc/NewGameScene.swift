@@ -13,6 +13,7 @@ let leaveGameKey = "leaveGame"
 let startToRecognizeKey = "startToRecognize"
 let pronounceWordKey = "pronounceWord"
 let addScoreKey = "addScore"
+let pauseKey = "pause"
 
 class NewGameScene: SKScene {
 
@@ -330,8 +331,17 @@ class NewGameScene: SKScene {
         //啟動顯示tagView
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyOnlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
 
-        
+        //重新開始練習句子
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyRestartGame2), name: NSNotification.Name("restartGame2"), object: nil)
+        
+      
+        //暫停
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyPause), name: NSNotification.Name("pause"), object: nil)
+        
+        
+        
+        //接收再度倒數
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.restartCounting), name: NSNotification.Name("restartCounting"), object: nil)
        
         
         //先解決算出wordSequence之後再來讀取所有的字
@@ -576,6 +586,23 @@ class NewGameScene: SKScene {
         
     }
     
+    @objc func notifyPause(){
+        
+    }
+    
+    @objc func restartCounting(){
+        
+     
+        let lineNode = findImageNode(name: "countDownLine")
+        
+        if lineNode.isPaused && !lineNode.alpha.isZero{
+            print("resume count down")
+            lineNode.isPaused = false
+        }
+
+        
+    }
+    
     //只做句子練習畫面
     func setUpSentenceScreen(){
         
@@ -606,6 +633,8 @@ class NewGameScene: SKScene {
         
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
+        
+             makeImageNode(name: "pause", image: "pauseBtn", x: -330 * chiBtnDif, y: 550, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
 
         //單字量Label, 這部分是新的
         makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
@@ -634,11 +663,11 @@ class NewGameScene: SKScene {
         switch  height {
         case 812:
             chiBtnDif = 0.8
-            dif = 1.15
+            dif = 0.9
             iPadDif = 1
         case 736:
             chiBtnDif = 1
-            dif = 1.1
+            dif = 0.9
             iPadDif = 1
         case 667:
             chiBtnDif = 0.95
@@ -646,7 +675,7 @@ class NewGameScene: SKScene {
             iPadDif = 1
         case 568:
             chiBtnDif = 0.9
-            dif = 0.9
+            dif = 1
             iPadDif = 1
         default:
             chiBtnDif = 0.9
@@ -661,6 +690,8 @@ class NewGameScene: SKScene {
         
         //makeImageNode(name: "gameBg", image: "popQuizBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
+        
+        makeImageNode(name: "pause", image: "pauseBtn", x: -330 * chiBtnDif, y: 550, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
         
         // 製作TimerBg & timer label
         
@@ -1281,16 +1312,22 @@ class NewGameScene: SKScene {
         lineNode.run(countDownAction) {[weak self] in
             
             print("stop counting")
-                //timesUp
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "timesUp"), object: nil, userInfo: nil)
+            
             
             //send Nc
-            
+            if self!.gameMode == 2 {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartGame2"), object: nil, userInfo: nil)
-
-            
-            //在此的功能為刪除倒數線
+            } else if self!.gameMode == 0 {
+                
+                
+                //timesUp
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "timesUp"), object: nil, userInfo: nil)
+                
+                //在此的功能為刪除倒數線
                 self!.practiceNextWord()
+
+            }
+            
 
             
         }
@@ -1476,7 +1513,7 @@ class NewGameScene: SKScene {
                         
                     } else {
                         shouldPronounce = false
-                        self!.isUserInteractionEnabled = true
+                        //self!.isUserInteractionEnabled = true
                         //發音完後變色
                         self!.firstEngWordLabel.textColor = self!.darkWordColor
 
@@ -1531,7 +1568,11 @@ class NewGameScene: SKScene {
                     
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {
                         self!.firstEngWordLabel.textColor = self!.darkWordColor
-                        self!.isUserInteractionEnabled = true
+                        
+                        if !self!.countScoreTimer.isValid {
+                                self!.isUserInteractionEnabled = true
+                        }
+                    
                     })
 
                     
@@ -1807,19 +1848,31 @@ class NewGameScene: SKScene {
             
             
             //如果在popQuiz有按鈕就要暫停timer
-            if isPopQuiz{
+            if !isPopQuiz && node.name == "pause" {
+                
+                //暫停counting
+                
+                let lineNode = findImageNode(name: "countDownLine")
+                lineNode.isPaused = true
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pause"), object: nil, userInfo: nil)
+  
+            }
+            
+            //暫停func
+            
+           
+            
+            //之後要寫中文錯誤的機制
+            //確認中文正確與否
+            if node.name == "leftChiBtn" || node.name == "leftChi"{
+                
                 
                 //停止timer
                 //數字歸位
                 popQuizTimer.invalidate()
                 findLabelNode(name: "bigNumber").text = "0"
                 findLabelNode(name: "smallNumber").text = "3"
-                
-            }
-            
-            //之後要寫中文錯誤的機制
-            //確認中文正確與否
-            if node.name == "leftChiBtn" || node.name == "leftChi"{
                 
                 if leftOrRight == 0 {
                     //答對
@@ -1861,6 +1914,13 @@ class NewGameScene: SKScene {
             }
             
             if node.name == "rightChiBtn" || node.name == "rightChi"{
+                
+                
+                //停止timer
+                //數字歸位
+                popQuizTimer.invalidate()
+                findLabelNode(name: "bigNumber").text = "0"
+                findLabelNode(name: "smallNumber").text = "3"
                 if leftOrRight == 1 {
                     //答對
                     
@@ -2576,7 +2636,7 @@ class NewGameScene: SKScene {
         
     }
     
-    //練習下個字或是結束本回合
+    //練習下個字或是結束本回合 / 進入popQuiz
     func practiceNextWord(){
         
         let lineNode = findImageNode(name: "countDownLine")
@@ -2638,6 +2698,9 @@ class NewGameScene: SKScene {
         } else {
             //三個字以練習完
             
+            //不能暫停
+            findImageNode(name: "pause").isHidden = true
+            
             //在此確認是否為雙數結束
             
             if (unitNumber + 1) % 2 == 0{
@@ -2680,6 +2743,12 @@ class NewGameScene: SKScene {
                 
                 randomNums.shuffled()
                 engRandomNums = randomNums
+                
+                print(randomNums)
+                print(engRandomNums)
+                print(allPopQuizChiWords)
+                print(allPopQuizEngWords)
+                
                 
                 popQuiz()
                 
@@ -2879,8 +2948,11 @@ class NewGameScene: SKScene {
     func popQuiz(){
         
         //回復可以按鈕
-        isUserInteractionEnabled = true
         
+        if !countScoreTimer.isValid{
+            print("countscore timer not activated")
+        isUserInteractionEnabled = true
+        }
         if popQuizSeq > 2 {
             
             print("3 pop quizes over")
@@ -2914,8 +2986,8 @@ class NewGameScene: SKScene {
         
             let correctEng = allPopQuizEngWords[randomNums[popQuizSeq]]
         
-            //抓另一個英文選項
-            engRandomNums.remove(at: popQuizSeq)
+            //抓另一個英文選項, 移除第一個位置, 因為數量一直遞減
+            engRandomNums.remove(at: 0)
             
             let ran = Int(arc4random_uniform(UInt32(engRandomNums.count)))
             let wrongEng = allPopQuizEngWords[engRandomNums[ran]]

@@ -25,6 +25,7 @@ let readyToReadSentenceKey = "readyToReadSentence"
 let readSentenceKey = "readSentence"
 let onlyPracticeSentenceKey = "onlyPracticeSentence"
 let restartGame2Key = "restartGame2"
+let restartCountingKey = "restartCounting"
 
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
@@ -209,6 +210,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     var chiSentence = String()
     
+    //所有alertView的變數
+    var alertBg = UIImageView()
+    var alertText = UILabel()
+    var ghostBtn = UIButton()
+    var quitBtn = UIButton()
+    var cancelBtn = UIButton()
+    var leftBtnClickedImg = UIImageView()
+    var rightBtnClickedImg = UIImageView()
+    let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+
+    var isCountingTriggered = false
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -217,32 +230,38 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var senLabelHeightDif = CGFloat()
         var iPadDif = CGFloat()
         var btnDif = CGFloat()
+                var xDif = CGFloat()
         
         switch height {
         case 812:
+            xDif = 1.2
             btnDif = 1
             dif = 1.15
             senLabelHeightDif = 0.7
             iPadDif = 1
         case 736:
+            xDif = 1
             btnDif = 1.1
             dif = 1.1
             senLabelHeightDif = 0.78
             iPadDif = 1
             
         case 667:
+            xDif = 1
             btnDif = 1
             dif = 1
             senLabelHeightDif = 0.9
             iPadDif = 1
             
         case 568:
+            xDif = 1
             btnDif = 0.9
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1
             
         default:
+            xDif = 1
             btnDif = 0.9
             dif = 0.9
             senLabelHeightDif = 1
@@ -253,7 +272,56 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         // Do any additional setup after loading the view.
        
         //暫時測試畫面使用
-       
+        
+        //加入alertView
+        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        ghostBtn.backgroundColor = lightGray
+        //ghostBtn.addTarget(self, action: #selector(LessonViewController.removeBtns), for: .touchUpInside)
+        self.view.addSubview(ghostBtn)
+        
+        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        alertBg.image = UIImage(named: "reviewSelectBg.png")
+        self.view.addSubview(alertBg)
+        
+        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 34)
+        alertText.textColor = .white
+        alertText.text = "\n離開目前課程\n學習進度不會儲存!"
+        alertText.numberOfLines = 0
+        alertText.textAlignment = .center
+        alertText.adjustsFontSizeToFitWidth = true
+        alertBg.addSubview(alertText)
+        
+        
+   
+        
+        cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        
+        cancelBtn.setTitle("取消", for: .normal)
+        cancelBtn.setTitleColor(darkRed, for: .normal)
+        cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
+        self.view.addSubview(cancelBtn)
+        
+        quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        quitBtn.setTitle("確定", for: .normal)
+        quitBtn.setTitleColor(darkRed, for: .normal)
+        quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
+        self.view.addSubview(quitBtn)
+        
+        leftBtnClickedImg.frame = cancelBtn.frame
+        leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
+        
+        rightBtnClickedImg.frame = quitBtn.frame
+        rightBtnClickedImg.image = UIImage(named: "rightBtnClickedImg.png")
+        
+        self.view.addSubview(leftBtnClickedImg)
+        self.view.addSubview(rightBtnClickedImg)
+        leftBtnClickedImg.alpha = 0
+        rightBtnClickedImg.alpha = 0
+
+        
+        
         coverBg.image = UIImage(named:"coverBg.png")
         resultBg.image = UIImage(named:"resultBg.png")
         
@@ -461,6 +529,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //從gameScene時間到來接收restartGame2
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.game2RestartFunc), name: NSNotification.Name("restartGame2"), object: nil)
+        
+        
+        //接收暫停功能
+                NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("pause"), object: nil)
+        
+        //重新倒數
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartCounting), name: NSNotification.Name("restartCounting"), object: nil)
         
         
         //先隱藏錄音及辨識
@@ -695,9 +770,91 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(recordingIndicator!)
         self.view.bringSubview(toFront: recordBtn)
   
+        //拉到最前方
+        self.view.bringSubview(toFront: ghostBtn)
+        self.view.bringSubview(toFront: alertBg)
+        
+        self.view.bringSubview(toFront: cancelBtn)
+        self.view.bringSubview(toFront: quitBtn)
+        self.view.bringSubview(toFront: leftBtnClickedImg)
+        self.view.bringSubview(toFront: rightBtnClickedImg)
+
+        ghostBtn.isHidden = true
+        alertBg.isHidden = true
+        cancelBtn.isHidden = true
+        quitBtn.isHidden = true
+        leftBtnClickedImg.isHidden = true
+        rightBtnClickedImg.isHidden = true
+    }
+    
+    //接收nc
+    @objc func pauseGame(){
+        
+        ghostBtn.isHidden = false
+        alertBg.isHidden = false
+        cancelBtn.isHidden = false
+        quitBtn.isHidden = false
+        leftBtnClickedImg.isHidden = false
+        rightBtnClickedImg.isHidden = false
         
     }
     
+    @objc func leaveWithoutSaving(){
+        
+        UIView.animate(withDuration: 0.06, animations: {[weak self] in
+            
+            self!.leftBtnClickedImg.alpha = 1
+            
+            
+        }) {[weak self] (finished:Bool) in
+            
+            
+            if finished {
+                /*
+                 self!.leftBtnClickedImg.alpha = 0
+                 self?.cancelBtn.isEnabled = false
+                 self?.quitBtn.isEnabled = false
+ 
+                 //停止動畫
+                 self!.recordingIndicator?.stopAnimating()
+ 
+                 //停止辨識
+                 self!.audioEngine.stop()
+                 self!.recognitionRequest?.endAudio()
+                 self!.recognitionTask?.cancel()
+                 */
+ 
+                self!.timer?.invalidate()
+                
+
+                self!.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+    }
+
+    @objc func removeBtns(){
+        
+        //send Nc去continue
+        
+     //   if isCountingTriggered{
+            
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartCounting"), object: nil, userInfo: nil)
+       // }
+        
+        ghostBtn.isHidden = true
+        alertBg.isHidden = true
+        cancelBtn.isHidden = true
+        quitBtn.isHidden = true
+        leftBtnClickedImg.isHidden = true
+        rightBtnClickedImg.isHidden = true
+
+        
+    }
+    
+    @objc func notifyRestartCounting(){
+        
+    }
 
     //顯示tagView
     @objc func showTag(){
@@ -1495,6 +1652,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
             
+            //給暫停使用的
+           // self!.isCountingTriggered = true
             
             //隱藏輸入字
             self!.recogTextLabel.text = ""
@@ -2023,6 +2182,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let answerEntered = recogTextLabel.text?.dropLast()
         
         if answerEntered! == sentence{
+            
+        //    isCountingTriggered = false
             
             //跳轉下個字
             
