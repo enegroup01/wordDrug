@@ -735,7 +735,7 @@ class NewGameScene: SKScene {
         //加入中文字選項的node
         leftChiNode.position = CGPoint(x: -187 * chiBtnDif, y: -375)
         leftChiNode.horizontalAlignmentMode = .center
-        //leftChiNode.fontSize = 100
+        leftChiNode.fontSize = 60
         leftChiNode.fontColor = .white
         leftChiNode.zPosition = 8
         leftChiNode.name = "leftChi"
@@ -748,7 +748,7 @@ class NewGameScene: SKScene {
         rightChiNode.position = CGPoint(x: 187 * chiBtnDif, y: -375)
         rightChiNode.horizontalAlignmentMode = .center
       
-        //rightChiNode.fontSize = 100
+        rightChiNode.fontSize = 60
         rightChiNode.fontColor = .white
         rightChiNode.zPosition = 8
         rightChiNode.name = "rightChi"
@@ -801,11 +801,14 @@ class NewGameScene: SKScene {
         
         labelNode.fontSize *= scalingFactor * 0.95
         
-        if labelNode.fontSize > 100 {
+        
+        
+        if labelNode.fontSize > 80 {
             
-            labelNode.fontSize = 100
+            labelNode.fontSize = 80
         }
  
+        print(labelNode.fontSize)
         // Optionally move the SKLabelNode to the center of the rectangle.
         labelNode.position = CGPoint(x: rect.midX, y: rect.midY - labelNode.frame.height / 2.0)
     }
@@ -819,11 +822,13 @@ class NewGameScene: SKScene {
         var bigNum = Int(findLabelNode(name: "bigNumber").text!)!
         var smallNum = Int(findLabelNode(name: "smallNumber").text!)!
         
-        if smallNum > 0 {
+        if smallNum > 1 {
             
             smallNum -= 1
             
             //smallNumBlink()
+            findLabelNode(name: "bigNumber").text = String(bigNum)
+            findLabelNode(name: "smallNumber").text = String(smallNum)
             
         } else if bigNum > 0 {
             
@@ -831,6 +836,8 @@ class NewGameScene: SKScene {
             smallNum = 9
             //smallNumBlink()
             //bigNumBlink()
+            findLabelNode(name: "bigNumber").text = String(bigNum)
+            findLabelNode(name: "smallNumber").text = String(smallNum)
             
         } else {
             
@@ -851,6 +858,8 @@ class NewGameScene: SKScene {
             findLabelNode(name: "quizTitle").fontColor = .red
             findLabelNode(name: "bigNumber").fontColor = .red
             findLabelNode(name: "smallNumber").fontColor = .red
+            findLabelNode(name: "bigNumber").text = "0"
+            findLabelNode(name: "smallNumber").text = "0"
             
             let wait = SKAction.wait(forDuration: 1)
             
@@ -861,15 +870,14 @@ class NewGameScene: SKScene {
                 self!.findLabelNode(name: "quizTitle").fontColor = .white
                 self!.findLabelNode(name: "bigNumber").fontColor = .white
                 self!.findLabelNode(name: "smallNumber").fontColor = .white
-                self!.findLabelNode(name: "smallNumer").text = "3"
+                self!.findLabelNode(name: "smallNumber").text = "3"
 
 
             }
             
         }
         
-        findLabelNode(name: "bigNumber").text = String(bigNum)
-        findLabelNode(name: "smallNumber").text = String(smallNum)
+
         
     }
     
@@ -1798,6 +1806,17 @@ class NewGameScene: SKScene {
             }
             
             
+            //如果在popQuiz有按鈕就要暫停timer
+            if isPopQuiz{
+                
+                //停止timer
+                //數字歸位
+                popQuizTimer.invalidate()
+                findLabelNode(name: "bigNumber").text = "0"
+                findLabelNode(name: "smallNumber").text = "3"
+                
+            }
+            
             //之後要寫中文錯誤的機制
             //確認中文正確與否
             if node.name == "leftChiBtn" || node.name == "leftChi"{
@@ -1810,6 +1829,7 @@ class NewGameScene: SKScene {
                     
                     makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                    
                     
                     let when = DispatchTime.now() + 0.3
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
@@ -2323,6 +2343,9 @@ class NewGameScene: SKScene {
                             answerTime = 0
                             //失去機會
                             
+                            //準備進入中文選項, 不能拖拉 這個應該就是bug
+                            isDragAndPlayEnable = false
+                            
                             //紀錄錯誤單字
                             correctResults[currentPracticeSequence] = "1"
                             var wrongWord = String()
@@ -2497,14 +2520,17 @@ class NewGameScene: SKScene {
         leftChiNode.text = selChiWords[randomL]
         rightChiNode.text = selChiWords[randomR]
         
+           adjustLabelFontSizeToFitRect(labelNode: leftChiNode, rect: findImageNode(name: "leftChiBtn").frame)
         
+                adjustLabelFontSizeToFitRect(labelNode: rightChiNode, rect: findImageNode(name: "rightChiBtn").frame)
         //只修正一次Y的位置
+        /*
         if isChangeYPos == false {
         leftChiNode.position.y = leftChiNode.frame.origin.y - leftChiNode.frame.height / 6
         rightChiNode.position.y = rightChiNode.frame.origin.y - rightChiNode.frame.height / 6
         isChangeYPos = true
         }
-
+*/
         
         let leftChiBtn = findImageNode(name: "leftChiBtn")
         let rightChiBtn = findImageNode(name:"rightChiBtn")
@@ -2664,7 +2690,7 @@ class NewGameScene: SKScene {
                 
                 
                 //抓三個單字的狀態 + 分數
-                lineNode.removeAllActions()
+                //lineNode.removeAllActions()
                
                 let scoreLabel = findLabelNode(name: "scoreLabel")
                 
@@ -2852,10 +2878,30 @@ class NewGameScene: SKScene {
     //製作popQuiz的字及答案
     func popQuiz(){
         
+        //回復可以按鈕
+        isUserInteractionEnabled = true
         
         if popQuizSeq > 2 {
             
             print("3 pop quizes over")
+            
+            //移除畫面
+            //離開遊戲
+            
+            //以下function等同單數離開
+            let scoreLabel = findLabelNode(name: "scoreLabel")
+            
+            var scoreToPass = scoreLabel.text!
+            //if isFinalGetPoint{
+            //}
+            scoreToPass = String(Int(scoreLabel.text!)! + 500)
+            
+            //這是連接後端的func
+            addWrongWords()
+            
+            
+            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
             
         } else {
             
@@ -2890,8 +2936,12 @@ class NewGameScene: SKScene {
             
      
             findLabelNode(name: "bigChineseLabel").text = chiQuestion
-            findLabelNode(name: "leftChi").text = twoEngAnswers[0]
-            findLabelNode(name: "rightChi").text = twoEngAnswers[1]
+            leftChiNode.text = twoEngAnswers[0]
+            rightChiNode.text = twoEngAnswers[1]
+            
+            adjustLabelFontSizeToFitRect(labelNode: leftChiNode, rect: findImageNode(name: "leftChiBtn").frame)
+            
+            adjustLabelFontSizeToFitRect(labelNode: rightChiNode, rect: findImageNode(name: "rightChiBtn").frame)
         
             popQuizSeq += 1
         
