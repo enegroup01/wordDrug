@@ -675,7 +675,7 @@ class NewGameScene: SKScene {
             iPadDif = 1
         case 568:
             chiBtnDif = 0.9
-            dif = 1
+            dif = 0.9
             iPadDif = 1
         default:
             chiBtnDif = 0.9

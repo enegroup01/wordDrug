@@ -1310,6 +1310,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //停止
         if audioEngine.isRunning {
             
+            //避免再次快速按
+            recordBtn.isEnabled = false
             
             //wave 消失停止
             audioView.isHidden = true
@@ -1751,6 +1753,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             if self!.isRecogWordCorrect{
                 
+                
+                
                 //隱藏Btn
                 self!.recordBtn.isHidden = true
                 
@@ -1780,18 +1784,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     self!.recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
                     self!.recordBtn.isHidden = false
+                    self!.recordBtn.isEnabled = true
                 
                 } else {
                     //失敗跳離畫面
                     self!.answerTime = 0
+                    
                     
                     let addScore:[String:Int] = ["addScore":0]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToSpell"), object: nil, userInfo: addScore)
                     
                     
                 }
-                
-     
                 
             }
         }
