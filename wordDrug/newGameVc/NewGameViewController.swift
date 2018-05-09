@@ -808,11 +808,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     @IBAction func playSoundClicked(_ sender: Any) {
         
-        
+        //避免空字也發音
         if synWord != String(){
         
-            print("playSound")
-            print(synWord)
+          //  print("playSound")
+          //  print(synWord)
             synPronounce()
         }
         
@@ -1204,6 +1204,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     override func viewDidDisappear(_ animated: Bool) {
 
         NotificationCenter.default.removeObserver(self)
+        timer?.invalidate()
+        waitTimer.invalidate()
     }
     
     
@@ -1308,7 +1310,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //停止
         if audioEngine.isRunning {
             
-            stopSpeech()
             
             //wave 消失停止
             audioView.isHidden = true
@@ -1346,18 +1347,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }  else {
             
-            //stopSpeech()
 
-            /*
-            do{
-                try audioSession.setActive(false)
-             
-            }catch{
-             
-             
-            }
-            */
-            
             
             //btn圖案更改成錄音
             recordBtn.setImage(UIImage(named:"recordingBtn.png"), for: .normal)
@@ -2369,13 +2359,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if string.contains(" "){
             
             rateFloat = 0.4
-            print("唸句子")
-            print(synWord)
+          //  print("唸句子")
+          //  print(synWord)
+            
+            //delay要做0, delegate才會發音結束準時告知
             utterance.postUtteranceDelay = 0
             
         } else {
-            print("唸單字")
-            print(synWord)
+        //    print("唸單字")
+        //    print(synWord)
             rateFloat = 0.45
             utterance.postUtteranceDelay = 0
         }
@@ -2391,7 +2383,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         synth.speak(utterance)
         
         
-        /*
+        /* 下方功能為兩次發音先不需要
         //發音等待時間
         let when = DispatchTime.now() + 2.7
         
@@ -2421,8 +2413,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
-        print("**start")
-       // playSoundBtn.isEnabled = false
+       
+        //print("**start")
         recordBtn.isEnabled = false
         
     }
@@ -2434,78 +2426,28 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
        
         if isCheckingSentence{
 
-    
             //檢查句子前先發hint
-
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
-            
-            if !synth.isSpeaking{
-                recordBtn.isEnabled = true
-                print("really pause")
-            } else {
-                print("not yet Paused")
-                waitTimer.invalidate()
-                waitTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(NewGameViewController.waitTime), userInfo: nil, repeats: true)
-            }
-            
-        } else {
-        
-            
-            if !synth.isSpeaking{
-        recordBtn.isEnabled = true
-         print("really pause")
-            } else {
-                print("not yet Paused")
-                waitTimer.invalidate()
-                waitTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(NewGameViewController.waitTime), userInfo: nil, repeats: true)
-            }
         }
-        // playSoundBtn.isEnabled = true
         
         
-        /*  原先備份版本
-        //用此來send Nc
-        if isCheckingSentence{
-         
-            //檢查句子前先發hint
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
-         
-        } else {
-         
-         
+        if !synth.isSpeaking{
             recordBtn.isEnabled = true
-        }
-        */
-        
-        /*
-        //用此來send Nc
-        if isCheckingSentence{
-            
-            if !isSimplyPlaySound {
-            
-            //檢查句子前先發hint
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
-                
-                print("auto play")
-                
-                
-            } else {
-              
-                print("simply play")
-                recordBtn.isEnabled = true
-                
-     
-            }
-            
+            print("really pause")
+       
         } else {
-          
-            
+        
+            //避免delegate不成功...此function可能不需要暫時留著需要注意timer有沒有invalidate..
+            print("not yet Paused")
+            waitTimer.invalidate()
+            waitTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(NewGameViewController.waitTime), userInfo: nil, repeats: true)
         }
         
-        isSimplyPlaySound = false
- */
+        
     }
     
+    
+    //避免delegate不成功的TIMER
     @objc func waitTime(){
         
         print("enter Timer")
