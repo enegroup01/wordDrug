@@ -62,8 +62,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var recognitionRequest:SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask:SFSpeechRecognitionTask?
  
-  
-    
     //暫時使用的句子
     var sentenceSets = [String]()
     
@@ -112,7 +110,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var synWord = String()
     
     //Text to speech合成器
-    let synth = AVSpeechSynthesizer()
+    var synth = AVSpeechSynthesizer()
     
     @IBOutlet weak var resultBg: UIImageView!
     
@@ -175,7 +173,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
-    
+    var waitTimer = Timer()
     //紀錄錯誤發音字
     
     let relevantWords:[[String:[String]]] = [["and":["n","end","in"]], ["ant":["aunt", "and"]], ["ham":["pam"]], ["age":["h"]], ["base":["pace", "bass"]], ["bake":["bank"]], ["aim":["m", "am", "game", "i am", "came"]], ["yam":["yeah", "I'm", "game", "damn"]], ["cause":["calls", "plus", "cost", "course", "cocks", "cox"]], ["pause":["paul's", "pose", "pass"]], ["be":["b", "bit", "been", "p"]], ["beneath":["the neath"]], ["bass":["based", "base", "best"]], ["bag":["back"]], ["badge":["batch", "bage"]], ["bin":["pen", "been"]], ["as":["s"]], ["dawn":["don", "done", "dan"]], ["draw":["drawl", "jaw"]], ["bit":["but", "beat"]], ["by":["bye", "buy"]], ["bomb":["mom"]], ["bond":["pond", "and on"]], ["crab":["crap", "cram"]], ["bee":["b", "bg", "be", "p"]], ["employ":["i love ploy", "employee"]], ["ear":["here"]], ["few":["feel"]], ["sea":["c", "see", "sing"]], ["end":["and"]], ["hen":["hand", "ham"]], ["pet":["pat", "at"]], ["fog":["fuck"]], ["dew":["do you", "due", "do"]], ["lift":["left"]], ["donkey":["thank u"]], ["fill":["feel"]], ["grade":["great"]], ["grape":["greatg"]], ["grass":["quest"]], ["hill":["he'll"]], ["his":["yes", "he's"]], ["kid":["can't"]], ["lid":["lead", "let"]], ["high":["hi"]], ["miss":["mess", "bass"]], ["sir":["siri"]], ["ill":["io", "yell"]], ["lip":["that", "nap", "leap"]], ["leg":["lag"]], ["less":["les"]], ["kneepad":["hey pat", "we pack", "kneepad", "the pad"]], ["ring":["rain", "rheem"]], ["king":["teen", "10"]], ["ink":["inc."]], ["pin":["pain", "penn"]], ["did":["dead", "dig"]], ["dig":["dick"]], ["rhino":["right now"]], ["mind":["mine"]], ["bone":["born"]], ["tone":["porn", "turn"]], ["omit":["almonds", "almond", "i meet", "i'll meet", "a mitt"]], ["of":["off"]], ["offspring":["of spring"]], ["old":["owed"]], ["cold":["code"]], ["bow":["wow"]], ["sit":["set"]], ["sin":["send", "seen"]], ["red":["read", "rat"]], ["pig":["pick"]], ["very":["barry"]], ["carry":["carrie"]], ["ski":["schey"]], ["skill":["scale"]], ["tick":["take"]], ["tin":["10", "ten", "teen"]], ["fifty":["50"]], ["sixty":["60"]], ["to":["2", "two"]], ["rub":["rob"]], ["bun":["bon"]], ["gun":["gone"]], ["cup":["prop", "cop"]], ["drum":["john", "from"]], ["dumb":["dom", "damn"]], ["gain":["can", "game", "dan"]], ["cut":["caught"]], ["nut":["not", "nuts", "that's"]], ["burn":["born"]], ["surf":["sorry", "serve"]], ["sad":["said"]], ["accept":["a sept", "except"]], ["principle":["principal"]], ["atom":["adam", "at tom", "at ten", "at them"]], ["far":["fart"]], ["lawyer":["law yer", "law your"]], ["seesaw":["cecil"]], ["mat":["matt", "that"]], ["May":["mei", "main"]], ["gram":["graham"]], ["jam":["jan"]], ["pan":["pam"]], ["behave":["behalf", "we have"]], ["mass":["mas"]], ["haunted":["hunted"]], ["lack":["leg"]], ["neck":["nick", "mac"]], ["niece":["nice"]], ["column":["caller", "call him"]], ["colleague":["cardi", "kolic", "connie"]], ["wet":["what"]], ["media":["pedia"]], ["done":["don", "dan"]], ["dollar":["daughter"]], ["dry":["trying"]], ["bean":["being", "been"]], ["tea":["t", "tee"]], ["pen":["pam", "pan"]], ["lend":["land"]], ["sight":["site"]], ["hit":["hits"]], ["hippo":["hipple", "people"]], ["goal":["call"]], ["loaf":["love"]], ["sing":["seen", "same"]], ["thing":["fin", "fan", "thin"]], ["will":["we'll"]], ["till":["teal"]], ["mill":["mail", "male", "meal"]], ["win":["when", "wayne"]], ["wing":["wayne", "win", "when"]], ["among":["a man", "i'm on"]], ["iron":["i am"]], ["neon":["young"]], ["ours":["hours"]], ["rot":["rat"]], ["pot":["part"]], ["born":["porn"]], ["door":["don't worry", "dori"]], ["cow":["cal"]], ["town":["towel"]], ["prize":["price"]], ["marry":["merry", "mary"]], ["both":["bath", "ballf"]], ["sun":["son"]], ["hide":["height", "hi"]], ["due":["do you", "do", "dew", "dude"]], ["June":["john", "joan"]], ["rule":["drool"]], ["rude":["dude"]], ["gesture":["chester", "just trailer", "just your", "juster"]], ["eighty":["80", "eddie"]], ["thumb":["foam", "psalm"]], ["ketchup":["catch up"]], ["main":["man", "mane"]], ["band":["and"]], ["ladder":["leather", "other"]], ["daddy":["that he"]], ["whale":["well", "we'll"]], ["burst":["first"]], ["lamb":["let", "land"]], ["climate":["climb at", "climat"]], ["piece":["peace"]], ["place":["please", "play's"]], ["rat":["got", "rhett"]], ["battle":["that'll"]], ["drawer":["droller"]], ["autumn":["i'll touch", "alton"]], ["way":["we"]], ["liter":["litter", "letter", "later"]], ["ten":["pam", "can", "tin", "10"]], ["tent":["pant"]], ["deer":["beer", "dear"]], ["grey":["gray"]], ["obey":["i'll be"]], ["bucket":["buckets"]], ["tempo":["temple"]], ["nose":["knows"]], ["role":["roll", "raw"]], ["hire":["higher"]], ["skirt":["scarred"]], ["thirty":["30"]], ["bowling":["morning", "welding"]], ["ceiling":["sitting"]], ["fork":["fort"]], ["form":["foreign"]], ["more":["morning"]], ["fool":["for"]], ["aloud":["allowed"]], ["parrot":["pirate"]], ["ninety":["nighty", "90"]], ["quiz":["chris", "please"]], ["path":["pat", "pass"]], ["than":["then", "van"]], ["shoe":["she'll", "sure"]], ["gate":["kate"]], ["hate":["eight"]], ["hang":["hannah", "hand", "i am", "ham"]], ["sand":["send"]], ["admire":["at the meyer", "edmeyer"]], ["advise":["advice", "a device"]], ["whole":["call", "hall"]], ["whose":["who's", "who is"]], ["wheel":["we'll", "we"]], ["tall":["call", "paul"]], ["pair":["prayer"]], ["ease":["is"]], ["crayon":["korean", "quinn"]], ["dock":["talk", "dark"]], ["faucet":["fossett"]], ["itself":["it's self"]], ["race":["raise"]], ["knight":["night", "nights"]], ["rose":["roast"]], ["toad":["told", "towed"]], ["fond":["found"]], ["monk":["monarch", "month"]], ["noon":["no", "no one"]], ["move":["movie"]], ["foul":["fall", "follow"]], ["bounce":["taos"]], ["male":["mail"]], ["shut":["shot"]], ["bathe":["beef"]], ["badminton":["that minton", "abington", "babington"]], ["naughty":["knotty"]], ["granddaughter":["when dollar", "where daughter", "when daughter"]], ["twice":["pies"]], ["sail":["sale"]], ["tail":["pale"]], ["star":["*", "start"]], ["trial":["kyle", "child", "cheil"]], ["dial":["i'll", "kyle"]], ["coin":["calling"]], ["thin":["then", "fin"]], ["maximum":["messy mom"]], ["knee":["me"]], ["owner":["almost there", "on their"]], ["sell":["sale", "cell"]], ["leaf":["leave"]], ["flour":["flower"]], ["root":["route"]], ["blow":["hello", "below"]], ["bowl":["ball"]], ["grow":["grill", "roll"]], ["railroad":["rail road"]], ["raincoat":["wrinkled"]], ["alone":["along"]], ["mole":["ball", "more", "mall"]], ["hose":["house", "holes"]], ["word":["where"]], ["wedding":["waiting"]], ["thirtieth":["30th"]], ["twirl":["pearl", "twhirl", "thorough"]], ["ego":["eagle"]], ["name":["ma'am"]], ["ninth":["knife", "nice", "mines"]], ["shall":["sure", "scholl", "shell"]], ["six":["6"]], ["curtain":["carton"]], ["lead":["bead", "dead", "did"]], ["angel":["angil"]], ["need":["me"]], ["seem":["seeing", "same"]], ["pound":["pilot", "now"]], ["forty":["40"]], ["room":["ram"]], ["soon":["so in", "sean"]], ["ride":["right"]], ["rise":["lies", "rice"]], ["low":["no", "loel", "lol"]], ["own":["on", "all"]], ["know":["no"]], ["ruler":["reuther"]], ["their":["there"]], ["pale":["pio"]], ["race":["raise"]], ["plain":["plane"]], ["raise":["race"]], ["buy":["bye", "by"]], ["garden":["pardon"]], ["kilogram":["program"]], ["necklace":["nicolas"]], ["seek":["see"]], ["tool":["cool", "pool"]], ["wood":["would"]], ["woods":["what's"]], ["gym":["jane", "james", "jim", "jean", "gen"]], ["north":["no wife"]], ["row":["roll", "raw"]], ["fence":["sence", "sense", "thanks"]], ["deaf":["-", "def"]], ["tangerine":["thank you rain"]], ["beam":["boehm", "been"]], ["cent":["sent"]], ["thick":["fake", "sick", "fick"]], ["thief":["fief"]], ["safe":["save"]], ["shine":["shall i"]], ["childish":["ciao dish"]], ["guard":["god"]], ["wife":["weiss"]], ["sting":["stain", "steam"]], ["yourself":["your self"]], ["yourselves":["your selves"]], ["invent":["event"]], ["since":["sence", "scenes", "sense", "sings"]], ["sincere":["since year", "since you"]], ["tear":["cheer"]], ["boost":["post"]], ["goose":["close"]], ["train":["chain", "friend"]], ["waist":["waste"]], ["stair":["stare"]], ["twelfth":["12th"]], ["cellphone":["cell phone"]], ["many":["manny", "manning"]], ["planner":["planer"]], ["passenger":["messenger"]], ["alike":["i like"]], ["alive":["i life", "a life", "life"]], ["narrow":["nero", "natural"]], ["ground":["grounded", "grout"]], ["shore":["sure"]], ["spoon":["spohn", "splinter"]], ["crust":["quest", "cost", "cross", "crossed"]], ["eleven":["11"]], ["were":["where"]], ["daredevil":["there devil"]], ["pillow":["pelo"]], ["chin":["chain"]], ["stray":["straight"]], ["playground": ["play ground"]], ["write":["right"]], ["spend":["spand"]], ["yellow":["hello"]], ["still":["steel"]], ["tenth":["10", "10th"]], ["twenty":["20"]], ["restroom":["restaurant"]], ["eager":["either"]], ["omnipresent":["omni present", "i'm the present"]], ["scan":["scam"]], ["dazzle":["diesel"]], ["barber":["bubber", "barbara"]], ["armchair":["i'm chair", "arm chair"]], ["bed":["bad", "that"]], ["bedding":["heading", "betting"]], ["tailor":["paid her", "pedro", "taylor", "tater"]], ["debt":["that"]], ["doubtful":["duffel"]], ["amend":["amended"]], ["cable":["table"]], ["careless":["care less", "kelis"]], ["bitter":["peter"]], ["hear":["here"]], ["weary":["wearing"]], ["hobby":["abi", "happy"]], ["display":["let's play"]], ["dismiss":["this mess"]], ["cycle":["psycho"]], ["watermelon":["what a melon"]], ["laugh":["left"]], ["numb":["nom", "mom", "num", "nam"]], ["bomb":["mom"]], ["comb":["calm"]], ["humid":["you meant"]], ["assign":["a sign"]], ["housework":["how's work"]], ["noun":["known", "now"]], ["exist":["it's sixth"]], ["vest":["best"]], ["fist":["thirst"]], ["Walkman":["look man"]], ["strong":["stronger"]], ["young":["john"]], ["lung":["lawn", "loan", "lon"]], ["slang":["slam"]], ["taxi":["taxie"]], ["calm":["come"]], ["foreign":["flooring", "forane"]], ["golf":["cough"]], ["typhoon":["iphone"]], ["miner":["minor"]], ["microwave":["michael way"]], ["hound":["hi loved", "how", "hell", "how old"]], ["mud":["martha"]], ["mudslide":["must light", "mud slide", "most light"]], ["stove":["stealth"]], ["meat":["meet"]], ["least":["beast"]], ["kettle":["cuddle", "cattle"]], ["swan":["suong"]], ["cattle":["tattle"]], ["decide":["decided"]], ["carpet":["corporate"]], ["cartoon":["carton"]], ["course":["coris"]], ["balloon":["but when"]], ["fifteen":["15"]], ["fifteenth":["15th"]], ["yarn":["john", "jan"]], ["bookcase":["book case", "bouquets"]], ["manner":["mandor"]], ["clerk":["bonarck", "croak", "craig", "choleric"]], ["think":["thank", "fin"]], ["fourteen":["14"]], ["fourteenth":["14th"]], ["shorten":["sorry"]], ["four":["fort", "4", "for"]], ["fancy":["thanks he"]], ["blanket":["blankets"]], ["desert":["dessert"]], ["kangaroo":["bangaru"]], ["sidewalk":["so i walk"]], ["nineteen":["19"]], ["nineteenth":["19th"]], ["boast":["post"]], ["platform":["my phone"]], ["kindergarten":["can you gotten", "can you garden"]], ["steal":["steel"]], ["stream":["straight"]], ["dozen":["doesn't", "does"]], ["woolly":["hooley"]], ["decorate":["the correct"]], ["seventeen":["17"]], ["sleepover":["sleep over"]], ["wound":["warned", "owned", "wind", "orland"]], ["entrance":["entress"]], ["sixteen":["six team", "16"]], ["sixteenth":["16th"]], ["altogether":["i'll together"]], ["factory":["factoring"]], ["mourn":["morning"]], ["dough":["door", "dough"]], ["doughnut":["donut", "donuts", "doughnuts"]], ["medal":["metal", "middle"]], ["alright":["all right"]], ["evening":["evelyn"]], ["gentleman":["gentlemen"]], ["meaning":["minute", "minden"]], ["honor":["partner"]], ["forehead":["for head"]], ["icecream":["ice cream"]], ["succeed":["secede"]], ["thirteen":["13"]], ["thirteenth":["13th"]], ["color":["caller"]], ["honor":["other", "on their"]], ["eighteen":["18"]], ["eighteenth":["18th"]], ["influence":["inference"]], ["error":["eric"]], ["sightseeing":["sizing", "site seeing", "sight seeing"]], ["sailor":["saito", "seller", "seiter"]], ["weekend":["we can", "we can't"]], ["oven":["arvin", "alvin"]], ["river":["reverb"]], ["head":["had"]], ["seventy":["70"]], ["seventh":["7th"]], ["steak":["stick", "stuck"]], ["pleasure":["plazier"]], ["breath":["breast"]], ["breathe":["brief", "breeze", "breve"]], ["brand":["brenda"]], ["bet":["but"]], ["bettor":["better"]], ["barn":["born"]], ["ban":["bam"]], ["concern":["concerned"]], ["wear":["where"]], ["whether":["weather"]], ["sweater":["sweeter", "spider"]], ["pear":["pair"]], ["sudden":["southern"]], ["awaken":["we can"]], ["aware":["where"]], ["ban":["been", "bam", "bang", "ben"]], ["bang":["banging"]], ["bar":["art", "barley", "bari"]], ["bargain":["oregon"]], ["barn":["on", "porn"]], ["bleed":["plead", "believe it", "believe", "belief"]], ["breast":["rest"]], ["marble":["mobile", "moble"]]]
@@ -198,7 +196,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     var allRandomSens = [[Int:Int]]()
     
-            var allBtns = [UIButton]()
+    
+    var allBtns = [UIButton]()
     
     var correctRandom = Int()
     
@@ -221,6 +220,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
 
     var isCountingTriggered = false
+    
+                var audioSession = AVAudioSession.sharedInstance()
     
     @IBOutlet weak var playSoundBtn: UIButton!
     override func viewDidLoad() {
@@ -807,10 +808,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     @IBAction func playSoundClicked(_ sender: Any) {
         
-
+        
         if synWord != String(){
-         
-            playSoundBtn.isEnabled = false
+        
+            print("playSound")
+            print(synWord)
             synPronounce()
         }
         
@@ -890,11 +892,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @objc func readSentence(){
         
         //補足delegate裡沒有enable的功能
+        
+        if tagView.isHidden {
         recordBtn.isEnabled = true
         
         recordBtn.isHidden = false
-        
-        playSoundBtn.isEnabled = true
+        }
+        //playSoundBtn.isEnabled = true
         
         //打開輸入字的label
         recogTextLabel.isHidden = false
@@ -1143,6 +1147,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
     }
     
+    
     func countWords(){
         //計算所有字數
         
@@ -1303,8 +1308,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //停止
         if audioEngine.isRunning {
             
+            stopSpeech()
             
-
             //wave 消失停止
             audioView.isHidden = true
             timer?.invalidate()
@@ -1317,12 +1322,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
   
             
             //停止辨識
+
             audioEngine.stop()
             recognitionRequest?.endAudio()
             recognitionTask?.cancel()
             
             playSoundBtn.isEnabled = true
-            
             
             //檢查答案, 句子/單字
             if isCheckingSentence{
@@ -1341,8 +1346,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }  else {
             
-            //開啟錄音
-                 playSoundBtn.isEnabled = false
+            //stopSpeech()
+
+            /*
+            do{
+                try audioSession.setActive(false)
+             
+            }catch{
+             
+             
+            }
+            */
+            
             
             //btn圖案更改成錄音
             recordBtn.setImage(UIImage(named:"recordingBtn.png"), for: .normal)
@@ -1384,12 +1399,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
             //開始辨識
            
-            let audioSession = AVAudioSession.sharedInstance()
+
             do {
  
                 try audioSession.setCategory(AVAudioSessionCategoryRecord)
                 try audioSession.setMode(AVAudioSessionModeMeasurement)
                 try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+                
+          
  
                 if let inputNode = audioEngine.inputNode as AVAudioInputNode?{
                     
@@ -1462,7 +1479,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     audioEngine.prepare()
                     try audioEngine.start()
-                    
+                  
+                    //開啟錄音
+                    playSoundBtn.isEnabled = false
                 }
                 
     
@@ -1475,6 +1494,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
     }
+    
+
     
     //假如沒有辦法錄音就要啟動認證
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
@@ -2309,17 +2330,29 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         tagView.removeAllTags()
     }
     
+    //重設synth & 他的delegate
+    func stopSpeech(){
+        
+        if synth.isSpeaking{
+            
+            synth.stopSpeaking(at: .immediate)
+            synth = AVSpeechSynthesizer()
+            synth.delegate = self
+            
+        }
+    }
+
     //syn發音
     func synPronounce(){
         
-
         
         do {
             
             //設置成ambient看能不能避免任何interruption 造成當機
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-            try AVAudioSession.sharedInstance().setMode(AVAudioSessionModeDefault)
-            try AVAudioSession.sharedInstance().setActive(true)
+            
+            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
+            try audioSession.setMode(AVAudioSessionModeDefault)
+            try audioSession.setActive(true)
             
         } catch  {
             print("error")
@@ -2337,11 +2370,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             rateFloat = 0.4
             print("唸句子")
-            
-            utterance.postUtteranceDelay = 1
+            print(synWord)
+            utterance.postUtteranceDelay = 0
             
         } else {
             print("唸單字")
+            print(synWord)
             rateFloat = 0.45
             utterance.postUtteranceDelay = 0
         }
@@ -2353,6 +2387,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         utterance.rate = rateFloat
         
         
+        stopSpeech()
+        synth.speak(utterance)
+        
+        
+        /*
         //發音等待時間
         let when = DispatchTime.now() + 2.7
         
@@ -2361,7 +2400,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             guard let strongSelf = self else{
                 return
             }
-            
+            //strongSelf.synth.stopSpeaking(at: .immediate)
             strongSelf.synth.speak(utterance)
 
             
@@ -2375,43 +2414,53 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
         }
         
-        
+        */
     }
 
     
 
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
-
-        playSoundBtn.isEnabled = false
+        print("**start")
+       // playSoundBtn.isEnabled = false
         recordBtn.isEnabled = false
+        
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
 
+        print("**Finish")
+       
+        if isCheckingSentence{
 
-  
-      
+    
+            //檢查句子前先發hint
+
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
             
-            if isCheckingSentence{
-
-                //檢查句子前先發hint
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
-                    
-
-            } else {
-                
-                
-                
+            if !synth.isSpeaking{
                 recordBtn.isEnabled = true
-                playSoundBtn.isEnabled = true
+                print("really pause")
+            } else {
+                print("not yet Paused")
+                waitTimer.invalidate()
+                waitTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(NewGameViewController.waitTime), userInfo: nil, repeats: true)
             }
             
-            
-            
-            
+        } else {
         
+            
+            if !synth.isSpeaking{
+        recordBtn.isEnabled = true
+         print("really pause")
+            } else {
+                print("not yet Paused")
+                waitTimer.invalidate()
+                waitTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(NewGameViewController.waitTime), userInfo: nil, repeats: true)
+            }
+        }
+        // playSoundBtn.isEnabled = true
         
         
         /*  原先備份版本
@@ -2457,19 +2506,33 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
  */
     }
     
+    @objc func waitTime(){
+        
+        print("enter Timer")
+        if !synth.isSpeaking{
+            recordBtn.isEnabled = true
+            print("timer pause")
+            waitTimer.invalidate()
+        }
+        
+        
+    }
+    
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance){
-        
+        print("**pause")
         recordBtn.isEnabled = true
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance){
+          print("**continue")
           recordBtn.isEnabled = false
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance){
+          print("**cancel")
         recordBtn.isEnabled = true
         
     }

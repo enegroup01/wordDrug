@@ -1959,7 +1959,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             isScrolling = false
             
-            
             collectionView.reloadData()
         }
     }
