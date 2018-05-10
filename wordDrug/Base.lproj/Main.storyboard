@@ -679,7 +679,7 @@
                                 <rect key="frame" x="-27" y="609" width="188" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="28"/>
-                                <state key="normal" title="進入課程" backgroundImage="lessonBtn.png">
+                                <state key="normal" title="學習新字" backgroundImage="lessonBtn.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -698,7 +698,7 @@
                                 <rect key="frame" x="110" y="601" width="188" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="28"/>
-                                <state key="normal" title="複習單字" backgroundImage="lessonBtn.png">
+                                <state key="normal" title="快速複習" backgroundImage="lessonBtn.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>

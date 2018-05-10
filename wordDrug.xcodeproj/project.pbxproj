@@ -251,6 +251,7 @@
 		AAE181981F97892D00683896 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE181961F97892D00683896 /* Main.storyboard */; };
 		AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAE181991F97892D00683896 /* Assets.xcassets */; };
 		AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */; };
+		AAE46C8220A4213F00FA6FCD /* 老師唸錯的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAE46C8120A4213E00FA6FCD /* 老師唸錯的字.txt */; };
 		AAF31A10207E23DA002F8FD8 /* darkSel.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF31A0E207E23D9002F8FD8 /* darkSel.png */; };
 		AAF31A11207E23DA002F8FD8 /* lightSel.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF31A0F207E23D9002F8FD8 /* lightSel.png */; };
 		AAFAFCA0205BD9CA00307264 /* wordTableBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFC9F205BD9C900307264 /* wordTableBg.png */; };
@@ -518,6 +519,7 @@
 		AAE181991F97892D00683896 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAE1819C1F97892D00683896 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAE1819E1F97892D00683896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAE46C8120A4213E00FA6FCD /* 老師唸錯的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "老師唸錯的字.txt"; sourceTree = "<group>"; };
 		AAF31A0E207E23D9002F8FD8 /* darkSel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkSel.png; sourceTree = "<group>"; };
 		AAF31A0F207E23D9002F8FD8 /* lightSel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightSel.png; sourceTree = "<group>"; };
 		AAFAFC9F205BD9C900307264 /* wordTableBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wordTableBg.png; sourceTree = "<group>"; };
@@ -863,6 +865,7 @@
 				AA648DDB207CE9EB003ACD07 /* s5-13.txt */,
 				AA648E20207CE9F9003ACD07 /* s5-14.txt */,
 				AA648E4B207CEA01003ACD07 /* s5-15.txt */,
+				AAE46C8120A4213E00FA6FCD /* 老師唸錯的字.txt */,
 			);
 			path = words;
 			sourceTree = "<group>";
@@ -1183,6 +1186,7 @@
 				AA98E6242086197A001100BA /* bookPng.png in Resources */,
 				AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */,
 				AA648E76207CEA05003ACD07 /* s1-8.txt in Resources */,
+				AAE46C8220A4213F00FA6FCD /* 老師唸錯的字.txt in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
 				AA648EB2207CEA05003ACD07 /* s3-12.txt in Resources */,
 				AA6AA72B209C99F500374241 /* timerCover.png in Resources */,

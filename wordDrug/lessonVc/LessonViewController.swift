@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class LessonViewController: UIViewController {
+class LessonViewController: UIViewController{
     let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
                             ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
                             ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
@@ -132,8 +133,19 @@ class LessonViewController: UIViewController {
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     
     
+    
+    //發音單字
+    var synWord = String()
+    
+    //Text to speech合成器
+    var synth = AVSpeechSynthesizer()
+    
+   
+    var audioSession = AVAudioSession.sharedInstance()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // Do any additional setup after loading the view.
         var dif = CGFloat()
@@ -258,8 +270,68 @@ class LessonViewController: UIViewController {
         
         removeBtns()
 
+
         
     }
+    
+    //syn發音
+    func synPronounce(){
+        print("pronounce")
+        print(synWord)
+        
+        do {
+            
+            //設置成ambient看能不能避免任何interruption 造成當機
+            
+            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
+            try audioSession.setMode(AVAudioSessionModeDefault)
+            try audioSession.setActive(true)
+            
+        } catch  {
+            print("error")
+        }
+        
+        
+        
+        var rateFloat = Float()
+        
+        let utterance = AVSpeechUtterance(string: synWord)
+        let utterance2 = AVSpeechUtterance(string: synWord)
+        
+        
+            rateFloat = 0.45
+            utterance.postUtteranceDelay = 0
+    
+        
+        
+        utterance2.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance2.rate = rateFloat
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = rateFloat
+        
+        
+        //stopSpeech()
+         //發音等待時間
+         let when = DispatchTime.now() + 2
+         
+         DispatchQueue.main.async {[weak self] in
+         
+         guard let strongSelf = self else{
+         return
+         }
+         //strongSelf.synth.stopSpeaking(at: .immediate)
+         strongSelf.synth.speak(utterance)
+         
+         DispatchQueue.main.asyncAfter(deadline: when, execute: {
+         strongSelf.synth.speak(utterance2)
+         
+         })
+         }
+         
+        
+    }
+
+    
     @objc func removeBtns(){
         
         ghostBtn.isHidden = true
@@ -410,6 +482,7 @@ class LessonViewController: UIViewController {
                 
                 syllablesWithoutDigit = syllableChosenArray[0]
                 syllableLabel.text = syllablesWithoutDigit
+         
                 mapNum = mapPassed!
                 spotNum = s
                 unitNum = u
@@ -440,6 +513,8 @@ class LessonViewController: UIViewController {
             
             
         }
+        
+ 
         
         //第幾課
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
@@ -625,6 +700,13 @@ class LessonViewController: UIViewController {
 
         enterBtn.isEnabled = true
         
+        
+        //指定音節
+        synWord = syllablesWithoutDigit
+                
+        //音節發音
+        synPronounce()
+        
     }
 
     @IBAction func enterGameClicked(_ sender: Any) {
@@ -667,6 +749,8 @@ class LessonViewController: UIViewController {
     @IBAction func backBtnClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
     
     /*
     // MARK: - Navigation

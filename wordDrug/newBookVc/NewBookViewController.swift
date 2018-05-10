@@ -262,6 +262,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
 
     
+        let wrongPronounceWords:[[String:[String]]] = [["烘焙":["烘陪"]], ["affect":["a fect"]], ["頭髮":["頭法"]], ["campaign":["cam pain"]], ["和":["汗"]], ["woman":["wo men"]], ["snowman":["snow man"]], ["fisherman":["fisher man"]], ["gentleman":["gentle man"]], ["supermarket":["super market"]], ["劣拙地":["列濁地"]], ["begin":["be ghing"]], ["巧克力":["巧顆粒"]], ["lead":["leed"]], ["tear":["tee er"]], ["度數":["度樹"]], ["年紀較長的":["年紀較漲的"]], ["告訴":["吿速"]], ["envelope":["anvelope"]], ["sensor":["sen sir"]], ["友誼":["有宜"]], ["kilometer":["killa meter"]], ["桶子":["統子"]], ["油炸":["油柵"]], ["外框":["外筐"]], ["高麗菜":["高力菜"]], ["油炸的":["油柵的"]], ["磨坊":["魔訪"]], ["螫":["遮"]], ["kneepad":["knee pad"]], ["iron":["eye ern"]], ["歌曲":["哥取"]], ["鵝":["蛾"]], ["forehead":["fore head"]], ["數":["鼠"]], ["April":["eigh pro"]], ["重播":["蟲剝"]], ["槳糊":["降胡"]], ["stupid":["stubid"]], ["錫":["習"]], ["曲線":["娶線"]], ["風箏":["風蒸"]], ["comb":["kome"]], ["wolf":["wallf"]], ["absurd":["a bsurd"]]]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -1267,6 +1269,30 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             currentWordIndex = i
                             
                             synEngWord = engWord
+                            
+                            
+                            //抓發音錯誤字集
+                            for i in 0 ..< wrongPronounceWords.count{
+                                
+                                for (word,rightWord) in wrongPronounceWords[i]{
+                                    
+                                    //假如有抓到的話
+                                    if word == engWord{
+                                        print("found wrong pronounce word")
+                                        synEngWord = rightWord[0]
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+
+                            
+                            
+                            
+                            
+                            
+                            
                             synChiWord = chiWordsSelected[i]
                             synEngSen = engSenSelected[i]
                             synChiSen = chiSenSelected[i]
@@ -1478,6 +1504,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 currentWordIndex += 1
                 
                 synEngWord = engWordsSelected[currentWordIndex].replacingOccurrences(of: " ", with: "")
+                
+                //抓發音錯誤字集
+                for i in 0 ..< wrongPronounceWords.count{
+                    
+                    for (word,rightWord) in wrongPronounceWords[i]{
+                        
+                        //假如有抓到的話
+                        if word == synEngWord{
+                            print("found wrong pronounce word")
+                            synEngWord = rightWord[0]
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                
+                
                 synChiWord = chiWordsSelected[currentWordIndex]
                 synEngSen = engSenSelected[currentWordIndex]
                 synChiSen = chiSenSelected[currentWordIndex]
@@ -1807,6 +1852,24 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         stopSpeech()
         
         synEngWord = engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
+        
+        //抓發音錯誤字集
+        for i in 0 ..< wrongPronounceWords.count{
+            
+            for (word,rightWord) in wrongPronounceWords[i]{
+                
+                //假如有抓到的話
+                if word == synEngWord{
+                    print("found wrong pronounce word")
+                    synEngWord = rightWord[0]
+                    
+                }
+                
+            }
+            
+        }
+        
+        
         synChiWord = chiWordsSelected[indexPath.row]
         
         if isPlaySentence{
