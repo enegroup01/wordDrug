@@ -11,6 +11,9 @@ import UIKit
 var user : NSDictionary?
 var mapPassed:Int?
 var gamePassed:[Int:Int]?
+var mapPassed2:Int?
+var gamePassed2:[Int:Int]?
+
 
 
 @UIApplicationMain
@@ -34,6 +37,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //抓mapPassed
         mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
         
+        //抓gamePassed
+        let decodedObject2 = UserDefaults.standard.object(forKey: "gamePassed2") as? NSData
+        
+        if let decoded = decodedObject2 {
+            gamePassed2 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed
+        mapPassed2 = UserDefaults.standard.object(forKey: "mapPassed2") as? Int
+
+        
 
         
         // if user is once logged in / register, keep him logged in
@@ -43,7 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id != nil {
 
                 //跳轉到角色畫面
-                toStats()
+                toCourse()
+                
+                //測試用
+                mapPassed2 = 0
+                gamePassed2 = [0:0]
 
                 
             }
@@ -58,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func toStats(){
+    func toCourse(){
         
         let mainStoryBoard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let statsVc = mainStoryBoard.instantiateViewController(withIdentifier: "coursesVc")

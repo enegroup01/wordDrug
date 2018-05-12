@@ -17,7 +17,8 @@ class CoursesViewController: UIViewController {
     @IBOutlet weak var block3: UIImageView!
     @IBOutlet weak var block1: UIImageView!
     
-
+    @IBOutlet weak var block1LBtn: UIButton!
+    
     @IBOutlet weak var dialogueBg: UIImageView!
 
     @IBOutlet weak var dialogueLabel: UILabel!
@@ -39,13 +40,11 @@ class CoursesViewController: UIViewController {
     
     @IBOutlet weak var block1BookImg: UIImageView!
     
-    
     @IBOutlet weak var block2BookImg: UIImageView!
     
     @IBOutlet weak var block3BookImg: UIImageView!
     @IBOutlet weak var block2TitleImg: UIImageView!
 
-    
     @IBOutlet weak var logOutBtn: UIButton!
     var alertBg = UIImageView()
     var alertText = UILabel()
@@ -53,6 +52,8 @@ class CoursesViewController: UIViewController {
     var ghostBtn = UIButton()
     
     var noClassBtn = UIButton()
+    var courseSent = Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,7 +64,6 @@ class CoursesViewController: UIViewController {
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
        
- 
         var xPos = CGFloat()
         var fontSize = CGFloat()
         var titleDif = CGFloat()
@@ -109,7 +109,6 @@ class CoursesViewController: UIViewController {
         }
         
 
-        
         let nickname = user?["username"] as! String
         
         block0.frame = CGRect(x: xPos, y: 0, width: width, height: height / 4)
@@ -121,6 +120,12 @@ class CoursesViewController: UIViewController {
         block0LBtn.frame = CGRect(x: 0, y: 0, width: width * 3 / 4 + width / 42, height: height / 4)
         block0RBtn.frame = CGRect(x: block0LBtn.frame.width, y: 0, width: width - block0LBtn.frame.width, height: height / 4)
         //block0RBtn.backgroundColor = .red
+        
+        block1LBtn.frame = CGRect(x: 0, y: height / 4, width: width * 3 / 4 + width / 42, height: height / 4)
+     
+        //block1LBtn.backgroundColor = .red
+        
+        
         dialogueBg.frame = CGRect(x: width / 3, y: block0.frame.height / 5.5, width: width * 1.8 / 3, height: block0.frame.height / 5)
         
         dialogueLabel.frame = CGRect(x: dialogueBg.frame.origin.x + dialogueBg.frame.width / 40, y: dialogueBg.frame.origin.y + dialogueBg.frame.height / 4, width: dialogueBg.frame.width * 19 / 20, height: dialogueBg.frame.height / 2)
@@ -128,8 +133,7 @@ class CoursesViewController: UIViewController {
        dialogueLabel.adjustsFontSizeToFitWidth = true
        dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
         
-        
-        
+
         logOutBtn.frame = CGRect(x: width / 18, y: dialogueLabel.frame.minY - 10 * dif, width: 20 * dif * iPadDif, height: 23 * dif * iPadDif)
         
         block0WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block0.frame.height / 2 / iPadDif, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
@@ -166,8 +170,7 @@ class CoursesViewController: UIViewController {
 
         // Do any additional setup after loading the view.
    
-        
-        
+
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
         ghostBtn.backgroundColor = lightGray
@@ -197,6 +200,7 @@ class CoursesViewController: UIViewController {
         
         removeBtns()
         
+        /* 暫時用不到, alpha test用
         noClassBtn.frame = CGRect(x: 0, y: block0LBtn.frame.maxY, width: width, height: height - block0LBtn.frame.maxY)
 
         //noClassBtn.backgroundColor = .red
@@ -204,6 +208,8 @@ class CoursesViewController: UIViewController {
         noClassBtn.addTarget(self, action: #selector(CoursesViewController.noClassNotice), for: .touchUpInside)
         self.view.addSubview(noClassBtn)
         self.view.bringSubview(toFront: iknowBtn)
+ 
+ */
     }
 
     @objc func noClassNotice(){
@@ -234,11 +240,21 @@ class CoursesViewController: UIViewController {
     }
     
     @IBAction func elementaryClicked(_ sender: Any) {
+        courseSent = 0
         performSegue(withIdentifier: "toStageVc", sender: self)
+    }
+    
+    @IBAction func intermedaiteClicked(_ sender: Any) {
+        courseSent = 1
+        performSegue(withIdentifier: "toStageVc", sender: self)
+
     }
     
     /*
     @IBAction func intermediateClicked(_ sender: Any) {
+      
+        courseSent = 1
+        performSegue(withIdentifier: "toStageVc", sender: self)
 
     }
     
@@ -256,20 +272,17 @@ class CoursesViewController: UIViewController {
     
     @IBAction func logOutClicked(_ sender: Any) {
         
-        
         UserDefaults.standard.removeObject(forKey: "parseJSON")
         UserDefaults.standard.removeObject(forKey: "mapPassed")
         UserDefaults.standard.removeObject(forKey: "gamePassed")
      
-        
         let loginVc = storyboard?.instantiateViewController(withIdentifier: "loginVc")
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = loginVc!
         
-        
-        
     }
+    
     func openAlert(text:String){
         
         alertBg.isHidden = false
@@ -292,6 +305,13 @@ class CoursesViewController: UIViewController {
             
         }
         */
+        
+        if segue.identifier == "toStageVc"{
+            
+            let destinationVc = segue.destination as! StageViewController
+
+            destinationVc.courseReceived = courseSent
+        }
     }
     
     /*

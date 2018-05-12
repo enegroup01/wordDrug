@@ -90,6 +90,20 @@ class LessonViewController: UIViewController{
                             ["ea30","en30","er30","ea31","er31","ea32","er32","ea33","er33","en31"],
                             ["bet1","a_e16","ba2","ban1","bar1","bl2","br2","br3","br4","ble3"]]
 
+    let map6SyllableSets = [["a_e17","ar19","br5","ce10","em5","er52","my1","set1","st18","tain1"],
+                            ["au6","ch9","ing9","mic1","ph3","sh9","th10","tic1","tion7","u_e4"],
+                            ["ai14","ar20","au7","aw4","ct2","ful2","ge8","nd4","tive2","ue3"],
+                            ["a_e18","ac4","al22","au8","ban2","et4","ly3","ou23","sin1","sit1"],
+                            ["au9","ay12","ba3","beg1","ee25","el14","or26","ry4","sis1","ty4"],
+                            ["bi2","bio1","bl3","ble6","en32","fit1","is3","ny2","old2","sh10"],
+                            ["an22","br6","bu3","ca2","ing10","oo18","oy2","sy1","um5","ur7"],
+                            ["a_e19","al23","ar21","br7","bu4","ca3","ea39","ge9","tion8","ture3"],
+                            ["br8","bu5","ca4","ce11","ch10","ci3","cl4","er53","ir6","oa7"],
+                            ["ar22","br9","ca5","ch11","ci4","ci5","ck7","cl5","co3","o_e7"],
+                            ["br10","ca7","ch12","cl6","co4","com3","con4","dy2","nd5","oo19"],
+                            ["ca6","ch13","cl7","com4","con5","dy3","or27","ou24","tion9","u_e5"],
+                            ["ch14","cl8","com5","con6","cr3","er54","or28","ous1","ub2","up3"],
+                            ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"]]
 
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -139,9 +153,11 @@ class LessonViewController: UIViewController{
     
     //Text to speech合成器
     var synth = AVSpeechSynthesizer()
-    
-   
     var audioSession = AVAudioSession.sharedInstance()
+   
+    
+    //收到的課程數字
+    var courseReceived = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -363,9 +379,16 @@ class LessonViewController: UIViewController{
                 self?.practiceWordBtn.isEnabled = false
                 self?.practiceSenBtn.isEnabled = false
                 
-                if mapPassed == 0 {
+                //
+                
+                
+                
+                print(self!.mapPassedInt)
+                print(self!.gamePassedDic)
+                
+                if self!.mapPassedInt == 0 {
                     
-                    if gamePassed == [0:0] {
+                    if self!.gamePassedDic == [0:0] {
                         
                         
                         
@@ -435,6 +458,10 @@ class LessonViewController: UIViewController{
         
     }
     
+    var gamePassedDic:[Int:Int]?
+    var mapPassedInt = Int()
+    var increaseNum = Int()
+    
     override func viewWillAppear(_ animated: Bool) {
         
        
@@ -446,11 +473,28 @@ class LessonViewController: UIViewController{
         //gamePassed = [4:3]
         //mapPassed = 0
         
+        switch courseReceived {
+        case 0:
+            gamePassedDic = gamePassed!
+            mapPassedInt = mapPassed!
+            increaseNum = 0
+            
+        case 1:
+            gamePassedDic = gamePassed2!
+            mapPassedInt = mapPassed2!
+            increaseNum = 5
+            
+        default:
+            break
+        }
+        
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 45), NSAttributedStringKey.foregroundColor : pinkColor]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.cyan]
         let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.white]
         
+        //增加數字來抓正確的值
+        mapNumToReceive += increaseNum
         
         switch mapNumToReceive {
         case 0:
@@ -463,6 +507,8 @@ class LessonViewController: UIViewController{
             syllableSets = map4SyllableSets
         case 4:
             syllableSets = map5SyllableSets
+        case 5:
+            syllableSets = map6SyllableSets
         default:
             break
         }
@@ -471,10 +517,13 @@ class LessonViewController: UIViewController{
         
         var progressFloat = CGFloat()
         
-        if mapNumToReceive == mapPassed! {
+        //再把數字減回來
+        mapNumToReceive -= increaseNum
+        
+        if mapNumToReceive == mapPassedInt {
             //抓目前的元素
             
-            for (s,u) in gamePassed! {
+            for (s,u) in gamePassedDic! {
                 
                 let syllableChosen = syllableSets[s][u]
                 
@@ -483,7 +532,7 @@ class LessonViewController: UIViewController{
                 syllablesWithoutDigit = syllableChosenArray[0]
                 syllableLabel.text = syllablesWithoutDigit
          
-                mapNum = mapPassed!
+                mapNum = mapPassedInt
                 spotNum = s
                 unitNum = u
                 progressFloat = CGFloat(u + 1)
@@ -503,19 +552,15 @@ class LessonViewController: UIViewController{
             
             let syllableChosen = syllableSets[spotNum][unitNum]
             
-            
             let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-            
             
             syllablesWithoutDigit = syllableChosenArray[0]
             
             syllableLabel.text = syllablesWithoutDigit
             
-            
         }
         
  
-        
         //第幾課
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
         lessonText.append(NSMutableAttributedString(string: " / 15", attributes: attrs1))
@@ -526,6 +571,9 @@ class LessonViewController: UIViewController{
         
         //讀取Bundle裡的文字檔
         var wordFile:String?
+        
+        //供抓字用 & pass給 gameVc
+        mapNum += increaseNum
         
         let name = String(mapNum + 1) + "-" + String(spotNum + 1)
         
@@ -544,7 +592,6 @@ class LessonViewController: UIViewController{
         } else {
             // example.txt not found!
         }
-        
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
@@ -566,7 +613,6 @@ class LessonViewController: UIViewController{
                 
                 word = word + syl
             }
-            
             
             allThreeEngWords.append(word)
         }
@@ -635,9 +681,7 @@ class LessonViewController: UIViewController{
                             attrWords[w].append(word)
                         }
                         
-                        
                     }
-                    
                     
                 }
             }
@@ -705,19 +749,18 @@ class LessonViewController: UIViewController{
         synWord = syllablesWithoutDigit
                 
         //音節發音
-        synPronounce()
+        //synPronounce()
         
     }
 
     @IBAction func enterGameClicked(_ sender: Any) {
         
-       gameMode = 0
+        gameMode = 0
         enterBtn.isEnabled = false
-           performSegue(withIdentifier: "toGameVc", sender: self)
+        performSegue(withIdentifier: "toGameVc", sender: self)
     }
     
     @IBAction func reviewBtnClicked(_ sender: Any) {
-        
         
         ghostBtn.isHidden = false
         alertBg.isHidden = false
@@ -726,7 +769,6 @@ class LessonViewController: UIViewController{
         practiceSenBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
         rightBtnClickedImg.isHidden = false
-        
         
     }
     
@@ -738,6 +780,7 @@ class LessonViewController: UIViewController{
             destinationVC.unitNumber = unitNum
             destinationVC.mapNumber = mapNum
             destinationVC.gameMode = gameMode
+            destinationVC.courseReceived = courseReceived
             
         }
     }

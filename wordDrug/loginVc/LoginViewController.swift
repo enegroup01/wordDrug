@@ -133,13 +133,6 @@ dif = 1
         } else {
             
         
-        
-        
-        
-        
-        
-        
-        
         print("register")
         // shortcuts
         let username = usernameTxt.text!.lowercased()
@@ -200,6 +193,18 @@ dif = 1
                         
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                         userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                        mapPassed2 = 0
+                        
+                      
+                        
+                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                        
+                        gamePassed2 = [0:0]
+                        
+                        let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                        userDefaults.set(encodedObject2, forKey: "gamePassed2")
+
                         
                         // get id from parseJSON dictionary
                         let id = user?["id"] as? String
@@ -374,6 +379,15 @@ dif = 1
                         print("retrieve mapPassed:\(mapPassed!)")
                         
                     }
+                    if let mapPassed2String = user?["mapPassed2"] as! String?{
+                        
+                        mapPassed2 = Int(mapPassed2String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                        
+                        print("retrieve mapPassed:\(mapPassed2!)")
+                        
+                    }
                     
                     
                     if let gamePassedString = user?["gamePassed"] as! String?{
@@ -389,6 +403,22 @@ dif = 1
                         
                         print("retrieve gamePassed:\(gamePassed!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                    }
+                    
+                    if let gamePassed2String = user?["gamePassed2"] as! String?{
+                        
+                        let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+                        
+                        let s = gamePassed2StringArray[0]
+                        let u = gamePassed2StringArray[1]
+                        gamePassed2 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                        
+                        print("retrieve gamePassed:\(gamePassed2!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed2")
                         
                     }
                     

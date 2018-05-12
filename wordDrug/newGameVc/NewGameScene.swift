@@ -103,6 +103,22 @@ class NewGameScene: SKScene {
                             ["ea30","en30","er30","ea31","er31","ea32","er32","ea33","er33","en31"],
                             ["bet1","a_e16","ba2","ban1","bar1","bl2","br2","br3","br4","ble3"]]
     
+    
+    let map6SyllableSets = [["a_e17","ar19","br5","ce10","em5","er52","my1","set1","st18","tain1"],
+                            ["au6","ch9","ing9","mic1","ph3","sh9","th10","tic1","tion7","u_e4"],
+                            ["ai14","ar20","au7","aw4","ct2","ful2","ge8","nd4","tive2","ue3"],
+                            ["a_e18","ac4","al22","au8","ban2","et4","ly3","ou23","sin1","sit1"],
+                            ["au9","ay12","ba3","beg1","ee25","el14","or26","ry4","sis1","ty4"],
+                            ["bi2","bio1","bl3","ble6","en32","fit1","is3","ny2","old2","sh10"],
+                            ["an22","br6","bu3","ca2","ing10","oo18","oy2","sy1","um5","ur7"],
+                            ["a_e19","al23","ar21","br7","bu4","ca3","ea39","ge9","tion8","ture3"],
+                            ["br8","bu5","ca4","ce11","ch10","ci3","cl4","er53","ir6","oa7"],
+                            ["ar22","br9","ca5","ch11","ci4","ci5","ck7","cl5","co3","o_e7"],
+                            ["br10","ca7","ch12","cl6","co4","com3","con4","dy2","nd5","oo19"],
+                            ["ca6","ch13","cl7","com4","con5","dy3","or27","ou24","tion9","u_e5"],
+                            ["ch14","cl8","com5","con6","cr3","er54","or28","ous1","ub2","up3"],
+                            ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"]]
+    
     //特殊顏色
     let lightGreen = UIColor.init(red: 196/255, green: 255/255, blue: 137/255, alpha: 1)
     let darkWordColor = UIColor.init(red: 104/255, green: 129/255, blue: 130/255, alpha: 1)
@@ -277,6 +293,13 @@ class NewGameScene: SKScene {
     
     var popQuizSeq = 0
     
+    var sparkle:SKEmitterNode?
+    
+    var gamePassedDic:[Int:Int]?
+    var mapPassedInt = Int()
+    var increaseNum = Int()
+    var courseReceived = Int()
+    
     override func didMove(to view: SKView) {
         
         //讀取字數還是有錯的
@@ -361,13 +384,33 @@ class NewGameScene: SKScene {
             setUpSentenceScreen()
             
         } else if gameMode == 1 {
+            
+            //讀目前課程數字數量
+            switch courseReceived {
+                
+            case 0:
+                
+                gamePassedDic = gamePassed!
+                mapPassedInt = mapPassed!
+                increaseNum = 0
+                
+            case 1:
+                
+                gamePassedDic = gamePassed2!
+                mapPassedInt = mapPassed2!
+                increaseNum = 5
+                
+            default:
+                break
+                
+            }
        
             //做所有亂數可能性的array
             
             //隨機單字
                 //在此抓測驗單字的亂數順序
                 
-                for (s,u) in gamePassed!{
+                for (s,u) in gamePassedDic!{
                     
                     //1. 填入spot上限供亂數選擇
            
@@ -420,12 +463,22 @@ class NewGameScene: SKScene {
                     
                 }
             
+            //在此確認是否有字可以複習沒有就跳出alert
+             //   if allUnitSpotNums != [[Int]()]{
+            
             //載入各種字
             loadAllKindsOfWord()
             //設定畫面
             setUpScreen()
-            
-            
+     
+                /*
+                } else {
+                    
+                    
+                    print("can't practice")
+                    
+            }
+            */
         } else if gameMode == 0{
         
             //載入各種字
@@ -447,6 +500,8 @@ class NewGameScene: SKScene {
             randomSpots.removeAll(keepingCapacity: false)
             randomUnits.removeAll(keepingCapacity: false)
             
+            
+    
             for _ in 0 ..< 3 {
                 
                 
@@ -475,7 +530,6 @@ class NewGameScene: SKScene {
             //print(randomUnits)
        
         }
-        
         //讀取所有錯誤的字供比對
         if let myWrongWordsString = user!["wrongWords"] as! String?{
             myWrongWords = myWrongWordsString.components(separatedBy: ";")
@@ -506,6 +560,9 @@ class NewGameScene: SKScene {
             syllableSets = map4SyllableSets
         case 4:
             syllableSets = map5SyllableSets
+        case 5:
+            syllableSets = map6SyllableSets
+            
         default:
             break
         }
@@ -542,7 +599,12 @@ class NewGameScene: SKScene {
             
         } else if gameMode == 1 {
             
-            for (s,_) in gamePassed!{
+            
+            //抓目前map數值的正確檔案名稱
+            mapPassedInt += increaseNum
+            
+            
+            for (s,_) in gamePassedDic!{
                 
                 //讀取已完整的所有字集
                 
@@ -550,7 +612,7 @@ class NewGameScene: SKScene {
                     
                     var wordFile:String?
                     //前面的1代表第一張地圖
-                    let name = String(describing: mapPassed! + 1) + "-" + String(i + 1)
+                    let name = String(describing: mapPassedInt + 1) + "-" + String(i + 1)
                     
                     //抓字
                     if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -685,6 +747,7 @@ class NewGameScene: SKScene {
         
         //背景
         
+        
         //暫時測試用
         makeImageNode(name: "gameBg", image: "newGameBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
@@ -715,7 +778,38 @@ class NewGameScene: SKScene {
         //分數Label, 這部分是新的
          makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
-
+        
+        /*
+        //測試用看星星的位置
+        makeImageNode(name: "star0", image: "filledStar", x: 210 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 1, isAnchoring: false)
+         makeImageNode(name: "star1", image: "filledStar", x: 280 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 1, isAnchoring: false)
+         makeImageNode(name: "star2", image: "emptyStar", x: 350 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "star5", image: "filledStar", x: 358 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
+        */
+        /*
+        sparkle = SKEmitterNode(fileNamed: "sparkParticle.sks")
+        sparkle?.position = CGPoint(x: 210 * chiBtnDif, y: 520)
+       sparkle?.name = "spark"
+        
+        self.addChild(sparkle!)
+        sparkle?.resetSimulation()
+        */
+    
+        
+        /*
+        let wait = SKAction.wait(forDuration: 2)
+        let bigSize = CGSize(width: 60, height: 57.66)
+        let smallSize = CGSize(width: 50, height: 48)
+        let fadeInAction = SKAction.fadeIn(withDuration: 0.2)
+        let enlarge = SKAction.scale(to: bigSize, duration: 0.3)
+        let shrink = SKAction.scale(to: smallSize, duration: 0.2)
+        let groupAction = SKAction.group([fadeInAction, enlarge])
+        let sequenceAction = SKAction.sequence([wait, groupAction, shrink])
+        
+        findImageNode(name: "star5").run(sequenceAction)
+*/
+        
+        
         //提示字
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
@@ -2732,44 +2826,23 @@ class NewGameScene: SKScene {
                 isPopQuiz = true
                 
                 // 載入新背景
-          
-                changeTexture(nodeName: "gameBg", newTexture: "popQuizBg")
-                findLabelNode(name: "quizTitle").alpha = 1
-                findImageNode(name: "timerBg").alpha = 1
-                findLabelNode(name: "bigNumber").alpha = 1
-                findLabelNode(name: "smallNumber").alpha = 1
-                findLabelNode(name: "bigChineseLabel").alpha = 1
-                findImageNode(name: "leftChiBtn").alpha = 1
-                findImageNode(name: "rightChiBtn").alpha = 1
-                changeTexture(nodeName: "leftChiBtn", newTexture: "popQuizBlock")
-                changeTexture(nodeName: "rightChiBtn", newTexture: "popQuizBlock")
-
                 // 刪除舊畫面
                 findImageNode(name: "recogWordsBg").alpha = 0
+                changeTexture(nodeName: "gameBg", newTexture: "popQuizBg")
                 
-
-                // 載入前二組單字
-
-                
-                for i in 0 ..< 3{
+                hintSlideIn(leftText: "限時", rightText: "挑戰", waitTime: 1.2) {[weak self] in
                     
-                    allPopQuizEngWords.append(allThreeEngWords[i])
-                    allPopQuizEngWords.append(popQuizThreeEngWords[i])
-                    allPopQuizChiWords.append(allThreeChiWords[i])
-                    allPopQuizChiWords.append(popQuizThreeChiWords[i])
-        
+                    //把這些畫面包起來,少寫很多self!.
+                    self!.setupPopQuizScreen()
+                    self!.popQuiz()
                 }
                 
-                randomNums.shuffled()
-                engRandomNums = randomNums
-                
+                /*
                 print(randomNums)
                 print(engRandomNums)
                 print(allPopQuizChiWords)
                 print(allPopQuizEngWords)
-                
-                
-                popQuiz()
+                */
                 
                 
             } else {
@@ -2960,6 +3033,34 @@ class NewGameScene: SKScene {
             
         }
         
+    }
+    
+    func setupPopQuizScreen(){
+        findLabelNode(name: "quizTitle").alpha = 1
+        findImageNode(name: "timerBg").alpha = 1
+        findLabelNode(name: "bigNumber").alpha = 1
+        findLabelNode(name: "smallNumber").alpha = 1
+        findLabelNode(name: "bigChineseLabel").alpha = 1
+        findImageNode(name: "leftChiBtn").alpha = 1
+        findImageNode(name: "rightChiBtn").alpha = 1
+        changeTexture(nodeName: "leftChiBtn", newTexture: "popQuizBlock")
+        changeTexture(nodeName: "rightChiBtn", newTexture: "popQuizBlock")
+        
+
+        // 載入前二組單字
+        
+        
+        for i in 0 ..< 3{
+            
+            allPopQuizEngWords.append(allThreeEngWords[i])
+            allPopQuizEngWords.append(popQuizThreeEngWords[i])
+            allPopQuizChiWords.append(allThreeChiWords[i])
+            allPopQuizChiWords.append(popQuizThreeChiWords[i])
+            
+        }
+        
+        randomNums.shuffled()
+        engRandomNums = randomNums
     }
     
     

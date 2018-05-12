@@ -228,6 +228,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @IBOutlet weak var playSoundBtn: UIButton!
     
+    var courseReceived = Int()
+    var gamePassedDic:[Int:Int]?
+    var mapPassedInt = Int()
+    var increaseNum = Int()
+    var maxSpotNum = Int()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -275,6 +281,27 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
+        
+        /*
+        switch courseReceived {
+            
+        case 0:
+            
+            gamePassedDic = gamePassed!
+            mapPassedInt = mapPassed!
+            increaseNum = 0
+            
+        case 1:
+            
+            gamePassedDic = gamePassed2!
+            mapPassedInt = mapPassed2!
+            increaseNum = 5
+            
+        default:
+            break
+        
+        }
+        */
         // Do any additional setup after loading the view.
        
         //暫時測試畫面使用
@@ -364,10 +391,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             btn.isHidden = true
         }
         
-     
-
-        
-    
         
         //layOut
         
@@ -377,7 +400,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         
         secondWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: firstWordBtn.frame.maxY +  15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
-        
         
         thirdWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: secondWordBtn.frame.maxY + 15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
         
@@ -553,13 +575,38 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         recogTextLabel.isHidden = true
         
+        
+        
+        //讀目前課程數字數量
+        switch courseReceived {
+            
+        case 0:
+
+            gamePassedDic = gamePassed!
+            mapPassedInt = mapPassed!
+            increaseNum = 0
+            maxSpotNum = 14
+
+            
+        case 1:
+            
+            gamePassedDic = gamePassed2!
+            mapPassedInt = mapPassed2!
+            increaseNum = 5
+            maxSpotNum = 13
+            
+        default:
+            break
+            
+        }
+        
         //讀取Bundle裡的句子
         var sentenceFile:String?
         
         
         if gameMode == 0 {
         
-        
+        //這裡的mapNum 已經加過increaseNum
         let sentenceName = "s" + String(mapNumber + 1) + "-" + String(spotNumber + 1)
         
         if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
@@ -582,13 +629,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         } else if gameMode == 2 {
             
             
+
             //隨機單字
             //在此抓測驗單字的亂數順序
             
-            for (s,u) in gamePassed!{
+            for (s,u) in gamePassedDic!{
                 
                 //1. 填入spot上限供亂數選擇
-                
                 
                 //填入全部
                 if s > 0 {
@@ -654,12 +701,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
             
-            
+            //加數字才能讀到正確數字
+            mapPassedInt += increaseNum
             
             
             //Part 2. 讀取所有句子
             
-            for (s,_) in gamePassed!{
+            for (s,_) in gamePassedDic!{
                 
                 //讀取已完整的所有字集
                 
@@ -667,7 +715,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     var wordFile:String?
                     //前面的1代表第一張地圖
-                    let name = "s" + String(describing: mapPassed! + 1) + "-" + String(i + 1)
+                    let name = "s" + String(describing: mapPassedInt + 1) + "-" + String(i + 1)
                     
                     //抓字
                     if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -711,6 +759,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 sceneNode.spotNumber = spotNumber
                 sceneNode.mapNumber =  mapNumber
                 sceneNode.gameMode = gameMode
+                sceneNode.courseReceived = courseReceived
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -1072,12 +1121,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         //目前這裡就先寫成都可以過關
 
-                        
                             //如果玩之前的關卡就不改變
-                            
-                            if mapPassed! == (mapNumber){
+                            mapNumber -= increaseNum
+                        print("increase:\(increaseNum)")
+                        
+                        print("mapNumer:\(mapNumber)")
+                        
+                            if mapPassedInt == (mapNumber){
                
-                                for (s,u) in gamePassed! {
+                                for (s,u) in gamePassedDic! {
                                     
                                     if s == spotNumber{
                                         
@@ -1087,42 +1139,131 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                             
                                             //紀錄關卡
                                             if unitNumber == 9{
-                                                //此探索點已過完
-                                                if spotNumber == 14 {
+                                                
+                                                //此探索點已過完, 此探索點要做動態化
+                                                if spotNumber == maxSpotNum {
                                                  
                                                     //備註: 目前map只做4張, 之後要抓正確數字, 以及做全部過關的通知
-                                                    mapPassed! += 1
                                                     
-                                                    gamePassed = [0:0]
-
                                                     isCelebratingMapPassed = true
                                                     
                                                     bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
+
                                                     
-                                                    //有更新地圖才執行
-                                                    updateMapPassed()
+                                                    switch courseReceived{
+                                                        
+                                                    case 0:
+                                                        mapPassed! += 1
+                                                        gamePassed = [0:0]
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                                        UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed")
+
+                                                        //有更新地圖才執行
+                                                        updateMapPassed()
+                                                    case 1:
+                                                        mapPassed2! += 1
+                                                        gamePassed2 = [0:0]
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                                        UserDefaults.standard.set(mapPassed2!, forKey: "mapPassed2")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                                        
+                                                        //pending做一個純粹更新中級的sql
+                                                        
+
+                                                    default:
+                                                        break
+                                                        
+                                                    }
+                                            
+                                                    
+                                               
                                                     
                                                 } else {
                                                     
-                                                    gamePassed = [spotNumber + 1:0]
+                                                    
+                                                    switch courseReceived{
+                                                        
+                                                    case 0:
+                                           
+                                                        gamePassed = [spotNumber + 1:0]
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                       
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed")
+
+                                                        
+                                                        updateGamePassed()
+                           
+                                                    case 1:
+                                        
+                                                        gamePassed2 = [spotNumber + 1:0]
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                                   
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                                        
+                                                        
+                                                        //pending update to sql
+                                          
+                                                        
+                                                    default:
+                                                        break
+                                                        
+                                                    }
+                                                
                                                 }
+                                           
                                             }else {
                                                 
-                                                gamePassed = [spotNumber: unitNumber + 1]
+                                                
+                                                switch courseReceived{
+                                                    
+                                                case 0:
+                                                    
+                                                    gamePassed = [spotNumber: unitNumber + 1]
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                    
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed")
+                                                    
+                                                    
+                                                    updateGamePassed()
+
+                                                    
+                                                case 1:
+                                                    
+                                                    gamePassed2 = [spotNumber: unitNumber + 1]
+                                                    
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                              
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                                    
+                                                    //pending update to sql
+                                                    
+                                                default:
+                                                    break
+                                                    
+                                                }
+                                         
                                             }
                                             
                                             
-                                            //然後儲存
-                                            let userDefaults = UserDefaults.standard
-                                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                            UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
-                                            userDefaults.set(encodedObject, forKey: "gamePassed")
-                                            
-                                            
-                                            //後端
-                      
-                                            //只要過關都要執行
-                                            updateGamePassed()
+                                
                                             
 
                                         } else {
@@ -1156,19 +1297,43 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //計算所有字數
         
         var wordsCounts = Int()
-        
-        wordsCounts += mapPassed! * 450
-        
-        
-        for (s,u) in gamePassed!{
+
+
+        switch courseReceived{
             
-            wordsCounts += s * 30 + u * 3
+        case 0:
+            
+            
+            wordsCounts += mapPassed! * 450
+            
+            
+            for (s,u) in gamePassed!{
+                
+                wordsCounts += s * 30 + u * 3
+                
+            }
+            
+         
+            
+        case 1:
+            
+            
+            wordsCounts += mapPassed2! * 420
+            
+            
+            for (s,u) in gamePassed2!{
+                
+                wordsCounts += s * 30 + u * 3
+                
+            }
+            
+        default:
+            break
             
         }
-        
+
         //顯示出來
         wordCountLabel.text = String(wordsCounts)
-
         
     }
     
@@ -1682,7 +1847,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //pointsIndicator?.startAnimating()
         
-        
         //隱藏recordBtn
         //recordBtn.isHidden = true
         
@@ -1866,7 +2030,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
 
-        
         //print(randomSpots)
         //print(randomUnits)
         
@@ -1881,8 +2044,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     }
     
-    
-    
+
     //做句子, 傳送nc去發音
     func makeSentence(){
         
@@ -1961,7 +2123,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                
                 allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
           
-            
             }
 
             //避免再次產生hint
@@ -2010,16 +2171,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
-    @objc func rightSenButtonClicked(){
+    @objc func rightSenButtonClicked(sender:UIButton){
         print("correct")
         
         //做圈圈記號
+        /*
         correctSign.frame = CGRect(x: allBtns[correctRandom].frame.midX - allBtns[correctRandom].frame.width / 10, y: allBtns[correctRandom].frame.minY - allBtns[correctRandom].frame.height * 0.1, width: allBtns[correctRandom].frame.height * 1.2, height: allBtns[correctRandom].frame.height * 1.2)
         correctSign.image = UIImage(named:"rightCircle.png")
         self.view.addSubview(correctSign)
         self.view.bringSubview(toFront: correctSign)
-        
+        */
 
+        //錯誤按鈕改圖片
+        sender.setBackgroundImage(UIImage(named:"answerRightBtn.png"), for: .normal)
+        
         //錯誤的隱藏
         for i in 0 ..< 4 where i != correctRandom{
 

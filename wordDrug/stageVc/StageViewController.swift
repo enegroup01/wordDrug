@@ -10,9 +10,15 @@ import UIKit
 
 class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    let stageCount = 5
-    var mapNumToPass = Int()
+    
+    //此兩數字要做動態
+    var stageCount = 5
     var elemWordsMax = [450,450,450,450,450]
+    
+    var courseReceived = Int()
+    
+    var mapNumToPass = Int()
+  
     var eachCellMyWordsCount = [0,0,0,0,0]
     var totalWordsLearned = Int()
     
@@ -114,6 +120,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionView.bringSubview(toFront: iknowBtn)
  
         removeBtns()
+        
 
         
     }
@@ -149,28 +156,58 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     //即時更新學習單字字數
+    
+    var gamePassedDic:[Int:Int]?
+    var mapPassedInt = Int()
+    
     override func viewWillAppear(_ animated: Bool) {
+        
+        print("courseReceived:\(courseReceived)")
         
         //抓所有學習單字字數
 
-        
+        switch courseReceived {
+        case 0:
+            stageCount = 5
+            elemWordsMax = [450,450,450,450,450]
+            gamePassedDic = gamePassed!
+            mapPassedInt = mapPassed!
+            
+        case 1:
+            print("1")
 
+            stageCount = 5
+            elemWordsMax = [420,420,420,420,420]
+            gamePassedDic = gamePassed2!
+            mapPassedInt = mapPassed2!
+            
+            print(gamePassedDic)
+            print(mapPassedInt)
+        default:
+            break
+        }
+        
+        
 
         //mapPassed = 4
         
-        for (s,u) in gamePassed!{
+        for (s,u) in gamePassedDic!{
+            print("2")
             
             wordCounts = s * 30 + u * 3
             
         }
         
         
-            
-            switch mapPassed!{
+        
+        
+            //下方450的數字
+            switch mapPassedInt{
                 
             case 0:
                 eachCellMyWordsCount[0] = wordCounts
             case 1:
+                print("3")
                 eachCellMyWordsCount[0] = 450
                 eachCellMyWordsCount[1] = wordCounts
               
@@ -196,7 +233,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         locks = [1,1,1,1,1]
         
-        for i in 0 ..< mapPassed! + 1{
+        for i in 0 ..< mapPassedInt + 1{
             
             locks[i] = 0
             
@@ -293,19 +330,19 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         //在此先暫時預設mapPassed...之後要寫在過關時做儲存
         //mapPassed = 2
-        print("mapPassed in stage:\(mapPassed)")
+        print("mapPassed in stage:\(mapPassedInt)")
         //有過地圖才能進關卡
-        if mapPassed! == indexPath.row {
+        if mapPassedInt == indexPath.row {
     
             performSegue(withIdentifier: "toLessonVc", sender: self)
-        } else if mapPassed! > indexPath.row{
+        } else if mapPassedInt > indexPath.row{
             
             //show已過關訊息
             
             openAlert(text: "此單元已全部學習完成，請選擇未完成的單元！")
             
             
-        } else if mapPassed! < indexPath.row{
+        } else if mapPassedInt < indexPath.row{
             
             openAlert(text: "此單元尚未解鎖，請加油！")
         }
@@ -320,7 +357,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         if segue.identifier == "toLessonVc"{
             let destinationVC = segue.destination as! LessonViewController
             
-            
+            destinationVC.courseReceived = courseReceived
              destinationVC.mapNumToReceive = mapNumToPass
         }
     }
