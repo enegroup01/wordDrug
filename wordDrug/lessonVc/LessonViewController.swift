@@ -379,17 +379,15 @@ class LessonViewController: UIViewController{
                 self?.practiceWordBtn.isEnabled = false
                 self?.practiceSenBtn.isEnabled = false
                 
-                //
-                
-                
-                
+                //有bug, 印出以下兩數字
+
                 print(self!.mapPassedInt)
                 print(self!.gamePassedDic)
                 
                 if self!.mapPassedInt == 0 {
                     
                     if self!.gamePassedDic == [0:0] {
-                        
+                        print("不能練習句子")
                         
                         
                     } else {
@@ -428,20 +426,18 @@ class LessonViewController: UIViewController{
                 self?.practiceSenBtn.isEnabled = false
                 self?.practiceWordBtn.isEnabled = false
                 
-                if mapPassed == 0 {
+                if self!.mapPassedInt == 0 {
                     
-                    if gamePassed == [0:0] {
+                    if self!.gamePassedDic == [0:0] {
                         
                         print("不能練習")
                     } else {
                         
-
                         self!.performSegue(withIdentifier: "toGameVc", sender: self)
                     }
                     
                 } else {
                 
-
                 self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 }
             }

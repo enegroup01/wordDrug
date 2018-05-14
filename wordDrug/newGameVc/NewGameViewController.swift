@@ -1088,7 +1088,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 
                                 wrongWordsCount += 1
                                 
-                                
                             } else {
                                 
                                 wordBtns[i].setImage(UIImage(named:"rightWordBtn.png"), for: .normal)
@@ -1122,7 +1121,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //目前這裡就先寫成都可以過關
 
                             //如果玩之前的關卡就不改變
-                            mapNumber -= increaseNum
+                   
+                        mapNumber -= increaseNum
+                    
                         print("increase:\(increaseNum)")
                         
                         print("mapNumer:\(mapNumber)")
@@ -1157,6 +1158,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         gamePassed = [0:0]
                                                         
                                                         
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed!
+                                                        gamePassedDic = gamePassed
+                                                        
                                                         //然後儲存
                                                         let userDefaults = UserDefaults.standard
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
@@ -1164,10 +1169,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         userDefaults.set(encodedObject, forKey: "gamePassed")
 
                                                         //有更新地圖才執行
-                                                        updateMapPassed()
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+
                                                     case 1:
                                                         mapPassed2! += 1
                                                         gamePassed2 = [0:0]
+                                                        
+                                                        
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed2!
+                                                        gamePassedDic = gamePassed2
                                                         
                                                         
                                                         //然後儲存
@@ -1177,6 +1190,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         userDefaults.set(encodedObject, forKey: "gamePassed2")
                                                         
                                                         //pending做一個純粹更新中級的sql
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
                                                         
 
                                                     default:
@@ -1195,6 +1210,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     case 0:
                                            
                                                         gamePassed = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed
                                                         //然後儲存
                                                         let userDefaults = UserDefaults.standard
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
@@ -1202,11 +1219,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         userDefaults.set(encodedObject, forKey: "gamePassed")
 
                                                         
-                                                        updateGamePassed()
+                                                        updateGamePassed(course:courseReceived)
                            
                                                     case 1:
                                         
                                                         gamePassed2 = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed2
                                                         
                                                         //然後儲存
                                                         let userDefaults = UserDefaults.standard
@@ -1217,6 +1236,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         
                                                         //pending update to sql
                                           
+                                                        updateGamePassed(course:courseReceived)
                                                         
                                                     default:
                                                         break
@@ -1224,6 +1244,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     }
                                                 
                                                 }
+                                                
+                                   
+                                    
                                            
                                             }else {
                                                 
@@ -1233,6 +1256,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                 case 0:
                                                     
                                                     gamePassed = [spotNumber: unitNumber + 1]
+                                                    gamePassedDic = gamePassed
+                                                    
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
@@ -1240,12 +1265,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     userDefaults.set(encodedObject, forKey: "gamePassed")
                                                     
                                                     
-                                                    updateGamePassed()
+                                                    updateGamePassed(course:courseReceived)
 
                                                     
                                                 case 1:
                                                     
+                                                    print("更新新關卡")
                                                     gamePassed2 = [spotNumber: unitNumber + 1]
+                                                    gamePassedDic = gamePassed2
                                                     
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
@@ -1254,6 +1281,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     userDefaults.set(encodedObject, forKey: "gamePassed2")
                                                     
                                                     //pending update to sql
+                                                    updateGamePassed(course:courseReceived)
                                                     
                                                 default:
                                                     break
@@ -2675,7 +2703,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     //更新mapPassed
     
-    func updateMapPassed(){
+    func updateMapPassed(course:Int){
         
         
         let id = user?["id"] as! String
@@ -2690,7 +2718,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         request.httpMethod = "POST"
         
         // body gonna be appended to url
-        let body = "userID=\(id)&mapPassed=\(mapPassed!)"
+        let body = "userID=\(id)&mapPassed=\(mapPassedInt)&course=\(course)"
         
         // append body to our request that gonna be sent
         request.httpBody = body.data(using: .utf8)
@@ -2737,7 +2765,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     //更新gamePassed
-    func updateGamePassed(){
+    func updateGamePassed(course:Int){
         
         
         let id = user?["id"] as! String
@@ -2753,14 +2781,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         var gamePassedString = String()
         
-        for (s,u) in gamePassed!{
+        
+        for (s,u) in gamePassedDic!{
             
             gamePassedString = String(s) + ":" + String(u)
             
         }
         
         // body gonna be appended to url
-        let body = "userID=\(id)&gamePassed=\(gamePassedString)"
+        let body = "userID=\(id)&gamePassed=\(gamePassedString)&course=\(course)"
         
         // append body to our request that gonna be sent
         request.httpBody = body.data(using: .utf8)

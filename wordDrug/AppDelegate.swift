@@ -13,6 +13,10 @@ var mapPassed:Int?
 var gamePassed:[Int:Int]?
 var mapPassed2:Int?
 var gamePassed2:[Int:Int]?
+var mapPassed3:Int?
+var gamePassed3:[Int:Int]?
+var mapPassed4:Int?
+var gamePassed4:[Int:Int]?
 
 
 
@@ -37,19 +41,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //抓mapPassed
         mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
         
-        //抓gamePassed
+        //抓gamePassed2
         let decodedObject2 = UserDefaults.standard.object(forKey: "gamePassed2") as? NSData
         
         if let decoded = decodedObject2 {
             gamePassed2 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
         }
         
-        //抓mapPassed
+        //抓mapPassed2
         mapPassed2 = UserDefaults.standard.object(forKey: "mapPassed2") as? Int
-
         
-
+        //抓gamePassed3
+        let decodedObject3 = UserDefaults.standard.object(forKey: "gamePassed3") as? NSData
         
+        if let decoded = decodedObject3 {
+            gamePassed3 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed3
+        mapPassed3 = UserDefaults.standard.object(forKey: "mapPassed3") as? Int
+        
+        //抓gamePassed4
+        let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
+        
+        if let decoded = decodedObject4 {
+            gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed4
+        mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
+
+
         // if user is once logged in / register, keep him logged in
         if user != nil {
             
@@ -60,10 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 toCourse()
                 
                 //測試用
+                /*
                 mapPassed2 = 0
                 gamePassed2 = [0:0]
-
-                
+                */
             }
             
         }
