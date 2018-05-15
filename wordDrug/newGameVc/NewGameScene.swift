@@ -309,11 +309,17 @@ class NewGameScene: SKScene {
     var popQuizSeq = 0
     
     var sparkle:SKEmitterNode?
+    var sparkle1:SKEmitterNode?
+    var sparkle2:SKEmitterNode?
     
+   
     var gamePassedDic:[Int:Int]?
     var mapPassedInt = Int()
     var increaseNum = Int()
     var courseReceived = Int()
+    
+    var popQuizRight = -1
+    
     
     override func didMove(to view: SKView) {
         
@@ -404,6 +410,7 @@ class NewGameScene: SKScene {
             switch courseReceived {
                 
             case 0:
+                
                 
                 gamePassedDic = gamePassed!
                 mapPassedInt = mapPassed!
@@ -553,11 +560,13 @@ class NewGameScene: SKScene {
         
       //  print("unitNumber:\(unitNumber)")
      //   print("spotNumber:\(spotNumber)")
+       
         //測試用
+        
         /*
-         spotNumber = 13
-         unitNumber = 7
-         */
+         spotNumber = 0
+         unitNumber = 1
+ */
 
 
         print("mapNumber:\(mapNumber)")
@@ -797,21 +806,51 @@ class NewGameScene: SKScene {
          makeLabelNode(x: 350 * chiBtnDif, y: 550, alignMent: .right, fontColor: pinkColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
         
         
-        /*
+        
         //測試用看星星的位置
-        makeImageNode(name: "star0", image: "filledStar", x: 210 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 1, isAnchoring: false)
-         makeImageNode(name: "star1", image: "filledStar", x: 280 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 1, isAnchoring: false)
-         makeImageNode(name: "star2", image: "emptyStar", x: 350 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "star5", image: "filledStar", x: 358 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
-        */
+        makeImageNode(name: "star0", image: "emptyStar", x: 210 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
+         makeImageNode(name: "star1", image: "emptyStar", x: 280 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
+         makeImageNode(name: "star2", image: "emptyStar", x: 350 * chiBtnDif, y: 520, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
+        
+        makeImageNode(name: "star3", image: "filledStar", x: 210 * chiBtnDif, y: 480, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "star4", image: "filledStar", x: 280 * chiBtnDif, y: 480, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "star5", image: "filledStar", x: 350 * chiBtnDif, y: 480, width: 50, height: 48, z: 20, alpha: 0, isAnchoring: false)
+        
+        
+        //測試星星移動
         /*
-        sparkle = SKEmitterNode(fileNamed: "sparkParticle.sks")
+        let wait = SKAction.wait(forDuration: 1)
+        let pointsPosition = CGPoint(x: 250, y: 400)
+        let rotate = SKAction.rotate(toAngle: 720, duration: 0.2)
+        let moveTo = SKAction.move(to: pointsPosition, duration: 0.2)
+        
+        let groupAction = SKAction.group([rotate,moveTo])
+        let sequence = SKAction.sequence([wait,groupAction])
+        findImageNode(name: "star5").run(sequence)
+ */
+        
+        sparkle = SKEmitterNode(fileNamed: "fire.sks")
         sparkle?.position = CGPoint(x: 210 * chiBtnDif, y: 520)
-       sparkle?.name = "spark"
+        sparkle?.name = "spark"
+        sparkle?.isHidden = true
         
         self.addChild(sparkle!)
-        sparkle?.resetSimulation()
-        */
+
+ 
+        sparkle1 = SKEmitterNode(fileNamed: "fire.sks")
+        sparkle1?.position = CGPoint(x: 280 * chiBtnDif, y: 520)
+        sparkle1?.name = "spark"
+        sparkle1?.isHidden = true
+        
+        self.addChild(sparkle1!)
+       
+        sparkle2 = SKEmitterNode(fileNamed: "fire.sks")
+        sparkle2?.position = CGPoint(x: 350 * chiBtnDif, y: 520)
+        sparkle2?.name = "spark"
+        sparkle2?.isHidden = true
+        
+        self.addChild(sparkle2!)
+
     
         
         /*
@@ -1482,7 +1521,9 @@ class NewGameScene: SKScene {
         //抓分數
         if let addScore = notification.userInfo?["addScore"] as? Int{
             if addScore != 0 {
+                if gameMode == 0 {
                 countScore(score: addScore)
+                }
             }
         }
         
@@ -1545,7 +1586,9 @@ class NewGameScene: SKScene {
         
         if let addScore = notification.userInfo?["addScore"] as? Int{
             if addScore != 0 {
+                if gameMode == 0 {
             countScore(score: addScore)
+                }
         }
         }
         //有finalPoints就是要啟動倒數Timer
@@ -2366,6 +2409,8 @@ class NewGameScene: SKScene {
                 isTouched = false
                 nodesTouched.removeAll(keepingCapacity: false)
                 
+              
+                
                 //假如答案正確
                 if wordEntered == currentWordArray{
                     
@@ -2407,9 +2452,11 @@ class NewGameScene: SKScene {
                                 
                                 answerTime = 0
                             }
-                            
+                            if gameMode == 0 {
                             countScore(score: score)
-                            
+                            } else {
+                                isUserInteractionEnabled = true
+                            }
                             //跳到中文練習
                             isDragAndPlayEnable = false
                             
@@ -2454,9 +2501,9 @@ class NewGameScene: SKScene {
                             }
                             
                             
-                           
+                            if gameMode == 0 {
                             countScore(score: 100)
-                            
+                            }
                             
                             //在此卡一個正確動畫
                             
@@ -2766,8 +2813,9 @@ class NewGameScene: SKScene {
     @objc func receiveCorrectPracticeNextWord(){
 
         //countScore
+        if gameMode == 0 {
         countScore(score: 500)
-        
+        }
         practiceNextWord()
         //isFinalGetPoint = true
         
@@ -2854,6 +2902,11 @@ class NewGameScene: SKScene {
                 findImageNode(name: "recogWordsBg").alpha = 0
                 changeTexture(nodeName: "gameBg", newTexture: "popQuizBg")
                 
+                findImageNode(name: "star0").alpha = 1
+                findImageNode(name: "star1").alpha = 1
+                findImageNode(name: "star2").alpha = 1
+                
+                
                 hintSlideIn(leftText: "限時", rightText: "挑戰", waitTime: 1.2) {[weak self] in
                     
                     //把這些畫面包起來,少寫很多self!.
@@ -2888,7 +2941,7 @@ class NewGameScene: SKScene {
                 addWrongWords()
                 
                 
-                let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]
+                let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)]]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
 
             }
@@ -3105,6 +3158,8 @@ class NewGameScene: SKScene {
             print("countscore timer not activated")
         isUserInteractionEnabled = true
         }
+        
+        
         if popQuizSeq > 2 {
             
             print("3 pop quizes over")
@@ -3123,8 +3178,8 @@ class NewGameScene: SKScene {
             //這是連接後端的func
             addWrongWords()
             
-            
-            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults]
+
+            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)]]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
             
         } else {
@@ -3661,8 +3716,104 @@ class NewGameScene: SKScene {
         
         if isCorrect{
             
-            countScore(score: 300)
             
+            if gameMode == 0 {
+            countScore(score: 300)
+            }
+            
+      
+            
+            if isPopQuiz{
+                  popQuizRight += 1
+            let fadeIn = SKAction.fadeIn(withDuration: 0.1)
+            let moveUp = SKAction.moveTo(y: 520, duration: 0.1)
+            let groupAction = SKAction.group([fadeIn,moveUp])
+            let wait = SKAction.wait(forDuration: 0.05)
+            
+                switch popQuizRight {
+                case 0:
+                    let sparkleAction = SKAction.run {[weak self] in
+                        self!.sparkle?.isHidden = false
+                        self!.sparkle?.resetSimulation()
+                    }
+                    let sequence = SKAction.sequence([wait,sparkleAction])
+                    let groupAgain = SKAction.group([sequence,groupAction])
+                    
+                    findImageNode(name: "star3").run(groupAgain)
+                case 1:
+                    
+                    let sparkleAction = SKAction.run {[weak self] in
+                        self!.sparkle1?.isHidden = false
+                        self!.sparkle1?.resetSimulation()
+                    }
+                    let sequence = SKAction.sequence([wait,sparkleAction])
+                    let groupAgain = SKAction.group([sequence,groupAction])
+                    
+                    findImageNode(name: "star4").run(groupAgain)
+                    
+                    
+                case 2:
+                    let sparkleAction = SKAction.run {[weak self] in
+                        self!.sparkle2?.isHidden = false
+                        self!.sparkle2?.resetSimulation()
+                    }
+                    let sequence = SKAction.sequence([wait,sparkleAction])
+                    let groupAgain = SKAction.group([sequence,groupAction])
+                    
+                    
+                    findImageNode(name: "star5").run(groupAgain)
+                    
+                default:
+                    break
+                    
+                    
+                }
+                
+                /*
+            switch popQuizSeq{
+                
+            case 1:
+                
+                let sparkleAction = SKAction.run {[weak self] in
+                    self!.sparkle?.isHidden = false
+                    self!.sparkle?.resetSimulation()
+                }
+                let sequence = SKAction.sequence([wait,sparkleAction])
+                let groupAgain = SKAction.group([sequence,groupAction])
+                
+                findImageNode(name: "star3").run(groupAgain)
+                
+            case 2:
+                
+                let sparkleAction = SKAction.run {[weak self] in
+                    self!.sparkle1?.isHidden = false
+                    self!.sparkle1?.resetSimulation()
+                }
+                let sequence = SKAction.sequence([wait,sparkleAction])
+                let groupAgain = SKAction.group([sequence,groupAction])
+                
+                findImageNode(name: "star4").run(groupAgain)
+                
+                
+            case 3:
+                
+                let sparkleAction = SKAction.run {[weak self] in
+                    self!.sparkle2?.isHidden = false
+                    self!.sparkle2?.resetSimulation()
+                }
+                let sequence = SKAction.sequence([wait,sparkleAction])
+                let groupAgain = SKAction.group([sequence,groupAction])
+                
+                
+                findImageNode(name: "star5").run(groupAgain)
+                
+                
+            default:
+                break
+                
+            }
+            */
+            }
             
         } else {
             //錯誤的話
@@ -3779,11 +3930,6 @@ class NewGameScene: SKScene {
         
         print("notified")
     }
-    
-    
-    
-    
-
     
 }
 
