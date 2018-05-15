@@ -333,8 +333,6 @@ class LessonViewController: UIViewController{
             rateFloat = 0.45
             utterance.postUtteranceDelay = 0
     
-        
-        
         utterance2.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance2.rate = rateFloat
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")

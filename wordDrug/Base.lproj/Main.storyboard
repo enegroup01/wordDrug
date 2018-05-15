@@ -860,6 +860,13 @@
                                     <action selector="intermedaiteClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="mvq-Ty-ylN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smV-et-i36">
+                                <rect key="frame" x="290" y="167" width="85" height="168"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="toNewBook2Btn:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="d45-c3-NMc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.15294117647058825" green="0.18823529411764706" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -873,6 +880,7 @@
                         <outlet property="block1" destination="Ykw-pZ-wIi" id="uRS-Xs-ieK"/>
                         <outlet property="block1BookImg" destination="kZq-5K-PTU" id="UX2-UP-rYY"/>
                         <outlet property="block1LBtn" destination="6u4-6T-BSL" id="Z6B-Yf-mzY"/>
+                        <outlet property="block1RBtn" destination="smV-et-i36" id="IyS-mP-Kmx"/>
                         <outlet property="block1TitleImg" destination="r0D-zx-DDj" id="h90-5e-Zcv"/>
                         <outlet property="block1WordCountLabel" destination="Cqe-nO-HFF" id="Wx1-Rm-aKn"/>
                         <outlet property="block2" destination="cUQ-dp-9qC" id="mL3-eB-Wwm"/>

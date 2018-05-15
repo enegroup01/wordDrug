@@ -19,6 +19,7 @@ class CoursesViewController: UIViewController {
     
     @IBOutlet weak var block1LBtn: UIButton!
     
+    @IBOutlet weak var block1RBtn: UIButton!
     @IBOutlet weak var dialogueBg: UIImageView!
 
     @IBOutlet weak var dialogueLabel: UILabel!
@@ -121,7 +122,15 @@ class CoursesViewController: UIViewController {
         block0RBtn.frame = CGRect(x: block0LBtn.frame.width, y: 0, width: width - block0LBtn.frame.width, height: height / 4)
         //block0RBtn.backgroundColor = .red
         
+        
+        
+        
         block1LBtn.frame = CGRect(x: 0, y: height / 4, width: width * 3 / 4 + width / 42, height: height / 4)
+        
+        
+      
+        block1RBtn.frame = CGRect(x: block1LBtn.frame.width, y: block1LBtn.frame.minY, width: block0RBtn.frame.width, height: block0RBtn.frame.height)
+        //block1RBtn.backgroundColor = .red
      
         //block1LBtn.backgroundColor = .red
         
@@ -267,8 +276,18 @@ class CoursesViewController: UIViewController {
     }
     */
     @IBAction func toNewBookBtn(_ sender: Any) {
+             courseSent = 0
         performSegue(withIdentifier: "toNewBookVc", sender: self)
+   
     }
+    
+    @IBAction func toNewBook2Btn(_ sender: Any) {
+                courseSent = 1
+         performSegue(withIdentifier: "toNewBookVc", sender: self)
+ 
+        
+    }
+    
     
     @IBAction func logOutClicked(_ sender: Any) {
         
@@ -295,16 +314,17 @@ class CoursesViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        /*
+        
         if segue.identifier == "toNewBookVc"{
             
             let destinationVc = segue.destination as! NewBookViewController
             
             //之後這裡要傳送的是課程名稱
+            destinationVc.courseReceived = courseSent
 
             
         }
-        */
+        
         
         if segue.identifier == "toStageVc"{
             

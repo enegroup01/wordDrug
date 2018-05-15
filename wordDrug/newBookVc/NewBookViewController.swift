@@ -98,7 +98,37 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["ea30","en30","er30","ea31","er31","ea32","er32","ea33","er33","en31"],
                             ["bet1","a_e16","ba2","ban1","bar1","bl2","br2","br3","br4","ble3"]]
     
-
+    let map6SyllableSets = [["a_e17","ar19","br5","ce10","em5","er52","my1","set1","st18","tain1"],
+                            ["au6","ch9","ing9","mic1","ph3","sh9","th10","tic1","tion7","u_e4"],
+                            ["ai14","ar20","au7","aw4","ct2","ful2","ge8","nd4","tive2","ue3"],
+                            ["a_e18","ac4","al22","au8","ban2","et4","ly3","ou23","sin1","sit1"],
+                            ["au9","ay12","ba3","beg1","ee25","el14","or26","ry4","sis1","ty4"],
+                            ["bi2","bio1","bl3","ble6","en32","fit1","is3","ny2","old2","sh10"],
+                            ["an22","br6","bu3","ca2","ing10","oo18","oy2","sy1","um5","ur7"],
+                            ["a_e19","al23","ar21","br7","bu4","ca3","ea39","ge9","tion8","ture3"],
+                            ["br8","bu5","ca4","ce11","ch10","ci3","cl4","er53","ir6","oa7"],
+                            ["ar22","br9","ca5","ch11","ci4","ci5","ck7","cl5","co3","o_e7"],
+                            ["br10","ca7","ch12","cl6","co4","com3","con4","dy2","nd5","oo19"],
+                            ["ca6","ch13","cl7","com4","con5","dy3","or27","ou24","tion9","u_e5"],
+                            ["ch14","cl8","com5","con6","cr3","er54","or28","ous1","ub2","up3"],
+                            ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"]]
+    
+    
+    
+    let map7SyllableSets = [["am9","ce12","ch16","cl10","com7","con8","cr5","i_e16","ing11","ry5"],
+                            ["ay13","ch17","cl11","com8","con9","cr6","de2","en33","ry12","tion10"],
+                            ["a_e21","an23","ch18","com9","con10","cr7","de3","igh5","pr7","ty5"],
+                            ["ai15","ch19","com10","con11","cr8","er55","ge10","ment2","pr8","tion11"],
+                            ["com11","con12","cr9","dia1","dic1","er56","gi3","i_e17","o_e8","tion12"],
+                            ["com12","con13","cr10","di3","dis3","im6","ip1","ir7","pl2","st29"],
+                            ["a_e22","com13","con14","cr11","dis4","dr3","i_e18","o_e9","ow13","sion2"],
+                            ["con15","cr12","dis5","dr4","ea40","ow14","rn1","sk3","th11","ul1"],
+                            ["al24","ble7","con16","dis6","dr5","en34","it1","mic2","tion13","tive3"],
+                            ["ch20","cian3","con17","dis7","dr6","ly4","nic2","nt2","tic2","ty6"],
+                            ["a_e23","con18","dis8","dr7","em6","ge11","ing12","ment3","or29","wh4"],
+                            ["al25","ce13","con19","dis9","en35","er57","ge12","ment4","qu1","tle3"],
+                            ["a_e24","al26","ce14","con20","ct3","dis10","en40","er58","tion14","ve1"],
+                            ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"]]
 
     //刪掉數字的音節
     var sylArray = [String]()
@@ -263,11 +293,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var rightBtnClickedImg = UIImageView()
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
 
+    let wrongPronounceWords:[[String:[String]]] = [["烘焙":["烘陪"]], ["affect":["a fect"]], ["頭髮":["頭法"]], ["campaign":["cam pain"]], ["和":["汗"]], ["woman":["wo men"]], ["snowman":["snow man"]], ["fisherman":["fisher man"]], ["gentleman":["gentle man"]], ["supermarket":["super market"]], ["劣拙地":["列濁地"]], ["begin":["be ghing"]], ["巧克力":["巧顆粒"]], ["lead":["leed"]], ["tear":["tee er"]], ["度數":["度樹"]], ["年紀較長的":["年紀較漲的"]], ["告訴":["吿速"]], ["envelope":["anvelope"]], ["sensor":["sen sir"]], ["友誼":["有宜"]], ["kilometer":["killa meter"]], ["桶子":["統子"]], ["油炸":["油柵"]], ["外框":["外筐"]], ["高麗菜":["高力菜"]], ["油炸的":["油柵的"]], ["磨坊":["魔訪"]], ["螫":["遮"]], ["kneepad":["knee pad"]], ["iron":["eye ern"]], ["歌曲":["哥取"]], ["鵝":["蛾"]], ["forehead":["fore head"]], ["數":["鼠"]], ["April":["eigh pro"]], ["重播":["蟲剝"]], ["槳糊":["降胡"]], ["stupid":["stubid"]], ["錫":["習"]], ["曲線":["娶線"]], ["風箏":["風蒸"]], ["comb":["kome"]], ["wolf":["wallf"]], ["absurd":["a bsurd"]]]
     
-        let wrongPronounceWords:[[String:[String]]] = [["烘焙":["烘陪"]], ["affect":["a fect"]], ["頭髮":["頭法"]], ["campaign":["cam pain"]], ["和":["汗"]], ["woman":["wo men"]], ["snowman":["snow man"]], ["fisherman":["fisher man"]], ["gentleman":["gentle man"]], ["supermarket":["super market"]], ["劣拙地":["列濁地"]], ["begin":["be ghing"]], ["巧克力":["巧顆粒"]], ["lead":["leed"]], ["tear":["tee er"]], ["度數":["度樹"]], ["年紀較長的":["年紀較漲的"]], ["告訴":["吿速"]], ["envelope":["anvelope"]], ["sensor":["sen sir"]], ["友誼":["有宜"]], ["kilometer":["killa meter"]], ["桶子":["統子"]], ["油炸":["油柵"]], ["外框":["外筐"]], ["高麗菜":["高力菜"]], ["油炸的":["油柵的"]], ["磨坊":["魔訪"]], ["螫":["遮"]], ["kneepad":["knee pad"]], ["iron":["eye ern"]], ["歌曲":["哥取"]], ["鵝":["蛾"]], ["forehead":["fore head"]], ["數":["鼠"]], ["April":["eigh pro"]], ["重播":["蟲剝"]], ["槳糊":["降胡"]], ["stupid":["stubid"]], ["錫":["習"]], ["曲線":["娶線"]], ["風箏":["風蒸"]], ["comb":["kome"]], ["wolf":["wallf"]], ["absurd":["a bsurd"]]]
+    var courseReceived = Int()
+    
+    var syllableGroup = [[[String()]]]
+    var mapPassedInt:Int?
+    var gamePassedDic:[Int:Int]?
+    var increaseNum = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         
         switch height {
@@ -305,14 +343,40 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
+        
+        print("courseReceived\(courseReceived)")
+        
+        switch courseReceived{
+            
+        case 0:
+            syllableGroup.append(map1SyllableSets)
+            syllableGroup.append(map2SyllableSets)
+            syllableGroup.append(map3SyllableSets)
+            syllableGroup.append(map4SyllableSets)
+            syllableGroup.append(map5SyllableSets)
+            mapPassedInt = mapPassed
+            gamePassedDic = gamePassed
+            increaseNum = 0
+            
+        
+        case 1:
+            syllableGroup.append(map6SyllableSets)
+            syllableGroup.append(map7SyllableSets)
+            mapPassedInt = mapPassed2
+            gamePassedDic = gamePassed2
+            increaseNum = 5
+            
+        default:
+            break
+      
+        }
+        
         //加入alertView
        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         ghostBtn.backgroundColor = lightGray
         ghostBtn.addTarget(self, action: #selector(NewBookViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
-        
-    
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         alertBg.image = UIImage(named: "reviewSelectBg.png")
@@ -446,8 +510,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playSenText.textColor = btnOnColor
         playSenImg.image = UIImage(named:"bookSenOn.png")
         
+        
         //歸類所有syllable
         
+        syllableGroup.removeFirst()
+        
+        for groupSet in syllableGroup{
+            
+            for group in groupSet{
+                
+                for syl in group{
+                    
+                    syllableSets.append(syl)
+                    
+                }
+            }
+        }
+ 
+
+   /*
         for group in map1SyllableSets{
             
             for syl in group{
@@ -483,7 +564,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 syllableSets.append(syl)
             }
         }
-     
+     */
         
         //讀取所有syl, 排除相同的再次出現
         for syl in syllableSets{
@@ -524,23 +605,30 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //spot & unit, 當下已過的地圖裡的關卡數字
         //gamePassed = [0:0]
         
+        /*
         print("book mapPassed:\(mapPassed!)")
         print("book gamPassed:\(gamePassed!)")
-        
+        */
         //所有已過關的地圖字都要抓進去
-        for m in 0 ..< mapPassed!{
+        
+        
+        for m in 0 ..< mapPassedInt!{
             //要讀取裡面的全部
     
        
             //讀取已完整的所有字集 + 句子
             //print("m:\(m)")
             //目前設置15的原因因為所有探索點都有15個, 若之後不同課程有不同的探索點數, 要抓動態探索點數字
+            
+            
+            //在此要加上increaseNum才能抓到正確的檔案
+            
             for i in 0 ..< 15{
                 
                 var wordFile:String?
                 //前面的1代表第一張地圖
-                let name = String(m + 1) + "-" + String(i + 1)
-                let sName = "s\(String(m + 1))-" + String(i + 1)
+                let name = String(m + increaseNum + 1) + "-" + String(i + 1)
+                let sName = "s\(String(m + increaseNum + 1))-" + String(i + 1)
             
                 
                 //抓字
@@ -585,7 +673,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         //接著抓目前最新開放地圖裡的完成字 + 殘字
-        for (s,_) in gamePassed!{
+        for (s,_) in gamePassedDic!{
   
             
             
@@ -595,8 +683,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 
                 var wordFile:String?
                 //前面的1代表第一張地圖
-                let name = String(describing: mapPassed! + 1) + "-" + String(i + 1)
-                let sName = "s\(String(describing: mapPassed! + 1))-" + String(i + 1)
+                
+                //裡面的檔名也要加上increaseNum
+                let name = String(describing: mapPassedInt! + increaseNum + 1) + "-" + String(i + 1)
+                let sName = "s\(String(describing: mapPassedInt! + increaseNum + 1))-" + String(i + 1)
                 
                 //抓字
                 if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -640,8 +730,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             var wordFile:String?
 
             //讀取最新一層的字
-            let name = String(describing: mapPassed! + 1) + "-" + String(s + 1)
-            let sName = "s\(String(describing: mapPassed! + 1))-" +  String(s + 1)
+            
+            //檔名要加上increaseNum
+            let name = String(describing: mapPassedInt! + increaseNum + 1) + "-" + String(s + 1)
+            let sName = "s\(String(describing: mapPassedInt! + increaseNum + 1))-" +  String(s + 1)
             
             if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
                 do {
@@ -738,7 +830,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //* * * 抓已append完的音節數量, 之後殘值以此數量append
         let sequence = Int(syllablesToShow.count / 3)
         
-        for (_,g) in gamePassed!{
+        for (_,g) in gamePassedDic!{
             
 
             
@@ -775,6 +867,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         
         
+        //這部分之後要分course類了
         //載入我的最愛單字
         if let myWordsString = user!["myWords"] as! String?{
             myFavWords = myWordsString.components(separatedBy: ";")
