@@ -97,6 +97,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["er26","ea27","en27","er27","ea28","en28","er28","ea29","en29","er29"],
                             ["ea30","en30","er30","ea31","er31","ea32","er32","ea33","er33","en31"],
                             ["bet1","a_e16","ba2","ban1","bar1","bl2","br2","br3","br4","ble3"]]
+    
+
 
     //刪掉數字的音節
     var sylArray = [String]()

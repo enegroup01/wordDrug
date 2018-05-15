@@ -104,6 +104,21 @@ class LessonViewController: UIViewController{
                             ["ca6","ch13","cl7","com4","con5","dy3","or27","ou24","tion9","u_e5"],
                             ["ch14","cl8","com5","con6","cr3","er54","or28","ous1","ub2","up3"],
                             ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"]]
+    
+    let map7SyllableSets = [["am9","ce12","ch16","cl10","com7","con8","cr5","i_e16","ing11","ry5"],
+                            ["ay13","ch17","cl11","com8","con9","cr6","de2","en33","ry12","tion10"],
+                            ["a_e21","an23","ch18","com9","con10","cr7","de3","igh5","pr7","ty5"],
+                            ["ai15","ch19","com10","con11","cr8","er55","ge10","ment2","pr8","tion11"],
+                            ["com11","con12","cr9","dia1","dic1","er56","gi3","i_e17","o_e8","tion12"],
+                            ["com12","con13","cr10","di3","dis3","im6","ip1","ir7","pl2","st29"],
+                            ["a_e22","com13","con14","cr11","dis4","dr3","i_e18","o_e9","ow13","sion2"],
+                            ["con15","cr12","dis5","dr4","ea40","ow14","rn1","sk3","th11","ul1"],
+                            ["al24","ble7","con16","dis6","dr5","en34","it1","mic2","tion13","tive3"],
+                            ["ch20","cian3","con17","dis7","dr6","ly4","nic2","nt2","tic2","ty6"],
+                            ["a_e23","con18","dis8","dr7","em6","ge11","ing12","ment3","or29","wh4"],
+                            ["al25","ce13","con19","dis9","en35","er57","ge12","ment4","qu1","tle3"],
+                            ["a_e24","al26","ce14","con20","ct3","dis10","en40","er58","tion14","ve1"],
+                            ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"]]
 
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -384,14 +399,24 @@ class LessonViewController: UIViewController{
                 print(self!.mapPassedInt)
                 print(self!.gamePassedDic)
                 
+                
+                if self!.gamePassedDic == [0:0]{
+                    
+                    print("不能練習句子")
+                } else {
+                    
+                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                }
+                
+                /*
                 if self!.mapPassedInt == 0 {
                     
                     if self!.gamePassedDic == [0:0] {
-                        print("不能練習句子")
+                 
                         
                         
                     } else {
-                        self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                 
                         
                     }
                 } else {
@@ -399,7 +424,7 @@ class LessonViewController: UIViewController{
                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
                     
                 }
-                
+                */
 
                 
             }
@@ -426,6 +451,16 @@ class LessonViewController: UIViewController{
                 self?.practiceSenBtn.isEnabled = false
                 self?.practiceWordBtn.isEnabled = false
                 
+                
+                if self!.gamePassedDic == [0:0]{
+                    
+                    print("不能練習單字")
+                } else {
+                    
+                    self!.performSegue(withIdentifier: "toGameVc", sender: self)
+                }
+                
+                /*
                 if self!.mapPassedInt == 0 {
                     
                     if self!.gamePassedDic == [0:0] {
@@ -440,6 +475,8 @@ class LessonViewController: UIViewController{
                 
                 self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 }
+                
+                */
             }
         }
         
@@ -505,6 +542,8 @@ class LessonViewController: UIViewController{
             syllableSets = map5SyllableSets
         case 5:
             syllableSets = map6SyllableSets
+        case 6:
+            syllableSets = map7SyllableSets
         default:
             break
         }
@@ -532,8 +571,6 @@ class LessonViewController: UIViewController{
                 spotNum = s
                 unitNum = u
                 progressFloat = CGFloat(u + 1)
-                
-                
                 
             }
             
@@ -574,6 +611,7 @@ class LessonViewController: UIViewController{
         let name = String(mapNum + 1) + "-" + String(spotNum + 1)
         
         print(name)
+        
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {
                 wordFile = try String(contentsOfFile: filepath)
@@ -739,7 +777,6 @@ class LessonViewController: UIViewController{
         thirdLabel.attributedText = words[2]
 
         enterBtn.isEnabled = true
-        
         
         //指定音節
         synWord = syllablesWithoutDigit
