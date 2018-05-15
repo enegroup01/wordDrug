@@ -159,6 +159,7 @@ class LessonViewController: UIViewController{
     var practiceSenBtn = UIButton()
     var leftBtnClickedImg = UIImageView()
     var rightBtnClickedImg = UIImageView()
+    var bigQuitBtn = UIButton()
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     
     
@@ -247,6 +248,15 @@ class LessonViewController: UIViewController{
         practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
         
+        bigQuitBtn = UIButton(type: .system)
+        bigQuitBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width, height: height * 44 / 667)
+ 
+        bigQuitBtn.setTitle("我知道了", for: .normal)
+        bigQuitBtn.setTitleColor(.darkGray, for: .normal)
+        
+        bigQuitBtn.addTarget(self, action:#selector(LessonViewController.removeBtns), for: .touchUpInside)
+        self.view.addSubview(bigQuitBtn)
+        
         leftBtnClickedImg.frame = practiceWordBtn.frame
         leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
         
@@ -298,6 +308,7 @@ class LessonViewController: UIViewController{
         self.view.bringSubview(toFront: practiceSenBtn)
         self.view.bringSubview(toFront: leftBtnClickedImg)
         self.view.bringSubview(toFront: rightBtnClickedImg)
+        self.view.bringSubview(toFront: bigQuitBtn)
         
         removeBtns()
 
@@ -363,6 +374,7 @@ class LessonViewController: UIViewController{
     
     @objc func removeBtns(){
         
+        alertText.text = "選擇練習模式"
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         ghost2Btn.isHidden = true
@@ -370,7 +382,12 @@ class LessonViewController: UIViewController{
         practiceSenBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
         rightBtnClickedImg.isHidden = true
+        bigQuitBtn.isHidden = true
+        practiceSenBtn.isEnabled = true
+        practiceWordBtn.isEnabled = true
     }
+    
+    
     
     @objc func practiceSen(){
         print("practice Sen")
@@ -401,6 +418,9 @@ class LessonViewController: UIViewController{
                 if self!.gamePassedDic == [0:0]{
                     
                     print("不能練習句子")
+                    self!.cannotPracticeAlert()
+                    
+                
                 } else {
                     
                      self!.performSegue(withIdentifier: "toGameVc", sender: self)
@@ -453,6 +473,7 @@ class LessonViewController: UIViewController{
                 if self!.gamePassedDic == [0:0]{
                     
                     print("不能練習單字")
+                    self!.cannotPracticeAlert()
                 } else {
                     
                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
@@ -800,6 +821,23 @@ class LessonViewController: UIViewController{
         practiceSenBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
         rightBtnClickedImg.isHidden = false
+        
+    }
+    
+    func cannotPracticeAlert(){
+        
+        alertText.text = "學習單字不足，無法練習\n 至少需要學習一個單元才能複習"
+        ghostBtn.isHidden = false
+        
+        
+        alertBg.image = UIImage(named: "reviewQuitBg.png")
+        alertBg.isHidden = false
+        bigQuitBtn.isHidden = false
+        ghost2Btn.isHidden = false
+        practiceWordBtn.isHidden = true
+        practiceSenBtn.isHidden = true
+        //leftBtnClickedImg.isHidden = false
+        //rightBtnClickedImg.isHidden = false
         
     }
     

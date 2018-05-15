@@ -1759,7 +1759,7 @@ class NewGameScene: SKScene {
         }
         } else if gameMode == 1 {
             
-            for (s,_) in gamePassed!{
+            for (s,_) in gamePassedDic!{
                 
                 let randomSpot = Int(arc4random_uniform(UInt32(s)))
                 

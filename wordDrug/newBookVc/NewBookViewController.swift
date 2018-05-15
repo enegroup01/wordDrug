@@ -180,8 +180,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var syllablesToShow = [String]()
     var engSenToShow = [String]()
     var chiSenToShow = [String]()
-    
-    
+
     var sortedEngWordsToShow = [String]()
       var sortedChiWordsToShow = [String]()
       var sortedPartOfSpeechToShow = [String]()

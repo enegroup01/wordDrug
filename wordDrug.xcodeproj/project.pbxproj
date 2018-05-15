@@ -233,6 +233,7 @@
 		AA6C95D520A9CC23001158E7 /* s7-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95C720A9CC20001158E7 /* s7-3.txt */; };
 		AA6C95D620A9CC23001158E7 /* s7-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95C820A9CC20001158E7 /* s7-10.txt */; };
 		AA6C95D720A9CC23001158E7 /* s7-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95C920A9CC20001158E7 /* s7-12.txt */; };
+		AA6C95DB20AAA29C001158E7 /* reviewQuitBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95DA20AAA29C001158E7 /* reviewQuitBg.png */; };
 		AA7ABB9520579591007884A1 /* countDownLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7ABB9420579591007884A1 /* countDownLine.png */; };
 		AA7AE8F62047D88900ADEEDA /* newGameBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F52047D88900ADEEDA /* newGameBg.png */; };
 		AA7AE8F82047D8A200ADEEDA /* pauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */; };
@@ -559,6 +560,7 @@
 		AA6C95C720A9CC20001158E7 /* s7-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s7-3.txt"; sourceTree = "<group>"; };
 		AA6C95C820A9CC20001158E7 /* s7-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s7-10.txt"; sourceTree = "<group>"; };
 		AA6C95C920A9CC20001158E7 /* s7-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s7-12.txt"; sourceTree = "<group>"; };
+		AA6C95DA20AAA29C001158E7 /* reviewQuitBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewQuitBg.png; sourceTree = "<group>"; };
 		AA7ABB9420579591007884A1 /* countDownLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countDownLine.png; sourceTree = "<group>"; };
 		AA7AE8F52047D88900ADEEDA /* newGameBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newGameBg.png; sourceTree = "<group>"; };
 		AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseBtn.png; sourceTree = "<group>"; };
@@ -730,6 +732,7 @@
 				AA2B64D3205A63F200742226 /* NewBookViewController.swift */,
 				AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */,
 				AA96556020909461003E5AB7 /* reviewSelectBg.png */,
+				AA6C95DA20AAA29C001158E7 /* reviewQuitBg.png */,
 				AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */,
 				AA2B64CF205A609D00742226 /* bookBackBtn.png */,
 				AA9655682090B7E2003E5AB7 /* practiceBook.png */,
@@ -1402,6 +1405,7 @@
 				AAA9BF7520A5903C000CA7CD /* s6-10.txt in Resources */,
 				AA648EC8207CEA05003ACD07 /* 5-11.txt in Resources */,
 				AA648ECF207CEA05003ACD07 /* 2-11.txt in Resources */,
+				AA6C95DB20AAA29C001158E7 /* reviewQuitBg.png in Resources */,
 				AA98E62620861F26001100BA /* stageTopCover.png in Resources */,
 				AA98E6112085E94E001100BA /* block3.png in Resources */,
 				AA648EBC207CEA05003ACD07 /* 4-10.txt in Resources */,
