@@ -1083,6 +1083,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isHidden = false
         thirdWordBtn.isHidden = false
         bigOkBtn.isHidden = false
+        bigOkBtn.isEnabled = false
         
         firstWordBtn.isEnabled = true
         secondWordBtn.isEnabled = true
@@ -1144,20 +1145,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
                             //popQuiz bonus加分
                             
-                            var bonusTimer = Timer()
-                            
+                           
                             switch popQuizRight[0]{
                                 
                             case "-1":
                                 print("bonus 0")
-                                
+                                bigOkBtn.isEnabled = true
                                 
                             case "0":
                                 print("bonus 1")
 
                                     
                                 bonusAnimation(repeatCount:1)
-                                    
+                                
+                                countScore(score: 500)
 
                                 
                                 
@@ -1168,20 +1169,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 
                                 
                                      bonusAnimation(repeatCount:2)
-                                
+                       
+                                countScore(score: 1000)
                                 
                                 
                             case "2":
                                 print("bonus 3")
                                 
                                      bonusAnimation(repeatCount:3)
-                                
+           
+                                countScore(score: 1500)
                             default:
                                 break
                             }
                             
-                            let bonusPoint = Int(popQuizRight[0])! * 500
-                            countScore(score: bonusPoint)
+
                             
                         //如果有錯就不算過關的條件
                         
@@ -1428,7 +1430,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     scoreAdded = 0
                     countScoreTimer.invalidate()
                     
-                
+                    //加完分後直接上傳
+                    bigOkBtn.isEnabled = true
+                    
                     
                 }
                 
@@ -1895,6 +1899,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBAction func okBtnClicked(_ sender: Any) {
         
         //在此確認是否已過地圖的確認
+       
+        
+        let updatePoints = Int(scoreLabel.text!)!
+        updateScore(score:updatePoints)
         
         if isCelebratingMapPassed{
             
@@ -3136,6 +3144,63 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 }
             }).resume()
         }
+    }
+    
+    func updateScore(score:Int){
+        
+  
+            let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&score=\(score)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                     
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                        
+                        print("updateScore")
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        print(user!)
+        
+                        
+                   
+                        
+                    } catch{
+              
+                        print("catch error")
+                        
+                    }
+                } else {
+                
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        
     }
     
     /*
