@@ -32,6 +32,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
     let recordingPinkColor = UIColor.init(red: 1, green: 0, blue: 149/255, alpha: 1)
+    let yellowColor = UIColor.init(red: 239/255, green: 196/255, blue: 91/255, alpha: 1)
     
     //顯示辨識字的label
     @IBOutlet weak var recogTextLabel: UILabel!
@@ -233,6 +234,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var increaseNum = Int()
     var maxSpotNum = Int()
     
+    var countScoreTimer = Timer()
+    //紀錄已加過的分數
+    var scoreAdded = Int()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -416,10 +421,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //bonusScoreLabel.frame = CGRect(x: scoreLabel.frame.minX, y: scoreLabel.frame.minY, width: scoreLabel.frame.width, height: scoreLabel.frame.height)
         bonusScoreLabel.frame = scoreLabel.frame
+        bonusScoreLabel.frame.origin.x = bonusScoreLabel.frame.origin.x - bonusScoreLabel.frame.width / 2
         
-        bonusScoreLabel.textColor = .yellow
+        bonusScoreLabel.textColor = .red
         bonusScoreLabel.textAlignment = .right
-        bonusScoreLabel.font = UIFont(name: "Helvetica Neue", size: 16)
+        bonusScoreLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         bonusScoreLabel.text = "+bonus"
         bonusScoreLabel.alpha = 0
         //bonusScoreLabel.isHidden = true
@@ -857,6 +863,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         //moveUpAndGone(label: bonusScoreLabel)
     
+        /*
+        scoreLabel.text = "0"
+        scoreLabel.textColor = .white
+        countScore(score: 1500)
+        bonusAnimation(repeatCount: 3)
+        */
     }
     
     //接收nc
@@ -873,6 +885,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
 
     @IBAction func playSoundClicked(_ sender: Any) {
+        //bonusAnimation()
         
         //避免空字也發音
         if synWord != String(){
@@ -881,9 +894,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
           //  print(synWord)
             synPronounce()
         }
-        
-        
     }
+    
+    
     @objc func leaveWithoutSaving(){
         
         UIView.animate(withDuration: 0.06, animations: {[weak self] in
@@ -1131,6 +1144,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
                             //popQuiz bonus加分
                             
+                            var bonusTimer = Timer()
+                            
                             switch popQuizRight[0]{
                                 
                             case "-1":
@@ -1139,20 +1154,34 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 
                             case "0":
                                 print("bonus 1")
+
+                                    
+                                bonusAnimation(repeatCount:1)
+                                    
+
                                 
                                 
                             case "1":
                                 print("bonus 2")
                                 
                                 
+                                
+                                
+                                     bonusAnimation(repeatCount:2)
+                                
+                                
+                                
                             case "2":
                                 print("bonus 3")
                                 
+                                     bonusAnimation(repeatCount:3)
                                 
                             default:
                                 break
                             }
                             
+                            let bonusPoint = Int(popQuizRight[0])! * 500
+                            countScore(score: bonusPoint)
                             
                         //如果有錯就不算過關的條件
                         
@@ -1363,6 +1392,49 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
 
+    func countScore(score:Int){
+        
+        
+        //isDragAndPlayEnable = false
+        
+        let scoreToPass:[String:Int] = ["Score":score]
+        //print("score:\(score)")
+        countScoreTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(NewGameViewController.startCounting), userInfo: scoreToPass, repeats: true)
+        
+        
+    }
+    
+    
+    @objc func startCounting(){
+        
+        // print("1")
+        if let userInfo = countScoreTimer.userInfo as? Dictionary<String, Int>{
+            //print("2")
+            if let scoreToAdd = userInfo["Score"]{
+                //   print("3")
+                
+ 
+                
+                //let size = CGSize(width: 100, height: 100)
+                
+                //print("scoreAdded:\(scoreAdded) and score:\(scoreToAdd)")
+                if scoreAdded < scoreToAdd {
+                    // print("4")
+                    
+                    scoreAdded += 10
+                    scoreLabel.text = String(Int(scoreLabel.text!)! + 10)
+                } else {
+                    //   print("5")
+                    scoreAdded = 0
+                    countScoreTimer.invalidate()
+                    
+                
+                    
+                }
+                
+            }
+        }
+    }
     
     func countWords(){
         //計算所有字數
@@ -1462,6 +1534,46 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             labelToMove.frame.origin.y = originY
   
         }
+    }
+    
+    
+    func bonusAnimation(repeatCount:Float){
+        
+        
+        bonusScoreLabel.alpha = 0.3
+      
+        let originY = bonusScoreLabel.frame.origin.y
+        //bonusScoreLabel.frame.origin.y = originY + 20
+        
+
+            //UIView.animate(withDuration: 0.3, animations: {[weak self] in
+            UIView.animate(withDuration: 0.7, delay: 0.5, options: [.curveEaseIn], animations: {[weak self] in
+                
+                  // UIView.setAnimationRepeatCount(repeatCount)
+                
+                self!.bonusScoreLabel.alpha = 1
+                self!.bonusScoreLabel.frame.origin.y = originY - 15
+                
+                
+                
+            }) { (finished:Bool) in
+                UIView.animate(withDuration: 0, delay: 0.5, options: .curveEaseIn, animations: {[weak self] in
+                    
+                    self!.bonusScoreLabel.alpha = 0
+                    
+                    }, completion: {[weak self] (true) in
+                        
+                            self!.bonusScoreLabel.frame.origin.y = originY
+               
+                })
+            }
+
+            
+        
+        
+        
+     
+      
     }
     
     func moveUpAndGone(label:UILabel){

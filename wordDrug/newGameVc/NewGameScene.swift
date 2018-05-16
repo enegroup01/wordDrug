@@ -563,10 +563,10 @@ class NewGameScene: SKScene {
        
         //測試用
         
-        /*
+        
          spotNumber = 0
          unitNumber = 1
- */
+ 
 
 
         print("mapNumber:\(mapNumber)")
@@ -2944,11 +2944,11 @@ class NewGameScene: SKScene {
                 let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)]]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
 
+                
             }
             
-
-            
         }
+
         } else if gameMode == 1 {
             
             //以下為單純複習單字的機制
@@ -2958,7 +2958,6 @@ class NewGameScene: SKScene {
             
                 //練完的機制要先確認這次loadAllKindsOfWord的三個字是否已經用完
                 if currentPracticeSequence == 2 {
-                    
                     
                     //之後要接續練完的畫面
                         print("練完了")
@@ -3178,7 +3177,7 @@ class NewGameScene: SKScene {
             //這是連接後端的func
             addWrongWords()
             
-
+            
             let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)]]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
             
