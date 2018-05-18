@@ -29,13 +29,19 @@ class InfoTableViewCell: UITableViewCell {
     let lightColor = UIColor.init(red: 196/255, green: 203/255, blue: 213/255, alpha: 1)
     let yellowColor = UIColor.init(red: 255/255, green: 182/255, blue: 13/255, alpha: 1)
     
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
+        self.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.height)
         
         infoCellBg.backgroundColor = .white
-        infoCellBg.frame = CGRect(x: self.frame.width * 1 / 12, y: self.frame.height * 1 / 12, width: self.frame.width * 5 / 6, height: self.frame.height * 5 / 6)
+        infoCellBg.frame = CGRect(x: self.frame.width * 1 / 12, y: self.frame.height * 1 / 12, width: self.frame.width * 5 / 6, height: self.frame.height * 7 / 8)
+        
+        //infoCellBg.frame = CGRect(x: width * 1 / 12, y: height * 1 / 20, width: width * 5 / 6, height: height * 1 / 3.7)
         infoCellBg.layer.cornerRadius = infoCellBg.frame.width / 35
         let shadowCg = lightGrayShadow.cgColor
         infoCellBg.layer.shadowColor = shadowCg
@@ -108,16 +114,9 @@ class InfoTableViewCell: UITableViewCell {
         totalRate.frame = CGRect(x: 0, y: ringView.frame.height / 2.8, width: ringView.frame.width, height: ringView.frame.height / 4)
         
         
-        ringView.progress = 0.0
         
-        CATransaction.setCompletionBlock {[weak self] in
-            
-            CATransaction.begin()
-            CATransaction.setAnimationDuration(2)
-            
-            self!.ringView.progress = 0.81
-            CATransaction.commit()
-        }
+
+
         
         
     }
