@@ -564,9 +564,10 @@ class NewGameScene: SKScene {
         //測試用
         
         
+        /*
          spotNumber = 0
          unitNumber = 1
- 
+ */
 
 
         print("mapNumber:\(mapNumber)")

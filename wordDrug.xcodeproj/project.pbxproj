@@ -235,6 +235,11 @@
 		AA6C95D720A9CC23001158E7 /* s7-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95C920A9CC20001158E7 /* s7-12.txt */; };
 		AA6C95DB20AAA29C001158E7 /* reviewQuitBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95DA20AAA29C001158E7 /* reviewQuitBg.png */; };
 		AA6C95DE20AAAA8F001158E7 /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95DD20AAAA8F001158E7 /* fire.sks */; };
+		AA6FB73320AE7ACD0001EFED /* chartUpBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6FB73220AE7ACD0001EFED /* chartUpBg.png */; };
+		AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73420AE7B030001EFED /* InfoViewController.swift */; };
+		AA6FB73720AE7F910001EFED /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73620AE7F910001EFED /* InfoTableViewCell.swift */; };
+		AA6FB73A20AE84CA0001EFED /* MKGradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73820AE84CA0001EFED /* MKGradientGenerator.swift */; };
+		AA6FB73B20AE84CA0001EFED /* MKRingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73920AE84CA0001EFED /* MKRingProgressView.swift */; };
 		AA7ABB9520579591007884A1 /* countDownLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7ABB9420579591007884A1 /* countDownLine.png */; };
 		AA7AE8F62047D88900ADEEDA /* newGameBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F52047D88900ADEEDA /* newGameBg.png */; };
 		AA7AE8F82047D8A200ADEEDA /* pauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */; };
@@ -563,6 +568,11 @@
 		AA6C95C920A9CC20001158E7 /* s7-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s7-12.txt"; sourceTree = "<group>"; };
 		AA6C95DA20AAA29C001158E7 /* reviewQuitBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewQuitBg.png; sourceTree = "<group>"; };
 		AA6C95DD20AAAA8F001158E7 /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
+		AA6FB73220AE7ACD0001EFED /* chartUpBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartUpBg.png; sourceTree = "<group>"; };
+		AA6FB73420AE7B030001EFED /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		AA6FB73620AE7F910001EFED /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		AA6FB73820AE84CA0001EFED /* MKGradientGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKGradientGenerator.swift; sourceTree = "<group>"; };
+		AA6FB73920AE84CA0001EFED /* MKRingProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRingProgressView.swift; sourceTree = "<group>"; };
 		AA7ABB9420579591007884A1 /* countDownLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countDownLine.png; sourceTree = "<group>"; };
 		AA7AE8F52047D88900ADEEDA /* newGameBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newGameBg.png; sourceTree = "<group>"; };
 		AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseBtn.png; sourceTree = "<group>"; };
@@ -792,6 +802,18 @@
 				AA98E6072085DC5E001100BA /* loginBgImg.png */,
 			);
 			path = loginVc;
+			sourceTree = "<group>";
+		};
+		AA6FB73120AE7A290001EFED /* infoVc */ = {
+			isa = PBXGroup;
+			children = (
+				AA6FB73420AE7B030001EFED /* InfoViewController.swift */,
+				AA6FB73620AE7F910001EFED /* InfoTableViewCell.swift */,
+				AA6FB73820AE84CA0001EFED /* MKGradientGenerator.swift */,
+				AA6FB73920AE84CA0001EFED /* MKRingProgressView.swift */,
+				AA6FB73220AE7ACD0001EFED /* chartUpBg.png */,
+			);
+			path = infoVc;
 			sourceTree = "<group>";
 		};
 		AA7C97F52052C97300C834A3 /* newGameVc */ = {
@@ -1098,6 +1120,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA6FB73120AE7A290001EFED /* infoVc */,
 				AA9AFC0D2088EDF0003A61E9 /* lessonVc */,
 				AA2B64CE205A606C00742226 /* newBookVc */,
 				AA7C97F52052C97300C834A3 /* newGameVc */,
@@ -1257,6 +1280,7 @@
 				AA648E94207CEA05003ACD07 /* AllElements.txt in Resources */,
 				AA648ED9207CEA05003ACD07 /* s2-5.txt in Resources */,
 				AA648E72207CEA05003ACD07 /* s2-9.txt in Resources */,
+				AA6FB73320AE7ACD0001EFED /* chartUpBg.png in Resources */,
 				AA6C95B120A9CC10001158E7 /* 7-10.txt in Resources */,
 				AA8FAE90202D912600342CED /* rightCircle.png in Resources */,
 				AAA9BF7220A5903C000CA7CD /* s6-4.txt in Resources */,
@@ -1547,15 +1571,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */,
+				AA6FB73A20AE84CA0001EFED /* MKGradientGenerator.swift in Sources */,
 				AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */,
 				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,
 				AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */,
 				AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */,
+				AA6FB73B20AE84CA0001EFED /* MKRingProgressView.swift in Sources */,
+				AA6FB73720AE7F910001EFED /* InfoTableViewCell.swift in Sources */,
 				AA00379920497CCD0030F786 /* SwiftSiriWaveformView.swift in Sources */,
 				AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */,
 				AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */,
 				AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */,
+				AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */,
 				AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */,
 				AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */,
 				AA34F32C2023516D005437C6 /* NewGameScene.swift in Sources */,
