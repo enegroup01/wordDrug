@@ -1061,6 +1061,9 @@
                                 <rect key="frame" x="218" y="132" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="camera.png"/>
+                                <connections>
+                                    <action selector="changePhotoClicked:" destination="Y58-0X-len" eventType="touchUpInside" id="mFP-wC-cYB"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ethan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1td-ZK-a4l">
                                 <rect key="frame" x="59" y="167" width="257" height="21"/>

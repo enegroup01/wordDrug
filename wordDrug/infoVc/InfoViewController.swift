@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
    
     let darkColor = UIColor.init(red: 41/255, green: 56/255, blue: 87/255, alpha: 1)
     let midColor = UIColor.init(red: 138/255, green: 152/255, blue: 170/255, alpha: 1)
@@ -40,7 +40,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+   print(user)
         
         switch height {
         case 812:
@@ -142,6 +142,17 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         checkRankBtn.setTitleColor(yellowColor, for: .normal)
         //checkRankBtn.backgroundColor = .red
         
+        /*
+        let photos = PHPhotoLibrary.authorizationStatus()
+        if photos == .notDetermined {
+            PHPhotoLibrary.requestAuthorization({status in
+                if status == .authorized{
+                    print("ok")
+                } else {}
+            })
+        }
+        */
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -157,6 +168,20 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
+    
+
+    @IBAction func changePhotoClicked(_ sender: Any) {
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        picker.allowsEditing = true
+        picker.modalPresentationStyle = .overFullScreen
+        
+        
+        
+        self.present(picker, animated: true, completion: nil)
+    }
     
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -238,6 +263,244 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return 4
     }
 
+    
+    //照片的func
+
+    func getUserInfo(){
+        //指定個人大頭照
+        if let avaImgUrl = user?["ava"] as? String{
+            
+            // communicate back user as main queue
+            DispatchQueue.main.async(execute: {[weak self] in
+                
+                if avaImgUrl != "" {
+                    
+                    let imageUrl = URL(string: avaImgUrl)!
+                    // get data from image url
+                    let imageData = try? Data(contentsOf: imageUrl)
+                    
+                    // if data is not nill assign it to ava.Img
+                    if imageData != nil {
+                        DispatchQueue.main.async(execute: {
+                            self?.avaImg.image = UIImage(data: imageData!)
+                        })
+                    }
+                    
+                    
+                } else {
+                    
+                    self?.avaImg.image = UIImage(named: "avatar.png")
+                }
+            })
+            
+            
+        } else {
+            
+            //沒有就用預設大頭照
+            avaImg.image = UIImage(named: "avatar.png")
+            
+        }
+        
+        //取得暱稱
+        if let nickname = user?["nickname"] as? String{
+            
+            self.usernameLabel.text = nickname
+        }
+        
+        
+    }
+
+    
+    
+    // selected image
+    
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+  //  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        avaImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
+        
+        
+         self.dismiss(animated: false, completion: nil)
+        
+        /*
+        self.dismiss(animated: true) {
+            /*
+            let value = UIInterfaceOrientation.landscapeLeft.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+ */
+        }
+        */
+        
+        
+        // call func of uploading file to server
+        uploadAva()
+        
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        self.dismiss(animated: true, completion: nil)
+        /*
+        self.dismiss(animated: true) {
+            let value = UIInterfaceOrientation.landscapeLeft.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+        }
+        */
+    }
+    
+
+    // custom body of HTTP request to upload image file
+    func createBodyWithParams(_ parameters: [String: String]?, filePathKey: String?, imageDataKey: Data, boundary: String) -> Data {
+        
+        let body = NSMutableData();
+        
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendString("--\(boundary)\r\n")
+                body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString("\(value)\r\n")
+            }
+        }
+        
+        let filename = "ava.jpg"
+        
+        let mimetype = "image/jpg"
+        
+        body.appendString("--\(boundary)\r\n")
+        body.appendString("Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimetype)\r\n\r\n")
+        body.append(imageDataKey)
+        body.appendString("\r\n")
+        
+        body.appendString("--\(boundary)--\r\n")
+        
+        return body as Data
+        
+    }
+    
+    
+    // upload image to serve
+    func uploadAva() {
+        
+        // shotcut id
+        //let id = user!["id"] as! String
+        
+        let id = "135"
+        
+        // url path to php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
+        
+        // declare request to this file
+        var request = URLRequest(url: url)
+        
+        // declare method of passign inf to this file
+        request.httpMethod = "POST"
+        
+        // param to be sent in body of request
+        let param = ["id" : id]
+        
+        // body
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        // compress image and assign to imageData var
+        let imageData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
+        
+        // if not compressed, return ... do not continue to code
+        if imageData == nil {
+            return
+        }
+        
+        // ... body
+        request.httpBody = createBodyWithParams(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+        
+        
+        // launc session
+        URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
+            
+            // get main queue to communicate back to user
+            DispatchQueue.main.async(execute: {
+                
+                if error == nil {
+                    
+                    do {
+                        // json containes $returnArray from php
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        // declare new parseJSON to store json
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            
+                            return
+                        }
+                        
+                        // get id from $returnArray["id"] - parseJSON["id"]
+                        let id = parseJSON["id"]
+                        
+                        // successfully uploaded
+                        if id != nil {
+                            print("got Id")
+                            
+                            
+                            // save user information we received from our host
+                            
+                            UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                            user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                            
+                            print(user)
+                        } else {
+                            print("didn't get id")
+                            // get main queue to communicate back to user
+                            DispatchQueue.main.async(execute: {
+                                let message = parseJSON["message"] as! String
+                                //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                
+                                print(message)
+                            })
+                            
+                        }
+                        
+                        // error while jsoning
+                    } catch {
+                        
+                        if let error = error as? NSError{
+                            
+                            print(error)
+                        }
+                        
+                        print("error while parsing")/*
+                         // get main queue to communicate back to user
+                         DispatchQueue.main.async(execute: {
+                         let message = error as! String
+                         print(message)
+                         appDelegate.createAlert(title: self.generalErrorTitleText, message: self.generalErrorMessageText, view: self)
+                         
+                         })
+                         */
+                    }
+                    
+                    // error with php
+                } else {
+                    
+                    // get main queue to communicate back to user
+                    DispatchQueue.main.async(execute: {
+                        let message = error!.localizedDescription
+                        print(message)
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        
+                        
+                    })
+                    
+                }
+                
+                
+            })
+            
+            }.resume()
+        
+    }
     /*
     // MARK: - Navigation
 
@@ -249,3 +512,15 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     */
 
 }
+// Creating protocol of appending string to var of type data
+extension NSMutableData {
+    
+    func appendString(_ string : String) {
+        
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
+        
+    }
+    
+}
+
