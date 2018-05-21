@@ -55,6 +55,7 @@ class CoursesViewController: UIViewController {
     var noClassBtn = UIButton()
     var courseSent = Int()
     
+    @IBOutlet weak var toInfoVcBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -143,6 +144,8 @@ class CoursesViewController: UIViewController {
        dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
         
 
+        toInfoVcBtn.frame = CGRect(x: dialogueBg.frame.minX, y: dialogueBg.frame.minY, width: dialogueBg.frame.height, height: dialogueBg.frame.height)
+        
         logOutBtn.frame = CGRect(x: width / 18, y: dialogueLabel.frame.minY - 10 * dif, width: 20 * dif * iPadDif, height: 23 * dif * iPadDif)
         
         block0WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block0.frame.height / 2 / iPadDif, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
@@ -281,6 +284,8 @@ class CoursesViewController: UIViewController {
    
     }
     
+    
+    
     @IBAction func toNewBook2Btn(_ sender: Any) {
                 courseSent = 1
          performSegue(withIdentifier: "toNewBookVc", sender: self)
@@ -288,6 +293,9 @@ class CoursesViewController: UIViewController {
         
     }
     
+    @IBAction func toInfoVcClicked(_ sender: Any) {
+        performSegue(withIdentifier: "toInfoVc", sender: self)
+    }
     
     @IBAction func logOutClicked(_ sender: Any) {
         

@@ -3848,6 +3848,15 @@ class NewGameScene: SKScene {
             //或者是else就好, 嘗試看看
         } else if gameMode == 0{
         
+            //send Nc
+            //testing add here
+            
+            /*
+            let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
+            */
+            
             
             //如果是popQuiz就繼續挑戰
             if isPopQuiz {

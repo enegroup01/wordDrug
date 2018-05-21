@@ -83,7 +83,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         avaImg.frame = CGRect(x: width / 2 - (120 * dif * photoDif) / 2, y: titleLabel.frame.maxY * 1.7 * photoDif, width: 120 * dif * photoDif, height: 120 * dif * photoDif)
         
-        
+        avaImg.contentMode = .scaleAspectFill
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
         avaImg.layer.masksToBounds = true
         
@@ -152,6 +152,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             })
         }
         */
+        
+        getUserInfo()
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -379,14 +381,17 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    @IBAction func backBtnClicked(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     // upload image to serve
     func uploadAva() {
         
         // shotcut id
-        //let id = user!["id"] as! String
+        let id = user!["id"] as! String
         
-        let id = "135"
+        //let id = "135"
         
         // url path to php file
         let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!

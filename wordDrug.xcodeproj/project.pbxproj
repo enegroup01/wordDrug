@@ -15,6 +15,7 @@
 		AA04ED8D203D7F6200EC0A8E /* toeflBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED8B203D7F6100EC0A8E /* toeflBg.png */; };
 		AA04ED8E203D7F6200EC0A8E /* toeicBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED8C203D7F6100EC0A8E /* toeicBg.png */; };
 		AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04ED96203D968A00EC0A8E /* StageViewController.swift */; };
+		AA0E409B20B2A06D0055DCD0 /* person.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0E409A20B2A06D0055DCD0 /* person.png */; };
 		AA0EAA6E20A486E600E256AF /* answerRightBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0EAA6D20A486E600E256AF /* answerRightBtn.png */; };
 		AA21142F2043F0200047B866 /* leftPageBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA21142D2043F0200047B866 /* leftPageBtn.png */; };
 		AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2114312043F16C0047B866 /* rightPageBtn.png */; };
@@ -351,6 +352,7 @@
 		AA04ED8B203D7F6100EC0A8E /* toeflBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toeflBg.png; sourceTree = "<group>"; };
 		AA04ED8C203D7F6100EC0A8E /* toeicBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toeicBg.png; sourceTree = "<group>"; };
 		AA04ED96203D968A00EC0A8E /* StageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
+		AA0E409A20B2A06D0055DCD0 /* person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person.png; sourceTree = "<group>"; };
 		AA0EAA6D20A486E600E256AF /* answerRightBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = answerRightBtn.png; sourceTree = "<group>"; };
 		AA21142D2043F0200047B866 /* leftPageBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftPageBtn.png; sourceTree = "<group>"; };
 		AA2114312043F16C0047B866 /* rightPageBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightPageBtn.png; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 			children = (
 				AA04ED7E203D7A1300EC0A8E /* CoursesViewController.swift */,
 				AA98E6232086197A001100BA /* bookPng.png */,
+				AA0E409A20B2A06D0055DCD0 /* person.png */,
 				AA523FCD208AC4FB004CD863 /* logout.png */,
 				AA04ED84203D7E9100EC0A8E /* elementaryBg.png */,
 				AA04ED81203D7E9000EC0A8E /* intermediateBg.png */,
@@ -1244,6 +1247,7 @@
 				AA2B64D0205A609D00742226 /* bookBackBtn.png in Resources */,
 				AA6C95D620A9CC23001158E7 /* s7-10.txt in Resources */,
 				AA648E9E207CEA05003ACD07 /* 3-3.txt in Resources */,
+				AA0E409B20B2A06D0055DCD0 /* person.png in Resources */,
 				AAA9BF8D20A59058000CA7CD /* 6-5.txt in Resources */,
 				AA648E6E207CEA05003ACD07 /* s4-15.txt in Resources */,
 				AAA9BF7920A5903C000CA7CD /* s6-11.txt in Resources */,
