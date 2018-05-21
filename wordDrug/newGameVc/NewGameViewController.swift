@@ -199,6 +199,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     var allRandomSens = [[Int:Int]]()
     
+    //新的隨機句子作法
+         var randomSens = [Int]()
     
     var allBtns = [UIButton]()
     
@@ -614,7 +616,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //讀取Bundle裡的句子
         var sentenceFile:String?
         
-        /*
+        
         if gameMode == 0 {
         
         //這裡的mapNum 已經加過increaseNum
@@ -639,10 +641,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         } else
            
-            */
+ 
             
         //testing
-        if gameMode == 2 || gameMode == 0{
+        if gameMode == 2{
             
             
 
@@ -2358,6 +2360,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         } else{
             
+            /*
             //英文句子
             sentence = sentenceSets[Int(wordSequenceToReceive)!]
             let halfCount = sentenceSets.count / 2
@@ -2388,7 +2391,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //回復錄音輸入的單字或句子
             wordRecorded = String()
+            */
             
+            newMakeSentenceTest()
         }
         
         //句子發音
@@ -2437,7 +2442,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         print("6")
         
         //填入數字
-        var randomSens = [Int]()
+   
         randomSens = Array(repeating: Int(), count: 4)
         randomSens[correctRandom] = Int(wordSequenceToReceive)!
         
@@ -2461,6 +2466,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         for i in 0 ..< 4 where i != correctRandom{
             
+            randomSens[i] = getRan()
+            
+
+            for r in randomSens{
+                
+                senBtnTitles[i] = sentenceSets[r]
+     
+            }
+            
+            //設定好其餘選項的tag
+            allBtns[i].tag = i
+            
+            //加入到錯誤按鈕的button
+            allBtns[i].addTarget(self, action: #selector(NewGameViewController.wrongSenButtonClicked), for: .touchUpInside)
+            
+        }
+        
+        /*
+        for i in 0 ..< 4 where i != correctRandom{
+            
             //抓四個隨機數, 並且避開重複值
             allRandomSens[i] = getRandom()
             
@@ -2480,7 +2505,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             allBtns[i].addTarget(self, action: #selector(NewGameViewController.wrongSenButtonClicked), for: .touchUpInside)
             
         }
-        
+        */
         print("9")
         
         
@@ -2677,7 +2702,29 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         return selRan
         
+        
+        
     }
+    
+    //新版的getRandom於下
+    
+    func getRan() ->Int{
+    
+    var selRan = Int()
+        
+        
+        selRan = Int(arc4random_uniform(UInt32(sentenceSets.count / 2)))
+        
+        
+        if randomSens.contains(selRan){
+            
+            return getRan()
+        }
+     
+        return selRan
+    }
+    
+
 
     
     override func didReceiveMemoryWarning() {
