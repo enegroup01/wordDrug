@@ -616,7 +616,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //讀取Bundle裡的句子
         var sentenceFile:String?
         
-        
         if gameMode == 0 {
         
         //這裡的mapNum 已經加過increaseNum
@@ -639,15 +638,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             print("txt can't be found")
         }
             
-        } else
-           
- 
+        } else if gameMode == 2{
             
-        //testing
-        if gameMode == 2{
-            
-            
-
             //隨機單字
             //在此抓測驗單字的亂數順序
             
@@ -1057,6 +1049,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //回復recordBtn
         if gameMode == 0 {
+            
+            //移除按鈕target
+            for btn in allBtns {
+                
+                btn.removeTarget(nil, action: nil, for: .allEvents)
+            }
+            
+        
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
         //recordBtn.isHidden = true  這應該不用
         }
@@ -1933,7 +1933,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //檢查句子
     
     func checkSentence(){
-        
+        print("trigger check sentence")
         var attrSentence = NSMutableAttributedString()
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -2271,16 +2271,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //testing
         if gameMode == 2 {
+            
             //只練習句子
             print("1")
+            
             //英文句子
             sentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!]]
             
             let halfCount = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]].count / 2
               print("2")
+            
             //中文句子
             chiSentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!] + halfCount]
               print("3")
+            
             /*
             print(sentence)
             print(chiSentence)
@@ -2407,14 +2411,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     func newMakeSentenceTest(){
         
         //只練習句子
-        print("1")
+
         //英文句子
         sentence = sentenceSets[Int(wordSequenceToReceive)!]
         let halfCount = sentenceSets.count / 2
         chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
         
 
-        print("3")
+        print(sentence)
+        print(chiSentence)
         /*
          print(sentence)
          print(chiSentence)
@@ -2425,12 +2430,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             btn.isHidden = false
         }
         
-        print("4")
+
         //抓好中英文句子答案
         sentenceLabel.text = sentence
         chiSentenceLabel.text = "請選出正確中文翻譯"
-        
-        print("5")
+
         
         //準備做四個選項
         var senBtnTitles = ["","","",""]
@@ -2438,13 +2442,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //抓一個正確的隨機置放位置, 放中文答案進去
         correctRandom = Int(arc4random_uniform(UInt32(4)))
         senBtnTitles[correctRandom] = chiSentence
-        
-        print("6")
+
         
         //填入數字
    
-        randomSens = Array(repeating: Int(), count: 4)
+        //randomSens = Array(repeating: Int(), count: 4)
+        
+        randomSens = [Int(),Int(),Int(),Int()]
         randomSens[correctRandom] = Int(wordSequenceToReceive)!
+        print(randomSens)
         
         /*
         allRandomSens = Array(repeating: [Int:Int](), count: 4)
@@ -2453,35 +2459,31 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         allRandomSens[correctRandom] = [randomSpots[Int(wordSequenceToReceive)!]:randomUnits[Int(wordSequenceToReceive)!]]
         */
         
-        print("7")
+
         
         
         //設定好正確的按鈕
         allBtns[correctRandom].addTarget(self, action: #selector(NewGameViewController.rightSenButtonClicked), for: .touchUpInside)
         allBtns[correctRandom].tag = correctRandom
         
-        print("8")
+
         
         //填滿其他的隨機數
         
         for i in 0 ..< 4 where i != correctRandom{
             
             randomSens[i] = getRan()
-            
-
-            for r in randomSens{
-                
-                senBtnTitles[i] = sentenceSets[r]
-     
-            }
+           
+            senBtnTitles[i] = sentenceSets[randomSens[i] + halfCount]
             
             //設定好其餘選項的tag
             allBtns[i].tag = i
             
             //加入到錯誤按鈕的button
             allBtns[i].addTarget(self, action: #selector(NewGameViewController.wrongSenButtonClicked), for: .touchUpInside)
-            
+            print(i)
         }
+        print("randomSens:\(randomSens)")
         
         /*
         for i in 0 ..< 4 where i != correctRandom{
@@ -2601,7 +2603,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             timerCount += 1
         } else {
-            
+            print("trigger jumpToTag")
             btnTimer.invalidate()
             timerCount = 0
             
@@ -2997,7 +2999,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
        
         if isCheckingSentence{
 
+            
+            print("trigger readyToReadSentence")
             //檢查句子前先發hint
+            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
         }
         

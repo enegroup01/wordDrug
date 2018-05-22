@@ -1460,8 +1460,7 @@ class NewGameScene: SKScene {
             }
         } else {
             
-     
-                
+
                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readSentence"), object: nil, userInfo: nil)
             
         }
