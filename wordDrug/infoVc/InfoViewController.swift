@@ -33,14 +33,18 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
-         var dif = CGFloat()
+    var dif = CGFloat()
     var photoDif = CGFloat()
+    
+    var sub1Rates = [78,40,95,68]
+    var sub2Rates = [77,Int(),Int(),Int()]
     
     @IBOutlet weak var alphaLayer: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   print(user)
+       
+        print(user)
         
         switch height {
         case 812:
@@ -153,7 +157,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         */
         
-        getUserInfo()
+        //getUserInfo()
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -197,9 +201,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let infoTitles = ["單字成就", "發音成就", "句型成就", "快速挑戰"]
         let sub1Titles = ["拼字正確率","發音正確率","排列正確率","正確關卡數"]
-        let sub2Titles = ["中文正確率",String(),"發音正確率",String()]
-        let sub1Rates = [78,40,95,68]
-        let sub2Rates = [77,Int(),70,Int()]
+        let sub2Titles = ["中文正確率",String(),String(),String()]
+
         var totalRates = [Int(),Int(),Int(),Int()]
         
         cell.infoTitle.text = infoTitles[indexPath.row]
@@ -254,6 +257,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
           
         }
         
+        
+        
+        
         return cell
     }
     
@@ -265,6 +271,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return 4
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getUserInfo()
+    }
     
     //照片的func
 
@@ -308,6 +318,86 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             self.usernameLabel.text = nickname
         }
+        
+        
+        //算字數
+        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 420
+        var gamePassedCount = Int()
+        var gamePassed2Count = Int()
+        var gamePassed3Count = Int()
+        var gamePassed4Count = Int()
+        var allWordsCount = Int()
+        var wrongWordsCount = Int()
+        
+        for (s,u) in gamePassed!{
+            gamePassedCount = s * 30 + u * 3
+        }
+        for (s,u) in gamePassed2!{
+            gamePassed2Count = s * 30 + u * 3
+        }
+        
+        /*
+        for (s,u) in gamePassed3!{
+            gamePassed3Count = s * 30 + u * 3
+        }
+        for (s,u) in gamePassed4!{
+            gamePassed4Count = s * 30 + u * 3
+        }
+ */
+        allWordsCount = allMapPassedCount + gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count
+        
+        wordCountLabel.text = String(allWordsCount)
+        
+        //抓分數
+         if let score = user?["score"] as? String{
+            
+            scoreCountLabel.text = score
+            
+        }
+        
+        
+        //算拼字正確率
+        if let wrongWords = user?["wrongWords"] as? String{
+            
+            
+            print(wrongWords)
+            
+            let wrongWordArray = wrongWords.components(separatedBy: ";")
+            wrongWordsCount = wrongWordArray.count - 1
+            
+        }
+        
+        sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
+        
+        
+        //中文正確率
+        
+        if let wrongChinese = user?["wrongChinese"] as? String{
+            
+            sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
+            
+        }
+        
+
+        
+        
+        
+        //發音正確率
+        
+        if let proRate = user?["proRate"] as? String{
+            
+            sub1Rates[1] = Int(proRate)!
+        }
+
+        
+        //句子排列正確率
+        
+        if let senRate = user?["senRate"] as? String{
+            
+            sub1Rates[2] = Int(senRate)!
+        }
+        
+
         
         
     }

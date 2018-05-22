@@ -197,10 +197,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var randomUnits = [Int]()
     
     
+    
     var allRandomSens = [[Int:Int]]()
     
     //新的隨機句子作法
-         var randomSens = [Int]()
+    
+    var randomSens = [Int]()
     
     var allBtns = [UIButton]()
     
@@ -239,6 +241,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var countScoreTimer = Timer()
     //紀錄已加過的分數
     var scoreAdded = Int()
+    
+    var wrongChineseCounts = Int()
+    
+    var proRate = Int()
+    var senRate = Int()
     
     override func viewDidLoad() {
         
@@ -1117,8 +1124,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 if let score = notification.userInfo?["score"] as? [String] {
                     if let results = notification.userInfo?["correctResults"] as? [String]{
                         if let popQuizRight = notification.userInfo?["popQuizRight"] as? [String]{
-                        
+                        if let wrongChinese = notification.userInfo?["wrongChinese"] as? [String]{
                     
+                            
+                            for i in 0 ..< wrongChinese.count{
+                                
+                                if wrongChinese[i] == "1" {
+                                    
+                                    wrongChineseCounts += 1
+                                    
+                                }
+                            }
                         
                         for i in 0 ..< results.count{
                             
@@ -1395,7 +1411,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                                 //計算所有字數
                             countWords()
-                        
+                        }
                 }
                     }
                 }
@@ -1912,8 +1928,37 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //在此確認是否已過地圖的確認
        
         
+        switch senRate{
+            
+        case 0:
+            senRate = 0
+        case 1:
+            senRate = 33
+        case 2:
+            senRate = 66
+        case 3:
+            senRate = 100
+        default:
+            break
+        }
+        
+        switch proRate{
+            
+        case 0:
+            proRate = 0
+        case 1:
+            proRate = 33
+        case 2:
+            proRate = 66
+        case 3:
+            proRate = 100
+        default:
+            break
+        }
+        
+        
         let updatePoints = Int(scoreLabel.text!)!
-        updateScore(score:updatePoints)
+        updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
         
         if isCelebratingMapPassed{
             
@@ -2133,7 +2178,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             isRecogWordCorrect = true
             
             //正確暫時不改顏色
-            
+            proRate += 1
 
         } else {
             
@@ -2803,6 +2848,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if gameMode == 0 {
             //過關進入下個字
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
+                
+                senRate += 1
+                
             } else if gameMode == 2{
                 
                 //確認是否還有字
@@ -3320,7 +3368,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
     }
     
-    func updateScore(score:Int){
+    func updateScore(score:Int, wrongWordsCount:Int, proRate:Int, senRate:Int){
         
   
             let id = user?["id"] as! String
@@ -3335,7 +3383,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             request.httpMethod = "POST"
             
             // body gonna be appended to url
-            let body = "userID=\(id)&score=\(score)"
+            let body = "userID=\(id)&score=\(score)&wrongWordsCount=\(wrongWordsCount)&proRate=\(proRate)&senRate=\(senRate)"
             
             // append body to our request that gonna be sent
             request.httpBody = body.data(using: .utf8)

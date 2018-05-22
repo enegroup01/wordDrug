@@ -37,9 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let decoded = decodedObject {
             gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
         }
-        
         //抓mapPassed
         mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
+            
+    
         
         //抓gamePassed2
         let decodedObject2 = UserDefaults.standard.object(forKey: "gamePassed2") as? NSData

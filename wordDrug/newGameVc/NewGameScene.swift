@@ -134,6 +134,25 @@ class NewGameScene: SKScene {
                             ["a_e24","al26","ce14","con20","ct3","dis10","en40","er58","tion14","ve1"],
                             ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"]]
     
+    
+    let map8SyllableSets = [["a_e25","con22","dis12","e_e1","en36","er59","or30","sion3","sive1","sure1"],
+                ["a_e26","ai16","al27","ci6","con23","dis13","en37","eye1","or31","sh12"],
+                ["a_e27","al28","ble8","ce15","ck8","con24","fi3","i_e19","ing13","ry14"],
+                ["con25","ea42","er60","fl1","fo2","ful3","or32","ou25","sh13","tion16"],
+                ["an24","ay14","ce16","ee26","fl2","fr4","igh6","ing14","or33","qu2"],
+                ["al29","ar23","er61","ga1","ly6","sh14","th12","ty7","un7","ur8"],
+                ["a_e28","al30","ch21","ft2","gl2","go3","gr3","in19","ir8","odd1"],
+                ["al31","an25","ce17","er62","ful4","gl3","gr4","gu2","ha1","ing15"],
+                ["ar24","ea43","ee27","er63","gr5","ha2","i_e20","id2","tion17","tr4"],
+                ["ar25","ck9","ey4","gr6","ho1","ly7","o_e11","oo20","or34","ow15"],
+                ["a_e29","al32","ble9","dle1","ea44","ge14","hu1","ol1","or35","tion18"],
+                ["al33","ce18","ct4","er64","im7","in20","ing16","o_e12","sion4","tion19"],
+                ["ce19","ct5","ea45","in21","ject2","or36","qu3","tion20","tive4","ult2"],
+                ["a_e30","al34","el15","er65","in22","ja1","je1","ment6","tem1","tion21"],
+                ["a_e42","al53","ar31","ea53","ee31","el17","ge22","tion41","un11","vic1"]]
+
+    
+    
     //特殊顏色
     let lightGreen = UIColor.init(red: 196/255, green: 255/255, blue: 137/255, alpha: 1)
     let darkWordColor = UIColor.init(red: 104/255, green: 129/255, blue: 130/255, alpha: 1)
@@ -284,6 +303,7 @@ class NewGameScene: SKScene {
     
     //紀錄三個字的正確與否
     var correctResults = ["0","0","0"]
+    var wrongChinese = ["0","0","0"]
     
     //記錄我的最愛以及錯誤單字
     
@@ -589,7 +609,9 @@ class NewGameScene: SKScene {
         case 5:
             syllableSets = map6SyllableSets
         case 6:
-            syllableSets = map6SyllableSets
+            syllableSets = map7SyllableSets
+        case 7:
+            syllableSets = map8SyllableSets
             
         default:
             break
@@ -1483,7 +1505,7 @@ class NewGameScene: SKScene {
         lineNode.alpha = 1
     
         
-         let countDownAction = SKAction.resize(toWidth: 0, duration: 15)
+         let countDownAction = SKAction.resize(toWidth: 0, duration: 5)
         
         lineNode.run(countDownAction) {[weak self] in
             
@@ -2941,7 +2963,7 @@ class NewGameScene: SKScene {
                 addWrongWords()
                 
                 
-                let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)]]
+                let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)],"wrongChinese":wrongChinese]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
 
                 
@@ -3178,7 +3200,7 @@ class NewGameScene: SKScene {
             addWrongWords()
             
             
-            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)]]
+            let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)],"wrongChinese":wrongChinese]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
             
         } else {
@@ -3817,6 +3839,10 @@ class NewGameScene: SKScene {
         } else {
             //錯誤的話
             correctResults[currentPracticeSequence] = "1"
+            
+            //紀錄中文錯誤
+            wrongChinese[currentPracticeSequence] = "1"
+            
             var wrongWord = String()
             
             if gameMode == 0 {

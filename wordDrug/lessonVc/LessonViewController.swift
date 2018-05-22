@@ -120,6 +120,25 @@ class LessonViewController: UIViewController{
                             ["a_e24","al26","ce14","con20","ct3","dis10","en40","er58","tion14","ve1"],
                             ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"]]
 
+    
+    let map8SyllableSets = [["a_e25","con22","dis12","e_e1","en36","er59","or30","sion3","sive1","sure1"],
+                            ["a_e26","ai16","al27","ci6","con23","dis13","en37","eye1","or31","sh12"],
+                            ["a_e27","al28","ble8","ce15","ck8","con24","fi3","i_e19","ing13","ry14"],
+                            ["con25","ea42","er60","fl1","fo2","ful3","or32","ou25","sh13","tion16"],
+                            ["an24","ay14","ce16","ee26","fl2","fr4","igh6","ing14","or33","qu2"],
+                            ["al29","ar23","er61","ga1","ly6","sh14","th12","ty7","un7","ur8"],
+                            ["a_e28","al30","ch21","ft2","gl2","go3","gr3","in19","ir8","odd1"],
+                            ["al31","an25","ce17","er62","ful4","gl3","gr4","gu2","ha1","ing15"],
+                            ["ar24","ea43","ee27","er63","gr5","ha2","i_e20","id2","tion17","tr4"],
+                            ["ar25","ck9","ey4","gr6","ho1","ly7","o_e11","oo20","or34","ow15"],
+                            ["a_e29","al32","ble9","dle1","ea44","ge14","hu1","ol1","or35","tion18"],
+                            ["al33","ce18","ct4","er64","im7","in20","ing16","o_e12","sion4","tion19"],
+                            ["ce19","ct5","ea45","in21","ject2","or36","qu3","tion20","tive4","ult2"],
+                            ["a_e30","al34","el15","er65","in22","ja1","je1","ment6","tem1","tion21"],
+                            ["a_e42","al53","ar31","ea53","ee31","el17","ge22","tion41","un11","vic1"]]
+
+    
+    
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var firstLabel: UILabel!
@@ -563,6 +582,8 @@ class LessonViewController: UIViewController{
             syllableSets = map6SyllableSets
         case 6:
             syllableSets = map7SyllableSets
+        case 7:
+            syllableSets = map8SyllableSets
         default:
             break
         }
