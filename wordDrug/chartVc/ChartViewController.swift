@@ -176,20 +176,20 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
 
                     //print(parseJSON)
                     
-                    for user in parseJSON{
+                    for eachUser in parseJSON{
                         
-                        if let username = user["username"] as? String{
+                        if let username = eachUser["username"] as? String{
                             
                             self!.usernames.append(username)
                             
                         }
                         
-                        if let score = user["score"] as? Int{
+                        if let score = eachUser["score"] as? Int{
                             
                             self!.scores.append(String(score))
                         }
                         
-                        if let ava = user["ava"] as? String{
+                        if let ava = eachUser["ava"] as? String{
                             
                             self!.avas.append(ava)
                         }
@@ -199,11 +199,11 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         var mapWord2 = Int()
                         
                         
-                        if let mapPassed = user["mapPassed"] as? String{
+                        if let mapPassed = eachUser["mapPassed"] as? String{
                             mapWord = Int(mapPassed)! * 450
                             
                         }
-                        if let mapPassed2 = user["mapPassed2"] as? String{
+                        if let mapPassed2 = eachUser["mapPassed2"] as? String{
                             mapWord2 = Int(mapPassed2)! * 420
                         }
                         
@@ -220,14 +220,14 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         var gameWord = Int()
                         var gameWord2 = Int()
                       
-                        if let gamePassed = user["gamePassed"] as? String{
+                        if let gamePassed = eachUser["gamePassed"] as? String{
                             
                             let sep = gamePassed.components(separatedBy: ":")
                             gameWord = Int(sep[0])! * 30 + Int(sep[1])! * 3
                             
        
                         }
-                        if let gamePassed2 = user["gamePassed2"] as? String{
+                        if let gamePassed2 = eachUser["gamePassed2"] as? String{
                 
                             let sep = gamePassed2.components(separatedBy: ":")
                             gameWord2 = Int(sep[0])! * 30 + Int(sep[1])! * 3

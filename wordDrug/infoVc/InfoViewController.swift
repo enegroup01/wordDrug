@@ -275,12 +275,100 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         getUserInfo()
+        myRank()
     }
     
     //照片的func
     @IBAction func checkRankBtnClicked(_ sender: Any) {
         
         performSegue(withIdentifier: "toChartVc", sender: self)
+    }
+    
+    
+    func myRank(){
+        
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "GET"
+        
+        // append body to our request that gonna be sent
+        //request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [NSDictionary]
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    print("rank")
+                    //再次儲存使用者資訊
+                    
+                    print(parseJSON)
+                    
+                    //抓名次
+                    
+       //             if let parseJsonDic = parseJSON as [NSDictionary]?{
+                    
+      
+                        
+                        for i in 0 ..< parseJSON.count{
+         
+
+                 
+                            if let id = parseJSON[i]["id"] as? Int{
+           
+                                
+                                let userId = user?["id"] as! String
+                                
+                                if String(id) == userId{
+                                    
+                                    DispatchQueue.main.async(execute: {
+                                        print(i)
+                                             self!.rankCountLabel.text = String(i + 1)
+                                    })
+                               
+                     
+                                }                                 
+                                
+                            }
+                    }
+                        
+                        
+                        
+             //       }
+                    
+      
+                    
+                    
+                    
+ 
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
     }
     
     func getUserInfo(){
@@ -370,19 +458,38 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             print(wrongWords)
             
             let wrongWordArray = wrongWords.components(separatedBy: ";")
-            wrongWordsCount = wrongWordArray.count - 1
             
+            wrongWordsCount = wrongWordArray.count - 1
+           
         }
         
-        sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
         
+        if allWordsCount == 0 {
+            //這樣的話比例也是0
+            
+            sub1Rates[0] = 0
+        } else {
+        
+        sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
+        }
         
         //中文正確率
         
+        
         if let wrongChinese = user?["wrongChinese"] as? String{
+            
+            print(wrongChinese)
+            print(allWordsCount)
+
+            if allWordsCount == 0 {
+                //這樣的話比例也是0
+                
+                sub2Rates[0] = 0
+            } else {
             
             sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
             
+            }
         }
         
 
