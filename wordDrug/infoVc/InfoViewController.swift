@@ -71,6 +71,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             photoDif = 0.7
         default:
             dif = 1
+            photoDif = 1
             
         }
 

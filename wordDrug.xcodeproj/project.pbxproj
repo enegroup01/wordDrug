@@ -348,6 +348,11 @@
 		AAAE4EA3207C942A00C4A8EB /* recordingBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA1207C942900C4A8EB /* recordingBtn.png */; };
 		AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */; };
 		AAB63B39204E5DFE00F96E9C /* talkPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB63B38204E5DFD00F96E9C /* talkPng.png */; };
+		AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */; };
+		AAC1CE1420B52D5F007FF6F8 /* chartBgPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CE1320B52D5F007FF6F8 /* chartBgPng.png */; };
+		AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */; };
+		AAC1CE1A20B55860007FF6F8 /* chartSeperator.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CE1920B5585F007FF6F8 /* chartSeperator.png */; };
+		AAC1CE1C20B56853007FF6F8 /* photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CE1B20B56853007FF6F8 /* photo.jpg */; };
 		AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE1818C1F97892D00683896 /* AppDelegate.swift */; };
 		AAE181911F97892D00683896 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAE181901F97892D00683896 /* Actions.sks */; };
 		AAE181981F97892D00683896 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE181961F97892D00683896 /* Main.storyboard */; };
@@ -716,6 +721,11 @@
 		AAAE4EA1207C942900C4A8EB /* recordingBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordingBtn.png; sourceTree = "<group>"; };
 		AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordBtn.png; sourceTree = "<group>"; };
 		AAB63B38204E5DFD00F96E9C /* talkPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talkPng.png; sourceTree = "<group>"; };
+		AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		AAC1CE1320B52D5F007FF6F8 /* chartBgPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartBgPng.png; sourceTree = "<group>"; };
+		AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
+		AAC1CE1920B5585F007FF6F8 /* chartSeperator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartSeperator.png; sourceTree = "<group>"; };
+		AAC1CE1B20B56853007FF6F8 /* photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo.jpg; sourceTree = "<group>"; };
 		AAE181891F97892D00683896 /* wordDrug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wordDrug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE1818C1F97892D00683896 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAE181901F97892D00683896 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -1203,6 +1213,18 @@
 			path = lessonVc;
 			sourceTree = "<group>";
 		};
+		AAC1CE0A20B5283A007FF6F8 /* chartVc */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */,
+				AAC1CE1320B52D5F007FF6F8 /* chartBgPng.png */,
+				AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */,
+				AAC1CE1920B5585F007FF6F8 /* chartSeperator.png */,
+				AAC1CE1B20B56853007FF6F8 /* photo.jpg */,
+			);
+			path = chartVc;
+			sourceTree = "<group>";
+		};
 		AAE181801F97892D00683896 = {
 			isa = PBXGroup;
 			children = (
@@ -1225,6 +1247,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AAC1CE0A20B5283A007FF6F8 /* chartVc */,
 				AA6FB73120AE7A290001EFED /* infoVc */,
 				AA9AFC0D2088EDF0003A61E9 /* lessonVc */,
 				AA2B64CE205A606C00742226 /* newBookVc */,
@@ -1358,6 +1381,7 @@
 				AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */,
 				AA648E7C207CEA05003ACD07 /* 4-7.txt in Resources */,
 				AA6FB74120AEE20E0001EFED /* avatar.png in Resources */,
+				AAC1CE1C20B56853007FF6F8 /* photo.jpg in Resources */,
 				AA648EC3207CEA05003ACD07 /* 2-3.txt in Resources */,
 				AA60A95120B45A7B009AD173 /* s8-2.txt in Resources */,
 				AA04ED85203D7E9100EC0A8E /* intermediateBg.png in Resources */,
@@ -1368,6 +1392,7 @@
 				AA648E65207CEA05003ACD07 /* 5-10.txt in Resources */,
 				AA648ECC207CEA05003ACD07 /* s3-10.txt in Resources */,
 				AA6C95D720A9CC23001158E7 /* s7-12.txt in Resources */,
+				AAC1CE1420B52D5F007FF6F8 /* chartBgPng.png in Resources */,
 				AA648EEB207CEA05003ACD07 /* s4-12.txt in Resources */,
 				AAFAFCA0205BD9CA00307264 /* wordTableBg.png in Resources */,
 				AA648EDB207CEA05003ACD07 /* 2-15.txt in Resources */,
@@ -1547,6 +1572,7 @@
 				AA60A94F20B45A7B009AD173 /* s8-13.txt in Resources */,
 				AA63D1F920875DBD000EA088 /* rightWordBtn.png in Resources */,
 				AA6C95B520A9CC10001158E7 /* 7-1.txt in Resources */,
+				AAC1CE1A20B55860007FF6F8 /* chartSeperator.png in Resources */,
 				AA6C95B420A9CC10001158E7 /* 7-12.txt in Resources */,
 				AA648EF2207CEA05003ACD07 /* 2-13.txt in Resources */,
 				AA648EB3207CEA05003ACD07 /* s5-8.txt in Resources */,
@@ -1715,10 +1741,12 @@
 				AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */,
 				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,
+				AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */,
 				AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */,
 				AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */,
 				AA6FB73B20AE84CA0001EFED /* MKRingProgressView.swift in Sources */,
 				AA6FB73720AE7F910001EFED /* InfoTableViewCell.swift in Sources */,
+				AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */,
 				AA00379920497CCD0030F786 /* SwiftSiriWaveformView.swift in Sources */,
 				AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */,
 				AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */,
