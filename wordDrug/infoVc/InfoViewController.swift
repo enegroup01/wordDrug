@@ -142,7 +142,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         rankLabel.textAlignment = .center
         rankLabel.adjustsFontSizeToFitWidth = true
         
-        checkRankBtn.frame = CGRect(x: rankCountLabel.frame.maxX - 50 * dif, y: alphaLayer.frame.minY - 30 * dif, width: 50 * dif, height: 30 * dif)
+        checkRankBtn.frame = CGRect(x: rankCountLabel.frame.maxX - 80 * dif, y: alphaLayer.frame.minY - 30 * dif, width: 80 * dif, height: 30 * dif)
         
         checkRankBtn.setTitleColor(yellowColor, for: .normal)
         //checkRankBtn.backgroundColor = .red
@@ -278,8 +278,14 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     //照片的func
-
+    @IBAction func checkRankBtnClicked(_ sender: Any) {
+        
+        performSegue(withIdentifier: "toChartVc", sender: self)
+    }
+    
     func getUserInfo(){
+        
+        print("perform get user")
         //指定個人大頭照
         if let avaImgUrl = user?["ava"] as? String{
             

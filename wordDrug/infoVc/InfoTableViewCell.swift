@@ -12,9 +12,6 @@ class InfoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var infoTitle: UILabel!
     
-    @IBOutlet weak var rankBtn: UIButton!
-    @IBOutlet weak var rankLabel: UILabel!
-    @IBOutlet weak var rankTitle: UILabel!
     @IBOutlet weak var totalRate: UILabel!
     @IBOutlet weak var ringView: MKRingProgressView!
     @IBOutlet weak var sub2Rate: UILabel!
@@ -55,9 +52,9 @@ class InfoTableViewCell: UITableViewCell {
         sub2Title.textColor = lightColor
         sub2Rate.textColor = lightColor
         totalRate.textColor = darkColor
-        rankTitle.textColor = midColor
-        rankLabel.textColor = lightColor
-        rankBtn.setTitleColor(yellowColor, for: .normal)
+        //rankTitle.textColor = midColor
+        //rankLabel.textColor = lightColor
+        //rankBtn.setTitleColor(yellowColor, for: .normal)
         
         
         //infoTitle.backgroundColor = .blue
@@ -90,6 +87,8 @@ class InfoTableViewCell: UITableViewCell {
 
         ringView.frame = CGRect(x: self.frame.width / 3.3, y: self.frame.height / 8, width: self.frame.width / 3.3, height: self.frame.width / 3.3)
         
+        
+        /*
         //rankTitle.backgroundColor = .green
         rankTitle.textAlignment = .center
         rankTitle.frame = CGRect(x: ringView.frame.maxX * 1.05, y: infoTitle.frame.minY, width: self.frame.width / 7, height: self.frame.height / 8)
@@ -105,7 +104,7 @@ class InfoTableViewCell: UITableViewCell {
         rankLabel.frame = CGRect(x: rankTitle.frame.minX, y: rankTitle.frame.maxY * 1.3, width: rankTitle.frame.width, height: rankTitle.frame.width)
         
         rankBtn.frame = CGRect(x: rankTitle.frame.minX, y: rankLabel.frame.maxY * 1.1, width: rankTitle.frame.width, height: rankTitle.frame.height)
-        
+        */
         
         //totalRate.backgroundColor = .purple
         totalRate.textAlignment = .center

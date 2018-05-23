@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8TX-sA-F2o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MDq-zg-zeG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1007,25 +1007,6 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="排名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PT3-Be-iSG">
-                                                            <rect key="frame" x="239" y="6" width="53" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="34" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7UR-Jl-5vd">
-                                                            <rect key="frame" x="244" y="41" width="42" height="70"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fc5-Ha-NYT">
-                                                            <rect key="frame" x="254" y="121" width="31" height="30"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <state key="normal" title="查看"/>
-                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -1034,9 +1015,6 @@
                                         <connections>
                                             <outlet property="infoCellBg" destination="Vwj-5S-UbW" id="t0J-qN-vCY"/>
                                             <outlet property="infoTitle" destination="Ofx-Ro-Hqz" id="sqp-R4-SRU"/>
-                                            <outlet property="rankBtn" destination="Fc5-Ha-NYT" id="ZI0-g1-AQ7"/>
-                                            <outlet property="rankLabel" destination="7UR-Jl-5vd" id="h6q-Jf-5Xz"/>
-                                            <outlet property="rankTitle" destination="PT3-Be-iSG" id="WHE-eN-nco"/>
                                             <outlet property="ringView" destination="Iaw-tB-nIY" id="jvZ-4C-qde"/>
                                             <outlet property="sub1Rate" destination="vEJ-m3-ZcS" id="s7Y-qR-RxV"/>
                                             <outlet property="sub1Title" destination="Gcx-Xz-J44" id="pPl-pQ-fZc"/>
@@ -1128,10 +1106,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cot-Fx-tep">
-                                <rect key="frame" x="338" y="239" width="31" height="30"/>
+                                <rect key="frame" x="315" y="239" width="77" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="查看"/>
+                                <state key="normal" title="查看排行榜"/>
+                                <connections>
+                                    <action selector="checkRankBtnClicked:" destination="Y58-0X-len" eventType="touchUpInside" id="G1U-P5-AHd"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alphaLayer.png" translatesAutoresizingMaskIntoConstraints="NO" id="gfl-JG-Ef3">
                                 <rect key="frame" x="0.0" y="200" width="375" height="60"/>
@@ -1156,6 +1137,7 @@
                         <outlet property="usernameLabel" destination="1td-ZK-a4l" id="RUS-ua-Ndn"/>
                         <outlet property="wordCountLabel" destination="knJ-Qn-xwU" id="PK6-8w-648"/>
                         <outlet property="wordLabel" destination="9aj-Uo-C4m" id="GKW-N9-dq9"/>
+                        <segue destination="8TX-sA-F2o" kind="show" identifier="toChartVc" id="J4l-VB-hxC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ere-cg-aMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1263,6 +1245,9 @@
                                 <rect key="frame" x="8" y="28" width="19" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="yellowBack.png"/>
+                                <connections>
+                                    <action selector="backBtnClicked:" destination="8TX-sA-F2o" eventType="touchUpInside" id="Pr9-HQ-7dY"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

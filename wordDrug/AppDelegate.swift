@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id != nil {
 
                 //跳轉到角色畫面
-                //toCourse()
+                toCourse()
                 
                 //測試用
                 /*
