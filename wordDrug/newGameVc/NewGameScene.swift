@@ -153,6 +153,59 @@ class NewGameScene: SKScene {
 
     
     
+    let map9SyllableSets = [["a_e31","al35","ce20","ew3","ful5","gle1","in23","jo1","tion22","ui5"],
+    ["a_e32","al36","ce21","in24","kn2","ko1","lab1","ly8","ness2","tion23"],
+    ["ar26","ble10","bug1","er66","gr7","i_e21","in25","kn3","la1","u_e6"],
+    ["au10","aw5","ay15","ea46","en38","in26","ing17","rn2","th13","ty8"],
+    ["an26","ck10","er67","igh7","lo1","ly9","oa8","oo21","or37","ture4"],
+    ["al37","by3","ea47","er68","gi4","in27","ou26","ous2","sp2","tion24"],
+    ["a_e33","ad6","ai17","ai38","ce22","er69","ge15","in29","ma1","tic3"],
+    ["al39","cal1","ch22","i_e22","in28","it2","me1","ph4","sh15","sure2"],
+    ["ble11","cle2","er70","igh8","il3","ment7","mi4","mis1","mo2","sion5"],
+    ["el16","er71","mis2","mu1","or38","ple3","th14","ture5","ty9","ug1"],
+    ["a_e34","al40","al41","ee28","ly10","mis3","na2","ne1","oo22","tion25"],
+    ["ck11","ew4","less1","no2","od1","or39","ous3","ow16","tr5","ur9"],
+    ["ch23","er72","ing18","oc1","on5","op4","or40","pic1","sive2","tion26"],
+    ["al42","ce23","er73","ge16","oa9","or41","ou27","ough1","th20","tion27"],
+    ["ar32","ck15","ea54","eigh1","er90","i_e30","th19","we1","wh5","wh6"]]
+    
+    
+    
+    let map10SyllableSets = [["a_e35","an27","ci7","ea52","ma1","o_e13","ow17","ox1","pa1","sh16"],
+    ["al43","ar27","ce24","ea48","ee29","i_e23","ly11","pa2","rl1","sion6"],
+    ["a_e36","al44","er74","ing19","ph5","ri1","st19","tic4","ty10","um6"],
+    ["al45","ay16","ce25","er75","ge17","or42","ous4","ph6","po1","sion7"],
+    ["er76","ful6","i_e24","ly12","o_e14","ph7","po2","pr9","tion28","ty11"],
+    ["al46","ble12","ce26","er77","ph8","po3","pr10","sive3","tion29","tive5"],
+    ["ch24","ct6","er78","gy2","pr11","pu1","sh17","tion30","u_e7","ur10"],
+    ["ai18","al47","an28","ar28","aw6","er79","ge18","pr12","qu4","tion31"],
+    ["ear1","el19","ing20","ly13","nd7","pr13","qu5","re5","tion32","ty12"],
+    ["a_e37","al48","ce27","er80","gi5","or43","pr14","qu6","re6","tion33"],
+    ["ble13","dy4","ea49","less2","o_e15","re7","re8","sent2","tion34","tive6"],
+    ["ce28","ct7","er81","i_e25","ment8","nt3","re9","tion35","tr6","ue4"],
+    ["ch25","er82","fle1","id3","ous5","re10","rh1","sion8","tion37","wr1"],
+    ["al49","ce29","ck12","ing21","ly14","re11","ro2","sia1","tic5","tion36"],
+    ["dom1","i_e31","in31","ing28","it3","ld1","ness3","or49","wh7","wo1"]]
+    
+    
+    let map11SyllableSets = [["a_e38","al50","ce32","er83","i_e26","ing22","ry6","sa1","sc2","tion38"],
+    ["ch26","ci8","e_e2","ea50","en39","ew5","oo23","ry7","sh18","ty13"],
+    ["ble14","ce33","ei1","ex5","igh9","im8","in30","ri2","sh19","ture6"],
+    ["a_e39","ch27","ee30","er84","ing23","ip2","ly15","sh26","sl1","tion39"],
+    ["ce30","ck13","ob2","oi5","or44","ou28","sh20","sm1","sn1","some1"],
+    ["ar29","ge19","ing24","kle1","ow18","qu7","so2","sp3","st20","str2"],
+    ["a_e40","al51","ble15","ea51","some2","sp4","st21","str3","sub1","tion40"],
+    ["er85","i_e27","or45","pl3","sp5","st22","str4","sub2","um7","un8"],
+    ["a_e41","ck14","ing25","on6","ry8","st23","str5","sym2","ta2","th15"],
+    ["ar30","er86","nd8","nt4","o_e16","ph9","sh21","sm2","sp6","st24"],
+    ["al52","ble16","i_e28","ough2","sh22","sion9","sp7","st25","te1","th16"],
+    ["ce31","igh10","ing26","oe1","sh23","some3","sp8","st26","th17","to2"],
+    ["ch28","er87","ge20","mb2","or46","or47","sh24","st27","th18","tour1"],
+    ["ble17","er88","ful7","ing27","oo24","or48","ous6","tw1","ty14","u_e8"],
+    ["aw7","dom2","el18","er91","ly17","or50","ow19","wh8","wr2","yo1"]]
+
+    
+    
     //特殊顏色
     let lightGreen = UIColor.init(red: 196/255, green: 255/255, blue: 137/255, alpha: 1)
     let darkWordColor = UIColor.init(red: 104/255, green: 129/255, blue: 130/255, alpha: 1)
@@ -340,6 +393,7 @@ class NewGameScene: SKScene {
     
     var popQuizRight = -1
     
+    var wordReviewCount = Int()
     
     override func didMove(to view: SKView) {
         
@@ -396,7 +450,7 @@ class NewGameScene: SKScene {
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyOnlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
 
         //重新開始練習句子
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyRestartGame2), name: NSNotification.Name("restartGame2"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyStopReview), name: NSNotification.Name("stopReview"), object: nil)
         
       
         //暫停
@@ -406,8 +460,10 @@ class NewGameScene: SKScene {
         
         //接收再度倒數
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.restartCounting), name: NSNotification.Name("restartCounting"), object: nil)
-       
         
+        
+        //接收再度倒數
+
         //先解決算出wordSequence之後再來讀取所有的字
         
         if gameMode == 2 {
@@ -612,6 +668,13 @@ class NewGameScene: SKScene {
             syllableSets = map7SyllableSets
         case 7:
             syllableSets = map8SyllableSets
+            
+        case 8:
+            syllableSets = map9SyllableSets
+        case 9:
+            syllableSets = map10SyllableSets
+        case 10:
+            syllableSets = map11SyllableSets
             
         default:
             break
@@ -1514,7 +1577,9 @@ class NewGameScene: SKScene {
             
             //send Nc
             if self!.gameMode == 2 {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartGame2"), object: nil, userInfo: nil)
+           
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopReview"), object: nil, userInfo: nil)
+          
             } else if self!.gameMode == 0 {
                 
                 
@@ -2063,8 +2128,7 @@ class NewGameScene: SKScene {
             
             //暫停func
             
-           
-            
+
             //之後要寫中文錯誤的機制
             //確認中文正確與否
             if node.name == "leftChiBtn" || node.name == "leftChi"{
@@ -2559,8 +2623,12 @@ class NewGameScene: SKScene {
                     //再次練習打錯的話就跳走, 之後要做答錯提示畫面
                     if isBackToSpell{
                         
+                        //如果是gameMode == 1, 錯一次就遊戲停止
+                        
+                        
                         
                         if answerTime < 1 {
+                            
                             answerTime += 1
                             //再次練習
                             
@@ -2575,6 +2643,21 @@ class NewGameScene: SKScene {
                                 
                                 //能按畫面
                                 self!.isUserInteractionEnabled = true
+                                
+                                
+                                if self!.gameMode == 1 {
+                                    
+                                    
+                                    let wordCount:[String:Int] = ["wordCount":self!.wordReviewCount]
+                                    
+                                    print(wordCount)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopReview"), object: nil, userInfo: wordCount)
+
+                                    
+                                    
+                                } else {
+                                
+                                
                                 
                                 //選項顏色變淡+移除選項字
                                 for node in self!.children{
@@ -2600,7 +2683,7 @@ class NewGameScene: SKScene {
                                     
                                 }
                                 
-                                
+                            }
                             })
 
                             
@@ -2643,7 +2726,7 @@ class NewGameScene: SKScene {
                             
                         }
                         
-                     
+                        
                         
 
                     }else {
@@ -2984,6 +3067,12 @@ class NewGameScene: SKScene {
                     //之後要接續練完的畫面
                         print("練完了")
                     
+                    
+                    
+                    
+                    
+                    
+                    
                 } else {
                     
                     print("檢查點繼續練")
@@ -3249,7 +3338,7 @@ class NewGameScene: SKScene {
         
     }
     
-    @objc func notifyRestartGame2(){
+    @objc func notifyStopReview(){
         
         
     }
@@ -3740,6 +3829,20 @@ class NewGameScene: SKScene {
             
             if gameMode == 0 {
             countScore(score: 300)
+                
+                
+            } else if gameMode == 1 {
+                //update wordReviewCount
+                
+                wordReviewCount += 1
+                
+                practiceNextWord()
+                
+                //刪掉一些不該出現的
+                notifyShowSentence()
+                
+                
+                
             }
             
       
@@ -3836,53 +3939,6 @@ class NewGameScene: SKScene {
             */
             }
             
-        } else {
-            //錯誤的話
-            correctResults[currentPracticeSequence] = "1"
-            
-            //紀錄中文錯誤
-            wrongChinese[currentPracticeSequence] = "1"
-            
-            var wrongWord = String()
-            
-            if gameMode == 0 {
-             wrongWord = wordSets[currentWordSequence].replacingOccurrences(of: " ", with: "")
-            } else if gameMode == 1 {
-                
-                    wrongWord = allWordSets[randomSpots[currentPracticeSequence]][randomUnits[currentPracticeSequence]].replacingOccurrences(of: " ", with: "")
-            }
-            
-            if !wrongWords.contains(wrongWord){
-                 wrongWords.append(wrongWord)
-            }
-
-
-        }
-        
-        
-        //在此卡gameMode
-        
-        if gameMode == 1 {
-            
-            practiceNextWord()
-            
-            //刪掉一些不該出現的
-            notifyShowSentence()
-            
-            
-            //或者是else就好, 嘗試看看
-        } else if gameMode == 0{
-        
-            //send Nc
-            //testing add here
-            
-            /*
-            let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
-            */
-            
-            
             //如果是popQuiz就繼續挑戰
             if isPopQuiz {
                 
@@ -3896,14 +3952,106 @@ class NewGameScene: SKScene {
                 popQuiz()
                 
             } else {
+                
+                let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
+            }
             
-        let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
+            
+        } else {
+            //錯誤的話
+            correctResults[currentPracticeSequence] = "1"
+            
+            //紀錄中文錯誤
+            wrongChinese[currentPracticeSequence] = "1"
+            
+            var wrongWord = String()
+            
+            if gameMode == 0 {
+             wrongWord = wordSets[currentWordSequence].replacingOccurrences(of: " ", with: "")
+                
+                
+                //send Nc
+                //testing add here
+                
+                /*
+                 let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
+                 
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
+                 */
+                
+                
+                //如果是popQuiz就繼續挑戰
+                if isPopQuiz {
+                    
+                    findImageNode(name: "leftChiBtn").alpha = 1
+                    findImageNode(name: "rightChiBtn").alpha = 1
+                    
+                    leftChiNode.text = ""
+                    rightChiNode.text = ""
+                    removeSomeNodes(name: "mark")
+                    
+                    popQuiz()
+                    
+                } else {
+                    
+                    let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
+                }
+
+                
+                if !wrongWords.contains(wrongWord){
+                    wrongWords.append(wrongWord)
+                }
+
+                
+                
+                
+                
+                
+            } else if gameMode == 1 {
+                
+                //應該不用指定wrongWord因為不需要update
+                   // wrongWord = allWordSets[randomSpots[currentPracticeSequence]][randomUnits[currentPracticeSequence]].replacingOccurrences(of: " ", with: "")
+                
+                
+                    let wordCount:[String:Int] = ["wordCount":wordReviewCount]
+              
+                print(wordCount)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopReview"), object: nil, userInfo: wordCount)
+
+                
+            }
+            
+
+
         }
+        
+        
+        //在此卡gameMode
+        
+        /*
+        if gameMode == 1 {
+            
+            practiceNextWord()
+            
+            //刪掉一些不該出現的
+            notifyShowSentence()
+            
+            
+            //或者是else就好, 嘗試看看
+        } else if gameMode == 0{
+        
+            
+            
+            
+            
+            
         }
         //不能拖拉
-        
+        */
         
     }
     

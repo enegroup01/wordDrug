@@ -23,8 +23,9 @@ let showTagKey = "showTag"
 let readyToReadSentenceKey = "readyToReadSentence"
 let readSentenceKey = "readSentence"
 let onlyPracticeSentenceKey = "onlyPracticeSentence"
-let restartGame2Key = "restartGame2"
+let restartGame2Key = "stopReview"
 let restartCountingKey = "restartCounting"
+
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
     
@@ -225,6 +226,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var leftBtnClickedImg = UIImageView()
     var rightBtnClickedImg = UIImageView()
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+    let darkColor = UIColor.init(red: 53/255, green: 53/255, blue: 53/255, alpha: 1)
+    
+    
+    
+    //reviewWord & sentence alert
+    var reviewWordBg = UIImageView()
+    var reviewAlertTitle1 = UILabel()
+    var reviewAlertTitle2 = UILabel()
+    var reviewAlertTotalLabel = UILabel()
+    var reviewAlertCountLabel = UILabel()
+    var reviewAlertUnitLabel = UILabel()
+    var reviewOkBtn = UIButton()
+    var isReviewWrong = false
+    
+    
 
     var isCountingTriggered = false
     
@@ -293,6 +309,70 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             iPadDif = 1.2
             
         }
+        
+        
+        //做reviewAlert
+        reviewWordBg.frame = CGRect(x: width / 2 - 237 / 2, y: height / 3, width: 237 * dif, height: 214 * dif)
+        reviewWordBg.image = UIImage(named:"reviewWordResultBg.png")
+        self.view.addSubview(reviewWordBg)
+        
+        reviewAlertTitle1.frame = CGRect(x: reviewWordBg.frame.width / 22, y: reviewWordBg.frame.height / 20, width: 92 * dif, height: 25 * dif)
+        //reviewAlertTitle1.backgroundColor = .gray
+        reviewAlertTitle1.text = "快速複習"
+        reviewAlertTitle1.font = UIFont(name: "Helvetica Bold", size: 20)
+        reviewAlertTitle1.textColor = .white
+        reviewAlertTitle1.textAlignment = .right
+        reviewWordBg.addSubview(reviewAlertTitle1)
+        
+        reviewAlertTitle2.frame = CGRect(x: reviewAlertTitle1.frame.minX, y: reviewAlertTitle1.frame.maxY - 5 * dif, width: 92 * dif, height: 25 * dif)
+        //reviewAlertTitle2.backgroundColor = .red
+        reviewAlertTitle2.text = "單字達成"
+        reviewAlertTitle2.font = UIFont(name: "Helvetica Bold", size: 12)
+        reviewAlertTitle2.textColor = .white
+        reviewAlertTitle2.textAlignment = .right
+        
+        reviewWordBg.addSubview(reviewAlertTitle2)
+        
+        reviewAlertTotalLabel.frame = CGRect(x: reviewAlertTitle1.frame.midX - 10 * dif, y: reviewAlertTitle2.frame.maxY * 1.3, width: 30 * dif, height: 17 * dif)
+        reviewAlertTotalLabel.text = "總計"
+        reviewAlertTotalLabel.textAlignment = .left
+        reviewAlertTotalLabel.font = UIFont(name: "Helvetica Bold", size: 12)
+        reviewAlertTotalLabel.textColor = darkColor
+        //reviewAlertTotalLabel.backgroundColor = .gray
+        reviewWordBg.addSubview(reviewAlertTotalLabel)
+        
+        
+        reviewAlertCountLabel.frame = CGRect(x: (reviewWordBg.frame.width - 170) / 2, y: reviewAlertTotalLabel.frame.midY, width: 170 * dif, height: 80 * dif)
+        reviewAlertCountLabel.text = "1306"
+        reviewAlertCountLabel.textAlignment = .center
+        reviewAlertCountLabel.font = UIFont(name: "Helvetica Bold", size: 70)
+        reviewAlertCountLabel.textColor = darkColor
+        //reviewAlertCountLabel.backgroundColor = .gray
+        reviewWordBg.addSubview(reviewAlertCountLabel)
+
+        
+        reviewAlertUnitLabel.frame = CGRect(x: reviewAlertCountLabel.frame.maxX - 10 * dif, y: reviewAlertCountLabel.frame.maxY - 17 * dif, width: 20 * dif, height: 17 * dif)
+        reviewAlertUnitLabel.text = "字"
+        reviewAlertUnitLabel.textAlignment = .left
+        reviewAlertUnitLabel.font = UIFont(name: "Helvetica Bold", size: 12)
+        reviewAlertUnitLabel.textColor = darkColor
+        //reviewAlertCountLabel.backgroundColor = .gray
+        reviewWordBg.addSubview(reviewAlertUnitLabel)
+
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12), NSAttributedStringKey.foregroundColor : darkColor]
+        
+        
+        let title = NSAttributedString(string: "我知道了", attributes: attrs0)
+        
+        
+        reviewOkBtn = UIButton(type: .system)
+        //reviewOkBtn.showsTouchWhenHighlighted = true
+        reviewOkBtn.frame = CGRect(x: (width - 169 * dif) / 2, y: reviewWordBg.frame.maxY - 27 * dif * 1.5, width: 169 * dif, height: 27 * dif)
+        reviewOkBtn.addTarget(self, action: #selector(NewGameViewController.reviewOkBtnClicked), for: .touchUpInside)
+        reviewOkBtn.setBackgroundImage(UIImage(named:"reviewOkBtnPng.png"), for: .normal)
+        reviewOkBtn.setAttributedTitle(title, for: .normal)
+        self.view.addSubview(reviewOkBtn)
         
         
         /*
@@ -580,7 +660,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //從gameScene時間到來接收restartGame2
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.game2RestartFunc), name: NSNotification.Name("restartGame2"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopReview), name: NSNotification.Name("stopReview"), object: nil)
         
         
         //接收暫停功能
@@ -589,6 +669,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //重新倒數
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartCounting), name: NSNotification.Name("restartCounting"), object: nil)
         
+        
+
         
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
@@ -613,7 +695,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
             increaseNum = 5
-            maxSpotNum = 13
+            maxSpotNum = 14
             
         default:
             break
@@ -855,6 +937,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: leftBtnClickedImg)
         self.view.bringSubview(toFront: rightBtnClickedImg)
         self.view.bringSubview(toFront: bonusScoreLabel)
+        
+        
+        self.view.bringSubview(toFront: reviewWordBg)
+        self.view.bringSubview(toFront: reviewAlertTitle1)
+        self.view.bringSubview(toFront: reviewAlertTitle2)
+         self.view.bringSubview(toFront: reviewAlertTotalLabel)
+        self.view.bringSubview(toFront: reviewAlertCountLabel)
+        self.view.bringSubview(toFront: reviewAlertUnitLabel)
+        self.view.bringSubview(toFront: reviewOkBtn)
+
 
         ghostBtn.isHidden = true
         alertBg.isHidden = true
@@ -862,6 +954,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
         rightBtnClickedImg.isHidden = true
+        
+        reviewWordBg.isHidden = true
+        reviewOkBtn.isHidden = true
         
         
       
@@ -875,6 +970,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         countScore(score: 1500)
         bonusAnimation(repeatCount: 3)
         */
+    }
+    
+    
+    @objc func reviewOkBtnClicked(){
+        
+               print("button clicked")
+      
+        self.dismiss(animated: true, completion: nil)
     }
     
     //接收nc
@@ -1045,6 +1148,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @objc func notifyPracticeNextWord(){
 
+        
         //移除tagView
         attrTagsSelected.removeAll(keepingCapacity: false)
         tagView.isHidden = true
@@ -1820,7 +1924,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
                 
           
- 
                 if let inputNode = audioEngine.inputNode as AVAudioInputNode?{
                     
                     recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
@@ -2611,6 +2714,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @objc func wrongSenButtonClicked(sender:UIButton) {
         print("wrong")
         
+        
+        if gameMode == 2 {
+        isReviewWrong = true
+        }
         //錯誤按鈕改圖片
         sender.setBackgroundImage(UIImage(named:"wrongSenBlock.png"), for: .normal)
         
@@ -2636,8 +2743,52 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //等待1.5秒
+        
+        
         btnTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(NewGameViewController.btnCounting), userInfo: nil, repeats: true)
         
+    }
+    
+    
+    func reviewResult(type:Int, count:Int){
+        
+        
+        
+        var bgImage = String()
+        var title = String()
+        var unit = String()
+        
+        
+        switch type{
+         
+        case 0:
+            bgImage = "reviewSenResultBg.png"
+            title = "單字達成"
+            unit = "字"
+        case 1:
+            bgImage = "reviewWordResultBg.png"
+            title = "句型達成"
+            unit = "句"
+        default:
+            break
+         
+
+        }
+        
+        
+        reviewWordBg.image = UIImage(named:bgImage)
+        reviewAlertTitle2.text = title
+        reviewAlertUnitLabel.text = unit
+
+        reviewAlertCountLabel.text = String(count)
+
+        wrongSign.isHidden = true
+        reviewWordBg.isHidden = false
+        reviewOkBtn.isHidden = false
+
+        ghostBtn.isHidden = false
+        
+     
     }
     
     
@@ -2653,7 +2804,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             timerCount = 0
             
             //跳下一題
-            jumpToTagPractice()
+            
+            if isReviewWrong{
+                
+                reviewResult(type:1, count:0)
+                
+            } else{
+                
+                  jumpToTagPractice()
+            }
             
         }
         
@@ -2906,8 +3065,158 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
 
     
-    @objc func game2RestartFunc(){
+    //倒數結束立即停止快速複習
+    /*
+    @objc func stopReview(){
         
+        if gameMode == 1 {
+            reviewResult(type:0)
+        } else if gameMode == 2{
+        reviewResult(type:1)
+        }
+    }
+    */
+    
+    @objc func stopReview(_ notification:NSNotification){
+        
+        //抓分數
+        
+        if gameMode == 1 {
+            
+            
+            if let wordCount = notification.userInfo?["wordCount"] as? Int{
+                
+                //在此updateWordCount
+                
+                print(wordCount)
+                updateReviewWordCount(wordCount: wordCount, course:courseReceived)
+                
+                
+            }
+            
+        } else if gameMode == 2{
+            
+            
+            reviewResult(type:1, count:0)
+        }
+        
+  
+    }
+    
+    
+    func updateReviewWordCount(wordCount:Int, course:Int){
+        
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&wordCount=\(wordCount)&course=\(course)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    //print("rank")
+                    //再次儲存使用者資訊
+                    
+                    print(parseJSON)
+                    
+                    var tempCount = Int()
+                    var tempJson = String()
+                    
+                    var receiveCount = Int()
+                    var receiveCount2 = Int()
+                    var receiveCount3 = Int()
+                    
+                    let courseCount = user?["wordReviewCount"] as! String
+                    let courseCount2 = user?["wordReviewCount2"] as! String
+                    let courseCount3 = user?["wordReviewCount3"] as! String
+                    
+                    switch course{
+                        
+                    case 0:
+                        tempJson = "wordReviewCount"
+
+                    case 1:
+                        tempJson = "wordReviewCount2"
+                    case 2:
+                        tempJson = "wordReviewCount3"
+                        
+                    default:
+                        break
+                        
+                        
+                    }
+                    
+                    
+                    if let resultCount = parseJSON["wordReviewCount"] as? Int{
+                        
+                        print("updated Count")
+                        tempCount = resultCount
+                        
+                    } else {
+                        
+                        print("original Count")
+                        let originalCount = user?["wordReviewCount"] as! String
+                        print("original:\(originalCount)")
+                        tempCount = Int(originalCount)!
+                    }
+                    
+         
+                    DispatchQueue.main.async(execute: {
+                        self!.reviewResult(type:0, count:tempCount)
+                    })
+                    
+
+                    
+                    
+                    //抓名次
+                    
+                    //             if let parseJsonDic = parseJSON as [NSDictionary]?{
+                    
+                    
+                    //       }
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+    
+    
+    //快速複習答對繼續
+   func game2RestartFunc(){
         let seq = Int(wordSequenceToReceive)
     
         //順序 + 1
@@ -2934,6 +3243,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //製作句子
         makeSentence()
+ 
     }
     
     @objc func removeAll(){

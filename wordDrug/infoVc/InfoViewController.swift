@@ -314,17 +314,15 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         return
                     }
                     
-                    print("rank")
+                    //print("rank")
                     //再次儲存使用者資訊
                     
-                    print(parseJSON)
+                    //print(parseJSON)
                     
                     //抓名次
                     
        //             if let parseJsonDic = parseJSON as [NSDictionary]?{
-                    
-      
-                        
+
                         for i in 0 ..< parseJSON.count{
          
 
@@ -337,25 +335,16 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 if String(id) == userId{
                                     
                                     DispatchQueue.main.async(execute: {
-                                        print(i)
+                                        //print(i)
                                              self!.rankCountLabel.text = String(i + 1)
                                     })
-                               
-                     
-                                }                                 
-                                
+                  
+                                }
                             }
                     }
                         
-                        
-                        
+                    
              //       }
-                    
-      
-                    
-                    
-                    
- 
                     
                 } catch{
                     

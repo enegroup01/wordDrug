@@ -13,13 +13,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //此兩數字要做動態
     var stageCount = 5
-    var elemWordsMax = [450,450,450,450,450]
+    var elemWordsMax = [450,450,450,450,450, 450]
     
     var courseReceived = Int()
     
     var mapNumToPass = Int()
   
-    var eachCellMyWordsCount = [0,0,0,0,0]
+    var eachCellMyWordsCount = [0,0,0,0,0,0]
     var totalWordsLearned = Int()
     
     var wordCounts = Int()
@@ -36,7 +36,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
-    var locks = [1,1,1,1,1]
+    var locks = [1,1,1,1,1,1]
     
     var alertBg = UIImageView()
     var alertText = UILabel()
@@ -176,8 +176,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         case 1:
             print("1")
 
-            stageCount = 5
-            elemWordsMax = [420,420,420,420,420]
+            stageCount = 6
+            elemWordsMax = [450,450,450,450,450,450]
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
             
@@ -227,11 +227,19 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 eachCellMyWordsCount[3] = 450
                 eachCellMyWordsCount[4] = wordCounts
        
+            case 5:
+                eachCellMyWordsCount[0] = 450
+                eachCellMyWordsCount[1] = 450
+                eachCellMyWordsCount[2] = 450
+                eachCellMyWordsCount[3] = 450
+                eachCellMyWordsCount[4] = 450
+                eachCellMyWordsCount[5] = wordCounts
+                
             default:
                 break
             }
         
-        locks = [1,1,1,1,1]
+        locks = [1,1,1,1,1,1]
         
         for i in 0 ..< mapPassedInt + 1{
             

@@ -21,6 +21,39 @@
 		AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2114312043F16C0047B866 /* rightPageBtn.png */; };
 		AA277115208A0CAA00414E5D /* lockPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA277114208A0CA900414E5D /* lockPng.png */; };
 		AA27712B208A54E700414E5D /* noClassAlertBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27712A208A54E700414E5D /* noClassAlertBg.png */; };
+		AA27DE1120B6E2B2003250D2 /* reviewOkBtnPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1020B6E2B2003250D2 /* reviewOkBtnPng.png */; };
+		AA27DE1320B6E633003250D2 /* reviewSenResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */; };
+		AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */; };
+		AA27DE2520B6FDA4003250D2 /* 9-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1620B6FDA1003250D2 /* 9-14.txt */; };
+		AA27DE2620B6FDA4003250D2 /* 9-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1720B6FDA2003250D2 /* 9-1.txt */; };
+		AA27DE2720B6FDA4003250D2 /* 9-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1820B6FDA2003250D2 /* 9-3.txt */; };
+		AA27DE2820B6FDA4003250D2 /* 9-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1920B6FDA2003250D2 /* 9-4.txt */; };
+		AA27DE2920B6FDA4003250D2 /* 9-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1A20B6FDA3003250D2 /* 9-5.txt */; };
+		AA27DE2A20B6FDA4003250D2 /* 9-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1B20B6FDA3003250D2 /* 9-2.txt */; };
+		AA27DE2B20B6FDA4003250D2 /* 9-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1C20B6FDA3003250D2 /* 9-7.txt */; };
+		AA27DE2C20B6FDA4003250D2 /* 9-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1D20B6FDA3003250D2 /* 9-13.txt */; };
+		AA27DE2D20B6FDA4003250D2 /* 9-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1E20B6FDA3003250D2 /* 9-6.txt */; };
+		AA27DE2E20B6FDA4003250D2 /* 9-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1F20B6FDA3003250D2 /* 9-10.txt */; };
+		AA27DE2F20B6FDA4003250D2 /* 9-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE2020B6FDA4003250D2 /* 9-8.txt */; };
+		AA27DE3020B6FDA4003250D2 /* 9-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE2120B6FDA4003250D2 /* 9-11.txt */; };
+		AA27DE3120B6FDA4003250D2 /* 9-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE2220B6FDA4003250D2 /* 9-12.txt */; };
+		AA27DE3220B6FDA4003250D2 /* 9-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE2320B6FDA4003250D2 /* 9-15.txt */; };
+		AA27DE3320B6FDA4003250D2 /* 9-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE2420B6FDA4003250D2 /* 9-9.txt */; };
+		AA27DE4320B6FDB7003250D2 /* s9-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3420B6FDB4003250D2 /* s9-3.txt */; };
+		AA27DE4420B6FDB7003250D2 /* s9-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3520B6FDB4003250D2 /* s9-6.txt */; };
+		AA27DE4520B6FDB7003250D2 /* s9-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3620B6FDB5003250D2 /* s9-1.txt */; };
+		AA27DE4620B6FDB7003250D2 /* s9-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3720B6FDB5003250D2 /* s9-11.txt */; };
+		AA27DE4720B6FDB7003250D2 /* s9-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3820B6FDB5003250D2 /* s9-12.txt */; };
+		AA27DE4820B6FDB7003250D2 /* s9-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3920B6FDB5003250D2 /* s9-15.txt */; };
+		AA27DE4920B6FDB7003250D2 /* s9-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3A20B6FDB5003250D2 /* s9-13.txt */; };
+		AA27DE4A20B6FDB7003250D2 /* s9-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3B20B6FDB6003250D2 /* s9-14.txt */; };
+		AA27DE4B20B6FDB7003250D2 /* s9-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3C20B6FDB6003250D2 /* s9-9.txt */; };
+		AA27DE4C20B6FDB7003250D2 /* s9-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3D20B6FDB6003250D2 /* s9-10.txt */; };
+		AA27DE4D20B6FDB7003250D2 /* s9-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3E20B6FDB6003250D2 /* s9-5.txt */; };
+		AA27DE4E20B6FDB7003250D2 /* s9-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE3F20B6FDB6003250D2 /* s9-8.txt */; };
+		AA27DE4F20B6FDB7003250D2 /* s9-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE4020B6FDB7003250D2 /* s9-2.txt */; };
+		AA27DE5020B6FDB7003250D2 /* s9-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE4120B6FDB7003250D2 /* s9-7.txt */; };
+		AA27DE5120B6FDB7003250D2 /* s9-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE4220B6FDB7003250D2 /* s9-4.txt */; };
 		AA2B64D0205A609D00742226 /* bookBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2B64CF205A609D00742226 /* bookBackBtn.png */; };
 		AA2B64D2205A612E00742226 /* newBookBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2B64D1205A612E00742226 /* newBookBg.png */; };
 		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
@@ -37,6 +70,66 @@
 		AA523FCC208AC2AB004CD863 /* noClassOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FCB208AC2AA004CD863 /* noClassOkBtn.png */; };
 		AA523FCE208AC4FC004CD863 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FCD208AC4FB004CD863 /* logout.png */; };
 		AA523FD2208AD862004CD863 /* volume.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FD1208AD861004CD863 /* volume.png */; };
+		AA532CBC20B8203F00997094 /* 11-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532C9E20B8203900997094 /* 11-13.txt */; };
+		AA532CBD20B8203F00997094 /* 11-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532C9F20B8203A00997094 /* 11-7.txt */; };
+		AA532CBE20B8203F00997094 /* 11-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA020B8203A00997094 /* 11-15.txt */; };
+		AA532CBF20B8203F00997094 /* 10-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA120B8203A00997094 /* 10-8.txt */; };
+		AA532CC020B8203F00997094 /* 10-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA220B8203A00997094 /* 10-9.txt */; };
+		AA532CC120B8203F00997094 /* 10-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA320B8203A00997094 /* 10-13.txt */; };
+		AA532CC220B8203F00997094 /* 10-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA420B8203B00997094 /* 10-1.txt */; };
+		AA532CC320B8203F00997094 /* 10-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA520B8203B00997094 /* 10-3.txt */; };
+		AA532CC420B8203F00997094 /* 11-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA620B8203B00997094 /* 11-8.txt */; };
+		AA532CC520B8203F00997094 /* 11-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA720B8203C00997094 /* 11-12.txt */; };
+		AA532CC620B8203F00997094 /* 11-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA820B8203C00997094 /* 11-6.txt */; };
+		AA532CC720B8203F00997094 /* 10-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CA920B8203C00997094 /* 10-5.txt */; };
+		AA532CC820B8203F00997094 /* 11-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CAA20B8203C00997094 /* 11-10.txt */; };
+		AA532CC920B8203F00997094 /* 10-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CAB20B8203D00997094 /* 10-2.txt */; };
+		AA532CCA20B8203F00997094 /* 11-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CAC20B8203D00997094 /* 11-14.txt */; };
+		AA532CCB20B8203F00997094 /* 10-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CAD20B8203D00997094 /* 10-6.txt */; };
+		AA532CCC20B8203F00997094 /* 10-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CAE20B8203D00997094 /* 10-7.txt */; };
+		AA532CCD20B8203F00997094 /* 11-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CAF20B8203D00997094 /* 11-4.txt */; };
+		AA532CCE20B8203F00997094 /* 10-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB020B8203D00997094 /* 10-4.txt */; };
+		AA532CCF20B8203F00997094 /* 11-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB120B8203E00997094 /* 11-3.txt */; };
+		AA532CD020B8203F00997094 /* 10-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB220B8203E00997094 /* 10-10.txt */; };
+		AA532CD120B8203F00997094 /* 10-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB320B8203E00997094 /* 10-12.txt */; };
+		AA532CD220B8203F00997094 /* 10-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB420B8203E00997094 /* 10-11.txt */; };
+		AA532CD320B8203F00997094 /* 11-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB520B8203E00997094 /* 11-11.txt */; };
+		AA532CD420B8203F00997094 /* 10-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB620B8203E00997094 /* 10-15.txt */; };
+		AA532CD520B8203F00997094 /* 11-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB720B8203F00997094 /* 11-1.txt */; };
+		AA532CD620B8203F00997094 /* 11-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB820B8203F00997094 /* 11-2.txt */; };
+		AA532CD720B8203F00997094 /* 11-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CB920B8203F00997094 /* 11-9.txt */; };
+		AA532CD820B8203F00997094 /* 11-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CBA20B8203F00997094 /* 11-5.txt */; };
+		AA532CD920B8203F00997094 /* 10-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CBB20B8203F00997094 /* 10-14.txt */; };
+		AA532CF820B8258D00997094 /* s10-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CDA20B8258500997094 /* s10-11.txt */; };
+		AA532CF920B8258D00997094 /* s10-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CDB20B8258600997094 /* s10-7.txt */; };
+		AA532CFA20B8258D00997094 /* s10-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CDC20B8258700997094 /* s10-9.txt */; };
+		AA532CFB20B8258D00997094 /* s10-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CDD20B8258700997094 /* s10-2.txt */; };
+		AA532CFC20B8258D00997094 /* s11-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CDE20B8258700997094 /* s11-1.txt */; };
+		AA532CFD20B8258D00997094 /* s11-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CDF20B8258700997094 /* s11-2.txt */; };
+		AA532CFE20B8258D00997094 /* s11-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE020B8258800997094 /* s11-8.txt */; };
+		AA532CFF20B8258D00997094 /* s10-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE120B8258800997094 /* s10-8.txt */; };
+		AA532D0020B8258D00997094 /* s11-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE220B8258900997094 /* s11-12.txt */; };
+		AA532D0120B8258D00997094 /* s11-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE320B8258900997094 /* s11-15.txt */; };
+		AA532D0220B8258D00997094 /* s10-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE420B8258900997094 /* s10-15.txt */; };
+		AA532D0320B8258D00997094 /* s11-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE520B8258900997094 /* s11-6.txt */; };
+		AA532D0420B8258D00997094 /* s10-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE620B8258900997094 /* s10-4.txt */; };
+		AA532D0520B8258D00997094 /* s11-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE720B8258A00997094 /* s11-13.txt */; };
+		AA532D0620B8258D00997094 /* s11-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE820B8258A00997094 /* s11-5.txt */; };
+		AA532D0720B8258D00997094 /* s11-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CE920B8258A00997094 /* s11-11.txt */; };
+		AA532D0820B8258D00997094 /* s10-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CEA20B8258B00997094 /* s10-5.txt */; };
+		AA532D0920B8258D00997094 /* s10-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CEB20B8258B00997094 /* s10-13.txt */; };
+		AA532D0A20B8258D00997094 /* s10-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CEC20B8258C00997094 /* s10-1.txt */; };
+		AA532D0B20B8258D00997094 /* s10-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CED20B8258C00997094 /* s10-12.txt */; };
+		AA532D0C20B8258D00997094 /* s10-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CEE20B8258C00997094 /* s10-6.txt */; };
+		AA532D0D20B8258D00997094 /* s11-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CEF20B8258C00997094 /* s11-3.txt */; };
+		AA532D0E20B8258D00997094 /* s11-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF020B8258C00997094 /* s11-10.txt */; };
+		AA532D0F20B8258D00997094 /* s10-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF120B8258C00997094 /* s10-14.txt */; };
+		AA532D1020B8258D00997094 /* s10-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF220B8258D00997094 /* s10-3.txt */; };
+		AA532D1120B8258D00997094 /* s11-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF320B8258D00997094 /* s11-7.txt */; };
+		AA532D1220B8258D00997094 /* s11-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF420B8258D00997094 /* s11-9.txt */; };
+		AA532D1320B8258D00997094 /* s11-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF520B8258D00997094 /* s11-14.txt */; };
+		AA532D1420B8258D00997094 /* s10-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF620B8258D00997094 /* s10-10.txt */; };
+		AA532D1520B8258D00997094 /* s11-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532CF720B8258D00997094 /* s11-4.txt */; };
 		AA5879F1203EAB1800FEA058 /* bigBlueBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5879F0203EAB1800FEA058 /* bigBlueBall.png */; };
 		AA5879F5203EAC1A00FEA058 /* smallBlueBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5879F3203EAC1A00FEA058 /* smallBlueBall.png */; };
 		AA5879F9203EADE100FEA058 /* smallDarkBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5879F8203EADE100FEA058 /* smallDarkBall.png */; };
@@ -393,6 +486,39 @@
 		AA2114312043F16C0047B866 /* rightPageBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightPageBtn.png; sourceTree = "<group>"; };
 		AA277114208A0CA900414E5D /* lockPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lockPng.png; sourceTree = "<group>"; };
 		AA27712A208A54E700414E5D /* noClassAlertBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noClassAlertBg.png; sourceTree = "<group>"; };
+		AA27DE1020B6E2B2003250D2 /* reviewOkBtnPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewOkBtnPng.png; sourceTree = "<group>"; };
+		AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSenResultBg.png; sourceTree = "<group>"; };
+		AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewWordResultBg.png; sourceTree = "<group>"; };
+		AA27DE1620B6FDA1003250D2 /* 9-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-14.txt"; sourceTree = "<group>"; };
+		AA27DE1720B6FDA2003250D2 /* 9-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-1.txt"; sourceTree = "<group>"; };
+		AA27DE1820B6FDA2003250D2 /* 9-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-3.txt"; sourceTree = "<group>"; };
+		AA27DE1920B6FDA2003250D2 /* 9-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-4.txt"; sourceTree = "<group>"; };
+		AA27DE1A20B6FDA3003250D2 /* 9-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-5.txt"; sourceTree = "<group>"; };
+		AA27DE1B20B6FDA3003250D2 /* 9-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-2.txt"; sourceTree = "<group>"; };
+		AA27DE1C20B6FDA3003250D2 /* 9-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-7.txt"; sourceTree = "<group>"; };
+		AA27DE1D20B6FDA3003250D2 /* 9-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-13.txt"; sourceTree = "<group>"; };
+		AA27DE1E20B6FDA3003250D2 /* 9-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-6.txt"; sourceTree = "<group>"; };
+		AA27DE1F20B6FDA3003250D2 /* 9-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-10.txt"; sourceTree = "<group>"; };
+		AA27DE2020B6FDA4003250D2 /* 9-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-8.txt"; sourceTree = "<group>"; };
+		AA27DE2120B6FDA4003250D2 /* 9-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-11.txt"; sourceTree = "<group>"; };
+		AA27DE2220B6FDA4003250D2 /* 9-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-12.txt"; sourceTree = "<group>"; };
+		AA27DE2320B6FDA4003250D2 /* 9-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-15.txt"; sourceTree = "<group>"; };
+		AA27DE2420B6FDA4003250D2 /* 9-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-9.txt"; sourceTree = "<group>"; };
+		AA27DE3420B6FDB4003250D2 /* s9-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-3.txt"; sourceTree = "<group>"; };
+		AA27DE3520B6FDB4003250D2 /* s9-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-6.txt"; sourceTree = "<group>"; };
+		AA27DE3620B6FDB5003250D2 /* s9-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-1.txt"; sourceTree = "<group>"; };
+		AA27DE3720B6FDB5003250D2 /* s9-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-11.txt"; sourceTree = "<group>"; };
+		AA27DE3820B6FDB5003250D2 /* s9-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-12.txt"; sourceTree = "<group>"; };
+		AA27DE3920B6FDB5003250D2 /* s9-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-15.txt"; sourceTree = "<group>"; };
+		AA27DE3A20B6FDB5003250D2 /* s9-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-13.txt"; sourceTree = "<group>"; };
+		AA27DE3B20B6FDB6003250D2 /* s9-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-14.txt"; sourceTree = "<group>"; };
+		AA27DE3C20B6FDB6003250D2 /* s9-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-9.txt"; sourceTree = "<group>"; };
+		AA27DE3D20B6FDB6003250D2 /* s9-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-10.txt"; sourceTree = "<group>"; };
+		AA27DE3E20B6FDB6003250D2 /* s9-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-5.txt"; sourceTree = "<group>"; };
+		AA27DE3F20B6FDB6003250D2 /* s9-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-8.txt"; sourceTree = "<group>"; };
+		AA27DE4020B6FDB7003250D2 /* s9-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-2.txt"; sourceTree = "<group>"; };
+		AA27DE4120B6FDB7003250D2 /* s9-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-7.txt"; sourceTree = "<group>"; };
+		AA27DE4220B6FDB7003250D2 /* s9-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s9-4.txt"; sourceTree = "<group>"; };
 		AA2B64CF205A609D00742226 /* bookBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookBackBtn.png; sourceTree = "<group>"; };
 		AA2B64D1205A612E00742226 /* newBookBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookBg.png; sourceTree = "<group>"; };
 		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
@@ -409,6 +535,66 @@
 		AA523FCB208AC2AA004CD863 /* noClassOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noClassOkBtn.png; sourceTree = "<group>"; };
 		AA523FCD208AC4FB004CD863 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		AA523FD1208AD861004CD863 /* volume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume.png; sourceTree = "<group>"; };
+		AA532C9E20B8203900997094 /* 11-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-13.txt"; sourceTree = "<group>"; };
+		AA532C9F20B8203A00997094 /* 11-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-7.txt"; sourceTree = "<group>"; };
+		AA532CA020B8203A00997094 /* 11-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-15.txt"; sourceTree = "<group>"; };
+		AA532CA120B8203A00997094 /* 10-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-8.txt"; sourceTree = "<group>"; };
+		AA532CA220B8203A00997094 /* 10-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-9.txt"; sourceTree = "<group>"; };
+		AA532CA320B8203A00997094 /* 10-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-13.txt"; sourceTree = "<group>"; };
+		AA532CA420B8203B00997094 /* 10-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-1.txt"; sourceTree = "<group>"; };
+		AA532CA520B8203B00997094 /* 10-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-3.txt"; sourceTree = "<group>"; };
+		AA532CA620B8203B00997094 /* 11-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-8.txt"; sourceTree = "<group>"; };
+		AA532CA720B8203C00997094 /* 11-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-12.txt"; sourceTree = "<group>"; };
+		AA532CA820B8203C00997094 /* 11-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-6.txt"; sourceTree = "<group>"; };
+		AA532CA920B8203C00997094 /* 10-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-5.txt"; sourceTree = "<group>"; };
+		AA532CAA20B8203C00997094 /* 11-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-10.txt"; sourceTree = "<group>"; };
+		AA532CAB20B8203D00997094 /* 10-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-2.txt"; sourceTree = "<group>"; };
+		AA532CAC20B8203D00997094 /* 11-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-14.txt"; sourceTree = "<group>"; };
+		AA532CAD20B8203D00997094 /* 10-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-6.txt"; sourceTree = "<group>"; };
+		AA532CAE20B8203D00997094 /* 10-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-7.txt"; sourceTree = "<group>"; };
+		AA532CAF20B8203D00997094 /* 11-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-4.txt"; sourceTree = "<group>"; };
+		AA532CB020B8203D00997094 /* 10-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-4.txt"; sourceTree = "<group>"; };
+		AA532CB120B8203E00997094 /* 11-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-3.txt"; sourceTree = "<group>"; };
+		AA532CB220B8203E00997094 /* 10-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-10.txt"; sourceTree = "<group>"; };
+		AA532CB320B8203E00997094 /* 10-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-12.txt"; sourceTree = "<group>"; };
+		AA532CB420B8203E00997094 /* 10-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-11.txt"; sourceTree = "<group>"; };
+		AA532CB520B8203E00997094 /* 11-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-11.txt"; sourceTree = "<group>"; };
+		AA532CB620B8203E00997094 /* 10-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-15.txt"; sourceTree = "<group>"; };
+		AA532CB720B8203F00997094 /* 11-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-1.txt"; sourceTree = "<group>"; };
+		AA532CB820B8203F00997094 /* 11-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-2.txt"; sourceTree = "<group>"; };
+		AA532CB920B8203F00997094 /* 11-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-9.txt"; sourceTree = "<group>"; };
+		AA532CBA20B8203F00997094 /* 11-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-5.txt"; sourceTree = "<group>"; };
+		AA532CBB20B8203F00997094 /* 10-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-14.txt"; sourceTree = "<group>"; };
+		AA532CDA20B8258500997094 /* s10-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-11.txt"; sourceTree = "<group>"; };
+		AA532CDB20B8258600997094 /* s10-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-7.txt"; sourceTree = "<group>"; };
+		AA532CDC20B8258700997094 /* s10-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-9.txt"; sourceTree = "<group>"; };
+		AA532CDD20B8258700997094 /* s10-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-2.txt"; sourceTree = "<group>"; };
+		AA532CDE20B8258700997094 /* s11-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-1.txt"; sourceTree = "<group>"; };
+		AA532CDF20B8258700997094 /* s11-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-2.txt"; sourceTree = "<group>"; };
+		AA532CE020B8258800997094 /* s11-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-8.txt"; sourceTree = "<group>"; };
+		AA532CE120B8258800997094 /* s10-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-8.txt"; sourceTree = "<group>"; };
+		AA532CE220B8258900997094 /* s11-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-12.txt"; sourceTree = "<group>"; };
+		AA532CE320B8258900997094 /* s11-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-15.txt"; sourceTree = "<group>"; };
+		AA532CE420B8258900997094 /* s10-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-15.txt"; sourceTree = "<group>"; };
+		AA532CE520B8258900997094 /* s11-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-6.txt"; sourceTree = "<group>"; };
+		AA532CE620B8258900997094 /* s10-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-4.txt"; sourceTree = "<group>"; };
+		AA532CE720B8258A00997094 /* s11-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-13.txt"; sourceTree = "<group>"; };
+		AA532CE820B8258A00997094 /* s11-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-5.txt"; sourceTree = "<group>"; };
+		AA532CE920B8258A00997094 /* s11-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-11.txt"; sourceTree = "<group>"; };
+		AA532CEA20B8258B00997094 /* s10-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-5.txt"; sourceTree = "<group>"; };
+		AA532CEB20B8258B00997094 /* s10-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-13.txt"; sourceTree = "<group>"; };
+		AA532CEC20B8258C00997094 /* s10-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-1.txt"; sourceTree = "<group>"; };
+		AA532CED20B8258C00997094 /* s10-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-12.txt"; sourceTree = "<group>"; };
+		AA532CEE20B8258C00997094 /* s10-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-6.txt"; sourceTree = "<group>"; };
+		AA532CEF20B8258C00997094 /* s11-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-3.txt"; sourceTree = "<group>"; };
+		AA532CF020B8258C00997094 /* s11-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-10.txt"; sourceTree = "<group>"; };
+		AA532CF120B8258C00997094 /* s10-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-14.txt"; sourceTree = "<group>"; };
+		AA532CF220B8258D00997094 /* s10-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-3.txt"; sourceTree = "<group>"; };
+		AA532CF320B8258D00997094 /* s11-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-7.txt"; sourceTree = "<group>"; };
+		AA532CF420B8258D00997094 /* s11-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-9.txt"; sourceTree = "<group>"; };
+		AA532CF520B8258D00997094 /* s11-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-14.txt"; sourceTree = "<group>"; };
+		AA532CF620B8258D00997094 /* s10-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-10.txt"; sourceTree = "<group>"; };
+		AA532CF720B8258D00997094 /* s11-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-4.txt"; sourceTree = "<group>"; };
 		AA5879F0203EAB1800FEA058 /* bigBlueBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigBlueBall.png; sourceTree = "<group>"; };
 		AA5879F3203EAC1A00FEA058 /* smallBlueBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallBlueBall.png; sourceTree = "<group>"; };
 		AA5879F8203EADE100FEA058 /* smallDarkBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallDarkBall.png; sourceTree = "<group>"; };
@@ -909,6 +1095,9 @@
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
 				AA6C95DD20AAAA8F001158E7 /* fire.sks */,
 				AAA0E10220982A3D007148EB /* senBlock.png */,
+				AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */,
+				AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */,
+				AA27DE1020B6E2B2003250D2 /* reviewOkBtnPng.png */,
 				AA2B805820A1BA16005BCE21 /* soundPng.png */,
 				AA6AA72C209C9A3200374241 /* popQuizBlock.png */,
 				AA6AA72A209C99F400374241 /* timerCover.png */,
@@ -952,6 +1141,36 @@
 			children = (
 				AA7DCB962085BE70008AFFDF /* 1-1.txt */,
 				AA648E60207CEA04003ACD07 /* 1-2.txt */,
+				AA27DE1720B6FDA2003250D2 /* 9-1.txt */,
+				AA27DE1B20B6FDA3003250D2 /* 9-2.txt */,
+				AA27DE1820B6FDA2003250D2 /* 9-3.txt */,
+				AA27DE3620B6FDB5003250D2 /* s9-1.txt */,
+				AA27DE4020B6FDB7003250D2 /* s9-2.txt */,
+				AA27DE3420B6FDB4003250D2 /* s9-3.txt */,
+				AA27DE4220B6FDB7003250D2 /* s9-4.txt */,
+				AA27DE3E20B6FDB6003250D2 /* s9-5.txt */,
+				AA27DE3520B6FDB4003250D2 /* s9-6.txt */,
+				AA27DE4120B6FDB7003250D2 /* s9-7.txt */,
+				AA27DE3F20B6FDB6003250D2 /* s9-8.txt */,
+				AA27DE3C20B6FDB6003250D2 /* s9-9.txt */,
+				AA27DE3D20B6FDB6003250D2 /* s9-10.txt */,
+				AA27DE3720B6FDB5003250D2 /* s9-11.txt */,
+				AA27DE3820B6FDB5003250D2 /* s9-12.txt */,
+				AA27DE3A20B6FDB5003250D2 /* s9-13.txt */,
+				AA27DE3B20B6FDB6003250D2 /* s9-14.txt */,
+				AA27DE3920B6FDB5003250D2 /* s9-15.txt */,
+				AA27DE1920B6FDA2003250D2 /* 9-4.txt */,
+				AA27DE1A20B6FDA3003250D2 /* 9-5.txt */,
+				AA27DE1E20B6FDA3003250D2 /* 9-6.txt */,
+				AA27DE1C20B6FDA3003250D2 /* 9-7.txt */,
+				AA27DE2020B6FDA4003250D2 /* 9-8.txt */,
+				AA27DE2420B6FDA4003250D2 /* 9-9.txt */,
+				AA27DE1F20B6FDA3003250D2 /* 9-10.txt */,
+				AA27DE2120B6FDA4003250D2 /* 9-11.txt */,
+				AA27DE2220B6FDA4003250D2 /* 9-12.txt */,
+				AA27DE1D20B6FDA3003250D2 /* 9-13.txt */,
+				AA27DE1620B6FDA1003250D2 /* 9-14.txt */,
+				AA27DE2320B6FDA4003250D2 /* 9-15.txt */,
 				AA648E19207CE9F8003ACD07 /* 1-3.txt */,
 				AA648E4F207CEA01003ACD07 /* 1-4.txt */,
 				AA648DD3207CE9EA003ACD07 /* 1-5.txt */,
@@ -1082,6 +1301,36 @@
 				AA648DF7207CE9EF003ACD07 /* s1-9.txt */,
 				AA648E5D207CEA04003ACD07 /* s1-10.txt */,
 				AA648E12207CE9F6003ACD07 /* s1-11.txt */,
+				AA532CEC20B8258C00997094 /* s10-1.txt */,
+				AA532CDD20B8258700997094 /* s10-2.txt */,
+				AA532CF220B8258D00997094 /* s10-3.txt */,
+				AA532CE620B8258900997094 /* s10-4.txt */,
+				AA532CEA20B8258B00997094 /* s10-5.txt */,
+				AA532CEE20B8258C00997094 /* s10-6.txt */,
+				AA532CDB20B8258600997094 /* s10-7.txt */,
+				AA532CE120B8258800997094 /* s10-8.txt */,
+				AA532CDC20B8258700997094 /* s10-9.txt */,
+				AA532CF620B8258D00997094 /* s10-10.txt */,
+				AA532CDA20B8258500997094 /* s10-11.txt */,
+				AA532CED20B8258C00997094 /* s10-12.txt */,
+				AA532CEB20B8258B00997094 /* s10-13.txt */,
+				AA532CF120B8258C00997094 /* s10-14.txt */,
+				AA532CE420B8258900997094 /* s10-15.txt */,
+				AA532CDE20B8258700997094 /* s11-1.txt */,
+				AA532CDF20B8258700997094 /* s11-2.txt */,
+				AA532CEF20B8258C00997094 /* s11-3.txt */,
+				AA532CF720B8258D00997094 /* s11-4.txt */,
+				AA532CE820B8258A00997094 /* s11-5.txt */,
+				AA532CE520B8258900997094 /* s11-6.txt */,
+				AA532CF320B8258D00997094 /* s11-7.txt */,
+				AA532CE020B8258800997094 /* s11-8.txt */,
+				AA532CF420B8258D00997094 /* s11-9.txt */,
+				AA532CF020B8258C00997094 /* s11-10.txt */,
+				AA532CE920B8258A00997094 /* s11-11.txt */,
+				AA532CE220B8258900997094 /* s11-12.txt */,
+				AA532CE720B8258A00997094 /* s11-13.txt */,
+				AA532CF520B8258D00997094 /* s11-14.txt */,
+				AA532CE320B8258900997094 /* s11-15.txt */,
 				AA648E61207CEA04003ACD07 /* s1-12.txt */,
 				AA648E27207CE9FA003ACD07 /* s1-13.txt */,
 				AA648E33207CE9FD003ACD07 /* s1-14.txt */,
@@ -1165,6 +1414,36 @@
 				AA6C95C720A9CC20001158E7 /* s7-3.txt */,
 				AA6C95BC20A9CC1E001158E7 /* s7-4.txt */,
 				AA6C95C520A9CC20001158E7 /* s7-5.txt */,
+				AA532CA420B8203B00997094 /* 10-1.txt */,
+				AA532CAB20B8203D00997094 /* 10-2.txt */,
+				AA532CA520B8203B00997094 /* 10-3.txt */,
+				AA532CB020B8203D00997094 /* 10-4.txt */,
+				AA532CA920B8203C00997094 /* 10-5.txt */,
+				AA532CAD20B8203D00997094 /* 10-6.txt */,
+				AA532CAE20B8203D00997094 /* 10-7.txt */,
+				AA532CA120B8203A00997094 /* 10-8.txt */,
+				AA532CA220B8203A00997094 /* 10-9.txt */,
+				AA532CB220B8203E00997094 /* 10-10.txt */,
+				AA532CB420B8203E00997094 /* 10-11.txt */,
+				AA532CB320B8203E00997094 /* 10-12.txt */,
+				AA532CA320B8203A00997094 /* 10-13.txt */,
+				AA532CBB20B8203F00997094 /* 10-14.txt */,
+				AA532CB620B8203E00997094 /* 10-15.txt */,
+				AA532CB720B8203F00997094 /* 11-1.txt */,
+				AA532CB820B8203F00997094 /* 11-2.txt */,
+				AA532CB120B8203E00997094 /* 11-3.txt */,
+				AA532CAF20B8203D00997094 /* 11-4.txt */,
+				AA532CBA20B8203F00997094 /* 11-5.txt */,
+				AA532CA820B8203C00997094 /* 11-6.txt */,
+				AA532C9F20B8203A00997094 /* 11-7.txt */,
+				AA532CA620B8203B00997094 /* 11-8.txt */,
+				AA532CB920B8203F00997094 /* 11-9.txt */,
+				AA532CAA20B8203C00997094 /* 11-10.txt */,
+				AA532CB520B8203E00997094 /* 11-11.txt */,
+				AA532CA720B8203C00997094 /* 11-12.txt */,
+				AA532C9E20B8203900997094 /* 11-13.txt */,
+				AA532CAC20B8203D00997094 /* 11-14.txt */,
+				AA532CA020B8203A00997094 /* 11-15.txt */,
 				AA6C95C220A9CC1F001158E7 /* s7-6.txt */,
 				AA6C95C020A9CC1E001158E7 /* s7-7.txt */,
 				AA6C95C420A9CC1F001158E7 /* s7-8.txt */,
@@ -1331,22 +1610,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA532CD320B8203F00997094 /* 11-11.txt in Resources */,
 				AA7AE8F62047D88900ADEEDA /* newGameBg.png in Resources */,
 				AAA9BF9420A59058000CA7CD /* 6-3.txt in Resources */,
 				AA5C2ED820A5542900EAD999 /* emptyStar.png in Resources */,
 				AAA9BF9620A59058000CA7CD /* 6-7.txt in Resources */,
 				AA648E71207CEA05003ACD07 /* 1-6.txt in Resources */,
+				AA27DE2E20B6FDA4003250D2 /* 9-10.txt in Resources */,
+				AA532CC920B8203F00997094 /* 10-2.txt in Resources */,
 				AA2B805920A1BA17005BCE21 /* soundPng.png in Resources */,
 				AAA9BF7320A5903C000CA7CD /* s6-6.txt in Resources */,
 				AA648EE7207CEA05003ACD07 /* 1-4.txt in Resources */,
 				AA648EE8207CEA05003ACD07 /* s5-3.txt in Resources */,
 				AA648E9D207CEA05003ACD07 /* s3-13.txt in Resources */,
+				AA27DE1320B6E633003250D2 /* reviewSenResultBg.png in Resources */,
 				AA648EB4207CEA05003ACD07 /* 1-15.txt in Resources */,
 				AAA9BF9720A59058000CA7CD /* 6-8.txt in Resources */,
 				AA648E87207CEA05003ACD07 /* s4-1.txt in Resources */,
 				AA63D1F52087588C000EA088 /* resultBg.png in Resources */,
+				AA27DE4520B6FDB7003250D2 /* s9-1.txt in Resources */,
 				AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */,
 				AAA9BF7B20A5903C000CA7CD /* s6-9.txt in Resources */,
+				AA532D1220B8258D00997094 /* s11-9.txt in Resources */,
 				AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */,
 				AA648EAB207CEA05003ACD07 /* s3-8.txt in Resources */,
 				AA98E6102085E94E001100BA /* block1.png in Resources */,
@@ -1365,15 +1650,18 @@
 				AA648E6E207CEA05003ACD07 /* s4-15.txt in Resources */,
 				AAA9BF7920A5903C000CA7CD /* s6-11.txt in Resources */,
 				AA60A95820B45A7B009AD173 /* s8-3.txt in Resources */,
+				AA532CCC20B8203F00997094 /* 10-7.txt in Resources */,
 				AA60A93620B45A64009AD173 /* 8-15.txt in Resources */,
 				AA648EA5207CEA05003ACD07 /* s2-6.txt in Resources */,
 				AA523FCE208AC4FC004CD863 /* logout.png in Resources */,
+				AA532CFD20B8258D00997094 /* s11-2.txt in Resources */,
 				AAA9BF7020A5903C000CA7CD /* s6-1.txt in Resources */,
 				AAA0E10320982A3D007148EB /* senBlock.png in Resources */,
 				AA60A93D20B45A64009AD173 /* 8-11.txt in Resources */,
 				AA6C95CB20A9CC23001158E7 /* s7-1.txt in Resources */,
 				AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */,
 				AA648EC1207CEA05003ACD07 /* 3-9.txt in Resources */,
+				AA27DE2620B6FDA4003250D2 /* 9-1.txt in Resources */,
 				AA648E67207CEA05003ACD07 /* s4-9.txt in Resources */,
 				AA648E70207CEA05003ACD07 /* s1-6.txt in Resources */,
 				AA523FCC208AC2AB004CD863 /* noClassOkBtn.png in Resources */,
@@ -1382,6 +1670,7 @@
 				AA648E7C207CEA05003ACD07 /* 4-7.txt in Resources */,
 				AA6FB74120AEE20E0001EFED /* avatar.png in Resources */,
 				AAC1CE1C20B56853007FF6F8 /* photo.jpg in Resources */,
+				AA532D0320B8258D00997094 /* s11-6.txt in Resources */,
 				AA648EC3207CEA05003ACD07 /* 2-3.txt in Resources */,
 				AA60A95120B45A7B009AD173 /* s8-2.txt in Resources */,
 				AA04ED85203D7E9100EC0A8E /* intermediateBg.png in Resources */,
@@ -1394,6 +1683,7 @@
 				AA6C95D720A9CC23001158E7 /* s7-12.txt in Resources */,
 				AAC1CE1420B52D5F007FF6F8 /* chartBgPng.png in Resources */,
 				AA648EEB207CEA05003ACD07 /* s4-12.txt in Resources */,
+				AA27DE2A20B6FDA4003250D2 /* 9-2.txt in Resources */,
 				AAFAFCA0205BD9CA00307264 /* wordTableBg.png in Resources */,
 				AA648EDB207CEA05003ACD07 /* 2-15.txt in Resources */,
 				AA648EB6207CEA05003ACD07 /* s2-11.txt in Resources */,
@@ -1401,10 +1691,13 @@
 				AA648EAA207CEA05003ACD07 /* s1-11.txt in Resources */,
 				AA648EC4207CEA05003ACD07 /* s1-15.txt in Resources */,
 				AA648E85207CEA05003ACD07 /* 2-2.txt in Resources */,
+				AA532CD520B8203F00997094 /* 11-1.txt in Resources */,
 				AA648EAF207CEA05003ACD07 /* s1-2.txt in Resources */,
 				AA648E8E207CEA05003ACD07 /* s3-6.txt in Resources */,
+				AA532D0820B8258D00997094 /* s10-5.txt in Resources */,
 				AAE181981F97892D00683896 /* Main.storyboard in Resources */,
 				AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */,
+				AA27DE3220B6FDA4003250D2 /* 9-15.txt in Resources */,
 				AA6C95D420A9CC23001158E7 /* s7-2.txt in Resources */,
 				AA648EF5207CEA05003ACD07 /* s1-10.txt in Resources */,
 				AA7ABB9520579591007884A1 /* countDownLine.png in Resources */,
@@ -1413,9 +1706,12 @@
 				AA98E62020861560001100BA /* block1Title.png in Resources */,
 				AA648E8F207CEA05003ACD07 /* s1-9.txt in Resources */,
 				AA648E6D207CEA05003ACD07 /* 5-6.txt in Resources */,
+				AA532CC820B8203F00997094 /* 11-10.txt in Resources */,
+				AA532CBC20B8203F00997094 /* 11-13.txt in Resources */,
 				AA60A95220B45A7B009AD173 /* s8-4.txt in Resources */,
 				AA648EDC207CEA05003ACD07 /* s5-1.txt in Resources */,
 				AA6C95D220A9CC23001158E7 /* s7-8.txt in Resources */,
+				AA532CBF20B8203F00997094 /* 10-8.txt in Resources */,
 				AA648E81207CEA05003ACD07 /* 4-2.txt in Resources */,
 				AA648E94207CEA05003ACD07 /* AllElements.txt in Resources */,
 				AA648ED9207CEA05003ACD07 /* s2-5.txt in Resources */,
@@ -1432,40 +1728,54 @@
 				AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */,
 				AA6AA72D209C9A3200374241 /* popQuizBlock.png in Resources */,
 				AA648EE6207CEA05003ACD07 /* 5-12.txt in Resources */,
+				AA532CC520B8203F00997094 /* 11-12.txt in Resources */,
 				AAA9BF8C20A59058000CA7CD /* 6-2.txt in Resources */,
+				AA532D1420B8258D00997094 /* s10-10.txt in Resources */,
 				AA9655672090B0C2003E5AB7 /* bookViewBottomBg.png in Resources */,
+				AA27DE4420B6FDB7003250D2 /* s9-6.txt in Resources */,
 				AA648EBF207CEA05003ACD07 /* s1-13.txt in Resources */,
 				AA7DCB952085BE65008AFFDF /* s1-1.txt in Resources */,
+				AA27DE2D20B6FDA4003250D2 /* 9-6.txt in Resources */,
 				AA648E77207CEA05003ACD07 /* 3-4.txt in Resources */,
 				AA60A92F20B45A64009AD173 /* 8-9.txt in Resources */,
 				AA648E8D207CEA05003ACD07 /* 5-2.txt in Resources */,
 				AA60A93220B45A64009AD173 /* 8-5.txt in Resources */,
+				AA27DE4C20B6FDB7003250D2 /* s9-10.txt in Resources */,
 				AA98E6052085CBC3001100BA /* rightRoundedSqr.png in Resources */,
 				AAA9BF9320A59058000CA7CD /* 6-1.txt in Resources */,
 				AA648E7A207CEA05003ACD07 /* 3-6.txt in Resources */,
 				AA648EE3207CEA05003ACD07 /* s5-15.txt in Resources */,
 				AA648EBE207CEA05003ACD07 /* 5-13.txt in Resources */,
 				AA648E98207CEA05003ACD07 /* s4-10.txt in Resources */,
+				AA27DE4620B6FDB7003250D2 /* s9-11.txt in Resources */,
 				AA60A93B20B45A64009AD173 /* 8-7.txt in Resources */,
+				AA532D0220B8258D00997094 /* s10-15.txt in Resources */,
 				AA277115208A0CAA00414E5D /* lockPng.png in Resources */,
 				AA648ED2207CEA05003ACD07 /* 5-8.txt in Resources */,
 				AA648ED0207CEA05003ACD07 /* s2-3.txt in Resources */,
+				AA532D0020B8258D00997094 /* s11-12.txt in Resources */,
 				AA60A93A20B45A64009AD173 /* 8-1.txt in Resources */,
 				AA648ED5207CEA05003ACD07 /* s3-9.txt in Resources */,
 				AA648E68207CEA05003ACD07 /* s3-14.txt in Resources */,
 				AAA9BF7A20A5903C000CA7CD /* s6-8.txt in Resources */,
+				AA27DE4F20B6FDB7003250D2 /* s9-2.txt in Resources */,
+				AA532D1520B8258D00997094 /* s11-4.txt in Resources */,
 				AA7DCB972085BE71008AFFDF /* 1-1.txt in Resources */,
 				AA6C95B620A9CC10001158E7 /* 7-2.txt in Resources */,
 				AA04ED8E203D7F6200EC0A8E /* toeicBg.png in Resources */,
 				AA648E74207CEA05003ACD07 /* 1-7.txt in Resources */,
+				AA27DE2720B6FDA4003250D2 /* 9-3.txt in Resources */,
 				AA5E2C46203D3738005E22A0 /* loginBtnImg.png in Resources */,
 				AA5879F1203EAB1800FEA058 /* bigBlueBall.png in Resources */,
+				AA27DE4D20B6FDB7003250D2 /* s9-5.txt in Resources */,
 				AA6C95AF20A9CC10001158E7 /* 7-6.txt in Resources */,
 				AA648E8C207CEA05003ACD07 /* 1-12.txt in Resources */,
 				AA98E6062085CBC3001100BA /* leftRoundedSqr.png in Resources */,
 				AA0EAA6E20A486E600E256AF /* answerRightBtn.png in Resources */,
+				AA27DE4720B6FDB7003250D2 /* s9-12.txt in Resources */,
 				AA648E66207CEA05003ACD07 /* s1-7.txt in Resources */,
 				AA648EC0207CEA05003ACD07 /* 3-2.txt in Resources */,
+				AA27DE3320B6FDA4003250D2 /* 9-9.txt in Resources */,
 				AA648ED1207CEA05003ACD07 /* s2-1.txt in Resources */,
 				AAF31A11207E23DA002F8FD8 /* lightSel.png in Resources */,
 				AA9655692090B7E3003E5AB7 /* practiceBook.png in Resources */,
@@ -1489,6 +1799,7 @@
 				AA648E80207CEA05003ACD07 /* s2-4.txt in Resources */,
 				AA6C95BA20A9CC10001158E7 /* 7-13.txt in Resources */,
 				AA648E90207CEA05003ACD07 /* 5-15.txt in Resources */,
+				AA27DE3020B6FDA4003250D2 /* 9-11.txt in Resources */,
 				AA648EDD207CEA05003ACD07 /* s5-4.txt in Resources */,
 				AA648EF3207CEA05003ACD07 /* 2-4.txt in Resources */,
 				AA648ECE207CEA05003ACD07 /* 4-5.txt in Resources */,
@@ -1497,25 +1808,39 @@
 				AA648EB5207CEA05003ACD07 /* s4-5.txt in Resources */,
 				AA648E7E207CEA05003ACD07 /* 5-3.txt in Resources */,
 				AA60A93020B45A64009AD173 /* 8-8.txt in Resources */,
+				AA532CFC20B8258D00997094 /* s11-1.txt in Resources */,
 				AAA9BF6F20A5903C000CA7CD /* s6-2.txt in Resources */,
+				AA532CC020B8203F00997094 /* 10-9.txt in Resources */,
 				AA648EBA207CEA05003ACD07 /* 3-13.txt in Resources */,
 				AAFAFCB5205BE11F00307264 /* bookTimes0.png in Resources */,
 				AA648EBB207CEA05003ACD07 /* s5-9.txt in Resources */,
+				AA532D0920B8258D00997094 /* s10-13.txt in Resources */,
 				AA648E7D207CEA05003ACD07 /* 1-14.txt in Resources */,
 				AA6C95B720A9CC10001158E7 /* 7-4.txt in Resources */,
+				AA532D0D20B8258D00997094 /* s11-3.txt in Resources */,
 				AA648EC5207CEA05003ACD07 /* 5-14.txt in Resources */,
+				AA27DE2920B6FDA4003250D2 /* 9-5.txt in Resources */,
 				AA3C6C0F2091A55000B7F83C /* enterGameBtn.png in Resources */,
 				AA648E96207CEA05003ACD07 /* s5-2.txt in Resources */,
 				AA648EF4207CEA05003ACD07 /* 2-1.txt in Resources */,
+				AA532CCF20B8203F00997094 /* 11-3.txt in Resources */,
+				AA532CCE20B8203F00997094 /* 10-4.txt in Resources */,
 				AA648E92207CEA05003ACD07 /* 4-1.txt in Resources */,
+				AA27DE3120B6FDA4003250D2 /* 9-12.txt in Resources */,
 				AA648EB9207CEA05003ACD07 /* 4-12.txt in Resources */,
 				AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */,
 				AA523FD2208AD862004CD863 /* volume.png in Resources */,
+				AA532CC120B8203F00997094 /* 10-13.txt in Resources */,
+				AA27DE2820B6FDA4003250D2 /* 9-4.txt in Resources */,
 				AA648E91207CEA05003ACD07 /* s4-4.txt in Resources */,
+				AA532D0E20B8258D00997094 /* s11-10.txt in Resources */,
 				AA648EED207CEA05003ACD07 /* s3-5.txt in Resources */,
 				AA6C95B920A9CC10001158E7 /* 7-7.txt in Resources */,
 				AA648E7F207CEA05003ACD07 /* s1-3.txt in Resources */,
+				AA532CBE20B8203F00997094 /* 11-15.txt in Resources */,
 				AA648EDE207CEA05003ACD07 /* s5-10.txt in Resources */,
+				AA532D0B20B8258D00997094 /* s10-12.txt in Resources */,
+				AA532CC420B8203F00997094 /* 11-8.txt in Resources */,
 				AAA591732064C543006CC5A6 /* midCircle.png in Resources */,
 				AA5879F5203EAC1A00FEA058 /* smallBlueBall.png in Resources */,
 				AA648E78207CEA05003ACD07 /* 1-9.txt in Resources */,
@@ -1523,37 +1848,49 @@
 				AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */,
 				AAFAFCB8205BE11F00307264 /* bookSpeed0.png in Resources */,
 				AA6C95BB20A9CC10001158E7 /* 7-9.txt in Resources */,
+				AA27DE5020B6FDB7003250D2 /* s9-7.txt in Resources */,
 				AA648EB0207CEA05003ACD07 /* 5-1.txt in Resources */,
 				AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */,
 				AA648E9C207CEA05003ACD07 /* 3-12.txt in Resources */,
 				AA648EA7207CEA05003ACD07 /* s2-12.txt in Resources */,
+				AA532CD720B8203F00997094 /* 11-9.txt in Resources */,
 				AA6C95B820A9CC10001158E7 /* 7-8.txt in Resources */,
 				AA648ECA207CEA05003ACD07 /* 4-15.txt in Resources */,
 				AA8B69F62024777D0023E0FD /* NewGameScene.sks in Resources */,
 				AA98E60C2085E8A9001100BA /* block0.png in Resources */,
+				AA27DE4920B6FDB7003250D2 /* s9-13.txt in Resources */,
+				AA532CCB20B8203F00997094 /* 10-6.txt in Resources */,
 				AA60A95520B45A7B009AD173 /* s8-5.txt in Resources */,
 				AAA9BF7820A5903C000CA7CD /* s6-14.txt in Resources */,
 				AA648EA4207CEA05003ACD07 /* 3-11.txt in Resources */,
 				AAA591752064C543006CC5A6 /* outCircle.png in Resources */,
+				AA532CD820B8203F00997094 /* 11-5.txt in Resources */,
 				AAA9BF9920A59963000CA7CD /* intermediateBackBtnImg.png in Resources */,
 				AA648E84207CEA05003ACD07 /* 4-13.txt in Resources */,
 				AA04ED88203D7E9100EC0A8E /* elementaryBg.png in Resources */,
+				AA27DE2B20B6FDA4003250D2 /* 9-7.txt in Resources */,
 				AA6C95DE20AAAA8F001158E7 /* fire.sks in Resources */,
 				AA648E6C207CEA05003ACD07 /* 3-8.txt in Resources */,
 				AA648E9F207CEA05003ACD07 /* s4-13.txt in Resources */,
+				AA532CCD20B8203F00997094 /* 11-4.txt in Resources */,
 				AA7D6139204040A400E0A94D /* purpleBg.png in Resources */,
 				AA6C95D020A9CC23001158E7 /* s7-6.txt in Resources */,
 				AA7AE8FA20494EA400ADEEDA /* recogWordsBg.png in Resources */,
 				AA98E61F20861560001100BA /* block0Title.png in Resources */,
 				AAA9BF8E20A59058000CA7CD /* 6-13.txt in Resources */,
 				AA648E93207CEA05003ACD07 /* 4-4.txt in Resources */,
+				AA532CFE20B8258D00997094 /* s11-8.txt in Resources */,
 				AAA9BF7420A5903C000CA7CD /* s6-7.txt in Resources */,
 				AA98E6282086226E001100BA /* backBtnImg.png in Resources */,
 				AA648ED4207CEA05003ACD07 /* s2-15.txt in Resources */,
+				AA27DE4320B6FDB7003250D2 /* s9-3.txt in Resources */,
+				AA532CFA20B8258D00997094 /* s10-9.txt in Resources */,
 				AAA9BF9020A59058000CA7CD /* 6-4.txt in Resources */,
 				AA2B64D2205A612E00742226 /* newBookBg.png in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
 				AA5879F9203EADE100FEA058 /* smallDarkBall.png in Resources */,
+				AA532CFF20B8258D00997094 /* s10-8.txt in Resources */,
+				AA27DE2C20B6FDA4003250D2 /* 9-13.txt in Resources */,
 				AA648EFC207CEA05003ACD07 /* 4-14.txt in Resources */,
 				AA648EEE207CEA05003ACD07 /* 2-8.txt in Resources */,
 				AAA591742064C543006CC5A6 /* inCircle.png in Resources */,
@@ -1563,48 +1900,67 @@
 				AAA9BF7120A5903C000CA7CD /* s6-12.txt in Resources */,
 				AA648EBD207CEA05003ACD07 /* 5-5.txt in Resources */,
 				AA648EE4207CEA05003ACD07 /* 5-7.txt in Resources */,
+				AA532CF820B8258D00997094 /* s10-11.txt in Resources */,
 				AAF31A10207E23DA002F8FD8 /* darkSel.png in Resources */,
 				AA648EF0207CEA05003ACD07 /* 5-9.txt in Resources */,
 				AA6FB74320AEE2320001EFED /* camera.png in Resources */,
+				AA27DE5120B6FDB7003250D2 /* s9-4.txt in Resources */,
+				AA27DE4E20B6FDB7003250D2 /* s9-8.txt in Resources */,
 				AA648EF9207CEA05003ACD07 /* s1-12.txt in Resources */,
+				AA532CD920B8203F00997094 /* 10-14.txt in Resources */,
 				AAA9BF9220A59058000CA7CD /* 6-6.txt in Resources */,
 				AAA9BF7620A5903C000CA7CD /* s6-5.txt in Resources */,
 				AA60A94F20B45A7B009AD173 /* s8-13.txt in Resources */,
+				AA532CD020B8203F00997094 /* 10-10.txt in Resources */,
 				AA63D1F920875DBD000EA088 /* rightWordBtn.png in Resources */,
+				AA532D0A20B8258D00997094 /* s10-1.txt in Resources */,
 				AA6C95B520A9CC10001158E7 /* 7-1.txt in Resources */,
+				AA532CD420B8203F00997094 /* 10-15.txt in Resources */,
 				AAC1CE1A20B55860007FF6F8 /* chartSeperator.png in Resources */,
 				AA6C95B420A9CC10001158E7 /* 7-12.txt in Resources */,
 				AA648EF2207CEA05003ACD07 /* 2-13.txt in Resources */,
+				AA532D1320B8258D00997094 /* s11-14.txt in Resources */,
+				AA532D1020B8258D00997094 /* s10-3.txt in Resources */,
 				AA648EB3207CEA05003ACD07 /* s5-8.txt in Resources */,
 				AA648ECD207CEA05003ACD07 /* s4-8.txt in Resources */,
 				AAFAFCAF205BE11F00307264 /* bookTimes2.png in Resources */,
 				AAFAFCB7205BE11F00307264 /* bookPlayOn.png in Resources */,
+				AA532CC720B8203F00997094 /* 10-5.txt in Resources */,
 				AA21142F2043F0200047B866 /* leftPageBtn.png in Resources */,
 				AA648E79207CEA05003ACD07 /* 3-5.txt in Resources */,
+				AA532CD120B8203F00997094 /* 10-12.txt in Resources */,
 				AA27712B208A54E700414E5D /* noClassAlertBg.png in Resources */,
 				AAA9BF7520A5903C000CA7CD /* s6-10.txt in Resources */,
 				AA60A95920B45A7B009AD173 /* s8-15.txt in Resources */,
 				AA648EC8207CEA05003ACD07 /* 5-11.txt in Resources */,
 				AA60A93420B45A64009AD173 /* 8-3.txt in Resources */,
 				AA648ECF207CEA05003ACD07 /* 2-11.txt in Resources */,
+				AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */,
 				AA60A95420B45A7B009AD173 /* s8-1.txt in Resources */,
 				AA6FB73D20AEDF680001EFED /* yellowBack.png in Resources */,
 				AA6C95DB20AAA29C001158E7 /* reviewQuitBg.png in Resources */,
 				AA98E62620861F26001100BA /* stageTopCover.png in Resources */,
 				AA98E6112085E94E001100BA /* block3.png in Resources */,
 				AA648EBC207CEA05003ACD07 /* 4-10.txt in Resources */,
+				AA532D1120B8258D00997094 /* s11-7.txt in Resources */,
 				AAB63B39204E5DFE00F96E9C /* talkPng.png in Resources */,
+				AA532CC320B8203F00997094 /* 10-3.txt in Resources */,
 				AA648EAD207CEA05003ACD07 /* s2-14.txt in Resources */,
+				AA27DE2F20B6FDA4003250D2 /* 9-8.txt in Resources */,
 				AA98E6242086197A001100BA /* bookPng.png in Resources */,
+				AA532D0520B8258D00997094 /* s11-13.txt in Resources */,
 				AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */,
 				AA648E76207CEA05003ACD07 /* s1-8.txt in Resources */,
 				AAE46C8220A4213F00FA6FCD /* 老師唸錯的字.txt in Resources */,
 				AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */,
 				AA6C95AE20A9CC10001158E7 /* 7-3.txt in Resources */,
 				AA60A93920B45A64009AD173 /* 8-13.txt in Resources */,
+				AA27DE4A20B6FDB7003250D2 /* s9-14.txt in Resources */,
 				AAA9BF9120A59058000CA7CD /* 6-10.txt in Resources */,
+				AA27DE4820B6FDB7003250D2 /* s9-15.txt in Resources */,
 				AA648EB2207CEA05003ACD07 /* s3-12.txt in Resources */,
 				AA6AA72B209C99F500374241 /* timerCover.png in Resources */,
+				AA532CFB20B8258D00997094 /* s10-2.txt in Resources */,
 				AA60A95B20B45A7B009AD173 /* s8-9.txt in Resources */,
 				AA6C95D520A9CC23001158E7 /* s7-3.txt in Resources */,
 				AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */,
@@ -1618,7 +1974,9 @@
 				AA98E62120861560001100BA /* block2Title.png in Resources */,
 				AA6AA729209C99EE00374241 /* timerBg.png in Resources */,
 				AA6C95B320A9CC10001158E7 /* 7-11.txt in Resources */,
+				AA532CBD20B8203F00997094 /* 11-7.txt in Resources */,
 				AA98E6122085E94E001100BA /* block2.png in Resources */,
+				AA532CCA20B8203F00997094 /* 11-14.txt in Resources */,
 				AA648E95207CEA05003ACD07 /* s2-8.txt in Resources */,
 				AA648EAC207CEA05003ACD07 /* s5-11.txt in Resources */,
 				AA648EEC207CEA05003ACD07 /* 1-13.txt in Resources */,
@@ -1631,11 +1989,14 @@
 				AA648E6A207CEA05003ACD07 /* s3-15.txt in Resources */,
 				AA60A95A20B45A7B009AD173 /* s8-6.txt in Resources */,
 				AA04ED8D203D7F6200EC0A8E /* toeflBg.png in Resources */,
+				AA532D0620B8258D00997094 /* s11-5.txt in Resources */,
 				AA648E99207CEA05003ACD07 /* s4-14.txt in Resources */,
 				AA648EB8207CEA05003ACD07 /* s5-14.txt in Resources */,
+				AA532D0720B8258D00997094 /* s11-11.txt in Resources */,
 				AAA9BF8A20A59058000CA7CD /* 6-14.txt in Resources */,
 				AA60A94D20B45A7B009AD173 /* s8-12.txt in Resources */,
 				AA648E6F207CEA05003ACD07 /* 3-15.txt in Resources */,
+				AA532CC620B8203F00997094 /* 11-6.txt in Resources */,
 				AA648EEA207CEA05003ACD07 /* s1-4.txt in Resources */,
 				AAA9BF8F20A59058000CA7CD /* 6-11.txt in Resources */,
 				AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */,
@@ -1646,30 +2007,41 @@
 				AA63D1F820875DBD000EA088 /* wrongWordBtn.png in Resources */,
 				AAFAFCB6205BE11F00307264 /* bookTimes1.png in Resources */,
 				AA6C95CE20A9CC23001158E7 /* s7-7.txt in Resources */,
+				AA532CD620B8203F00997094 /* 11-2.txt in Resources */,
 				AA648E97207CEA05003ACD07 /* s5-6.txt in Resources */,
+				AA532CD220B8203F00997094 /* 10-11.txt in Resources */,
 				AA98E62220861560001100BA /* block3Title.png in Resources */,
+				AA532D0120B8258D00997094 /* s11-15.txt in Resources */,
 				AA6C95B220A9CC10001158E7 /* 7-14.txt in Resources */,
+				AA27DE2520B6FDA4003250D2 /* 9-14.txt in Resources */,
 				AA63D1FD20879A31000EA088 /* unlockOkBtn.png in Resources */,
 				AA648E9A207CEA05003ACD07 /* 2-14.txt in Resources */,
+				AA532D0F20B8258D00997094 /* s10-14.txt in Resources */,
 				AA648E88207CEA05003ACD07 /* s4-6.txt in Resources */,
 				AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */,
 				AAFAFCB1205BE11F00307264 /* bookPlayOff.png in Resources */,
 				AA6C95D120A9CC23001158E7 /* s7-14.txt in Resources */,
 				AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn.png in Resources */,
+				AA27DE1120B6E2B2003250D2 /* reviewOkBtnPng.png in Resources */,
 				AAFAFCB0205BE11F00307264 /* bookSpeed1.png in Resources */,
+				AA27DE4B20B6FDB7003250D2 /* s9-9.txt in Resources */,
 				AA6C95B020A9CC10001158E7 /* 7-5.txt in Resources */,
 				AAA9BF8B20A59058000CA7CD /* 6-9.txt in Resources */,
 				AA648EFA207CEA05003ACD07 /* 1-10.txt in Resources */,
+				AA532D0420B8258D00997094 /* s10-4.txt in Resources */,
 				AAA9BF9520A59058000CA7CD /* 6-12.txt in Resources */,
 				AA60A94E20B45A7B009AD173 /* s8-8.txt in Resources */,
 				AA648EE0207CEA05003ACD07 /* s2-10.txt in Resources */,
 				AA648EA3207CEA05003ACD07 /* s4-2.txt in Resources */,
 				AA648EF6207CEA05003ACD07 /* s3-11.txt in Resources */,
 				AAA9BF6E20A5903C000CA7CD /* s6-3.txt in Resources */,
+				AA532CC220B8203F00997094 /* 10-1.txt in Resources */,
 				AA648EDF207CEA05003ACD07 /* 2-5.txt in Resources */,
 				AA648EE5207CEA05003ACD07 /* 4-3.txt in Resources */,
 				AA98E6082085DC5F001100BA /* loginBgImg.png in Resources */,
+				AA532D0C20B8258D00997094 /* s10-6.txt in Resources */,
 				AA648EF7207CEA05003ACD07 /* 3-7.txt in Resources */,
+				AA532CF920B8258D00997094 /* s10-7.txt in Resources */,
 				AA60A95720B45A7B009AD173 /* s8-10.txt in Resources */,
 				AAFAFCA2205BDD6500307264 /* sylBlueBall.png in Resources */,
 				AA648E83207CEA05003ACD07 /* s3-3.txt in Resources */,

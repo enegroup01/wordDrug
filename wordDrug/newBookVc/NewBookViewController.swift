@@ -146,7 +146,55 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["a_e30","al34","el15","er65","in22","ja1","je1","ment6","tem1","tion21"],
                             ["a_e42","al53","ar31","ea53","ee31","el17","ge22","tion41","un11","vic1"]]
 
+    let map9SyllableSets = [["a_e31","al35","ce20","ew3","ful5","gle1","in23","jo1","tion22","ui5"],
+                            ["a_e32","al36","ce21","in24","kn2","ko1","lab1","ly8","ness2","tion23"],
+                            ["ar26","ble10","bug1","er66","gr7","i_e21","in25","kn3","la1","u_e6"],
+                            ["au10","aw5","ay15","ea46","en38","in26","ing17","rn2","th13","ty8"],
+                            ["an26","ck10","er67","igh7","lo1","ly9","oa8","oo21","or37","ture4"],
+                            ["al37","by3","ea47","er68","gi4","in27","ou26","ous2","sp2","tion24"],
+                            ["a_e33","ad6","ai17","ai38","ce22","er69","ge15","in29","ma1","tic3"],
+                            ["al39","cal1","ch22","i_e22","in28","it2","me1","ph4","sh15","sure2"],
+                            ["ble11","cle2","er70","igh8","il3","ment7","mi4","mis1","mo2","sion5"],
+                            ["el16","er71","mis2","mu1","or38","ple3","th14","ture5","ty9","ug1"],
+                            ["a_e34","al40","al41","ee28","ly10","mis3","na2","ne1","oo22","tion25"],
+                            ["ck11","ew4","less1","no2","od1","or39","ous3","ow16","tr5","ur9"],
+                            ["ch23","er72","ing18","oc1","on5","op4","or40","pic1","sive2","tion26"],
+                            ["al42","ce23","er73","ge16","oa9","or41","ou27","ough1","th20","tion27"],
+                            ["ar32","ck15","ea54","eigh1","er90","i_e30","th19","we1","wh5","wh6"]]
     
+    let map10SyllableSets = [["a_e35","an27","ci7","ea52","ma1","o_e13","ow17","ox1","pa1","sh16"],
+                             ["al43","ar27","ce24","ea48","ee29","i_e23","ly11","pa2","rl1","sion6"],
+                             ["a_e36","al44","er74","ing19","ph5","ri1","st19","tic4","ty10","um6"],
+                             ["al45","ay16","ce25","er75","ge17","or42","ous4","ph6","po1","sion7"],
+                             ["er76","ful6","i_e24","ly12","o_e14","ph7","po2","pr9","tion28","ty11"],
+                             ["al46","ble12","ce26","er77","ph8","po3","pr10","sive3","tion29","tive5"],
+                             ["ch24","ct6","er78","gy2","pr11","pu1","sh17","tion30","u_e7","ur10"],
+                             ["ai18","al47","an28","ar28","aw6","er79","ge18","pr12","qu4","tion31"],
+                             ["ear1","el19","ing20","ly13","nd7","pr13","qu5","re5","tion32","ty12"],
+                             ["a_e37","al48","ce27","er80","gi5","or43","pr14","qu6","re6","tion33"],
+                             ["ble13","dy4","ea49","less2","o_e15","re7","re8","sent2","tion34","tive6"],
+                             ["ce28","ct7","er81","i_e25","ment8","nt3","re9","tion35","tr6","ue4"],
+                             ["ch25","er82","fle1","id3","ous5","re10","rh1","sion8","tion37","wr1"],
+                             ["al49","ce29","ck12","ing21","ly14","re11","ro2","sia1","tic5","tion36"],
+                             ["dom1","i_e31","in31","ing28","it3","ld1","ness3","or49","wh7","wo1"]]
+    
+    
+    let map11SyllableSets = [["a_e38","al50","ce32","er83","i_e26","ing22","ry6","sa1","sc2","tion38"],
+                             ["ch26","ci8","e_e2","ea50","en39","ew5","oo23","ry7","sh18","ty13"],
+                             ["ble14","ce33","ei1","ex5","igh9","im8","in30","ri2","sh19","ture6"],
+                             ["a_e39","ch27","ee30","er84","ing23","ip2","ly15","sh26","sl1","tion39"],
+                             ["ce30","ck13","ob2","oi5","or44","ou28","sh20","sm1","sn1","some1"],
+                             ["ar29","ge19","ing24","kle1","ow18","qu7","so2","sp3","st20","str2"],
+                             ["a_e40","al51","ble15","ea51","some2","sp4","st21","str3","sub1","tion40"],
+                             ["er85","i_e27","or45","pl3","sp5","st22","str4","sub2","um7","un8"],
+                             ["a_e41","ck14","ing25","on6","ry8","st23","str5","sym2","ta2","th15"],
+                             ["ar30","er86","nd8","nt4","o_e16","ph9","sh21","sm2","sp6","st24"],
+                             ["al52","ble16","i_e28","ough2","sh22","sion9","sp7","st25","te1","th16"],
+                             ["ce31","igh10","ing26","oe1","sh23","some3","sp8","st26","th17","to2"],
+                             ["ch28","er87","ge20","mb2","or46","or47","sh24","st27","th18","tour1"],
+                             ["ble17","er88","ful7","ing27","oo24","or48","ous6","tw1","ty14","u_e8"],
+                             ["aw7","dom2","el18","er91","ly17","or50","ow19","wh8","wr2","yo1"]]
+
     
     
     //刪掉數字的音節
@@ -381,6 +429,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             syllableGroup.append(map6SyllableSets)
             syllableGroup.append(map7SyllableSets)
             syllableGroup.append(map8SyllableSets)
+            syllableGroup.append(map9SyllableSets)
+            syllableGroup.append(map10SyllableSets)
+            syllableGroup.append(map11SyllableSets)
             
             mapPassedInt = mapPassed2
             gamePassedDic = gamePassed2
