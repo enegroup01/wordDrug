@@ -27,6 +27,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var scores = [String]()
     var avas = [String]()
     var wordCounts = [Int]()
+    var wordReviewCounts = [Int]()
+    var senReviewCounts = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,34 +172,63 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
 
                     //print(parseJSON)
                     
-                    for eachUser in parseJSON{
+                    
+                    var newDic:[[String:String]]?
+                    newDic = Array(repeating: [String:String](), count: parseJSON.count)
+                    
+                    for i in 0 ..< parseJSON.count{
                         
-                        if let username = eachUser["username"] as? String{
+                        
+                        if let username = parseJSON[i]["username"] as? String{
+                            
+                            
                             
                             self!.usernames.append(username)
+                            newDic![i]["username"] = String(username)
+                            
                             
                         }
                         
-                        if let score = eachUser["score"] as? Int{
+                        if let ava = parseJSON[i]["ava"] as? String{
+                            
+                            newDic![i]["ava"] = String(ava)
+                            self!.avas.append(ava)
+                            
+                            
+                        }
+                        
+                        if let wordCounts = parseJSON[i]["wordReviewCounts"] as? Int{
+                           newDic![i]["wordCounts"] = String(wordCounts)
+                        }
+                        
+                        
+                        if let senCounts = parseJSON[i]["senReviewCounts"] as? Int{
+                            
+                                             newDic![i]["senCounts"] = String(senCounts)
+                            
+                            
+                        }
+         
+                        
+    
+                        
+                        if let score = parseJSON[i]["score"] as? Int{
                             
                             self!.scores.append(String(score))
                         }
                         
-                        if let ava = eachUser["ava"] as? String{
-                            
-                            self!.avas.append(ava)
-                        }
+                       
                         print(self!.avas)
                       
                         var mapWord = Int()
                         var mapWord2 = Int()
                         
                         
-                        if let mapPassed = eachUser["mapPassed"] as? String{
+                        if let mapPassed = parseJSON[i]["mapPassed"] as? String{
                             mapWord = Int(mapPassed)! * 450
                             
                         }
-                        if let mapPassed2 = eachUser["mapPassed2"] as? String{
+                        if let mapPassed2 = parseJSON[i]["mapPassed2"] as? String{
                             mapWord2 = Int(mapPassed2)! * 420
                         }
                         
@@ -214,14 +245,14 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         var gameWord = Int()
                         var gameWord2 = Int()
                       
-                        if let gamePassed = eachUser["gamePassed"] as? String{
+                        if let gamePassed = parseJSON[i]["gamePassed"] as? String{
                             
                             let sep = gamePassed.components(separatedBy: ":")
                             gameWord = Int(sep[0])! * 30 + Int(sep[1])! * 3
                             
        
                         }
-                        if let gamePassed2 = eachUser["gamePassed2"] as? String{
+                        if let gamePassed2 = parseJSON[i]["gamePassed2"] as? String{
                 
                             let sep = gamePassed2.components(separatedBy: ":")
                             gameWord2 = Int(sep[0])! * 30 + Int(sep[1])! * 3
@@ -232,43 +263,20 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2
                         self!.wordCounts.append(totalWordCount)
                         /*
-                        if let gamePassed3 = user["gamePassed3"] as? String{
+                        if let gamePassed3 = parseJSON[i]["gamePassed3"] as? String{
                       
                             
                         }
-                        if let gamePassed4 = user["gamePassed4"] as? String{
+                        if let gamePassed4 = parseJSON[i]["gamePassed4"] as? String{
                         
                             
                         }
                         */
-                        
-                        var wordCount = Int()
-                        var wordCount2 = Int()
-                        var wordCount3 = Int()
-                        var senCount = Int()
-                        var senCount2 = Int()
-                        var senCount3 = Int()
-                        
-                        
-                           if let eachWordCount = eachUser["wordReviewCount"] as? String{
-                        
-                            wordCount = Int(eachWordCount)!
-                            
-                        }
-                        
-                        
+
                     }
                     
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+       
+                    print("wordReviewParse:\(newDic)")
                     
 
                     DispatchQueue.main.async(execute: {
@@ -276,6 +284,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     })
                    
                     print(self!.avas.count)
+                  
                     
                 } catch{
                     
