@@ -263,6 +263,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var proRate = Int()
     var senRate = Int()
     
+    var senCount = Int()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -2807,7 +2809,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             if isReviewWrong{
                 
-                reviewResult(type:1, count:0)
+        
+        
+                updateReviewSenCount(senCount: senCount, course: courseReceived)
+                
                 
             } else{
                 
@@ -3017,6 +3022,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //如果是的話代表是練習最後一個
                 
                 
+                senCount += 1
+                
                 //在此抓共有幾題
                 var randomSpotsCount = randomSpots.count
                 
@@ -3094,12 +3101,27 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
             
-        } else if gameMode == 2{
+        } else if gameMode == 2 {
             
+            updateReviewSenCount(senCount: senCount, course:courseReceived)
             
-            reviewResult(type:1, count:0)
         }
         
+            /* gameMode == 2 不會從NC過來, 直接在VC裡
+        else if gameMode == 2{
+            
+            if let senCount = notification.userInfo?["senCount"] as? Int{
+            
+            
+                print(senCount)
+            updateReviewSenCount(senCount: senCount, course:courseReceived)
+        
+            
+            }
+            
+            
+        }
+        */
   
     }
     
@@ -3145,25 +3167,29 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     print(parseJSON)
                     
                     var tempCount = Int()
-                    var tempJson = String()
-                    
-                    var receiveCount = Int()
-                    var receiveCount2 = Int()
-                    var receiveCount3 = Int()
-                    
-                    let courseCount = user?["wordReviewCount"] as! String
-                    let courseCount2 = user?["wordReviewCount2"] as! String
-                    let courseCount3 = user?["wordReviewCount3"] as! String
+                    var tempJsonName = String()
+                    var otherCountName = String()
+                    var otherCountName2 = String()
+                    var totalCount = Int()
+                
                     
                     switch course{
                         
                     case 0:
-                        tempJson = "wordReviewCount"
+                        tempJsonName = "wordReviewCount"
+                        otherCountName = "wordReviewCount2"
+                        otherCountName2 = "wordReviewCount3"
 
                     case 1:
-                        tempJson = "wordReviewCount2"
+                        tempJsonName = "wordReviewCount2"
+                        otherCountName = "wordReviewCount"
+                        otherCountName2 = "wordReviewCount3"
+                        
+                        
                     case 2:
-                        tempJson = "wordReviewCount3"
+                        tempJsonName = "wordReviewCount3"
+                        otherCountName = "wordReviewCount"
+                        otherCountName2 = "wordReviewCount2"
                         
                     default:
                         break
@@ -3171,23 +3197,39 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                     }
                     
-                    
-                    if let resultCount = parseJSON["wordReviewCount"] as? Int{
+                    //如果有抓到該更新數字
+                    if let resultCount = parseJSON[tempJsonName] as? String{
                         
+                        //只有正確更新時會回傳user資訊
+                        user = parseJSON
+                        //有更新的狀態
                         print("updated Count")
-                        tempCount = resultCount
+                        tempCount = Int(resultCount)!
+                        let otherCount = user?[otherCountName] as! String
+                        let otherCount2 = user?[otherCountName2] as! String
+                    
+                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)!
+                        
+                        
+                        
                         
                     } else {
                         
+                        //無更新的狀態
+                        
+                        
                         print("original Count")
-                        let originalCount = user?["wordReviewCount"] as! String
-                        print("original:\(originalCount)")
-                        tempCount = Int(originalCount)!
+                        let count = user?["wordReviewCount"] as! String
+                        let otherCount = user?["wordReviewCount2"] as! String
+                        let otherCount2 = user?["wordReviewCount3"] as! String
+
+                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)!
+
                     }
                     
          
                     DispatchQueue.main.async(execute: {
-                        self!.reviewResult(type:0, count:tempCount)
+                        self!.reviewResult(type:0, count:totalCount)
                     })
                     
 
@@ -3214,6 +3256,139 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    
+    
+    func updateReviewSenCount(senCount:Int, course:Int){
+        
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&senCount=\(senCount)&course=\(course)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    //print("rank")
+                    //再次儲存使用者資訊
+                    
+                    print(parseJSON)
+                    
+                    var tempCount = Int()
+                    var tempJsonName = String()
+                    var otherCountName = String()
+                    var otherCountName2 = String()
+                    var totalCount = Int()
+                    
+                    
+                    switch course{
+                        
+                    case 0:
+                        tempJsonName = "senReviewCount"
+                        otherCountName = "senReviewCount2"
+                        otherCountName2 = "senReviewCount3"
+                        
+                    case 1:
+                        tempJsonName = "senReviewCount2"
+                        otherCountName = "senReviewCount"
+                        otherCountName2 = "senReviewCount3"
+                        
+                        
+                    case 2:
+                        tempJsonName = "senReviewCount3"
+                        otherCountName = "senReviewCount"
+                        otherCountName2 = "senReviewCount2"
+                        
+                    default:
+                        break
+                        
+                        
+                    }
+                    
+                    //如果有抓到該更新數字
+                    if let resultCount = parseJSON[tempJsonName] as? String{
+                        
+                        //只有正確更新時會回傳user資訊
+                        user = parseJSON
+                        //有更新的狀態
+                        print("updated Count")
+                        tempCount = Int(resultCount)!
+                        let otherCount = user?[otherCountName] as! String
+                        let otherCount2 = user?[otherCountName2] as! String
+                        
+                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)!
+                        
+                        
+                        
+                        
+                    } else {
+                        
+                        //無更新的狀態
+                        
+                        
+                        print("original Count")
+                        let count = user?["senReviewCount"] as! String
+                        let otherCount = user?["senReviewCount2"] as! String
+                        let otherCount2 = user?["senReviewCount3"] as! String
+                        
+                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)!
+                        
+                    }
+                    
+                    
+                    DispatchQueue.main.async(execute: {
+                        self!.reviewResult(type:1, count:totalCount)
+                    })
+                    
+                    
+                    
+                    
+                    //抓名次
+                    
+                    //             if let parseJsonDic = parseJSON as [NSDictionary]?{
+                    
+                    
+                    //       }
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+    
+
     
     //快速複習答對繼續
    func game2RestartFunc(){

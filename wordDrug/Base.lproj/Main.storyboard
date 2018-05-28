@@ -944,6 +944,13 @@
                                                     <rect key="frame" x="37" y="11" width="300" height="156"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deX-U2-Wsc">
+                                                            <rect key="frame" x="150" y="78" width="0.0" height="0.0"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="60"/>
+                                                            <color key="textColor" red="0.45217245817184448" green="0.61027991771697998" blue="0.87593239545822144" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofx-Ro-Hqz">
                                                             <rect key="frame" x="8" y="0.0" width="124" height="33"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1007,12 +1014,21 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jq-Lp-xLJ">
+                                                            <rect key="frame" x="220" y="127" width="37" height="28"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
+                                                            <color key="textColor" red="0.45217245817184448" green="0.61027991771697998" blue="0.87593239545822144" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="bigCountLabel" destination="deX-U2-Wsc" id="xfG-j0-y6c"/>
+                                            <outlet property="countUnitLabel" destination="2jq-Lp-xLJ" id="vL3-Ko-AfP"/>
                                             <outlet property="infoCellBg" destination="Vwj-5S-UbW" id="t0J-qN-vCY"/>
                                             <outlet property="infoTitle" destination="Ofx-Ro-Hqz" id="sqp-R4-SRU"/>
                                             <outlet property="ringView" destination="Iaw-tB-nIY" id="jvZ-4C-qde"/>

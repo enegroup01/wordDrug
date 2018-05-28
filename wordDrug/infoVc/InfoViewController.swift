@@ -16,6 +16,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let yellowColor = UIColor.init(red: 255/255, green: 182/255, blue: 13/255, alpha: 1)
 
     
+    let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
+    
     @IBOutlet weak var checkRankBtn: UIButton!
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var rankCountLabel: UILabel!
@@ -36,8 +38,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var dif = CGFloat()
     var photoDif = CGFloat()
     
-    var sub1Rates = [78,40,95,68]
-    var sub2Rates = [77,Int(),Int(),Int()]
+    var sub1Rates = [0,0,0,0,0]
+    var sub2Rates = [0,Int(),Int(),Int(),Int()]
     
     @IBOutlet weak var alphaLayer: UIImageView!
     
@@ -185,8 +187,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         picker.allowsEditing = true
         picker.modalPresentationStyle = .overFullScreen
         
-        
-        
+
         self.present(picker, animated: true, completion: nil)
     }
     
@@ -195,21 +196,61 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InfoTableViewCell
+
+       
+       // let attrs0 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Neue", size: 12), NSAttributedStringKey.foregroundColor : lightColor]
+      
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor : UIColor.red]
+        
+
+        let attrs2 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: 20), NSAttributedStringKey.foregroundColor : lightBlueColor]
+
         
         cell.backgroundColor = .clear
         
-        
-        
-        let infoTitles = ["單字成就", "發音成就", "句型成就", "快速挑戰"]
-        let sub1Titles = ["拼字正確率","發音正確率","排列正確率","正確關卡數"]
-        let sub2Titles = ["中文正確率",String(),String(),String()]
+        let infoTitles = ["單字成就", "發音成就", "句型成就", "快速複習", "快速複習"]
+        let sub1Titles = ["拼字正確率","發音正確率","排列正確率","單字達成","句型達成"]
+        let sub2Titles = ["中文正確率",String(),String(),String(),String()]
+        let countUnits = ["","","","字","句"]
 
-        var totalRates = [Int(),Int(),Int(),Int()]
+        var totalRates = [Int(),Int(),Int(),Int(),Int()]
         
-        cell.infoTitle.text = infoTitles[indexPath.row]
-        cell.sub1Rate.text = String(sub1Rates[indexPath.row]) + "%"
+        
+        
+     
+        
+        //快速複習的數字不show
+        if indexPath.row < 3 {
+        
+            cell.infoTitle.text = infoTitles[indexPath.row]
+           
+            cell.sub1Rate.text = String(sub1Rates[indexPath.row]) + "%"
+            
+            cell.sub1Title.text = sub1Titles[indexPath.row]
+
+            cell.bigCountLabel.text = ""
+            
+            cell.countUnitLabel.text = ""
+        } else {
+            
+            cell.infoTitle.attributedText = NSAttributedString(string: infoTitles[indexPath.row], attributes: attrs2)
+            
+            cell.sub1Rate.attributedText = NSAttributedString(string: sub1Titles[indexPath.row], attributes: attrs1)
+            
+            cell.sub1Title.text = ""
+
+            //show大字
+            cell.bigCountLabel.text = String(sub1Rates[indexPath.row])
+            
+            //cell.bigCountLabel.text = "9999"
+            
+            cell.countUnitLabel.text = countUnits[indexPath.row]
+            
+            
+        }
         
         if sub2Rates[indexPath.row] != Int(){
+            
             cell.sub2Rate.text = String(sub2Rates[indexPath.row]) + "%"
             
         } else {
@@ -217,15 +258,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.sub2Rate.text = ""
         }
         
-        cell.sub1Title.text = sub1Titles[indexPath.row]
-        if sub2Titles[indexPath.row] != String(){
-            
-            cell.sub2Title.text = sub2Titles[indexPath.row]
-        } else {
-            
-            cell.sub2Title.text = ""
-        }
-     
+        
+        //設定不同顏色的title
+
+        cell.sub2Title.text = sub2Titles[indexPath.row]
+        
         for i in 0 ..< sub1Rates.count{
             
             let firstRate = sub1Rates[i]
@@ -242,25 +279,31 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 totalRates[i] = firstRate
             }
         }
-        cell.totalRate.text = String(totalRates[indexPath.row]) + "%"
-
         
-        cell.ringView.progress = 0.0
-        
-        
-        CATransaction.setCompletionBlock {
+        if indexPath.row < 3 {
+            cell.totalRate.text = String(totalRates[indexPath.row]) + "%"
             
-            CATransaction.begin()
-            CATransaction.setAnimationDuration(2)
+            cell.ringView.progress = 0.0
             
-            cell.ringView.progress = Double(totalRates[indexPath.row]) / Double(100)
-            CATransaction.commit()
-          
+            CATransaction.setCompletionBlock {
+                
+                CATransaction.begin()
+                CATransaction.setAnimationDuration(2)
+                
+                cell.ringView.progress = Double(totalRates[indexPath.row]) / Double(100)
+                CATransaction.commit()
+                
+            }
+            
+            cell.ringView.isHidden = false
+            
+        } else {
+        
+            
+            cell.totalRate.text = ""
+            cell.ringView.isHidden = true
+        
         }
-        
-        
-        
-        
         return cell
     }
     
@@ -269,7 +312,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         
-        return 4
+        return 5
     }
 
     
@@ -325,20 +368,35 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
                         for i in 0 ..< parseJSON.count{
          
-
-                 
                             if let id = parseJSON[i]["id"] as? Int{
-           
-                                
+              
                                 let userId = user?["id"] as! String
                                 
+                                //找到該使用者
                                 if String(id) == userId{
                                     
-                                    DispatchQueue.main.async(execute: {
+                                    //抓他的分數
+                                    let score = parseJSON[i]["score"] as! Int
+                                    
+                                    if score == 0 {
+                                        
+                                        DispatchQueue.main.async(execute: {
+                                            
+                                            
+                                            self!.rankCountLabel.text = "尚未排名"
+                                            
+                                        })
+                                    
+                                    } else {
+                                    
+                                        DispatchQueue.main.async(execute: {
                                         //print(i)
-                                             self!.rankCountLabel.text = String(i + 1)
-                                    })
-                  
+                                    
+                                        self!.rankCountLabel.text = String(i + 1)
+                            
+                                        })
+                                   
+                                    }
                                 }
                             }
                     }
@@ -457,13 +515,16 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //這樣的話比例也是0
             
             sub1Rates[0] = 0
+        
         } else {
         
-        sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
+            sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
+            
         }
         
         //中文正確率
         
+        //目前中文正確率若設定為0的時候, cellForRow裡面不會顯示0%..雖然不影響但是怪怪的
         
         if let wrongChinese = user?["wrongChinese"] as? String{
             
@@ -472,10 +533,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
             if allWordsCount == 0 {
                 //這樣的話比例也是0
-                
+                print("wChinese 0")
                 sub2Rates[0] = 0
+                
             } else {
-            
+                
+            print("wChinese 1")
             sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
             
             }
@@ -489,7 +552,16 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         if let proRate = user?["proRate"] as? String{
             
+            if proRate == "200" {
+                
+                sub1Rates[1] = 0
+                
+            } else {
+            
             sub1Rates[1] = Int(proRate)!
+                
+            }
+            
         }
 
         
@@ -497,10 +569,36 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         if let senRate = user?["senRate"] as? String{
             
+            if senRate == "200"{
+                
+                sub1Rates[2] = 0
+                
+            } else {
+            
             sub1Rates[2] = Int(senRate)!
+                
+            }
+            
         }
         
+       //快速複習單字數
+        let wordCount = user?["wordReviewCount"] as! String
+        let wordCount2 = user?["wordReviewCount2"] as! String
+        let wordCount3 = user?["wordReviewCount3"] as! String
 
+        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)!
+        
+        sub1Rates[3] = totalWordCount
+        
+        
+        //快速複習句型數
+        let senCount = user?["senReviewCount"] as! String
+        let senCount2 = user?["senReviewCount2"] as! String
+        let senCount3 = user?["senReviewCount3"] as! String
+        
+        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)!
+        
+        sub1Rates[4] = totalSenCount
         
         
     }

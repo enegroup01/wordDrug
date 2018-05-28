@@ -74,10 +74,6 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         backBtn.frame = CGRect(x: width / 30, y: height / 30, width: 19 * dif, height: 31 * dif)
         
-        
-    
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,9 +137,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
-    
     func rankUsers(){
-        
         
         // url to access our php file
         let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
@@ -248,10 +242,29 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         }
                         */
                         
+                        var wordCount = Int()
+                        var wordCount2 = Int()
+                        var wordCount3 = Int()
+                        var senCount = Int()
+                        var senCount2 = Int()
+                        var senCount3 = Int()
                         
+                        
+                           if let eachWordCount = eachUser["wordReviewCount"] as? String{
+                        
+                            wordCount = Int(eachWordCount)!
+                            
+                        }
                         
                         
                     }
+                    
+
+                    
+                    
+                    
+                    
+                    
                     
                     
                     

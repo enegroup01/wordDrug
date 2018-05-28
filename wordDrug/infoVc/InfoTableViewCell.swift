@@ -29,6 +29,10 @@ class InfoTableViewCell: UITableViewCell {
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
+    @IBOutlet weak var bigCountLabel: UILabel!
+    
+    @IBOutlet weak var countUnitLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -112,10 +116,12 @@ class InfoTableViewCell: UITableViewCell {
         totalRate.textColor = darkColor
         totalRate.frame = CGRect(x: 0, y: ringView.frame.height / 2.8, width: ringView.frame.width, height: ringView.frame.height / 4)
         
+        bigCountLabel.textAlignment = .center
+        bigCountLabel.frame = CGRect(x: ringView.frame.minX, y: ringView.frame.minY, width: ringView.frame.width, height: ringView.frame.height)
+        bigCountLabel.adjustsFontSizeToFitWidth = true
         
-        
-
-
+        countUnitLabel.frame = CGRect(x: bigCountLabel.frame.maxX, y: bigCountLabel.frame.maxY - 28 * 1.5, width: 38 , height:28)
+        //countUnitLabel.backgroundColor = .red
         
         
     }
