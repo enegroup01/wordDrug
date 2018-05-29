@@ -127,6 +127,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart0Btn.setTitleColor(lightGrayColor, for: .normal)
         
         rankMode = 2
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         rankReview(type: 1)
         
     }
@@ -136,18 +138,25 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart1Btn.setTitleColor(grassGreen, for: .normal)
         chart0Btn.setTitleColor(lightGrayColor, for: .normal)
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
+       // self.view.isUserInteractionEnabled = false
         
         rankMode = 1
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        disableBtns()
         rankReview(type: 0)
         
     }
     @IBAction func chart0Clicked(_ sender: Any) {
         
-        
         chart0Btn.setTitleColor(grassGreen, for: .normal)
         chart1Btn.setTitleColor(lightGrayColor, for: .normal)
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
+       // self.view.isUserInteractionEnabled = false
         rankMode = 0
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        disableBtns()
         rankUsers()
         
     }
@@ -155,7 +164,11 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart0Btn.setTitleColor(grassGreen, for: .normal)
         chart1Btn.setTitleColor(lightGrayColor, for: .normal)
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
+      //  self.view.isUserInteractionEnabled = false
         rankMode = 0
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        disableBtns()
      rankUsers()
     }
 
@@ -206,17 +219,28 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                 
                 // if data is not nill assign it to ava.Img
                 if imageData != nil {
-                    DispatchQueue.main.async(execute: {
+                    DispatchQueue.main.async(execute: {[weak self] in
                         cell.avaImg.image = UIImage(data: imageData!)
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                        //self!.view.isUserInteractionEnabled = true
+                        self!.enableBtns()
                     })
                 }
                 
                 
             } else {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+            //self!.view.isUserInteractionEnabled = true
+            enableBtns()
                 
                 cell.avaImg.image = UIImage(named: "avatar.png")
             }
     
+        
+        
                return cell
         
     }
@@ -233,6 +257,21 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     
+    func enableBtns(){
+        
+        chart0Btn.isEnabled = true
+        chart1Btn.isEnabled = true
+        chart2Btn.isEnabled = true
+        
+    }
+    
+    func disableBtns(){
+        
+        chart0Btn.isEnabled = false
+        chart1Btn.isEnabled = false
+        chart2Btn.isEnabled = false
+        
+    }
     func rankReview(type:Int){
         
         // url to access our php file
@@ -244,9 +283,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewSens.php"
         }
-        
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
+    
 
         
         let url = URL(string: urlString)!
@@ -269,6 +306,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     guard let parseJSON = json else {
                         print("Error while parsing")
                         
+                        self!.enableBtns()
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                         return
                     }
@@ -315,12 +355,17 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             self!.senReviewCounts.append(senCounts)
                          
                          }
-
+              
                     
+
                     DispatchQueue.main.async(execute: {
+                        
+                        
                         self!.chartTableView.reloadData()
-                        self!.activityIndicator.stopAnimating()
-                        UIApplication.shared.endIgnoringInteractionEvents()
+
+                        
+                        //self!.view.isUserInteractionEnabled = true
+    
                     })
                     
                     }
@@ -328,11 +373,19 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                 } catch{
                     
                     print("catch error")
+                     self!.enableBtns()
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                 //   self!.view.isUserInteractionEnabled = true
                     
                 }
             } else {
                 
                 print("urlsession has error")
+                 self!.enableBtns()
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+               // self!.view.isUserInteractionEnabled = true
                 
             }
         }).resume()
@@ -345,8 +398,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         // url to access our php file
         let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
         
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
+
         
         // request url
         var request = URLRequest(url: url)
@@ -366,7 +418,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     
                     guard let parseJSON = json else {
                         print("Error while parsing")
-                        
+                         self!.enableBtns()
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                         return
                     }
@@ -480,12 +534,11 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
 
                     }
 
-                    
+  
 
                     DispatchQueue.main.async(execute: {
-                         self!.chartTableView.reloadData()
-                        self!.activityIndicator.stopAnimating()
-                        UIApplication.shared.endIgnoringInteractionEvents()
+                        self!.chartTableView.reloadData()
+     
 
                     })
                    
@@ -493,11 +546,19 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                 } catch{
                     
                     print("catch error")
+                     self!.enableBtns()
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                    //self!.view.isUserInteractionEnabled = true
                     
                 }
             } else {
                 
                 print("urlsession has error")
+                 self!.enableBtns()
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                //self!.view.isUserInteractionEnabled = true
                 
             }
         }).resume()
