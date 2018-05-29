@@ -58,6 +58,7 @@
 		AA2B64D2205A612E00742226 /* newBookBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2B64D1205A612E00742226 /* newBookBg.png */; };
 		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
 		AA2B805920A1BA17005BCE21 /* soundPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2B805820A1BA16005BCE21 /* soundPng.png */; };
+		AA2CFA5520BD0815009DBBB6 /* chartBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA5420BD0815009DBBB6 /* chartBg.png */; };
 		AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32920234FA7005437C6 /* NewGameViewController.swift */; };
 		AA34F32C2023516D005437C6 /* NewGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32B2023516D005437C6 /* NewGameScene.swift */; };
 		AA3C6C0F2091A55000B7F83C /* enterGameBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */; };
@@ -442,7 +443,6 @@
 		AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */; };
 		AAB63B39204E5DFE00F96E9C /* talkPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB63B38204E5DFD00F96E9C /* talkPng.png */; };
 		AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */; };
-		AAC1CE1420B52D5F007FF6F8 /* chartBgPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CE1320B52D5F007FF6F8 /* chartBgPng.png */; };
 		AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */; };
 		AAC1CE1A20B55860007FF6F8 /* chartSeperator.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CE1920B5585F007FF6F8 /* chartSeperator.png */; };
 		AAC1CE1C20B56853007FF6F8 /* photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CE1B20B56853007FF6F8 /* photo.jpg */; };
@@ -523,6 +523,7 @@
 		AA2B64D1205A612E00742226 /* newBookBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookBg.png; sourceTree = "<group>"; };
 		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
 		AA2B805820A1BA16005BCE21 /* soundPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soundPng.png; sourceTree = "<group>"; };
+		AA2CFA5420BD0815009DBBB6 /* chartBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartBg.png; sourceTree = "<group>"; };
 		AA34F32920234FA7005437C6 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		AA34F32B2023516D005437C6 /* NewGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScene.swift; sourceTree = "<group>"; };
 		AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterGameBtn.png; sourceTree = "<group>"; };
@@ -908,7 +909,6 @@
 		AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordBtn.png; sourceTree = "<group>"; };
 		AAB63B38204E5DFD00F96E9C /* talkPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talkPng.png; sourceTree = "<group>"; };
 		AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
-		AAC1CE1320B52D5F007FF6F8 /* chartBgPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartBgPng.png; sourceTree = "<group>"; };
 		AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
 		AAC1CE1920B5585F007FF6F8 /* chartSeperator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartSeperator.png; sourceTree = "<group>"; };
 		AAC1CE1B20B56853007FF6F8 /* photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo.jpg; sourceTree = "<group>"; };
@@ -1496,8 +1496,8 @@
 			isa = PBXGroup;
 			children = (
 				AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */,
-				AAC1CE1320B52D5F007FF6F8 /* chartBgPng.png */,
 				AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */,
+				AA2CFA5420BD0815009DBBB6 /* chartBg.png */,
 				AAC1CE1920B5585F007FF6F8 /* chartSeperator.png */,
 				AAC1CE1B20B56853007FF6F8 /* photo.jpg */,
 			);
@@ -1659,6 +1659,7 @@
 				AAA0E10320982A3D007148EB /* senBlock.png in Resources */,
 				AA60A93D20B45A64009AD173 /* 8-11.txt in Resources */,
 				AA6C95CB20A9CC23001158E7 /* s7-1.txt in Resources */,
+				AA2CFA5520BD0815009DBBB6 /* chartBg.png in Resources */,
 				AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */,
 				AA648EC1207CEA05003ACD07 /* 3-9.txt in Resources */,
 				AA27DE2620B6FDA4003250D2 /* 9-1.txt in Resources */,
@@ -1681,7 +1682,6 @@
 				AA648E65207CEA05003ACD07 /* 5-10.txt in Resources */,
 				AA648ECC207CEA05003ACD07 /* s3-10.txt in Resources */,
 				AA6C95D720A9CC23001158E7 /* s7-12.txt in Resources */,
-				AAC1CE1420B52D5F007FF6F8 /* chartBgPng.png in Resources */,
 				AA648EEB207CEA05003ACD07 /* s4-12.txt in Resources */,
 				AA27DE2A20B6FDA4003250D2 /* 9-2.txt in Resources */,
 				AAFAFCA0205BD9CA00307264 /* wordTableBg.png in Resources */,

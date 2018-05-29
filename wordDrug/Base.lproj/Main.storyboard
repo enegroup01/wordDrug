@@ -1172,7 +1172,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chartBgPng.png" translatesAutoresizingMaskIntoConstraints="NO" id="LLZ-FV-BTP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chartBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="LLZ-FV-BTP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -1250,13 +1250,6 @@
                                     <outlet property="delegate" destination="8TX-sA-F2o" id="ZjJ-Fl-43D"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="排行榜" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w88-ug-gcN">
-                                <rect key="frame" x="151" y="28" width="72" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="24"/>
-                                <color key="textColor" red="0.80367928743362427" green="0.80761450529098511" blue="0.82411271333694458" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSQ-Ik-yPs">
                                 <rect key="frame" x="8" y="28" width="19" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1265,14 +1258,49 @@
                                     <action selector="backBtnClicked:" destination="8TX-sA-F2o" eventType="touchUpInside" id="Pr9-HQ-7dY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aM4-Qr-uNL">
+                                <rect key="frame" x="35" y="8" width="83" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                                <state key="normal" title="總分排行榜">
+                                    <color key="titleColor" red="0.80934471266298402" green="0.81735802664974622" blue="0.81735802664974622" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="chart0Clicked:" destination="8TX-sA-F2o" eventType="touchUpInside" id="GBN-Je-jPK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SBu-jz-0Is">
+                                <rect key="frame" x="155" y="10" width="83" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                                <state key="normal" title="英文拼字王">
+                                    <color key="titleColor" red="0.80934471269999997" green="0.81735802660000001" blue="0.81735802660000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="chart1Clicked:" destination="8TX-sA-F2o" eventType="touchUpInside" id="2DF-qQ-B2g"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECf-yE-Wbt">
+                                <rect key="frame" x="275" y="10" width="85" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                                <state key="normal" title="句型冠軍榜">
+                                    <color key="titleColor" red="0.80934471269999997" green="0.81735802660000001" blue="0.81735802660000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="chart2Clicked:" destination="8TX-sA-F2o" eventType="touchUpInside" id="1zi-o5-1YU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="sSQ-Ik-yPs" id="Q29-Fx-vHY"/>
+                        <outlet property="chart0Btn" destination="aM4-Qr-uNL" id="ybR-lb-L7b"/>
+                        <outlet property="chart1Btn" destination="SBu-jz-0Is" id="0cx-2q-tJ8"/>
+                        <outlet property="chart2Btn" destination="ECf-yE-Wbt" id="1CE-Nr-1x2"/>
                         <outlet property="chartBg" destination="LLZ-FV-BTP" id="Qg5-Nu-ykE"/>
                         <outlet property="chartTableView" destination="wJF-Z5-c6j" id="ppe-jp-14E"/>
-                        <outlet property="chartTitle" destination="w88-ug-gcN" id="H5g-Zg-Btm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRq-Dc-Mdx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1409,7 +1437,7 @@
         <image name="bookTimes1.png" width="46" height="8"/>
         <image name="bookViewBottomBg.png" width="375" height="66"/>
         <image name="camera.png" width="28" height="28"/>
-        <image name="chartBgPng.png" width="375" height="667"/>
+        <image name="chartBg.png" width="379" height="667"/>
         <image name="chartSeperator.png" width="378" height="6"/>
         <image name="chartUpBg.png" width="375" height="295"/>
         <image name="dialogueBg.png" width="218" height="33"/>

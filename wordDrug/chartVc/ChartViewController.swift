@@ -17,9 +17,11 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var chartTableView: UITableView!
     
+
+    @IBOutlet weak var chart0Btn: UIButton!
+    @IBOutlet weak var chart1Btn: UIButton!
     
-    @IBOutlet weak var chartTitle: UILabel!
-    
+    @IBOutlet weak var chart2Btn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
     var dif = CGFloat()
     var photoDif = CGFloat()
@@ -29,6 +31,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var wordCounts = [Int]()
     var wordReviewCounts = [Int]()
     var senReviewCounts = [Int]()
+    let grassGreen = UIColor.init(red: 215/255, green: 1, blue: 0, alpha: 1)
+    var rankMode = Int()
+    
+    let lightGrayColor = UIColor.init(red: 206/255, green: 208/255, blue: 208/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,15 +76,73 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         chartTableView.backgroundColor = .clear
         
+        /*
         chartTitle.frame = CGRect(x: width / 2 - 50, y: chartTableView.frame.minY / 3, width: 100, height: 33)
         //chartTitle.backgroundColor = .red
         chartTitle.textAlignment = .center
-        
+        */
         backBtn.frame = CGRect(x: width / 30, y: height / 30, width: 19 * dif, height: 31 * dif)
+        
+        
+        chart0Btn.frame = CGRect(x: width / 3 - 75, y: chartTableView.frame.minY / 3.3, width: 75, height: 50)
+        chart0Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        chart0Btn.titleLabel?.textAlignment = .center
+        chart0Btn.setTitle("總分\n排行榜", for:.normal)
+        //chart0Btn.backgroundColor = .red
+        
+        chart1Btn.frame = CGRect(x: width / 2 - 30, y: chartTableView.frame.minY / 3.3, width: 75, height: 50)
+        chart1Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        chart1Btn.titleLabel?.textAlignment = .center
+        chart1Btn.setTitle("英文\n拼字王", for:.normal)
+        //chart1Btn.backgroundColor = .red
+        
+        
+        chart2Btn.frame = CGRect(x: width - 75 * 1.5, y: chartTableView.frame.minY / 3.3, width: 75, height: 50)
+        chart2Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        chart2Btn.titleLabel?.textAlignment = .center
+        chart2Btn.setTitle("句型\n冠軍榜", for:.normal)
+        //chart2Btn.backgroundColor = .red
         
     }
     
+    
+    @IBAction func chart2Clicked(_ sender: Any) {
+        
+        
+        chart2Btn.setTitleColor(grassGreen, for: .normal)
+        chart1Btn.setTitleColor(lightGrayColor, for: .normal)
+        chart0Btn.setTitleColor(lightGrayColor, for: .normal)
+        
+        rankMode = 2
+        rankReview(type: 1)
+        
+    }
+    
+    @IBAction func chart1Clicked(_ sender: Any) {
+        
+        chart1Btn.setTitleColor(grassGreen, for: .normal)
+        chart0Btn.setTitleColor(lightGrayColor, for: .normal)
+        chart2Btn.setTitleColor(lightGrayColor, for: .normal)
+        
+        rankMode = 1
+        rankReview(type: 0)
+        
+    }
+    @IBAction func chart0Clicked(_ sender: Any) {
+        
+        
+        chart0Btn.setTitleColor(grassGreen, for: .normal)
+        chart1Btn.setTitleColor(lightGrayColor, for: .normal)
+        chart2Btn.setTitleColor(lightGrayColor, for: .normal)
+        rankMode = 0
+        rankUsers()
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
+        chart0Btn.setTitleColor(grassGreen, for: .normal)
+        chart1Btn.setTitleColor(lightGrayColor, for: .normal)
+        chart2Btn.setTitleColor(lightGrayColor, for: .normal)
+        rankMode = 0
      rankUsers()
     }
 
@@ -101,9 +165,25 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         cell.rankLabel.text = String(indexPath.row + 1)
         cell.usernameLabel.text = usernames[indexPath.row]
+        
+        if rankMode == 0 {
         cell.totalScoreLabel.text = scores[indexPath.row]
         cell.wordCountLabel.text = String(wordCounts[indexPath.row])
-        
+            cell.wordCountTitleLabel.text = "單字量"
+        } else if rankMode == 1 {
+            
+            cell.totalScoreLabel.text = ""
+            cell.wordCountTitleLabel.text = "單字達成"
+            cell.wordCountLabel.text = String(wordReviewCounts[indexPath.row])
+            
+            
+        } else if rankMode == 2 {
+            
+            cell.totalScoreLabel.text = ""
+            cell.wordCountTitleLabel.text = "句型達成"
+            cell.wordCountLabel.text = String(senReviewCounts[indexPath.row])
+      
+        }
         
         if avas[indexPath.row] != "" {
                 
@@ -139,6 +219,108 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
+    
+    func rankReview(type:Int){
+        
+        // url to access our php file
+        var urlString = String()
+        
+        if type == 0 {
+        urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewWords.php"
+        } else if type == 1{
+            
+        urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewSens.php"
+        }
+        
+        let url = URL(string: urlString)!
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "GET"
+        
+        // append body to our request that gonna be sent
+        //request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [NSDictionary]
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    print("rank")
+                    //再次儲存使用者資訊
+                    
+                    //print(parseJSON)
+                    
+                    
+                    self!.usernames.removeAll(keepingCapacity: false)
+                    self!.avas.removeAll(keepingCapacity: false)
+                    self!.wordReviewCounts.removeAll(keepingCapacity: false)
+                    self!.senReviewCounts.removeAll(keepingCapacity: false)
+                    self!.wordCounts.removeAll(keepingCapacity: false)
+                    self!.scores.removeAll(keepingCapacity: false)
+                    
+                    for i in 0 ..< parseJSON.count{
+                        
+                        
+                        if let username = parseJSON[i]["username"] as? String{
+                            
+                            self!.usernames.append(username)
+                            
+                        }
+                        
+                        if let ava = parseJSON[i]["ava"] as? String{
+                            
+                            self!.avas.append(ava)
+                            
+                        }
+                        
+                        
+                         if let wordCounts = parseJSON[i]["wordReviewCounts"] as? Int{
+                   
+                            self!.wordReviewCounts.append(wordCounts)
+                            
+                         }
+                         
+                         
+                         if let senCounts = parseJSON[i]["senReviewCounts"] as? Int{
+                         
+                         
+                            self!.senReviewCounts.append(senCounts)
+                         
+                         }
+
+                    
+                    DispatchQueue.main.async(execute: {
+                        self!.chartTableView.reloadData()
+                    })
+                    
+                    }
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+    
+    
     func rankUsers(){
         
         // url to access our php file
@@ -171,32 +353,33 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     //再次儲存使用者資訊
 
                     //print(parseJSON)
+
                     
                     
-                    var newDic:[[String:String]]?
-                    newDic = Array(repeating: [String:String](), count: parseJSON.count)
+                    
+                    self!.usernames.removeAll(keepingCapacity: false)
+                    self!.avas.removeAll(keepingCapacity: false)
+                    self!.wordReviewCounts.removeAll(keepingCapacity: false)
+                    self!.senReviewCounts.removeAll(keepingCapacity: false)
+                    self!.wordCounts.removeAll(keepingCapacity: false)
+                    self!.scores.removeAll(keepingCapacity: false)
                     
                     for i in 0 ..< parseJSON.count{
                         
                         
                         if let username = parseJSON[i]["username"] as? String{
-                            
-                            
-                            
+                 
                             self!.usernames.append(username)
-                            newDic![i]["username"] = String(username)
-                            
-                            
+
                         }
                         
                         if let ava = parseJSON[i]["ava"] as? String{
-                            
-                            newDic![i]["ava"] = String(ava)
+
                             self!.avas.append(ava)
-                            
-                            
+                       
                         }
                         
+                        /*
                         if let wordCounts = parseJSON[i]["wordReviewCounts"] as? Int{
                            newDic![i]["wordCounts"] = String(wordCounts)
                         }
@@ -209,7 +392,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             
                         }
          
-                        
+                        */
     
                         
                         if let score = parseJSON[i]["score"] as? Int{
@@ -274,17 +457,13 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         */
 
                     }
-                    
-       
-                    print("wordReviewParse:\(newDic)")
+
                     
 
                     DispatchQueue.main.async(execute: {
                          self!.chartTableView.reloadData()
                     })
                    
-                    print(self!.avas.count)
-                  
                     
                 } catch{
                     
