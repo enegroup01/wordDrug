@@ -36,6 +36,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     let lightGrayColor = UIColor.init(red: 206/255, green: 208/255, blue: 208/255, alpha: 1)
     
+    
+    
+        var activityIndicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,6 +72,15 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             photoDif = 0.7
             
         }
+        
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        activityIndicator.layer.zPosition = 15
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.addSubview(activityIndicator)
         
         chartBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         chartBg.contentMode = .scaleAspectFill
@@ -232,6 +245,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewSens.php"
         }
         
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+
+        
         let url = URL(string: urlString)!
         // request url
         var request = URLRequest(url: url)
@@ -302,6 +319,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     
                     DispatchQueue.main.async(execute: {
                         self!.chartTableView.reloadData()
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                     })
                     
                     }
@@ -325,6 +344,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         // url to access our php file
         let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
+        
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         
         // request url
         var request = URLRequest(url: url)
@@ -462,6 +484,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
 
                     DispatchQueue.main.async(execute: {
                          self!.chartTableView.reloadData()
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+
                     })
                    
                     
