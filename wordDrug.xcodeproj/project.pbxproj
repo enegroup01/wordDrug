@@ -59,8 +59,24 @@
 		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
 		AA2B805920A1BA17005BCE21 /* soundPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2B805820A1BA16005BCE21 /* soundPng.png */; };
 		AA2CFA5520BD0815009DBBB6 /* chartBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA5420BD0815009DBBB6 /* chartBg.png */; };
+		AA2CFA6B20BD7E91009DBBB6 /* IntroScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */; };
+		AA2CFA6F20BD7F68009DBBB6 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */; };
+		AA2CFA7120BD7F8F009DBBB6 /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CFA7020BD7F8F009DBBB6 /* IntroScene.swift */; };
+		AA2CFA7520BD81F7009DBBB6 /* volumeBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA7420BD81F7009DBBB6 /* volumeBlock.png */; };
+		AA2CFA7720BD81FF009DBBB6 /* volume.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA7620BD81FF009DBBB6 /* volume.png */; };
+		AA2CFA7920BD8211009DBBB6 /* speaker.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA7820BD8211009DBBB6 /* speaker.png */; };
+		AA2CFA7B20BD8523009DBBB6 /* okBtnFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA7A20BD8523009DBBB6 /* okBtnFrame.png */; };
+		AA2CFA8120BD8E42009DBBB6 /* grayBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA8020BD8E42009DBBB6 /* grayBall.png */; };
+		AA2CFA8320BD8E4D009DBBB6 /* cyanBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA8220BD8E4D009DBBB6 /* cyanBall.png */; };
+		AA2CFA8520BD91DA009DBBB6 /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA8420BD91DA009DBBB6 /* finger.png */; };
+		AA2CFA8720BD91E8009DBBB6 /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA8620BD91E7009DBBB6 /* point.png */; };
+		AA2CFA8F20BE55B1009DBBB6 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA8E20BE55B1009DBBB6 /* arrow.png */; };
+		AA2CFA9120BE5609009DBBB6 /* arrowBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA9020BE5609009DBBB6 /* arrowBlock.png */; };
+		AA2CFA9320BE6138009DBBB6 /* cyanLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA9220BE6138009DBBB6 /* cyanLine.png */; };
 		AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32920234FA7005437C6 /* NewGameViewController.swift */; };
 		AA34F32C2023516D005437C6 /* NewGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32B2023516D005437C6 /* NewGameScene.swift */; };
+		AA35E39920BEDEFA00084EB2 /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = AA35E39820BEDEFA00084EB2 /* world.png */; };
+		AA35E39D20BEE13A00084EB2 /* introBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA35E39C20BEE13A00084EB2 /* introBg.png */; };
 		AA3C6C0F2091A55000B7F83C /* enterGameBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */; };
 		AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C102091AF6B00B7F83C /* lessonBtn.png */; };
 		AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */; };
@@ -524,8 +540,24 @@
 		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
 		AA2B805820A1BA16005BCE21 /* soundPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soundPng.png; sourceTree = "<group>"; };
 		AA2CFA5420BD0815009DBBB6 /* chartBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartBg.png; sourceTree = "<group>"; };
+		AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroScene.sks; sourceTree = "<group>"; };
+		AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		AA2CFA7020BD7F8F009DBBB6 /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
+		AA2CFA7420BD81F7009DBBB6 /* volumeBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volumeBlock.png; sourceTree = "<group>"; };
+		AA2CFA7620BD81FF009DBBB6 /* volume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume.png; sourceTree = "<group>"; };
+		AA2CFA7820BD8211009DBBB6 /* speaker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speaker.png; sourceTree = "<group>"; };
+		AA2CFA7A20BD8523009DBBB6 /* okBtnFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = okBtnFrame.png; sourceTree = "<group>"; };
+		AA2CFA8020BD8E42009DBBB6 /* grayBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBall.png; sourceTree = "<group>"; };
+		AA2CFA8220BD8E4D009DBBB6 /* cyanBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cyanBall.png; sourceTree = "<group>"; };
+		AA2CFA8420BD91DA009DBBB6 /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
+		AA2CFA8620BD91E7009DBBB6 /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
+		AA2CFA8E20BE55B1009DBBB6 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		AA2CFA9020BE5609009DBBB6 /* arrowBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowBlock.png; sourceTree = "<group>"; };
+		AA2CFA9220BE6138009DBBB6 /* cyanLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cyanLine.png; sourceTree = "<group>"; };
 		AA34F32920234FA7005437C6 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		AA34F32B2023516D005437C6 /* NewGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScene.swift; sourceTree = "<group>"; };
+		AA35E39820BEDEFA00084EB2 /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world.png; sourceTree = "<group>"; };
+		AA35E39C20BEE13A00084EB2 /* introBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introBg.png; sourceTree = "<group>"; };
 		AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterGameBtn.png; sourceTree = "<group>"; };
 		AA3C6C102091AF6B00B7F83C /* lessonBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBtn.png; sourceTree = "<group>"; };
 		AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
@@ -1033,6 +1065,29 @@
 			path = newBookVc;
 			sourceTree = "<group>";
 		};
+		AA2CFA6920BD7DD9009DBBB6 /* IntroVc */ = {
+			isa = PBXGroup;
+			children = (
+				AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */,
+				AA2CFA7020BD7F8F009DBBB6 /* IntroScene.swift */,
+				AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */,
+				AA2CFA9020BE5609009DBBB6 /* arrowBlock.png */,
+				AA2CFA8E20BE55B1009DBBB6 /* arrow.png */,
+				AA2CFA8220BD8E4D009DBBB6 /* cyanBall.png */,
+				AA35E39C20BEE13A00084EB2 /* introBg.png */,
+				AA35E39820BEDEFA00084EB2 /* world.png */,
+				AA2CFA9220BE6138009DBBB6 /* cyanLine.png */,
+				AA2CFA7420BD81F7009DBBB6 /* volumeBlock.png */,
+				AA2CFA7820BD8211009DBBB6 /* speaker.png */,
+				AA2CFA8420BD91DA009DBBB6 /* finger.png */,
+				AA2CFA8620BD91E7009DBBB6 /* point.png */,
+				AA2CFA7A20BD8523009DBBB6 /* okBtnFrame.png */,
+				AA2CFA7620BD81FF009DBBB6 /* volume.png */,
+				AA2CFA8020BD8E42009DBBB6 /* grayBall.png */,
+			);
+			path = IntroVc;
+			sourceTree = "<group>";
+		};
 		AA5879EB203EA9AF00FEA058 /* pageVc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1526,6 +1581,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA2CFA6920BD7DD9009DBBB6 /* IntroVc */,
 				AAC1CE0A20B5283A007FF6F8 /* chartVc */,
 				AA6FB73120AE7A290001EFED /* infoVc */,
 				AA9AFC0D2088EDF0003A61E9 /* lessonVc */,
@@ -1642,6 +1698,7 @@
 				AA648EA6207CEA05003ACD07 /* s1-5.txt in Resources */,
 				AAFAFCB3205BE11F00307264 /* bookSenOn.png in Resources */,
 				AA6C95CC20A9CC23001158E7 /* s7-11.txt in Resources */,
+				AA2CFA8720BD91E8009DBBB6 /* point.png in Resources */,
 				AA2B64D0205A609D00742226 /* bookBackBtn.png in Resources */,
 				AA6C95D620A9CC23001158E7 /* s7-10.txt in Resources */,
 				AA648E9E207CEA05003ACD07 /* 3-3.txt in Resources */,
@@ -1766,6 +1823,7 @@
 				AA648E74207CEA05003ACD07 /* 1-7.txt in Resources */,
 				AA27DE2720B6FDA4003250D2 /* 9-3.txt in Resources */,
 				AA5E2C46203D3738005E22A0 /* loginBtnImg.png in Resources */,
+				AA35E39D20BEE13A00084EB2 /* introBg.png in Resources */,
 				AA5879F1203EAB1800FEA058 /* bigBlueBall.png in Resources */,
 				AA27DE4D20B6FDB7003250D2 /* s9-5.txt in Resources */,
 				AA6C95AF20A9CC10001158E7 /* 7-6.txt in Resources */,
@@ -1774,9 +1832,11 @@
 				AA0EAA6E20A486E600E256AF /* answerRightBtn.png in Resources */,
 				AA27DE4720B6FDB7003250D2 /* s9-12.txt in Resources */,
 				AA648E66207CEA05003ACD07 /* s1-7.txt in Resources */,
+				AA2CFA8320BD8E4D009DBBB6 /* cyanBall.png in Resources */,
 				AA648EC0207CEA05003ACD07 /* 3-2.txt in Resources */,
 				AA27DE3320B6FDA4003250D2 /* 9-9.txt in Resources */,
 				AA648ED1207CEA05003ACD07 /* s2-1.txt in Resources */,
+				AA2CFA8520BD91DA009DBBB6 /* finger.png in Resources */,
 				AAF31A11207E23DA002F8FD8 /* lightSel.png in Resources */,
 				AA9655692090B7E3003E5AB7 /* practiceBook.png in Resources */,
 				AA648E6B207CEA05003ACD07 /* 1-5.txt in Resources */,
@@ -1785,6 +1845,7 @@
 				AA648EC2207CEA05003ACD07 /* s2-7.txt in Resources */,
 				AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */,
 				AA6AA727209C992B00374241 /* popQuizBg.png in Resources */,
+				AA2CFA9120BE5609009DBBB6 /* arrowBlock.png in Resources */,
 				AA6C95CF20A9CC23001158E7 /* s7-13.txt in Resources */,
 				AAFAFCB2205BE11F00307264 /* bookSpeed2.png in Resources */,
 				AA60A95020B45A7B009AD173 /* s8-14.txt in Resources */,
@@ -1815,6 +1876,7 @@
 				AAFAFCB5205BE11F00307264 /* bookTimes0.png in Resources */,
 				AA648EBB207CEA05003ACD07 /* s5-9.txt in Resources */,
 				AA532D0920B8258D00997094 /* s10-13.txt in Resources */,
+				AA2CFA8120BD8E42009DBBB6 /* grayBall.png in Resources */,
 				AA648E7D207CEA05003ACD07 /* 1-14.txt in Resources */,
 				AA6C95B720A9CC10001158E7 /* 7-4.txt in Resources */,
 				AA532D0D20B8258D00997094 /* s11-3.txt in Resources */,
@@ -1835,6 +1897,7 @@
 				AA648E91207CEA05003ACD07 /* s4-4.txt in Resources */,
 				AA532D0E20B8258D00997094 /* s11-10.txt in Resources */,
 				AA648EED207CEA05003ACD07 /* s3-5.txt in Resources */,
+				AA2CFA6B20BD7E91009DBBB6 /* IntroScene.sks in Resources */,
 				AA6C95B920A9CC10001158E7 /* 7-7.txt in Resources */,
 				AA648E7F207CEA05003ACD07 /* s1-3.txt in Resources */,
 				AA532CBE20B8203F00997094 /* 11-15.txt in Resources */,
@@ -1889,6 +1952,7 @@
 				AA2B64D2205A612E00742226 /* newBookBg.png in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
 				AA5879F9203EADE100FEA058 /* smallDarkBall.png in Resources */,
+				AA2CFA7720BD81FF009DBBB6 /* volume.png in Resources */,
 				AA532CFF20B8258D00997094 /* s10-8.txt in Resources */,
 				AA27DE2C20B6FDA4003250D2 /* 9-13.txt in Resources */,
 				AA648EFC207CEA05003ACD07 /* 4-14.txt in Resources */,
@@ -1934,6 +1998,7 @@
 				AA60A95920B45A7B009AD173 /* s8-15.txt in Resources */,
 				AA648EC8207CEA05003ACD07 /* 5-11.txt in Resources */,
 				AA60A93420B45A64009AD173 /* 8-3.txt in Resources */,
+				AA35E39920BEDEFA00084EB2 /* world.png in Resources */,
 				AA648ECF207CEA05003ACD07 /* 2-11.txt in Resources */,
 				AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */,
 				AA60A95420B45A7B009AD173 /* s8-1.txt in Resources */,
@@ -1969,6 +2034,7 @@
 				AA6C95CD20A9CC23001158E7 /* s7-9.txt in Resources */,
 				AA60A95620B45A7B009AD173 /* s8-7.txt in Resources */,
 				AA648EA2207CEA05003ACD07 /* s3-1.txt in Resources */,
+				AA2CFA7B20BD8523009DBBB6 /* okBtnFrame.png in Resources */,
 				AA60A95320B45A7B009AD173 /* s8-11.txt in Resources */,
 				AA648EDA207CEA05003ACD07 /* 2-7.txt in Resources */,
 				AA98E62120861560001100BA /* block2Title.png in Resources */,
@@ -1991,13 +2057,16 @@
 				AA04ED8D203D7F6200EC0A8E /* toeflBg.png in Resources */,
 				AA532D0620B8258D00997094 /* s11-5.txt in Resources */,
 				AA648E99207CEA05003ACD07 /* s4-14.txt in Resources */,
+				AA2CFA9320BE6138009DBBB6 /* cyanLine.png in Resources */,
 				AA648EB8207CEA05003ACD07 /* s5-14.txt in Resources */,
 				AA532D0720B8258D00997094 /* s11-11.txt in Resources */,
+				AA2CFA7920BD8211009DBBB6 /* speaker.png in Resources */,
 				AAA9BF8A20A59058000CA7CD /* 6-14.txt in Resources */,
 				AA60A94D20B45A7B009AD173 /* s8-12.txt in Resources */,
 				AA648E6F207CEA05003ACD07 /* 3-15.txt in Resources */,
 				AA532CC620B8203F00997094 /* 11-6.txt in Resources */,
 				AA648EEA207CEA05003ACD07 /* s1-4.txt in Resources */,
+				AA2CFA7520BD81F7009DBBB6 /* volumeBlock.png in Resources */,
 				AAA9BF8F20A59058000CA7CD /* 6-11.txt in Resources */,
 				AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */,
 				AA648E73207CEA05003ACD07 /* s5-13.txt in Resources */,
@@ -2046,6 +2115,7 @@
 				AAFAFCA2205BDD6500307264 /* sylBlueBall.png in Resources */,
 				AA648E83207CEA05003ACD07 /* s3-3.txt in Resources */,
 				AA648E8A207CEA05003ACD07 /* 1-11.txt in Resources */,
+				AA2CFA8F20BE55B1009DBBB6 /* arrow.png in Resources */,
 				AAFAFCB4205BE11F00307264 /* bookSenOff.png in Resources */,
 				AA648EE9207CEA05003ACD07 /* s3-7.txt in Resources */,
 				AA648E9B207CEA05003ACD07 /* 2-6.txt in Resources */,
@@ -2123,6 +2193,8 @@
 				AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */,
 				AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */,
 				AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */,
+				AA2CFA6F20BD7F68009DBBB6 /* IntroViewController.swift in Sources */,
+				AA2CFA7120BD7F8F009DBBB6 /* IntroScene.swift in Sources */,
 				AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */,
 				AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */,
 				AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */,

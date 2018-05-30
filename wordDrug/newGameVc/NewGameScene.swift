@@ -385,7 +385,6 @@ class NewGameScene: SKScene {
     var sparkle1:SKEmitterNode?
     var sparkle2:SKEmitterNode?
     
-   
     var gamePassedDic:[Int:Int]?
     var mapPassedInt = Int()
     var increaseNum = Int()
@@ -402,28 +401,21 @@ class NewGameScene: SKScene {
         //啟動離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
-        
         //口試Nc (單字 + 句子)
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyStartToRecognize), name: NSNotification.Name("startToRecognize"), object: nil)
-        
         
         //接收聽考Nc
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.backToSpell), name: NSNotification.Name("backToSpell"), object: nil)
         
-        
         //啟動造句子Nc
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowSentence), name: NSNotification.Name("showSentence"), object: nil)
-        
-        
         
         //接收下個單字
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.receiveCorrectPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
         
-        
         //重新寫NC
         //1. 啟動發音
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyPronounceWord), name: NSNotification.Name("pronounceWord"), object: nil)
-        
         
         //計分
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.addScore), name: NSNotification.Name("addScore"), object: nil)
@@ -431,14 +423,11 @@ class NewGameScene: SKScene {
       //接受倒數
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.startCountDown), name: NSNotification.Name("startCountDown"), object: nil)
         
-        
         //啟動時間到
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyTimesUp), name: NSNotification.Name("timesUp"), object: nil)
 
-        
         //啟動顯示tagView
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowTag), name: NSNotification.Name("showTag"), object: nil)
-        
         
         //啟動顯示tagView
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.readyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
@@ -452,15 +441,11 @@ class NewGameScene: SKScene {
         //重新開始練習句子
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyStopReview), name: NSNotification.Name("stopReview"), object: nil)
         
-      
         //暫停
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyPause), name: NSNotification.Name("pause"), object: nil)
         
-        
-        
         //接收再度倒數
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.restartCounting), name: NSNotification.Name("restartCounting"), object: nil)
-        
         
         //接收再度倒數
 
@@ -486,7 +471,6 @@ class NewGameScene: SKScene {
             switch courseReceived {
                 
             case 0:
-                
                 
                 gamePassedDic = gamePassed!
                 mapPassedInt = mapPassed!
