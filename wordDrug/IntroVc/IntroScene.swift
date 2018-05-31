@@ -29,6 +29,24 @@ class IntroScene: SKScene {
     
         var isDrawingEnable = false
     
+    
+    let question1 = ["nervous","realize","act","bake","draw","trip","hour"]
+    let question2 = ["strategy","suspicion","valuable","fortune","informal","captain","enemy"]
+    let question3 = ["feature","calculate","costume","casualty","efficiency","dash","stiff"]
+    
+    let answer1 = ["緊張的, 易怒的","理解, 立即","扮演, 保護","烘焙, 魚餌","畫, 放置","旅行, 轉換","小時, 車廂"]
+    let answer2 = ["策略, 情節","懷疑, 穩固","有價值的, 清醒的","財產, 風險","資訊, 非正式的","隊長, 海灣","敵人, 陰暗的"]
+    let answer3 = ["特色, 節慶","計算, 構成","服裝, 習俗","死傷, 隨性","效率, 激動","猛撞, 混入","硬的, 有黏性的"]
+    
+    //中文字左右對錯
+    var leftOrRight = Int()
+    
+
+    var right1 = Int()
+    var right2 = Int()
+    var right3 = Int()
+    
+    
     override func didMove(to view: SKView) {
         print("yes scene")
         
@@ -48,15 +66,14 @@ class IntroScene: SKScene {
         makeImageNode(name: "volumeBlock", image: "volumeBlock", x: -210, y: 500, width: 101, height: 108, z: 2, alpha: 1, isAnchoring: false)
         makeLabelNode(x: 0, y: 0, alignMent: .center, fontColor: .cyan, fontSize: 48, text: "請打開音量按鈕", zPosition: 1, name: "tutorialLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
-        
+
         makeImageNode(name: "okBtnFrame", image: "okBtnFrame", x: 0, y: -400, width: 253, height: 75, z: 1, alpha: 0, isAnchoring: false)
+        
         makeLabelNode(x: 0, y: -425, alignMent: .center, fontColor: .cyan, fontSize: 36, text: "下一步", zPosition: 2, name: "okBtnLabel", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
         
         makeImageNode(name: "world", image: "world", x: 0, y: 0, width: 256, height: 256, z: 1, alpha: 0, isAnchoring: false)
         
        // makeLabelNode(x: 0, y: -500, alignMent: .center, fontColor: .cyan, fontSize: 30, text: "1/4", zPosition: 1, name: "stepLabel", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
-
-        
         
         makeImageNode(name: "Mi", image: "grayBall", x: -180, y: 0, width: 180, height: 180, z: 1, alpha: 0, isAnchoring: false)
         makeImageNode(name: "ss", image: "grayBall", x: 180, y: 50, width: 180, height: 180, z: 1, alpha: 0, isAnchoring: false)
@@ -80,10 +97,26 @@ class IntroScene: SKScene {
         makeLabelNode(x: 0, y: 250, alignMent: .center, fontColor: .cyan, fontSize: 90, text: "Mi", zPosition: 1, name: "bigWordLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
-     
         makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
         
         //makeImageNode(name: "cyanLine", image: "cyanLine", x: 0, y: 40, width: 230, height: 40, z: 1, alpha: 1, isAnchoring: false)
+        
+        
+        makeImageNode(name: "leftChiBtn", image: "gradeChiBtnLeft", x: -160, y: -450, width: 256, height: 256, z: 1, alpha: 0, isAnchoring: false)
+        
+         makeImageNode(name: "rightChiBtn", image: "gradeChiBtnRight", x: 160, y: -450, width: 256, height: 256, z: 1, alpha: 0, isAnchoring: false)
+        
+        
+        makeLabelNode(x: -160, y: -490, alignMent: .center, fontColor: .white, fontSize: 60, text: "政治", zPosition: 2, name: "leftChi", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        
+        makeLabelNode(x: 160, y: -490, alignMent: .center, fontColor: .white, fontSize: 60, text: "政府", zPosition: 2, name: "rightChi", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        makeLabelNode(x: 0, y: 500, alignMent: .center, fontColor: .white, fontSize: 48, text: "分級測驗", zPosition: 1, name: "testTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        makeLabelNode(x: 0, y: 450, alignMent: .center, fontColor: .white, fontSize: 40, text: "1/15", zPosition: 1, name: "testNumber", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
+       
+        makeLabelNode(x: 0, y: 0, alignMent: .center, fontColor: .white, fontSize: 90, text: "government", zPosition: 1, name: "bigEnglishLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
         let moveToRight = SKAction.moveTo(x: -140, duration: 1)
@@ -91,10 +124,6 @@ class IntroScene: SKScene {
         let blockAction = SKAction.sequence([moveToRight,jumpBack])
         let repeatAction = SKAction.repeatForever(blockAction)
         findImageNode(name: "volumeBlock").run(repeatAction)
-        
-        
-
-
         
         let wait = SKAction.wait(forDuration: 2)
         let fadeIn = SKAction.fadeIn(withDuration: 1)
@@ -104,8 +133,15 @@ class IntroScene: SKScene {
         findImageNode(name: "okBtnFrame").run(fadeInAction)
         findLabelNode(name: "okBtnLabel").run(fadeInAction)
         
-
-
+        
+        //提示字
+        makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        /*
+        makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450, width: 275, height: 275, z: 9, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "mark", image: "wrongX", x: 160, y: -450, width: 202, height: 214, z: 9, alpha: 0, isAnchoring: false)
+        */
     }
     
     var isTouchedNode = false
@@ -137,15 +173,13 @@ class IntroScene: SKScene {
         
         findImageNode(name: "world").run(rotate)
         
-        
-        
+
     }
     
     
     var isOkClicked = false
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         
         for touch in touches{
             
@@ -155,8 +189,7 @@ class IntroScene: SKScene {
             
               firstTouch = touch.location(in: self)
          
-            
-                
+
             if node.name == "okBtnFrame" || node.name == "okBtnLabel"{
                 if isOkClicked == false {
 
@@ -174,7 +207,21 @@ class IntroScene: SKScene {
                         findImageNode(name: "world").run(group)
                         
                         changeImageAlfa(name: "okBtnFrame", toAlpha: 0, time: 0.5)
-                        changeLabelAlfa(name: "okBtnLabel", toAlpha: 0, time: 0.5)
+                        //changeLabelAlfa(name: "okBtnLabel", toAlpha: 0, time: 0.5)
+                        
+                        let finalFadeOut = SKAction.fadeOut(withDuration: 0.5)
+                        findLabelNode(name: "okBtnLabel").run(finalFadeOut) {[weak self] in
+                            self!.hintSlideIn(leftText: "分級", rightText: "測驗", waitTime: 1) {
+                                
+                                
+                                
+                                self!.testSetup()
+                            }
+                        }
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -204,7 +251,9 @@ class IntroScene: SKScene {
                 }
                 
                     }
-            }
+            
+                }
+            
             }
             
             if isDrawingEnable {
@@ -237,7 +286,242 @@ class IntroScene: SKScene {
                 
             }
             
+            
+            
+            let when = DispatchTime.now() + 0.3
+
+            
+            if node.name == "leftChiBtn" || node.name == "leftChi"{
+                
+                if leftOrRight == 0 {
+                    //答對
+                    changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
+                    //changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
+                    
+                    makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450, width: 275 , height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "wrongX", x: 160 , y: -450, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                        self!.chooseChineseResult(isCorrect: true)
+                    })
+                    
+                } else {
+                    //答錯
+                    
+                    changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
+                    //changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
+                    makeImageNode(name: "mark", image: "rightCircle", x: 160, y: -450, width: 275, height: 275 , z: 9, alpha: 1, isAnchoring: false)
+                    
+                    makeImageNode(name: "mark", image: "wrongX", x: -160, y: -450, width: 202 , height: 214, z: 9, alpha: 1, isAnchoring: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                        self!.chooseChineseResult(isCorrect: false)
+                    })
+                    
+                }
+                
+            }
+            
+            if node.name == "rightChiBtn" || node.name == "rightChi"{
+                
+                if leftOrRight == 1 {
+                    //答對
+                    changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
+                    
+                    makeImageNode(name: "mark", image: "wrongX", x: -160, y: -450, width: 202, height: 214 , z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: 160, y: -450, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                        self!.chooseChineseResult(isCorrect: true)
+                    })
+                    
+                } else {
+                    //答錯
+                    
+                    changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
+                    makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    
+                    
+                    makeImageNode(name: "mark", image: "wrongX", x: 160, y: -450, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
+                        self!.chooseChineseResult(isCorrect: false)
+                    })
+                }
+
+                
+                
+                
+                
+                
+            }
+            
+            
         }
+        
+    }
+    
+  
+    var sequence = 0
+    func testSetup(){
+        
+        
+        makeWord(seq: sequence)
+        
+        
+        changeImageAlfa(name: "leftChiBtn", toAlpha: 1, time: 0.3)
+        changeImageAlfa(name: "rightChiBtn", toAlpha: 1, time: 0.3)
+        changeLabelAlfa(name: "leftChi", toAlpha: 1, time: 0.3)
+        changeLabelAlfa(name: "rightChi", toAlpha: 1, time: 0.3)
+        changeLabelAlfa(name: "testTitle", toAlpha: 1, time: 0.3)
+        changeLabelAlfa(name: "testNumber", toAlpha: 1, time: 0.3)
+        changeLabelAlfa(name: "bigEnglishLabel", toAlpha: 1, time: 0.3)
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    func makeWord(seq:Int){
+        
+        
+        var wordSets = [String]()
+        var chiSets = [String]()
+        var index = Int()
+        switch seq{
+        case ..<7:
+            print("1")
+            wordSets = question1
+            chiSets = answer1
+            index = seq
+        case 7 ..< 14:
+            print("1")
+            wordSets = question2
+            chiSets = answer2
+            index = seq - 7
+        case 14...:
+            print("1")
+            wordSets = question3
+            chiSets = answer3
+            index = seq - 14
+        default:
+            break
+
+        }
+        
+        
+        let engWord = wordSets[index]
+        let chiWords = chiSets[index].components(separatedBy: ", ")
+        
+        print(engWord)
+        print(chiWords)
+    
+        let randomL = Int(arc4random_uniform(UInt32(2)))
+        var randomR = Int()
+        
+        if randomL == 0 {
+                    //左對
+            randomR = 1
+            leftOrRight = 0
+            
+            
+        } else {
+            //右對
+            randomR = 0
+            leftOrRight = 1
+            
+        }
+        
+        findLabelNode(name: "bigEnglishLabel").text = engWord
+        findLabelNode(name: "leftChi").text = chiWords[randomL]
+        findLabelNode(name: "rightChi").text = chiWords[randomR]
+        findLabelNode(name: "testNumber").text = "\(sequence + 1)/21"
+        
+        
+        sequence += 1
+        
+        
+        
+    }
+    
+    func chooseChineseResult(isCorrect:Bool){
+        
+        
+        
+
+            
+  
+            
+            //繼續測驗
+            
+            if isCorrect{
+
+                switch sequence{
+                case ..<8:
+
+                    right1 += 1
+                    
+                case 8 ..< 15:
+                    
+                    right2 += 1
+                case 15...:
+                    right3 += 1
+                    
+                default:
+                    break
+                    
+                }
+                
+            }
+        
+        
+        if sequence == 21{
+            
+            print("test is over")
+            
+            
+            if right1 < 6 {
+                //留在英檢初級
+                print("英檢初")
+                
+            } else if right2 < 6{
+                
+                //留在英檢中
+                
+                
+                print("英檢中")
+                
+                
+                //這裡的判斷邏輯錯全對者無推薦
+            } else if right3 < 6{
+                
+                //建議Toeic
+                
+                print("Toeic")
+                
+            }
+            
+            
+        } else {
+        
+            
+            removeSomeNodes(name: "mark")
+            
+            findImageNode(name: "leftChiBtn").alpha = 1
+            findImageNode(name: "rightChiBtn").alpha = 1
+            
+            findLabelNode(name: "leftChi").text = ""
+            findLabelNode(name: "rightChi").text = ""
+            
+            makeWord(seq: sequence)
+
+            
+        }
+            
+        
         
     }
     
@@ -499,6 +783,39 @@ class IntroScene: SKScene {
     
         
     }
+    
+    
+    func hintSlideIn(leftText:String,rightText:String,waitTime:TimeInterval,finished: @escaping () -> Void){
+        
+        
+        let toRight = SKAction.moveTo(x: -50, duration: 0.3)
+        let toLeft = SKAction.moveTo(x: 50, duration: 0.3)
+        let disToRight = SKAction.moveTo(x: 425, duration: 0.05)
+        let disToLeft = SKAction.moveTo(x: -425, duration: 0.05)
+        let wait = SKAction.wait(forDuration: waitTime)
+        
+        findLabelNode(name: "hintLeftLabel").text = leftText
+        findLabelNode(name: "hintRightLabel").text = rightText
+        
+        findLabelNode(name: "hintLeftLabel").run(toRight)
+        findLabelNode(name: "hintRightLabel").run(toLeft)
+        
+        self.run(wait) {[weak self] in
+            
+            let combine = SKAction.run({
+                self!.findLabelNode(name: "hintLeftLabel").run(disToLeft)
+                self!.findLabelNode(name: "hintRightLabel").run(disToRight)
+            })
+            
+            self!.run(combine, completion: {
+                finished()
+            })
+            
+        }
+        
+    }
+
+    
     
     
     func makeImageNode(name:String, image:String, x:CGFloat, y:CGFloat, width:CGFloat, height:CGFloat, z:CGFloat, alpha:CGFloat, isAnchoring:Bool){
