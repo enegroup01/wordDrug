@@ -945,6 +945,7 @@
                     <connections>
                         <outlet property="audioView" destination="jcE-4d-TID" id="8xd-lb-ycH"/>
                         <outlet property="recordBtn" destination="oQ5-zM-yan" id="133-yO-Qaw"/>
+                        <segue destination="2JK-8B-Ztd" kind="show" identifier="fromIntroToCourse" id="hHL-FR-I78"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bvM-4h-mL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1502,4 +1503,7 @@
         <image name="sylBlueBall" width="16" height="16"/>
         <image name="yellowBack.png" width="19" height="31"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hHL-FR-I78"/>
+    </inferredMetricsTieBreakers>
 </document>

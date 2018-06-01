@@ -16,6 +16,7 @@ import SwiftSiriWaveformView
 import NVActivityIndicatorView
 
 let recogRight = "recogRight"
+let toCourse = "toCourse"
 
 class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeechSynthesizerDelegate{
     
@@ -65,6 +66,8 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     var isRecogRight = Bool()
     var second = Int()
     
+    var recommendedClassToPass = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,6 +104,10 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
         //口試正確
         NotificationCenter.default.addObserver(self, selector: #selector(IntroViewController.notifyRecogRight), name: NSNotification.Name("recogRight"), object: nil)
+        
+        
+        //口試正確
+        NotificationCenter.default.addObserver(self, selector: #selector(IntroViewController.toCourse), name: NSNotification.Name("toCourse"), object: nil)
         
         recordBtn.frame = CGRect(x: (width - 128 * dif) / 2, y: height - 180 * dif, width: 128 * dif, height: 128 * dif)
         
@@ -199,6 +206,38 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
+    @objc func toCourse(_ notification: NSNotification){
+        
+        
+        //抓到的順序為0
+        if let recommendedClass = notification.userInfo?["recommendedClass"] as? String {
+            
+           recommendedClassToPass  = recommendedClass
+            
+        }
+        
+        
+        performSegue(withIdentifier: "fromIntroToCourse", sender: self)
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "fromIntroToCourse" {
+            
+            if let destinedVc = segue.destination as? CoursesViewController{
+                
+                destinedVc.isGuidingMode = true
+                destinedVc.recommendedClass = recommendedClassToPass
+                
+            }
+            
+            
+        }
+        
+        
+    }
     
     func requestMicAuth(){
         

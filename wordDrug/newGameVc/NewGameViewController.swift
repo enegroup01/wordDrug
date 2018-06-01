@@ -578,7 +578,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //載入我的最愛單字
-        if let myWordsString = user!["myWords"] as! String?{
+
+        if let myWordsString = user?["myWords"] as! String?{
             myWords = myWordsString.components(separatedBy: ";")
             
         }
@@ -783,9 +784,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             allUnitSpotNums[0].append(i)
                             
                         }
-
-                        
-                        
+              
                         //超過一關就直接隨機所有學過句子
                     } else if u > 0 {
                         
@@ -1225,6 +1224,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         var wrongWordsCount = 0
         
+        
+
+        
         if let engWords = notification.userInfo?["engWords"] as? [String]{
             if let chiWords = notification.userInfo?["chiWords"] as? [String]{
                 if let score = notification.userInfo?["score"] as? [String] {
@@ -1332,6 +1334,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         print("mapNumer:\(mapNumber)")
                         
+                            if user != nil {
+                            
                             if mapPassedInt == (mapNumber){
                
                                 for (s,u) in gamePassedDic! {
@@ -1373,6 +1377,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         userDefaults.set(encodedObject, forKey: "gamePassed")
 
                                                         //有更新地圖才執行
+                                                        
                                                         updateMapPassed(course:courseReceived)
                                                         updateGamePassed(course:courseReceived)
 
@@ -1517,6 +1522,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                                 //計算所有字數
                             countWords()
+                            }
                         }
                 }
                     }
@@ -2033,6 +2039,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //在此確認是否已過地圖的確認
        
         
+        if user != nil {
+        
         switch senRate{
             
         case 0:
@@ -2064,6 +2072,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         let updatePoints = Int(scoreLabel.text!)!
         updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
+        
+            
+        } else {
+            //第一次嘗試玩
+            
+            print("first time play")
+            
+            
+            
+            
+            
+        }
+        
         
         if isCelebratingMapPassed{
             

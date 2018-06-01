@@ -464,6 +464,22 @@
 		AAC1CE1C20B56853007FF6F8 /* photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAC1CE1B20B56853007FF6F8 /* photo.jpg */; };
 		AAD62F3520BFC678001D6275 /* gradeChiBtnRight.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3320BFC677001D6275 /* gradeChiBtnRight.png */; };
 		AAD62F3620BFC678001D6275 /* gradeChiBtnLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3420BFC678001D6275 /* gradeChiBtnLeft.png */; };
+		AAD62F3C20C02425001D6275 /* testResult.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3B20C02424001D6275 /* testResult.png */; };
+		AAD62F3E20C02566001D6275 /* resultOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3D20C02566001D6275 /* resultOkBtn.png */; };
+		AAD62F4020C1395D001D6275 /* guideBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3F20C1395C001D6275 /* guideBg.png */; };
+		AAD62F4220C14A4E001D6275 /* step0Line.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4120C14A4E001D6275 /* step0Line.png */; };
+		AAD62F4820C15897001D6275 /* step1Line2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4320C15896001D6275 /* step1Line2.png */; };
+		AAD62F4920C15897001D6275 /* headphone.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4420C15896001D6275 /* headphone.png */; };
+		AAD62F4A20C15897001D6275 /* step1Line0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4520C15896001D6275 /* step1Line0.png */; };
+		AAD62F4B20C15897001D6275 /* step1Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4620C15897001D6275 /* step1Circle.png */; };
+		AAD62F4C20C15897001D6275 /* step1Line1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4720C15897001D6275 /* step1Line1.png */; };
+		AAD62F4E20C16B50001D6275 /* step0Chart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4D20C16B4F001D6275 /* step0Chart.png */; };
+		AAD62F5020C16CCF001D6275 /* step0Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F4F20C16CCF001D6275 /* step0Circle.png */; };
+		AAD62F5220C173F2001D6275 /* step0Champion.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F5120C173F2001D6275 /* step0Champion.png */; };
+		AAD62F5720C17A52001D6275 /* step2Line1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F5320C17A51001D6275 /* step2Line1.png */; };
+		AAD62F5820C17A52001D6275 /* step2Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F5420C17A52001D6275 /* step2Circle.png */; };
+		AAD62F5920C17A52001D6275 /* step2Line0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F5520C17A52001D6275 /* step2Line0.png */; };
+		AAD62F5A20C17A52001D6275 /* step2Line2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F5620C17A52001D6275 /* step2Line2.png */; };
 		AAE1818D1F97892D00683896 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE1818C1F97892D00683896 /* AppDelegate.swift */; };
 		AAE181911F97892D00683896 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAE181901F97892D00683896 /* Actions.sks */; };
 		AAE181981F97892D00683896 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE181961F97892D00683896 /* Main.storyboard */; };
@@ -948,6 +964,22 @@
 		AAC1CE1B20B56853007FF6F8 /* photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo.jpg; sourceTree = "<group>"; };
 		AAD62F3320BFC677001D6275 /* gradeChiBtnRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradeChiBtnRight.png; sourceTree = "<group>"; };
 		AAD62F3420BFC678001D6275 /* gradeChiBtnLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradeChiBtnLeft.png; sourceTree = "<group>"; };
+		AAD62F3B20C02424001D6275 /* testResult.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testResult.png; sourceTree = "<group>"; };
+		AAD62F3D20C02566001D6275 /* resultOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultOkBtn.png; sourceTree = "<group>"; };
+		AAD62F3F20C1395C001D6275 /* guideBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guideBg.png; sourceTree = "<group>"; };
+		AAD62F4120C14A4E001D6275 /* step0Line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step0Line.png; sourceTree = "<group>"; };
+		AAD62F4320C15896001D6275 /* step1Line2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step1Line2.png; sourceTree = "<group>"; };
+		AAD62F4420C15896001D6275 /* headphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headphone.png; sourceTree = "<group>"; };
+		AAD62F4520C15896001D6275 /* step1Line0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step1Line0.png; sourceTree = "<group>"; };
+		AAD62F4620C15897001D6275 /* step1Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step1Circle.png; sourceTree = "<group>"; };
+		AAD62F4720C15897001D6275 /* step1Line1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step1Line1.png; sourceTree = "<group>"; };
+		AAD62F4D20C16B4F001D6275 /* step0Chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step0Chart.png; sourceTree = "<group>"; };
+		AAD62F4F20C16CCF001D6275 /* step0Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step0Circle.png; sourceTree = "<group>"; };
+		AAD62F5120C173F2001D6275 /* step0Champion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step0Champion.png; sourceTree = "<group>"; };
+		AAD62F5320C17A51001D6275 /* step2Line1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step2Line1.png; sourceTree = "<group>"; };
+		AAD62F5420C17A52001D6275 /* step2Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step2Circle.png; sourceTree = "<group>"; };
+		AAD62F5520C17A52001D6275 /* step2Line0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step2Line0.png; sourceTree = "<group>"; };
+		AAD62F5620C17A52001D6275 /* step2Line2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step2Line2.png; sourceTree = "<group>"; };
 		AAE181891F97892D00683896 /* wordDrug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wordDrug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE1818C1F97892D00683896 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAE181901F97892D00683896 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -1006,7 +1038,18 @@
 			isa = PBXGroup;
 			children = (
 				AA04ED7E203D7A1300EC0A8E /* CoursesViewController.swift */,
+				AAD62F4120C14A4E001D6275 /* step0Line.png */,
+				AAD62F3F20C1395C001D6275 /* guideBg.png */,
 				AA98E6232086197A001100BA /* bookPng.png */,
+				AAD62F4420C15896001D6275 /* headphone.png */,
+				AAD62F4620C15897001D6275 /* step1Circle.png */,
+				AAD62F4520C15896001D6275 /* step1Line0.png */,
+				AAD62F4720C15897001D6275 /* step1Line1.png */,
+				AAD62F4320C15896001D6275 /* step1Line2.png */,
+				AAD62F5420C17A52001D6275 /* step2Circle.png */,
+				AAD62F5520C17A52001D6275 /* step2Line0.png */,
+				AAD62F5320C17A51001D6275 /* step2Line1.png */,
+				AAD62F5620C17A52001D6275 /* step2Line2.png */,
 				AA0E409A20B2A06D0055DCD0 /* person.png */,
 				AA523FCD208AC4FB004CD863 /* logout.png */,
 				AA04ED84203D7E9100EC0A8E /* elementaryBg.png */,
@@ -1016,6 +1059,9 @@
 				AA04ED89203D7E9700EC0A8E /* dialogueBg.png */,
 				AA04ED8B203D7F6100EC0A8E /* toeflBg.png */,
 				AA04ED8C203D7F6100EC0A8E /* toeicBg.png */,
+				AAD62F4F20C16CCF001D6275 /* step0Circle.png */,
+				AAD62F5120C173F2001D6275 /* step0Champion.png */,
+				AAD62F4D20C16B4F001D6275 /* step0Chart.png */,
 				AA98E60B2085E8A8001100BA /* block0.png */,
 				AA98E60D2085E94D001100BA /* block1.png */,
 				AA98E60F2085E94E001100BA /* block2.png */,
@@ -1087,9 +1133,11 @@
 				AA2CFA8620BD91E7009DBBB6 /* point.png */,
 				AA2CFA7A20BD8523009DBBB6 /* okBtnFrame.png */,
 				AA2CFA7620BD81FF009DBBB6 /* volume.png */,
+				AAD62F3D20C02566001D6275 /* resultOkBtn.png */,
 				AAD62F3420BFC678001D6275 /* gradeChiBtnLeft.png */,
 				AAD62F3320BFC677001D6275 /* gradeChiBtnRight.png */,
 				AA2CFA8020BD8E42009DBBB6 /* grayBall.png */,
+				AAD62F3B20C02424001D6275 /* testResult.png */,
 			);
 			path = IntroVc;
 			sourceTree = "<group>";
@@ -1695,8 +1743,11 @@
 				AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */,
 				AAA9BF7B20A5903C000CA7CD /* s6-9.txt in Resources */,
 				AA532D1220B8258D00997094 /* s11-9.txt in Resources */,
+				AAD62F3C20C02425001D6275 /* testResult.png in Resources */,
 				AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */,
 				AA648EAB207CEA05003ACD07 /* s3-8.txt in Resources */,
+				AAD62F4820C15897001D6275 /* step1Line2.png in Resources */,
+				AAD62F4E20C16B50001D6275 /* step0Chart.png in Resources */,
 				AA98E6102085E94E001100BA /* block1.png in Resources */,
 				AA648E82207CEA05003ACD07 /* s3-4.txt in Resources */,
 				AA648E69207CEA05003ACD07 /* s5-5.txt in Resources */,
@@ -1707,6 +1758,7 @@
 				AA6C95CC20A9CC23001158E7 /* s7-11.txt in Resources */,
 				AA2CFA8720BD91E8009DBBB6 /* point.png in Resources */,
 				AA2B64D0205A609D00742226 /* bookBackBtn.png in Resources */,
+				AAD62F4220C14A4E001D6275 /* step0Line.png in Resources */,
 				AA6C95D620A9CC23001158E7 /* s7-10.txt in Resources */,
 				AA648E9E207CEA05003ACD07 /* 3-3.txt in Resources */,
 				AA0E409B20B2A06D0055DCD0 /* person.png in Resources */,
@@ -1743,6 +1795,7 @@
 				AA648E75207CEA05003ACD07 /* s5-7.txt in Resources */,
 				AA60A93C20B45A64009AD173 /* 8-2.txt in Resources */,
 				AA648EB1207CEA05003ACD07 /* 1-3.txt in Resources */,
+				AAD62F5920C17A52001D6275 /* step2Line0.png in Resources */,
 				AA648E65207CEA05003ACD07 /* 5-10.txt in Resources */,
 				AA648ECC207CEA05003ACD07 /* s3-10.txt in Resources */,
 				AA6C95D720A9CC23001158E7 /* s7-12.txt in Resources */,
@@ -1763,9 +1816,11 @@
 				AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */,
 				AA27DE3220B6FDA4003250D2 /* 9-15.txt in Resources */,
 				AA6C95D420A9CC23001158E7 /* s7-2.txt in Resources */,
+				AAD62F5220C173F2001D6275 /* step0Champion.png in Resources */,
 				AA648EF5207CEA05003ACD07 /* s1-10.txt in Resources */,
 				AA7ABB9520579591007884A1 /* countDownLine.png in Resources */,
 				AA9655652090A048003E5AB7 /* rightBtnClickedImg.png in Resources */,
+				AAD62F4B20C15897001D6275 /* step1Circle.png in Resources */,
 				AAA9BF7720A5903C000CA7CD /* s6-13.txt in Resources */,
 				AA98E62020861560001100BA /* block1Title.png in Resources */,
 				AA648E8F207CEA05003ACD07 /* s1-9.txt in Resources */,
@@ -1791,6 +1846,7 @@
 				AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */,
 				AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */,
 				AA6AA72D209C9A3200374241 /* popQuizBlock.png in Resources */,
+				AAD62F5720C17A52001D6275 /* step2Line1.png in Resources */,
 				AA648EE6207CEA05003ACD07 /* 5-12.txt in Resources */,
 				AA532CC520B8203F00997094 /* 11-12.txt in Resources */,
 				AAA9BF8C20A59058000CA7CD /* 6-2.txt in Resources */,
@@ -1828,8 +1884,10 @@
 				AA6C95B620A9CC10001158E7 /* 7-2.txt in Resources */,
 				AA04ED8E203D7F6200EC0A8E /* toeicBg.png in Resources */,
 				AA648E74207CEA05003ACD07 /* 1-7.txt in Resources */,
+				AAD62F4C20C15897001D6275 /* step1Line1.png in Resources */,
 				AA27DE2720B6FDA4003250D2 /* 9-3.txt in Resources */,
 				AA5E2C46203D3738005E22A0 /* loginBtnImg.png in Resources */,
+				AAD62F4020C1395D001D6275 /* guideBg.png in Resources */,
 				AA35E39D20BEE13A00084EB2 /* introBg.png in Resources */,
 				AA5879F1203EAB1800FEA058 /* bigBlueBall.png in Resources */,
 				AA27DE4D20B6FDB7003250D2 /* s9-5.txt in Resources */,
@@ -1884,6 +1942,7 @@
 				AA648EBB207CEA05003ACD07 /* s5-9.txt in Resources */,
 				AA532D0920B8258D00997094 /* s10-13.txt in Resources */,
 				AA2CFA8120BD8E42009DBBB6 /* grayBall.png in Resources */,
+				AAD62F4920C15897001D6275 /* headphone.png in Resources */,
 				AA648E7D207CEA05003ACD07 /* 1-14.txt in Resources */,
 				AA6C95B720A9CC10001158E7 /* 7-4.txt in Resources */,
 				AA532D0D20B8258D00997094 /* s11-3.txt in Resources */,
@@ -1956,6 +2015,7 @@
 				AA27DE4320B6FDB7003250D2 /* s9-3.txt in Resources */,
 				AA532CFA20B8258D00997094 /* s10-9.txt in Resources */,
 				AAA9BF9020A59058000CA7CD /* 6-4.txt in Resources */,
+				AAD62F3E20C02566001D6275 /* resultOkBtn.png in Resources */,
 				AA2B64D2205A612E00742226 /* newBookBg.png in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
 				AA5879F9203EADE100FEA058 /* smallDarkBall.png in Resources */,
@@ -2034,6 +2094,7 @@
 				AA6AA72B209C99F500374241 /* timerCover.png in Resources */,
 				AA532CFB20B8258D00997094 /* s10-2.txt in Resources */,
 				AA60A95B20B45A7B009AD173 /* s8-9.txt in Resources */,
+				AAD62F5020C16CCF001D6275 /* step0Circle.png in Resources */,
 				AA6C95D520A9CC23001158E7 /* s7-3.txt in Resources */,
 				AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */,
 				AA648ED7207CEA05003ACD07 /* 1-8.txt in Resources */,
@@ -2041,6 +2102,7 @@
 				AA6C95CD20A9CC23001158E7 /* s7-9.txt in Resources */,
 				AA60A95620B45A7B009AD173 /* s8-7.txt in Resources */,
 				AA648EA2207CEA05003ACD07 /* s3-1.txt in Resources */,
+				AAD62F4A20C15897001D6275 /* step1Line0.png in Resources */,
 				AA2CFA7B20BD8523009DBBB6 /* okBtnFrame.png in Resources */,
 				AA60A95320B45A7B009AD173 /* s8-11.txt in Resources */,
 				AA648EDA207CEA05003ACD07 /* 2-7.txt in Resources */,
@@ -2097,6 +2159,7 @@
 				AA648E88207CEA05003ACD07 /* s4-6.txt in Resources */,
 				AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */,
 				AAFAFCB1205BE11F00307264 /* bookPlayOff.png in Resources */,
+				AAD62F5820C17A52001D6275 /* step2Circle.png in Resources */,
 				AA6C95D120A9CC23001158E7 /* s7-14.txt in Resources */,
 				AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn.png in Resources */,
 				AA27DE1120B6E2B2003250D2 /* reviewOkBtnPng.png in Resources */,
@@ -2122,6 +2185,7 @@
 				AA60A95720B45A7B009AD173 /* s8-10.txt in Resources */,
 				AAFAFCA2205BDD6500307264 /* sylBlueBall.png in Resources */,
 				AA648E83207CEA05003ACD07 /* s3-3.txt in Resources */,
+				AAD62F5A20C17A52001D6275 /* step2Line2.png in Resources */,
 				AA648E8A207CEA05003ACD07 /* 1-11.txt in Resources */,
 				AA2CFA8F20BE55B1009DBBB6 /* arrow.png in Resources */,
 				AAFAFCB4205BE11F00307264 /* bookSenOff.png in Resources */,

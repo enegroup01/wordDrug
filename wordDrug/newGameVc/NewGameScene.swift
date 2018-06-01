@@ -612,8 +612,10 @@ class NewGameScene: SKScene {
             print("randomUnits\(randomUnits)")
        
         }
+        
         //讀取所有錯誤的字供比對
-        if let myWrongWordsString = user!["wrongWords"] as! String?{
+
+        if let myWrongWordsString = user?["wrongWords"] as! String?{
             myWrongWords = myWrongWordsString.components(separatedBy: ";")
         //    print("myWrongWords:\(myWrongWords)")
         }
@@ -1663,7 +1665,7 @@ class NewGameScene: SKScene {
         }
         }
         //有finalPoints就是要啟動倒數Timer
-        if let finalPoints = notification.userInfo?["finalPoints"] as? Int{
+        if (notification.userInfo?["finalPoints"] as? Int) != nil{
             
             //顯示得分比例, 然後再倒數tag Question
             
@@ -3026,9 +3028,11 @@ class NewGameScene: SKScene {
                 //}
                 scoreToPass = String(Int(scoreLabel.text!)! + 500)
                 
+                
+                if user != nil {
                 //這是連接後端的func
                 addWrongWords()
-                
+                }
                 
                 let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)],"wrongChinese":wrongChinese]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)

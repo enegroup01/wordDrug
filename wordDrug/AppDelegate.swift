@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
        
         //抓使用者檔案
-        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary 
         
         //抓gamePassed
         let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
@@ -89,6 +89,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 */
             }
             
+        } else {
+            
+            //首次登入
+          
+            
+            //第一次玩
+            //儲存mapPassed & gamePassed的初始值
+            
+            mapPassed = 0
+            
+            let userDefaults = UserDefaults.standard
+            
+            userDefaults.set(mapPassed!, forKey: "mapPassed")
+            
+            gamePassed = [0:0]
+            
+            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+            userDefaults.set(encodedObject, forKey: "gamePassed")
+            
+            mapPassed2 = 0
+            
+            
+            
+            userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+            
+            gamePassed2 = [0:0]
+            
+            let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+            userDefaults.set(encodedObject2, forKey: "gamePassed2")
+
+
+            
         }
         
         
@@ -98,6 +130,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    
+    
     
     func toCourse(){
         

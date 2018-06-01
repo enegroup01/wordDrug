@@ -16,6 +16,7 @@ class IntroScene: SKScene {
 
     //紀錄手指位置
     var location = CGPoint()
+    let darkTextColor = UIColor.init(red: 51/255, green: 10/255, blue: 41/255, alpha: 1)
     
      var line:SKShapeNode?
     //路徑
@@ -27,7 +28,8 @@ class IntroScene: SKScene {
     //未確認的點
     var movingTouch = CGPoint()
     
-        var isDrawingEnable = false
+    
+    var isDrawingEnable = false
     
     
     let question1 = ["nervous","realize","act","bake","draw","trip","hour"]
@@ -35,7 +37,7 @@ class IntroScene: SKScene {
     let question3 = ["feature","calculate","costume","casualty","efficiency","dash","stiff"]
     
     let answer1 = ["緊張的, 易怒的","理解, 立即","扮演, 保護","烘焙, 魚餌","畫, 放置","旅行, 轉換","小時, 車廂"]
-    let answer2 = ["策略, 情節","懷疑, 穩固","有價值的, 清醒的","財產, 風險","資訊, 非正式的","隊長, 海灣","敵人, 陰暗的"]
+    let answer2 = ["策略, 情節","懷疑, 穩固","有價值的, 清醒的","財產, 風險","非正式的, 資訊","隊長, 海灣","敵人, 陰暗的"]
     let answer3 = ["特色, 節慶","計算, 構成","服裝, 習俗","死傷, 隨性","效率, 激動","猛撞, 混入","硬的, 有黏性的"]
     
     //中文字左右對錯
@@ -47,6 +49,13 @@ class IntroScene: SKScene {
     var right3 = Int()
     
     
+    var recommendedClass = String()
+    
+    
+    var timer = Timer()
+    var finalPercent = Int()
+    var numberShown = 0
+    
     override func didMove(to view: SKView) {
         print("yes scene")
         
@@ -56,6 +65,10 @@ class IntroScene: SKScene {
         
         //口試正確
         NotificationCenter.default.addObserver(self, selector: #selector(IntroScene.recogRight), name: NSNotification.Name("recogRight"), object: nil)
+        
+        
+        //口試正確
+        NotificationCenter.default.addObserver(self, selector: #selector(IntroScene.notifyToCourse), name: NSNotification.Name("toCourse"), object: nil)
         
         
         makeImageNode(name: "introBg", image: "introBg", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
@@ -138,6 +151,34 @@ class IntroScene: SKScene {
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
+        
+        makeImageNode(name: "testResult", image: "testResult", x: 0, y: 0, width: 650, height: 520, z: 1, alpha: 0, isAnchoring: false)
+        
+        makeLabelNode(x: -290, y: 200, alignMent: .left, fontColor: .white, fontSize: 30, text: "建議課程", zPosition: 2, name: "resultTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+       // makeLabelNode(x: -290, y: 160, alignMent: .left, fontColor: darkTextColor, fontSize: 20, text: "總計2100字", zPosition: 2, name: "classWords", fontName: "Helvetica Neue Light", isHidden: false, alpha: 1)
+         //       makeLabelNode(x: -292, y: 80, alignMent: .left, fontColor: darkTextColor, fontSize: 20, text: "預計學習時數\n21小時", zPosition: 2, name: "classHours", fontName: "Helvetica Neue Light", isHidden: false, alpha: 1)
+        makeLabelNode(x: 310, y: 60, alignMent: .right, fontColor: darkTextColor, fontSize: 100, text: "英檢初級", zPosition: 2, name: "suggestedClass", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        makeLabelNode(x: 0, y: -50, alignMent: .center, fontColor: darkTextColor, fontSize: 24, text: "正確率", zPosition: 2, name: "percentTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: -90, alignMent: .center, fontColor: darkTextColor, fontSize: 30, text: "83%", zPosition: 2, name: "percent", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        makeImageNode(name: "resultOkBtn", image: "resultOkBtn", x: 2, y: -210, width: 420, height: 58, z: 2, alpha: 0, isAnchoring: false)
+        
+        makeLabelNode(x: -270, y: -50, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "正確字數", zPosition: 2, name: "rightWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        makeLabelNode(x: -120, y: -100, alignMent: .right, fontColor: darkTextColor, fontSize: 60, text: "14", zPosition: 2, name: "rightWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        
+        makeLabelNode(x: 120, y: 10, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "錯誤字數", zPosition: 2, name: "wrongWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+          makeLabelNode(x: 260, y: -30, alignMent: .right, fontColor: darkTextColor, fontSize: 60, text: "7", zPosition: 2, name: "wrongWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        
+        
+        
+        
+        
         /*
         makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450, width: 275, height: 275, z: 9, alpha: 0, isAnchoring: false)
         makeImageNode(name: "mark", image: "wrongX", x: 160, y: -450, width: 202, height: 214, z: 9, alpha: 0, isAnchoring: false)
@@ -152,6 +193,10 @@ class IntroScene: SKScene {
         
     }
     
+    @objc func notifyToCourse(){
+        
+        
+    }
     
     var isEnterTest = false
     @objc func recogRight(){
@@ -357,6 +402,17 @@ class IntroScene: SKScene {
             }
             
             
+            
+            if node.name == "resultOkBtn"{
+                
+                let recommendedClass:[String:String] = ["recommendedClass":self.recommendedClass]
+                
+            
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toCourse"), object: nil, userInfo: recommendedClass)
+                
+                
+            }
+            
         }
         
     }
@@ -448,26 +504,21 @@ class IntroScene: SKScene {
     }
     
     func chooseChineseResult(isCorrect:Bool){
-        
-        
-        
 
-            
-  
-            
-            //繼續測驗
             
             if isCorrect{
+                
+                print("add Right")
 
                 switch sequence{
-                case ..<8:
+                case ..<7:
 
                     right1 += 1
                     
-                case 8 ..< 15:
+                case 7 ..< 14:
                     
                     right2 += 1
-                case 15...:
+                case 14...:
                     right3 += 1
                     
                 default:
@@ -477,15 +528,19 @@ class IntroScene: SKScene {
                 
             }
         
-        
-        if sequence == 21{
+        //測試用
+       // if sequence == 21{
             
+            if sequence == 2{
             print("test is over")
+            
             
             
             if right1 < 6 {
                 //留在英檢初級
                 print("英檢初")
+                
+                recommendedClass = "英檢初級"
                 
             } else if right2 < 6{
                 
@@ -494,15 +549,62 @@ class IntroScene: SKScene {
                 
                 print("英檢中")
                 
+                recommendedClass = "英檢中級"
                 
                 //這裡的判斷邏輯錯全對者無推薦
-            } else if right3 < 6{
+            } else {
                 
                 //建議Toeic
                 
                 print("Toeic")
+                recommendedClass = "多益滿分"
                 
             }
+            
+            
+            
+            
+            let rightCount = right1 + right2 + right3
+            findLabelNode(name: "rightWordCount").text = String(rightCount)
+            
+            let wrongCount = 21 - rightCount
+            findLabelNode(name: "wrongWordCount").text = String(wrongCount)
+            
+            
+            let percentage = Double(rightCount) / Double(21) * 100
+            
+            finalPercent = Int(percentage)
+            //findLabelNode(name: "percent").text = String(Int(percentage)) + "%"
+            
+            
+            findLabelNode(name: "suggestedClass").text = recommendedClass
+            
+            
+            
+            removeSomeNodes(name: "mark")
+            
+            findImageNode(name: "leftChiBtn").alpha = 0
+            findImageNode(name: "rightChiBtn").alpha = 0
+            findLabelNode(name: "leftChi").text = ""
+            findLabelNode(name: "rightChi").text = ""
+            findLabelNode(name: "bigEnglishLabel").text = ""
+            
+            
+            changeImageAlfa(name: "testResult", toAlpha: 1, time: 0.3)
+            changeLabelAlfa(name: "resultTitle", toAlpha: 1, time: 0.3)
+            //changeLabelAlfa(name: "suggestedClass", toAlpha: 1, time: 0.3)
+            changeLabelAlfa(name: "percentTitle", toAlpha: 1, time: 0.3)
+            changeLabelAlfa(name: "percent", toAlpha: 1, time: 0.3)
+            changeImageAlfa(name: "resultOkBtn", toAlpha: 1, time: 0.3)
+            changeLabelAlfa(name: "rightWordTitle", toAlpha: 1, time: 0.3)
+            changeLabelAlfa(name: "rightWordCount", toAlpha: 1, time: 0.3)
+            changeLabelAlfa(name: "wrongWordTitle", toAlpha: 1, time: 0.3)
+            changeLabelAlfa(name: "wrongWordCount", toAlpha: 1, time: 0.3)
+            
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(IntroScene.startCounting), userInfo: nil, repeats: true)
+            
+            
+            
             
             
         } else {
@@ -519,8 +621,48 @@ class IntroScene: SKScene {
             makeWord(seq: sequence)
 
             
+            
         }
             
+        
+        
+    }
+
+
+    @objc func startCounting(){
+        
+        
+        
+        
+        
+        if numberShown < finalPercent {
+            
+            numberShown += 1
+            
+            findLabelNode(name: "percent").text = String(numberShown) + "%"
+            
+            
+            
+            
+            
+        } else {
+            
+            timer.invalidate()
+            
+            
+            print("count over")
+            
+            let downY = findLabelNode(name: "suggestedClass").frame.origin.y - 20
+            let moveDown = SKAction.moveTo(y: downY, duration: 0)
+            let moveUp = SKAction.moveTo(y: 60, duration: 0.2)
+            let fadeIn = SKAction.fadeIn(withDuration: 0.2)
+            let groupAction = SKAction.group([moveUp,fadeIn])
+            let sequence = SKAction.sequence([moveDown,groupAction])
+            findLabelNode(name: "suggestedClass").run(sequence)
+            
+        }
+        
+        
         
         
     }

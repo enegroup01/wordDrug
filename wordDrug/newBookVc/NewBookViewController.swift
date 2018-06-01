@@ -114,7 +114,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"]]
     
     
-    
     let map7SyllableSets = [["am9","ce12","ch16","cl10","com7","con8","cr5","i_e16","ing11","ry5"],
                             ["ay13","ch17","cl11","com8","con9","cr6","de2","en33","ry12","tion10"],
                             ["a_e21","an23","ch18","com9","con10","cr7","de3","igh5","pr7","ty5"],
@@ -371,9 +370,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
+ 
         switch height {
         case 812:
             
@@ -561,7 +558,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         collectionView.delegate = self
         tableView.delegate = self
         tableView.isUserInteractionEnabled = true
-        
         
         collectionView.backgroundColor = .clear
         tableView.backgroundColor = .clear
@@ -855,7 +851,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
            
             for w in 0 ..< 30{
                 
-
                 engWordsToShow.append(wordSets[i][w])
                 
                 //抓出正確的順序
