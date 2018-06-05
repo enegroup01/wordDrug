@@ -19,6 +19,8 @@ class CoursesViewController: UIViewController {
     
     @IBOutlet weak var block1LBtn: UIButton!
     
+    @IBOutlet weak var block2RBtn: UIButton!
+    @IBOutlet weak var block2LBtn: UIButton!
     @IBOutlet weak var block1RBtn: UIButton!
     @IBOutlet weak var dialogueBg: UIImageView!
     
@@ -64,6 +66,8 @@ class CoursesViewController: UIViewController {
     var guideTitle = UILabel()
     var guideText = UILabel()
     
+    
+    //test用
     var guideTitle2 = UILabel()
     var guideTitle3 = UILabel()
     
@@ -101,6 +105,11 @@ class CoursesViewController: UIViewController {
     var step0Person = UIImageView()
     
     var step2Circle = UIImageView()
+    //test用
+    var step2Circle2 = UIImageView()
+    var step2Circle3 = UIImageView()
+    
+    
     var step2Line0 = UIImageView()
     var step2Line1 = UIImageView()
     var step2Line2 = UIImageView()
@@ -180,12 +189,22 @@ class CoursesViewController: UIViewController {
         //block0RBtn.backgroundColor = .red
         
         
+        
+        
         block1LBtn.frame = CGRect(x: 0, y: height / 4, width: width * 3 / 4 + width / 42, height: height / 4)
         
         block1RBtn.frame = CGRect(x: block1LBtn.frame.width, y: block1LBtn.frame.minY, width: block0RBtn.frame.width, height: block0RBtn.frame.height)
         //block1RBtn.backgroundColor = .red
         
         //block1LBtn.backgroundColor = .red
+        
+        block2LBtn.frame = CGRect(x: 0, y: block1LBtn.frame.maxY, width: block1LBtn.frame.width, height: height / 4)
+       // block2LBtn.backgroundColor = .red
+        
+        
+        block2RBtn.frame = CGRect(x: block1LBtn.frame.maxX, y: block2LBtn.frame.minY, width: block1RBtn.frame.width, height: block2LBtn.frame.height)
+       // block2RBtn.backgroundColor = .green
+      
         
         dialogueBg.frame = CGRect(x: width / 3, y: block0.frame.height / 5.5, width: width * 1.8 / 3, height: block0.frame.height / 5)
         
@@ -296,27 +315,58 @@ class CoursesViewController: UIViewController {
             guideTitle.textAlignment = .center
             guideTitle.text = "歡迎進入\nMissWord\n畫面導覽"
             guideTitle.layer.zPosition = 11
+            //guideTitle.backgroundColor = .green
             self.view.addSubview(guideTitle)
             
             
             //以下兩個為測試用
-            guideTitle2.frame = CGRect(x: 0, y: 300, width: width, height: 150)
-            guideTitle2.font = UIFont(name: "Helvetica Bold", size: 36)
-            guideTitle2.numberOfLines = 0
-            guideTitle2.textColor = .white
-            guideTitle2.textAlignment = .center
-   
-            guideTitle2.layer.zPosition = 11
-            self.view.addSubview(guideTitle2)
             
-            guideTitle3.frame = CGRect(x: 0, y: 300, width: width, height: 150)
-            guideTitle3.font = UIFont(name: "Helvetica Bold", size: 36)
-            guideTitle3.numberOfLines = 0
-            guideTitle3.textColor = .white
-            guideTitle3.textAlignment = .center
-         
-            guideTitle3.layer.zPosition = 11
-            self.view.addSubview(guideTitle3)
+            /*
+             guideTitle2.frame = CGRect(x: 0, y: 300, width: width, height: 150)
+             guideTitle2.font = UIFont(name: "Helvetica Bold", size: 36)
+             guideTitle2.numberOfLines = 0
+             guideTitle2.textColor = .white
+             guideTitle2.backgroundColor = .yellow
+             guideTitle2.textAlignment = .center
+             
+             guideTitle2.layer.zPosition = 11
+             self.view.addSubview(guideTitle2)
+             
+             guideTitle3.frame = CGRect(x: 0, y: 300, width: width, height: 150)
+             guideTitle3.font = UIFont(name: "Helvetica Bold", size: 36)
+             guideTitle3.numberOfLines = 0
+             guideTitle3.textColor = .white
+             guideTitle3.backgroundColor = .red
+             guideTitle3.textAlignment = .center
+             
+             guideTitle3.layer.zPosition = 11
+             //self.view.addSubview(guideTitle3)
+             */
+            
+            step2Line0.image = UIImage(named: "step2Line0")
+            step2Line0.layer.zPosition = 11
+            step2Line1.image = UIImage(named: "step2Line1")
+            step2Line1.layer.zPosition = 11
+            step2Line2.image = UIImage(named: "step2Line2")
+            step2Line2.layer.zPosition = 11
+            
+            
+            
+            step2Circle.image = UIImage(named: "step2Circle.png")
+            step2Circle.layer.zPosition = 11
+            
+            
+            //以下為測試用
+            /*
+             step2Circle2.image = UIImage(named: "step2Circle.png")
+             step2Circle2.layer.zPosition = 11
+             
+             step2Circle3.image = UIImage(named: "step2Circle.png")
+             step2Circle3.layer.zPosition = 11
+             */
+            
+            
+            
             
             guideText.frame = CGRect(x: 0, y: 600, width: width, height: 30)
             guideText.font = UIFont(name: "Helvetica Neue", size: 18)
@@ -328,10 +378,11 @@ class CoursesViewController: UIViewController {
             self.view.addSubview(guideText)
             
             
+
+
+
         }
-        
-        
-        
+
         
     }
     
@@ -399,7 +450,10 @@ class CoursesViewController: UIViewController {
             attrWords.append(text1)
             attrWords.append(text2)
             
+            
+            
             guideTitle.frame = CGRect(x: width / 9, y: height / 5, width: 160, height: 198)
+            
             guideTitle.font = UIFont(name: "Helvetica Bold", size: 24)
             guideTitle.attributedText = attrWords
             
@@ -469,8 +523,6 @@ class CoursesViewController: UIViewController {
             step1Circle0.isHidden = true
             step1Circle1.isHidden = true
             step1Circle2.isHidden = true
-            
-            
             step1Book0.isHidden = true
             step1Book1.isHidden = true
             step1Book2.isHidden = true
@@ -484,35 +536,56 @@ class CoursesViewController: UIViewController {
             
             text0 = NSMutableAttributedString(string: "稍後開始學習單字，\nMissWord建議你先從\n", attributes: attrs0)
             
+            //recommendedClass = "多益滿分"
+            
             text1 = NSMutableAttributedString(string: recommendedClass, attributes: attrs1)
             text2 = NSMutableAttributedString(string: "開始喔！", attributes: attrs0)
             
-            
+                            guideText.text = "點擊畫面結束導覽"
             
             switch recommendedClass{
                 
             case "英檢初級":
                 
-                guideTitle.frame = CGRect(x: width / 10, y: height / 2.3, width: width, height: 99)
+                guideTitle.frame = CGRect(x: width / 20, y: height / 2.5, width: width * 2 / 3, height: 99)
                 
-                 guideTitle2.frame = CGRect(x: width / 10, y: block0.frame.minY + 10, width: width, height: 99)
+                //guideTitle.frame =  CGRect(x: width / 20, y: block1.frame.minY, width: width * 2 / 3, height: 99)
                 
-                 guideTitle3.frame = CGRect(x: width / 10, y: block1.frame.minY / 2 + 20, width: width, height: 99)
+                step2Circle.frame = CGRect(x: width / 20, y: block0.frame.minY + 50, width: 256, height: 116)
+                
+                
+                /*
+                 step2Circle2.frame = CGRect(x: width / 20, y: block1.frame.minY + 30, width: 256, height: 116)
+                 step2Circle3.frame = CGRect(x: width / 20, y: block2.frame.minY + 40, width: 256, height: 116)
+                 */
+                step2Line0.frame = CGRect(x: block1.frame.width / 3, y: block1.frame.minY, width: 31, height: 106)
+                
+               // guideTitle2.frame = CGRect(x: width / 20, y: block0.frame.minY + 10, width: width * 2 / 3, height: 99)
+                
+               // guideTitle3.frame = CGRect(x: width / 20, y: block1.frame.minY, width: width * 2 / 3, height: 99)
+                self.view.addSubview(step2Line0)
+                
             case "英檢中級":
                 
-                
-                guideTitle.frame = CGRect(x: width / 2, y: dialogueBg.frame.minY, width: width, height: 99)
+                guideTitle.frame = CGRect(x: width / 20, y: block0.frame.minY + 10, width: width * 2 / 3, height: 99)
+                step2Circle.frame = CGRect(x: width / 20, y: block1.frame.minY + 30, width: 256, height: 116)
+                step2Line1.frame = CGRect(x: block0.frame.width / 3, y: block0.frame.midY + 15, width: 25, height: 86)
+                self.view.addSubview(step2Line1)
             case "多益滿分":
                 
-                guideTitle.frame = CGRect(x: width / 2, y: block1.frame.minY / 2, width: width, height: 99)
+                guideTitle.frame = CGRect(x: width / 20, y: block1.frame.minY, width: width * 2 / 3, height: 99)
+                
+                step2Circle.frame = CGRect(x: width / 20, y: block2.frame.minY + 40, width: 256, height: 116)
                 text0 = NSMutableAttributedString(string: "稍後開始學習單字，\nMissWord建議可以學習\n", attributes: attrs0)
                 
                 text2 = NSMutableAttributedString(string: "喔！", attributes: attrs0)
                 
+                
+                step2Line2.frame = CGRect(x: block1.frame.width / 3, y: block1.frame.midY + 10, width: 30, height: 105)
+
+                self.view.addSubview(step2Line2)
             default:
                 break
-                
-                
                 
                 
             }
@@ -521,8 +594,28 @@ class CoursesViewController: UIViewController {
             attrWords.append(text1)
             attrWords.append(text2)
             guideTitle.attributedText = attrWords
-            guideTitle2.attributedText = attrWords
-            guideTitle3.attributedText = attrWords
+           // guideTitle2.attributedText = attrWords
+           // guideTitle3.attributedText = attrWords
+            
+            self.view.addSubview(step2Circle)
+            //self.view.addSubview(step2Circle2)
+            //self.view.addSubview(step2Circle3)
+            
+            
+        } else if guideStep == 3 {
+            
+            guideTitle.isHidden = true
+            step2Circle.isHidden = true
+            step2Line0.isHidden = true
+            step2Line1.isHidden = true
+            step2Line2.isHidden = true
+            guideText.isHidden = true
+            guideBg.isHidden = true
+            guideGhost.isHidden = true
+            
+
+            
+            
             
         }
         
@@ -575,6 +668,11 @@ class CoursesViewController: UIViewController {
         
     }
     
+    @IBAction func toeicClicked(_ sender: Any) {
+        courseSent = 2
+        performSegue(withIdentifier: "toStageVc", sender: self)
+        
+    }
     /*
      @IBAction func intermediateClicked(_ sender: Any) {
      
@@ -604,6 +702,10 @@ class CoursesViewController: UIViewController {
         performSegue(withIdentifier: "toNewBookVc", sender: self)
         
         
+    }
+    @IBAction func toNewBook3Btn(_ sender: Any) {
+        courseSent = 2
+        performSegue(withIdentifier: "toNewBookVc", sender: self)
     }
     
     @IBAction func toInfoVcClicked(_ sender: Any) {

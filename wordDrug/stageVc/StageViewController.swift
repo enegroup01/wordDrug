@@ -13,7 +13,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //此兩數字要做動態
     var stageCount = 5
-    var elemWordsMax = [450,450,450,450,450, 450]
+    var elemWordsMax = [450,450,450,450,450,450]
     
     var courseReceived = Int()
     
@@ -180,6 +180,18 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             elemWordsMax = [450,450,450,450,450,450]
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
+            
+            print(gamePassedDic)
+            print(mapPassedInt)
+            
+            
+        case 2:
+            print("2")
+            
+            stageCount = 7
+            elemWordsMax = [450,450,450,450,450,450,450]
+            gamePassedDic = gamePassed3!
+            mapPassedInt = mapPassed3!
             
             print(gamePassedDic)
             print(mapPassedInt)

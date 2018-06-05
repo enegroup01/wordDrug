@@ -80,6 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id != nil {
 
                 //跳轉到角色畫面
+                
+                
+               //mapPassed3 = 0
+               //gamePassed3 = [0:0]
+
                 //toCourse()
                 
                 //測試用
@@ -123,11 +128,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
-        
         print("user:\(user)")
-        print("gamePassed:\(gamePassed)")
-        print("mapPassed:\(mapPassed)")
-        
+        print("gamePassed:\(gamePassed3)")
+        print("mapPassed:\(mapPassed3)")
         return true
     }
     

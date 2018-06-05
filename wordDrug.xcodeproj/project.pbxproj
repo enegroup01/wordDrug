@@ -15,6 +15,12 @@
 		AA04ED8D203D7F6200EC0A8E /* toeflBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED8B203D7F6100EC0A8E /* toeflBg.png */; };
 		AA04ED8E203D7F6200EC0A8E /* toeicBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA04ED8C203D7F6100EC0A8E /* toeicBg.png */; };
 		AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04ED96203D968A00EC0A8E /* StageViewController.swift */; };
+		AA0A3FD120C63B5C00CCDCFB /* accountPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FD020C63B5C00CCDCFB /* accountPng.png */; };
+		AA0A3FD720C63D9400CCDCFB /* passwordPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FD620C63D9300CCDCFB /* passwordPng.png */; };
+		AA0A3FD920C647B200CCDCFB /* registerBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FD820C647B100CCDCFB /* registerBtn.png */; };
+		AA0A3FDB20C647BB00CCDCFB /* facebookBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FDA20C647BA00CCDCFB /* facebookBtn.png */; };
+		AA0A3FDF20C65B2600CCDCFB /* alarmClock.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FDE20C65B2600CCDCFB /* alarmClock.png */; };
+		AA0A3FE120C65B5000CCDCFB /* freePng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FE020C65B5000CCDCFB /* freePng.png */; };
 		AA0E409B20B2A06D0055DCD0 /* person.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0E409A20B2A06D0055DCD0 /* person.png */; };
 		AA0EAA6E20A486E600E256AF /* answerRightBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0EAA6D20A486E600E256AF /* answerRightBtn.png */; };
 		AA21142F2043F0200047B866 /* leftPageBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA21142D2043F0200047B866 /* leftPageBtn.png */; };
@@ -77,6 +83,41 @@
 		AA34F32C2023516D005437C6 /* NewGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA34F32B2023516D005437C6 /* NewGameScene.swift */; };
 		AA35E39920BEDEFA00084EB2 /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = AA35E39820BEDEFA00084EB2 /* world.png */; };
 		AA35E39D20BEE13A00084EB2 /* introBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA35E39C20BEE13A00084EB2 /* introBg.png */; };
+		AA3A847620C55E2900BE88EC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3A847520C55E2900BE88EC /* RegisterViewController.swift */; };
+		AA3A847920C562C300BE88EC /* registerBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3A847820C562C200BE88EC /* registerBg.png */; };
+		AA3A847B20C565FE00BE88EC /* freeTiltedPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3A847A20C565FE00BE88EC /* freeTiltedPng.png */; };
+		AA3A847D20C5662B00BE88EC /* starPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3A847C20C5662B00BE88EC /* starPng.png */; };
+		AA3A848D20C56C9000BE88EC /* s12-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A847E20C56C8C00BE88EC /* s12-4.txt */; };
+		AA3A848E20C56C9000BE88EC /* s12-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A847F20C56C8D00BE88EC /* s12-11.txt */; };
+		AA3A848F20C56C9000BE88EC /* s12-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848020C56C8D00BE88EC /* s12-9.txt */; };
+		AA3A849020C56C9000BE88EC /* s12-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848120C56C8D00BE88EC /* s12-7.txt */; };
+		AA3A849120C56C9000BE88EC /* s12-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848220C56C8D00BE88EC /* s12-10.txt */; };
+		AA3A849220C56C9000BE88EC /* s12-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848320C56C8D00BE88EC /* s12-3.txt */; };
+		AA3A849320C56C9000BE88EC /* s12-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848420C56C8E00BE88EC /* s12-5.txt */; };
+		AA3A849420C56C9000BE88EC /* s12-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848520C56C8E00BE88EC /* s12-6.txt */; };
+		AA3A849520C56C9000BE88EC /* s12-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848620C56C8E00BE88EC /* s12-8.txt */; };
+		AA3A849620C56C9000BE88EC /* s12-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848720C56C8E00BE88EC /* s12-2.txt */; };
+		AA3A849720C56C9000BE88EC /* s12-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848820C56C8F00BE88EC /* s12-15.txt */; };
+		AA3A849820C56C9000BE88EC /* s12-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848920C56C8F00BE88EC /* s12-1.txt */; };
+		AA3A849920C56C9000BE88EC /* s12-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848A20C56C8F00BE88EC /* s12-13.txt */; };
+		AA3A849A20C56C9000BE88EC /* s12-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848B20C56C8F00BE88EC /* s12-14.txt */; };
+		AA3A849B20C56C9000BE88EC /* s12-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A848C20C56C8F00BE88EC /* s12-12.txt */; };
+		AA3A84AB20C56CAA00BE88EC /* 12-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A849C20C56CA700BE88EC /* 12-7.txt */; };
+		AA3A84AC20C56CAA00BE88EC /* 12-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A849D20C56CA700BE88EC /* 12-5.txt */; };
+		AA3A84AD20C56CAA00BE88EC /* 12-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A849E20C56CA700BE88EC /* 12-1.txt */; };
+		AA3A84AE20C56CAA00BE88EC /* 12-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A849F20C56CA800BE88EC /* 12-8.txt */; };
+		AA3A84AF20C56CAA00BE88EC /* 12-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A020C56CA800BE88EC /* 12-11.txt */; };
+		AA3A84B020C56CAA00BE88EC /* 12-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A120C56CA800BE88EC /* 12-12.txt */; };
+		AA3A84B120C56CAA00BE88EC /* 12-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A220C56CA800BE88EC /* 12-13.txt */; };
+		AA3A84B220C56CAA00BE88EC /* 12-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A320C56CA800BE88EC /* 12-2.txt */; };
+		AA3A84B320C56CAA00BE88EC /* 12-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A420C56CA900BE88EC /* 12-6.txt */; };
+		AA3A84B420C56CAA00BE88EC /* 12-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A520C56CA900BE88EC /* 12-14.txt */; };
+		AA3A84B520C56CAA00BE88EC /* 12-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A620C56CA900BE88EC /* 12-4.txt */; };
+		AA3A84B620C56CAA00BE88EC /* 12-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A720C56CA900BE88EC /* 12-9.txt */; };
+		AA3A84B720C56CAA00BE88EC /* 12-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A820C56CA900BE88EC /* 12-15.txt */; };
+		AA3A84B820C56CAA00BE88EC /* 12-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84A920C56CAA00BE88EC /* 12-10.txt */; };
+		AA3A84B920C56CAA00BE88EC /* 12-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84AA20C56CAA00BE88EC /* 12-3.txt */; };
+		AA3A84BB20C57B3A00BE88EC /* doubleLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84BA20C57B3A00BE88EC /* doubleLine.png */; };
 		AA3C6C0F2091A55000B7F83C /* enterGameBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */; };
 		AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C102091AF6B00B7F83C /* lessonBtn.png */; };
 		AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */; };
@@ -514,6 +555,12 @@
 		AA04ED8B203D7F6100EC0A8E /* toeflBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toeflBg.png; sourceTree = "<group>"; };
 		AA04ED8C203D7F6100EC0A8E /* toeicBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toeicBg.png; sourceTree = "<group>"; };
 		AA04ED96203D968A00EC0A8E /* StageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
+		AA0A3FD020C63B5C00CCDCFB /* accountPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = accountPng.png; sourceTree = "<group>"; };
+		AA0A3FD620C63D9300CCDCFB /* passwordPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passwordPng.png; sourceTree = "<group>"; };
+		AA0A3FD820C647B100CCDCFB /* registerBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerBtn.png; sourceTree = "<group>"; };
+		AA0A3FDA20C647BA00CCDCFB /* facebookBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookBtn.png; sourceTree = "<group>"; };
+		AA0A3FDE20C65B2600CCDCFB /* alarmClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmClock.png; sourceTree = "<group>"; };
+		AA0A3FE020C65B5000CCDCFB /* freePng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freePng.png; sourceTree = "<group>"; };
 		AA0E409A20B2A06D0055DCD0 /* person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person.png; sourceTree = "<group>"; };
 		AA0EAA6D20A486E600E256AF /* answerRightBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = answerRightBtn.png; sourceTree = "<group>"; };
 		AA21142D2043F0200047B866 /* leftPageBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftPageBtn.png; sourceTree = "<group>"; };
@@ -576,6 +623,41 @@
 		AA34F32B2023516D005437C6 /* NewGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScene.swift; sourceTree = "<group>"; };
 		AA35E39820BEDEFA00084EB2 /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world.png; sourceTree = "<group>"; };
 		AA35E39C20BEE13A00084EB2 /* introBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introBg.png; sourceTree = "<group>"; };
+		AA3A847520C55E2900BE88EC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		AA3A847820C562C200BE88EC /* registerBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerBg.png; sourceTree = "<group>"; };
+		AA3A847A20C565FE00BE88EC /* freeTiltedPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freeTiltedPng.png; sourceTree = "<group>"; };
+		AA3A847C20C5662B00BE88EC /* starPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starPng.png; sourceTree = "<group>"; };
+		AA3A847E20C56C8C00BE88EC /* s12-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-4.txt"; sourceTree = "<group>"; };
+		AA3A847F20C56C8D00BE88EC /* s12-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-11.txt"; sourceTree = "<group>"; };
+		AA3A848020C56C8D00BE88EC /* s12-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-9.txt"; sourceTree = "<group>"; };
+		AA3A848120C56C8D00BE88EC /* s12-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-7.txt"; sourceTree = "<group>"; };
+		AA3A848220C56C8D00BE88EC /* s12-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-10.txt"; sourceTree = "<group>"; };
+		AA3A848320C56C8D00BE88EC /* s12-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-3.txt"; sourceTree = "<group>"; };
+		AA3A848420C56C8E00BE88EC /* s12-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-5.txt"; sourceTree = "<group>"; };
+		AA3A848520C56C8E00BE88EC /* s12-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-6.txt"; sourceTree = "<group>"; };
+		AA3A848620C56C8E00BE88EC /* s12-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-8.txt"; sourceTree = "<group>"; };
+		AA3A848720C56C8E00BE88EC /* s12-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-2.txt"; sourceTree = "<group>"; };
+		AA3A848820C56C8F00BE88EC /* s12-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-15.txt"; sourceTree = "<group>"; };
+		AA3A848920C56C8F00BE88EC /* s12-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-1.txt"; sourceTree = "<group>"; };
+		AA3A848A20C56C8F00BE88EC /* s12-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-13.txt"; sourceTree = "<group>"; };
+		AA3A848B20C56C8F00BE88EC /* s12-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-14.txt"; sourceTree = "<group>"; };
+		AA3A848C20C56C8F00BE88EC /* s12-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-12.txt"; sourceTree = "<group>"; };
+		AA3A849C20C56CA700BE88EC /* 12-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-7.txt"; sourceTree = "<group>"; };
+		AA3A849D20C56CA700BE88EC /* 12-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-5.txt"; sourceTree = "<group>"; };
+		AA3A849E20C56CA700BE88EC /* 12-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-1.txt"; sourceTree = "<group>"; };
+		AA3A849F20C56CA800BE88EC /* 12-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-8.txt"; sourceTree = "<group>"; };
+		AA3A84A020C56CA800BE88EC /* 12-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-11.txt"; sourceTree = "<group>"; };
+		AA3A84A120C56CA800BE88EC /* 12-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-12.txt"; sourceTree = "<group>"; };
+		AA3A84A220C56CA800BE88EC /* 12-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-13.txt"; sourceTree = "<group>"; };
+		AA3A84A320C56CA800BE88EC /* 12-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-2.txt"; sourceTree = "<group>"; };
+		AA3A84A420C56CA900BE88EC /* 12-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-6.txt"; sourceTree = "<group>"; };
+		AA3A84A520C56CA900BE88EC /* 12-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-14.txt"; sourceTree = "<group>"; };
+		AA3A84A620C56CA900BE88EC /* 12-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-4.txt"; sourceTree = "<group>"; };
+		AA3A84A720C56CA900BE88EC /* 12-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-9.txt"; sourceTree = "<group>"; };
+		AA3A84A820C56CA900BE88EC /* 12-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-15.txt"; sourceTree = "<group>"; };
+		AA3A84A920C56CAA00BE88EC /* 12-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-10.txt"; sourceTree = "<group>"; };
+		AA3A84AA20C56CAA00BE88EC /* 12-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-3.txt"; sourceTree = "<group>"; };
+		AA3A84BA20C57B3A00BE88EC /* doubleLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doubleLine.png; sourceTree = "<group>"; };
 		AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterGameBtn.png; sourceTree = "<group>"; };
 		AA3C6C102091AF6B00B7F83C /* lessonBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBtn.png; sourceTree = "<group>"; };
 		AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
@@ -1142,6 +1224,24 @@
 			path = IntroVc;
 			sourceTree = "<group>";
 		};
+		AA3A847720C562AE00BE88EC /* RegisterVc */ = {
+			isa = PBXGroup;
+			children = (
+				AA0A3FD820C647B100CCDCFB /* registerBtn.png */,
+				AA3A847520C55E2900BE88EC /* RegisterViewController.swift */,
+				AA3A847820C562C200BE88EC /* registerBg.png */,
+				AA3A847C20C5662B00BE88EC /* starPng.png */,
+				AA3A847A20C565FE00BE88EC /* freeTiltedPng.png */,
+				AA0A3FDA20C647BA00CCDCFB /* facebookBtn.png */,
+				AA3A84BA20C57B3A00BE88EC /* doubleLine.png */,
+				AA0A3FD020C63B5C00CCDCFB /* accountPng.png */,
+				AA0A3FD620C63D9300CCDCFB /* passwordPng.png */,
+				AA0A3FDE20C65B2600CCDCFB /* alarmClock.png */,
+				AA0A3FE020C65B5000CCDCFB /* freePng.png */,
+			);
+			path = RegisterVc;
+			sourceTree = "<group>";
+		};
 		AA5879EB203EA9AF00FEA058 /* pageVc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1572,10 +1672,40 @@
 				AA6C95AA20A9CC0F001158E7 /* 7-8.txt */,
 				AA6C95AD20A9CC10001158E7 /* 7-9.txt */,
 				AA6C95A320A9CC0E001158E7 /* 7-10.txt */,
+				AA3A849E20C56CA700BE88EC /* 12-1.txt */,
+				AA3A84A320C56CA800BE88EC /* 12-2.txt */,
+				AA3A84AA20C56CAA00BE88EC /* 12-3.txt */,
+				AA3A84A620C56CA900BE88EC /* 12-4.txt */,
+				AA3A849D20C56CA700BE88EC /* 12-5.txt */,
+				AA3A84A420C56CA900BE88EC /* 12-6.txt */,
+				AA3A849C20C56CA700BE88EC /* 12-7.txt */,
+				AA3A849F20C56CA800BE88EC /* 12-8.txt */,
+				AA3A84A720C56CA900BE88EC /* 12-9.txt */,
+				AA3A84A920C56CAA00BE88EC /* 12-10.txt */,
+				AA3A84A020C56CA800BE88EC /* 12-11.txt */,
+				AA3A84A120C56CA800BE88EC /* 12-12.txt */,
+				AA3A84A220C56CA800BE88EC /* 12-13.txt */,
+				AA3A84A520C56CA900BE88EC /* 12-14.txt */,
+				AA3A84A820C56CA900BE88EC /* 12-15.txt */,
 				AA6C95A520A9CC0E001158E7 /* 7-11.txt */,
 				AA6C95A620A9CC0E001158E7 /* 7-12.txt */,
 				AA6C95AC20A9CC10001158E7 /* 7-13.txt */,
 				AA6C95A420A9CC0E001158E7 /* 7-14.txt */,
+				AA3A848920C56C8F00BE88EC /* s12-1.txt */,
+				AA3A848720C56C8E00BE88EC /* s12-2.txt */,
+				AA3A848320C56C8D00BE88EC /* s12-3.txt */,
+				AA3A847E20C56C8C00BE88EC /* s12-4.txt */,
+				AA3A848420C56C8E00BE88EC /* s12-5.txt */,
+				AA3A848520C56C8E00BE88EC /* s12-6.txt */,
+				AA3A848120C56C8D00BE88EC /* s12-7.txt */,
+				AA3A848620C56C8E00BE88EC /* s12-8.txt */,
+				AA3A848020C56C8D00BE88EC /* s12-9.txt */,
+				AA3A848220C56C8D00BE88EC /* s12-10.txt */,
+				AA3A847F20C56C8D00BE88EC /* s12-11.txt */,
+				AA3A848C20C56C8F00BE88EC /* s12-12.txt */,
+				AA3A848A20C56C8F00BE88EC /* s12-13.txt */,
+				AA3A848B20C56C8F00BE88EC /* s12-14.txt */,
+				AA3A848820C56C8F00BE88EC /* s12-15.txt */,
 				AAE46C8120A4213E00FA6FCD /* 老師唸錯的字.txt */,
 			);
 			path = words;
@@ -1635,6 +1765,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA3A847720C562AE00BE88EC /* RegisterVc */,
 				AA2CFA6920BD7DD9009DBBB6 /* IntroVc */,
 				AAC1CE0A20B5283A007FF6F8 /* chartVc */,
 				AA6FB73120AE7A290001EFED /* infoVc */,
@@ -1722,8 +1853,10 @@
 			files = (
 				AA532CD320B8203F00997094 /* 11-11.txt in Resources */,
 				AA7AE8F62047D88900ADEEDA /* newGameBg.png in Resources */,
+				AA3A84B220C56CAA00BE88EC /* 12-2.txt in Resources */,
 				AAA9BF9420A59058000CA7CD /* 6-3.txt in Resources */,
 				AA5C2ED820A5542900EAD999 /* emptyStar.png in Resources */,
+				AA3A84B920C56CAA00BE88EC /* 12-3.txt in Resources */,
 				AAA9BF9620A59058000CA7CD /* 6-7.txt in Resources */,
 				AA648E71207CEA05003ACD07 /* 1-6.txt in Resources */,
 				AA27DE2E20B6FDA4003250D2 /* 9-10.txt in Resources */,
@@ -1739,7 +1872,9 @@
 				AAA9BF9720A59058000CA7CD /* 6-8.txt in Resources */,
 				AA648E87207CEA05003ACD07 /* s4-1.txt in Resources */,
 				AA63D1F52087588C000EA088 /* resultBg.png in Resources */,
+				AA3A84B420C56CAA00BE88EC /* 12-14.txt in Resources */,
 				AA27DE4520B6FDB7003250D2 /* s9-1.txt in Resources */,
+				AA3A84B720C56CAA00BE88EC /* 12-15.txt in Resources */,
 				AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */,
 				AAA9BF7B20A5903C000CA7CD /* s6-9.txt in Resources */,
 				AA532D1220B8258D00997094 /* s11-9.txt in Resources */,
@@ -1748,6 +1883,7 @@
 				AA648EAB207CEA05003ACD07 /* s3-8.txt in Resources */,
 				AAD62F4820C15897001D6275 /* step1Line2.png in Resources */,
 				AAD62F4E20C16B50001D6275 /* step0Chart.png in Resources */,
+				AA3A849120C56C9000BE88EC /* s12-10.txt in Resources */,
 				AA98E6102085E94E001100BA /* block1.png in Resources */,
 				AA648E82207CEA05003ACD07 /* s3-4.txt in Resources */,
 				AA648E69207CEA05003ACD07 /* s5-5.txt in Resources */,
@@ -1778,11 +1914,13 @@
 				AA2CFA5520BD0815009DBBB6 /* chartBg.png in Resources */,
 				AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */,
 				AA648EC1207CEA05003ACD07 /* 3-9.txt in Resources */,
+				AA3A84AD20C56CAA00BE88EC /* 12-1.txt in Resources */,
 				AA27DE2620B6FDA4003250D2 /* 9-1.txt in Resources */,
 				AA648E67207CEA05003ACD07 /* s4-9.txt in Resources */,
 				AA648E70207CEA05003ACD07 /* s1-6.txt in Resources */,
 				AA523FCC208AC2AB004CD863 /* noClassOkBtn.png in Resources */,
 				AA6FB74520AEE3DF0001EFED /* alphaLayer.png in Resources */,
+				AA0A3FE120C65B5000CCDCFB /* freePng.png in Resources */,
 				AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */,
 				AA648E7C207CEA05003ACD07 /* 4-7.txt in Resources */,
 				AA6FB74120AEE20E0001EFED /* avatar.png in Resources */,
@@ -1815,6 +1953,7 @@
 				AAE181981F97892D00683896 /* Main.storyboard in Resources */,
 				AA2114322043F16C0047B866 /* rightPageBtn.png in Resources */,
 				AA27DE3220B6FDA4003250D2 /* 9-15.txt in Resources */,
+				AA3A84B320C56CAA00BE88EC /* 12-6.txt in Resources */,
 				AA6C95D420A9CC23001158E7 /* s7-2.txt in Resources */,
 				AAD62F5220C173F2001D6275 /* step0Champion.png in Resources */,
 				AA648EF5207CEA05003ACD07 /* s1-10.txt in Resources */,
@@ -1826,6 +1965,8 @@
 				AA648E8F207CEA05003ACD07 /* s1-9.txt in Resources */,
 				AA648E6D207CEA05003ACD07 /* 5-6.txt in Resources */,
 				AA532CC820B8203F00997094 /* 11-10.txt in Resources */,
+				AA3A84B820C56CAA00BE88EC /* 12-10.txt in Resources */,
+				AA0A3FDB20C647BB00CCDCFB /* facebookBtn.png in Resources */,
 				AA532CBC20B8203F00997094 /* 11-13.txt in Resources */,
 				AA60A95220B45A7B009AD173 /* s8-4.txt in Resources */,
 				AA648EDC207CEA05003ACD07 /* s5-1.txt in Resources */,
@@ -1843,6 +1984,7 @@
 				AA648EB7207CEA05003ACD07 /* 4-9.txt in Resources */,
 				AA648EC7207CEA05003ACD07 /* s4-3.txt in Resources */,
 				AA648EA8207CEA05003ACD07 /* 3-14.txt in Resources */,
+				AA3A849020C56C9000BE88EC /* s12-7.txt in Resources */,
 				AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */,
 				AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */,
 				AA6AA72D209C9A3200374241 /* popQuizBlock.png in Resources */,
@@ -1871,6 +2013,7 @@
 				AA60A93B20B45A64009AD173 /* 8-7.txt in Resources */,
 				AA532D0220B8258D00997094 /* s10-15.txt in Resources */,
 				AA277115208A0CAA00414E5D /* lockPng.png in Resources */,
+				AA3A849A20C56C9000BE88EC /* s12-14.txt in Resources */,
 				AA648ED2207CEA05003ACD07 /* 5-8.txt in Resources */,
 				AA648ED0207CEA05003ACD07 /* s2-3.txt in Resources */,
 				AA532D0020B8258D00997094 /* s11-12.txt in Resources */,
@@ -1883,7 +2026,9 @@
 				AA7DCB972085BE71008AFFDF /* 1-1.txt in Resources */,
 				AA6C95B620A9CC10001158E7 /* 7-2.txt in Resources */,
 				AA04ED8E203D7F6200EC0A8E /* toeicBg.png in Resources */,
+				AA3A849820C56C9000BE88EC /* s12-1.txt in Resources */,
 				AA648E74207CEA05003ACD07 /* 1-7.txt in Resources */,
+				AA3A849920C56C9000BE88EC /* s12-13.txt in Resources */,
 				AAD62F4C20C15897001D6275 /* step1Line1.png in Resources */,
 				AA27DE2720B6FDA4003250D2 /* 9-3.txt in Resources */,
 				AA5E2C46203D3738005E22A0 /* loginBtnImg.png in Resources */,
@@ -1896,6 +2041,7 @@
 				AA98E6062085CBC3001100BA /* leftRoundedSqr.png in Resources */,
 				AA0EAA6E20A486E600E256AF /* answerRightBtn.png in Resources */,
 				AA27DE4720B6FDB7003250D2 /* s9-12.txt in Resources */,
+				AA0A3FDF20C65B2600CCDCFB /* alarmClock.png in Resources */,
 				AA648E66207CEA05003ACD07 /* s1-7.txt in Resources */,
 				AA2CFA8320BD8E4D009DBBB6 /* cyanBall.png in Resources */,
 				AA648EC0207CEA05003ACD07 /* 3-2.txt in Resources */,
@@ -1903,6 +2049,7 @@
 				AA648ED1207CEA05003ACD07 /* s2-1.txt in Resources */,
 				AA2CFA8520BD91DA009DBBB6 /* finger.png in Resources */,
 				AAF31A11207E23DA002F8FD8 /* lightSel.png in Resources */,
+				AA3A849B20C56C9000BE88EC /* s12-12.txt in Resources */,
 				AA9655692090B7E3003E5AB7 /* practiceBook.png in Resources */,
 				AA648E6B207CEA05003ACD07 /* 1-5.txt in Resources */,
 				AA6C95D320A9CC23001158E7 /* s7-5.txt in Resources */,
@@ -1916,6 +2063,7 @@
 				AA60A95020B45A7B009AD173 /* s8-14.txt in Resources */,
 				AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */,
 				AA648ECB207CEA05003ACD07 /* s1-14.txt in Resources */,
+				AA3A849520C56C9000BE88EC /* s12-8.txt in Resources */,
 				AA648EA0207CEA05003ACD07 /* 2-10.txt in Resources */,
 				AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */,
 				AA648EFB207CEA05003ACD07 /* 3-10.txt in Resources */,
@@ -1925,8 +2073,10 @@
 				AA648E80207CEA05003ACD07 /* s2-4.txt in Resources */,
 				AA6C95BA20A9CC10001158E7 /* 7-13.txt in Resources */,
 				AA648E90207CEA05003ACD07 /* 5-15.txt in Resources */,
+				AA3A847920C562C300BE88EC /* registerBg.png in Resources */,
 				AA27DE3020B6FDA4003250D2 /* 9-11.txt in Resources */,
 				AA648EDD207CEA05003ACD07 /* s5-4.txt in Resources */,
+				AA0A3FD720C63D9400CCDCFB /* passwordPng.png in Resources */,
 				AA648EF3207CEA05003ACD07 /* 2-4.txt in Resources */,
 				AA648ECE207CEA05003ACD07 /* 4-5.txt in Resources */,
 				AA648EA9207CEA05003ACD07 /* 4-8.txt in Resources */,
@@ -1942,6 +2092,7 @@
 				AA648EBB207CEA05003ACD07 /* s5-9.txt in Resources */,
 				AA532D0920B8258D00997094 /* s10-13.txt in Resources */,
 				AA2CFA8120BD8E42009DBBB6 /* grayBall.png in Resources */,
+				AA3A847B20C565FE00BE88EC /* freeTiltedPng.png in Resources */,
 				AAD62F4920C15897001D6275 /* headphone.png in Resources */,
 				AA648E7D207CEA05003ACD07 /* 1-14.txt in Resources */,
 				AA6C95B720A9CC10001158E7 /* 7-4.txt in Resources */,
@@ -1960,6 +2111,8 @@
 				AA523FD2208AD862004CD863 /* volume.png in Resources */,
 				AA532CC120B8203F00997094 /* 10-13.txt in Resources */,
 				AA27DE2820B6FDA4003250D2 /* 9-4.txt in Resources */,
+				AA3A84B120C56CAA00BE88EC /* 12-13.txt in Resources */,
+				AA3A849720C56C9000BE88EC /* s12-15.txt in Resources */,
 				AA648E91207CEA05003ACD07 /* s4-4.txt in Resources */,
 				AA532D0E20B8258D00997094 /* s11-10.txt in Resources */,
 				AA648EED207CEA05003ACD07 /* s3-5.txt in Resources */,
@@ -1975,6 +2128,7 @@
 				AA648E78207CEA05003ACD07 /* 1-9.txt in Resources */,
 				AA648ED8207CEA05003ACD07 /* 5-4.txt in Resources */,
 				AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */,
+				AA3A84B020C56CAA00BE88EC /* 12-12.txt in Resources */,
 				AAFAFCB8205BE11F00307264 /* bookSpeed0.png in Resources */,
 				AA6C95BB20A9CC10001158E7 /* 7-9.txt in Resources */,
 				AA27DE5020B6FDB7003250D2 /* s9-7.txt in Resources */,
@@ -1992,13 +2146,16 @@
 				AA60A95520B45A7B009AD173 /* s8-5.txt in Resources */,
 				AAA9BF7820A5903C000CA7CD /* s6-14.txt in Resources */,
 				AA648EA4207CEA05003ACD07 /* 3-11.txt in Resources */,
+				AA0A3FD120C63B5C00CCDCFB /* accountPng.png in Resources */,
 				AAA591752064C543006CC5A6 /* outCircle.png in Resources */,
 				AA532CD820B8203F00997094 /* 11-5.txt in Resources */,
 				AAA9BF9920A59963000CA7CD /* intermediateBackBtnImg.png in Resources */,
 				AA648E84207CEA05003ACD07 /* 4-13.txt in Resources */,
+				AA3A848D20C56C9000BE88EC /* s12-4.txt in Resources */,
 				AA04ED88203D7E9100EC0A8E /* elementaryBg.png in Resources */,
 				AA27DE2B20B6FDA4003250D2 /* 9-7.txt in Resources */,
 				AA6C95DE20AAAA8F001158E7 /* fire.sks in Resources */,
+				AA3A84B520C56CAA00BE88EC /* 12-4.txt in Resources */,
 				AA648E6C207CEA05003ACD07 /* 3-8.txt in Resources */,
 				AA648E9F207CEA05003ACD07 /* s4-13.txt in Resources */,
 				AA532CCD20B8203F00997094 /* 11-4.txt in Resources */,
@@ -2008,6 +2165,7 @@
 				AA98E61F20861560001100BA /* block0Title.png in Resources */,
 				AAA9BF8E20A59058000CA7CD /* 6-13.txt in Resources */,
 				AA648E93207CEA05003ACD07 /* 4-4.txt in Resources */,
+				AA3A84AC20C56CAA00BE88EC /* 12-5.txt in Resources */,
 				AA532CFE20B8258D00997094 /* s11-8.txt in Resources */,
 				AAA9BF7420A5903C000CA7CD /* s6-7.txt in Resources */,
 				AA98E6282086226E001100BA /* backBtnImg.png in Resources */,
@@ -2021,6 +2179,7 @@
 				AA5879F9203EADE100FEA058 /* smallDarkBall.png in Resources */,
 				AA2CFA7720BD81FF009DBBB6 /* volume.png in Resources */,
 				AA532CFF20B8258D00997094 /* s10-8.txt in Resources */,
+				AA3A84AE20C56CAA00BE88EC /* 12-8.txt in Resources */,
 				AA27DE2C20B6FDA4003250D2 /* 9-13.txt in Resources */,
 				AA648EFC207CEA05003ACD07 /* 4-14.txt in Resources */,
 				AA648EEE207CEA05003ACD07 /* 2-8.txt in Resources */,
@@ -2033,6 +2192,7 @@
 				AA648EE4207CEA05003ACD07 /* 5-7.txt in Resources */,
 				AA532CF820B8258D00997094 /* s10-11.txt in Resources */,
 				AAF31A10207E23DA002F8FD8 /* darkSel.png in Resources */,
+				AA3A84B620C56CAA00BE88EC /* 12-9.txt in Resources */,
 				AA648EF0207CEA05003ACD07 /* 5-9.txt in Resources */,
 				AA6FB74320AEE2320001EFED /* camera.png in Resources */,
 				AA27DE5120B6FDB7003250D2 /* s9-4.txt in Resources */,
@@ -2068,6 +2228,7 @@
 				AA35E39920BEDEFA00084EB2 /* world.png in Resources */,
 				AA648ECF207CEA05003ACD07 /* 2-11.txt in Resources */,
 				AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */,
+				AA3A848E20C56C9000BE88EC /* s12-11.txt in Resources */,
 				AA60A95420B45A7B009AD173 /* s8-1.txt in Resources */,
 				AA6FB73D20AEDF680001EFED /* yellowBack.png in Resources */,
 				AA6C95DB20AAA29C001158E7 /* reviewQuitBg.png in Resources */,
@@ -2089,14 +2250,18 @@
 				AA60A93920B45A64009AD173 /* 8-13.txt in Resources */,
 				AA27DE4A20B6FDB7003250D2 /* s9-14.txt in Resources */,
 				AAA9BF9120A59058000CA7CD /* 6-10.txt in Resources */,
+				AA3A84AB20C56CAA00BE88EC /* 12-7.txt in Resources */,
 				AA27DE4820B6FDB7003250D2 /* s9-15.txt in Resources */,
 				AA648EB2207CEA05003ACD07 /* s3-12.txt in Resources */,
 				AA6AA72B209C99F500374241 /* timerCover.png in Resources */,
 				AA532CFB20B8258D00997094 /* s10-2.txt in Resources */,
 				AA60A95B20B45A7B009AD173 /* s8-9.txt in Resources */,
+				AA0A3FD920C647B200CCDCFB /* registerBtn.png in Resources */,
 				AAD62F5020C16CCF001D6275 /* step0Circle.png in Resources */,
+				AA3A84AF20C56CAA00BE88EC /* 12-11.txt in Resources */,
 				AA6C95D520A9CC23001158E7 /* s7-3.txt in Resources */,
 				AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */,
+				AA3A847D20C5662B00BE88EC /* starPng.png in Resources */,
 				AA648ED7207CEA05003ACD07 /* 1-8.txt in Resources */,
 				AA8FAE92202D913A00342CED /* wrongX.png in Resources */,
 				AA6C95CD20A9CC23001158E7 /* s7-9.txt in Resources */,
@@ -2113,6 +2278,7 @@
 				AA98E6122085E94E001100BA /* block2.png in Resources */,
 				AAD62F3520BFC678001D6275 /* gradeChiBtnRight.png in Resources */,
 				AA532CCA20B8203F00997094 /* 11-14.txt in Resources */,
+				AA3A849220C56C9000BE88EC /* s12-3.txt in Resources */,
 				AA648E95207CEA05003ACD07 /* s2-8.txt in Resources */,
 				AA648EAC207CEA05003ACD07 /* s5-11.txt in Resources */,
 				AA648EEC207CEA05003ACD07 /* 1-13.txt in Resources */,
@@ -2129,6 +2295,7 @@
 				AA648E99207CEA05003ACD07 /* s4-14.txt in Resources */,
 				AA2CFA9320BE6138009DBBB6 /* cyanLine.png in Resources */,
 				AA648EB8207CEA05003ACD07 /* s5-14.txt in Resources */,
+				AA3A849620C56C9000BE88EC /* s12-2.txt in Resources */,
 				AA532D0720B8258D00997094 /* s11-11.txt in Resources */,
 				AA2CFA7920BD8211009DBBB6 /* speaker.png in Resources */,
 				AAA9BF8A20A59058000CA7CD /* 6-14.txt in Resources */,
@@ -2148,6 +2315,7 @@
 				AA6C95CE20A9CC23001158E7 /* s7-7.txt in Resources */,
 				AA532CD620B8203F00997094 /* 11-2.txt in Resources */,
 				AA648E97207CEA05003ACD07 /* s5-6.txt in Resources */,
+				AA3A848F20C56C9000BE88EC /* s12-9.txt in Resources */,
 				AA532CD220B8203F00997094 /* 10-11.txt in Resources */,
 				AA98E62220861560001100BA /* block3Title.png in Resources */,
 				AA532D0120B8258D00997094 /* s11-15.txt in Resources */,
@@ -2179,6 +2347,7 @@
 				AA648EDF207CEA05003ACD07 /* 2-5.txt in Resources */,
 				AA648EE5207CEA05003ACD07 /* 4-3.txt in Resources */,
 				AA98E6082085DC5F001100BA /* loginBgImg.png in Resources */,
+				AA3A849420C56C9000BE88EC /* s12-6.txt in Resources */,
 				AA532D0C20B8258D00997094 /* s10-6.txt in Resources */,
 				AA648EF7207CEA05003ACD07 /* 3-7.txt in Resources */,
 				AA532CF920B8258D00997094 /* s10-7.txt in Resources */,
@@ -2188,8 +2357,10 @@
 				AAD62F5A20C17A52001D6275 /* step2Line2.png in Resources */,
 				AA648E8A207CEA05003ACD07 /* 1-11.txt in Resources */,
 				AA2CFA8F20BE55B1009DBBB6 /* arrow.png in Resources */,
+				AA3A84BB20C57B3A00BE88EC /* doubleLine.png in Resources */,
 				AAFAFCB4205BE11F00307264 /* bookSenOff.png in Resources */,
 				AA648EE9207CEA05003ACD07 /* s3-7.txt in Resources */,
+				AA3A849320C56C9000BE88EC /* s12-5.txt in Resources */,
 				AA648E9B207CEA05003ACD07 /* 2-6.txt in Resources */,
 				AA60A93520B45A64009AD173 /* 8-14.txt in Resources */,
 			);
@@ -2251,6 +2422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */,
+				AA3A847620C55E2900BE88EC /* RegisterViewController.swift in Sources */,
 				AA6FB73A20AE84CA0001EFED /* MKGradientGenerator.swift in Sources */,
 				AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */,
 				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,

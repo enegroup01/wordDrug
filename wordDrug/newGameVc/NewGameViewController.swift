@@ -265,6 +265,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     var senCount = Int()
     
+
+    var firstTimeFavWords = [String]()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -699,6 +702,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed2!
             increaseNum = 5
             maxSpotNum = 14
+            
+        case 2:
+            
+            gamePassedDic = gamePassed3!
+            mapPassedInt = mapPassed3!
+            increaseNum = 11
+            maxSpotNum = 14
+
             
         default:
             break
@@ -1402,6 +1413,27 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         updateMapPassed(course:courseReceived)
                                                         updateGamePassed(course:courseReceived)
                                                         
+                                                    case 2:
+                                                        mapPassed2! += 1
+                                                        gamePassed2 = [0:0]
+                                                        
+                                                        
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed3!
+                                                        gamePassedDic = gamePassed3
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                                        UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                                                        
+                                                        //pending做一個純粹更新中級的sql
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+                                                        
 
                                                     default:
                                                         break
@@ -1445,6 +1477,23 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         
                                                         //pending update to sql
                                           
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 2:
+                                                        
+                                                        gamePassed3 = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed3
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                                       
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                                                       
+                                                        
+                                                        //pending update to sql
+                                                        
                                                         updateGamePassed(course:courseReceived)
                                                         
                                                     default:
@@ -1492,6 +1541,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     //pending update to sql
                                                     updateGamePassed(course:courseReceived)
                                                     
+                                                case 2:
+                                                    
+                                                    print("更新新關卡")
+                                                    gamePassed3 = [spotNumber: unitNumber + 1]
+                                                    gamePassedDic = gamePassed3
+                                                    
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                                   // mapPassed3 = 0
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed3")
+                                                   //  UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
+                                                    //pending update to sql
+                                                    updateGamePassed(course:courseReceived)
+                                                    
                                                 default:
                                                     break
                                                     
@@ -1522,6 +1586,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                                 //計算所有字數
                             countWords()
+                            } else {
+                                
+                                
+                                //顯示出來
+                                wordCountLabel.text = "3"
+
+                                
                             }
                         }
                 }
@@ -1625,32 +1696,50 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @IBAction func firstWordClicked(_ sender: Any) {
         
+        if user != nil {
+        
         if isParseEnabled{
                isParseEnabled = false
             addWord(word: firstEngWordText)
             moveUpAndGone(label: word1Label)
             
         }
+        } else {
+            
+                        moveUpAndGone(label: word1Label)
+        }
         
     }
     @IBAction func secondWordClicked(_ sender: Any) {
+        
+        if user != nil {
+        
         if isParseEnabled{
             isParseEnabled = false
             addWord(word: secondEngWordText)
             moveUpAndGone(label: word2Label)
             
         }
+        } else {
+            
+                        moveUpAndGone(label: word2Label)
+        }
     }
     
     @IBAction func thirdWordClicked(_ sender: Any) {
         
+        
+        if user != nil {
         if isParseEnabled{
             isParseEnabled = false
             addWord(word: thirdEngWordText)
             moveUpAndGone(label: word3Label)
             
         }
-        
+        } else {
+            
+                        moveUpAndGone(label: word3Label)
+        }
     }
     
     
@@ -2078,6 +2167,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //第一次嘗試玩
             
             print("first time play")
+            
+            //註冊畫面
+            
+            
+            
+            
+            
             
             
             

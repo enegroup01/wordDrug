@@ -186,7 +186,22 @@ class LessonViewController: UIViewController{
                              ["ble17","er88","ful7","ing27","oo24","or48","ous6","tw1","ty14","u_e8"],
                              ["aw7","dom2","el18","er91","ly17","or50","ow19","wh8","wr2","yo1"]]
 
-    
+    let map12SyllableSets = [["ab3","ac5","ce34","ly18","mic3","my2","or51","sion10","sive4","tion42"],
+               ["a_e43","ab4","ble18","ch29","ci9","com14","ge23","ing29","ou29","u_e9"],
+               ["ab5","ad7","al54","cr13","ct8","dr8","pt1","qu8","ture7","ult3"],
+               ["a_e44","ad8","cy2","ment9","mic4","ny3","ous7","tion43","tive7","ty16"],
+               ["ai20","ar33","ce35","en41","er92","ft3","i_e32","o_e17","tion44","um8"],
+               ["am10","an29","ce36","gy3","ong4","ple4","sis2","tion45","u_e10","ur12"],
+               ["a_e45","au11","ea55","ment10","nt5","ow20","oy3","ry15","th21","tic6"],
+               ["al55","ar34","ay17","cle3","i_e33","ly19","pr15","qu9","re12","tic7"],
+               ["a_e46","ar35","as3","ct9","et5","gn2","in49","or52","sh27","tion46"],
+               ["as4","at5","ce37","ck16","em7","en42","er93","ph10","sure3","sym3"],
+               ["au12","ble19","ch30","oi6","ous8","th22","tion47","u_e11","ue5","um9"],
+               ["a_e47","al56","ar36","au13","aw8","ba4","ful18","ge24","us4","oo25"],
+               ["ar37","ba5","be4","ea56","en43","er94","it4","ly20","ness4","ow21"],
+               ["as5","bi3","bl4","br11","ch31","ck17","ea57","ee32","ge25","gi6"],
+               ["bl5","bo3","ce38","er95","ing30","oa10","old3","oo26","sh28","th23"]]
+
     
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -604,6 +619,11 @@ class LessonViewController: UIViewController{
             mapPassedInt = mapPassed2!
             increaseNum = 5
             
+        case 2:
+            gamePassedDic = gamePassed3!
+            mapPassedInt = mapPassed3!
+            increaseNum = 11
+            
         default:
             break
         }
@@ -641,6 +661,9 @@ class LessonViewController: UIViewController{
             syllableSets = map10SyllableSets
         case 10:
             syllableSets = map11SyllableSets
+        case 11:
+            syllableSets = map12SyllableSets
+            
         default:
             break
         }

@@ -172,6 +172,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -370,6 +371,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
          
                             if let id = parseJSON[i]["id"] as? Int{
               
+                                if user != nil {
+                                
                                 let userId = user?["id"] as! String
                                 
                                 //找到該使用者
@@ -398,6 +401,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                    
                                     }
                                 }
+                            }
                             }
                     }
                         
@@ -459,6 +463,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let nickname = user?["nickname"] as? String{
             
             self.usernameLabel.text = nickname
+        } else {
+            
+            self.usernameLabel.text = "尚未註冊"
         }
         
         
@@ -582,24 +589,31 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
        //快速複習單字數
-        let wordCount = user?["wordReviewCount"] as! String
-        let wordCount2 = user?["wordReviewCount2"] as! String
-        let wordCount3 = user?["wordReviewCount3"] as! String
+        if let wordCount = user?["wordReviewCount"] as? String{
+            
+            
+        
+            if let wordCount2 = user?["wordReviewCount2"] as? String{
+                if let wordCount3 = user?["wordReviewCount3"] as? String{
 
         let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)!
         
         sub1Rates[3] = totalWordCount
-        
+                }
+            }
+        }
         
         //快速複習句型數
-        let senCount = user?["senReviewCount"] as! String
-        let senCount2 = user?["senReviewCount2"] as! String
-        let senCount3 = user?["senReviewCount3"] as! String
+        if let senCount = user?["senReviewCount"] as? String{
+            if let senCount2 = user?["senReviewCount2"] as? String{
+                if let senCount3 = user?["senReviewCount3"] as? String{
         
         let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)!
         
         sub1Rates[4] = totalSenCount
-        
+                }
+            }
+        }
         
     }
 
@@ -626,8 +640,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         // call func of uploading file to server
+        if user != nil {
         uploadAva()
         
+        }
         
     }
     
