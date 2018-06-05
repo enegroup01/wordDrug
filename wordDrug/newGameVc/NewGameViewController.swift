@@ -25,7 +25,10 @@ let readSentenceKey = "readSentence"
 let onlyPracticeSentenceKey = "onlyPracticeSentence"
 let restartGame2Key = "stopReview"
 let restartCountingKey = "restartCounting"
+let globalPause = "globalPause"
+let globalStart = "globalStart"
 
+var limitTimer = Timer()
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
     
@@ -47,6 +50,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //錄音鍵
     @IBOutlet weak var recordBtn: UIButton!
     
+    @IBOutlet weak var limitTimerLabel: UILabel!
     //接收數字
     var spotNumber = Int()
     var unitNumber = Int()
@@ -267,6 +271,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
 
     var firstTimeFavWords = [String]()
+    
+
+    var limitSeconds = Int()
     
     override func viewDidLoad() {
         
@@ -513,6 +520,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         scoreLabel.frame = CGRect(x: resultBg.frame.maxX - 140 * dif, y: resultBg.frame.minY + 53 * dif, width: 106 * dif, height: 21 * dif)
         
+        
+    
+        limitTimerLabel.center = CGPoint(x: width / 2, y: 60)
+        limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
+        limitTimerLabel.textAlignment = .center
+        
+        
         //bonusScoreLabel.frame = CGRect(x: scoreLabel.frame.minX, y: scoreLabel.frame.minY, width: scoreLabel.frame.width, height: scoreLabel.frame.height)
         bonusScoreLabel.frame = scoreLabel.frame
         bonusScoreLabel.frame.origin.x = bonusScoreLabel.frame.origin.x - bonusScoreLabel.frame.width / 2
@@ -676,6 +690,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartCounting), name: NSNotification.Name("restartCounting"), object: nil)
         
         
+             NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("globalPause"), object: nil)
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopLimitTimer), name: NSNotification.Name("stopLimitTimer"), object: nil)
 
         
         //先隱藏錄音及辨識
@@ -720,7 +739,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var sentenceFile:String?
         
         if gameMode == 0 {
+            
+
         
+            //gameMode == 0 才計時
+            limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+            
+            limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
+            
+            
+            
         //這裡的mapNum 已經加過increaseNum
         let sentenceName = "s" + String(mapNumber + 1) + "-" + String(spotNumber + 1)
         
@@ -954,11 +982,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: reviewWordBg)
         self.view.bringSubview(toFront: reviewAlertTitle1)
         self.view.bringSubview(toFront: reviewAlertTitle2)
-         self.view.bringSubview(toFront: reviewAlertTotalLabel)
+        self.view.bringSubview(toFront: reviewAlertTotalLabel)
         self.view.bringSubview(toFront: reviewAlertCountLabel)
         self.view.bringSubview(toFront: reviewAlertUnitLabel)
         self.view.bringSubview(toFront: reviewOkBtn)
 
+        self.view.bringSubview(toFront: limitTimerLabel)
 
         ghostBtn.isHidden = true
         alertBg.isHidden = true
@@ -985,6 +1014,45 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
+    @objc func countLimit(){
+        
+        if(limitSeconds > 0){
+            let minutes = String(limitSeconds / 60)
+            var seconds = String(limitSeconds % 60)
+            let secondsToCheck = limitSeconds % 60
+            if seconds == "0" {
+                
+                seconds = "00"
+            } else if secondsToCheck < 10 {
+                
+                seconds = "0" + seconds
+                
+            }
+            limitTimerLabel.text = minutes + ":" + seconds
+            limitSeconds -= 1
+        } else {
+            
+            //本日時間已到
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+    }
+    
+    
+    @objc func stopLimitTimer(){
+        
+        limitTimer.invalidate()
+        
+        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
+        
+    }
+    
     @objc func reviewOkBtnClicked(){
         
                print("button clicked")
@@ -1001,6 +1069,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
         rightBtnClickedImg.isHidden = false
+        
+        limitTimer.invalidate()
+        
+        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         
     }
     
@@ -1067,6 +1139,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
         rightBtnClickedImg.isHidden = true
+        
+        if gameMode == 0 {
+        limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
+        }
 
         
     }
@@ -1120,6 +1196,44 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.audioView.amplitude += self.change
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if gameMode == 0 {
+            
+            limitTimerLabel.center = CGPoint(x: width / 2, y: 60)
+            limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
+            limitTimerLabel.textAlignment = .center
+            
+        
+        limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+
+        if(limitSeconds > 0){
+            let minutes = String(limitSeconds / 60)
+            var seconds = String(limitSeconds % 60)
+            let secondsToCheck = limitSeconds % 60
+            if seconds == "0" {
+                
+                seconds = "00"
+            } else if secondsToCheck < 10 {
+                
+                seconds = "0" + seconds
+                
+            }
+            limitTimerLabel.text = minutes + ":" + seconds
+      
+        } else{
+            
+            //本日時間已到
+            
+            
+            
+            
+            
+            
+            }
+        }
+    }
     
     //造句子
     @objc func showSentence(_ notification: NSNotification){
@@ -1208,6 +1322,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //result畫面
     @objc func leaveGame(_ notification: NSNotification){
         
+        if gameMode == 0 {
+        limitTimer.invalidate()
+        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
+        }
         playSoundBtn.isEnabled = false
 
         coverBtn.isHidden = false
@@ -1234,9 +1352,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //接收單字數字準備做句子
         
         var wrongWordsCount = 0
-        
-        
-
         
         if let engWords = notification.userInfo?["engWords"] as? [String]{
             if let chiWords = notification.userInfo?["chiWords"] as? [String]{
@@ -1280,13 +1395,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                         scoreLabel.text = score[0]
                     
-                    moveUpAnimation(label: firstEngWord, text: firstEngWordText)
-                    moveUpAnimation(label: secondEngWord, text: secondEngWordText)
-                    moveUpAnimation(label: thirdEngWord, text: thirdEngWordText)
+              
+                            moveUpAnimation(label: firstEngWord, text: firstEngWordText)
                     
-                    moveUpAnimation(label: firstChiWord, text: chiWords[0])
-                    moveUpAnimation(label: secondChiWord, text: chiWords[1])
-                    moveUpAnimation(label: thirdChiWord, text: chiWords[2])
+                            moveUpAnimation(label: secondEngWord, text: secondEngWordText)
+                    
+                            moveUpAnimation(label: thirdEngWord, text: thirdEngWordText)
+                    
+                  
+                            moveUpAnimation(label: firstChiWord, text: chiWords[0])
+                    
+                            moveUpAnimation(label: secondChiWord, text: chiWords[1])
+                    
+                            moveUpAnimation(label: thirdChiWord, text: chiWords[2])
                         
     
                             //popQuiz bonus加分
@@ -1310,10 +1431,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 
                             case "1":
                                 print("bonus 2")
-                                
-                                
-                                
-                                
                                      bonusAnimation(repeatCount:2)
                        
                                 countScore(score: 1000)
@@ -1414,8 +1531,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         updateGamePassed(course:courseReceived)
                                                         
                                                     case 2:
-                                                        mapPassed2! += 1
-                                                        gamePassed2 = [0:0]
+                                                        mapPassed3! += 1
+                                                        gamePassed3 = [0:0]
                                                         
                                                         
                                                         
@@ -1675,10 +1792,23 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         case 1:
             
             
-            wordsCounts += mapPassed2! * 420
+            wordsCounts += mapPassed2! * 450
             
             
             for (s,u) in gamePassed2!{
+                
+                wordsCounts += s * 30 + u * 3
+                
+            }
+            
+            
+        case 2:
+            
+            
+            wordsCounts += mapPassed3! * 450
+            
+            
+            for (s,u) in gamePassed3!{
                 
                 wordsCounts += s * 30 + u * 3
                 
@@ -2163,6 +2293,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
         
             
+            if isCelebratingMapPassed{
+                
+                //dimiss掉兩個VCs
+                self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                
+            } else {
+                
+                self.dismiss(animated: true, completion: nil)
+                
+            }
+            
         } else {
             //第一次嘗試玩
             
@@ -2170,32 +2311,37 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //註冊畫面
             
+            performSegue(withIdentifier: "toRegisterVc", sender: self)
             
-            
-            
-            
-            
-            
-            
-            
+
             
         }
         
         
-        if isCelebratingMapPassed{
-            
-            //dimiss掉兩個VCs
-            self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
-            
-        } else {
-        
-            self.dismiss(animated: true, completion: nil)
-        
-        }
+
         
         
     }
     
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        
+        
+        if segue.identifier == "toRegisterVc" {
+            
+            let registerVc = segue.destination as! RegisterViewController
+            
+            registerVc.coursePlayed = courseReceived
+            
+            
+            
+        }
+        
+        
+    }
 
     //檢查句子
     

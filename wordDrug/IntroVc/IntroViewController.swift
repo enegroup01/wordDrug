@@ -217,6 +217,10 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         }
         
         
+        let userDefaults = UserDefaults.standard
+        introWatched = true
+        userDefaults.set(introWatched, forKey: "introWatched")
+        
         performSegue(withIdentifier: "fromIntroToCourse", sender: self)
         
     }

@@ -14,6 +14,7 @@ let startToRecognizeKey = "startToRecognize"
 let pronounceWordKey = "pronounceWord"
 let addScoreKey = "addScore"
 let pauseKey = "pause"
+let stopLimitTimerKey = "stopLimitTimer"
 
 class NewGameScene: SKScene {
 
@@ -409,6 +410,7 @@ class NewGameScene: SKScene {
     
     var wordReviewCount = Int()
     
+    
     override func didMove(to view: SKView) {
         
         //讀取字數還是有錯的
@@ -461,6 +463,10 @@ class NewGameScene: SKScene {
         
         //接收再度倒數
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.restartCounting), name: NSNotification.Name("restartCounting"), object: nil)
+        
+        
+        //接收再度倒數
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyStopLimitTimer), name: NSNotification.Name("stopLimitTimer"), object: nil)
         
         //接收再度倒數
 
@@ -2132,7 +2138,7 @@ class NewGameScene: SKScene {
                 lineNode.isPaused = true
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pause"), object: nil, userInfo: nil)
-  
+                
             }
             
             //暫停func
@@ -3241,7 +3247,18 @@ class NewGameScene: SKScene {
         
     }
     
+    
+    
+    @objc func notifyStopLimitTimer(){
+        
+        
+    }
+    
     func setupPopQuizScreen(){
+        
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLimitTimer"), object: nil, userInfo: nil)
+        
+        
         findLabelNode(name: "quizTitle").alpha = 1
         findImageNode(name: "timerBg").alpha = 1
         findLabelNode(name: "bigNumber").alpha = 1

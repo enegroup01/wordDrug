@@ -17,7 +17,9 @@ var mapPassed3:Int?
 var gamePassed3:[Int:Int]?
 var mapPassed4:Int?
 var gamePassed4:[Int:Int]?
-
+var introWatched:Bool?
+var isRegistered:Bool?
+var seconds:Int?
 
 
 @UIApplicationMain
@@ -28,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
+              NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
+        
         //抓使用者檔案
         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary 
         
@@ -72,6 +76,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //抓mapPassed4
         mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
 
+        introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
+        isRegistered = UserDefaults.standard.object(forKey: "isRegistered") as? Bool
+        
 
         // if user is once logged in / register, keep him logged in
         if user != nil {
@@ -85,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                //mapPassed3 = 0
                //gamePassed3 = [0:0]
 
-                //toCourse()
+                toCourse()
                 
                 //測試用
                 /*
@@ -98,34 +105,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             //首次登入
           
-            
-            //第一次玩
-            //儲存mapPassed & gamePassed的初始值
-            
-            mapPassed = 0
-            
-            let userDefaults = UserDefaults.standard
-            
-            userDefaults.set(mapPassed!, forKey: "mapPassed")
-            
-            gamePassed = [0:0]
-            
-            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-            userDefaults.set(encodedObject, forKey: "gamePassed")
-            
-            mapPassed2 = 0
-            
-            
-            
-            userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-            
-            gamePassed2 = [0:0]
-            
-            let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-            userDefaults.set(encodedObject2, forKey: "gamePassed2")
-
-
-            
+            if introWatched == nil {
+                
+              
+                let userDefaults = UserDefaults.standard
+                introWatched = false
+                userDefaults.set(introWatched, forKey: "introWatched")
+                
+                isRegistered = false
+                userDefaults.set(isRegistered, forKey: "isRegistered")
+                
+                //第一次玩
+                //儲存mapPassed & gamePassed的初始值
+                
+                mapPassed = 0
+                
+                userDefaults.set(mapPassed!, forKey: "mapPassed")
+                
+                gamePassed = [0:0]
+                
+                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                userDefaults.set(encodedObject, forKey: "gamePassed")
+                
+                mapPassed2 = 0
+                
+                
+                userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                
+                gamePassed2 = [0:0]
+                
+                let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                userDefaults.set(encodedObject2, forKey: "gamePassed2")
+                
+                
+                mapPassed3 = 0
+                
+                userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                
+                gamePassed3 = [0:0]
+                
+                let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                userDefaults.set(encodedObject3, forKey: "gamePassed3")
+                
+                
+                toIntro()
+                
+                
+            } else if introWatched == true{
+                
+                
+                //假如沒有測過
+                
+    
+                if isRegistered == true{
+                
+                    //跳往註冊畫面
+                    
+                    
+                } else {
+                    
+                    
+                toCourse()
+                
+                }
+          
+                
+                
+            } else {
+                
+                toIntro()
+                
+            }
+          
         }
         
         print("user:\(user)")
@@ -135,12 +186,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    
+    @objc func notifyPauseGame(){
+        
+        
+    }
     
     func toCourse(){
         
         let mainStoryBoard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let statsVc = mainStoryBoard.instantiateViewController(withIdentifier: "coursesVc")
+        window?.rootViewController = statsVc
+        
+    }
+    
+    func toIntro(){
+        
+        let mainStoryBoard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let statsVc = mainStoryBoard.instantiateViewController(withIdentifier: "introVc")
         window?.rootViewController = statsVc
         
     }
@@ -155,6 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+               NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -163,6 +226,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        let date = Date().description(with: .current)
+        //let formatter = DateFormatter()
+
+        //formatter.dateFormat = "dd.MM.yyyy"
+        //let result = formatter.string(from: date)
+
+        let result = date.components(separatedBy: "at")
+        
+        let previousDate = UserDefaults.standard.object(forKey: "previousDate") as? String
+        
+        if previousDate == nil {
+            //第一次玩的話給7分鐘, 並且設定時間
+            
+            UserDefaults.standard.set(result[0], forKey: "previousDate")
+            UserDefaults.standard.set(420, forKey: "limitSeconds")
+            
+            print("第一次玩給7分鐘")
+            
+        } else {
+            
+            //非第一次玩, 比較日期
+            
+            if previousDate != result[0]{
+                //換一天, 就給7分鐘, 並且改變時間
+                
+                
+                UserDefaults.standard.set(result[0], forKey: "previousDate")
+                UserDefaults.standard.set(420, forKey: "limitSeconds")
+                print("換一天給7分鐘")
+                
+                
+                
+                
+            } else {
+                    print("不加時間")
+            }
+            
+
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

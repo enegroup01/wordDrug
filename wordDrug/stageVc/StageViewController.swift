@@ -48,7 +48,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         var dif = CGFloat()
         
         switch height {
@@ -92,7 +91,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         stageTopImg.addSubview(ghost2Btn)
         
         
-        
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         ghostBtn.backgroundColor = lightGray
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 5, width: 237 * dif, height: 156 * dif)
@@ -108,7 +106,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         alertBg.addSubview(alertText)
 
-             let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+        let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
         iknowBtn.frame = CGRect(x: (width - 150 * dif) / 2, y: height * 1.75 / 5, width: 150 * dif, height: 36 * dif)
         iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
         iknowBtn.setTitle("我知道了", for: .normal)
@@ -120,9 +118,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionView.bringSubview(toFront: iknowBtn)
  
         removeBtns()
-        
 
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -188,8 +184,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         case 2:
             print("2")
             
-            stageCount = 7
-            elemWordsMax = [450,450,450,450,450,450,450]
+            stageCount = 6
+            elemWordsMax = [450,450,450,450,450,450]
             gamePassedDic = gamePassed3!
             mapPassedInt = mapPassed3!
             
@@ -200,7 +196,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
         
         
-
         //mapPassed = 4
         
         for (s,u) in gamePassedDic!{
@@ -209,9 +204,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             wordCounts = s * 30 + u * 3
             
         }
-        
-        
-        
         
             //下方450的數字
             switch mapPassedInt{

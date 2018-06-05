@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="U8l-e9-jsA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MDq-zg-zeG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -313,6 +313,13 @@
                                     <action selector="playSoundClicked:" destination="v6L-yK-9Lk" eventType="touchUpInside" id="P7g-wN-F5d"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqC-1m-OfI">
+                                <rect key="frame" x="167" y="33" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -325,6 +332,7 @@
                         <outlet property="firstChiWord" destination="gb0-cF-7Qd" id="8cq-Yf-iIp"/>
                         <outlet property="firstEngWord" destination="9Px-Py-9y0" id="dKK-kz-bpb"/>
                         <outlet property="firstWordBtn" destination="dx5-tV-myf" id="23x-iR-PnO"/>
+                        <outlet property="limitTimerLabel" destination="KqC-1m-OfI" id="UwJ-oW-4d9"/>
                         <outlet property="playSoundBtn" destination="FL0-p7-P4u" id="GsL-Kz-Lxi"/>
                         <outlet property="recogTextLabel" destination="140-yy-deB" id="puS-3u-TFB"/>
                         <outlet property="recordBtn" destination="Im1-Oy-Q3k" id="X9V-hT-naw"/>
@@ -343,6 +351,7 @@
                         <outlet property="thirdEngWord" destination="MAf-4F-6xf" id="rWx-oT-sDk"/>
                         <outlet property="thirdWordBtn" destination="6Qn-fT-gFc" id="MBO-Wl-ORk"/>
                         <outlet property="wordCountLabel" destination="Caj-OI-Vci" id="myp-6m-9PX"/>
+                        <segue destination="U8l-e9-jsA" kind="show" identifier="toRegisterVc" id="QVk-5k-4AB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzm-ap-Lz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -352,7 +361,7 @@
         <!--Register View Controller-->
         <scene sceneID="dj7-w8-eNt">
             <objects>
-                <viewController id="U8l-e9-jsA" customClass="RegisterViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registerVc" id="U8l-e9-jsA" customClass="RegisterViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CUp-oA-oOs"/>
                         <viewControllerLayoutGuide type="bottom" id="8Ky-qb-ld5"/>
@@ -420,6 +429,9 @@
                                 <state key="normal" title="註冊" backgroundImage="registerBtn.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="registerClicked:" destination="U8l-e9-jsA" eventType="touchUpInside" id="jKS-FW-ch5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2k-HI-2Cr">
                                 <rect key="frame" x="223" y="298" width="136" height="30"/>
@@ -501,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wp5-zU-zte" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-648.79999999999995" y="2255.6221889055473"/>
+            <point key="canvasLocation" x="-606" y="2246"/>
         </scene>
         <!--New Book View Controller-->
         <scene sceneID="iue-Lt-fS9">
@@ -1085,7 +1097,7 @@
         <!--Intro View Controller-->
         <scene sceneID="Xik-Nz-e1M">
             <objects>
-                <viewController id="c5I-PE-7XJ" customClass="IntroViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="introVc" id="c5I-PE-7XJ" customClass="IntroViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bOI-H0-LgU"/>
                         <viewControllerLayoutGuide type="bottom" id="hyl-b0-r8I"/>
@@ -1120,7 +1132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bvM-4h-mL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4130.3999999999996" y="2909.5952023988007"/>
+            <point key="canvasLocation" x="-4117" y="2975"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="1Ix-ht-Jdq">
@@ -1678,6 +1690,6 @@
         <image name="yellowBack.png" width="19" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qsn-eF-t3O"/>
+        <segue reference="hHL-FR-I78"/>
     </inferredMetricsTieBreakers>
 </document>

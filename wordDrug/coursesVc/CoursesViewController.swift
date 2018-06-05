@@ -627,6 +627,26 @@ class CoursesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+     
+        
+        if isRegistered == false{
+            
+            logOutBtn.isHidden = true
+        } else {
+            
+            logOutBtn.isHidden = false
+        }
+        
+        var nickname = String()
+        //測試用
+        
+        if user != nil {
+            nickname = user?["username"] as! String
+        } else {
+            nickname = "新學生"
+        }
+        
+         dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
         
     }
     
