@@ -442,6 +442,7 @@
 		AA7BB4D620C7FEDE001A1F66 /* championPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4D520C7FEDD001A1F66 /* championPng.png */; };
 		AA7BB4D820C80034001A1F66 /* cartPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4D720C80033001A1F66 /* cartPng.png */; };
 		AA7BB4DE20C80DB2001A1F66 /* courseBtnYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4DD20C80DB1001A1F66 /* courseBtnYellow.png */; };
+		AA7BB4E220C81596001A1F66 /* circleLogOut.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4E120C81596001A1F66 /* circleLogOut.png */; };
 		AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D61362040408200E0A94D /* blueBackBtnImg.png */; };
 		AA7D6139204040A400E0A94D /* purpleBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D6138204040A300E0A94D /* purpleBg.png */; };
 		AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */; };
@@ -994,6 +995,7 @@
 		AA7BB4D520C7FEDD001A1F66 /* championPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = championPng.png; sourceTree = "<group>"; };
 		AA7BB4D720C80033001A1F66 /* cartPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartPng.png; sourceTree = "<group>"; };
 		AA7BB4DD20C80DB1001A1F66 /* courseBtnYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = courseBtnYellow.png; sourceTree = "<group>"; };
+		AA7BB4E120C81596001A1F66 /* circleLogOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleLogOut.png; sourceTree = "<group>"; };
 		AA7D61362040408200E0A94D /* blueBackBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueBackBtnImg.png; sourceTree = "<group>"; };
 		AA7D6138204040A300E0A94D /* purpleBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleBg.png; sourceTree = "<group>"; };
 		AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "有發音問題的字.txt"; sourceTree = "<group>"; };
@@ -1142,6 +1144,7 @@
 			isa = PBXGroup;
 			children = (
 				AA04ED7E203D7A1300EC0A8E /* CoursesViewController.swift */,
+				AA7BB4E120C81596001A1F66 /* circleLogOut.png */,
 				AA7BB4DD20C80DB1001A1F66 /* courseBtnYellow.png */,
 				AA7BB4D520C7FEDD001A1F66 /* championPng.png */,
 				AA7BB4D720C80033001A1F66 /* cartPng.png */,
@@ -2320,6 +2323,7 @@
 				AA2CFA7B20BD8523009DBBB6 /* okBtnFrame.png in Resources */,
 				AA60A95320B45A7B009AD173 /* s8-11.txt in Resources */,
 				AA648EDA207CEA05003ACD07 /* 2-7.txt in Resources */,
+				AA7BB4E220C81596001A1F66 /* circleLogOut.png in Resources */,
 				AA98E62120861560001100BA /* block2Title.png in Resources */,
 				AA6AA729209C99EE00374241 /* timerBg.png in Resources */,
 				AA6C95B320A9CC10001158E7 /* 7-11.txt in Resources */,

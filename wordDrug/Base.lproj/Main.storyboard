@@ -992,7 +992,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1e-Ia-agD">
                                 <rect key="frame" x="16" y="14" width="20" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="logOut.png"/>
+                                <state key="normal" backgroundImage="circleLogOut.png"/>
                                 <connections>
                                     <action selector="logOutClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="uag-Nl-stu"/>
                                 </connections>
@@ -1825,6 +1825,7 @@
         <image name="chartBg.png" width="379" height="667"/>
         <image name="chartSeperator.png" width="378" height="6"/>
         <image name="chartUpBg.png" width="375" height="295"/>
+        <image name="circleLogOut.png" width="30" height="21"/>
         <image name="courseBtnYellow.png" width="105" height="35"/>
         <image name="facebookBtn.png" width="142" height="37"/>
         <image name="freePng.png" width="35" height="35"/>
@@ -1833,7 +1834,6 @@
         <image name="lessonFullLength.png" width="375" height="3"/>
         <image name="lessonProgress.png" width="375" height="3"/>
         <image name="lockPng.png" width="113" height="144"/>
-        <image name="logOut.png" width="30" height="21"/>
         <image name="loginBgImg.png" width="375" height="667"/>
         <image name="loginBtnImg.png" width="66" height="66"/>
         <image name="newBookBg.png" width="375" height="667"/>
