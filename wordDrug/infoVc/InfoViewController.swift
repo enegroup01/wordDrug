@@ -18,7 +18,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
     
-    @IBOutlet weak var checkRankBtn: UIButton!
+
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var rankCountLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -144,9 +144,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         rankLabel.textAlignment = .center
         rankLabel.adjustsFontSizeToFitWidth = true
         
-        checkRankBtn.frame = CGRect(x: rankCountLabel.frame.maxX - 80 * dif, y: alphaLayer.frame.minY - 30 * dif, width: 80 * dif, height: 30 * dif)
+       // checkRankBtn.frame = CGRect(x: rankCountLabel.frame.maxX - 80 * dif, y: alphaLayer.frame.minY - 30 * dif, width: 80 * dif, height: 30 * dif)
         
-        checkRankBtn.setTitleColor(yellowColor, for: .normal)
+        //checkRankBtn.setTitleColor(yellowColor, for: .normal)
         //checkRankBtn.backgroundColor = .red
         
         /*
@@ -321,12 +321,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         getUserInfo()
         myRank()
     }
-    
-    //照片的func
-    @IBAction func checkRankBtnClicked(_ sender: Any) {
-        
-        performSegue(withIdentifier: "toChartVc", sender: self)
-    }
+
     
     
     func myRank(){

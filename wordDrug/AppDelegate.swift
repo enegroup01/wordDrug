@@ -165,7 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     
                     
-                toCourse()
+               toCourse()
                 
                 }
           
@@ -181,7 +181,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("user:\(user)")
         print("gamePassed:\(gamePassed3)")
+     
         print("mapPassed:\(mapPassed3)")
+        
+        
         return true
     }
     

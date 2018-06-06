@@ -1226,11 +1226,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //本日時間已到
             
+            print("timesup")
             
-            
-            
-            
-            
+
+
+            alertText.text = "今日學習時間已到\n想學更多單字可以到商城\n開通無限時間喔！"
+            pauseGame()
+
             }
         }
     }

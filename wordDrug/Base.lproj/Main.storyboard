@@ -905,27 +905,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="block0.png" translatesAutoresizingMaskIntoConstraints="NO" id="Rwt-fO-uJR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rwt-fO-uJR">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="block3.png" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-xK-9h2">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-xK-9h2">
                                 <rect key="frame" x="0.0" y="500" width="375" height="167"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="block1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ykw-pZ-wIi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykw-pZ-wIi">
                                 <rect key="frame" x="0.0" y="167" width="375" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="block2.png" translatesAutoresizingMaskIntoConstraints="NO" id="cUQ-dp-9qC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cUQ-dp-9qC">
                                 <rect key="frame" x="0.0" y="334" width="375" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dialogueBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="cLz-3m-g61">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cLz-3m-g61">
                                 <rect key="frame" x="135" y="20" width="218" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi! Ethan 請選擇課程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQz-Vd-la3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQz-Vd-la3">
                                 <rect key="frame" x="151" y="28" width="188" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
@@ -933,20 +933,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDT-hO-Fzz">
-                                <rect key="frame" x="0.0" y="0.0" width="290" height="168"/>
+                                <rect key="frame" x="176" y="131" width="114" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <state key="normal" title="進入課程" backgroundImage="courseBtnYellow.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="elementaryClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="dhe-Gh-F1C"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOk-jI-kX1">
-                                <rect key="frame" x="290" y="0.0" width="85" height="161"/>
+                                <rect key="frame" x="290" y="131" width="85" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <state key="normal" title="單字集" backgroundImage="courseBtnYellow.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="toNewBookBtn:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="GTb-Re-vqj"/>
                                 </connections>
@@ -972,13 +977,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJU-Ol-xOV">
-                                <rect key="frame" x="135" y="548" width="134" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="60"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="block0Title.png" translatesAutoresizingMaskIntoConstraints="NO" id="vVe-PI-JgH">
                                 <rect key="frame" x="0.0" y="49" width="127" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -991,44 +989,32 @@
                                 <rect key="frame" x="0.0" y="363" width="127" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="block3Title.png" translatesAutoresizingMaskIntoConstraints="NO" id="TcW-hG-fYr">
-                                <rect key="frame" x="0.0" y="528" width="127" height="110"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bookPng.png" translatesAutoresizingMaskIntoConstraints="NO" id="6MO-OM-jva">
-                                <rect key="frame" x="312" y="83" width="41" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bookPng.png" translatesAutoresizingMaskIntoConstraints="NO" id="kZq-5K-PTU">
-                                <rect key="frame" x="312" y="241" width="41" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bookPng.png" translatesAutoresizingMaskIntoConstraints="NO" id="9Vr-cx-HH3">
-                                <rect key="frame" x="312" y="396" width="41" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bookPng.png" translatesAutoresizingMaskIntoConstraints="NO" id="I3v-cV-MNr">
-                                <rect key="frame" x="312" y="561" width="41" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1e-Ia-agD">
-                                <rect key="frame" x="16" y="14" width="31" height="39"/>
+                                <rect key="frame" x="16" y="14" width="20" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="logout.png"/>
+                                <state key="normal" backgroundImage="logOut.png"/>
                                 <connections>
                                     <action selector="logOutClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="uag-Nl-stu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6u4-6T-BSL">
-                                <rect key="frame" x="0.0" y="167" width="290" height="168"/>
+                                <rect key="frame" x="176" y="296" width="114" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <state key="normal" title="進入課程" backgroundImage="courseBtnYellow.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="intermedaiteClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="mvq-Ty-ylN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smV-et-i36">
-                                <rect key="frame" x="290" y="167" width="85" height="168"/>
+                                <rect key="frame" x="290" y="296" width="85" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <state key="normal" title="單字集" backgroundImage="courseBtnYellow.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="toNewBook2Btn:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="d45-c3-NMc"/>
                                 </connections>
@@ -1036,58 +1022,165 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeZ-l8-Y7s">
                                 <rect key="frame" x="135" y="20" width="33" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="person.png"/>
+                                <state key="normal" backgroundImage="statusPng.png"/>
                                 <connections>
                                     <action selector="toInfoVcClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="KXM-2f-08C"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yga-Vi-Yaf">
-                                <rect key="frame" x="0.0" y="334" width="290" height="168"/>
+                                <rect key="frame" x="176" y="461" width="114" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <state key="normal" title="進入課程" backgroundImage="courseBtnYellow.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="toeicClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="hyR-3M-oQn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcF-be-kSJ">
-                                <rect key="frame" x="290" y="334" width="85" height="168"/>
+                                <rect key="frame" x="298" y="461" width="77" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <state key="normal" title="單字集" backgroundImage="courseBtnYellow.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="toNewBook3Btn:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="uLJ-hf-s9d"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MissWord" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHN-PD-9b0">
+                                <rect key="frame" x="166" y="28" width="121" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperateLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ki9-xz-B3Z">
+                                <rect key="frame" x="0.0" y="176" width="375" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperateLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="I1r-lo-it2">
+                                <rect key="frame" x="0.0" y="321" width="375" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperateLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="JpB-00-CVv">
+                                <rect key="frame" x="0.0" y="430" width="375" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lJm-ta-QXA">
+                                <rect key="frame" x="0.0" y="576" width="375" height="91"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.29700520634651184" green="0.31980681419372559" blue="0.41107428073883057" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcY-88-Cfg">
+                                <rect key="frame" x="344" y="437" width="15" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqa-Hj-0cN">
+                                <rect key="frame" x="354" y="281" width="15" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRD-HC-d1X">
+                                <rect key="frame" x="354" y="114" width="15" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-c3-hHb">
+                                <rect key="frame" x="178" y="40" width="43" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="championPng.png"/>
+                                <connections>
+                                    <action selector="toChartVcBtnClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="ddR-Bp-2Uf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-F5-G77">
+                                <rect key="frame" x="279" y="42" width="43" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="cartPng.png"/>
+                                <connections>
+                                    <action selector="toShopVcBtnClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="vKe-au-olX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="排行榜" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao4-dz-W8A">
+                                <rect key="frame" x="166" y="95" width="46" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="學習成就" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xll-v6-3Ij">
+                                <rect key="frame" x="65" y="105" width="62" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHA-5o-q6H">
+                                <rect key="frame" x="21" y="300" width="332" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="購物商城" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pq9-K6-5JH">
+                                <rect key="frame" x="290" y="94" width="62" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.15294117647058825" green="0.18823529411764706" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.13634097576141357" green="0.15519839525222778" blue="0.23399439454078674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <outlet property="block0" destination="Rwt-fO-uJR" id="gI5-vp-agZ"/>
-                        <outlet property="block0BookImg" destination="6MO-OM-jva" id="wgZ-Z3-Vn6"/>
                         <outlet property="block0LBtn" destination="fDT-hO-Fzz" id="3QU-DY-Vg0"/>
                         <outlet property="block0RBtn" destination="kOk-jI-kX1" id="UNl-rl-rg8"/>
                         <outlet property="block0TitleImg" destination="vVe-PI-JgH" id="j2Y-dS-kfH"/>
                         <outlet property="block0WordCountLabel" destination="H0S-zW-8Qw" id="Dik-HA-7Vl"/>
                         <outlet property="block1" destination="Ykw-pZ-wIi" id="uRS-Xs-ieK"/>
-                        <outlet property="block1BookImg" destination="kZq-5K-PTU" id="UX2-UP-rYY"/>
                         <outlet property="block1LBtn" destination="6u4-6T-BSL" id="Z6B-Yf-mzY"/>
                         <outlet property="block1RBtn" destination="smV-et-i36" id="IyS-mP-Kmx"/>
                         <outlet property="block1TitleImg" destination="r0D-zx-DDj" id="h90-5e-Zcv"/>
                         <outlet property="block1WordCountLabel" destination="Cqe-nO-HFF" id="Wx1-Rm-aKn"/>
                         <outlet property="block2" destination="cUQ-dp-9qC" id="mL3-eB-Wwm"/>
-                        <outlet property="block2BookImg" destination="9Vr-cx-HH3" id="ksR-5t-iHb"/>
                         <outlet property="block2LBtn" destination="Yga-Vi-Yaf" id="0I4-nU-mzP"/>
                         <outlet property="block2RBtn" destination="tcF-be-kSJ" id="JdU-F6-jwR"/>
                         <outlet property="block2TitleImg" destination="t1Q-my-jOC" id="aZh-B7-lR5"/>
                         <outlet property="block2WordCountLabel" destination="f6f-OP-fnc" id="jlO-NQ-rhA"/>
                         <outlet property="block3" destination="i6f-xK-9h2" id="4lB-Wf-Zbl"/>
-                        <outlet property="block3BookImg" destination="I3v-cV-MNr" id="LPK-S8-Gj7"/>
-                        <outlet property="block3TitleImg" destination="TcW-hG-fYr" id="Dwq-GM-kgu"/>
-                        <outlet property="block3WordCountLabel" destination="BJU-Ol-xOV" id="7Ml-Tl-KLB"/>
+                        <outlet property="bottomBg" destination="lJm-ta-QXA" id="FZi-Ha-U5r"/>
+                        <outlet property="bottomLabel" destination="VHA-5o-q6H" id="KnG-in-ocP"/>
                         <outlet property="dialogueBg" destination="cLz-3m-g61" id="ZCg-Qb-Aii"/>
                         <outlet property="dialogueLabel" destination="YQz-Vd-la3" id="3xk-P5-VZp"/>
                         <outlet property="logOutBtn" destination="a1e-Ia-agD" id="x1z-Oy-SAr"/>
+                        <outlet property="logoLabel" destination="iHN-PD-9b0" id="Y8I-MO-TH5"/>
+                        <outlet property="sepLine0" destination="Ki9-xz-B3Z" id="4x1-oC-K90"/>
+                        <outlet property="sepLine1" destination="I1r-lo-it2" id="iSi-FO-PaE"/>
+                        <outlet property="sepLine2" destination="JpB-00-CVv" id="jXR-Fz-4W0"/>
+                        <outlet property="toChartLabel" destination="ao4-dz-W8A" id="CVT-ES-eu4"/>
+                        <outlet property="toChartVcBtn" destination="0JX-c3-hHb" id="fKh-Zy-0th"/>
+                        <outlet property="toInfoLabel" destination="xll-v6-3Ij" id="lMP-bV-J1m"/>
                         <outlet property="toInfoVcBtn" destination="DeZ-l8-Y7s" id="Jz0-EZ-DNr"/>
+                        <outlet property="toShopLabel" destination="pq9-K6-5JH" id="C0k-cd-8H1"/>
+                        <outlet property="toShopVcBtn" destination="Cv6-F5-G77" id="zYj-7I-7Pj"/>
+                        <outlet property="unitLabel" destination="vRD-HC-d1X" id="9F4-rV-18o"/>
+                        <outlet property="unitLabel1" destination="Fqa-Hj-0cN" id="XGP-DS-eDh"/>
+                        <outlet property="unitLabel2" destination="qcY-88-Cfg" id="M2K-XA-hdI"/>
                         <segue destination="Xm8-zq-UdH" kind="presentation" identifier="toStageVc" id="IAO-5U-K2i"/>
                         <segue destination="1ci-A8-OIj" kind="presentation" identifier="toNewBookVc" id="heL-at-VN6"/>
                         <segue destination="Y58-0X-len" kind="show" identifier="toInfoVc" id="5ef-Bt-A4B"/>
+                        <segue destination="9xs-zv-ylp" kind="show" identifier="toShopVc" id="FzF-te-kXe"/>
+                        <segue destination="8TX-sA-F2o" kind="show" identifier="toChartVc" id="Z9s-Y6-tg2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOz-KG-elN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1343,15 +1436,6 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cot-Fx-tep">
-                                <rect key="frame" x="315" y="239" width="77" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="查看排行榜"/>
-                                <connections>
-                                    <action selector="checkRankBtnClicked:" destination="Y58-0X-len" eventType="touchUpInside" id="G1U-P5-AHd"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alphaLayer.png" translatesAutoresizingMaskIntoConstraints="NO" id="gfl-JG-Ef3">
                                 <rect key="frame" x="0.0" y="200" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1365,7 +1449,6 @@
                         <outlet property="backBtn" destination="Krq-Kp-zIa" id="Q9d-nf-PXL"/>
                         <outlet property="changePhotoBtn" destination="gQS-6n-nKc" id="Bze-kB-p0e"/>
                         <outlet property="chartUpBg" destination="g7F-bi-u8w" id="nbd-Np-GGl"/>
-                        <outlet property="checkRankBtn" destination="Cot-Fx-tep" id="txk-i5-yYD"/>
                         <outlet property="infoTableView" destination="Mcy-A0-aAj" id="f99-TS-H9K"/>
                         <outlet property="rankCountLabel" destination="htG-N6-e5e" id="rSl-An-uKr"/>
                         <outlet property="rankLabel" destination="kkQ-Z2-WoH" id="H2L-qq-7en"/>
@@ -1375,7 +1458,6 @@
                         <outlet property="usernameLabel" destination="1td-ZK-a4l" id="RUS-ua-Ndn"/>
                         <outlet property="wordCountLabel" destination="knJ-Qn-xwU" id="PK6-8w-648"/>
                         <outlet property="wordLabel" destination="9aj-Uo-C4m" id="GKW-N9-dq9"/>
-                        <segue destination="8TX-sA-F2o" kind="show" identifier="toChartVc" id="J4l-VB-hxC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ere-cg-aMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1529,6 +1611,90 @@
             </objects>
             <point key="canvasLocation" x="-2362.4000000000001" y="2910.4947526236883"/>
         </scene>
+        <!--Purchase View Controller-->
+        <scene sceneID="99y-BT-4qc">
+            <objects>
+                <viewController id="9xs-zv-ylp" customClass="PurchaseViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FbD-F9-R6U"/>
+                        <viewControllerLayoutGuide type="bottom" id="iC3-tQ-PjE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dqI-34-zJq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="purchaseUpBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="mea-XC-VeU">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="252"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTx-wR-MN3">
+                                <rect key="frame" x="0.0" y="253" width="375" height="62"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="purchaseBtnBg.png"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="purchaseDownBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="lZr-Zm-QCf">
+                                <rect key="frame" x="0.0" y="318" width="375" height="349"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="purchaseDialogueBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="wtb-rn-q9I">
+                                <rect key="frame" x="67" y="62" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVn-Im-eys">
+                                <rect key="frame" x="86" y="77" width="203" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
+                                <color key="textColor" red="0.98075836896896362" green="0.83303624391555786" blue="0.18928402662277222" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOX-ad-zR2">
+                                <rect key="frame" x="86" y="160" width="203" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSJ-9J-HD7">
+                                <rect key="frame" x="16" y="338" width="343" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" red="0.661979079246521" green="0.16676092147827148" blue="0.32219511270523071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xk6-m0-BrD">
+                                <rect key="frame" x="0.0" y="390" width="375" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" red="0.22758913040161133" green="0.19628092646598816" blue="0.34132573008537292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cL0-LY-4sb">
+                                <rect key="frame" x="16" y="20" width="29" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="purchaseBackBtn.png"/>
+                                <connections>
+                                    <action selector="backBtnClicked:" destination="9xs-zv-ylp" eventType="touchUpInside" id="xYc-aX-j4Z"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <connections>
+                        <outlet property="backBtn" destination="cL0-LY-4sb" id="PmZ-uZ-Nas"/>
+                        <outlet property="dialogueBg" destination="wtb-rn-q9I" id="Sxp-eU-PXR"/>
+                        <outlet property="dialogueSubTitle" destination="tOX-ad-zR2" id="kon-1E-2cJ"/>
+                        <outlet property="dialogueTitle" destination="CVn-Im-eys" id="iur-Rt-VuD"/>
+                        <outlet property="downBg" destination="lZr-Zm-QCf" id="b3x-Xx-Nqc"/>
+                        <outlet property="downTitle" destination="bSJ-9J-HD7" id="pjw-Hg-2IJ"/>
+                        <outlet property="downTitle2" destination="xk6-m0-BrD" id="RWm-t3-aIE"/>
+                        <outlet property="purchaseBtn" destination="oTx-wR-MN3" id="LFw-QO-18U"/>
+                        <outlet property="upBg" destination="mea-XC-VeU" id="DMw-4i-EDc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iZs-JS-p8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3669.5999999999999" y="1474.8125937031487"/>
+        </scene>
         <!--Stage View Controller-->
         <scene sceneID="uAY-7P-Q8w">
             <objects>
@@ -1644,26 +1810,22 @@
         <image name="avatar.png" width="192" height="192"/>
         <image name="backBtnImg.png" width="134" height="133"/>
         <image name="bigOkBtn.png" width="420" height="58"/>
-        <image name="block0.png" width="375" height="168"/>
         <image name="block0Title.png" width="77" height="76"/>
-        <image name="block1.png" width="375" height="167"/>
         <image name="block1Title.png" width="76" height="79"/>
-        <image name="block2.png" width="375" height="168"/>
         <image name="block2Title.png" width="85" height="66"/>
-        <image name="block3.png" width="375" height="167"/>
-        <image name="block3Title.png" width="91" height="66"/>
         <image name="bookBackBtn.png" width="19" height="31"/>
         <image name="bookPlayOff.png" width="21" height="21"/>
-        <image name="bookPng.png" width="41" height="45"/>
         <image name="bookSenOff.png" width="27" height="23"/>
         <image name="bookSpeed2.png" width="44" height="27"/>
         <image name="bookTimes1.png" width="46" height="8"/>
         <image name="bookViewBottomBg.png" width="375" height="66"/>
         <image name="camera.png" width="28" height="28"/>
+        <image name="cartPng.png" width="43" height="44"/>
+        <image name="championPng.png" width="43" height="49"/>
         <image name="chartBg.png" width="379" height="667"/>
         <image name="chartSeperator.png" width="378" height="6"/>
         <image name="chartUpBg.png" width="375" height="295"/>
-        <image name="dialogueBg.png" width="218" height="33"/>
+        <image name="courseBtnYellow.png" width="105" height="35"/>
         <image name="facebookBtn.png" width="142" height="37"/>
         <image name="freePng.png" width="35" height="35"/>
         <image name="lessonBackBtn.png" width="19" height="31"/>
@@ -1671,25 +1833,31 @@
         <image name="lessonFullLength.png" width="375" height="3"/>
         <image name="lessonProgress.png" width="375" height="3"/>
         <image name="lockPng.png" width="113" height="144"/>
+        <image name="logOut.png" width="30" height="21"/>
         <image name="loginBgImg.png" width="375" height="667"/>
         <image name="loginBtnImg.png" width="66" height="66"/>
-        <image name="logout.png" width="58" height="70"/>
         <image name="newBookBg.png" width="375" height="667"/>
-        <image name="person.png" width="256" height="256"/>
         <image name="photo.jpg" width="266" height="190"/>
         <image name="practiceBook.png" width="20" height="24"/>
+        <image name="purchaseBackBtn.png" width="19" height="31"/>
+        <image name="purchaseBtnBg.png" width="375" height="62"/>
+        <image name="purchaseDialogueBg.png" width="256" height="133"/>
+        <image name="purchaseDownBg.png" width="375" height="364"/>
+        <image name="purchaseUpBg.png" width="375" height="250"/>
         <image name="recordBtn.png" width="256" height="256"/>
         <image name="registerBtn.png" width="115" height="37"/>
         <image name="registerBtnImg.png" width="66" height="66"/>
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="519" height="114"/>
         <image name="senBlock.png" width="699" height="114"/>
+        <image name="seperateLine.png" width="375" height="1"/>
         <image name="soundPng.png" width="70" height="46"/>
         <image name="stageTopCover.png" width="375" height="133"/>
+        <image name="statusPng.png" width="44" height="42"/>
         <image name="sylBlueBall" width="16" height="16"/>
         <image name="yellowBack.png" width="19" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hHL-FR-I78"/>
+        <segue reference="Qsn-eF-t3O"/>
     </inferredMetricsTieBreakers>
 </document>

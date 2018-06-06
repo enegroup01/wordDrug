@@ -32,22 +32,17 @@ class CoursesViewController: UIViewController {
     
     @IBOutlet weak var block2WordCountLabel: UILabel!
     
-    @IBOutlet weak var block3WordCountLabel: UILabel!
+   
     
     @IBOutlet weak var block0TitleImg: UIImageView!
     
     @IBOutlet weak var block1TitleImg: UIImageView!
-    @IBOutlet weak var block3TitleImg: UIImageView!
     
-    @IBOutlet weak var block0BookImg: UIImageView!
-    
-    @IBOutlet weak var block1BookImg: UIImageView!
-    
-    @IBOutlet weak var block2BookImg: UIImageView!
-    
-    @IBOutlet weak var block3BookImg: UIImageView!
+
+  
     @IBOutlet weak var block2TitleImg: UIImageView!
     
+    @IBOutlet weak var logoLabel: UILabel!
     
     @IBOutlet weak var logOutBtn: UIButton!
     var alertBg = UIImageView()
@@ -60,12 +55,10 @@ class CoursesViewController: UIViewController {
     
     var isGuidingMode = false
     
-    
     var guideBg = UIImageView()
     var guideGhost = UIButton()
     var guideTitle = UILabel()
     var guideText = UILabel()
-    
     
     //test用
     var guideTitle2 = UILabel()
@@ -116,6 +109,33 @@ class CoursesViewController: UIViewController {
     
     var recommendedClass = String()
     
+    @IBOutlet weak var sepLine0: UIImageView!
+    
+    @IBOutlet weak var sepLine1: UIImageView!
+    
+    
+    @IBOutlet weak var sepLine2: UIImageView!
+    
+    @IBOutlet weak var bottomBg: UIView!
+    
+    @IBOutlet weak var unitLabel: UILabel!
+    @IBOutlet weak var unitLabel1: UILabel!
+    
+    @IBOutlet weak var unitLabel2: UILabel!
+    
+    @IBOutlet weak var toChartVcBtn: UIButton!
+    
+    @IBOutlet weak var toInfoLabel: UILabel!
+    
+    @IBOutlet weak var toShopLabel: UILabel!
+    @IBOutlet weak var toChartLabel: UILabel!
+    @IBOutlet weak var toShopVcBtn: UIButton!
+    
+    var hiddenInfoBtn = UIButton()
+    var hiddenChartBtn = UIButton()
+    var hiddenShopBtn = UIButton()
+    
+    @IBOutlet weak var bottomLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -182,54 +202,120 @@ class CoursesViewController: UIViewController {
         block0.contentMode = .scaleAspectFill
         block1.frame = CGRect(x: xPos, y: height / 4, width: width, height: height / 4)
         block2.frame = CGRect(x: xPos, y: height / 2, width: width, height: height / 4)
-        block3.frame = CGRect(x: xPos, y: height * 3 / 4, width: width, height: height / 4)
+        //block3.frame = CGRect(x: xPos, y: height * 3 / 4, width: width, height: height / 4)
         
-        block0LBtn.frame = CGRect(x: 0, y: 0, width: width * 3 / 4 + width / 42, height: height / 4)
-        block0RBtn.frame = CGRect(x: block0LBtn.frame.width, y: 0, width: width - block0LBtn.frame.width, height: height / 4)
+        //block0LBtn.frame = CGRect(x: 0, y: 0, width: width * 3 / 4 + width / 42, height: height / 4)
+        //block0RBtn.frame = CGRect(x: block0LBtn.frame.width, y: 0, width: width - block0LBtn.frame.width, height: height / 4)
         //block0RBtn.backgroundColor = .red
+        //block0LBtn.backgroundColor = .green
+        
+        
+        //block0TitleImg.frame = CGRect(x: block0.frame.width / 26, y: block0.frame.height / 3 * iPadDif, width: 136 * titleDif, height: 94 * titleDif / iPadDif)
+        
+        //新位置
+        
+        block0TitleImg.frame = CGRect(x: block0.frame.width / 26, y: height / 3.5 * iPadDif, width: 136 * titleDif, height: 94 * titleDif / iPadDif)
         
         
         
         
-        block1LBtn.frame = CGRect(x: 0, y: height / 4, width: width * 3 / 4 + width / 42, height: height / 4)
-        
-        block1RBtn.frame = CGRect(x: block1LBtn.frame.width, y: block1LBtn.frame.minY, width: block0RBtn.frame.width, height: block0RBtn.frame.height)
-        //block1RBtn.backgroundColor = .red
-        
-        //block1LBtn.backgroundColor = .red
-        
-        block2LBtn.frame = CGRect(x: 0, y: block1LBtn.frame.maxY, width: block1LBtn.frame.width, height: height / 4)
-       // block2LBtn.backgroundColor = .red
         
         
-        block2RBtn.frame = CGRect(x: block1LBtn.frame.maxX, y: block2LBtn.frame.minY, width: block1RBtn.frame.width, height: block2LBtn.frame.height)
-       // block2RBtn.backgroundColor = .green
+        // block1TitleImg.frame = CGRect(x: block0.frame.width / 26, y: block1.frame.origin.y + block0.frame.height / 5 * iPadDif, width: 136 * titleDif, height: 97 * titleDif / iPadDif)
+        
+        
+        //新位置
+        block1TitleImg.frame = CGRect(x: block0.frame.width / 26, y: height / 2 * iPadDif, width: 136 * titleDif, height: 97 * titleDif / iPadDif)
+        
+        
+        
+        
+        //block2TitleImg.frame = CGRect(x: block0.frame.width / 26, y: block2.frame.origin.y + block0.frame.height / 4 * iPadDif, width: 136 * titleDif, height: 81 * titleDif / iPadDif)
+        
+        
+        
+        //新位置
+        block2TitleImg.frame = CGRect(x: block0.frame.width / 26, y: height / 1.38
+            * iPadDif, width: 136 * titleDif, height: 81 * titleDif / iPadDif)
+
+        
+        //新位置
+        block0LBtn.frame = CGRect(x: width / 2.5, y: block0TitleImg.frame.maxY * 0.95, width: 105, height: 35)
+        block0RBtn.frame = CGRect(x: block0LBtn.frame.maxX + 10, y: block0LBtn.frame.minY, width: 105, height: 35)
+        
+        
+        
+        //block1LBtn.frame = CGRect(x: 0, y: height / 4, width: width * 3 / 4 + width / 42, height: height / 4)0
+        //新位置
+        block1LBtn.frame = CGRect(x: width / 2.5, y: block1TitleImg.frame.maxY * 0.95, width: 105, height: 35)
+        
+      //  block1RBtn.frame = CGRect(x: block1LBtn.frame.width, y: block1LBtn.frame.minY, width: block0RBtn.frame.width, height: block0RBtn.frame.height)
+        //block1RBtn.backgroundColor = .blue
+        
+        
       
+       // block1RBtn.frame = CGRect(x: block1LBtn.frame.maxX + 5, y: block1LBtn.frame.minY, width: 222, height: 36)
         
+        //新位置
+        block1RBtn.frame = CGRect(x: block1LBtn.frame.maxX + 10, y: block1LBtn.frame.minY, width: 105, height: 35)
+        
+        //block1LBtn.backgroundColor = .purple
+        
+       // block2LBtn.frame = CGRect(x: 0, y: block1LBtn.frame.maxY, width: block1LBtn.frame.width, height: height / 4)
+       // block2LBtn.backgroundColor = .yellow
+        
+        
+        //block2RBtn.frame = CGRect(x: block1LBtn.frame.maxX, y: block2LBtn.frame.minY, width: block1RBtn.frame.width, height: block2LBtn.frame.height)
+       // block2RBtn.backgroundColor = .brown
+        
+        //新位置
+       block2LBtn.frame = CGRect(x: width / 2.5, y: block2TitleImg.frame.maxY * 0.97, width: 105, height: 35)
+        
+   
+        block2RBtn.frame = CGRect(x: block2LBtn.frame.maxX + 10, y: block2LBtn.frame.minY, width: 105, height: 35)
+        /*
         dialogueBg.frame = CGRect(x: width / 3, y: block0.frame.height / 5.5, width: width * 1.8 / 3, height: block0.frame.height / 5)
         
         dialogueLabel.frame = CGRect(x: dialogueBg.frame.origin.x + dialogueBg.frame.width / 40, y: dialogueBg.frame.origin.y + dialogueBg.frame.height / 4, width: dialogueBg.frame.width * 19 / 20, height: dialogueBg.frame.height / 2)
         
         dialogueLabel.adjustsFontSizeToFitWidth = true
         dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
+        */
         
         
-        toInfoVcBtn.frame = CGRect(x: dialogueBg.frame.minX, y: dialogueBg.frame.minY, width: dialogueBg.frame.height, height: dialogueBg.frame.height)
+       // toInfoVcBtn.frame = CGRect(x: dialogueBg.frame.minX, y: dialogueBg.frame.minY, width: dialogueBg.frame.height, height: dialogueBg.frame.height)
+        //新位置
         
-        logOutBtn.frame = CGRect(x: width / 18, y: dialogueLabel.frame.minY - 10 * dif, width: 20 * dif * iPadDif, height: 23 * dif * iPadDif)
+       
+        toInfoVcBtn.frame = CGRect(x: width / 7 , y: height / 8, width: 44 * dif, height: 42 * dif)
         
-        block0WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block0.frame.height / 2 / iPadDif, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
-        //block0WordCountLabel.backgroundColor = .red
-        block0WordCountLabel.adjustsFontSizeToFitWidth = true
-        block1WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block1.frame.origin.y + block1.frame.height / 3, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
-        //block1WordCountLabel.backgroundColor = .red
-        block1WordCountLabel.adjustsFontSizeToFitWidth = true
-        block2WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block2.frame.origin.y + block2.frame.height / 3, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
-        //block2WordCountLabel.backgroundColor = .red
-        block2WordCountLabel.adjustsFontSizeToFitWidth = true
-        block3WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block3.frame.origin.y + block3.frame.height / 3, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
-        //=block3WordCountLabel.backgroundColor = .red
-        block3WordCountLabel.adjustsFontSizeToFitWidth = true
+        
+        toChartVcBtn.frame = CGRect(x: width * 3 / 7, y: height / 8 - 8, width: 43 * dif, height: 49 * dif)
+        
+        
+        toShopVcBtn.frame = CGRect(x: width * 5 / 7, y: height / 8, width: 43 * dif, height: 43 * dif)
+        
+        toInfoLabel.center = CGPoint(x: toInfoVcBtn.frame.midX, y: toInfoVcBtn.frame.maxY + 15)
+        toChartLabel.center = CGPoint(x: toChartVcBtn.frame.midX, y: toInfoLabel.frame.midY)
+        toShopLabel.center = CGPoint(x: toShopVcBtn.frame.midX, y: toInfoLabel.frame.midY)
+        
+        hiddenInfoBtn.frame = toInfoLabel.frame
+        hiddenInfoBtn.addTarget(self, action: #selector(CoursesViewController.toInfoVcClicked(_:)), for: .touchUpInside)
+        self.view.addSubview(hiddenInfoBtn)
+        
+        hiddenChartBtn.frame = toChartLabel.frame
+        hiddenChartBtn.addTarget(self, action: #selector(CoursesViewController.toChartVcBtnClicked(_:)), for: .touchUpInside)
+        self.view.addSubview(hiddenChartBtn)
+        
+        hiddenShopBtn.frame = toShopLabel.frame
+        hiddenShopBtn.addTarget(self, action: #selector(CoursesViewController.toShopVcBtnClicked(_:)), for: .touchUpInside)
+        self.view.addSubview(hiddenShopBtn)
+        
+        
+        
+        logOutBtn.frame = CGRect(x: width / 18, y: logoLabel.frame.minY, width: 30 * dif * iPadDif, height: 21 * dif * iPadDif)
+        
+      
         
         /*
          block0Text.frame = CGRect(x: block0.frame.width / 26, y: block0.frame.height / 3, width: 272, height: 94)
@@ -238,16 +324,57 @@ class CoursesViewController: UIViewController {
          block3Text.frame = CGRect(x: block0.frame.width / 26, y:  block3.frame.origin.y + block0.frame.height / 3, width: 272, height: 82)
          */
         
-        block0TitleImg.frame = CGRect(x: block0.frame.width / 26, y: block0.frame.height / 3 * iPadDif, width: 136 * titleDif, height: 94 * titleDif / iPadDif)
-        block1TitleImg.frame = CGRect(x: block0.frame.width / 26, y: block1.frame.origin.y + block0.frame.height / 5 * iPadDif, width: 136 * titleDif, height: 97 * titleDif / iPadDif)
-        block2TitleImg.frame = CGRect(x: block0.frame.width / 26, y: block2.frame.origin.y + block0.frame.height / 4 * iPadDif, width: 136 * titleDif, height: 81 * titleDif / iPadDif)
-        block3TitleImg.frame = CGRect(x: block0.frame.width / 26, y:  block3.frame.origin.y + block0.frame.height / 4 * iPadDif, width: 136 * titleDif, height: 81 * titleDif / iPadDif)
+
+        
+       // block3TitleImg.frame = CGRect(x: block0.frame.width / 26, y:  block3.frame.origin.y + block0.frame.height / 4 * iPadDif, width: 136 * titleDif, height: 81 * titleDif / iPadDif)
         
         
-        block0BookImg.frame = CGRect(x: width - width / 6, y: block0WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
-        block1BookImg.frame = CGRect(x: width - width / 6, y: block1WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
-        block2BookImg.frame = CGRect(x: width - width / 6, y: block2WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
-        block3BookImg.frame = CGRect(x: width - width / 6, y: block3WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
+        //block0WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block0.frame.height / 2 / iPadDif, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
+        //block0WordCountLabel.backgroundColor = .red
+        block0WordCountLabel.adjustsFontSizeToFitWidth = true
+        
+        //新位置
+        block0WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block0TitleImg.frame.minY * 1.05, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
+        
+        
+        
+        
+        //block1WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block1.frame.origin.y + block1.frame.height / 3, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
+        //block1WordCountLabel.backgroundColor = .red
+        //新位置
+        block1WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block1TitleImg.frame.minY * 1.02, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
+
+        block1WordCountLabel.adjustsFontSizeToFitWidth = true
+       
+        
+        //block2WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block2.frame.origin.y + block2.frame.height / 3, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
+        //block2WordCountLabel.backgroundColor = .red
+        block2WordCountLabel.adjustsFontSizeToFitWidth = true
+        //新位置
+         block2WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block2TitleImg.frame.minY, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
+        
+        
+        unitLabel.frame = CGRect(x: block0WordCountLabel.frame.maxX * 0.98, y: block0WordCountLabel.frame.maxY - 20, width: 14, height: 20)
+        
+                unitLabel1.frame = CGRect(x: block1WordCountLabel.frame.maxX * 0.98, y: block1WordCountLabel.frame.maxY - 20, width: 14, height: 20)
+                unitLabel2.frame = CGRect(x: block2WordCountLabel.frame.maxX * 0.98
+                    , y: block2WordCountLabel.frame.maxY - 20, width: 14, height: 20)
+        
+        
+        
+       
+        
+        //block3WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block3.frame.origin.y + block3.frame.height / 3, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
+        //=block3WordCountLabel.backgroundColor = .red
+        // block3WordCountLabel.adjustsFontSizeToFitWidth = true
+        
+        
+        
+        
+        //block0BookImg.frame = CGRect(x: width - width / 6, y: block0WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
+       // block1BookImg.frame = CGRect(x: width - width / 6, y: block1WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
+        //block2BookImg.frame = CGRect(x: width - width / 6, y: block2WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
+        //block3BookImg.frame = CGRect(x: width - width / 6, y: block3WordCountLabel.frame.origin.y + height / 70, width: 41 * titleDif, height: 45 * titleDif)
         
         
         // Do any additional setup after loading the view.
@@ -384,6 +511,22 @@ class CoursesViewController: UIViewController {
         }
 
         
+        logoLabel.center = CGPoint(x: width / 2, y: height / 23)
+        logoLabel.frame.size = CGSize(width: 183 * dif, height: 50 * dif)
+        
+        sepLine0.frame = CGRect(x: 0, y: height / 4.2, width: width, height: 1)
+        sepLine1.frame = CGRect(x: 0, y: height / 2.2, width: width, height: 1)
+        sepLine2.frame = CGRect(x: 0, y: height / 1.5, width: width, height: 1)
+        
+        bottomBg.frame = CGRect(x: 0, y: height - 80 * dif, width: width, height: 80 * dif)
+        
+        bottomLabel.frame = CGRect(x: 0, y: bottomBg.frame.minY, width: width, height: bottomBg.frame.height)
+        bottomLabel.numberOfLines = 2
+        bottomLabel.textAlignment = .center
+        bottomLabel.text = "更多字庫即將上架\ncoming soon..."
+
+
+
     }
     
     
@@ -625,6 +768,13 @@ class CoursesViewController: UIViewController {
         
     }
     
+    @IBAction func toChartVcBtnClicked(_ sender: Any) {
+        performSegue(withIdentifier: "toChartVc", sender: self)
+
+    }
+    @IBAction func toShopVcBtnClicked(_ sender: Any) {
+        performSegue(withIdentifier: "toShopVc", sender: self)
+    }
     override func viewWillAppear(_ animated: Bool) {
         
      
@@ -637,6 +787,7 @@ class CoursesViewController: UIViewController {
             logOutBtn.isHidden = false
         }
         
+        /*
         var nickname = String()
         //測試用
         
@@ -647,7 +798,7 @@ class CoursesViewController: UIViewController {
         }
         
          dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
-        
+        */
     }
     
     @objc func noClassNotice(){

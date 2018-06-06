@@ -126,7 +126,6 @@
 		AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E71207CCF7A00AAACC3 /* pointImg.png */; };
 		AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E73207CDC2800AAACC3 /* coverBg.png */; };
 		AA523FCC208AC2AB004CD863 /* noClassOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FCB208AC2AA004CD863 /* noClassOkBtn.png */; };
-		AA523FCE208AC4FC004CD863 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FCD208AC4FB004CD863 /* logout.png */; };
 		AA523FD2208AD862004CD863 /* volume.png in Resources */ = {isa = PBXBuildFile; fileRef = AA523FD1208AD861004CD863 /* volume.png */; };
 		AA532CBC20B8203F00997094 /* 11-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532C9E20B8203900997094 /* 11-13.txt */; };
 		AA532CBD20B8203F00997094 /* 11-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA532C9F20B8203A00997094 /* 11-7.txt */; };
@@ -431,6 +430,19 @@
 		AA7AE8F82047D8A200ADEEDA /* pauseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */; };
 		AA7AE8FA20494EA400ADEEDA /* recogWordsBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8F920494EA400ADEEDA /* recogWordsBg.png */; };
 		AA7AE9002049675200ADEEDA /* recordCross.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE8FF2049675100ADEEDA /* recordCross.png */; };
+		AA7BB4C420C78FED001A1F66 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BB4C320C78FED001A1F66 /* PurchaseViewController.swift */; };
+		AA7BB4C920C79070001A1F66 /* purchaseBtnBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4C520C7906F001A1F66 /* purchaseBtnBg.png */; };
+		AA7BB4CA20C79070001A1F66 /* purchaseDialogueBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4C620C7906F001A1F66 /* purchaseDialogueBg.png */; };
+		AA7BB4CB20C79070001A1F66 /* purchaseUpBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4C720C7906F001A1F66 /* purchaseUpBg.png */; };
+		AA7BB4CC20C79070001A1F66 /* purchaseDownBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4C820C79070001A1F66 /* purchaseDownBg.png */; };
+		AA7BB4CE20C7A133001A1F66 /* purchaseBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4CD20C7A133001A1F66 /* purchaseBackBtn.png */; };
+		AA7BB4D020C7E817001A1F66 /* statusPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4CF20C7E817001A1F66 /* statusPng.png */; };
+		AA7BB4D220C7EAB2001A1F66 /* seperateLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4D120C7EAB1001A1F66 /* seperateLine.png */; };
+		AA7BB4D420C7F117001A1F66 /* courseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4D320C7F116001A1F66 /* courseBtn.png */; };
+		AA7BB4D620C7FEDE001A1F66 /* championPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4D520C7FEDD001A1F66 /* championPng.png */; };
+		AA7BB4D820C80034001A1F66 /* cartPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4D720C80033001A1F66 /* cartPng.png */; };
+		AA7BB4DE20C80DB2001A1F66 /* courseBtnYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4DD20C80DB1001A1F66 /* courseBtnYellow.png */; };
+		AA7BB4E020C81470001A1F66 /* logOut.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4DF20C81470001A1F66 /* logOut.png */; };
 		AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D61362040408200E0A94D /* blueBackBtnImg.png */; };
 		AA7D6139204040A400E0A94D /* purpleBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D6138204040A300E0A94D /* purpleBg.png */; };
 		AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */; };
@@ -666,7 +678,6 @@
 		AA4E2E71207CCF7A00AAACC3 /* pointImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointImg.png; sourceTree = "<group>"; };
 		AA4E2E73207CDC2800AAACC3 /* coverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverBg.png; sourceTree = "<group>"; };
 		AA523FCB208AC2AA004CD863 /* noClassOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noClassOkBtn.png; sourceTree = "<group>"; };
-		AA523FCD208AC4FB004CD863 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		AA523FD1208AD861004CD863 /* volume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume.png; sourceTree = "<group>"; };
 		AA532C9E20B8203900997094 /* 11-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-13.txt"; sourceTree = "<group>"; };
 		AA532C9F20B8203A00997094 /* 11-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-7.txt"; sourceTree = "<group>"; };
@@ -972,6 +983,19 @@
 		AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseBtn.png; sourceTree = "<group>"; };
 		AA7AE8F920494EA400ADEEDA /* recogWordsBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recogWordsBg.png; sourceTree = "<group>"; };
 		AA7AE8FF2049675100ADEEDA /* recordCross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordCross.png; sourceTree = "<group>"; };
+		AA7BB4C320C78FED001A1F66 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
+		AA7BB4C520C7906F001A1F66 /* purchaseBtnBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseBtnBg.png; sourceTree = "<group>"; };
+		AA7BB4C620C7906F001A1F66 /* purchaseDialogueBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseDialogueBg.png; sourceTree = "<group>"; };
+		AA7BB4C720C7906F001A1F66 /* purchaseUpBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseUpBg.png; sourceTree = "<group>"; };
+		AA7BB4C820C79070001A1F66 /* purchaseDownBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseDownBg.png; sourceTree = "<group>"; };
+		AA7BB4CD20C7A133001A1F66 /* purchaseBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseBackBtn.png; sourceTree = "<group>"; };
+		AA7BB4CF20C7E817001A1F66 /* statusPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusPng.png; sourceTree = "<group>"; };
+		AA7BB4D120C7EAB1001A1F66 /* seperateLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seperateLine.png; sourceTree = "<group>"; };
+		AA7BB4D320C7F116001A1F66 /* courseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = courseBtn.png; sourceTree = "<group>"; };
+		AA7BB4D520C7FEDD001A1F66 /* championPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = championPng.png; sourceTree = "<group>"; };
+		AA7BB4D720C80033001A1F66 /* cartPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartPng.png; sourceTree = "<group>"; };
+		AA7BB4DD20C80DB1001A1F66 /* courseBtnYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = courseBtnYellow.png; sourceTree = "<group>"; };
+		AA7BB4DF20C81470001A1F66 /* logOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logOut.png; sourceTree = "<group>"; };
 		AA7D61362040408200E0A94D /* blueBackBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueBackBtnImg.png; sourceTree = "<group>"; };
 		AA7D6138204040A300E0A94D /* purpleBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleBg.png; sourceTree = "<group>"; };
 		AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "有發音問題的字.txt"; sourceTree = "<group>"; };
@@ -1120,6 +1144,13 @@
 			isa = PBXGroup;
 			children = (
 				AA04ED7E203D7A1300EC0A8E /* CoursesViewController.swift */,
+				AA7BB4DD20C80DB1001A1F66 /* courseBtnYellow.png */,
+				AA7BB4D520C7FEDD001A1F66 /* championPng.png */,
+				AA7BB4D720C80033001A1F66 /* cartPng.png */,
+				AA7BB4DF20C81470001A1F66 /* logOut.png */,
+				AA7BB4D320C7F116001A1F66 /* courseBtn.png */,
+				AA7BB4D120C7EAB1001A1F66 /* seperateLine.png */,
+				AA7BB4CF20C7E817001A1F66 /* statusPng.png */,
 				AAD62F4120C14A4E001D6275 /* step0Line.png */,
 				AAD62F3F20C1395C001D6275 /* guideBg.png */,
 				AA98E6232086197A001100BA /* bookPng.png */,
@@ -1133,7 +1164,6 @@
 				AAD62F5320C17A51001D6275 /* step2Line1.png */,
 				AAD62F5620C17A52001D6275 /* step2Line2.png */,
 				AA0E409A20B2A06D0055DCD0 /* person.png */,
-				AA523FCD208AC4FB004CD863 /* logout.png */,
 				AA04ED84203D7E9100EC0A8E /* elementaryBg.png */,
 				AA04ED81203D7E9000EC0A8E /* intermediateBg.png */,
 				AA523FCB208AC2AA004CD863 /* noClassOkBtn.png */,
@@ -1294,6 +1324,19 @@
 				AA6FB74420AEE3DF0001EFED /* alphaLayer.png */,
 			);
 			path = infoVc;
+			sourceTree = "<group>";
+		};
+		AA7BB4C220C78FCE001A1F66 /* PurchaseVc */ = {
+			isa = PBXGroup;
+			children = (
+				AA7BB4C320C78FED001A1F66 /* PurchaseViewController.swift */,
+				AA7BB4C620C7906F001A1F66 /* purchaseDialogueBg.png */,
+				AA7BB4C520C7906F001A1F66 /* purchaseBtnBg.png */,
+				AA7BB4C820C79070001A1F66 /* purchaseDownBg.png */,
+				AA7BB4C720C7906F001A1F66 /* purchaseUpBg.png */,
+				AA7BB4CD20C7A133001A1F66 /* purchaseBackBtn.png */,
+			);
+			path = PurchaseVc;
 			sourceTree = "<group>";
 		};
 		AA7C97F52052C97300C834A3 /* newGameVc */ = {
@@ -1765,6 +1808,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA7BB4C220C78FCE001A1F66 /* PurchaseVc */,
 				AA3A847720C562AE00BE88EC /* RegisterVc */,
 				AA2CFA6920BD7DD9009DBBB6 /* IntroVc */,
 				AAC1CE0A20B5283A007FF6F8 /* chartVc */,
@@ -1905,7 +1949,6 @@
 				AA532CCC20B8203F00997094 /* 10-7.txt in Resources */,
 				AA60A93620B45A64009AD173 /* 8-15.txt in Resources */,
 				AA648EA5207CEA05003ACD07 /* s2-6.txt in Resources */,
-				AA523FCE208AC4FC004CD863 /* logout.png in Resources */,
 				AA532CFD20B8258D00997094 /* s11-2.txt in Resources */,
 				AAA9BF7020A5903C000CA7CD /* s6-1.txt in Resources */,
 				AAA0E10320982A3D007148EB /* senBlock.png in Resources */,
@@ -2048,6 +2091,7 @@
 				AA27DE3320B6FDA4003250D2 /* 9-9.txt in Resources */,
 				AA648ED1207CEA05003ACD07 /* s2-1.txt in Resources */,
 				AA2CFA8520BD91DA009DBBB6 /* finger.png in Resources */,
+				AA7BB4D820C80034001A1F66 /* cartPng.png in Resources */,
 				AAF31A11207E23DA002F8FD8 /* lightSel.png in Resources */,
 				AA3A849B20C56C9000BE88EC /* s12-12.txt in Resources */,
 				AA9655692090B7E3003E5AB7 /* practiceBook.png in Resources */,
@@ -2064,6 +2108,7 @@
 				AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */,
 				AA648ECB207CEA05003ACD07 /* s1-14.txt in Resources */,
 				AA3A849520C56C9000BE88EC /* s12-8.txt in Resources */,
+				AA7BB4D420C7F117001A1F66 /* courseBtn.png in Resources */,
 				AA648EA0207CEA05003ACD07 /* 2-10.txt in Resources */,
 				AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */,
 				AA648EFB207CEA05003ACD07 /* 3-10.txt in Resources */,
@@ -2109,6 +2154,7 @@
 				AA648EB9207CEA05003ACD07 /* 4-12.txt in Resources */,
 				AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */,
 				AA523FD2208AD862004CD863 /* volume.png in Resources */,
+				AA7BB4CA20C79070001A1F66 /* purchaseDialogueBg.png in Resources */,
 				AA532CC120B8203F00997094 /* 10-13.txt in Resources */,
 				AA27DE2820B6FDA4003250D2 /* 9-4.txt in Resources */,
 				AA3A84B120C56CAA00BE88EC /* 12-13.txt in Resources */,
@@ -2151,9 +2197,11 @@
 				AA532CD820B8203F00997094 /* 11-5.txt in Resources */,
 				AAA9BF9920A59963000CA7CD /* intermediateBackBtnImg.png in Resources */,
 				AA648E84207CEA05003ACD07 /* 4-13.txt in Resources */,
+				AA7BB4CE20C7A133001A1F66 /* purchaseBackBtn.png in Resources */,
 				AA3A848D20C56C9000BE88EC /* s12-4.txt in Resources */,
 				AA04ED88203D7E9100EC0A8E /* elementaryBg.png in Resources */,
 				AA27DE2B20B6FDA4003250D2 /* 9-7.txt in Resources */,
+				AA7BB4D220C7EAB2001A1F66 /* seperateLine.png in Resources */,
 				AA6C95DE20AAAA8F001158E7 /* fire.sks in Resources */,
 				AA3A84B520C56CAA00BE88EC /* 12-4.txt in Resources */,
 				AA648E6C207CEA05003ACD07 /* 3-8.txt in Resources */,
@@ -2228,6 +2276,7 @@
 				AA35E39920BEDEFA00084EB2 /* world.png in Resources */,
 				AA648ECF207CEA05003ACD07 /* 2-11.txt in Resources */,
 				AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */,
+				AA7BB4C920C79070001A1F66 /* purchaseBtnBg.png in Resources */,
 				AA3A848E20C56C9000BE88EC /* s12-11.txt in Resources */,
 				AA60A95420B45A7B009AD173 /* s8-1.txt in Resources */,
 				AA6FB73D20AEDF680001EFED /* yellowBack.png in Resources */,
@@ -2239,9 +2288,11 @@
 				AAB63B39204E5DFE00F96E9C /* talkPng.png in Resources */,
 				AA532CC320B8203F00997094 /* 10-3.txt in Resources */,
 				AA648EAD207CEA05003ACD07 /* s2-14.txt in Resources */,
+				AA7BB4D020C7E817001A1F66 /* statusPng.png in Resources */,
 				AA27DE2F20B6FDA4003250D2 /* 9-8.txt in Resources */,
 				AA98E6242086197A001100BA /* bookPng.png in Resources */,
 				AA532D0520B8258D00997094 /* s11-13.txt in Resources */,
+				AA7BB4CB20C79070001A1F66 /* purchaseUpBg.png in Resources */,
 				AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */,
 				AA648E76207CEA05003ACD07 /* s1-8.txt in Resources */,
 				AAE46C8220A4213F00FA6FCD /* 老師唸錯的字.txt in Resources */,
@@ -2261,7 +2312,9 @@
 				AA3A84AF20C56CAA00BE88EC /* 12-11.txt in Resources */,
 				AA6C95D520A9CC23001158E7 /* s7-3.txt in Resources */,
 				AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */,
+				AA7BB4CC20C79070001A1F66 /* purchaseDownBg.png in Resources */,
 				AA3A847D20C5662B00BE88EC /* starPng.png in Resources */,
+				AA7BB4E020C81470001A1F66 /* logOut.png in Resources */,
 				AA648ED7207CEA05003ACD07 /* 1-8.txt in Resources */,
 				AA8FAE92202D913A00342CED /* wrongX.png in Resources */,
 				AA6C95CD20A9CC23001158E7 /* s7-9.txt in Resources */,
@@ -2309,6 +2362,7 @@
 				AA648E73207CEA05003ACD07 /* s5-13.txt in Resources */,
 				AA648E8B207CEA05003ACD07 /* s3-2.txt in Resources */,
 				AA648ED3207CEA05003ACD07 /* s2-13.txt in Resources */,
+				AA7BB4D620C7FEDE001A1F66 /* championPng.png in Resources */,
 				AA04ED8A203D7E9700EC0A8E /* dialogueBg.png in Resources */,
 				AA63D1F820875DBD000EA088 /* wrongWordBtn.png in Resources */,
 				AAFAFCB6205BE11F00307264 /* bookTimes1.png in Resources */,
@@ -2352,6 +2406,7 @@
 				AA648EF7207CEA05003ACD07 /* 3-7.txt in Resources */,
 				AA532CF920B8258D00997094 /* s10-7.txt in Resources */,
 				AA60A95720B45A7B009AD173 /* s8-10.txt in Resources */,
+				AA7BB4DE20C80DB2001A1F66 /* courseBtnYellow.png in Resources */,
 				AAFAFCA2205BDD6500307264 /* sylBlueBall.png in Resources */,
 				AA648E83207CEA05003ACD07 /* s3-3.txt in Resources */,
 				AAD62F5A20C17A52001D6275 /* step2Line2.png in Resources */,
@@ -2421,6 +2476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7BB4C420C78FED001A1F66 /* PurchaseViewController.swift in Sources */,
 				AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */,
 				AA3A847620C55E2900BE88EC /* RegisterViewController.swift in Sources */,
 				AA6FB73A20AE84CA0001EFED /* MKGradientGenerator.swift in Sources */,
