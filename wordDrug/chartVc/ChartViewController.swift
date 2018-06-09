@@ -212,13 +212,20 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         if avas[indexPath.row] != "" {
-                
+            print("ava not nil")
+           // let newString = avas[indexPath.row].replacingOccurrences(of: "__", with: "&")
+         
                 let imageUrl = URL(string: avas[indexPath.row])!
+            
                 // get data from image url
                 let imageData = try? Data(contentsOf: imageUrl)
                 
                 // if data is not nill assign it to ava.Img
                 if imageData != nil {
+                    
+                    
+                    print("imgData not nil")
+                    
                     DispatchQueue.main.async(execute: {[weak self] in
                         cell.avaImg.image = UIImage(data: imageData!)
                         
@@ -329,7 +336,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     for i in 0 ..< parseJSON.count{
                         
                         
-                        if let username = parseJSON[i]["username"] as? String{
+                        if let username = parseJSON[i]["nickname"] as? String{
                             
                             self!.usernames.append(username)
                             
@@ -337,7 +344,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         
                         if let ava = parseJSON[i]["ava"] as? String{
                             
-                            self!.avas.append(ava)
+                            let newAva = ava.replacingOccurrences(of: "__", with: "&")
+                            
+                            self!.avas.append(newAva)
                             
                         }
                         
@@ -398,8 +407,6 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         // url to access our php file
         let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
         
-
-        
         // request url
         var request = URLRequest(url: url)
         
@@ -443,7 +450,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     for i in 0 ..< parseJSON.count{
                         
                         
-                        if let username = parseJSON[i]["username"] as? String{
+                        if let username = parseJSON[i]["nickname"] as? String{
                  
                             self!.usernames.append(username)
 
@@ -451,7 +458,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         
                         if let ava = parseJSON[i]["ava"] as? String{
 
-                            self!.avas.append(ava)
+                            let newAva = ava.replacingOccurrences(of: "__", with: "&")
+                            
+                            self!.avas.append(newAva)
                        
                         }
                         

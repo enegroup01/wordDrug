@@ -232,7 +232,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             
             if let destinedVc = segue.destination as? CoursesViewController{
                 
-                destinedVc.isGuidingMode = true
+                //destinedVc.isGuidingMode = true
                 destinedVc.recommendedClass = recommendedClassToPass
                 
             }

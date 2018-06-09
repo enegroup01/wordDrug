@@ -427,8 +427,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             DispatchQueue.main.async(execute: {[weak self] in
                 
                 if avaImgUrl != "" {
+            
                     
-                    let imageUrl = URL(string: avaImgUrl)!
+                    let newAvaUrl = avaImgUrl.replacingOccurrences(of: "__", with: "&")
+                    
+                    let imageUrl = URL(string: newAvaUrl)!
                     // get data from image url
                     let imageData = try? Data(contentsOf: imageUrl)
                     

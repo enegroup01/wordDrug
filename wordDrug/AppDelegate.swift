@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import FacebookCore
+import Firebase
+import FirebaseMessaging
+import FirebaseInstanceID
+import UserNotifications
+
 
 var user : NSDictionary?
 var mapPassed:Int?
@@ -22,6 +28,7 @@ var isRegistered:Bool?
 var seconds:Int?
 
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -31,6 +38,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
        
               NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
+    
+        
+        FirebaseApp.configure()
+
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
+            
+            if error == nil {
+                
+                print("successful")
+            }
+            
+        }
+        
+        application.registerForRemoteNotifications()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshToken(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
+        
+        
+        
         
         //抓使用者檔案
         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary 
@@ -66,6 +92,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //抓mapPassed3
         mapPassed3 = UserDefaults.standard.object(forKey: "mapPassed3") as? Int
         
+        
+        /*
         //抓gamePassed4
         let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
         
@@ -75,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //抓mapPassed4
         mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
-
+*/
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
         isRegistered = UserDefaults.standard.object(forKey: "isRegistered") as? Bool
         
@@ -148,6 +176,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 userDefaults.set(encodedObject3, forKey: "gamePassed3")
                 
                 
+                
+                
+                
                 toIntro()
                 
                 
@@ -160,6 +191,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if isRegistered == true{
                 
                     //跳往註冊畫面
+                    
+                    
+                    
                     
                     
                 } else {
@@ -188,6 +222,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return SDKApplicationDelegate.shared.application(app, open: url,options:options)
+        
+    }
     
     @objc func notifyPauseGame(){
         
@@ -221,14 +260,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
+        Messaging.messaging().shouldEstablishDirectChannel = false
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+    
+        FBHandler()
+        AppEventsLogger.activate()
+        
+                UIApplication.shared.applicationIconBadgeNumber = 0
         
         let date = Date().description(with: .current)
         //let formatter = DateFormatter()
@@ -284,6 +331,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    
+    
+    
+    
+    
+    @objc func refreshToken(notification: NSNotification){
+        
+        
+        let refreshToken = InstanceID.instanceID().token()!
+        print("token:\(refreshToken)")
+        
+        FBHandler()
+        
+        
+        
+    }
+    
+    func FBHandler(){
+        
+        Messaging.messaging().shouldEstablishDirectChannel = true
+    }
 
 }
 

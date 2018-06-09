@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import StoreKit
 
-class PurchaseViewController: UIViewController {
+
+class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     @IBOutlet weak var upBg: UIImageView!
     
     @IBOutlet weak var purchaseBtn: UIButton!
@@ -29,6 +31,9 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var downTitle2: UILabel!
     
     @IBOutlet weak var backBtn: UIButton!
+    
+    var activeProduct: SKProduct?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,22 +57,7 @@ class PurchaseViewController: UIViewController {
         dialogueSubTitle.text = "所有課程不限時，一次全解鎖"
         dialogueSubTitle.textAlignment = .left
         
-        let attrWords = NSMutableAttributedString()
-
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)]
-        
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
-        
-        let btnText = NSMutableAttributedString(string: "購買無限學習時間", attributes: attrs0)
-        let btnText2 = NSMutableAttributedString(string: "$ 90.00", attributes: attrs1)
-        
-        attrWords.append(btnText)
-        attrWords.append(NSAttributedString(string: "\n"))
-        attrWords.append(btnText2)
-        
-        purchaseBtn.titleLabel?.numberOfLines = 2
-        purchaseBtn.titleLabel?.textAlignment = .center
-        purchaseBtn.setAttributedTitle(attrWords, for: .normal)
+       
         
         downTitle.frame = CGRect(x: 0, y: downBg.frame.minY + downBg.frame.height / 20, width: width, height: 44)
         downTitle.text = "用最正確，最有效率的單字學習方式\n今天就開始你的學習計畫！"
@@ -79,9 +69,254 @@ class PurchaseViewController: UIViewController {
         
         backBtn.frame = CGRect(x: 15, y: 17, width: 19, height: 31)
         
+
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //確認購買狀態
+        
+        purchaseBtn.isEnabled = false
+
+        
+        if let isPurchased = user?["isPurchased"] as? String{
+            
+            if isPurchased == "0" {
+                
+                print("not yet purchased")
+                
+                SKPaymentQueue.default().add(self)
+                
+                let productIdentifiers: Set<String> = ["unlockTimeLimit"]
+                let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
+                productRequest.delegate = self
+                
+                productRequest.start()
+
+                let attrWords = NSMutableAttributedString()
+                
+                let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)]
+                
+                let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
+                
+                let btnText = NSMutableAttributedString(string: "購買無限學習時間", attributes: attrs0)
+                let btnText2 = NSMutableAttributedString(string: "$ 90.00", attributes: attrs1)
+                
+                attrWords.append(btnText)
+                attrWords.append(NSAttributedString(string: "\n"))
+                attrWords.append(btnText2)
+                
+                purchaseBtn.titleLabel?.numberOfLines = 2
+                purchaseBtn.titleLabel?.textAlignment = .center
+                purchaseBtn.setAttributedTitle(attrWords, for: .normal)
+                
+                
+            } else if isPurchased == "1" {
+                
+                
+                //已購買
+                print("purchased!")
+           
+                purchasedBtnText()
+                
+            }
+            
+        }
         
     }
 
+    
+    func purchasedBtnText(){
+        
+        let attrWords = NSMutableAttributedString()
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)]
+        
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
+        
+        let btnText = NSMutableAttributedString(string: "您已購買無限學習時間", attributes: attrs0)
+        let btnText2 = NSMutableAttributedString(string: "Thank you!", attributes: attrs1)
+        
+        attrWords.append(btnText)
+        attrWords.append(NSAttributedString(string: "\n"))
+        attrWords.append(btnText2)
+        purchaseBtn.titleLabel?.numberOfLines = 2
+        purchaseBtn.titleLabel?.textAlignment = .center
+        purchaseBtn.setAttributedTitle(attrWords, for: .normal)
+        purchaseBtn.isUserInteractionEnabled = false
+        
+        
+        purchaseBtn.isEnabled = true
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        SKPaymentQueue.default().remove(self)
+        
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        
+        print("loaded product")
+        
+        for product in response.products{
+            
+            
+            print("product:\(product.productIdentifier), \(product.localizedTitle), \(product.price.floatValue )")
+            
+            
+            activeProduct = product
+            
+            
+            purchaseBtn.isEnabled = true
+            
+            
+            
+        }
+        
+    }
+    
+    
+    @IBAction func buyClicked(_ sender: Any) {
+        
+
+        
+        if let activeProduct = activeProduct {
+            
+                    print("buying")
+            
+            let payment = SKPayment(product: activeProduct)
+            SKPaymentQueue.default().add(payment)
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+    }
+    
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        
+        for transaction in transactions{
+            
+            
+            switch (transaction.transactionState){
+                
+                
+            case .purchased:
+                
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("purchased")
+                //Apply purchase here, store info in userDefaults....
+                
+                updatePurchased()
+                
+                
+                
+                
+            case .failed:
+                
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("failed")
+                
+                //show error msgs
+                
+   
+            default:
+                break
+        
+            }
+   
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+    //更新mapPassed
+    
+    func updatePurchased(){
+        
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updatePurchased.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "id=\(id)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            
+            
+            if error == nil {
+                
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    UserDefaults.standard.set(1, forKey: "isPurchased")
+                    
+                    DispatchQueue.main.async(execute: {
+                    
+                        self!.purchasedBtnText()
+                    })
+          
+                    
+                    print(user!)
+                    print("purchased updated")
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                    
+                }
+            } else {
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+        
+        
+    }
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

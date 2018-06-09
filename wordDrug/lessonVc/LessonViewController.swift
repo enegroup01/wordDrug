@@ -202,6 +202,106 @@ class LessonViewController: UIViewController{
                ["as5","bi3","bl4","br11","ch31","ck17","ea57","ee32","ge25","gi6"],
                ["bl5","bo3","ce38","er95","ing30","oa10","old3","oo26","sh28","th23"]]
 
+    let map13SyllableSets = [["a_e48","ai21","bl6","br12","ew6","i_e34","qu10","que2","th24","ty17"],
+                             ["ab6","al57","bl7","br13","bu6","by4","ch32","ck18","dle2","gy4"],
+                             ["a_e49","an30","ar38","ble20","br14","bu7","ca8","cap1","or53","ria1"],
+                             ["al58","an31","ar39","bu8","ca9","er96","gue2","ry16","sh29","ty18"],
+                             ["am11","ca10","ce39","ch33","ci10","cl12","er97","ment11","nic3","ph11"],
+                             ["ay18","ce40","ch34","ci11","cl13","fy1","ge26","tic8","tion48","ty19"],
+                             ["al59","ce41","ch35","ci12","cl14","co23","com15","ee33","sion11","tion49"],
+                             ["ble21","ch36","cl15","co24","com16","con26","ment12","sive5","tion50","tive8"],
+                             ["ch37","co25","com17","con27","ing31","ment13","sion12","tion51","tive9","ty20"],
+                             ["a_e50","ce42","ch38","com18","con28","er98","ous9","qu11","ry17","tion52"],
+                             ["a_e51","ch39","com19","con29","er99","on8","or54","ou30","tion53","u_e12"],
+                             ["al60","ch40","ck19","com20","con30","cr14","ing32","ow22","sh30","ui6"],
+                             ["al61","ble22","ch41","com21","con31","cr15","ple5","ture8","ue6","um10"],
+                             ["ch42","com22","con32","cr16","ing33","ly21","o_e18","u_e13","ur13","us2"],
+                             ["a_e52","ch43","con33","ea58","en44","er100","que4","sh31","ur14","zle2"]]
+    
+    let map14SyllableSets = [["a_e53","ce43","con34","cy3","de4","e_e3","en45","i_e35","tive10","ty21"],
+                             ["a_e54","ce44","con35","de5","er101","et6","ge27","i_e36","oi7","tion54"],
+                             ["a_e55","al62","con36","de","di4","gr8","ma2","sion13","tion55","u_e14"],
+                             ["a_e56","ay19","ble23","ce45","con37","de7","dis14","er102","tion56","tive11"],
+                             ["a_e57","ai22","ch44","con38","de8","dis15","i_e37","o_e19","tic9","tion57"],
+                             ["a_e58","con39","dis16","dr9","el20","ly22","oo27","or55","ow23","ry18"],
+                             ["a_e59","con40","dis17","dy5","ic1","ing34","sive8","tem2","tic10","tion58"],
+                             ["a_e60","al63","cian4","con41","dis18","ly23","ment14","nt6","or56","ow24"],
+                             ["ce46","cy4","dis19","ee34","em8","ge28","i_e38","less4","li2","u_e15"],
+                             ["al64","ble24","dis20","en46","igh11","ment15","o_e20","ous10","th25","tion59"],
+                             ["a_e61","al65","au14","ce47","ge29","ly24","nic4","sion14","tion60","vo1"],
+                             ["a_e62","al66","dis21","er103","or57","qu12","sive6","tic11","tr7","ty22"],
+                             ["a_e63","an32","ck20","ea59","en47","er104","ing35","ry19","sh32","tion61"],
+                             ["a_e64","al67","aw9","ce48","fl3","i_e39","it5","kle2","st30","u_e16"],
+                             ["a_e65","ble25","ee35","fl4","fo3","ing36","o_e21","oa11","or58","sh33"]]
+    
+    
+    let map15SyllableSets = [["a_e66","al68","er105","fr5","ge30","ment16","or59","ou31","tion62","ty23"],
+                             ["a_e67","au15","ce49","ea60","ga2","or60","ous11","th26","tion63","un12"],
+                             ["a_e69","al69","con42","ge32","gl4","gle2","i_e40","tic12","tle4","ture9"],
+                             ["a_e68","an33","er106","ge33","gr9","im9","ing37","ous12","ph12","u_e17"],
+                             ["a_e70","an34","ar40","ble26","ee36","gr10","in50","ow25","sh34","ul2"],
+                             ["ar41","au16","ch45","ea61","er107","ha3","less5","st31","tic13","ty24"],
+                             ["a_e71","ck21","ge34","ho2","o_e22","ou32","ous13","ry20","ug2","um11"],
+                             ["a_e72","al70","ble27","ce50","dle3","gy5","i_e41","im10","sion15","tion64"],
+                             ["al71","ble28","ce51","ge35","im11","in51","ing38","ment17","sive7","tive12"],
+                             ["a_e73","al72","ble29","ce52","gue3","in52","in53","tion65","tive13","ty25"],
+                             ["a_e74","al73","ble30","ce53","cy5","er108","in54","ly25","ry21","tion66"],
+                             ["a_e75","ai23","al74","ble31","in55","or61","ous14","ry22","tion67","ue7"],
+                             ["a_e76","am12","ay20","ea62","ey5","i_e42","in56","la2","ph13","u_e18"],
+                             ["a_e77","al75","ce54","er109","i_e43","igh12","im12","in57","ly26","ty26"],
+                             ["a_e78","ck22","en48","er110","ge36","in58","lo2","oa12","oo28","tion68"]]
+    
+    let map16SyllableSets = [["a_e79","ai24","al76","in59","ing39","or62","ous15","ry23","tive14","u_e19"],
+                             ["a_e80","ar42","ble32","ch46","er111","in60","ma3","ow26","tion69","ture10"],
+                             ["al77","ce55","em9","en49","ful9","in61","ma4","me2","tic14","um12"],
+                             ["al78","i_e44","in62","ly27","me3","mis4","mo3","ry24","ty27","us3"],
+                             ["a_e81","ch47","er112","in63","me4","ment18","oi8","ture11","u_e20","um13"],
+                             ["a_e82","al79","ea63","el21","ge37","na3","or63","sh35","tion70","tive15"],
+                             ["al80","ble33","ck23","ct10","fy2","less6","ni1","ous16","tion71","ty28"],
+                             ["a_e83","ble34","ce56","e_e4","ob3","ous17","ry25","sion16","th27","wh9"],
+                             ["er113","in64","ing40","ly28","ob4","oc2","odd2","op5","or64","tion72"],
+                             ["al81","ce57","ee37","er114","i_e45","ing41","nic5","o_e23","or65","ou33"],
+                             ["a_e84","al82","cle4","el22","er115","i_e46","or66","ph14","sis3","u_e21"],
+                             ["a_e85","ce58","ch48","ge38","gy6","ment19","pa3","sion17","tic15","ty29"],
+                             ["al83","er116","ic2","it6","ou34","pe1","ph15","que3","tive16","ty30"],
+                             ["er117","er118","or67","ou35","ow27","ph16","pi3","pl4","tion73","um14"],
+                             ["a_e86","ble35","ch49","ea64","i_e47","igh13","o_e24","or68","po4","sh36"]]
+    
+    
+    let map17SyllableSets = [["ai25","al84","ce59","ly29","ous18","pre1","ry26","tion74","tive17","ture12"],
+                             ["ce60","cy6","ee38","ge39","i_e48","ous19","pr16","pre2","sure4","tion75"],
+                             ["al85","ct11","ing42","o_e25","pr17","sion18","tion76","tive18","ty31","u_e22"],
+                             ["ble36","o_e26","pr18","qu13","st32","tion77","ty32","ue8","um15","ur15"],
+                             ["a_e87","an35","ar43","ck24","ge40","ly30","pr19","qu14","ra1","tion78"],
+                             ["ai26","al86","aw10","ay21","ce61","ci13","ea65","ous20","sion19","tion79"],
+                             ["a_e88","ee39","er119","gn3","ing43","less7","re13","re16","tion80","un13"],
+                             ["ai27","ble37","ce62","ct12","ea66","pr20","qu15","re14","tion81","u_e23"],
+                             ["al87","ce63","ge41","ly31","or69","qu16","re15","ri3","tion82","ue9"],
+                             ["ble38","i_e49","im13","oa13","oo29","ou36","re17","ro3","ru1","tion83"],
+                             ["a_e89","ce64","ft4","ge42","ous21","ple6","re18","sa2","sc3","ty33"],
+                             ["a_e90","ce65","ch50","ing44","re19","ry27","sc4","se1","sh37","u_e24"],
+                             ["al88","by5","ck25","e_e5","en50","er120","ment20","re20","ry28","sc5"],
+                             ["a_e91","er121","ness5","re21","sc6","sh38","si2","sk4","sl2","ture13"],
+                             ["er122","gle3","gy7","oa14","oi9","re22","sc7","sh39","sl3","th28"]]
+    
+    
+    let map18SyllableSets = [["ar44","ce66","i_e50","o_e27","ou37","ph17","sh40","so3","sp9","tion84"],
+                             ["a_e92","al89","ble39","ee40","ge43","ing45","ly32","ous22","sh41","sp10"],
+                             ["ck26","ing46","ry29","sh42","sp11","st33","tic16","tle5","u_e25","um16"],
+                             ["a_e93","ch51","ck27","ing47","oo30","sh43","sp12","st34","str6","sub3"],
+                             ["al90","er123","i_e51","ment21","sh44","sp13","st35","str7","sub4","um17"],
+                             ["ai28","am13","ge44","ow28","sh45","st36","su1","sub5","sym4","tic17"],
+                             ["a_e94","al91","ar45","ea67","er124","sion20","st37","str8","syn1","ta3"],
+                             ["ea68","er125","gy8","i_e52","ic3","or70","ry30","st38","ta4","th29"],
+                             ["ce67","ch52","ck28","ge45","igh14","or71","st39","th30","ti2","tion85"],
+                             ["ai29","an36","ble40","ce68","er126","ous23","th31","tion86","tr8","un14"],
+                             ["a_e95","al92","i_e53","ing48","ly33","old4","th32","tr9","tw3","un15"],
+                             ["a_e96","ch53","ly34","ous24","th33","tion87","tr10","ty34","un16","va1"],
+                             ["al93","ce69","ness6","ous25","th35","tr11","ture14","ty35","un17","ve2"],
+                             ["a_e97","al94","ax3","ble41","ge46","no3","th34","un18","ve3","vi1"],
+                             ["ar46","ck29","th36","ut1","vi2","we1","wh10","wh11","wr1","ya1"]]
+    
+    
     
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -257,6 +357,11 @@ class LessonViewController: UIViewController{
     
     //收到的課程數字
     var courseReceived = Int()
+    
+    
+    var isClassAllPassed = false
+    
+    var maxMapNum = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -498,7 +603,7 @@ class LessonViewController: UIViewController{
                 print(self!.gamePassedDic)
                 
                 
-                if self!.gamePassedDic == [0:0]{
+                if self!.gamePassedDic == [0:0] && self!.mapNumToReceive >= self!.mapPassedInt{
                     
                     print("不能練習句子")
                     self!.cannotPracticeAlert()
@@ -553,7 +658,7 @@ class LessonViewController: UIViewController{
                 self?.practiceWordBtn.isEnabled = false
                 
                 
-                if self!.gamePassedDic == [0:0]{
+                if self!.gamePassedDic == [0:0] && self!.mapNumToReceive >= self!.mapPassedInt{
                     
                     print("不能練習單字")
                     self!.cannotPracticeAlert()
@@ -613,20 +718,27 @@ class LessonViewController: UIViewController{
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
             increaseNum = 0
+            maxMapNum = 5
             
         case 1:
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
             increaseNum = 5
+            maxMapNum = 6
             
         case 2:
             gamePassedDic = gamePassed3!
             mapPassedInt = mapPassed3!
             increaseNum = 11
-            
+            maxMapNum = 7
         default:
             break
         }
+        
+        
+    
+        
+        if isClassAllPassed == false{
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 45), NSAttributedStringKey.foregroundColor : pinkColor]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -663,6 +775,18 @@ class LessonViewController: UIViewController{
             syllableSets = map11SyllableSets
         case 11:
             syllableSets = map12SyllableSets
+        case 12:
+            syllableSets = map13SyllableSets
+        case 13:
+            syllableSets = map14SyllableSets
+        case 14:
+            syllableSets = map15SyllableSets
+        case 15:
+            syllableSets = map16SyllableSets
+        case 16:
+            syllableSets = map17SyllableSets
+        case 17:
+            syllableSets = map18SyllableSets
             
         default:
             break
@@ -904,6 +1028,36 @@ class LessonViewController: UIViewController{
         //音節發音
         //synPronounce()
         
+        } else {
+            //進度條
+            
+            
+            let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 36), NSAttributedStringKey.foregroundColor : UIColor.white]
+            let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 36), NSAttributedStringKey.foregroundColor : pinkColor]
+            
+            let attrWords = NSMutableAttributedString()
+            let text1 = NSMutableAttributedString(string: "此單元結束", attributes: attrs0)
+            let text2 = NSMutableAttributedString(string: "請選擇", attributes: attrs0)
+            let text3 = NSMutableAttributedString(string: "快速複習", attributes: attrs1)
+              let text4 = NSMutableAttributedString(string: "挑戰模式", attributes: attrs0)
+            attrWords.append(text1)
+            attrWords.append(NSMutableAttributedString(string: "\n"))
+            attrWords.append(text2)
+            attrWords.append(text3)
+            attrWords.append(NSMutableAttributedString(string: "\n"))
+            attrWords.append(text4)
+            
+            progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: fullLength.frame.width, height: 3)
+            enterBtn.isEnabled = false
+            enterBtn.setTitle("課程結束", for: .normal)
+            //syllableLabel.text = "此單元結束\n請選擇下方快速複習\n挑戰模式"
+            syllableLabel.attributedText = attrWords
+            //syllableLabel.font = UIFont(name: "Helvetica Bold", size: 36)
+            syllableLabel.adjustsFontSizeToFitWidth = true
+            syllableLabel.numberOfLines = 3
+            syllableLabel.textAlignment = .center
+            
+        }
     }
 
     @IBAction func enterGameClicked(_ sender: Any) {

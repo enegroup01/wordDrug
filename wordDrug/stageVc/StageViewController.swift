@@ -13,13 +13,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //此兩數字要做動態
     var stageCount = 5
-    var elemWordsMax = [450,450,450,450,450,450]
+    var elemWordsMax = [450,450,450,450,450,450,450]
     
     var courseReceived = Int()
     
     var mapNumToPass = Int()
   
-    var eachCellMyWordsCount = [0,0,0,0,0,0]
+    var eachCellMyWordsCount = [0,0,0,0,0,0,0]
     var totalWordsLearned = Int()
     
     var wordCounts = Int()
@@ -36,7 +36,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
-    var locks = [1,1,1,1,1,1]
+    var locks = [1,1,1,1,1,1,1]
     
     var alertBg = UIImageView()
     var alertText = UILabel()
@@ -44,7 +44,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var ghostBtn = UIButton()
     var ghost2Btn = UIButton()
     
-    
+    var isClassAllPassed = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -159,6 +160,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     override func viewWillAppear(_ animated: Bool) {
         
         print("courseReceived:\(courseReceived)")
+        isClassAllPassed = false
         
         //抓所有學習單字字數
 
@@ -173,7 +175,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             print("1")
 
             stageCount = 6
-            elemWordsMax = [450,450,450,450,450,450]
+            elemWordsMax = [420,420,420,420,420,420]
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
             
@@ -184,8 +186,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         case 2:
             print("2")
             
-            stageCount = 6
-            elemWordsMax = [450,450,450,450,450,450]
+            stageCount = 7
+            elemWordsMax = [450,450,450,450,450,450,450]
             gamePassedDic = gamePassed3!
             mapPassedInt = mapPassed3!
             
@@ -212,45 +214,72 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 eachCellMyWordsCount[0] = wordCounts
             case 1:
                 print("3")
-                eachCellMyWordsCount[0] = 450
+                eachCellMyWordsCount[0] = elemWordsMax[0]
                 eachCellMyWordsCount[1] = wordCounts
               
             case 2:
-                eachCellMyWordsCount[0] = 450
-                eachCellMyWordsCount[1] = 450
+                eachCellMyWordsCount[0] = elemWordsMax[0]
+                eachCellMyWordsCount[1] = elemWordsMax[0]
                 eachCellMyWordsCount[2] = wordCounts
             case 3:
-                eachCellMyWordsCount[0] = 450
-                eachCellMyWordsCount[1] = 450
-                eachCellMyWordsCount[2] = 450
+                eachCellMyWordsCount[0] = elemWordsMax[0]
+                eachCellMyWordsCount[1] = elemWordsMax[0]
+                eachCellMyWordsCount[2] = elemWordsMax[0]
                 eachCellMyWordsCount[3] = wordCounts
             case 4:
-                eachCellMyWordsCount[0] = 450
-                eachCellMyWordsCount[1] = 450
-                eachCellMyWordsCount[2] = 450
-                eachCellMyWordsCount[3] = 450
+                eachCellMyWordsCount[0] = elemWordsMax[0]
+                eachCellMyWordsCount[1] = elemWordsMax[0]
+                eachCellMyWordsCount[2] = elemWordsMax[0]
+                eachCellMyWordsCount[3] = elemWordsMax[0]
                 eachCellMyWordsCount[4] = wordCounts
        
             case 5:
-                eachCellMyWordsCount[0] = 450
-                eachCellMyWordsCount[1] = 450
-                eachCellMyWordsCount[2] = 450
-                eachCellMyWordsCount[3] = 450
-                eachCellMyWordsCount[4] = 450
+                eachCellMyWordsCount[0] = elemWordsMax[0]
+                eachCellMyWordsCount[1] = elemWordsMax[0]
+                eachCellMyWordsCount[2] = elemWordsMax[0]
+                eachCellMyWordsCount[3] = elemWordsMax[0]
+                eachCellMyWordsCount[4] = elemWordsMax[0]
                 eachCellMyWordsCount[5] = wordCounts
+            case 6:
+                eachCellMyWordsCount[0] = elemWordsMax[0]
+                eachCellMyWordsCount[1] = elemWordsMax[0]
+                eachCellMyWordsCount[2] = elemWordsMax[0]
+                eachCellMyWordsCount[3] = elemWordsMax[0]
+                eachCellMyWordsCount[4] = elemWordsMax[0]
+                eachCellMyWordsCount[5] = elemWordsMax[0]
+                eachCellMyWordsCount[6] = wordCounts
                 
+            case 7:
+                eachCellMyWordsCount[0] = elemWordsMax[0]
+                eachCellMyWordsCount[1] = elemWordsMax[0]
+                eachCellMyWordsCount[2] = elemWordsMax[0]
+                eachCellMyWordsCount[3] = elemWordsMax[0]
+                eachCellMyWordsCount[4] = elemWordsMax[0]
+                eachCellMyWordsCount[5] = elemWordsMax[0]
+                eachCellMyWordsCount[6] = elemWordsMax[0]
+
             default:
                 break
             }
         
-        locks = [1,1,1,1,1,1]
+        locks = [1,1,1,1,1,1,1]
+        
+        
+        if mapPassedInt == 7 {
+            for i in 0 ..< mapPassedInt{
+                
+                locks[i] = 0
+                
+            }
+            
+        } else {
         
         for i in 0 ..< mapPassedInt + 1{
             
             locks[i] = 0
             
         }
-        
+        }
         for c in eachCellMyWordsCount{
             totalWordsLearned += c
             
@@ -298,18 +327,26 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //stageLabel.frame = CGRect(x: cell.frame.midX, y: cell.frame.midY, width: cell.frame.width / 4, height: cell.frame.height / 3)
         
         let wordCounts = eachCellMyWordsCount[indexPath.row]
-        wordCountLabel.text = "\(wordCounts) / 450"
+        wordCountLabel.text = "\(wordCounts) / \(elemWordsMax[indexPath.row])"
         
        
         //設定cell的顏色
-         let p1Color = UIColor.init(red: 246/255, green: 217/255, blue: 218/255, alpha: 1)
-          let p2Color = UIColor.init(red: 248/255, green: 195/255, blue: 193/255, alpha: 1)
-          let p3Color = UIColor.init(red: 248/255, green: 146/255, blue: 150/255, alpha: 1)
-          let p4Color = UIColor.init(red: 248/255, green: 120/255, blue: 125/255, alpha: 1)
-          let p5Color = UIColor.init(red: 220/255, green: 82/255, blue: 82/255, alpha: 1)
-          let p6Color = UIColor.init(red: 179/255, green: 78/255, blue: 81/255, alpha: 1)
-         let colors:[UIColor] = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color]
-         cell.backgroundColor = colors[indexPath.row % colors.count]
+        
+        let p1Color = UIColor.init(red: 246/255, green: 217/255, blue: 218/255, alpha: 1)
+        
+        let p2Color = UIColor.init(red: 248/255, green: 195/255, blue: 193/255, alpha: 1)
+        
+        let p3Color = UIColor.init(red: 248/255, green: 146/255, blue: 150/255, alpha: 1)
+        
+        let p4Color = UIColor.init(red: 248/255, green: 120/255, blue: 125/255, alpha: 1)
+      
+        let p5Color = UIColor.init(red: 220/255, green: 82/255, blue: 82/255, alpha: 1)
+        
+        let p6Color = UIColor.init(red: 179/255, green: 78/255, blue: 81/255, alpha: 1)
+        
+        let colors:[UIColor] = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color]
+       
+        cell.backgroundColor = colors[indexPath.row % colors.count]
         
         return cell
     }
@@ -351,7 +388,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             //show已過關訊息
             
-            openAlert(text: "此單元已全部學習完成，請選擇未完成的單元！")
+            isClassAllPassed = true
+            //openAlert(text: "此單元已全部學習完成，請選擇未完成的單元！")
+            
+             performSegue(withIdentifier: "toLessonVc", sender: self)
             
             
         } else if mapPassedInt < indexPath.row{
@@ -363,6 +403,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
 
+
     //重送地圖編號
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -371,6 +412,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             destinationVC.courseReceived = courseReceived
              destinationVC.mapNumToReceive = mapNumToPass
+            
+                destinationVC.isClassAllPassed = isClassAllPassed
+
         }
     }
     

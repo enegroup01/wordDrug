@@ -190,6 +190,7 @@ class CoursesViewController: UIViewController {
         }
         
         
+        //這部分的顯示還沒安排位置
         var nickname = String()
         //測試用
         
@@ -198,6 +199,9 @@ class CoursesViewController: UIViewController {
         } else {
             nickname = "新學生"
         }
+        
+        
+        
         block0.frame = CGRect(x: xPos, y: 0, width: width, height: height / 4)
         block0.contentMode = .scaleAspectFill
         block1.frame = CGRect(x: xPos, y: height / 4, width: width, height: height / 4)
@@ -216,10 +220,7 @@ class CoursesViewController: UIViewController {
         
         block0TitleImg.frame = CGRect(x: block0.frame.width / 26, y: height / 3.5 * iPadDif, width: 136 * titleDif, height: 94 * titleDif / iPadDif)
         
-        
-        
-        
-        
+
         
         // block1TitleImg.frame = CGRect(x: block0.frame.width / 26, y: block1.frame.origin.y + block0.frame.height / 5 * iPadDif, width: 136 * titleDif, height: 97 * titleDif / iPadDif)
         
@@ -420,6 +421,8 @@ class CoursesViewController: UIViewController {
          
          */
         
+        
+        /*
         if isGuidingMode{
             
             guideGhost.frame = CGRect(x: 0, y: 0, width: width, height: height)
@@ -510,7 +513,7 @@ class CoursesViewController: UIViewController {
 
         }
 
-        
+        */
         logoLabel.center = CGPoint(x: width / 2, y: height / 23)
         logoLabel.frame.size = CGSize(width: 183 * dif, height: 50 * dif)
         
@@ -799,6 +802,39 @@ class CoursesViewController: UIViewController {
         
          dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
         */
+        
+        //抓gamePassed
+        let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
+        
+        if let decoded = decodedObject {
+            gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        //抓mapPassed
+        mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
+        
+        
+        
+        //抓gamePassed2
+        let decodedObject2 = UserDefaults.standard.object(forKey: "gamePassed2") as? NSData
+        
+        if let decoded = decodedObject2 {
+            gamePassed2 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed2
+        mapPassed2 = UserDefaults.standard.object(forKey: "mapPassed2") as? Int
+        
+        //抓gamePassed3
+        let decodedObject3 = UserDefaults.standard.object(forKey: "gamePassed3") as? NSData
+        
+        if let decoded = decodedObject3 {
+            gamePassed3 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed3
+        mapPassed3 = UserDefaults.standard.object(forKey: "mapPassed3") as? Int
+        
+        
     }
     
     @objc func noClassNotice(){

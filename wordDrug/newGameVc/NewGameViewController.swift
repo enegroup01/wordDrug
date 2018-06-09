@@ -247,6 +247,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
 
     var isCountingTriggered = false
+    var isCelebratingClassPassed = false
     
     var audioSession = AVAudioSession.sharedInstance()
     
@@ -257,6 +258,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var mapPassedInt = Int()
     var increaseNum = Int()
     var maxSpotNum = Int()
+    var maxMapNum = Int()
+    
     
     var countScoreTimer = Timer()
     //紀錄已加過的分數
@@ -274,6 +277,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
 
     var limitSeconds = Int()
+    
+    
+    var isPurchased = String()
     
     override func viewDidLoad() {
         
@@ -713,6 +719,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed!
             increaseNum = 0
             maxSpotNum = 14
+            maxMapNum = 4
 
             
         case 1:
@@ -720,7 +727,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
             increaseNum = 5
-            maxSpotNum = 14
+            maxSpotNum = 13
+            maxMapNum = 5
             
         case 2:
             
@@ -728,6 +736,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed3!
             increaseNum = 11
             maxSpotNum = 14
+            maxMapNum = 6
 
             
         default:
@@ -743,10 +752,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         
             //gameMode == 0 才計時
+            
+            
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
             
+            //不論如何都啟動, 但是有購買就會invalidate
+            print("really start to count down")
             limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
+           
             
+        
             
             
         //這裡的mapNum 已經加過increaseNum
@@ -773,8 +788,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //隨機單字
             //在此抓測驗單字的亂數順序
+            var tempGamePassedDic:[Int:Int]?
             
-            for (s,u) in gamePassedDic!{
+            
+            //這裡的maxMapNum + 1 是因為設定問題, 為了判斷剛玩的關卡是不是最後一關
+            if mapPassedInt == (maxMapNum + 1) {
+                
+                tempGamePassedDic = [maxSpotNum:9]
+                mapPassedInt -= 1
+            } else if mapNumber < mapPassedInt{
+                
+                tempGamePassedDic = [maxSpotNum:9]
+                
+                
+            } else{
+                tempGamePassedDic = gamePassedDic
+            }
+            
+            
+            
+            for (s,u) in tempGamePassedDic!{
                 
                 //1. 填入spot上限供亂數選擇
                 
@@ -846,7 +879,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //Part 2. 讀取所有句子
             
-            for (s,_) in gamePassedDic!{
+            for (s,_) in tempGamePassedDic!{
                 
                 //讀取已完整的所有字集
                 
@@ -1141,7 +1174,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         rightBtnClickedImg.isHidden = true
         
         if gameMode == 0 {
+            if isPurchased == "0" {
         limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
+        }
         }
 
         
@@ -1199,42 +1234,73 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if gameMode == 0 {
-            
-            limitTimerLabel.center = CGPoint(x: width / 2, y: 60)
-            limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
-            limitTimerLabel.textAlignment = .center
-            
         
-        limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
-
-        if(limitSeconds > 0){
-            let minutes = String(limitSeconds / 60)
-            var seconds = String(limitSeconds % 60)
-            let secondsToCheck = limitSeconds % 60
-            if seconds == "0" {
-                
-                seconds = "00"
-            } else if secondsToCheck < 10 {
-                
-                seconds = "0" + seconds
-                
-            }
-            limitTimerLabel.text = minutes + ":" + seconds
-      
-        } else{
+        //先確認有沒有購買
+        
+        if let isPurchasedStatus = user?["isPurchased"] as? String{
             
-            //本日時間已到
+            //指定好數字
+            isPurchased = isPurchasedStatus
             
-            print("timesup")
-            
+            if isPurchased == "1"{
+                
+                //已購買, 不計時
+                
+                print("no counting time")
+                limitTimer.invalidate()
+                
+                
+            } else if isPurchased == "0"{
+                
+                
+                print("start to count time")
+                
+                if gameMode == 0 {
+                    
+                    limitTimerLabel.center = CGPoint(x: width / 2, y: 60)
+                    limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
+                    limitTimerLabel.textAlignment = .center
+                    
+                    
+                    limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+                    
+                    if(limitSeconds > 0){
+                        let minutes = String(limitSeconds / 60)
+                        var seconds = String(limitSeconds % 60)
+                        let secondsToCheck = limitSeconds % 60
+                        if seconds == "0" {
+                            
+                            seconds = "00"
+                        } else if secondsToCheck < 10 {
+                            
+                            seconds = "0" + seconds
+                            
+                        }
+                        limitTimerLabel.text = minutes + ":" + seconds
+                        
+                    } else{
+                        
+                        //本日時間已到
+                        
+                        print("timesup")
+                        
+                        
+                        
+                        alertText.text = "今日學習時間已到\n想學更多單字可以到商城\n開通無限時間喔！"
+                        pauseGame()
+                        
+                    }
+                }
 
-
-            alertText.text = "今日學習時間已到\n想學更多單字可以到商城\n開通無限時間喔！"
-            pauseGame()
-
+                
+                
+                
+                
             }
         }
+        
+        
+        
     }
     
     //造句子
@@ -1456,7 +1522,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         //目前這裡就先寫成都可以過關
 
-                            //如果玩之前的關卡就不改變
+                            //如果玩之前的關卡就不改變---- 現在應該沒有這條件
                    
                         mapNumber -= increaseNum
                     
@@ -1464,30 +1530,53 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         print("mapNumer:\(mapNumber)")
                         
-                            if user != nil {
+                            if user != nil {  // 要保留給第一次進入的玩家
                             
-                            if mapPassedInt == (mapNumber){
-               
-                                for (s,u) in gamePassedDic! {
-                                    
-                                    if s == spotNumber{
-                                        
-                                        if u == unitNumber{
+                       //     if mapPassedInt == (mapNumber){   //...
+                           //     for (s,u) in gamePassedDic! {      //...
+                             //       if s == spotNumber{     //...
+                               //         if u == unitNumber{     //...
                                             
                                             print("過關卡")
                                             
                                             //紀錄關卡
-                                            if unitNumber == 9{
+                                            if unitNumber == 9{         //代表過一整個課程
                                                 
-                                                //此探索點已過完, 此探索點要做動態化
+                                                //此探索點已過完, 此探索點要做動態化  ----中級為 14
                                                 if spotNumber == maxSpotNum {
+                                                    
                                                  
                                                     //備註: 目前map只做4張, 之後要抓正確數字, 以及做全部過關的通知
+                                                    
+                                                    
+                                                    //確認是否為最後一張地圖
+                                                    if mapPassedInt == maxMapNum{
+                                                        
+                                                        
+                                                        // 破關訊息
+                                                        
+                                                        print("破關")
+                                                        
+                                                        //做破關提示
+                                                        
+                                                        
+                                                        
+                                                    
+                                                    
+                                                        isCelebratingClassPassed = true
+                                                        bigOkBtn.setImage(UIImage(named:"classFinishedBtn.png"), for: .normal)
+                                                        
+                                                        
+                                                    } else {
+                                                    
+              
                                                     
                                                     isCelebratingMapPassed = true
                                                     
                                                     bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
 
+                                                    
+                                                    }
                                                     
                                                     switch courseReceived{
                                                         
@@ -1560,7 +1649,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     }
                                             
                                                     
-                                               
+                                                    
                                                     
                                                 } else {
                                                     
@@ -1686,21 +1775,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 
                                             
 
-                                        } else {
-                                            print("前元素")
+                                     //   } else {
+                                   //         print("前元素")
                                     
-                                        }
-                                    } else {
+                                 //       }
+                               //     } else {
                                         
-                                        print("前探索點")
-                                    }
-                                }
+                             //           print("前探索點")
+                           //         }
+                         //       }
          
-                            } else {
+                         //   } else {
                                 
-                                print("前地圖")
+                             //   print("前地圖")
                                 
-                            }
+                           // }
                         
                         
                                 //計算所有字數
@@ -2295,7 +2384,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
         
             
-            if isCelebratingMapPassed{
+            if isCelebratingClassPassed {
+                
+
+                //dimiss掉兩個VCs
+                self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                
+                
+                //一個恭喜訊息
+                
+            } else if isCelebratingMapPassed{
                 
                 //dimiss掉兩個VCs
                 self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
@@ -3312,6 +3410,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     
                     //要跳出練習總結畫面
+                    
+                    updateReviewSenCount(senCount: senCount, course:courseReceived)
+                    
+                    
+                    
                     
                 } else {
                 
