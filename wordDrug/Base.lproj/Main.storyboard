@@ -25,33 +25,25 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="loginBgImg.png" translatesAutoresizingMaskIntoConstraints="NO" id="YSu-Qz-GEC">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="newRegisterBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="YSu-Qz-GEC">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cfg-84-fds">
-                                        <rect key="frame" x="67" y="195" width="276" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7n9-4j-B2s">
-                                        <rect key="frame" x="67" y="265" width="276" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MissWord " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGd-pm-PxV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGd-pm-PxV">
                                         <rect key="frame" x="134" y="64" width="106" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="23"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5kh-o2-hjE">
+                                        <rect key="frame" x="31" y="273" width="312" height="62"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5XP-Jj-7pm">
+                                        <rect key="frame" x="31" y="195" width="312" height="62"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpk-CW-BS2" customClass="SSBouncyButton">
                                         <rect key="frame" x="176" y="398" width="30" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -88,6 +80,35 @@
                                             <action selector="registerClick:" destination="MDq-zg-zeG" eventType="touchUpInside" id="SO0-Wc-Lus"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cfg-84-fds">
+                                        <rect key="frame" x="67" y="195" width="276" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7n9-4j-B2s">
+                                        <rect key="frame" x="67" y="265" width="276" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxZ-Oc-JXN">
+                                        <rect key="frame" x="35" y="142" width="312" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.69364875555038452" green="1" blue="0.11400333791971207" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWe-R8-aDg">
+                                        <rect key="frame" x="31" y="104" width="312" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOC-QT-gzG">
+                                        <rect key="frame" x="31" y="435" width="312" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -95,13 +116,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="accountPng" destination="5XP-Jj-7pm" id="T4D-DP-alm"/>
                         <outlet property="bgImg" destination="YSu-Qz-GEC" id="YE8-yF-nNR"/>
                         <outlet property="bgView" destination="lGh-Sh-duR" id="HAM-M7-EWg"/>
+                        <outlet property="doubleLine" destination="BWe-R8-aDg" id="f0e-Y1-7od"/>
+                        <outlet property="doubleLine2" destination="BOC-QT-gzG" id="7q0-Rm-sOv"/>
                         <outlet property="fbLoginBtn" destination="xpk-CW-BS2" id="KqJ-Xt-8J5"/>
                         <outlet property="loginBtn" destination="hc6-PM-dcI" id="Mdc-eJ-DCL"/>
                         <outlet property="logoLabel" destination="CGd-pm-PxV" id="woy-o6-MxJ"/>
+                        <outlet property="passwordPng" destination="5kh-o2-hjE" id="Za8-Hg-zQa"/>
                         <outlet property="passwordTxt" destination="7n9-4j-B2s" id="Ao1-QP-e6U"/>
                         <outlet property="registerBtn" destination="JBJ-HI-heC" id="Qrm-3W-C4j"/>
+                        <outlet property="subTitleLabel" destination="fxZ-Oc-JXN" id="yB6-mh-XOb"/>
                         <outlet property="usernameTxt" destination="cfg-84-fds" id="VEs-LI-UbD"/>
                         <segue destination="2JK-8B-Ztd" kind="presentation" identifier="toCoursesVc" id="Qsn-eF-t3O"/>
                     </connections>
@@ -333,6 +359,14 @@
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7K-Lx-RxI">
+                                <rect key="frame" x="65" y="400" width="256" height="256"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="circleOkBtn.png"/>
+                                <connections>
+                                    <action selector="circleOkBtnClicked:" destination="v6L-yK-9Lk" eventType="touchUpInside" id="5Ft-jT-F0u"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -340,6 +374,7 @@
                         <outlet property="audioView" destination="5Yq-GR-cAx" id="xn4-dn-3L6"/>
                         <outlet property="bigOkBtn" destination="spF-XH-9qr" id="P69-38-M5o"/>
                         <outlet property="chiSentenceLabel" destination="ykc-Yu-ju8" id="Eae-Gc-Iwf"/>
+                        <outlet property="circleOkBtn" destination="F7K-Lx-RxI" id="Rxz-LU-mcS"/>
                         <outlet property="coverBg" destination="hoe-Yg-Hla" id="qip-4k-VEX"/>
                         <outlet property="coverBtn" destination="b41-hH-bbt" id="k6O-JZ-eHP"/>
                         <outlet property="firstChiWord" destination="gb0-cF-7Qd" id="8cq-Yf-iIp"/>
@@ -365,6 +400,7 @@
                         <outlet property="thirdWordBtn" destination="6Qn-fT-gFc" id="MBO-Wl-ORk"/>
                         <outlet property="wordCountLabel" destination="Caj-OI-Vci" id="myp-6m-9PX"/>
                         <segue destination="U8l-e9-jsA" kind="show" identifier="toRegisterVc" id="QVk-5k-4AB"/>
+                        <segue destination="9xs-zv-ylp" kind="show" identifier="fromGameToPurchase" id="rwi-hC-Ovx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzm-ap-Lz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -439,33 +475,22 @@
                                 <rect key="frame" x="16" y="298" width="136" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                                <state key="normal" title="註冊" backgroundImage="registerBtn.png">
+                                <state key="normal" title="註冊" backgroundImage="newRegisterBtn.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="registerClicked:" destination="U8l-e9-jsA" eventType="touchUpInside" id="jKS-FW-ch5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2k-HI-2Cr">
-                                <rect key="frame" x="223" y="298" width="136" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="或" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVM-Pc-7Kh">
+                                <rect key="frame" x="179" y="303" width="13" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                                <state key="normal" title="使用facebook登入" backgroundImage="facebookBtn.png">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="fbLoginClicked:" destination="U8l-e9-jsA" eventType="touchUpInside" id="O5z-Oa-qey"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="或" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVM-Pc-7Kh">
-                                <rect key="frame" x="179" y="303" width="17" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                <color key="textColor" red="0.2957402765750885" green="0.20052826404571533" blue="0.32455110549926758" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xaS-g4-alg">
-                                <rect key="frame" x="16" y="336" width="343" height="23"/>
+                                <rect key="frame" x="16" y="374" width="343" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alarmClock.png" translatesAutoresizingMaskIntoConstraints="NO" id="7AO-fQ-3qF">
@@ -501,6 +526,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaG-1e-Z8g">
+                                <rect key="frame" x="223" y="298" width="136" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <state key="normal" title="登入" backgroundImage="newLoginBtn.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginBtnClicked:" destination="U8l-e9-jsA" eventType="touchUpInside" id="TA8-be-gUX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2k-HI-2Cr">
+                                <rect key="frame" x="16" y="342" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <state key="normal" title="使用facebook登入" backgroundImage="newFbBtn.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="fbLoginClicked:" destination="U8l-e9-jsA" eventType="touchUpInside" id="O5z-Oa-qey"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -514,6 +561,7 @@
                         <outlet property="freePng" destination="rCk-J0-qp7" id="wmP-Xd-kfi"/>
                         <outlet property="freePng2" destination="jtt-eS-3u5" id="I3T-2U-i5J"/>
                         <outlet property="freeTilted" destination="NEo-E3-Wuo" id="Qfc-b5-JJg"/>
+                        <outlet property="loginBtn" destination="IaG-1e-Z8g" id="v1Q-f6-Xbr"/>
                         <outlet property="orLabel" destination="RVM-Pc-7Kh" id="XCO-wf-8vo"/>
                         <outlet property="passwordPng" destination="F0h-Ys-A2A" id="Bzt-35-DYh"/>
                         <outlet property="passwordTextField" destination="iFr-QA-i5T" id="VQo-oF-dJU"/>
@@ -529,7 +577,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wp5-zU-zte" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-606" y="2246"/>
+            <point key="canvasLocation" x="-607.20000000000005" y="2245.7271364317844"/>
         </scene>
         <!--New Book View Controller-->
         <scene sceneID="iue-Lt-fS9">
@@ -671,7 +719,7 @@
                                     <outlet property="delegate" destination="1ci-A8-OIj" id="6fx-Td-ZFi"/>
                                 </connections>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bookViewBottomBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-TV-TRj">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="newBookVcBottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-TV-TRj">
                                 <rect key="frame" x="0.0" y="601" width="375" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -880,7 +928,7 @@
                                 <rect key="frame" x="110" y="601" width="188" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="28"/>
-                                <state key="normal" title="快速複習" backgroundImage="lessonBtn.png">
+                                <state key="normal" title="挑戰模式" backgroundImage="lessonBtn.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -1708,11 +1756,12 @@
                         <outlet property="downTitle2" destination="xk6-m0-BrD" id="RWm-t3-aIE"/>
                         <outlet property="purchaseBtn" destination="oTx-wR-MN3" id="LFw-QO-18U"/>
                         <outlet property="upBg" destination="mea-XC-VeU" id="DMw-4i-EDc"/>
+                        <segue destination="U8l-e9-jsA" kind="show" identifier="fromPurchaseToRegisterVc" id="08a-wE-CO2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iZs-JS-p8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3669.5999999999999" y="1474.8125937031487"/>
+            <point key="canvasLocation" x="-5110" y="1402"/>
         </scene>
         <!--Stage View Controller-->
         <scene sceneID="uAY-7P-Q8w">
@@ -1837,7 +1886,6 @@
         <image name="bookSenOff.png" width="27" height="23"/>
         <image name="bookSpeed2.png" width="44" height="27"/>
         <image name="bookTimes1.png" width="46" height="8"/>
-        <image name="bookViewBottomBg.png" width="375" height="66"/>
         <image name="camera.png" width="28" height="28"/>
         <image name="cartPng.png" width="43" height="44"/>
         <image name="championPng.png" width="43" height="49"/>
@@ -1845,16 +1893,20 @@
         <image name="chartSeperator.png" width="378" height="6"/>
         <image name="chartUpBg.png" width="375" height="295"/>
         <image name="circleLogOut.png" width="30" height="21"/>
+        <image name="circleOkBtn.png" width="256" height="256"/>
         <image name="courseBtnYellow.png" width="105" height="35"/>
-        <image name="facebookBtn.png" width="142" height="37"/>
         <image name="freePng.png" width="35" height="35"/>
         <image name="lessonBackBtn.png" width="19" height="31"/>
         <image name="lessonBtn.png" width="188" height="66"/>
         <image name="lessonFullLength.png" width="375" height="3"/>
         <image name="lessonProgress.png" width="375" height="3"/>
         <image name="lockPng.png" width="113" height="144"/>
-        <image name="loginBgImg.png" width="375" height="667"/>
         <image name="newBookBg.png" width="375" height="667"/>
+        <image name="newBookVcBottom.png" width="375" height="66"/>
+        <image name="newFbBtn.png" width="306" height="37"/>
+        <image name="newLoginBtn.png" width="143" height="37"/>
+        <image name="newRegisterBg.png" width="375" height="667"/>
+        <image name="newRegisterBtn.png" width="142" height="37"/>
         <image name="photo.jpg" width="266" height="190"/>
         <image name="practiceBook.png" width="20" height="24"/>
         <image name="purchaseBackBtn.png" width="19" height="31"/>
@@ -1863,7 +1915,6 @@
         <image name="purchaseDownBg.png" width="375" height="364"/>
         <image name="purchaseUpBg.png" width="375" height="250"/>
         <image name="recordBtn.png" width="256" height="256"/>
-        <image name="registerBtn.png" width="115" height="37"/>
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="519" height="114"/>
         <image name="senBlock.png" width="699" height="114"/>
@@ -1875,6 +1926,8 @@
         <image name="yellowBack.png" width="19" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="rwi-hC-Ovx"/>
         <segue reference="Qsn-eF-t3O"/>
+        <segue reference="08a-wE-CO2"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -279,6 +279,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var limitSeconds = Int()
     
     
+    @IBOutlet weak var circleOkBtn: UIButton!
     var isPurchased = String()
     
     override func viewDidLoad() {
@@ -289,7 +290,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var senLabelHeightDif = CGFloat()
         var iPadDif = CGFloat()
         var btnDif = CGFloat()
-                var xDif = CGFloat()
+        
+        var xDif = CGFloat()
         
         switch height {
         case 812:
@@ -328,6 +330,67 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
+        
+        //離開遊戲
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
+        
+        //接收發音 - ok
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pronounceWord), name: NSNotification.Name("pronounceWord"), object: nil)
+        //接收口試NC (單字 + 句子)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.startToRecognize), name: NSNotification.Name("startToRecognize"), object: nil)
+        
+        //啟動聽考拼寫
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyBackToSpell), name: NSNotification.Name("backToSpell"), object: nil)
+        //接收做句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showSentence), name: NSNotification.Name("showSentence"), object: nil)
+        
+        //啟動下個單字
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
+        
+        
+        //啟動計分
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyAddScore), name: NSNotification.Name("addScore"), object: nil)
+        
+        //啟動倒數
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyStartCountDown), name: NSNotification.Name("startCountDown"), object: nil)
+        
+        //接收時間到, 利用別的func來刪除畫面
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("timesUp"), object: nil)
+        
+        
+        //接收顯示tagView內容
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
+        
+        
+        //通知句子念完要準備口試
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyReadyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
+        
+        
+        //準備口試句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.readSentence), name: NSNotification.Name("readSentence"), object: nil)
+        
+        
+        //接收練習句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.onlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
+        
+        
+        //從gameScene時間到來接收restartGame2
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopReview), name: NSNotification.Name("stopReview"), object: nil)
+        
+        
+        //接收暫停功能
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("pause"), object: nil)
+        
+        //重新倒數
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartCounting), name: NSNotification.Name("restartCounting"), object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("globalPause"), object: nil)
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopLimitTimer), name: NSNotification.Name("stopLimitTimer"), object: nil)
         
         //做reviewAlert
         reviewWordBg.frame = CGRect(x: width / 2 - 237 / 2, y: height / 3, width: 237 * dif, height: 214 * dif)
@@ -640,67 +703,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //設定發音鍵
         playSoundBtn.frame = CGRect(x: width - 35 * dif * 1.5, y: height - 23 * dif * 1.5, width: 35 * dif, height: 23 * dif)
         
-        
-        //離開遊戲
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
-        
-        //接收發音 - ok
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pronounceWord), name: NSNotification.Name("pronounceWord"), object: nil)
-        //接收口試NC (單字 + 句子)
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.startToRecognize), name: NSNotification.Name("startToRecognize"), object: nil)
-        
-        //啟動聽考拼寫
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyBackToSpell), name: NSNotification.Name("backToSpell"), object: nil)
-        //接收做句子
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showSentence), name: NSNotification.Name("showSentence"), object: nil)
-        
-        //啟動下個單字
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
-        
-        
-        //啟動計分
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyAddScore), name: NSNotification.Name("addScore"), object: nil)
-        
-        //啟動倒數
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyStartCountDown), name: NSNotification.Name("startCountDown"), object: nil)
-        
-        //接收時間到, 利用別的func來刪除畫面
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("timesUp"), object: nil)
 
-        
-        //接收顯示tagView內容
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
-        
-
-        //通知句子念完要準備口試
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyReadyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
-        
-        
-        //準備口試句子
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.readSentence), name: NSNotification.Name("readSentence"), object: nil)
-        
-        
-        //接收練習句子
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.onlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
-        
-        
-        //從gameScene時間到來接收restartGame2
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopReview), name: NSNotification.Name("stopReview"), object: nil)
-        
-        
-        //接收暫停功能
-                NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("pause"), object: nil)
-        
-        //重新倒數
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartCounting), name: NSNotification.Name("restartCounting"), object: nil)
-        
-        
-             NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("globalPause"), object: nil)
-        
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopLimitTimer), name: NSNotification.Name("stopLimitTimer"), object: nil)
 
         
         //先隱藏錄音及辨識
@@ -998,6 +1001,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
         
         
+        
+        circleOkBtn.frame = recordBtn.frame
+        circleOkBtn.isHidden = true
+        
         self.view.addSubview(recordingIndicator!)
         self.view.bringSubview(toFront: recordBtn)
   
@@ -1068,8 +1075,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //本日時間已到
             
             
-            
-            
+            limitTimerLabel.text = "0:00"
+            timerPause()
             
             
         }
@@ -1096,18 +1103,68 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //接收nc
     @objc func pauseGame(){
         
+
+        alertText.text = "\n離開目前課程\n學習進度不會儲存!"
+        quitBtn.setTitle("離開", for: .normal)
+        cancelBtn.setTitle("取消", for: .normal)
         ghostBtn.isHidden = false
         alertBg.isHidden = false
         cancelBtn.isHidden = false
         quitBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
         rightBtnClickedImg.isHidden = false
+
+        quitBtn.removeTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
+        quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
+
+        cancelBtn.removeTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
+        cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         
         limitTimer.invalidate()
         
         UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         
     }
+    
+    func timerPause(){
+        
+        
+        alertText.text = "\n每日7分鐘免費學習時間到囉!\n立即購買無限學習時間!\n$ 90.00"
+        quitBtn.setTitle("前往商城", for: .normal)
+        cancelBtn.setTitle("先不買", for: .normal)
+        ghostBtn.isHidden = false
+        alertBg.isHidden = false
+        cancelBtn.isHidden = false
+        quitBtn.isHidden = false
+        leftBtnClickedImg.isHidden = false
+        rightBtnClickedImg.isHidden = false
+
+
+        quitBtn.removeTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
+    
+
+        quitBtn.addTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
+        
+        cancelBtn.removeTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
+        cancelBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
+        
+        
+        limitTimer.invalidate()
+        
+        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
+        
+    }
+    
+    
+    @objc func toPurchaseVc(){
+        
+        
+        performSegue(withIdentifier: "fromGameToPurchase", sender: self)
+        
+        
+        
+    }
+    
     
 
     @IBAction func playSoundClicked(_ sender: Any) {
@@ -1235,6 +1292,70 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     override func viewWillAppear(_ animated: Bool) {
         
         
+                NotificationCenter.default.removeObserver(self)
+       
+        //離開遊戲
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
+        
+        //接收發音 - ok
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pronounceWord), name: NSNotification.Name("pronounceWord"), object: nil)
+        //接收口試NC (單字 + 句子)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.startToRecognize), name: NSNotification.Name("startToRecognize"), object: nil)
+        
+        //啟動聽考拼寫
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyBackToSpell), name: NSNotification.Name("backToSpell"), object: nil)
+        //接收做句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showSentence), name: NSNotification.Name("showSentence"), object: nil)
+        
+        //啟動下個單字
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("practiceNextWord"), object: nil)
+        
+        
+        //啟動計分
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyAddScore), name: NSNotification.Name("addScore"), object: nil)
+        
+        //啟動倒數
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyStartCountDown), name: NSNotification.Name("startCountDown"), object: nil)
+        
+        //接收時間到, 利用別的func來刪除畫面
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("timesUp"), object: nil)
+        
+        
+        //接收顯示tagView內容
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
+        
+        
+        //通知句子念完要準備口試
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyReadyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
+        
+        
+        //準備口試句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.readSentence), name: NSNotification.Name("readSentence"), object: nil)
+        
+        
+        //接收練習句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.onlyPracticeSentence), name: NSNotification.Name("onlyPracticeSentence"), object: nil)
+        
+        
+        //從gameScene時間到來接收restartGame2
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopReview), name: NSNotification.Name("stopReview"), object: nil)
+        
+        
+        //接收暫停功能
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("pause"), object: nil)
+        
+        //重新倒數
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartCounting), name: NSNotification.Name("restartCounting"), object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pauseGame), name: NSNotification.Name("globalPause"), object: nil)
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopLimitTimer), name: NSNotification.Name("stopLimitTimer"), object: nil)
+        
+        
         //先確認有沒有購買
         
         if let isPurchasedStatus = user?["isPurchased"] as? String{
@@ -1248,6 +1369,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 print("no counting time")
                 limitTimer.invalidate()
+                
+                
+                limitTimerLabel.text = ""
+                removeBtns()
                 
                 
             } else if isPurchased == "0"{
@@ -1265,9 +1390,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
                     
                     if(limitSeconds > 0){
+                      
                         let minutes = String(limitSeconds / 60)
                         var seconds = String(limitSeconds % 60)
                         let secondsToCheck = limitSeconds % 60
+                      
                         if seconds == "0" {
                             
                             seconds = "00"
@@ -1276,6 +1403,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             seconds = "0" + seconds
                             
                         }
+                       
                         limitTimerLabel.text = minutes + ":" + seconds
                         
                     } else{
@@ -1284,23 +1412,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         print("timesup")
                         
-                        
-                        
-                        alertText.text = "今日學習時間已到\n想學更多單字可以到商城\n開通無限時間喔！"
-                        pauseGame()
+                        limitTimerLabel.text = "0:00"
+                        timerPause()
                         
                     }
+              
                 }
-
-                
-                
-                
                 
             }
         }
-        
-        
-        
+ 
     }
     
     //造句子
@@ -2438,6 +2559,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
             
+        } else if segue.identifier == "fromGameToPurchase"{
+            
+            
+            let purchaseVc = segue.destination as! PurchaseViewController
+            
+            purchaseVc.isDirectedFromGame = true
+            
         }
         
         
@@ -2724,7 +2852,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     @objc func onlyPracticeSentence(_ notification: NSNotification){
-        
+        print("接到nc")
         
         //抓所有句子數量來做全部的亂數
         var totalNum = Int()
@@ -2875,6 +3003,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //避免再次產生hint
             isCheckingSentence = false
             
+            //newMakeSentenceTest()
+            
         } else{
             
             /*
@@ -2910,7 +3040,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             wordRecorded = String()
             */
             
-            newMakeSentenceTest()
+           // newMakeSentenceTest()
+            guidedSentence()
         }
         
         //句子發音
@@ -2921,19 +3052,49 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
-    func newMakeSentenceTest(){
-        
-        //只練習句子
-
+    var isReadingGuidedSentence = false
+    
+    func guidedSentence(){
         //英文句子
         sentence = sentenceSets[Int(wordSequenceToReceive)!]
         let halfCount = sentenceSets.count / 2
         chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
+        //抓好中英文句子答案
+        sentenceLabel.text = sentence
+        chiSentenceLabel.text = chiSentence
+
+        isReadingGuidedSentence = true
+
+        
+    }
+    
+    
+    @IBAction func circleOkBtnClicked(_ sender: Any) {
+        
+        newMakeSentenceTest()
+    }
+    
+    
+    
+    func newMakeSentenceTest(){
+       
+        circleOkBtn.isHidden = true
+        
+        synPronounce()
+        
+        print("正常製造句子的功能")
+        //只練習句子
+
+        //英文句子
+        // sentence = sentenceSets[Int(wordSequenceToReceive)!]
+        let halfCount = sentenceSets.count / 2
+        //chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
         
 
         print(sentence)
         print(chiSentence)
-        /*
+
+ /*
          print(sentence)
          print(chiSentence)
          */
@@ -2945,8 +3106,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
 
         //抓好中英文句子答案
-        sentenceLabel.text = sentence
-        chiSentenceLabel.text = "請選出正確中文翻譯"
+     //   sentenceLabel.text = sentence
+       chiSentenceLabel.text = "請選出正確中文翻譯"
 
         
         //準備做四個選項
@@ -3907,6 +4068,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
         }
         
+        
+        if isReadingGuidedSentence{
+            
+            
+            circleOkBtn.isHidden = false
+            isReadingGuidedSentence = false
+        }
         
         if !synth.isSpeaking{
             recordBtn.isEnabled = true

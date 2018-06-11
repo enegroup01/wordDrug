@@ -34,6 +34,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     var activeProduct: SKProduct?
     
+    var isDirectedFromGame = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,11 +76,16 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
     }
     
+    var isDirectToRegister = false
+    
     override func viewWillAppear(_ animated: Bool) {
         
         //確認購買狀態
         
+        isDirectToRegister = false
         purchaseBtn.isEnabled = false
+        
+        if user != nil {
 
         
         if let isPurchased = user?["isPurchased"] as? String{
@@ -124,7 +131,29 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             }
             
         }
-        
+        } else {
+            
+            let attrWords = NSMutableAttributedString()
+            
+            let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)]
+            
+            let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
+            
+            let btnText = NSMutableAttributedString(string: "購買無限學習時間", attributes: attrs0)
+            let btnText2 = NSMutableAttributedString(string: "$ 90.00", attributes: attrs1)
+            
+            attrWords.append(btnText)
+            attrWords.append(NSAttributedString(string: "\n"))
+            attrWords.append(btnText2)
+            purchaseBtn.titleLabel?.numberOfLines = 2
+            purchaseBtn.titleLabel?.textAlignment = .center
+            purchaseBtn.setAttributedTitle(attrWords, for: .normal)
+           // purchaseBtn.isUserInteractionEnabled = false
+            
+            
+            purchaseBtn.isEnabled = true
+            isDirectToRegister = true
+        }
     }
 
     
@@ -149,6 +178,11 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         
         purchaseBtn.isEnabled = true
+        
+        if isDirectedFromGame{
+            
+            self.dismiss(animated: false, completion: nil)
+        }
         
         
     }
@@ -184,6 +218,13 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     @IBAction func buyClicked(_ sender: Any) {
         
 
+        if isDirectToRegister{
+            
+            
+            performSegue(withIdentifier: "fromPurchaseToRegisterVc", sender: self)
+            
+            
+        } else {
         
         if let activeProduct = activeProduct {
             
@@ -200,7 +241,20 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         }
         
         
+        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        
+        if segue.identifier == "fromPurchaseToRegisterVc"{
+            
+            let destineVc = segue.destination as! RegisterViewController
+            destineVc.isDirectedHere = true
+            
+            
+        }
     }
     
     
@@ -229,7 +283,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 print("failed")
                 
                 //show error msgs
-                
+                if isDirectedFromGame{
+                    
+                    self.dismiss(animated: false, completion: nil)
+                }
    
             default:
                 break
@@ -293,6 +350,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                     DispatchQueue.main.async(execute: {
                     
                         self!.purchasedBtnText()
+                        
+                        
                     })
           
                     

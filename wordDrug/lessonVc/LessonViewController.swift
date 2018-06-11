@@ -416,8 +416,8 @@ class LessonViewController: UIViewController{
         alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
         alertText.font = UIFont(name: "Helvetica Neue Bold", size: 28)
         alertText.textColor = .white
-        alertText.text = "選擇練習模式"
-        alertText.numberOfLines = 0
+        alertText.text = "請選擇模式"
+        alertText.numberOfLines = 2
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
@@ -425,13 +425,13 @@ class LessonViewController: UIViewController{
         
         practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         
-        practiceWordBtn.setTitle("複習單字", for: .normal)
+        practiceWordBtn.setTitle("拼字王挑戰", for: .normal)
         practiceWordBtn.setTitleColor(darkRed, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
         
         practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        practiceSenBtn.setTitle("複習句型", for: .normal)
+        practiceSenBtn.setTitle("句型冠軍榜", for: .normal)
         practiceSenBtn.setTitleColor(darkRed, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
@@ -562,7 +562,7 @@ class LessonViewController: UIViewController{
     
     @objc func removeBtns(){
         
-        alertText.text = "選擇練習模式"
+        alertText.text = "請選擇模式"
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         ghost2Btn.isHidden = true
@@ -1038,8 +1038,10 @@ class LessonViewController: UIViewController{
             let attrWords = NSMutableAttributedString()
             let text1 = NSMutableAttributedString(string: "此單元結束", attributes: attrs0)
             let text2 = NSMutableAttributedString(string: "請選擇", attributes: attrs0)
-            let text3 = NSMutableAttributedString(string: "快速複習", attributes: attrs1)
-              let text4 = NSMutableAttributedString(string: "挑戰模式", attributes: attrs0)
+            let text3 = NSMutableAttributedString(string: "挑戰模式", attributes: attrs1)
+            
+            let text4 = NSMutableAttributedString(string: "來複習", attributes: attrs0)
+            
             attrWords.append(text1)
             attrWords.append(NSMutableAttributedString(string: "\n"))
             attrWords.append(text2)
@@ -1081,7 +1083,7 @@ class LessonViewController: UIViewController{
     
     func cannotPracticeAlert(){
         
-        alertText.text = "學習單字不足，無法練習\n 至少需要學習一個單元才能複習"
+        alertText.text = "此課程尚未學習，無法挑戰\n 至少需要學習一個單元才能挑戰複習"
         ghostBtn.isHidden = false
         
         

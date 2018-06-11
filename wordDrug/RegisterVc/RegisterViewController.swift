@@ -28,6 +28,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     
     let grassGreen = UIColor.init(red: 179/255, green: 1, blue: 60/255, alpha: 1)
+    let darkTextColor = UIColor.init(red: 39/255, green: 48/255, blue: 86/255, alpha: 1)
     
     @IBOutlet weak var accountPng: UIImageView!
     
@@ -43,6 +44,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var registerBtn: UIButton!
     
+    @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var facebookBtn: UIButton!
     
     @IBOutlet weak var orLabel: UILabel!
@@ -63,13 +65,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     var coursePlayed = Int()
     
+    var isDirectedHere = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         registerBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        registerBg.image = UIImage(named: "registerBg.png")
+        registerBg.image = UIImage(named: "newRegisterBg.png")
         
         titleLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
         titleLabel.font = UIFont(name: "Helvetica Bold", size: 30)
@@ -78,14 +82,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
+        if isDirectedHere{
+            
+            titleLabel.text = "註冊帳號完後\n即可購買無限學習時間"
+        }
+        
+        /*
         freeTilted.frame = CGRect(x: width / 7, y: height / 14, width: 55, height: 53)
         freeTilted.image = UIImage(named: "freeTiltedPng.png")
         freeTilted.contentMode = .scaleAspectFit
-        
+        */
+        /*
         star.frame = CGRect(x: width * 5 / 7, y: height / 10, width: 22, height: 22)
         star.image = UIImage(named: "starPng.png")
         star.contentMode = .scaleAspectFit
-        
+        */
         doubleLine.frame = CGRect(x: (width - 290) / 2, y: titleLabel.frame.maxY, width: 290, height: 6)
         doubleLine.image = UIImage(named: "doubleLine.png")
         doubleLine.contentMode = .scaleAspectFit
@@ -98,15 +109,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         accountPng.frame = CGRect(x: (width - 302) / 2, y: subTitleLabel.frame.maxY + 10, width: 302, height: 42)
         
-        accountPng.image = UIImage(named: "accountPng.png")
+        accountPng.image = UIImage(named: "newAccountPng.png")
         
         passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
-        passwordPng.image = UIImage(named: "passwordPng.png")
+        passwordPng.image = UIImage(named: "newPasswordPng.png")
         
         accountTextField.frame = CGRect(x: accountPng.frame.minX + accountPng.frame.width / 7, y: accountPng.frame.minY, width: accountPng.frame.width * 4 / 5, height: accountPng.frame.height)
         
         
-        accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: lightPurple])
+        accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
         
         
         passwordTextField.frame = CGRect(x: accountTextField.frame.minX, y: passwordPng.frame.minY, width:
@@ -114,25 +125,28 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         
         
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: lightPurple])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
         
         accountTextField.delegate = self
         passwordTextField.delegate = self
         
-        registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 111, height: 35)
+        registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
         
-        facebookBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: registerBtn.frame.minY, width: 142, height: 35)
+        
+        loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: registerBtn.frame.minY, width: 142, height: 35)
+        
+        facebookBtn.frame = CGRect(x: passwordPng.frame.minX, y: registerBtn.frame.maxY * 1.02, width: passwordPng.frame.width, height: 35)
         
         
         //orLabel.frame = CGRect(x: width / 2 - 13, y: registerBtn.frame.minY + 11, width: 26, height: 22)
-        orLabel.center = CGPoint(x: width / 2 - 13, y: registerBtn.frame.midY)
+        orLabel.center = CGPoint(x: width / 2, y: registerBtn.frame.midY - 2)
         
         orLabel.frame.size = CGSize(width: 26, height: 22)
         
         //orLabel.backgroundColor = .gray
         
         
-        doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: registerBtn.frame.maxY + 15, width: doubleLine.frame.width, height: doubleLine.frame.height)
+        doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: facebookBtn.frame.maxY + 5, width: doubleLine.frame.width, height: doubleLine.frame.height)
         doubleLine2.image = UIImage(named: "doubleLine.png")
                doubleLine2.contentMode = .scaleAspectFit
         
@@ -186,10 +200,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         textContent2.append(textLabel2Text2)
         textLabel2.attributedText = textContent2
 
-        
-        
-        
-        
         textLabel3.frame = CGRect(x: textLabel.frame.minX, y: textLabel2.frame.maxY + 20, width: textLabel.frame.width, height: 53)
         //textLabel3.backgroundColor = .green
         textLabel3.textAlignment = .left
@@ -378,6 +388,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                             
+                            
+                            //全新註冊者重新設定秒數
+                            UserDefaults.standard.set(3, forKey: "limitSeconds")
+
+                            
                             /*
                             //登入
                             DispatchQueue.main.async(execute: {
@@ -400,8 +415,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 DispatchQueue.main.async(execute: {
                                     
                                     //dimiss掉3個VCs
-                                self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                               
                                     
+                                    if self!.isDirectedHere {
+                                        
+                                        self!.dismiss(animated: false, completion: nil)
+                                        
+                                        
+                                    } else { self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                    }
                                 })
                                 
                                 // error
@@ -496,7 +518,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     func getDetails(){
         guard let _ = AccessToken.current else{return}
-        let param = ["fields":"name, email , picture.width(320).height(240)"]
+        let param = ["fields":"name, email , picture.width(200).height(200)"]
         let graphRequest = GraphRequest(graphPath: "me",parameters: param)
         
         graphRequest.start { [weak self](urlResponse, requestResult) in
@@ -535,7 +557,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         print("register")
         // shortcuts
-        
+
         //檢查註冊
         // url to php file
         let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register.php")!
@@ -548,7 +570,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         // body to be appended to url, 讓nickname = 註冊帳號
         let body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=\(coursePlayed)&ava=\(ava)"
-        
+        print(body)
         request.httpBody = body.data(using: .utf8)
         //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -614,6 +636,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         gamePassed3 = [0:0]
                         
                         
+                            //如果不是直接轉過來的畫面才需要幫忙加過一關, 否則也等於是重來
+                            if self!.isDirectedHere == false {
+                            
                         switch self!.coursePlayed{
                         case 0:
                             gamePassed = [0:1]
@@ -628,6 +653,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                         }
                         
+                      
+                            }
+                            
                         let userDefaults = UserDefaults.standard
                         
                         userDefaults.set(mapPassed!, forKey: "mapPassed")
@@ -636,21 +664,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                         userDefaults.set(encodedObject, forKey: "gamePassed")
                         
-                        
-                        
+  
                         userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                        
-                        
-                        
+                  
                         let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                         userDefaults.set(encodedObject2, forKey: "gamePassed2")
-                        
-                        
-                        
+               
                         userDefaults.set(mapPassed3!, forKey: "mapPassed3")
                         
-                        
-                        
+          
                         let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                         userDefaults.set(encodedObject3, forKey: "gamePassed3")
                         
@@ -726,7 +748,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 
                                 //dimiss掉3個VCs
+                                if self!.isDirectedHere{
+                                    
+                                    self!.dismiss(animated: false, completion: nil)
+                                    
+                                } else {
                                 self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                }
                             })
                             
                             // error
@@ -787,14 +815,265 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             // launch prepared session
             }.resume()
-        
-        
 
         
+    }
+    
+    @IBAction func loginBtnClicked(_ sender: Any) {
         
         
+        if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
+            
+            
+            
+            accountTextField.text = ""
+            accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            
+            if  passwordTextField.text!.isEmpty  || passwordTextField.text!.count < 5{
+                
+                passwordTextField.text = ""
+                
+                passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                
+                
+                
+                
+            }
+            
+        } else if  passwordTextField.text!.isEmpty  || passwordTextField.text!.count < 5{
+            
+            passwordTextField.text = ""
+            
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            
+            if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
+                
+                
+                
+                accountTextField.text = ""
+                accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                
+                
+            }
+            
+        } else {
+            
+            
+            // shortcuts
+            let username = accountTextField.text!.lowercased()
+            let password = passwordTextField.text!
+            
+            // send request to mysql db
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "username=\(username)&password=\(password)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            
+            URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+                
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                      
+                        
+                        isRegistered = true
+                        
+                        UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
+                        
+                        
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        
+                        let id = user?["id"] as? String
+                        
+                        //抓mapPassed & gamePassed
+                        
+                        if let mapPassedString = user?["mapPassed"] as! String?{
+                            
+                            mapPassed = Int(mapPassedString)!
+                            let userDefaults = UserDefaults.standard
+                            userDefaults.set(mapPassed!, forKey: "mapPassed")
+                            
+                            print("retrieve mapPassed:\(mapPassed!)")
+                            
+                        }
+                        if let mapPassed2String = user?["mapPassed2"] as! String?{
+                            
+                            mapPassed2 = Int(mapPassed2String)!
+                            let userDefaults = UserDefaults.standard
+                            userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                            
+                            print("retrieve mapPassed:\(mapPassed2!)")
+                            
+                        }
+                        
+                        if let mapPassed3String = user?["mapPassed3"] as! String?{
+                            
+                            mapPassed3 = Int(mapPassed3String)!
+                            let userDefaults = UserDefaults.standard
+                            userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                            
+                            print("retrieve mapPassed:\(mapPassed3!)")
+                            
+                        }
+                        
+                        
+                        if let gamePassedString = user?["gamePassed"] as! String?{
+                            
+                            let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+                            
+                            let s = gamePassedStringArray[0]
+                            let u = gamePassedStringArray[1]
+                            gamePassed = [Int(s)!:Int(u)!]
+                            
+                            let userDefaults = UserDefaults.standard
+                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                            
+                            print("retrieve gamePassed:\(gamePassed!)")
+                            userDefaults.set(encodedObject, forKey: "gamePassed")
+                            
+                        }
+                        
+                        if let gamePassed2String = user?["gamePassed2"] as! String?{
+                            
+                            let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+                            
+                            let s = gamePassed2StringArray[0]
+                            let u = gamePassed2StringArray[1]
+                            gamePassed2 = [Int(s)!:Int(u)!]
+                            
+                            let userDefaults = UserDefaults.standard
+                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                            
+                            print("retrieve gamePassed:\(gamePassed2!)")
+                            userDefaults.set(encodedObject, forKey: "gamePassed2")
+                            
+                        }
+                        
+                        if let gamePassed3String = user?["gamePassed3"] as! String?{
+                            
+                            let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
+                            
+                            let s = gamePassed3StringArray[0]
+                            let u = gamePassed3StringArray[1]
+                            gamePassed3 = [Int(s)!:Int(u)!]
+                            
+                            let userDefaults = UserDefaults.standard
+                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                            
+                            print("retrieve gamePassed:\(gamePassed3!)")
+                            userDefaults.set(encodedObject, forKey: "gamePassed3")
+                            
+                        }
+                        
+                        
+                        //先儲存使用者資訊
+                        print(user!)
+                        
+                        // successfully logged in
+                        if id != nil {
+                            
+                            DispatchQueue.main.async(execute: {
+                                print("successfully logged in")
+                                //dimiss掉3個VCs
+                                if self!.isDirectedHere{
+                                    
+                                    self!.dismiss(animated: false, completion: nil)
+                                    
+                                } else {
+                                    self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                }
+
+                                
+                            })
+                            
+                            
+                        } else {
+                            
+                            // 抓錯誤訊息
+                            DispatchQueue.main.async(execute: {
+                                if let errorStatus = parseJSON["status"] as? String{
+                                    
+                                    if errorStatus == "403"{
+                                        
+                                        self?.accountTextField.text = ""
+                                        self?.passwordTextField.text = ""
+                                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                        
+                                        
+                                    } else if errorStatus == "401"{
+                                        
+                                        self?.accountTextField.text = ""
+                                        self?.passwordTextField.text = ""
+                                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                        
+                                        
+                                    }
+                                    
+                                    
+                                }
+                            })
+                            return
+                            
+                        }
+                        
+                    } catch {
+                        
+                        // get main queue to communicate back to user
+                        DispatchQueue.main.async(execute: {
+                            self?.accountTextField.text = ""
+                            self?.passwordTextField.text = ""
+                            self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            
+                            
+                        })
+                        return
+                        
+                    }
+                    
+                } else {
+                    
+                    // get main queue to communicate back to user
+                    DispatchQueue.main.async(execute: {
+                        let message = error!.localizedDescription
+                        print(message)
+                        self?.accountTextField.text = ""
+                        self?.passwordTextField.text = ""
+                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    })
+                    return
+                    
+                }
+                
+                }.resume()
+        }
+
         
     }
+    
     deinit {
         print("registerVc deinit")
     }

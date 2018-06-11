@@ -324,7 +324,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //上方的seg
     let segControl = TwicketSegmentedControl()
     
-    let darkPurpleColor = UIColor.init(red: 82/255, green: 90/255, blue: 120/255, alpha: 1)
+    //let darkPurpleColor = UIColor.init(red: 82/255, green: 90/255, blue: 120/255, alpha: 1)
+    let darkPurpleColor = UIColor.init(red: 124/255, green: 136/255, blue: 183/255, alpha: 1)
     let segSliderBgColor = UIColor.init(red: 216/255, green: 216/255, blue: 216/255, alpha: 0.25)
     let btnOffColor = UIColor.init(red: 115/255, green: 115/255, blue: 115/255, alpha: 1)
     let btnOnColor = UIColor.init(red: 223/255, green: 223/255, blue: 223/255, alpha: 1)
@@ -581,14 +582,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         
         //加入alertView
-       let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+       
+        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         ghostBtn.backgroundColor = lightGray
-        ghostBtn.addTarget(self, action: #selector(NewBookViewController.removeBtns), for: .touchUpInside)
+        //ghostBtn.addTarget(self, action: #selector(NewBookViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        alertBg.image = UIImage(named: "reviewSelectBg.png")
+        alertBg.image = UIImage(named: "reviewQuitBg.png")
         self.view.addSubview(alertBg)
         
         ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
@@ -604,19 +606,22 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alertBg.addSubview(alertText)
         
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width, height: height * 44 / 667)
    
-        practiceWordBtn.setTitle("複習單字", for: .normal)
+        practiceWordBtn.setTitle("我知道了", for: .normal)
         practiceWordBtn.setTitleColor(darkRed, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
         
+        /*
         practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         practiceSenBtn.setTitle("複習句型", for: .normal)
         practiceSenBtn.setTitleColor(darkRed, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(NewBookViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
-
+*/
+        
+        
         leftBtnClickedImg.frame = practiceWordBtn.frame
         leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
         
@@ -644,35 +649,72 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         bookViewBottomBg.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width, height: 66 * dif)
         
-        playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
+        playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        //playBtn.backgroundColor = .red
         
-        autoPlayImg.frame = CGRect(x: (width / 5 - 23 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 23 * dif, height: 23 * dif)
-        autoPlayText.frame = CGRect(x:(width / 5 - 72 * dif) / 2, y: height - 21 * 1.2 * dif, width: 72 * dif , height: 21 * dif)
+        //autoPlayImg.frame = CGRect(x: (width / 5 - 23 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 23 * dif, height: 23 * dif)
+        
+        autoPlayImg.center = CGPoint(x: playBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif)
+        autoPlayImg.frame.size = CGSize(width: 23 * dif, height: 23 * dif)
+        
+        //autoPlayText.frame = CGRect(x:(width / 5 - 72 * dif) / 2, y: height - 21 * 1.2 * dif, width: 72 * dif , height: 21 * dif)
+       autoPlayText.frame.size = CGSize(width: 72 * dif , height: 21 * dif)
+        autoPlayText.center = CGPoint(x: playBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        
+        sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+       
+        //sentenceBtn.backgroundColor = .green
+        
+        //playSenImg.frame = CGRect(x: width / 5 + (width / 5 - 27 * dif) / 2 ,y: bookViewBottomBg.frame.minY + 12 * dif, width: 27 * dif, height: 23 * dif)
+        
+        playSenImg.center = CGPoint(x: sentenceBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif)
+        playSenImg.frame.size = CGSize(width: 27 * dif, height: 23 * dif)
+       
+        //playSenText.frame = CGRect(x: width / 5 + (width / 5 - 79 * dif) / 2, y: height - 21 * 1.2 * dif, width: 79 * dif , height: 21 * dif)
+        playSenText.frame.size = CGSize(width: 79 * dif , height: 21 * dif)
+        playSenText.center = CGPoint(x: sentenceBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        
+        playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+       
+        //playTimesBtn.backgroundColor = .yellow
+        
+        //playTimesImg.frame = CGRect(x: width * 2 / 5 + (width / 5 - 46 * dif) / 2, y: bookViewBottomBg.frame.minY + 18 * dif, width: 46 * dif, height: 8 * dif)
+        
+        playTimesImg.center = CGPoint(x: playTimesBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
+        playTimesImg.frame.size = CGSize(width: 46 * dif, height: 8 * dif)
         
         
-        sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
-        playSenImg.frame = CGRect(x: width / 5 + (width / 5 - 27 * dif) / 2 ,y: bookViewBottomBg.frame.minY + 12 * dif, width: 27 * dif, height: 23 * dif)
-        playSenText.frame = CGRect(x: width / 5 + (width / 5 - 79 * dif) / 2, y: height - 21 * 1.2 * dif, width: 79 * dif , height: 21 * dif)
+        //playTimesText.frame = CGRect(x: width * 2 / 5 + (width / 5 - 76 * dif) / 2, y: height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        playTimesText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
+        playTimesText.center = CGPoint(x: playTimesBtn.frame.midX, y: height - 11 * 1.2 * dif)
         
+        playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
         
-        playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
-        playTimesImg.frame = CGRect(x: width * 2 / 5 + (width / 5 - 46 * dif) / 2, y: bookViewBottomBg.frame.minY + 18 * dif, width: 46 * dif, height: 8 * dif)
-        
-        playTimesText.frame = CGRect(x: width * 2 / 5 + (width / 5 - 76 * dif) / 2, y: height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
-        
-        
-        playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
+        //playSpeedBtn.backgroundColor = .purple
         
         playSpeedImg.frame = CGRect(x: width * 3 / 5 + (width / 5 - 44 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 44 * dif, height: 28 * dif)
         
-        playSpeedText.frame = CGRect(x: width * 3 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
         
+        playSpeedImg.center = CGPoint(x: playSpeedBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
+        playSpeedImg.frame.size = CGSize(width: 44 * dif, height: 28 * dif)
+        
+        
+        
+        playSpeedText.frame = CGRect(x: width * 3 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        playSpeedText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
+        playSpeedText.center = CGPoint(x: playSpeedBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        
+        /*
         practiceBtn.frame = CGRect(x: playSpeedBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
         
         practiceImg.frame = CGRect(x: width * 4 / 5 + (width / 5 - 24 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 24 * dif, height: 24 * dif)
         
         practiceText.frame = CGRect(x: width * 4 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        */
         
+        practiceBtn.isHidden = true
+        practiceImg.isHidden = true
+        practiceText.isHidden = true
         
         /*
         playBtn.backgroundColor = .green
@@ -1215,9 +1257,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         removeBtns()
         
+        
+        //預設值
+        alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
+        
     }
     
     @objc func removeBtns(){
+        
+        
         
         ghostBtn.isHidden = true
         alertBg.isHidden = true
@@ -1226,11 +1274,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         practiceSenBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
         rightBtnClickedImg.isHidden = true
+ 
+ 
     }
     
     @objc func practiceWord(){
         print("practice word")
         
+        //self.dismiss(animated: false, completion: nil)
+  
         
         UIView.animate(withDuration: 0.06, animations: {[weak self] in
             
@@ -1243,6 +1295,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             if finished {
                 self!.leftBtnClickedImg.alpha = 0
         
+                self!.removeBtns()
+                //self!.isAlertPoppedOut = false
             }
         }
         
@@ -1272,6 +1326,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     //再次載入所有單字裡我的最愛要反紅的字, 使用時機: 在我的最愛裡修改過後跳回所有單字
     func loadAllWordFavs(){
+        
+              alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
         
         //載入我的最愛單字
         if let myWordsString = user?["myWords"] as! String?{
@@ -1312,6 +1368,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     //讀取我的最愛的單字, 使用時機: (1) 在我的最愛裡刪除最愛單字, 做即時反應 (2) 其他時候跳轉到我的最愛畫面時
     func loadMyFavWords(){
+        
+        
+        alertTextShown = "\n此課程還沒加任何字\n到我的最愛!"
         
         //載入我的最愛單字
         if let myWordsString = user?["myWords"] as! String?{
@@ -1386,6 +1445,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //載入錯誤單字, 使用時機: 移除錯誤單字即時顯示使用
     func loadMyWrongWords(){
         
+            alertTextShown = "此課程到目前為止\n無任何錯字!"
+        
         //載入我的錯誤單字
         if let myWrongWordsString = user?["wrongWords"] as! String?{
             myWrongWords = myWrongWordsString.components(separatedBy: ";")
@@ -1445,6 +1506,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     }
     
     //上方segMent選擇
+    
+    var alertTextShown = String()
     func didSelect(_ segmentIndex: Int) {
         
         //停止所有func
@@ -1457,6 +1520,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             loadAllWordFavs()
             //切換到可以修改最愛的模式
             likeMode = true
+      
             
             //設定要顯示的字
             /*
@@ -1492,6 +1556,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             //內包含findMatch
             loadMyWrongWords()
+        
+
             
             
         case 2:
@@ -1500,6 +1566,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             likeMode = true
             //內包含findMatch
             loadMyFavWords()
+
             
         default:
             break
@@ -1951,6 +2018,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         print(engWordsSelected.count)
         
+        if engWordsSelected.count == 0 {
+            
+            print("沒有字")
+            
+            
+            ghostBtn.isHidden = false
+            alertBg.isHidden = false
+            ghost2Btn.isHidden = false
+            practiceWordBtn.isHidden = false
+            //practiceSenBtn.isHidden = false
+            leftBtnClickedImg.isHidden = false
+            rightBtnClickedImg.isHidden = false
+            alertText.text = alertTextShown
+            alertText.textAlignment = .center
+            
+            
+            
+        }
+        
         return engWordsSelected.count
         
         //return 5
@@ -2375,6 +2461,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+//var isAlertPoppedOut = false
     func jumpToRow(sylSelected:String){
         
         var isJump = false
@@ -2386,7 +2473,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
             if syllablesSelected[i] == sylSelected{
-                
+   
                 if i < tableView.numberOfRows(inSection: 0){
                     
                     if i == 0 {
@@ -2409,12 +2496,40 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     
                 }
     
-            }
+            } else {
+                
+                
+                    }
+                    
                 }
         }
     
         
-   
+        /*
+        if isJump == false {
+            
+            print("沒有單字")
+            if isAlertPoppedOut == false {
+                isAlertPoppedOut = true
+            alertText.text = "尚未學習此音節的任何單字!"
+            ghostBtn.isHidden = false
+            alertBg.isHidden = false
+            ghost2Btn.isHidden = false
+            practiceWordBtn.isHidden = false
+            //practiceSenBtn.isHidden = false
+            leftBtnClickedImg.isHidden = false
+            rightBtnClickedImg.isHidden = false
+         
+            alertText.textAlignment = .center
+            }
+        } else {
+            
+            print("有單字")
+            
+            
+            
+        }
+   */
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {

@@ -120,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                //mapPassed3 = 0
                //gamePassed3 = [0:0]
 
-                toCourse()
+              toCourse()
                 
                 //測試用
                 /*
@@ -179,7 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
                 
-                toIntro()
+              toIntro()
                 
                 
             } else if introWatched == true{
@@ -199,7 +199,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     
                     
-               toCourse()
+                toCourse()
                 
                 }
           
@@ -207,7 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             } else {
                 
-                toIntro()
+               toIntro()
                 
             }
           
@@ -275,7 +275,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBHandler()
         AppEventsLogger.activate()
         
-                UIApplication.shared.applicationIconBadgeNumber = 0
+      
+        UIApplication.shared.applicationIconBadgeNumber = 0
         
         let date = Date().description(with: .current)
         //let formatter = DateFormatter()
@@ -291,7 +292,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //第一次玩的話給7分鐘, 並且設定時間
             
             UserDefaults.standard.set(result[0], forKey: "previousDate")
-            UserDefaults.standard.set(420, forKey: "limitSeconds")
+            UserDefaults.standard.set(3, forKey: "limitSeconds")
             
             print("第一次玩給7分鐘")
             
@@ -304,7 +305,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
                 UserDefaults.standard.set(result[0], forKey: "previousDate")
-                UserDefaults.standard.set(420, forKey: "limitSeconds")
+                UserDefaults.standard.set(3, forKey: "limitSeconds")
                 print("換一天給7分鐘")
                 
                 

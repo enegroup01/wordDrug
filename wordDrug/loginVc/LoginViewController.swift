@@ -23,6 +23,25 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var bgImg: UIImageView!
     @IBOutlet weak var loginBtn: SSBouncyButton!
     @IBOutlet weak var registerBtn: SSBouncyButton!
+    
+    
+    @IBOutlet weak var accountPng: UIImageView!
+    
+    @IBOutlet weak var passwordPng: UIImageView!
+    
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
+    
+    @IBOutlet weak var doubleLine: UIImageView!
+    
+    @IBOutlet weak var subTitleLabel: UILabel!
+    
+        let darkTextColor = UIColor.init(red: 39/255, green: 48/255, blue: 86/255, alpha: 1)
+    
+    
+    @IBOutlet weak var doubleLine2: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,33 +55,42 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         // Do any additional setup after loading the view.
         
-        //layOut
-        let width = UIScreen.main.bounds.width
-        let height = UIScreen.main.bounds.height
-        
-        fbLoginBtn.frame = CGRect(x: (width - 296) / 2, y: height / 1.78, width: 296, height: 33)
-
-
-        fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
-        fbLoginBtn.clipsToBounds = true
-        fbLoginBtn.titleLabel?.textAlignment = .center
-        fbLoginBtn.setTitle("使用facebook登入", for: .normal)
-        
-        loginBtn.frame = CGRect(x:  fbLoginBtn.frame.maxX - 138, y: height / 2, width: 138, height: 33)
-        loginBtn.layer.cornerRadius = loginBtn.frame.width / 40
-        loginBtn.clipsToBounds = true
-        loginBtn.titleLabel?.textAlignment = .center
-        loginBtn.setTitle("登入", for: .normal)
         
        
-        registerBtn.frame = CGRect(x: fbLoginBtn.frame.minX, y: height / 2, width: 138, height: 33)
+        
+        logoLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
+        logoLabel.font = UIFont(name: "Helvetica Bold", size: 30)
+        logoLabel.textColor = .white
+        logoLabel.text = "MissWord\n我的單字老師"
+        logoLabel.textAlignment = .center
+        logoLabel.numberOfLines = 0
         
         
-        registerBtn.layer.cornerRadius = registerBtn.frame.width / 40
-        registerBtn.clipsToBounds = true
-        registerBtn.titleLabel?.textAlignment = .center
-        registerBtn.setTitle("註冊", for: .normal)
         
+        doubleLine.frame = CGRect(x: (width - 290) / 2, y: logoLabel.frame.maxY, width: 290, height: 6)
+        doubleLine.image = UIImage(named: "doubleLine.png")
+        doubleLine.contentMode = .scaleAspectFit
+        
+        subTitleLabel.text = "英檢初級，中級，多益滿分等\n所有單字任你學習！"
+        subTitleLabel.frame = CGRect(x: 0, y: doubleLine.frame.maxY + 10, width: width, height: 50)
+        subTitleLabel.font = UIFont(name: "Helvetica Bold", size: 18)
+        subTitleLabel.textAlignment = .center
+        subTitleLabel.numberOfLines = 0
+
+        
+        
+        /*
+         logoLabel.frame = CGRect(x: (width - 106 * dif) / 2, y: height / 10, width: 106 * dif, height: 43 * dif)
+         */
+        
+        
+        accountPng.frame = CGRect(x: (width - 302) / 2, y: subTitleLabel.frame.maxY + 10, width: 302, height: 42)
+        
+        accountPng.image = UIImage(named: "newAccountPng.png")
+        
+        passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
+        passwordPng.image = UIImage(named: "newPasswordPng.png")
+ 
        var iphoneWidth = CGFloat()
        var fontSize = CGFloat()
         var dif = CGFloat()
@@ -95,20 +123,70 @@ dif = 1
             
         }
         
-        logoLabel.frame = CGRect(x: (width - 106 * dif) / 2, y: height / 10, width: 106 * dif, height: 43 * dif)
         
+
         
         bgView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         bgImg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
-        usernameTxt.frame = CGRect(x: width / 6, y: height / 3.4, width: width * 2 / 3, height: 30)
-        usernameTxt.font = UIFont(name: "Helvetica Neue", size: 18)
+       // usernameTxt.frame = CGRect(x: width / 6, y: height / 3.4, width: width * 2 / 3, height: 30)
+        
+        
+      
+     
+        //usernameTxt.font = UIFont(name: "Helvetica Neue", size: 18)
         //usernameTxt.backgroundColor = .red
         
         
+        /*
         passwordTxt.frame = CGRect(x: width / 6, y: height / 2.5, width: width * 2 / 3, height: 30)
         passwordTxt.font = UIFont(name: "Helvetica Neue", size: 18)
-        //passwordTxt.backgroundColor = .blue
+ */
+ //passwordTxt.backgroundColor = .blue
+        
+        
+    
+        
+
+        
+        loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: registerBtn.frame.minY, width: 138, height: 35)
+        loginBtn.layer.cornerRadius = loginBtn.frame.width / 40
+        loginBtn.clipsToBounds = true
+        loginBtn.titleLabel?.textAlignment = .center
+        loginBtn.setTitle("登入", for: .normal)
+        
+        
+        
+        registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
+        
+        registerBtn.layer.cornerRadius = registerBtn.frame.width / 40
+        registerBtn.clipsToBounds = true
+        registerBtn.titleLabel?.textAlignment = .center
+        registerBtn.setTitle("註冊", for: .normal)
+        
+        fbLoginBtn.frame = CGRect(x: passwordPng.frame.minX, y: registerBtn.frame.maxY * 1.02, width: passwordPng.frame.width, height: 35)
+        
+        
+        fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
+        fbLoginBtn.clipsToBounds = true
+        fbLoginBtn.titleLabel?.textAlignment = .center
+        fbLoginBtn.setTitle("使用facebook登入", for: .normal)
+
+        usernameTxt.frame = CGRect(x: accountPng.frame.minX + accountPng.frame.width / 7, y: accountPng.frame.minY, width: accountPng.frame.width * 4 / 5, height: accountPng.frame.height)
+        
+        
+        usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
+        
+        passwordTxt.frame = CGRect(x: usernameTxt.frame.minX, y: passwordPng.frame.minY, width:
+            usernameTxt.frame.width, height: passwordPng.frame.height)
+          passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
+        
+        
+        doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: fbLoginBtn.frame.maxY + 10, width: doubleLine.frame.width, height: doubleLine.frame.height)
+        doubleLine2.image = UIImage(named: "doubleLine.png")
+        doubleLine2.contentMode = .scaleAspectFit
+        
+        
         
     }
 
@@ -172,7 +250,7 @@ dif = 1
         request.httpMethod = "POST"
         
         // body to be appended to url, 讓nickname = 註冊帳號
-        let body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)"
+        let body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=&ava="
         
         request.httpBody = body.data(using: .utf8)
         //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -227,6 +305,21 @@ dif = 1
                         
                         let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                         userDefaults.set(encodedObject2, forKey: "gamePassed2")
+
+                        
+                        mapPassed3 = 0
+                        
+                        
+                        
+                        userDefaults.set(mapPassed2!, forKey: "mapPassed3")
+                        
+                        gamePassed3 = [0:0]
+                        
+                        let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                        userDefaults.set(encodedObject2, forKey: "gamePassed3")
+                        
+                        //全新註冊者重新算秒數
+                        UserDefaults.standard.set(3, forKey: "limitSeconds")
 
                         
                         // get id from parseJSON dictionary
@@ -385,6 +478,10 @@ dif = 1
                         return
                     }
                     
+                    
+                    isRegistered = true
+                    
+                    UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                     
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
@@ -588,7 +685,7 @@ dif = 1
     
     func getDetails(){
         guard let _ = AccessToken.current else{return}
-        let param = ["fields":"name, email , picture.width(320).height(240)"]
+        let param = ["fields":"name, email , picture.width(200).height(200)"]
         let graphRequest = GraphRequest(graphPath: "me",parameters: param)
         
         graphRequest.start { [weak self](urlResponse, requestResult) in

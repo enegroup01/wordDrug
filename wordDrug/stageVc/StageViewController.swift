@@ -92,7 +92,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         stageTopImg.addSubview(ghost2Btn)
         
         
-        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height * 1.5)
         ghostBtn.backgroundColor = lightGray
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 5, width: 237 * dif, height: 156 * dif)
         alertBg.image = UIImage(named: "noClassAlertBg.png")

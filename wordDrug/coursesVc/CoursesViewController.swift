@@ -145,6 +145,7 @@ class CoursesViewController: UIViewController {
         //print("coursesVC:\(user!)")
         
         
+        
         var xPos = CGFloat()
         var fontSize = CGFloat()
         var titleDif = CGFloat()
@@ -790,6 +791,7 @@ class CoursesViewController: UIViewController {
             logOutBtn.isHidden = false
         }
         
+        
         /*
         var nickname = String()
         //測試用
@@ -922,8 +924,22 @@ class CoursesViewController: UIViewController {
     @IBAction func logOutClicked(_ sender: Any) {
         
         UserDefaults.standard.removeObject(forKey: "parseJSON")
+        
+        /*
         UserDefaults.standard.removeObject(forKey: "mapPassed")
         UserDefaults.standard.removeObject(forKey: "gamePassed")
+        UserDefaults.standard.removeObject(forKey: "mapPassed2")
+        UserDefaults.standard.removeObject(forKey: "gamePassed2")
+        UserDefaults.standard.removeObject(forKey: "mapPassed3")
+        UserDefaults.standard.removeObject(forKey: "gamePassed3")
+ */
+        //UserDefaults.standard.removeObject(forKey: "isIntroWatched")
+        //UserDefaults.standard.removeObject(forKey: "isRegistered")
+        //UserDefaults.standard.removeObject(forKey: "previousDate")
+        //UserDefaults.standard.removeObject(forKey: "limitSeconds")
+        
+
+        
         
         let loginVc = storyboard?.instantiateViewController(withIdentifier: "loginVc")
         

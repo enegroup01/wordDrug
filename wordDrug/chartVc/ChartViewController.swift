@@ -211,6 +211,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
       
         }
         
+        
+        cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
+        
+        /*
         if avas[indexPath.row] != "" {
             print("ava not nil")
            // let newString = avas[indexPath.row].replacingOccurrences(of: "__", with: "&")
@@ -245,10 +249,13 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                 
                 cell.avaImg.image = UIImage(named: "avatar.png")
             }
-    
+    */
         
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+        enableBtns()
         
-               return cell
+        return cell
         
     }
         
@@ -589,3 +596,36 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     */
 
 }
+
+extension UIImageView
+{
+    func downloadFrom(link:String?, contentMode mode: UIViewContentMode)
+    {
+        contentMode = mode
+        if link == ""
+        {
+            self.image = UIImage(named: "avatar.png")
+            return
+        }
+        if let url = NSURL(string: link!)
+        {
+            //print("\nstart download: \(url.lastPathComponent!)")
+            URLSession.shared.dataTask(with: url as URL, completionHandler: { [weak self] (data, _, error) -> Void in
+                guard let data = data, error == nil else {
+                    //      print("\nerror on download \(String(describing: error))")
+                    return
+                }
+                DispatchQueue.main.async() { () -> Void in
+                    //    print("\ndownload completed \(url.lastPathComponent!)")
+                    self?.image = UIImage(data: data)
+                }
+            }).resume()
+        }
+        else
+        {
+            self.image = UIImage(named: "avatar.png")
+        }
+    }
+}
+
+
