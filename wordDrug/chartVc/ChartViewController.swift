@@ -497,6 +497,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                       
                         var mapWord = Int()
                         var mapWord2 = Int()
+                        var mapWord3 = Int()
                         
                         
                         if let mapPassed = parseJSON[i]["mapPassed"] as? String{
@@ -507,18 +508,20 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             mapWord2 = Int(mapPassed2)! * 420
                         }
                         
-                        /*
-                        if let mapPassed3 = user["mapPassed3"] as? String{
+                        
+                        if let mapPassed3 = parseJSON[i]["mapPassed3"] as? String{
                           
-                            
+                           mapWord3 = Int(mapPassed3)! * 450
                         }
-                        if let mapPassed4 = user["mapPassed4"] as? String{
+                        /*
+                        if let mapPassed4 = parseJSON[i]["mapPassed4"] as? String{
                       
                             
                         }
                         */
                         var gameWord = Int()
                         var gameWord2 = Int()
+                        var gameWord3 = Int()
                       
                         if let gamePassed = parseJSON[i]["gamePassed"] as? String{
                             
@@ -534,9 +537,17 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             
                         }
                         
+                        if let gamePassed3 = parseJSON[i]["gamePassed3"] as? String{
+                            
+                            let sep = gamePassed3.components(separatedBy: ":")
+                            gameWord3 = Int(sep[0])! * 30 + Int(sep[1])! * 3
+                            
+                        }
                         
-                        let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2
+                        
+                        let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2 + mapWord3 + gameWord3
                         self!.wordCounts.append(totalWordCount)
+
                         /*
                         if let gamePassed3 = parseJSON[i]["gamePassed3"] as? String{
                       

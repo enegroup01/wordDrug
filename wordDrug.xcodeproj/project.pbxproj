@@ -129,6 +129,7 @@
 		AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */; };
 		AA45760620CE308D00B6680B /* newBookBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA45760520CE308D00B6680B /* newBookBg.png */; };
 		AA45760820CE44B700B6680B /* newBookVcBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = AA45760720CE44B700B6680B /* newBookVcBottom.png */; };
+		AA45760A20CEB41100B6680B /* beats.wav in Resources */ = {isa = PBXBuildFile; fileRef = AA45760920CEB41100B6680B /* beats.wav */; };
 		AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4642841FC4216300D34516 /* LoginViewController.swift */; };
 		AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */; };
 		AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E71207CCF7A00AAACC3 /* pointImg.png */; };
@@ -875,6 +876,7 @@
 		AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		AA45760520CE308D00B6680B /* newBookBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookBg.png; sourceTree = "<group>"; };
 		AA45760720CE44B700B6680B /* newBookVcBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookVcBottom.png; sourceTree = "<group>"; };
+		AA45760920CEB41100B6680B /* beats.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beats.wav; sourceTree = "<group>"; };
 		AA4642841FC4216300D34516 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordCheck.png; sourceTree = "<group>"; };
 		AA4E2E71207CCF7A00AAACC3 /* pointImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointImg.png; sourceTree = "<group>"; };
@@ -1743,6 +1745,7 @@
 		AA7C97F52052C97300C834A3 /* newGameVc */ = {
 			isa = PBXGroup;
 			children = (
+				AA45760920CEB41100B6680B /* beats.wav */,
 				AA8B69F52024777D0023E0FD /* NewGameScene.sks */,
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
@@ -3162,6 +3165,7 @@
 				AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */,
 				AAFAFCB1205BE11F00307264 /* bookPlayOff.png in Resources */,
 				AAD62F5820C17A52001D6275 /* step2Circle.png in Resources */,
+				AA45760A20CEB41100B6680B /* beats.wav in Resources */,
 				AA6C95D120A9CC23001158E7 /* s7-14.txt in Resources */,
 				AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn.png in Resources */,
 				AA27DE1120B6E2B2003250D2 /* reviewOkBtnPng.png in Resources */,

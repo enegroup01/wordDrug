@@ -319,7 +319,7 @@ dif = 1
                         userDefaults.set(encodedObject2, forKey: "gamePassed3")
                         
                         //全新註冊者重新算秒數
-                        UserDefaults.standard.set(3, forKey: "limitSeconds")
+                        UserDefaults.standard.set(420, forKey: "limitSeconds")
 
                         
                         // get id from parseJSON dictionary

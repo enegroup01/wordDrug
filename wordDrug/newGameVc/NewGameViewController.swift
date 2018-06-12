@@ -282,6 +282,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBOutlet weak var circleOkBtn: UIButton!
     var isPurchased = String()
     
+    var originalPoints = Int()
+    var wrongWordsToSend = [String]()
+    var scoresToSend = Int()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -1549,6 +1553,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         if let popQuizRight = notification.userInfo?["popQuizRight"] as? [String]{
                         if let wrongChinese = notification.userInfo?["wrongChinese"] as? [String]{
                     
+                            if let wrongWords = notification.userInfo?["wrongWords"] as? [String]{
+                            
+                                //指定好第一次玩家的數字
+                            wrongWordsToSend = wrongWords
+                                scoresToSend = Int(score[0])!
+                                
+                                
                             
                             for i in 0 ..< wrongChinese.count{
                                 
@@ -1581,8 +1592,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                     
                         //做分數動畫+ 單字動畫
+                            
+                            if let originalScore = user?["score"] as? String{
+                                
+                                originalPoints = Int(originalScore)!
+
+                                //let currentScore = originalPoints + Int(score[0])!
+                               
+                                scoreLabel.text = String(originalPoints)
+                                
+                            } else {
+                                //第一次玩的人
+                                
+                                //最初分數
+                                scoreLabel.text = "0"
+                                
+                                
+                                
+                            }
                     
-                        scoreLabel.text = score[0]
+                        //scoreLabel.text = score[0]
                     
               
                             moveUpAnimation(label: firstEngWord, text: firstEngWordText)
@@ -1607,6 +1636,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             case "-1":
                                 print("bonus 0")
                                 bigOkBtn.isEnabled = true
+                                countScore(score:Int(score[0])!)
                                 
                             case "0":
                                 print("bonus 1")
@@ -1614,7 +1644,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                     
                                 bonusAnimation(repeatCount:1)
                                 
-                                countScore(score: 500)
+                                countScore(score: Int(score[0])! + 500)
 
                                 
                                 
@@ -1622,7 +1652,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 print("bonus 2")
                                      bonusAnimation(repeatCount:2)
                        
-                                countScore(score: 1000)
+                                countScore(score: Int(score[0])! + 1000)
                                 
                                 
                             case "2":
@@ -1630,7 +1660,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 
                                      bonusAnimation(repeatCount:3)
            
-                                countScore(score: 1500)
+                                countScore(score: Int(score[0])! + 1500)
                             default:
                                 break
                             }
@@ -1923,6 +1953,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
                                 
                             }
+                            }
                         }
                 }
                     }
@@ -1940,7 +1971,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         let scoreToPass:[String:Int] = ["Score":score]
         //print("score:\(score)")
-        countScoreTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(NewGameViewController.startCounting), userInfo: scoreToPass, repeats: true)
+        countScoreTimer = Timer.scheduledTimer(timeInterval: 0.005, target: self, selector: #selector(NewGameViewController.startCounting), userInfo: scoreToPass, repeats: true)
         
         
     }
@@ -2501,7 +2532,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
         
-        let updatePoints = Int(scoreLabel.text!)!
+        let updatePoints = Int(scoreLabel.text!)! - originalPoints
         updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
         
             
@@ -2556,7 +2587,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             let registerVc = segue.destination as! RegisterViewController
             
             registerVc.coursePlayed = courseReceived
-            
+            registerVc.wrongWordsToAdd = wrongWordsToSend
+            registerVc.scoresToAdd = scoresToSend
+            registerVc.proRateToAdd = proRate
+            registerVc.senRateToAdd = senRate
+            registerVc.wrongChineseCount = wrongChineseCounts
             
             
         } else if segue.identifier == "fromGameToPurchase"{

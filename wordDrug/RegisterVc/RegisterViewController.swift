@@ -67,6 +67,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     var isDirectedHere = false
     
+    var wrongWordsToAdd = [String]()
+    var scoresToAdd = Int()
+    var proRateToAdd = Int()
+    var senRateToAdd = Int()
+    var wrongChineseCount = Int()
+    
+    
+    var myWrongWords = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -217,6 +226,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         print("user:\(user)")
         
         
+        if let myWrongWordsString = user?["wrongWords"] as! String?{
+            myWrongWords = myWrongWordsString.components(separatedBy: ";")
+            //    print("myWrongWords:\(myWrongWords)")
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -254,9 +268,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 passwordTextField.text = ""
                 
                 passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                
-                
-                
+
                 
             }
             
@@ -268,11 +280,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
                 
-                
-                
+
                 accountTextField.text = ""
                 accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                
                 
             }
             
@@ -365,19 +375,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                             userDefaults.set(encodedObject, forKey: "gamePassed")
        
-                            
-                            
+               
                             userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                            
-         
+        
                             
                             let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                             userDefaults.set(encodedObject2, forKey: "gamePassed2")
                             
                             
-                            
                             userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                            
                             
                             
                             let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
@@ -390,7 +396,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             
                             //全新註冊者重新設定秒數
-                            UserDefaults.standard.set(3, forKey: "limitSeconds")
+                            UserDefaults.standard.set(420, forKey: "limitSeconds")
 
                             
                             /*
@@ -414,15 +420,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 //登入
                                 DispatchQueue.main.async(execute: {
                                     
-                                    //dimiss掉3個VCs
-                               
+                                
+                                    //首先更新分數及確認有沒有錯字
+
                                     
+                                    //dimiss掉3個VCs
                                     if self!.isDirectedHere {
                                         
                                         self!.dismiss(animated: false, completion: nil)
                                         
                                         
-                                    } else { self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                    } else  {
+                                       
+                                         self!.updateScore(score: self!.scoresToAdd, wrongWordsCount: self!.wrongChineseCount, proRate: self!.proRateToAdd, senRate: self!.senRateToAdd)
+                                        
+                                        
                                     }
                                 })
                                 
@@ -495,9 +507,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         let loginManager = LoginManager()
         
-
-        
-        
+  
         loginManager.logIn(readPermissions: [.publicProfile,.email], viewController: self) {[weak self] (loginResult) in
             
             switch loginResult{
@@ -600,142 +610,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         
-                        //第一次玩
-                        //儲存mapPassed & gamePassed的初始值
-                        
-                        
-                        /*
-                        let mapPassedInt = user?["mapPassed"] as? String
-                        let gamePassedInt = user?["gamePassed"] as? String
-                        
-                     
-                        let mapPassedInt2 = user?["mapPassed2"] as? String
-                        let gamePassedInt2 = user?["gamePassed2"] as? String
-                        
-                
-                        
-                        let mapPassedInt3 = user?["mapPassed3"] as? String
-                        let gamePassedInt3 = user?["gamePassed3"] as? String
-                        
- 
- */
-                        let scoreSaved = user?["score"] as? Int
-                        if scoreSaved == 0 {
-                   
-                        
-                        mapPassed = 0
-                        
-                        gamePassed = [0:0]
-                        
-                        mapPassed2 = 0
-                        
-                        gamePassed2 = [0:0]
-                        
-                        mapPassed3 = 0
-                        
-                        gamePassed3 = [0:0]
-                        
-                        
-                            //如果不是直接轉過來的畫面才需要幫忙加過一關, 否則也等於是重來
-                            if self!.isDirectedHere == false {
-                            
-                        switch self!.coursePlayed{
-                        case 0:
-                            gamePassed = [0:1]
-                        case 1:
-                            gamePassed2 = [0:1]
-                        case 2:
-                            gamePassed3 = [0:1]
-                            
-                        default:
-                            break
-                            
-                            
-                        }
-                        
-                      
-                            }
-                            
-                        let userDefaults = UserDefaults.standard
-                        
-                        userDefaults.set(mapPassed!, forKey: "mapPassed")
-                        
-                        
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                        userDefaults.set(encodedObject, forKey: "gamePassed")
-                        
-  
-                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                  
-                        let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                        userDefaults.set(encodedObject2, forKey: "gamePassed2")
-               
-                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                        
-          
-                        let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                        userDefaults.set(encodedObject3, forKey: "gamePassed3")
-                        
-                        } else {
-                            
-                            print("this is old account")
-                            let mapPassedInt = user?["mapPassed"] as? String
-                            let gamePassedInt = user?["gamePassed"] as? String
-                            
-                            var gp:[Int:Int]?
-                            gp = [Int((gamePassedInt?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt?.components(separatedBy: ":")[1])!)!]
-                            let mapPassedInt2 = user?["mapPassed2"] as? String
-                            let gamePassedInt2 = user?["gamePassed2"] as? String
-                            
-                            var gp2:[Int:Int]?
-                            gp2 = [Int((gamePassedInt2?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt2?.components(separatedBy: ":")[1])!)!]
-                            
-                            let mapPassedInt3 = user?["mapPassed3"] as? String
-                            let gamePassedInt3 = user?["gamePassed3"] as? String
-                            
-                            var gp3:[Int:Int]?
-                            gp3 = [Int((gamePassedInt3?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt3?.components(separatedBy: ":")[1])!)!]
-                            
-                            
-                            
-                            
-                            let userDefaults = UserDefaults.standard
-                            
-                            userDefaults.set(Int(mapPassedInt!), forKey: "mapPassed")
-                            
-                            
-                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gp!)
-                            userDefaults.set(encodedObject, forKey: "gamePassed")
-                            
-                            
-                            userDefaults.set(Int(mapPassedInt2!), forKey: "mapPassed2")
-                            
-                            
-                            let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gp2!)
-                            userDefaults.set(encodedObject2, forKey: "gamePassed2")
-                            
-                            
-                            userDefaults.set(Int(mapPassedInt3!), forKey: "mapPassed3")
-                            
-                            
-                            let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gp3!)
-                            userDefaults.set(encodedObject3, forKey: "gamePassed3")
-                        }
                         isRegistered = true
                         
                         UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                         
-                        /*
-                         //登入
-                         DispatchQueue.main.async(execute: {
-                         
-                         
-                         //dimiss掉3個VCs
-                         
-                         self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
-                         })
-                         
-                         */
+                    
                         // get id from parseJSON dictionary
                         let id = user?["id"] as? String
                         
@@ -743,23 +622,186 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         if id != nil {
                             
                             
-                            //登入
-                            DispatchQueue.main.async(execute: {
+                            //設定有註冊
+                            isRegistered = true
+                            UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
+                            
+                            
+                            
+                            // Part 1. 登入者抓所有數值
+                            if let mapPassedString = user?["mapPassed"] as! String?{
+                                
+                                mapPassed = Int(mapPassedString)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed!, forKey: "mapPassed")
+                                
+                                print("retrieve mapPassed:\(mapPassed!)")
+                                
+                            }
+                            if let mapPassed2String = user?["mapPassed2"] as! String?{
+                                
+                                mapPassed2 = Int(mapPassed2String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                                
+                                print("retrieve mapPassed:\(mapPassed2!)")
+                                
+                            }
+                            
+                            if let mapPassed3String = user?["mapPassed3"] as! String?{
+                                
+                                mapPassed3 = Int(mapPassed3String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                                
+                                print("retrieve mapPassed:\(mapPassed3!)")
+                                
+                            }
+                            
+                            
+                            if let gamePassedString = user?["gamePassed"] as! String?{
+                                
+                                let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+                                
+                                let s = gamePassedStringArray[0]
+                                let u = gamePassedStringArray[1]
+                                gamePassed = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                
+                                print("retrieve gamePassed:\(gamePassed!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed")
+                                
+                            }
+                            
+                            if let gamePassed2String = user?["gamePassed2"] as! String?{
+                                
+                                let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+                                
+                                let s = gamePassed2StringArray[0]
+                                let u = gamePassed2StringArray[1]
+                                gamePassed2 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                
+                                print("retrieve gamePassed:\(gamePassed2!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                
+                            }
+                            
+                            if let gamePassed3String = user?["gamePassed3"] as! String?{
+                                
+                                let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
+                                
+                                let s = gamePassed3StringArray[0]
+                                let u = gamePassed3StringArray[1]
+                                gamePassed3 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                
+                                print("retrieve gamePassed:\(gamePassed3!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed3")
+                                
+                            }
+
+                            
+                            
+                            // part 2. 判斷是不是從購買畫面轉過來的
+                            if self!.isDirectedHere{
                                 
                                 
-                                //dimiss掉3個VCs
-                                if self!.isDirectedHere{
-                                    
+                                DispatchQueue.main.async(execute: {
+                                    //是的話 註冊完就跳掉
                                     self!.dismiss(animated: false, completion: nil)
+                                })
+                                
+
+                                
+                            } else {
+                                
+                                //Part 3. 不是的話要看有沒有玩過
+                                
+                                let scoreSaved = user?["score"] as? String
+                                
+                                
+                                
+                                //沒玩過的話, 要更新所有數字 updateGamePassed/ updateScore / addWrongWords
+                                if scoreSaved == "0" {
+                                    
+                                    
+                                    
+                                    switch self!.coursePlayed{
+                                    case 0:
+                                        
+                                        gamePassed = [0:1]
+                                        gamePassed2 = [0:0]
+                                        gamePassed3 = [0:0]
+                                    case 1:
+                                        gamePassed2 = [0:1]
+                                        gamePassed = [0:0]
+                                        gamePassed3 = [0:0]
+                                        
+                                        
+                                    case 2:
+                                        gamePassed3 = [0:1]
+                                        gamePassed = [0:0]
+                                        gamePassed2 = [0:0]
+                                        
+                                    default:
+                                        break
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    //改變userdefault
+                                    
+                                    let userDefaults = UserDefaults.standard
+                                    
+                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                    userDefaults.set(encodedObject, forKey: "gamePassed")
+                                    
+                                    let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                    userDefaults.set(encodedObject2, forKey: "gamePassed2")
+                                    
+                                    let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                    userDefaults.set(encodedObject3, forKey: "gamePassed3")
+                                    
+                                    
+                                    
+                                    DispatchQueue.main.async(execute: {
+                                        //更新後端
+                                        
+                                        print("exec updateGamePassed")
+                                        self!.updateGamePassed(course: self!.coursePlayed)
+                                        
+                                    })
+                                    
+                                    
                                     
                                 } else {
-                                self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                    
+                                    
+                                    print("scoreSaved != 0")
+                                    
+                                    //有玩過的話就跳出畫面, 不重新設定東西
+                                    
+                                    
+                                    DispatchQueue.main.async(execute: {[weak self] in
+                                        self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                    })
+                                    
+                                    
                                 }
-                            })
+                                
+                                
+                            }
                             
-                            // error
                             
-                            print(user)
+
                             
                         } else {
                             
@@ -824,8 +866,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
             
-            
-            
+
             accountTextField.text = ""
             accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
             
@@ -834,10 +875,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 passwordTextField.text = ""
                 
                 passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                
-                
-                
-                
+    
             }
             
         } else if  passwordTextField.text!.isEmpty  || passwordTextField.text!.count < 5{
@@ -895,18 +933,26 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         }
                       
                         
-                        isRegistered = true
+                    
                         
-                        UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
-                        
-                        
+                        //儲存user資訊
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         
+                    
                         let id = user?["id"] as? String
                         
-                        //抓mapPassed & gamePassed
                         
+                        // successfully logged in
+                        if id != nil {
+                            
+                            //設定有註冊
+                            isRegistered = true
+                            UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
+                            
+
+                        
+                        // Part 1. 登入者抓所有數值
                         if let mapPassedString = user?["mapPassed"] as! String?{
                             
                             mapPassed = Int(mapPassedString)!
@@ -986,11 +1032,146 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         
-                        //先儲存使用者資訊
-                        print(user!)
                         
-                        // successfully logged in
-                        if id != nil {
+                        
+                        
+                        
+                        
+                  
+                        // part 2. 判斷是不是從購買畫面轉過來的
+                        if self!.isDirectedHere{
+                            
+                            
+                            DispatchQueue.main.async(execute: {
+                                //是的話 註冊完就跳掉
+                                self!.dismiss(animated: false, completion: nil)
+                            })
+                            
+             
+                            
+                            
+                            
+                            
+                        } else {
+                            
+                            //Part 3. 不是的話要看有沒有玩過
+                            
+                            let scoreSaved = user?["score"] as? String
+                            
+                            
+                            
+                            //沒玩過的話, 要更新所有數字 updateGamePassed/ updateScore / addWrongWords
+                            if scoreSaved == "0" {
+                                
+                                
+                                
+                                switch self!.coursePlayed{
+                                case 0:
+                                    
+                                    gamePassed = [0:1]
+                                    gamePassed2 = [0:0]
+                                    gamePassed3 = [0:0]
+                                case 1:
+                                    gamePassed2 = [0:1]
+                                    gamePassed = [0:0]
+                                    gamePassed3 = [0:0]
+                                    
+                                    
+                                case 2:
+                                    gamePassed3 = [0:1]
+                                    gamePassed = [0:0]
+                                    gamePassed2 = [0:0]
+                                    
+                                default:
+                                    break
+                                    
+                                }
+                                
+                                
+                                
+                                //改變userdefault
+                                
+                                let userDefaults = UserDefaults.standard
+                                
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                userDefaults.set(encodedObject, forKey: "gamePassed")
+                                
+                                let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                userDefaults.set(encodedObject2, forKey: "gamePassed2")
+                                
+                                let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                userDefaults.set(encodedObject3, forKey: "gamePassed3")
+                                
+                                
+                                
+                                DispatchQueue.main.async(execute: {
+                                    //更新後端
+                                    
+                                    print("exec updateGamePassed")
+                                    self!.updateGamePassed(course: self!.coursePlayed)
+                                    
+                                })
+                                
+                                
+                                
+                            } else {
+                                
+                                
+                                print("scoreSaved != 0")
+                        
+                                //有玩過的話就跳出畫面, 不重新設定東西
+                                
+                                
+                                DispatchQueue.main.async(execute: {[weak self] in
+                                    self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                })
+                                
+                                
+                            }
+                            
+                            
+                        }
+                        
+                        
+                        
+                        /*
+                        
+                        //抓mapPassed & gamePassed
+                        
+                        //如果分數是0分代表從未註冊過
+                        let scoreSaved = user?["score"] as? String
+                        
+       
+                        if scoreSaved == "0" {
+
+                            print("scoreSaved == 0")
+                            
+                            //如果不是直接轉過來的畫面才需要幫忙加過一關, 否則也等於是重來
+                            
+                         
+                            if self!.isDirectedHere == false {
+                        
+                      
+
+                                
+                                
+                            }    else {
+                                //從購買畫面跳過來
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                            }
+                            
+                            
+                        }  else {
+
+                            
+
                             
                             DispatchQueue.main.async(execute: {
                                 print("successfully logged in")
@@ -1000,14 +1181,24 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     self!.dismiss(animated: false, completion: nil)
                                     
                                 } else {
-                                    self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
-                                }
-
+                                    
+                                    self!.updateScore(score: self!.scoresToAdd, wrongWordsCount: self!.wrongChineseCount, proRate: self!.proRateToAdd, senRate: self!.senRateToAdd)                                }
+                                
                                 
                             })
                             
                             
-                        } else {
+                            
+                        }
+                        
+                        //先儲存使用者資訊
+                        print(user!)
+                        */
+                        
+                        
+                        
+                        
+                        }else {
                             
                             // 抓錯誤訊息
                             DispatchQueue.main.async(execute: {
@@ -1037,7 +1228,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             return
                             
                         }
-                        
+
                     } catch {
                         
                         // get main queue to communicate back to user
@@ -1073,6 +1264,286 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
         
     }
+    
+    
+    func addWrongWords(){
+        
+        print("final wrongWords\(wrongWordsToAdd)")
+            //確認有錯字
+            
+            for word in wrongWordsToAdd{
+                
+                //避免重複
+                if !myWrongWords.contains(word){
+                    
+                    print("wrongword:\(word)")
+                    
+                    let id = user?["id"] as! String
+                    
+                    // url to access our php file
+                    let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWrongWord.php")!
+                    
+                    // request url
+                    var request = URLRequest(url: url)
+                    
+                    // method to pass data POST - cause it is secured
+                    request.httpMethod = "POST"
+                    
+                    // body gonna be appended to url
+                    let body = "userID=\(id)&wrongWord=\(word)"
+                    
+                    // append body to our request that gonna be sent
+                    request.httpBody = body.data(using: .utf8)
+                    
+                    URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                        // no error
+                        if error == nil {
+                            
+                            do {
+                                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                
+                                guard let parseJSON = json else {
+                                    print("Error while parsing")
+                                    //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                    return
+                                }
+                                
+                                //再次儲存使用者資訊
+                                UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                                user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                                print(user!)
+                                
+                                if user != nil {
+                                    
+                                   
+                                    DispatchQueue.main.async(execute: {[weak self] in
+                                        self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                    })
+                                    
+                                    
+                                }
+                                
+                            } catch{
+                                
+                                print("catch error")
+                                
+                            }
+                        } else {
+                            
+                            print("urlsession has error")
+                            
+                        }
+                    }).resume()
+                    
+                }
+            }
+        
+        
+    }
+
+    
+    
+    func updateScore(score:Int, wrongWordsCount:Int, proRate:Int, senRate:Int){
+        
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&score=\(score)&wrongWordsCount=\(wrongWordsCount)&proRate=\(proRate)&senRate=\(senRate)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    print("updateScore")
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    print(user!)
+                    
+                    
+                    
+                    if user != nil {
+                        
+                        
+                        DispatchQueue.main.async(execute: {
+                            
+                            if self!.wrongWordsToAdd.count > 0 {
+                                
+                                self!.addWrongWords()
+                           
+                            
+                                //self!.updateScore(score: self!.scoresToAdd, wrongWordsCount: self!.wrongChineseCount, proRate: self!.proRateToAdd, senRate: self!.senRateToAdd)
+                                
+                                
+                                
+                            } else {
+                                
+                                
+                                self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                
+                                
+                                
+                                
+                            }
+
+                            
+                            
+                            
+                        })
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+
+    
+    
+    //更新gamePassed
+    func updateGamePassed(course:Int){
+        
+        print("enter updateGame")
+        
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        /*
+        var gamePassedString = String()
+        
+        
+        for (s,u) in gamePassedDic!{
+            
+            gamePassedString = String(s) + ":" + String(u)
+            
+        }
+        */
+        
+        let passed = "0:1"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&gamePassed=\(passed)&course=\(course)"
+        print(body)
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            // no error
+            
+            
+            if error == nil {
+                
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        
+                        return
+                    }
+                    
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    
+                    if user != nil {
+                        
+                        DispatchQueue.main.async(execute: {[weak self] in
+                            
+                            //updateScore
+                         
+                            
+                            self!.updateScore(score: self!.scoresToAdd, wrongWordsCount: self!.wrongChineseCount, proRate: self!.proRateToAdd, senRate: self!.senRateToAdd)
+                            
+                            /*
+                            if self!.wrongWordsToAdd.count > 0 {
+                                
+                                self!.addWrongWords()
+                                
+                                
+                                
+                                
+                            } else {
+                                self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+               
+                                
+                            }
+                            */
+                        })
+
+                        
+                        
+                        
+                    }
+                    
+                    print("gamePassed updated")
+                    
+                } catch{
+                    
+                    print("catch error:\(error)")
+                    
+                    
+                }
+            } else {
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+        
+        
+    }
+
+    
+    
     
     deinit {
         print("registerVc deinit")

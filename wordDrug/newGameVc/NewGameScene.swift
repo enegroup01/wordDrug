@@ -474,7 +474,7 @@ class NewGameScene: SKScene {
     
     //紀錄已加過的分數
     var scoreAdded = Int()
-    //var isFinalGetPoint = false
+    var isFinalGetPoint = false
     
     //紀錄三個字的正確與否
     var correctResults = ["0","0","0"]
@@ -520,11 +520,11 @@ class NewGameScene: SKScene {
     var maxSpotNum = Int()
     var maxMapNum = Int()
     
+    var isFinalPopCorrect = false
     
     
     override func didMove(to view: SKView) {
         
-        //讀取字數還是有錯的
         
         //啟動離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -586,6 +586,16 @@ class NewGameScene: SKScene {
         if gameMode == 2 {
         
             
+            /*
+            //讀取字數還是有錯的
+            var backgroundMusic = SKAction.playSoundFileNamed("beats.wav", waitForCompletion: true)
+
+            let volume = SKAction.changeVolume(by: -5, duration: 3)
+        
+   
+            let group = SKAction.group([volume,backgroundMusic])
+            self.run(group)
+            */
             //進入純粹練習句子的func
             
             //在此的func都只會執行一次
@@ -1781,6 +1791,9 @@ class NewGameScene: SKScene {
                 
                 //timesUp
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "timesUp"), object: nil, userInfo: nil)
+                
+                self!.isFinalGetPoint = false
+                
                 
                 //在此的功能為刪除倒數線
                 self!.practiceNextWord()
@@ -3118,7 +3131,7 @@ class NewGameScene: SKScene {
         countScore(score: 500)
         }
         practiceNextWord()
-        //isFinalGetPoint = true
+        isFinalGetPoint = true
         
     }
     
@@ -3179,7 +3192,8 @@ class NewGameScene: SKScene {
                 firstChiWordLabel.isHidden = false
                 practice()
             
-            //isFinalGetPoint = false
+            //沒練習完就繼續練習
+            isFinalGetPoint = false
             
         } else {
             //三個字以練習完
@@ -3234,17 +3248,20 @@ class NewGameScene: SKScene {
                 let scoreLabel = findLabelNode(name: "scoreLabel")
                 
                 var scoreToPass = scoreLabel.text!
-                //if isFinalGetPoint{
-                //}
-                scoreToPass = String(Int(scoreLabel.text!)! + 500)
-                
+                if isFinalGetPoint{
+                  
+                    scoreToPass = String(Int(scoreLabel.text!)! + 500)
+                    
+                }
+                //應該不用在加500
+               
                 
                 if user != nil {
                 //這是連接後端的func
                 addWrongWords()
                 }
                 
-                let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)],"wrongChinese":wrongChinese]
+                let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"wrongWords":wrongWords,"score":[scoreToPass],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)],"wrongChinese":wrongChinese]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
 
                 
@@ -3491,9 +3508,16 @@ class NewGameScene: SKScene {
             let scoreLabel = findLabelNode(name: "scoreLabel")
             
             var scoreToPass = scoreLabel.text!
-            //if isFinalGetPoint{
-            //}
-            scoreToPass = String(Int(scoreLabel.text!)! + 500)
+            /*
+            if isFinalGetPoint{
+                 scoreToPass = String(Int(scoreLabel.text!)! + 500)
+            }
+           */
+            
+            if isFinalPopCorrect{
+                
+                scoreToPass = String(Int(scoreLabel.text!)! + 300)
+            }
             
             //這是連接後端的func
             addWrongWords()
@@ -4094,7 +4118,7 @@ class NewGameScene: SKScene {
                     let sequence = SKAction.sequence([wait,sparkleAction])
                     let groupAgain = SKAction.group([sequence,groupAction])
                     
-                    
+                    isFinalPopCorrect = true
                     findImageNode(name: "star5").run(groupAgain)
                     
                 default:

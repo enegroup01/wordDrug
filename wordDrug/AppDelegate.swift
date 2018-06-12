@@ -292,7 +292,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //第一次玩的話給7分鐘, 並且設定時間
             
             UserDefaults.standard.set(result[0], forKey: "previousDate")
-            UserDefaults.standard.set(3, forKey: "limitSeconds")
+            UserDefaults.standard.set(420, forKey: "limitSeconds")
             
             print("第一次玩給7分鐘")
             
@@ -305,7 +305,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
                 UserDefaults.standard.set(result[0], forKey: "previousDate")
-                UserDefaults.standard.set(3, forKey: "limitSeconds")
+                UserDefaults.standard.set(420, forKey: "limitSeconds")
                 print("換一天給7分鐘")
                 
                 
