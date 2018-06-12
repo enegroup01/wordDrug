@@ -1001,7 +1001,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
-                                <state key="normal" title="進入課程" backgroundImage="courseBtnYellow.png">
+                                <state key="normal" title="進入課程" backgroundImage="courseBtnBlue.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1009,11 +1009,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOk-jI-kX1">
-                                <rect key="frame" x="290" y="131" width="85" height="30"/>
+                                <rect key="frame" x="227" y="131" width="148" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
-                                <state key="normal" title="單字集" backgroundImage="courseBtnYellow.png">
+                                <state key="normal" title="單字集" backgroundImage="courseBtnBlue.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1065,7 +1065,7 @@
                                 <rect key="frame" x="176" y="296" width="114" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
-                                <state key="normal" title="進入課程" backgroundImage="courseBtnYellow.png">
+                                <state key="normal" title="進入課程" backgroundImage="courseBtnBlue.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1076,26 +1076,18 @@
                                 <rect key="frame" x="290" y="296" width="85" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
-                                <state key="normal" title="單字集" backgroundImage="courseBtnYellow.png">
+                                <state key="normal" title="單字集" backgroundImage="courseBtnBlue.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="toNewBook2Btn:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="d45-c3-NMc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeZ-l8-Y7s">
-                                <rect key="frame" x="135" y="20" width="33" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="statusPng.png"/>
-                                <connections>
-                                    <action selector="toInfoVcClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="KXM-2f-08C"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yga-Vi-Yaf">
                                 <rect key="frame" x="176" y="461" width="114" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
-                                <state key="normal" title="進入課程" backgroundImage="courseBtnYellow.png">
+                                <state key="normal" title="進入課程" backgroundImage="courseBtnBlue.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1106,7 +1098,7 @@
                                 <rect key="frame" x="298" y="461" width="77" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
-                                <state key="normal" title="單字集" backgroundImage="courseBtnYellow.png">
+                                <state key="normal" title="單字集" backgroundImage="courseBtnBlue.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1132,11 +1124,10 @@
                                 <rect key="frame" x="0.0" y="430" width="375" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lJm-ta-QXA">
-                                <rect key="frame" x="0.0" y="576" width="375" height="91"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="courseBtmAlpha.png" translatesAutoresizingMaskIntoConstraints="NO" id="JX5-fw-d7o">
+                                <rect key="frame" x="0.0" y="280" width="375" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.29700520634651184" green="0.31980681419372559" blue="0.41107428073883057" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcY-88-Cfg">
                                 <rect key="frame" x="344" y="437" width="15" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1161,7 +1152,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-c3-hHb">
                                 <rect key="frame" x="178" y="40" width="43" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="championPng.png"/>
+                                <state key="normal" backgroundImage="blueChampion.png"/>
                                 <connections>
                                     <action selector="toChartVcBtnClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="ddR-Bp-2Uf"/>
                                 </connections>
@@ -1169,9 +1160,17 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-F5-G77">
                                 <rect key="frame" x="279" y="42" width="43" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="cartPng.png"/>
+                                <state key="normal" backgroundImage="blueCart.png"/>
                                 <connections>
                                     <action selector="toShopVcBtnClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="vKe-au-olX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeZ-l8-Y7s">
+                                <rect key="frame" x="135" y="20" width="33" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="blueStudent.png"/>
+                                <connections>
+                                    <action selector="toInfoVcClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="KXM-2f-08C"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="排行榜" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao4-dz-W8A">
@@ -1188,7 +1187,7 @@
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHA-5o-q6H">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHA-5o-q6H">
                                 <rect key="frame" x="21" y="300" width="332" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
@@ -1202,10 +1201,39 @@
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSo-Gt-U6x">
+                                <rect key="frame" x="166" y="120" width="209" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Light" family="PingFang TC" pointSize="50"/>
+                                <color key="textColor" red="0.79687720537185669" green="0.96100431680679321" blue="0.046204335987567902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Nj-2A-8xp">
+                                <rect key="frame" x="21" y="120" width="157" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Light" family="PingFang TC" pointSize="12"/>
+                                <color key="textColor" red="0.82414519786834717" green="0.99661380052566528" blue="0.010005516931414604" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-Ne-WFq">
+                                <rect key="frame" x="212" y="93" width="157" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Light" family="PingFang TC" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIq-Fe-1PO">
+                                <rect key="frame" x="85" y="72" width="209" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Medium" family="PingFang TC" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.13634097576141357" green="0.15519839525222778" blue="0.23399439454078674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="bigNameLabel" destination="zIq-Fe-1PO" id="CLi-za-xZM"/>
                         <outlet property="block0" destination="Rwt-fO-uJR" id="gI5-vp-agZ"/>
                         <outlet property="block0LBtn" destination="fDT-hO-Fzz" id="3QU-DY-Vg0"/>
                         <outlet property="block0RBtn" destination="kOk-jI-kX1" id="UNl-rl-rg8"/>
@@ -1222,8 +1250,10 @@
                         <outlet property="block2TitleImg" destination="t1Q-my-jOC" id="aZh-B7-lR5"/>
                         <outlet property="block2WordCountLabel" destination="f6f-OP-fnc" id="jlO-NQ-rhA"/>
                         <outlet property="block3" destination="i6f-xK-9h2" id="4lB-Wf-Zbl"/>
-                        <outlet property="bottomBg" destination="lJm-ta-QXA" id="FZi-Ha-U5r"/>
+                        <outlet property="bottomBg" destination="JX5-fw-d7o" id="uk3-Bw-UXI"/>
                         <outlet property="bottomLabel" destination="VHA-5o-q6H" id="KnG-in-ocP"/>
+                        <outlet property="dayTitleLabel" destination="ohj-Ne-WFq" id="SYi-bj-nNR"/>
+                        <outlet property="daysLabel" destination="pSo-Gt-U6x" id="PgW-VQ-JDZ"/>
                         <outlet property="dialogueBg" destination="cLz-3m-g61" id="ZCg-Qb-Aii"/>
                         <outlet property="dialogueLabel" destination="YQz-Vd-la3" id="3xk-P5-VZp"/>
                         <outlet property="logOutBtn" destination="a1e-Ia-agD" id="x1z-Oy-SAr"/>
@@ -1240,6 +1270,7 @@
                         <outlet property="unitLabel" destination="vRD-HC-d1X" id="9F4-rV-18o"/>
                         <outlet property="unitLabel1" destination="Fqa-Hj-0cN" id="XGP-DS-eDh"/>
                         <outlet property="unitLabel2" destination="qcY-88-Cfg" id="M2K-XA-hdI"/>
+                        <outlet property="userStatusLabel" destination="9Nj-2A-8xp" id="YRA-fV-GKC"/>
                         <segue destination="Xm8-zq-UdH" kind="presentation" identifier="toStageVc" id="IAO-5U-K2i"/>
                         <segue destination="1ci-A8-OIj" kind="presentation" identifier="toNewBookVc" id="heL-at-VN6"/>
                         <segue destination="Y58-0X-len" kind="show" identifier="toInfoVc" id="5ef-Bt-A4B"/>
@@ -1878,23 +1909,25 @@
         <image name="avatar.png" width="192" height="192"/>
         <image name="backBtnImg.png" width="134" height="133"/>
         <image name="bigOkBtn.png" width="420" height="58"/>
-        <image name="block0Title.png" width="77" height="76"/>
-        <image name="block1Title.png" width="76" height="79"/>
-        <image name="block2Title.png" width="85" height="66"/>
+        <image name="block0Title.png" width="152" height="152"/>
+        <image name="block1Title.png" width="152" height="154"/>
+        <image name="block2Title.png" width="204" height="152"/>
+        <image name="blueCart.png" width="86" height="88"/>
+        <image name="blueChampion.png" width="129" height="147"/>
+        <image name="blueStudent.png" width="320" height="409"/>
         <image name="bookBackBtn.png" width="19" height="31"/>
         <image name="bookPlayOff.png" width="21" height="21"/>
         <image name="bookSenOff.png" width="27" height="23"/>
         <image name="bookSpeed2.png" width="44" height="27"/>
         <image name="bookTimes1.png" width="46" height="8"/>
         <image name="camera.png" width="28" height="28"/>
-        <image name="cartPng.png" width="43" height="44"/>
-        <image name="championPng.png" width="43" height="49"/>
         <image name="chartBg.png" width="379" height="667"/>
         <image name="chartSeperator.png" width="378" height="6"/>
         <image name="chartUpBg.png" width="375" height="295"/>
-        <image name="circleLogOut.png" width="30" height="21"/>
+        <image name="circleLogOut.png" width="60" height="42"/>
         <image name="circleOkBtn.png" width="256" height="256"/>
-        <image name="courseBtnYellow.png" width="105" height="35"/>
+        <image name="courseBtmAlpha.png" width="750" height="170"/>
+        <image name="courseBtnBlue.png" width="210" height="70"/>
         <image name="freePng.png" width="35" height="35"/>
         <image name="lessonBackBtn.png" width="19" height="31"/>
         <image name="lessonBtn.png" width="188" height="66"/>
@@ -1918,15 +1951,14 @@
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="519" height="114"/>
         <image name="senBlock.png" width="699" height="114"/>
-        <image name="seperateLine.png" width="375" height="1"/>
+        <image name="seperateLine.png" width="740" height="2"/>
         <image name="soundPng.png" width="70" height="46"/>
         <image name="stageTopCover.png" width="375" height="133"/>
-        <image name="statusPng.png" width="44" height="42"/>
         <image name="sylBlueBall" width="16" height="16"/>
         <image name="yellowBack.png" width="19" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rwi-hC-Ovx"/>
+        <segue reference="FzF-te-kXe"/>
         <segue reference="Qsn-eF-t3O"/>
         <segue reference="08a-wE-CO2"/>
     </inferredMetricsTieBreakers>

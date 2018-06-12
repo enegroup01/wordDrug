@@ -42,6 +42,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var doubleLine2: UIImageView!
     
     
+    var isWelcome = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -281,6 +283,7 @@ dif = 1
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         
+                        
                         //第一次玩
                         //儲存mapPassed & gamePassed的初始值
     
@@ -332,8 +335,11 @@ dif = 1
                             //登入
                                 DispatchQueue.main.async(execute: {
                              
+                                    self!.isWelcome = true
                                  
                                     self!.toCourses()
+                                    
+                                    
                                 })
                                 
                             // error
@@ -653,6 +659,19 @@ dif = 1
         performSegue(withIdentifier: "toCoursesVc", sender: self)
     }
 
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        if segue.identifier == "toCoursesVc"{
+            
+            let destineVc = segue.destination as! CoursesViewController
+            destineVc.isWelcome = isWelcome
+            
+            
+        }
+    }
     
     @IBAction func fbLoginClicked(_ sender: Any) {
         

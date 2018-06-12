@@ -285,7 +285,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let result = formatter.string(from: date)
 
         let result = date.components(separatedBy: "at")
-        
+
+
         let previousDate = UserDefaults.standard.object(forKey: "previousDate") as? String
         
         if previousDate == nil {

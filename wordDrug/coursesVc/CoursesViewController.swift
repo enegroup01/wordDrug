@@ -116,8 +116,9 @@ class CoursesViewController: UIViewController {
     
     @IBOutlet weak var sepLine2: UIImageView!
     
-    @IBOutlet weak var bottomBg: UIView!
+
     
+    @IBOutlet weak var bottomBg: UIImageView!
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var unitLabel1: UILabel!
     
@@ -135,6 +136,13 @@ class CoursesViewController: UIViewController {
     var hiddenChartBtn = UIButton()
     var hiddenShopBtn = UIButton()
     
+    var isWelcome = false
+    
+    @IBOutlet weak var bigNameLabel: UILabel!
+    
+    @IBOutlet weak var dayTitleLabel: UILabel!
+    @IBOutlet weak var userStatusLabel: UILabel!
+    @IBOutlet weak var daysLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -288,18 +296,31 @@ class CoursesViewController: UIViewController {
        // toInfoVcBtn.frame = CGRect(x: dialogueBg.frame.minX, y: dialogueBg.frame.minY, width: dialogueBg.frame.height, height: dialogueBg.frame.height)
         //新位置
         
+        bottomBg.frame = CGRect(x: 0, y: height - 80 * dif, width: width, height: 80 * dif)
        
-        toInfoVcBtn.frame = CGRect(x: width / 7 , y: height / 8, width: 44 * dif, height: 42 * dif)
+        //toInfoVcBtn.frame = CGRect(x: width / 7 , y: height / 8, width: 44 * dif, height: 42 * dif)
         
+        toInfoVcBtn.frame = CGRect(x: width / 7 , y: bottomBg.frame.minY + 5, width: 37 * dif, height: 48 * dif)
         
-        toChartVcBtn.frame = CGRect(x: width * 3 / 7, y: height / 8 - 8, width: 43 * dif, height: 49 * dif)
+        toInfoVcBtn.center = CGPoint(x: width / 6, y: bottomBg.frame.midY + 3)
+        //toChartVcBtn.frame = CGRect(x: width * 3 / 7, y: height / 8 - 8, width: 43 * dif, height: 49 * dif)
         
+        toChartVcBtn.frame = CGRect(x: width * 3 / 7, y: bottomBg.frame.minY + 3, width: 43 * dif, height: 49 * dif)
+        toChartVcBtn.center = CGPoint(x: width / 2, y: bottomBg.frame.midY)
         
-        toShopVcBtn.frame = CGRect(x: width * 5 / 7, y: height / 8, width: 43 * dif, height: 43 * dif)
+        //toShopVcBtn.frame = CGRect(x: width * 5 / 7, y: height / 8, width: 43 * dif, height: 43 * dif)
+        
+        toShopVcBtn.frame = CGRect(x: width * 5 / 7, y: bottomBg.frame.minY + 5, width: 43 * dif, height: 43 * dif)
+
+        toShopVcBtn.center = CGPoint(x: width * 5 / 6, y: bottomBg.frame.midY + 3)
         
         toInfoLabel.center = CGPoint(x: toInfoVcBtn.frame.midX, y: toInfoVcBtn.frame.maxY + 15)
         toChartLabel.center = CGPoint(x: toChartVcBtn.frame.midX, y: toInfoLabel.frame.midY)
         toShopLabel.center = CGPoint(x: toShopVcBtn.frame.midX, y: toInfoLabel.frame.midY)
+        
+        toInfoLabel.isHidden = true
+        toChartLabel.isHidden = true
+        toShopLabel.isHidden = true
         
         hiddenInfoBtn.frame = toInfoLabel.frame
         hiddenInfoBtn.addTarget(self, action: #selector(CoursesViewController.toInfoVcClicked(_:)), for: .touchUpInside)
@@ -334,6 +355,10 @@ class CoursesViewController: UIViewController {
         //block0WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block0.frame.height / 2 / iPadDif, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
         //block0WordCountLabel.backgroundColor = .red
         block0WordCountLabel.adjustsFontSizeToFitWidth = true
+        
+        
+        
+        
         
         //新位置
         block0WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block0TitleImg.frame.minY * 1.05, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
@@ -399,8 +424,9 @@ class CoursesViewController: UIViewController {
         alertBg.addSubview(alertText)
         let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
         iknowBtn.frame = CGRect(x: (width - 150 * dif) / 2, y: height * 1.6 / 4, width: 150 * dif, height: 36 * dif)
+        iknowBtn.titleLabel?.font = UIFont(name: "Helvetica Neue Bold", size: 16)
         iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
-        iknowBtn.setTitle("我知道了", for: .normal)
+        iknowBtn.setTitle("開始學習", for: .normal)
         iknowBtn.setTitleColor(darkRed, for: .normal)
         iknowBtn.addTarget(self, action: #selector(CoursesViewController.iKnowClicked), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
@@ -409,7 +435,11 @@ class CoursesViewController: UIViewController {
         
         self.view.addSubview(alertBg)
         
+        self.view.bringSubview(toFront: iknowBtn)
+        
+       // if isWelcome == false {
         removeBtns()
+        //}
         
         /* 暫時用不到, alpha test用
          noClassBtn.frame = CGRect(x: 0, y: block0LBtn.frame.maxY, width: width, height: height - block0LBtn.frame.maxY)
@@ -522,14 +552,28 @@ class CoursesViewController: UIViewController {
         sepLine1.frame = CGRect(x: 0, y: height / 2.2, width: width, height: 1)
         sepLine2.frame = CGRect(x: 0, y: height / 1.5, width: width, height: 1)
         
-        bottomBg.frame = CGRect(x: 0, y: height - 80 * dif, width: width, height: 80 * dif)
-        
+
+        /*
         bottomLabel.frame = CGRect(x: 0, y: bottomBg.frame.minY, width: width, height: bottomBg.frame.height)
         bottomLabel.numberOfLines = 2
         bottomLabel.textAlignment = .center
         bottomLabel.text = "更多字庫即將上架\ncoming soon..."
+*/
 
-
+        
+        bigNameLabel.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.maxY * 1.5, width:  190, height: 42)
+        bigNameLabel.adjustsFontSizeToFitWidth = true
+        userStatusLabel.frame = CGRect(x: bigNameLabel.frame.minX, y: bigNameLabel.frame.maxY, width: 190, height: 55)
+        dayTitleLabel.frame = CGRect(x: block0WordCountLabel.frame.minX, y: bigNameLabel.frame.midY - 3, width: 160, height: 25)
+        daysLabel.frame = CGRect(x: block0WordCountLabel.frame.minX, y: dayTitleLabel.frame.maxY, width: 160, height: 55)
+        //daysLabel.backgroundColor = .red
+        
+        bigNameLabel.text = "Ethan Li"
+        userStatusLabel.text = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
+        //userStatusLabel.backgroundColor = .red
+        dayTitleLabel.text = "學習天數"
+        daysLabel.text = "130"
+        
 
     }
     
@@ -772,6 +816,10 @@ class CoursesViewController: UIViewController {
         
     }
     
+    func daysBetween(start: Date, end: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: start, to: end).day!
+    }
+    
     @IBAction func toChartVcBtnClicked(_ sender: Any) {
         performSegue(withIdentifier: "toChartVc", sender: self)
 
@@ -781,7 +829,52 @@ class CoursesViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         
-     
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+       
+        
+         var nickname = String()
+         var purchaseStatus = String()
+         //測試用
+         
+         if user != nil {
+         nickname = user?["nickname"] as! String
+         let isPurchased = user?["isPurchased"] as? String
+            if isPurchased == "0"{
+                
+                purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
+            } else if isPurchased == "1"{
+                
+                purchaseStatus = "付費用戶\n新課程：不限時間\n單字集/挑戰模式：不限時間"
+            }
+            
+            
+            let startDateString = user?["date"] as! String
+            let startDate = startDateString.components(separatedBy: " ")
+            let start = dateFormatter.date(from: startDate[0])
+            let todayString = Date()
+            let today = dateFormatter.string(from: todayString)
+            print("today:\(today)")
+            let todayDate = dateFormatter.date(from: today)
+            
+            
+            let days = daysBetween(start: start!, end: todayDate!)
+
+            daysLabel.text = String(days)
+            
+            
+         } else {
+         nickname = "新學生"
+            purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
+            daysLabel.text = "0"
+         }
+
+
+        bigNameLabel.text = nickname
+        userStatusLabel.text = purchaseStatus
+        
+        
         
         if isRegistered == false{
             
@@ -791,19 +884,16 @@ class CoursesViewController: UIViewController {
             logOutBtn.isHidden = false
         }
         
-        
+
         /*
-        var nickname = String()
-        //測試用
-        
-        if user != nil {
-            nickname = user?["username"] as! String
-        } else {
-            nickname = "新學生"
+        if isWelcome{
+      
+                openAlert(text: "\nHi！\(nickname)！\n歡迎註冊MissWord\n我的單字老師\n祝你學習愉快！")
+
         }
-        
-         dialogueLabel.text = "Hi! \(nickname) 請選擇課程"
         */
+        
+
         
         //抓gamePassed
         let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
@@ -848,6 +938,7 @@ class CoursesViewController: UIViewController {
     @objc func iKnowClicked(){
         
         print("clicked")
+        isWelcome = false
         removeBtns()
     }
     

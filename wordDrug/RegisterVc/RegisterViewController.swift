@@ -231,6 +231,36 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             //    print("myWrongWords:\(myWrongWords)")
         }
         
+        
+        
+        switch senRateToAdd{
+            
+        case 0:
+            senRateToAdd = 0
+        case 1:
+            senRateToAdd = 33
+        case 2:
+            senRateToAdd = 66
+        case 3:
+            senRateToAdd = 100
+        default:
+            break
+        }
+        
+        switch proRateToAdd{
+            
+        case 0:
+            proRateToAdd = 0
+        case 1:
+            proRateToAdd = 33
+        case 2:
+            proRateToAdd = 66
+        case 3:
+            proRateToAdd = 100
+        default:
+            break
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -716,6 +746,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 DispatchQueue.main.async(execute: {
                                     //是的話 註冊完就跳掉
                                     self!.dismiss(animated: false, completion: nil)
+                                    
+          
+
+                                    
+                                    
                                 })
                                 
 
@@ -780,8 +815,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                         
                                     })
                                     
-                                    
-                                    
+                    
                                 } else {
                                     
                                     
@@ -800,8 +834,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                             }
                             
-                            
-
                             
                         } else {
                             
@@ -1346,6 +1378,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     func updateScore(score:Int, wrongWordsCount:Int, proRate:Int, senRate:Int){
         
         
+        
+        
+        
         let id = user?["id"] as! String
         
         // url to access our php file
@@ -1500,6 +1535,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             //updateScore
                          
+                            
+                            
+      
+
+                            
+                            
+                            
                             
                             self!.updateScore(score: self!.scoresToAdd, wrongWordsCount: self!.wrongChineseCount, proRate: self!.proRateToAdd, senRate: self!.senRateToAdd)
                             
