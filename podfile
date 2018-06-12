@@ -1,0 +1,14 @@
+platform :ios, ’10.0’
+use_frameworks!
+
+target ‘wordDrug’ do
+pod "Magnetic"
+pod "SwiftSiriWaveformView"
+pod 'SSBouncyButton'
+pod 'TwicketSegmentedControl'
+pod 'NVActivityIndicatorView'
+pod 'FacebookLogin'
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
+end
+

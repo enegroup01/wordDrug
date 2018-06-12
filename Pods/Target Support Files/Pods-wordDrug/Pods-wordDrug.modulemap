@@ -1,0 +1,6 @@
+framework module Pods_wordDrug {
+  umbrella header "Pods-wordDrug-umbrella.h"
+
+  export *
+  module * { export * }
+}
