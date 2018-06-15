@@ -17,7 +17,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //所有音節
     var syllableSets = [String]()
     
-    
+    /*
     let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
                             ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
                             ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
@@ -33,6 +33,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
                             ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
                             ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+    */
+    
+    
+    let map1SyllableSets = [["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+                            ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
+                            ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
+                            ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
+                            ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
+                            ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
+                            ["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
+                            ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
+                            ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
+                            ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
+                            ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
+                            ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
+                            ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
+                            ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
+                            ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+    
     
     let map2SyllableSets = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
                             ["bo2","bu2","ce2","ch2","ck2","cl2","co2","com2","cr2", "con2"],
@@ -48,7 +67,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["i_e3","igh3","im3","in3","ing3","ir3","o_e3","oa3","oi3", "ge3"],
                             ["on3","ong3","oo3","op3","or3","ot3","ou3","ow3","pr3","gar1"],
                             ["re3","sh3","st3","th3","tion3","tr3","ty3","u_e3","ui3","ry3"],
-                            ["er37","er38","er39","er40","er41","er42","er43","er44","er45","er46"]]
+                           ["er37","er38","er39","er40","er41","er42","er43","er44","er45","er46"]]
     
     let map3SyllableSets = [["un3","ur3","wh3","a_e4","ad4","ai4","al4","am4","an4","um3"],
                             ["ar4","au4","ay4","ce4","ch4","ck4","ea4","ee4","el4","em4"],
@@ -111,8 +130,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["br10","ca7","ch12","cl6","co4","com3","con4","dy2","nd5","oo19"],
                             ["ca6","ch13","cl7","com4","con5","dy3","or27","ou24","tion9","u_e5"],
                             ["ch14","cl8","com5","con6","cr3","er54","or28","ous1","ub2","up3"],
-                            ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"]]
-    
+                            ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"],
+                            ["i_e29","ly16","on7","ry10","sh25","st28","tw2","un9","up4","us1"]]
+
     
     let map7SyllableSets = [["am9","ce12","ch16","cl10","com7","con8","cr5","i_e16","ing11","ry5"],
                             ["ay13","ch17","cl11","com8","con9","cr6","de2","en33","ry12","tion10"],
@@ -127,8 +147,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["a_e23","con18","dis8","dr7","em6","ge11","ing12","ment3","or29","wh4"],
                             ["al25","ce13","con19","dis9","en35","er57","ge12","ment4","qu1","tle3"],
                             ["a_e24","al26","ce14","con20","ct3","dis10","en40","er58","tion14","ve1"],
-                            ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"]]
-
+                            ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"],
+                            ["ai19","er89","ge21","gue1","less3","ry11","ry9","ty15","un10","ur11"]]
+    
+    
+    
     let map8SyllableSets = [["a_e25","con22","dis12","e_e1","en36","er59","or30","sion3","sive1","sure1"],
                             ["a_e26","ai16","al27","ci6","con23","dis13","en37","eye1","or31","sh12"],
                             ["a_e27","al28","ble8","ce15","ck8","con24","fi3","i_e19","ing13","ry14"],
@@ -151,7 +174,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["au10","aw5","ay15","ea46","en38","in26","ing17","rn2","th13","ty8"],
                             ["an26","ck10","er67","igh7","lo1","ly9","oa8","oo21","or37","ture4"],
                             ["al37","by3","ea47","er68","gi4","in27","ou26","ous2","sp2","tion24"],
-                            ["a_e33","ad6","ai17","ai38","ce22","er69","ge15","in29","ma1","tic3"],
+                            ["a_e33","ad6","ai17","al38","ce22","er69","ge15","in29","ma1","tic3"],
                             ["al39","cal1","ch22","i_e22","in28","it2","me1","ph4","sh15","sure2"],
                             ["ble11","cle2","er70","igh8","il3","ment7","mi4","mis1","mo2","sion5"],
                             ["el16","er71","mis2","mu1","or38","ple3","th14","ture5","ty9","ug1"],
@@ -206,7 +229,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                              ["a_e46","ar35","as3","ct9","et5","gn2","in49","or52","sh27","tion46"],
                              ["as4","at5","ce37","ck16","em7","en42","er93","ph10","sure3","sym3"],
                              ["au12","ble19","ch30","oi6","ous8","th22","tion47","u_e11","ue5","um9"],
-                             ["a_e47","al56","ar36","au13","aw8","ba4","ful18","ge24","us4","oo25"],
+                             ["a_e47","al56","ar36","au13","aw8","ba4","ful18","ge24","is4","oo25"],
                              ["ar37","ba5","be4","ea56","en43","er94","it4","ly20","ness4","ow21"],
                              ["as5","bi3","bl4","br11","ch31","ck17","ea57","ee32","ge25","gi6"],
                              ["bl5","bo3","ce38","er95","ing30","oa10","old3","oo26","sh28","th23"]]
@@ -487,6 +510,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var maxMapNum = Int()
     var maxSpotNum = Int()
     
+    var isAllEmpty = true
+    
+    var xDif = CGFloat()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -498,30 +525,33 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             dif = 1.35
             cellDif = 1.2
             fontDif = 0
+            xDif = 50
             
         case 736:
             seperatorDif = 1.1
             dif = 1.1
             cellDif = 1.1
             fontDif = 3
-            
+            xDif = 0
         case 667:
             
             seperatorDif = 1
             dif = 1
             cellDif = 1
             fontDif = 4
-            
+            xDif = 0
         case 568:
             seperatorDif = 0.9
             dif = 0.9
             cellDif = 0.9
             fontDif = 5
+            xDif = 0
         default:
             seperatorDif = 0.9
             dif = 0.9
             cellDif = 0.9
             fontDif = 5
+            xDif = 0
             
             
         }
@@ -556,7 +586,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             gamePassedDic = gamePassed2
             increaseNum = 5
             maxMapNum = 6
-            maxSpotNum = 13
+            maxSpotNum = 14
             
             
             
@@ -589,7 +619,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //ghostBtn.addTarget(self, action: #selector(NewBookViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
         
-        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        alertBg.frame = CGRect(x: (width - 237 * dif) / 2 + xDif, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         alertBg.image = UIImage(named: "reviewQuitBg.png")
         self.view.addSubview(alertBg)
         
@@ -864,7 +894,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         if mapPassedInt == maxMapNum{
             
-            
+            //在這裡 -1 後面要加回來
             mapPassedInt! -= 1
             gamePassedDic = [maxSpotNum:9]
         }
@@ -1238,11 +1268,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         chiSenSelected = sortedChiSenToShow
         
         //移除三個多增加的數量, 這三個是可能會錯的部分?? 為什麼只移除engWordsSelected..應該是因為這樣return cell就直接少三個
+        
+      
+        if (mapPassedInt! + 1) != maxMapNum{
+            
+            print("要移除三個")
+        
         for  _ in 0 ..< 3 {
             
             engWordsSelected.removeLast()
         }
-        
+            
+            
+        }
         //預設collectionView的syl
         collectionSelectedIndex = 0
         
@@ -1326,6 +1364,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     //再次載入所有單字裡我的最愛要反紅的字, 使用時機: 在我的最愛裡修改過後跳回所有單字
     func loadAllWordFavs(){
+        
+        
         
               alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
         
@@ -1516,6 +1556,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         switch segmentIndex{
             
         case 0:
+            
+            isAllEmpty = true
             //再次讀我的最愛反紅部分
             loadAllWordFavs()
             //切換到可以修改最愛的模式
@@ -1541,16 +1583,22 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             
             //移除三個多增加的數量
-            for  _ in 0 ..< 3 {
-                engWordsSelected.removeLast()
-            }
+             if (mapPassedInt! + 1) != maxMapNum{
+                
             
+                for  _ in 0 ..< 3 {
+                
+                engWordsSelected.removeLast()
+            
+                }
+            
+            }
             tableView.reloadData()
             findMatchCollectionCell()
             
         case 1:
             
-            
+            isAllEmpty = false
             likeMode = false
             //讀取錯字
             
@@ -1562,7 +1610,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         case 2:
             
-            
+            isAllEmpty = false
             likeMode = true
             //內包含findMatch
             loadMyFavWords()
@@ -2032,6 +2080,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             rightBtnClickedImg.isHidden = false
             alertText.text = alertTextShown
             alertText.textAlignment = .center
+            
+            if isAllEmpty{
+                //設定直接跳出畫面
+                
+                practiceWordBtn.removeTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
+                practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.backBtnClicked(_:)), for: .touchUpInside)
+                
+                
+                
+            } else {
+                
+                
+            }
             
             
             

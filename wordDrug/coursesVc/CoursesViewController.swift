@@ -42,7 +42,8 @@ class CoursesViewController: UIViewController {
   
     @IBOutlet weak var block2TitleImg: UIImageView!
     
-    @IBOutlet weak var logoLabel: UILabel!
+    
+
     
     @IBOutlet weak var logOutBtn: UIButton!
     var alertBg = UIImageView()
@@ -86,7 +87,6 @@ class CoursesViewController: UIViewController {
     var step1Circle1 = UIImageView()
     var step1Circle2 = UIImageView()
     
-    
     var step1Book0 = UIImageView()
     var step1Book1 = UIImageView()
     var step1Book2 = UIImageView()
@@ -107,7 +107,7 @@ class CoursesViewController: UIViewController {
     var step2Line1 = UIImageView()
     var step2Line2 = UIImageView()
     
-    var recommendedClass = String()
+    var recommendedClass:String?
     
     @IBOutlet weak var sepLine0: UIImageView!
     
@@ -144,6 +144,15 @@ class CoursesViewController: UIViewController {
     @IBOutlet weak var userStatusLabel: UILabel!
     @IBOutlet weak var daysLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
+    
+    
+    @IBOutlet weak var finger: UIImageView!
+    
+    @IBOutlet weak var point: UIImageView!
+    
+    @IBOutlet weak var logoImg: UIImageView!
+    var fingerTimer = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -159,13 +168,22 @@ class CoursesViewController: UIViewController {
         var titleDif = CGFloat()
         var dif = CGFloat()
         var iPadDif = CGFloat()
+        var wordCountX = CGFloat()
+        var btnDif = CGFloat()
+        var btnY = CGFloat()
+        
         switch height {
+            
         case 812:
             fontSize = 20
             xPos = -22
             titleDif = 1
             dif = 1.15
             iPadDif = 1
+            wordCountX = 1.03
+            btnDif = 1
+            btnY = -5
+            
         case 736:
             
             fontSize = 18
@@ -173,6 +191,9 @@ class CoursesViewController: UIViewController {
             titleDif = 1
             dif = 1.1
             iPadDif = 1
+             wordCountX = 1
+            btnDif = 1
+            btnY = 0
             
         case 667:
             
@@ -181,6 +202,9 @@ class CoursesViewController: UIViewController {
             titleDif = 0.9
             dif = 1
             iPadDif = 1
+             wordCountX = 1.03
+            btnDif = 0.95
+            btnY = 0
             
         case 568:
             fontSize = 16
@@ -188,6 +212,9 @@ class CoursesViewController: UIViewController {
             titleDif = 0.8
             dif = 0.9
             iPadDif = 1
+             wordCountX = 1.03
+            btnDif = 0.8
+            btnY = 0
             
         default:
             fontSize = 14
@@ -195,6 +222,9 @@ class CoursesViewController: UIViewController {
             titleDif = 0.8
             dif = 0.9
             iPadDif = 1.5
+             wordCountX = 1
+            btnDif = 1
+            btnY = 0
             
         }
         
@@ -245,19 +275,19 @@ class CoursesViewController: UIViewController {
         
         
         //新位置
-        block2TitleImg.frame = CGRect(x: block0.frame.width / 26, y: height / 1.38
-            * iPadDif, width: 136 * titleDif, height: 81 * titleDif / iPadDif)
+        block2TitleImg.frame = CGRect(x: block0.frame.width / 40, y: height / 1.38
+            * iPadDif, width: 146 * titleDif, height: 92 * titleDif / iPadDif)
 
         
         //新位置
-        block0LBtn.frame = CGRect(x: width / 2.5, y: block0TitleImg.frame.maxY * 0.95, width: 105, height: 35)
-        block0RBtn.frame = CGRect(x: block0LBtn.frame.maxX + 10, y: block0LBtn.frame.minY, width: 105, height: 35)
+        block0LBtn.frame = CGRect(x: width / 2.5, y: block0TitleImg.frame.maxY * 0.95 - btnY, width: 105 * btnDif, height: 35 * btnDif)
+        block0RBtn.frame = CGRect(x: block0LBtn.frame.maxX + 10, y: block0LBtn.frame.minY, width: 105 * btnDif, height: 35 * btnDif)
         
         
         
         //block1LBtn.frame = CGRect(x: 0, y: height / 4, width: width * 3 / 4 + width / 42, height: height / 4)0
         //新位置
-        block1LBtn.frame = CGRect(x: width / 2.5, y: block1TitleImg.frame.maxY * 0.95, width: 105, height: 35)
+        block1LBtn.frame = CGRect(x: width / 2.5, y: block1TitleImg.frame.maxY * 0.95 - btnY, width: 105 * btnDif, height: 35 * btnDif)
         
       //  block1RBtn.frame = CGRect(x: block1LBtn.frame.width, y: block1LBtn.frame.minY, width: block0RBtn.frame.width, height: block0RBtn.frame.height)
         //block1RBtn.backgroundColor = .blue
@@ -267,7 +297,7 @@ class CoursesViewController: UIViewController {
        // block1RBtn.frame = CGRect(x: block1LBtn.frame.maxX + 5, y: block1LBtn.frame.minY, width: 222, height: 36)
         
         //新位置
-        block1RBtn.frame = CGRect(x: block1LBtn.frame.maxX + 10, y: block1LBtn.frame.minY, width: 105, height: 35)
+        block1RBtn.frame = CGRect(x: block1LBtn.frame.maxX + 10, y: block1LBtn.frame.minY, width: 105 * btnDif, height: 35 * btnDif)
         
         //block1LBtn.backgroundColor = .purple
         
@@ -279,10 +309,10 @@ class CoursesViewController: UIViewController {
        // block2RBtn.backgroundColor = .brown
         
         //新位置
-       block2LBtn.frame = CGRect(x: width / 2.5, y: block2TitleImg.frame.maxY * 0.97, width: 105, height: 35)
+       block2LBtn.frame = CGRect(x: width / 2.5, y: block2TitleImg.frame.maxY * 0.97 - btnY, width: 105 * btnDif, height: 35 * btnDif)
         
    
-        block2RBtn.frame = CGRect(x: block2LBtn.frame.maxX + 10, y: block2LBtn.frame.minY, width: 105, height: 35)
+        block2RBtn.frame = CGRect(x: block2LBtn.frame.maxX + 10, y: block2LBtn.frame.minY, width: 105 * btnDif, height: 35 * btnDif)
         /*
         dialogueBg.frame = CGRect(x: width / 3, y: block0.frame.height / 5.5, width: width * 1.8 / 3, height: block0.frame.height / 5)
         
@@ -296,23 +326,23 @@ class CoursesViewController: UIViewController {
        // toInfoVcBtn.frame = CGRect(x: dialogueBg.frame.minX, y: dialogueBg.frame.minY, width: dialogueBg.frame.height, height: dialogueBg.frame.height)
         //新位置
         
-        bottomBg.frame = CGRect(x: 0, y: height - 80 * dif, width: width, height: 80 * dif)
+        bottomBg.frame = CGRect(x: 0, y: height - 80 * dif * btnDif, width: width, height: 80 * dif)
        
         //toInfoVcBtn.frame = CGRect(x: width / 7 , y: height / 8, width: 44 * dif, height: 42 * dif)
         
         toInfoVcBtn.frame = CGRect(x: width / 7 , y: bottomBg.frame.minY + 5, width: 37 * dif, height: 48 * dif)
         
-        toInfoVcBtn.center = CGPoint(x: width / 6, y: bottomBg.frame.midY + 3)
+        toInfoVcBtn.center = CGPoint(x: width / 6, y: bottomBg.frame.midY - 4)
         //toChartVcBtn.frame = CGRect(x: width * 3 / 7, y: height / 8 - 8, width: 43 * dif, height: 49 * dif)
         
         toChartVcBtn.frame = CGRect(x: width * 3 / 7, y: bottomBg.frame.minY + 3, width: 43 * dif, height: 49 * dif)
-        toChartVcBtn.center = CGPoint(x: width / 2, y: bottomBg.frame.midY)
+        toChartVcBtn.center = CGPoint(x: width / 2, y: bottomBg.frame.midY - 5)
         
         //toShopVcBtn.frame = CGRect(x: width * 5 / 7, y: height / 8, width: 43 * dif, height: 43 * dif)
         
         toShopVcBtn.frame = CGRect(x: width * 5 / 7, y: bottomBg.frame.minY + 5, width: 43 * dif, height: 43 * dif)
 
-        toShopVcBtn.center = CGPoint(x: width * 5 / 6, y: bottomBg.frame.midY + 3)
+        toShopVcBtn.center = CGPoint(x: width * 5 / 6, y: bottomBg.frame.midY - 4)
         
         toInfoLabel.center = CGPoint(x: toInfoVcBtn.frame.midX, y: toInfoVcBtn.frame.maxY + 15)
         toChartLabel.center = CGPoint(x: toChartVcBtn.frame.midX, y: toInfoLabel.frame.midY)
@@ -336,7 +366,7 @@ class CoursesViewController: UIViewController {
         
         
         
-        logOutBtn.frame = CGRect(x: width / 18, y: logoLabel.frame.minY, width: 30 * dif * iPadDif, height: 21 * dif * iPadDif)
+        logOutBtn.frame = CGRect(x: width / 18, y: height / 24, width: 30 * dif * iPadDif, height: 21 * dif * iPadDif)
         
       
         
@@ -355,7 +385,7 @@ class CoursesViewController: UIViewController {
         //block0WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block0.frame.height / 2 / iPadDif, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
         //block0WordCountLabel.backgroundColor = .red
         block0WordCountLabel.adjustsFontSizeToFitWidth = true
-        
+
         
         
         
@@ -376,15 +406,16 @@ class CoursesViewController: UIViewController {
         
         //block2WordCountLabel.frame = CGRect(x: dialogueBg.frame.origin.x * 1.2, y: block2.frame.origin.y + block2.frame.height / 3, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
         //block2WordCountLabel.backgroundColor = .red
+       
         block2WordCountLabel.adjustsFontSizeToFitWidth = true
         //新位置
          block2WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block2TitleImg.frame.minY, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
         
         
-        unitLabel.frame = CGRect(x: block0WordCountLabel.frame.maxX * 0.98, y: block0WordCountLabel.frame.maxY - 20, width: 14, height: 20)
+        unitLabel.frame = CGRect(x: block0WordCountLabel.frame.maxX * 0.98 * wordCountX, y: block0WordCountLabel.frame.maxY - 20, width: 14, height: 20)
         
-                unitLabel1.frame = CGRect(x: block1WordCountLabel.frame.maxX * 0.98, y: block1WordCountLabel.frame.maxY - 20, width: 14, height: 20)
-                unitLabel2.frame = CGRect(x: block2WordCountLabel.frame.maxX * 0.98
+                unitLabel1.frame = CGRect(x: block1WordCountLabel.frame.maxX * 0.98 * wordCountX, y: block1WordCountLabel.frame.maxY - 20, width: 14, height: 20)
+                unitLabel2.frame = CGRect(x: block2WordCountLabel.frame.maxX * 0.98 * wordCountX
                     , y: block2WordCountLabel.frame.maxY - 20, width: 14, height: 20)
         
         
@@ -545,8 +576,7 @@ class CoursesViewController: UIViewController {
         }
 
         */
-        logoLabel.center = CGPoint(x: width / 2, y: height / 23)
-        logoLabel.frame.size = CGSize(width: 183 * dif, height: 50 * dif)
+
         
         sepLine0.frame = CGRect(x: 0, y: height / 4.2, width: width, height: 1)
         sepLine1.frame = CGRect(x: 0, y: height / 2.2, width: width, height: 1)
@@ -561,22 +591,211 @@ class CoursesViewController: UIViewController {
 */
 
         
-        bigNameLabel.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.maxY * 1.5, width:  190, height: 42)
+        bigNameLabel.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.maxY * 1.5 * titleDif * titleDif, width:  190, height: 42)
+
+        //bigNameLabel.backgroundColor = .red
         bigNameLabel.adjustsFontSizeToFitWidth = true
         userStatusLabel.frame = CGRect(x: bigNameLabel.frame.minX, y: bigNameLabel.frame.maxY, width: 190, height: 55)
-        dayTitleLabel.frame = CGRect(x: block0WordCountLabel.frame.minX, y: bigNameLabel.frame.midY - 3, width: 160, height: 25)
-        daysLabel.frame = CGRect(x: block0WordCountLabel.frame.minX, y: dayTitleLabel.frame.maxY, width: 160, height: 55)
-        //daysLabel.backgroundColor = .red
+       // userStatusLabel.backgroundColor = .green
+        dayTitleLabel.frame = CGRect(x: block0WordCountLabel.frame.minX * titleDif, y: bigNameLabel.frame.midY - 3, width: 160, height: 25)
+       // dayTitleLabel.backgroundColor = .blue
+        daysLabel.frame = CGRect(x: block0WordCountLabel.frame.minX * titleDif, y: dayTitleLabel.frame.maxY, width: 160, height: 55)
+        //daysLabel.backgroundColor = .purple
+        daysLabel.adjustsFontSizeToFitWidth = true
         
         bigNameLabel.text = "Ethan Li"
         userStatusLabel.text = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
         //userStatusLabel.backgroundColor = .red
         dayTitleLabel.text = "學習天數"
-        daysLabel.text = "130"
+        daysLabel.text = ""
         
+        
+        //稍稍靠右邊
+        logoImg.center = CGPoint(x: width / 2 + 5, y: height / 8)
+        logoImg.frame.size = CGSize(width: 135 * dif, height: 131 * dif)
 
+      //recommendedClass = "英檢中級"
+       
+        if recommendedClass != nil {
+        
+            
+            //假如尚未註冊者, 就是開始引導
+            
+            var posX = CGFloat()
+            var posY = CGFloat()
+            
+            
+            // recommendedClass = "英檢初級"
+            
+            switch recommendedClass{
+                
+            case "英檢初級":
+                print("初級")
+                posX = block0LBtn.frame.minX
+                posY = block0LBtn.frame.midY
+                
+                
+            case "英檢中級":
+                print("中級")
+                posX = block1LBtn.frame.minX
+                posY = block1LBtn.frame.midY
+                
+                
+            case "多益滿分":
+                print("多益")
+                posX = block2LBtn.frame.minX
+                posY = block2LBtn.frame.midY
+                
+            default:
+                break
+                
+                
+            }
+            
+            finger.frame = CGRect(x: posX, y: posY, width: 67, height: 88)
+            //finger.alpha = 0
+            point.center = CGPoint(x: finger.frame.midX, y: finger.frame.minY)
+            point.frame.size = CGSize(width: 45, height: 45)
+            //point.alpha = 0
+            
+            fingerAnimation()
+            
+                   //fingerTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(CoursesViewController.fingerAnimation), userInfo: nil, repeats: true)
+        
+        }
     }
     
+    
+    var repeatTimes = 0
+    
+func fingerAnimation(){
+        
+        
+        
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear, animations: {[weak self] in
+             self!.finger.alpha = 1
+            self!.point.alpha = 1
+       
+        
+        }) { (finished:Bool) in
+            
+            if finished {
+                
+                UIView.animate(withDuration: 0.6, animations: {[weak self] in
+                 
+                    self!.point.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                    self!.point.alpha = 0
+                }, completion: {[weak self] (finished:Bool) in
+                    
+          
+                    self!.point.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    self!.point.alpha = 1
+                    
+                    UIView.animate(withDuration: 0.6, animations: {[weak self] in
+                        self!.point.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                        self!.point.alpha = 0
+                        self!.finger.alpha = 0
+                        }, completion: {[weak self] (finished:Bool) in
+
+                            self!.point.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            
+ 
+                           
+                            self!.repeatTimes += 1
+                            
+                            
+                            if self!.repeatTimes < 6{
+                             self!.fingerAnimation()
+                            }
+                            
+                            
+                            
+                    })
+                    
+                    
+                    
+                    
+                })
+                
+                
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+    }
+    
+    
+    @objc func repeatFinger(){
+        
+        
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseIn, animations: {[weak self] in
+            self!.finger.alpha = 1
+            self!.point.alpha = 1
+        }) { (finished:Bool) in
+            
+            if finished {
+                
+                UIView.animate(withDuration: 0.6, animations: {[weak self] in
+                    
+                    self!.point.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                    self!.point.alpha = 0
+                    }, completion: {[weak self] (finished:Bool) in
+                        
+                        
+                        self!.point.transform = CGAffineTransform(scaleX: 1, y: 1)
+                        self!.point.alpha = 1
+                        
+                        UIView.animate(withDuration: 0.6, animations: {[weak self] in
+                            self!.point.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                            self!.point.alpha = 0
+                            self!.finger.alpha = 0
+                            }, completion: {[weak self] (finished:Bool) in
+                                
+                                self!.point.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                                    
+                                })
+                                
+                                
+                                
+                                
+                        })
+                        
+                        
+                        
+                        
+                })
+                
+                
+                
+                
+            }
+            
+
+            
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        fingerTimer.invalidate()
+        //self.view.layer.removeAllAnimations()
+        finger.alpha = 0
+        point.alpha = 0
+    
+        self.view.subviews.forEach({$0.layer.removeAllAnimations()})
+        self.view.layer.removeAllAnimations()
+        self.view.layoutIfNeeded()
+
+    }
     
     @objc func guideStart(){
         
@@ -729,10 +948,11 @@ class CoursesViewController: UIViewController {
             
             //recommendedClass = "多益滿分"
             
-            text1 = NSMutableAttributedString(string: recommendedClass, attributes: attrs1)
+            text1 = NSMutableAttributedString(string: recommendedClass!, attributes: attrs1)
             text2 = NSMutableAttributedString(string: "開始喔！", attributes: attrs0)
             
-                            guideText.text = "點擊畫面結束導覽"
+            
+            guideText.text = "點擊畫面結束導覽"
             
             switch recommendedClass{
                 
@@ -832,6 +1052,9 @@ class CoursesViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
     
+        
+        finger.alpha = 0
+        point.alpha = 0
        
         
          var nickname = String()
@@ -871,7 +1094,7 @@ class CoursesViewController: UIViewController {
          }
 
 
-        bigNameLabel.text = nickname
+        bigNameLabel.text = "Hi!" + nickname
         userStatusLabel.text = purchaseStatus
         
         

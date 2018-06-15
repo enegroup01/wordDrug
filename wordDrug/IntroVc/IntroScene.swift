@@ -17,6 +17,7 @@ class IntroScene: SKScene {
     //紀錄手指位置
     var location = CGPoint()
     let darkTextColor = UIColor.init(red: 51/255, green: 10/255, blue: 41/255, alpha: 1)
+    let lightTextColor = UIColor.init(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
     
      var line:SKShapeNode?
     //路徑
@@ -31,7 +32,7 @@ class IntroScene: SKScene {
     
     var isDrawingEnable = false
     
-    
+    /*
     let question1 = ["nervous","realize","act","bake","draw","trip","hour"]
     let question2 = ["strategy","suspicion","valuable","fortune","informal","captain","enemy"]
     let question3 = ["feature","calculate","costume","casualty","efficiency","dash","stiff"]
@@ -39,6 +40,20 @@ class IntroScene: SKScene {
     let answer1 = ["緊張的, 易怒的","理解, 立即","扮演, 保護","烘焙, 魚餌","畫, 放置","旅行, 轉換","小時, 車廂"]
     let answer2 = ["策略, 情節","懷疑, 穩固","有價值的, 清醒的","財產, 風險","非正式的, 資訊","隊長, 海灣","敵人, 陰暗的"]
     let answer3 = ["特色, 節慶","計算, 構成","服裝, 習俗","死傷, 隨性","效率, 激動","猛撞, 混入","硬的, 有黏性的"]
+    */
+    
+    
+    let question1 = ["male", "concert", "desert", "bottom", "quite", "temperature", "bucket"]
+    
+    let question2 = ["principal", "lack", "museum", "swallow", "diet", "domestic", "employee"]
+    
+    let question3 = ["paraphrase", "sufficient", "complement", "tendency", "consequence", "equivalent", "trauma"]
+    
+    let answer1 = ["男性的, 女性的", "演唱會, 關心", "沙漠, 甜點", "底部, 按鈕", "相當地, 安靜的", "溫度, 脾氣", "桶子, 美元"]
+    
+    let answer2 = ["校長, 原則", "缺乏, 湖泊", "博物館, 音樂會", "吞嚥, 麻雀", "飲食, 死亡", "家庭的, 民主的", "雇員, 雇主"]
+    
+    let answer3 = ["改述, 段落", "足夠的, 有效的", "使增色, 讚美", "傾向, 溫柔", "後果, 一連串", "相等的, 裝備", "心理創傷, 腫瘤"]
     
     //中文字左右對錯
     var leftOrRight = Int()
@@ -55,9 +70,34 @@ class IntroScene: SKScene {
     var timer = Timer()
     var finalPercent = Int()
     var numberShown = 0
-    
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
+    var xDif = CGFloat()
     override func didMove(to view: SKView) {
         print("yes scene")
+        
+        switch height {
+        case 812:
+            xDif = 1.2
+
+        case 736:
+            xDif = 1
+
+            
+        case 667:
+            xDif = 1
+
+            
+        case 568:
+            xDif = 1
+
+            
+        default:
+            xDif = 1
+
+        }
+
+        
         
         //口試Nc (單字 + 句子)
         NotificationCenter.default.addObserver(self, selector: #selector(IntroScene.notifyStartToRecognize), name: NSNotification.Name("tutorialRecognize"), object: nil)
@@ -99,12 +139,12 @@ class IntroScene: SKScene {
         makeLabelNode(x: 180, y: 10, alignMent: .center, fontColor: .black, fontSize: 70, text: "ss", zPosition: 3, name: "ssLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
-        makeImageNode(name: "arrow", image: "arrow", x: 0, y: 20, width: 117, height: 79, z: 1, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "arrow", image: "blueArrow", x: 0, y: 20, width: 117, height: 79, z: 1, alpha: 0, isAnchoring: false)
 
         
-        makeImageNode(name: "finger", image: "finger", x: -180, y: -110, width: 134, height: 174, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "finger", image: "blueFinger", x: -180, y: -110, width: 134, height: 174, z: 3, alpha: 0, isAnchoring: false)
         
-        makeImageNode(name: "point", image: "point", x: -170, y: -20, width: 45, height: 45, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "point", image: "bluePoint", x: -170, y: -20, width: 45, height: 45, z: 3, alpha: 0, isAnchoring: false)
         
 
         makeLabelNode(x: 0, y: 250, alignMent: .center, fontColor: .cyan, fontSize: 90, text: "Mi", zPosition: 1, name: "bigWordLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
@@ -144,7 +184,11 @@ class IntroScene: SKScene {
         
         //findLabelNode(name: "stepLabel").run(fadeInAction)
         findImageNode(name: "okBtnFrame").run(fadeInAction)
-        findLabelNode(name: "okBtnLabel").run(fadeInAction)
+      
+        isUserInteractionEnabled = false
+        findLabelNode(name: "okBtnLabel").run(fadeInAction) {[weak self] in
+            self!.isUserInteractionEnabled = true
+        }
         
         
         //提示字
@@ -152,37 +196,47 @@ class IntroScene: SKScene {
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         
-        makeImageNode(name: "testResult", image: "testResult", x: 0, y: 0, width: 650, height: 520, z: 1, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "testResult", image: "testResult", x: 0, y: 0, width: 650 / xDif, height: 520 / xDif, z: 1, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: -290, y: 200, alignMent: .left, fontColor: .white, fontSize: 30, text: "建議課程", zPosition: 2, name: "resultTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: -290 / xDif, y: 160  / xDif, alignMent: .left, fontColor: .white, fontSize: 30, text: "MissWord\n建議你學習", zPosition: 2, name: "resultTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
        // makeLabelNode(x: -290, y: 160, alignMent: .left, fontColor: darkTextColor, fontSize: 20, text: "總計2100字", zPosition: 2, name: "classWords", fontName: "Helvetica Neue Light", isHidden: false, alpha: 1)
          //       makeLabelNode(x: -292, y: 80, alignMent: .left, fontColor: darkTextColor, fontSize: 20, text: "預計學習時數\n21小時", zPosition: 2, name: "classHours", fontName: "Helvetica Neue Light", isHidden: false, alpha: 1)
-        makeLabelNode(x: 310, y: 60, alignMent: .right, fontColor: darkTextColor, fontSize: 100, text: "英檢初級", zPosition: 2, name: "suggestedClass", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 310  / xDif, y: 60  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 100  / xDif, text: "英檢初級", zPosition: 2, name: "suggestedClass", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         makeLabelNode(x: 0, y: -50, alignMent: .center, fontColor: darkTextColor, fontSize: 24, text: "正確率", zPosition: 2, name: "percentTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         makeLabelNode(x: 0, y: -90, alignMent: .center, fontColor: darkTextColor, fontSize: 30, text: "83%", zPosition: 2, name: "percent", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        makeImageNode(name: "resultOkBtn", image: "resultOkBtn", x: 2, y: -210, width: 420, height: 58, z: 2, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "resultOkBtn", image: "resultOkBtn", x: 2, y: -210  / xDif, width: 420, height: 58, z: 2, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: -270, y: -50, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "正確字數", zPosition: 2, name: "rightWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: -270  / xDif, y: -50  / xDif, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "正確字數", zPosition: 2, name: "rightWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: -120, y: -100, alignMent: .right, fontColor: darkTextColor, fontSize: 60, text: "14", zPosition: 2, name: "rightWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
-        
-        
-        makeLabelNode(x: 120, y: 10, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "錯誤字數", zPosition: 2, name: "wrongWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
-        
-          makeLabelNode(x: 260, y: -30, alignMent: .right, fontColor: darkTextColor, fontSize: 60, text: "7", zPosition: 2, name: "wrongWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: -120  / xDif, y: -100  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 60 / xDif / xDif, text: "14", zPosition: 2, name: "rightWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
+        makeLabelNode(x: 115  / xDif, y: 10  / xDif, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "錯誤字數", zPosition: 2, name: "wrongWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+          makeLabelNode(x: 260  / xDif, y: -30  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 60 / xDif / xDif, text: "7", zPosition: 2, name: "wrongWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
         
+        //製作跳過按鍵
+        /*
+        makeLabelNode(x: 255, y: 482, alignMent: .center, fontColor: .cyan, fontSize: 40, text: "skip", zPosition: 2, name: "skipLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        makeImageNode(name: "skip", image: "skipPng", x: 320, y: 503, width: 19, height: 31, z: 2, alpha: 1, isAnchoring: false)
+        */
         
         /*
         makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450, width: 275, height: 275, z: 9, alpha: 0, isAnchoring: false)
         makeImageNode(name: "mark", image: "wrongX", x: 160, y: -450, width: 202, height: 214, z: 9, alpha: 0, isAnchoring: false)
         */
+        
+        
+        makeImageNode(name: "steps", image: "step1Png", x: 0, y: -600, width: 79, height: 15, z: 2, alpha: 0, isAnchoring: false)
+        
+        let stepFadeIn = SKAction.fadeIn(withDuration: 2)
+        let stepAction = SKAction.sequence([wait, stepFadeIn])
+        findImageNode(name: "steps").run(stepAction)
     }
     
     var isTouchedNode = false
@@ -199,9 +253,16 @@ class IntroScene: SKScene {
     }
     
     var isEnterTest = false
+    
+    var isBigWordLocked = false
     @objc func recogRight(){
+        
+        changeImageAlfa(name: "steps", toAlpha: 0, time: 0.3)
+        
         findImageNode(name: "recogWordsBg").alpha = 0
-        findLabelNode(name: "bigWordLabel").text = ""
+        findLabelNode(name: "bigWordLabel").fontSize = 50
+        findLabelNode(name: "bigWordLabel").text = "測驗看看你的單字程度!"
+        isBigWordLocked = true
         
         
         
@@ -254,6 +315,8 @@ class IntroScene: SKScene {
                         changeImageAlfa(name: "okBtnFrame", toAlpha: 0, time: 0.5)
                         //changeLabelAlfa(name: "okBtnLabel", toAlpha: 0, time: 0.5)
                         
+                        changeLabelAlfa(name: "bigWordLabel", toAlpha: 0, time: 0.5)
+                        
                         let finalFadeOut = SKAction.fadeOut(withDuration: 0.5)
                         findLabelNode(name: "okBtnLabel").run(finalFadeOut) {[weak self] in
                             self!.hintSlideIn(leftText: "分級", rightText: "測驗", waitTime: 1) {
@@ -281,6 +344,8 @@ class IntroScene: SKScene {
                 findImageNode(name: "volumeBlock").run(fadeOut)
                 //findLabelNode(name: "stepLabel").run(fadeOut)
                 findLabelNode(name: "tutorialLabel").run(fadeOut) {[weak self] in
+                    
+                    self!.changeTexture(nodeName: "steps", newTexture: "step2Png")
                     
                     //self!.findLabelNode(name: "stepLabel").text = "2/4"
                     self!.findLabelNode(name: "tutorialLabel").text = "請連線拼字"
@@ -529,30 +594,64 @@ class IntroScene: SKScene {
             }
         
         //測試用
-       // if sequence == 21{
+       if sequence == 2{
             
-            if sequence == 2{
+       //     if sequence == 2{
             print("test is over")
             
+        
+        
+        if right1 >= 5 {
             
             
-            if right1 < 6 {
+            if right2 >= 4 {
+                
+                
+                 recommendedClass = "英檢中級"
+ 
+                    
+                    if right3 >= 5 {
+                        
+                         recommendedClass = "多益滿分"
+                        
+                    }
+                
+
+                
+            } else {
+                
+                
+                 recommendedClass = "英檢初級"
+            }
+            
+
+            
+        } else {
+            
+           recommendedClass = "英檢初級"
+            
+        }
+        
+        
+        
+        /*
+            if right1 < 7 {
                 //留在英檢初級
                 print("英檢初")
                 
                 recommendedClass = "英檢初級"
                 
-            } else if right2 < 6{
+            } else if right2 < 3{
                 
                 //留在英檢中
                 
                 
                 print("英檢中")
                 
-                recommendedClass = "英檢中級"
+                recommendedClass = "英檢初級"
                 
                 //這裡的判斷邏輯錯全對者無推薦
-            } else {
+            }  else if right2 > 3 && right3 > 5 {
                 
                 //建議Toeic
                 
@@ -560,11 +659,13 @@ class IntroScene: SKScene {
                 recommendedClass = "多益滿分"
                 
             }
+            */
             
             
-            
-            
-            let rightCount = right1 + right2 + right3
+        print(right1)
+        print(right2)
+        print(right3)
+        let rightCount = right1 + right2 + right3
             findLabelNode(name: "rightWordCount").text = String(rightCount)
             
             let wrongCount = 21 - rightCount
@@ -771,7 +872,9 @@ class IntroScene: SKScene {
                     removeSomeNodes(name: "line")
                     findImageNode(name: "Mi2").alpha = 0
                     findImageNode(name: "ss2").alpha = 0
+                if isBigWordLocked == false {
                     findLabelNode(name: "bigWordLabel").text = ""
+                }
                     isTouchedNode = false
                 
 
@@ -897,11 +1000,11 @@ class IntroScene: SKScene {
         let fadeOut = SKAction.fadeOut(withDuration: 0.3)
         
         let fadeOutSeq = SKAction.sequence([wait,fadeOut])
-        
+        changeTexture(nodeName: "steps", newTexture: "step3Png")
+
         
         findLabelNode(name: "tutorialLabel").run(fadeOutSeq) {[weak self] in
    
-            
             self!.findLabelNode(name: "bigWordLabel").text = "Hi!"
             self!.changeLabelAlfa(name: "bigWordLabel", toAlpha: 1, time: 0.2)
             
@@ -915,6 +1018,9 @@ class IntroScene: SKScene {
             self!.changeLabelAlfa(name: "tutorialLabel", toAlpha: 1, time: 0.2)
             */
             self!.changeImageAlfa(name: "recogWordsBg", toAlpha: 1, time: 0.2)
+            
+            
+                    self!.changeImageAlfa(name: "steps", toAlpha: 0, time: 0.5)
             
                      NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tutorialRecognize"), object: nil, userInfo: nil)
             

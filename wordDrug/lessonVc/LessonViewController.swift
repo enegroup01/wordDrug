@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 
 class LessonViewController: UIViewController{
+    
+    /*
     let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
                             ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
                             ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
@@ -25,7 +27,24 @@ class LessonViewController: UIViewController{
                             ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
                             ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
                             ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+    */
     
+    
+    let map1SyllableSets = [["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+                            ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
+                            ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
+                            ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
+                            ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
+                            ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
+                            ["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
+                            ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
+                            ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
+                            ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
+                            ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
+                            ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
+                            ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
+                            ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
+                            ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
     let map2SyllableSets = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
                             ["bo2","bu2","ce2","ch2","ck2","cl2","co2","com2","cr2", "con2"],
                             ["di2","do2","dr2","ea2","ee2","el2","en2","er2","et2", "em2"],
@@ -103,7 +122,9 @@ class LessonViewController: UIViewController{
                             ["br10","ca7","ch12","cl6","co4","com3","con4","dy2","nd5","oo19"],
                             ["ca6","ch13","cl7","com4","con5","dy3","or27","ou24","tion9","u_e5"],
                             ["ch14","cl8","com5","con6","cr3","er54","or28","ous1","ub2","up3"],
-                            ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"]]
+                            ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"],
+                            ["i_e29","ly16","on7","ry10","sh25","st28","tw2","un9","up4","us1"]]
+
     
     let map7SyllableSets = [["am9","ce12","ch16","cl10","com7","con8","cr5","i_e16","ing11","ry5"],
                             ["ay13","ch17","cl11","com8","con9","cr6","de2","en33","ry12","tion10"],
@@ -118,7 +139,8 @@ class LessonViewController: UIViewController{
                             ["a_e23","con18","dis8","dr7","em6","ge11","ing12","ment3","or29","wh4"],
                             ["al25","ce13","con19","dis9","en35","er57","ge12","ment4","qu1","tle3"],
                             ["a_e24","al26","ce14","con20","ct3","dis10","en40","er58","tion14","ve1"],
-                            ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"]]
+                            ["con21","dis11","ge13","ly5","ment5","nd6","o_e10","oi4","ry13","tion15"],
+                            ["ai19","er89","ge21","gue1","less3","ry11","ry9","ty15","un10","ur11"]]
 
     
     let map8SyllableSets = [["a_e25","con22","dis12","e_e1","en36","er59","or30","sion3","sive1","sure1"],
@@ -143,7 +165,7 @@ class LessonViewController: UIViewController{
                             ["au10","aw5","ay15","ea46","en38","in26","ing17","rn2","th13","ty8"],
                             ["an26","ck10","er67","igh7","lo1","ly9","oa8","oo21","or37","ture4"],
                             ["al37","by3","ea47","er68","gi4","in27","ou26","ous2","sp2","tion24"],
-                            ["a_e33","ad6","ai17","ai38","ce22","er69","ge15","in29","ma1","tic3"],
+                            ["a_e33","ad6","ai17","al38","ce22","er69","ge15","in29","ma1","tic3"],
                             ["al39","cal1","ch22","i_e22","in28","it2","me1","ph4","sh15","sure2"],
                             ["ble11","cle2","er70","igh8","il3","ment7","mi4","mis1","mo2","sion5"],
                             ["el16","er71","mis2","mu1","or38","ple3","th14","ture5","ty9","ug1"],
@@ -197,7 +219,7 @@ class LessonViewController: UIViewController{
                ["a_e46","ar35","as3","ct9","et5","gn2","in49","or52","sh27","tion46"],
                ["as4","at5","ce37","ck16","em7","en42","er93","ph10","sure3","sym3"],
                ["au12","ble19","ch30","oi6","ous8","th22","tion47","u_e11","ue5","um9"],
-               ["a_e47","al56","ar36","au13","aw8","ba4","ful18","ge24","us4","oo25"],
+               ["a_e47","al56","ar36","au13","aw8","ba4","ful18","ge24","is4","oo25"],
                ["ar37","ba5","be4","ea56","en43","er94","it4","ly20","ness4","ow21"],
                ["as5","bi3","bl4","br11","ch31","ck17","ea57","ee32","ge25","gi6"],
                ["bl5","bo3","ce38","er95","ing30","oa10","old3","oo26","sh28","th23"]]
@@ -362,7 +384,8 @@ class LessonViewController: UIViewController{
     var isClassAllPassed = false
     
     var maxMapNum = Int()
-    
+    var sylFontSize = CGFloat()
+    var wordFontSize = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -370,29 +393,43 @@ class LessonViewController: UIViewController{
         // Do any additional setup after loading the view.
         var dif = CGFloat()
         var xDif = CGFloat()
+        
         switch height {
         case 812:
             xDif = 1.2
             dif = 1
+            sylFontSize = 130
+            wordFontSize = 40
 
         case 736:
             xDif = 1
             dif = 1.1
-      
+            sylFontSize = 130
+            wordFontSize = 40
+
             
         case 667:
             xDif = 1
             dif = 1
+            sylFontSize = 120
+            wordFontSize = 35
 
             
         case 568:
             xDif = 1
             dif = 0.9
+            sylFontSize = 100
+            wordFontSize = 30
+
 
             
         default:
             xDif = 1
             dif = 0.9
+            sylFontSize = 130
+            wordFontSize = 40
+
+
             
         }
 
@@ -466,17 +503,29 @@ class LessonViewController: UIViewController{
         
         syllableLabel.frame = CGRect(x: 0, y: height / 5 * dif, width: width, height: height / 3.5 * dif)
     
+        syllableLabel.adjustsFontSizeToFitWidth = true
+        syllableLabel.font = syllableLabel.font.withSize(sylFontSize)
 
         syllableLabel.textAlignment = .center
         //syllableLabel.backgroundColor = .blue
         
 
         firstLabel.frame = CGRect(x: 0, y: syllableLabel.frame.maxY + 10 * dif, width: width, height: 44 * dif)
+        firstLabel.adjustsFontSizeToFitWidth = true
+        firstLabel.font = firstLabel.font.withSize(wordFontSize)
         
         //firstLabel.backgroundColor = .red
         secondLabel.frame = CGRect(x: 0, y: firstLabel.frame.maxY, width: width, height: 44 * dif)
+        secondLabel.adjustsFontSizeToFitWidth = true
+        secondLabel.font = secondLabel.font.withSize(wordFontSize)
+
+        
         //secondLabel.backgroundColor = .green
               thirdLabel.frame = CGRect(x: 0, y: secondLabel.frame.maxY, width: width, height: 44 * dif)
+        
+        thirdLabel.adjustsFontSizeToFitWidth = true
+        thirdLabel.font = thirdLabel.font.withSize(wordFontSize)
+
         
         //thirdLabel.backgroundColor = .yellow
         
@@ -742,8 +791,8 @@ class LessonViewController: UIViewController{
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 45), NSAttributedStringKey.foregroundColor : pinkColor]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.cyan]
-        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 40), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
+        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         
         //增加數字來抓正確的值
         mapNumToReceive += increaseNum

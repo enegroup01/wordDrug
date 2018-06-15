@@ -25,6 +25,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var backBtn: UIButton!
     var dif = CGFloat()
     var photoDif = CGFloat()
+    
     var usernames = [String]()
     var scores = [String]()
     var avas = [String]()
@@ -39,6 +40,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
         var activityIndicator = UIActivityIndicatorView()
+    var difX = CGFloat()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,26 +52,31 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             
             dif = 1.1
-            photoDif = 1
+            photoDif = 4
+            difX = 6
             
         case 736:
             
             dif = 1
-            photoDif = 1
+            photoDif = 0
+            difX = 0
             
         case 667:
             
             dif = 1
-            photoDif = 0.8
+            photoDif = -5
+            difX = 0
             
         case 568:
             
 
             dif = 1
-            photoDif = 0.7
+            photoDif = -8
+            difX = 8
         default:
             dif = 1
-            photoDif = 0.7
+            photoDif = 0
+            difX = 0
             
         }
         
@@ -97,20 +104,20 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         backBtn.frame = CGRect(x: width / 30, y: height / 30, width: 19 * dif, height: 31 * dif)
         
         
-        chart0Btn.frame = CGRect(x: width / 3 - 75, y: chartTableView.frame.minY / 3.3, width: 75, height: 50)
+        chart0Btn.frame = CGRect(x: width / 3 - 75, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75, height: 50)
         chart0Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart0Btn.titleLabel?.textAlignment = .center
         chart0Btn.setTitle("總分\n排行榜", for:.normal)
         //chart0Btn.backgroundColor = .red
         
-        chart1Btn.frame = CGRect(x: width / 2 - 30, y: chartTableView.frame.minY / 3.3, width: 75, height: 50)
+        chart1Btn.frame = CGRect(x: width / 2 - 30, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75, height: 50)
         chart1Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart1Btn.titleLabel?.textAlignment = .center
         chart1Btn.setTitle("英文\n拼字王", for:.normal)
         //chart1Btn.backgroundColor = .red
         
         
-        chart2Btn.frame = CGRect(x: width - 75 * 1.5, y: chartTableView.frame.minY / 3.3, width: 75, height: 50)
+        chart2Btn.frame = CGRect(x: width - 75 * 1.5 + difX, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75, height: 50)
         chart2Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart2Btn.titleLabel?.textAlignment = .center
         chart2Btn.setTitle("句型\n冠軍榜", for:.normal)
@@ -127,8 +134,11 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart0Btn.setTitleColor(lightGrayColor, for: .normal)
         
         rankMode = 2
+        
+        /*
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
+         */
         rankReview(type: 1)
         
     }
@@ -141,10 +151,12 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
        // self.view.isUserInteractionEnabled = false
         
         rankMode = 1
+        /*
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         disableBtns()
-        rankReview(type: 0)
+ */
+ rankReview(type: 0)
         
     }
     @IBAction func chart0Clicked(_ sender: Any) {
@@ -154,10 +166,12 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
        // self.view.isUserInteractionEnabled = false
         rankMode = 0
+        /*
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         disableBtns()
-        rankUsers()
+*/
+ rankUsers()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -166,10 +180,12 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
       //  self.view.isUserInteractionEnabled = false
         rankMode = 0
+        /*
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         disableBtns()
-     rankUsers()
+*/
+ rankUsers()
     }
 
     override func didReceiveMemoryWarning() {
@@ -199,20 +215,24 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else if rankMode == 1 {
             
             cell.totalScoreLabel.text = ""
-            cell.wordCountTitleLabel.text = "單字達成"
+            cell.wordCountTitleLabel.text = "過關數"
             cell.wordCountLabel.text = String(wordReviewCounts[indexPath.row])
             
             
         } else if rankMode == 2 {
             
             cell.totalScoreLabel.text = ""
-            cell.wordCountTitleLabel.text = "句型達成"
+            cell.wordCountTitleLabel.text = "過關數"
             cell.wordCountLabel.text = String(senReviewCounts[indexPath.row])
       
         }
         
         
+        //cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
+        
         cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
+        
+        
         
         /*
         if avas[indexPath.row] != "" {
@@ -251,17 +271,48 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
     */
         
-        activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-        enableBtns()
+       
         
         return cell
         
     }
-        
- 
-
     
+    
+    //用以下兩個方法來檢測scroll暫停時間
+    
+    @objc func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        //滾動時不能選擇
+       // isCollectionViewSelectabel = false
+       // segControl.isEnabled = false
+        
+        
+        print("start scroll")
+        disableBtns()
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ChartViewController.scrollViewDidEndDecelerating(_:)), object: nil)
+        
+        perform(#selector(ChartViewController.scrollViewDidEndDecelerating(_:)), with: nil, afterDelay: 0.1)
+        
+    }
+    
+    @objc func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        //滾動停止可以選擇
+     //   isCollectionViewSelectabel = true
+     //   segControl.isEnabled = true
+        
+        //self!.view.isUserInteractionEnabled = true
+        enableBtns()
+        
+        print("end scroll")
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ChartViewController.scrollViewDidScroll(_:)), object: nil)
+        
+        //用這個func來決定collectionView Cell要顯示哪個
+        
+    }
+    
+ 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -319,12 +370,13 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     
                     guard let parseJSON = json else {
                         print("Error while parsing")
-                        
+                        /*
                         self!.enableBtns()
                         self!.activityIndicator.stopAnimating()
                         UIApplication.shared.endIgnoringInteractionEvents()
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        return
+ */
+ return
                     }
                     
                     print("rank")
@@ -389,20 +441,22 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                 } catch{
                     
                     print("catch error")
+                    /*
                      self!.enableBtns()
                     self!.activityIndicator.stopAnimating()
                     UIApplication.shared.endIgnoringInteractionEvents()
                  //   self!.view.isUserInteractionEnabled = true
-                    
+                    */
                 }
             } else {
                 
                 print("urlsession has error")
+                /*
                  self!.enableBtns()
                 self!.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
                // self!.view.isUserInteractionEnabled = true
-                
+                */
             }
         }).resume()
         
@@ -432,10 +486,12 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     
                     guard let parseJSON = json else {
                         print("Error while parsing")
+                        /*
                          self!.enableBtns()
                         self!.activityIndicator.stopAnimating()
                         UIApplication.shared.endIgnoringInteractionEvents()
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        */
                         return
                     }
                     
@@ -573,20 +629,23 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                 } catch{
                     
                     print("catch error")
+                    
+                    /*
                      self!.enableBtns()
                     self!.activityIndicator.stopAnimating()
                     UIApplication.shared.endIgnoringInteractionEvents()
                     //self!.view.isUserInteractionEnabled = true
-                    
+                    */
                 }
             } else {
                 
                 print("urlsession has error")
+                /*
                  self!.enableBtns()
                 self!.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
                 //self!.view.isUserInteractionEnabled = true
-                
+                */
             }
         }).resume()
         
@@ -636,6 +695,8 @@ extension UIImageView
         {
             self.image = UIImage(named: "avatar.png")
         }
+
+
     }
 }
 

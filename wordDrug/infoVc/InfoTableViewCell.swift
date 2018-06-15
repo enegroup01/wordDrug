@@ -50,11 +50,11 @@ class InfoTableViewCell: UITableViewCell {
         infoCellBg.layer.shadowOpacity = 1
         infoCellBg.layer.shadowRadius = 2
         
-        infoTitle.textColor = midColor
-        sub1Title.textColor = lightColor
-        sub1Rate.textColor = lightColor
-        sub2Title.textColor = lightColor
-        sub2Rate.textColor = lightColor
+        infoTitle.textColor = darkColor
+        sub1Title.textColor = midColor
+        sub1Rate.textColor = midColor
+        sub2Title.textColor = midColor
+        sub2Rate.textColor = midColor
         totalRate.textColor = darkColor
         //rankTitle.textColor = midColor
         //rankLabel.textColor = lightColor
@@ -75,6 +75,7 @@ class InfoTableViewCell: UITableViewCell {
         sub1Rate.frame = CGRect(x: 0, y: sub1Title.frame.maxY, width: self.frame.width / 3.5, height: self.frame.height / 9)
         sub1Rate.textAlignment = .center
         sub1Rate.font = UIFont(name: "Helvetica Neue", size: 12)
+        //sub1Rate.backgroundColor = .blue
         
         
         //sub2Title.backgroundColor = .red
@@ -119,6 +120,7 @@ class InfoTableViewCell: UITableViewCell {
         bigCountLabel.textAlignment = .center
         bigCountLabel.frame = CGRect(x: ringView.frame.minX, y: ringView.frame.minY, width: ringView.frame.width, height: ringView.frame.height)
         bigCountLabel.adjustsFontSizeToFitWidth = true
+        //bigCountLabel.backgroundColor = .blue
         
         countUnitLabel.frame = CGRect(x: bigCountLabel.frame.maxX, y: bigCountLabel.frame.maxY - 28 * 1.5, width: 38 , height:28)
         //countUnitLabel.backgroundColor = .red

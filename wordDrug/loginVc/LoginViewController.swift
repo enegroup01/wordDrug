@@ -60,13 +60,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
        
         
+        
         logoLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
         logoLabel.font = UIFont(name: "Helvetica Bold", size: 30)
-        logoLabel.textColor = .white
+        logoLabel.textColor = .clear
         logoLabel.text = "MissWord\n我的單字老師"
         logoLabel.textAlignment = .center
         logoLabel.numberOfLines = 0
-        
+ 
         
         
         doubleLine.frame = CGRect(x: (width - 290) / 2, y: logoLabel.frame.maxY, width: 290, height: 6)

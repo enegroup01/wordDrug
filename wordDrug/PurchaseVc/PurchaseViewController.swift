@@ -35,11 +35,40 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     var activeProduct: SKProduct?
     
     var isDirectedFromGame = false
-    
+     var dif = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
+        switch height {
+        case 812:
+            
+            
+            dif = 8
+     
+            
+        case 736:
+            
+            dif = 0
+      
+            
+        case 667:
+            
+            dif = 0
+    
+            
+        case 568:
+            
+            
+            dif = 0
+       
+        default:
+            dif = 0
+  
+            
+        }
         
         
         upBg.frame = CGRect(x: 0, y: 0, width: width, height: 250)
@@ -69,7 +98,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         downTitle2.text = "英檢初級2100字\n英檢中級2250字\n多益滿分2400字\n及更多字庫更新內容..."
         
         
-        backBtn.frame = CGRect(x: 15, y: 17, width: 19, height: 31)
+        backBtn.frame = CGRect(x: 15, y: 17 + dif, width: 19, height: 31)
         
 
         

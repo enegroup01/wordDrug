@@ -23,12 +23,38 @@ class ChartTableViewCell: UITableViewCell {
     @IBOutlet weak var wordCountTitleLabel: UILabel!
     @IBOutlet weak var totalScoreLabel: UILabel!
     @IBOutlet weak var seperatorLine: UIImageView!
+    
+    var dif = CGFloat()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
-        
-        seperatorLine.frame = CGRect(x: 0, y: height / 8 - 6, width: width, height: 6)
+        switch height {
+        case 812:
+            
+            
+            dif = 1.1
+            
+        case 736:
+            
+            dif = 1
+         
+            
+        case 667:
+            
+            dif = 1
+            
+        case 568:
+            
+            
+            dif = 0.2
+        default:
+            dif = 1
+           
+            
+        }
+        seperatorLine.frame = CGRect(x: 0, y: height / 8 - 6 * dif, width: width, height: 6)
         
         rankLabel.frame = CGRect(x: width / 30, y: height / 36, width: 55, height: 50)
         //rankLabel.adjustsFontSizeToFitWidth = true
@@ -38,7 +64,7 @@ class ChartTableViewCell: UITableViewCell {
         avaImg.frame = CGRect(x: rankLabel.frame.maxX * 1.1, y: rankLabel.frame.minY, width: 50, height: 50)
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
         
-        usernameLabel.frame = CGRect(x: avaImg.frame.maxX * 1.2, y: avaImg.frame.minY, width: width / 2.5, height: 25)
+        usernameLabel.frame = CGRect(x: avaImg.frame.maxX * 1.2, y: avaImg.frame.minY - 4, width: width / 2.5, height: 29)
         //usernameLabel.backgroundColor = .green
         usernameLabel.adjustsFontSizeToFitWidth = true
         

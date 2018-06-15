@@ -15,9 +15,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let lightColor = UIColor.init(red: 196/255, green: 203/255, blue: 213/255, alpha: 1)
     let yellowColor = UIColor.init(red: 255/255, green: 182/255, blue: 13/255, alpha: 1)
 
-    
     let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
-    
 
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var rankCountLabel: UILabel!
@@ -51,7 +49,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         switch height {
         case 812:
             
-            
             dif = 1.1
             photoDif = 1
             
@@ -67,10 +64,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         case 568:
             
-            
-            
             dif = 1
             photoDif = 0.7
+            
         default:
             dif = 1
             photoDif = 1
@@ -106,7 +102,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         alphaLayer.frame = CGRect(x: 0, y: chartUpBg.frame.maxY - 60 * dif, width: width, height: 60 * dif)
         
-        
         wordCountLabel.frame = CGRect(x: backBtn.frame.minX + 10 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
         //wordCountLabel.backgroundColor = .green
@@ -121,7 +116,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         scoreCountLabel.frame = CGRect(x: width / 2 - 45 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
-        //scoreCountLabel.backgroundColor = .green
+        //scoreCountLabel.backgroundColor = .red
         scoreCountLabel.textAlignment = .center
         scoreCountLabel.adjustsFontSizeToFitWidth = true
         
@@ -463,12 +458,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.usernameLabel.text = nickname
         } else {
             
-            self.usernameLabel.text = "尚未註冊"
+            self.usernameLabel.text = "新學生"
         }
         
         
         //算字數
-        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 420
+        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 450 + mapPassed3! * 450
         var gamePassedCount = Int()
         var gamePassed2Count = Int()
         var gamePassed3Count = Int()
@@ -483,10 +478,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             gamePassed2Count = s * 30 + u * 3
         }
         
-        /*
+        
         for (s,u) in gamePassed3!{
             gamePassed3Count = s * 30 + u * 3
         }
+        /*
         for (s,u) in gamePassed4!{
             gamePassed4Count = s * 30 + u * 3
         }

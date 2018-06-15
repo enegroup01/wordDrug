@@ -243,6 +243,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
+    
+    
+    
     func requestMicAuth(){
         
         
@@ -308,7 +311,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
-    
+    var answerTime = Int()
     @IBAction func recordClicked(_ sender: Any) {
         
         //停止
@@ -338,26 +341,50 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             if recogTextLabel.text == "hi"{
                 
                 recordBtn.setImage(UIImage(named: "recordCheck.png"), for: .normal)
-                hintLabel.text = "發音很棒喔！"
+                hintLabel.text = "你好啊！"
                 
                         restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
                 isRecogRight = true
             } else {
                 
-                recordBtn.setImage(UIImage(named: "recordCross.png"), for: .normal)
                 
-                hintLabel.text = "唸錯了!再試一次喔!"
+                if answerTime == 0 {
                 
-                restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
-                isRecogRight = false
+
+                    recordBtn.setImage(UIImage(named: "recordCross.png"), for: .normal)
             
+                    hintLabel.text = "唸錯了!再試一次喔!"
+                
+                    restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
+             
+                    isRecogRight = false
+                    
+                    answerTime += 1
+               
+                } else if answerTime == 1 {
+                    
+ 
+                    recordBtn.setImage(UIImage(named: "recordCross.png"), for: .normal)
+                    
+                    hintLabel.text = "Oops！下次再練習!"
+
+           
+                    
+                    restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
+                    
+                    isRecogRight = true
+                    
+                    
+
+
+                }
                 
             }
             
         }  else {
             
             
-            
+            hintLabel.adjustsFontSizeToFitWidth = true
             hintLabel.text = "請對麥克風說「Hi」!"
             
             //btn圖案更改成錄音
@@ -482,7 +509,14 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     }
     
     
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        restultTimer.invalidate()
+        NotificationCenter.default.removeObserver(self)
+        
+        
+        
+    }
     @objc func notifyRecogRight(){
         
         

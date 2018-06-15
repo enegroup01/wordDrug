@@ -72,7 +72,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     var proRateToAdd = Int()
     var senRateToAdd = Int()
     var wrongChineseCount = Int()
-    
+    var text = String()
     
     var myWrongWords = [String]()
     
@@ -81,8 +81,38 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         
+        
+        switch height {
+        case 812:
+            
+            
+            text = "複習挑戰模式。"
+            
+            
+        case 736:
+            
+            text = "複習挑戰模式。"
+           
+            
+        case 667:
+            
+            text = "複習挑戰模式。"
+   
+            
+        case 568:
+            
+            
+            text = "單字本及複習挑戰模式。"
+        
+        default:
+            text = "複習挑戰模式。"
+          
+            
+        }
+        
         registerBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         registerBg.image = UIImage(named: "newRegisterBg.png")
+        registerBg.contentMode = .scaleToFill
         
         titleLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
         titleLabel.font = UIFont(name: "Helvetica Bold", size: 30)
@@ -110,7 +140,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         doubleLine.image = UIImage(named: "doubleLine.png")
         doubleLine.contentMode = .scaleAspectFit
         
-        subTitleLabel.text = "英檢初級，中級，多益滿分等\n上萬單字任你學習！"
+        subTitleLabel.text = "英檢初級，中級，多益滿分等\n所有單字任你學習！"
         subTitleLabel.frame = CGRect(x: 0, y: doubleLine.frame.maxY + 10, width: width, height: 50)
         subTitleLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         subTitleLabel.textAlignment = .center
@@ -204,7 +234,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         textLabel2.adjustsFontSizeToFitWidth = true
         let textContent2 = NSMutableAttributedString()
         let textLabel2Text = NSMutableAttributedString(string: "無限時間", attributes: attrs1)
-        let textLabel2Text2 = NSMutableAttributedString(string: "複習挑戰模式。", attributes: attrs0)
+        let textLabel2Text2 = NSMutableAttributedString(string: text, attributes: attrs0)
         textContent2.append(textLabel2Text)
         textContent2.append(textLabel2Text2)
         textLabel2.attributedText = textContent2
