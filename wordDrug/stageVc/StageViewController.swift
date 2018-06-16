@@ -13,13 +13,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //此兩數字要做動態
     var stageCount = 5
-    var elemWordsMax = [450,450,450,450,450,450,450]
+    var elemWordsMax:[Int] = [450,450,450,450,450,450,450]
     
     var courseReceived = Int()
     
     var mapNumToPass = Int()
   
-    var eachCellMyWordsCount = [0,0,0,0,0,0,0]
+    var eachCellMyWordsCount:[Int] = [0,0,0,0,0,0,0]
 
     
     var wordCounts = Int()
@@ -36,7 +36,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
-    var locks = [1,1,1,1,1,1,1]
+    var locks:[Int] = [1,1,1,1,1,1,1]
     
     var alertBg = UIImageView()
     var alertText = UILabel()

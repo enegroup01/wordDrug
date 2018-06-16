@@ -44,7 +44,7 @@ class NewGameScene: SKScene {
     */
     
     
-    let map1SyllableSets = [["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+    let map1SyllableSets:[[String]] = [["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
                             ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
                             ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
                             ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
@@ -61,7 +61,7 @@ class NewGameScene: SKScene {
         ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
     
     
-    let map2SyllableSets = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
+    let map2SyllableSets:[[String]] = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
                             ["bo2","bu2","ce2","ch2","ck2","cl2","co2","com2","cr2", "con2"],
                             ["di2","do2","dr2","ea2","ee2","el2","en2","er2","et2", "em2"],
                             ["ew2","ex2","ey2","fi2","fr2","gr2","hi2","ie2","igh2","ge2"],
@@ -77,7 +77,7 @@ class NewGameScene: SKScene {
                             ["re3","sh3","st3","th3","tion3","tr3","ty3","u_e3","ui3","ry3"],
                             ["er37","er38","er39","er40","er41","er42","er43","er44","er45","er46"]]
     
-    let map3SyllableSets = [["un3","ur3","wh3","a_e4","ad4","ai4","al4","am4","an4","um3"],
+    let map3SyllableSets:[[String]] = [["un3","ur3","wh3","a_e4","ad4","ai4","al4","am4","an4","um3"],
                             ["ar4","au4","ay4","ce4","ch4","ck4","ea4","ee4","el4","em4"],
                             ["en4","er4","ex4","ge4","i_e4","igh4","im4","in4","ing4","ir4"],
                             ["o_e4","oa4","on4","oo4","or4","ot4","ou4","ow4","mo1","pr4"],
@@ -93,7 +93,7 @@ class NewGameScene: SKScene {
                             ["en7","er7","i_e7","in7","ing7","oo7","or7","ou7","ow7","gy1"],
                             ["er47","er48","er49","er50","er51","er52","ea36","ea37","ea38","ce9"]]
     
-    let map4SyllableSets = [["sh7","st7","th7","a_e8","ai8","al8","am8","an8","ar8","ay8"],
+    let map4SyllableSets:[[String]] = [["sh7","st7","th7","a_e8","ai8","al8","am8","an8","ar8","ay8"],
                             ["ce8","ea8","ee8","el8","en8","er8","i_e8","in8","ing8","ch8"],
                             ["oo8","or8","ou8","ow8","nic1","st8","th8","a_e9","ai9","sh8"],
                             ["al9","an9","ar9","ay9","ea9","ee9","el9","er9","i_e9","en9"],
@@ -109,7 +109,7 @@ class NewGameScene: SKScene {
                             ["ge6","gh1","gi2","gn1","gu1","i_e13","in13","lar1","mb1","mid1"],
                             ["st17","an21","ng1","ge7","ou22","str1","pi2","ca1","ax1","ax2"]]
     
-    let map5SyllableSets = [["mi2","mi3","mud1","na1","nd3","ny1","olf1","oo13","ood1","or13"],
+    let map5SyllableSets:[[String]] = [["mi2","mi3","mud1","na1","nd3","ny1","olf1","oo13","ood1","or13"],
                             ["ou13","st13","sw1","tle2","a_e14","al14","an14","ar14","ea14","sym1"],
                             ["ee14","en14","er14","i_e14","in14","oo14","or14","ou14","st14","a_e15"],
                             ["al15","an15","ar15","ea15","ee15","en15","er15","i_e15","in15","oo15"],
@@ -126,7 +126,7 @@ class NewGameScene: SKScene {
                             ["bet1","a_e16","ba2","ban1","bar1","bl2","br2","br3","br4","ble3"]]
     
     
-    let map6SyllableSets = [["a_e17","ar19","br5","ce10","em5","er52","my1","set1","st18","tain1"],
+    let map6SyllableSets:[[String]] = [["a_e17","ar19","br5","ce10","em5","er52","my1","set1","st18","tain1"],
                             ["au6","ch9","ing9","mic1","ph3","sh9","th10","tic1","tion7","u_e4"],
                             ["ai14","ar20","au7","aw4","ct2","ful2","ge8","nd4","tive2","ue3"],
                             ["a_e18","ac4","al22","au8","ban2","et4","ly3","ou23","sin1","sit1"],
@@ -142,7 +142,7 @@ class NewGameScene: SKScene {
                             ["a_e20","ch15","cl9","com6","con7","cr4","cy1","ea41","sh11","ta1"],
                             ["i_e29","ly16","on7","ry10","sh25","st28","tw2","un9","up4","us1"]]
     
-    let map7SyllableSets = [["am9","ce12","ch16","cl10","com7","con8","cr5","i_e16","ing11","ry5"],
+    let map7SyllableSets:[[String]] = [["am9","ce12","ch16","cl10","com7","con8","cr5","i_e16","ing11","ry5"],
                             ["ay13","ch17","cl11","com8","con9","cr6","de2","en33","ry12","tion10"],
                             ["a_e21","an23","ch18","com9","con10","cr7","de3","igh5","pr7","ty5"],
                             ["ai15","ch19","com10","con11","cr8","er55","ge10","ment2","pr8","tion11"],
@@ -159,7 +159,7 @@ class NewGameScene: SKScene {
                             ["ai19","er89","ge21","gue1","less3","ry11","ry9","ty15","un10","ur11"]]
     
     
-    let map8SyllableSets = [["a_e25","con22","dis12","e_e1","en36","er59","or30","sion3","sive1","sure1"],
+    let map8SyllableSets:[[String]] = [["a_e25","con22","dis12","e_e1","en36","er59","or30","sion3","sive1","sure1"],
                 ["a_e26","ai16","al27","ci6","con23","dis13","en37","eye1","or31","sh12"],
                 ["a_e27","al28","ble8","ce15","ck8","con24","fi3","i_e19","ing13","ry14"],
                 ["con25","ea42","er60","fl1","fo2","ful3","or32","ou25","sh13","tion16"],
@@ -177,7 +177,7 @@ class NewGameScene: SKScene {
 
     
     
-    let map9SyllableSets = [["a_e31","al35","ce20","ew3","ful5","gle1","in23","jo1","tion22","ui5"],
+    let map9SyllableSets:[[String]] = [["a_e31","al35","ce20","ew3","ful5","gle1","in23","jo1","tion22","ui5"],
     ["a_e32","al36","ce21","in24","kn2","ko1","lab1","ly8","ness2","tion23"],
     ["ar26","ble10","bug1","er66","gr7","i_e21","in25","kn3","la1","u_e6"],
     ["au10","aw5","ay15","ea46","en38","in26","ing17","rn2","th13","ty8"],
@@ -195,7 +195,7 @@ class NewGameScene: SKScene {
     
     
     
-    let map10SyllableSets = [["a_e35","an27","ci7","ea52","ma1","o_e13","ow17","ox1","pa1","sh16"],
+    let map10SyllableSets:[[String]] = [["a_e35","an27","ci7","ea52","ma1","o_e13","ow17","ox1","pa1","sh16"],
     ["al43","ar27","ce24","ea48","ee29","i_e23","ly11","pa2","rl1","sion6"],
     ["a_e36","al44","er74","ing19","ph5","ri1","st19","tic4","ty10","um6"],
     ["al45","ay16","ce25","er75","ge17","or42","ous4","ph6","po1","sion7"],
@@ -212,7 +212,7 @@ class NewGameScene: SKScene {
     ["dom1","i_e31","in31","ing28","it3","ld1","ness3","or49","wh7","wo1"]]
     
     
-    let map11SyllableSets = [["a_e38","al50","ce32","er83","i_e26","ing22","ry6","sa1","sc2","tion38"],
+    let map11SyllableSets:[[String]] = [["a_e38","al50","ce32","er83","i_e26","ing22","ry6","sa1","sc2","tion38"],
     ["ch26","ci8","e_e2","ea50","en39","ew5","oo23","ry7","sh18","ty13"],
     ["ble14","ce33","ei1","ex5","igh9","im8","in30","ri2","sh19","ture6"],
     ["a_e39","ch27","ee30","er84","ing23","ip2","ly15","sh26","sl1","tion39"],
@@ -228,7 +228,7 @@ class NewGameScene: SKScene {
     ["ble17","er88","ful7","ing27","oo24","or48","ous6","tw1","ty14","u_e8"],
     ["aw7","dom2","el18","er91","ly17","or50","ow19","wh8","wr2","yo1"]]
 
-    let map12SyllableSets = [["ab3","ac5","ce34","ly18","mic3","my2","or51","sion10","sive4","tion42"],
+    let map12SyllableSets:[[String]] = [["ab3","ac5","ce34","ly18","mic3","my2","or51","sion10","sive4","tion42"],
                              ["a_e43","ab4","ble18","ch29","ci9","com14","ge23","ing29","ou29","u_e9"],
                              ["ab5","ad7","al54","cr13","ct8","dr8","pt1","qu8","ture7","ult3"],
                              ["a_e44","ad8","cy2","ment9","mic4","ny3","ous7","tion43","tive7","ty16"],
@@ -245,7 +245,7 @@ class NewGameScene: SKScene {
                              ["bl5","bo3","ce38","er95","ing30","oa10","old3","oo26","sh28","th23"]]
     
     
-    let map13SyllableSets = [["a_e48","ai21","bl6","br12","ew6","i_e34","qu10","que2","th24","ty17"],
+    let map13SyllableSets:[[String]] = [["a_e48","ai21","bl6","br12","ew6","i_e34","qu10","que2","th24","ty17"],
                  ["ab6","al57","bl7","br13","bu6","by4","ch32","ck18","dle2","gy4"],
                  ["a_e49","an30","ar38","ble20","br14","bu7","ca8","cap1","or53","ria1"],
                  ["al58","an31","ar39","bu8","ca9","er96","gue2","ry16","sh29","ty18"],
@@ -261,7 +261,7 @@ class NewGameScene: SKScene {
                  ["ch42","com22","con32","cr16","ing33","ly21","o_e18","u_e13","ur13","us2"],
                  ["a_e52","ch43","con33","ea58","en44","er100","que4","sh31","ur14","zle2"]]
 
-    let map14SyllableSets = [["a_e53","ce43","con34","cy3","de4","e_e3","en45","i_e35","tive10","ty21"],
+    let map14SyllableSets:[[String]] = [["a_e53","ce43","con34","cy3","de4","e_e3","en45","i_e35","tive10","ty21"],
                              ["a_e54","ce44","con35","de5","er101","et6","ge27","i_e36","oi7","tion54"],
                              ["a_e55","al62","con36","de","di4","gr8","ma2","sion13","tion55","u_e14"],
                              ["a_e56","ay19","ble23","ce45","con37","de7","dis14","er102","tion56","tive11"],
@@ -278,7 +278,7 @@ class NewGameScene: SKScene {
                              ["a_e65","ble25","ee35","fl4","fo3","ing36","o_e21","oa11","or58","sh33"]]
 
     
-    let map15SyllableSets = [["a_e66","al68","er105","fr5","ge30","ment16","or59","ou31","tion62","ty23"],
+    let map15SyllableSets:[[String]] = [["a_e66","al68","er105","fr5","ge30","ment16","or59","ou31","tion62","ty23"],
                              ["a_e67","au15","ce49","ea60","ga2","or60","ous11","th26","tion63","un12"],
                              ["a_e69","al69","con42","ge32","gl4","gle2","i_e40","tic12","tle4","ture9"],
                              ["a_e68","an33","er106","ge33","gr9","im9","ing37","ous12","ph12","u_e17"],
@@ -294,7 +294,7 @@ class NewGameScene: SKScene {
                              ["a_e77","al75","ce54","er109","i_e43","igh12","im12","in57","ly26","ty26"],
                              ["a_e78","ck22","en48","er110","ge36","in58","lo2","oa12","oo28","tion68"]]
     
-    let map16SyllableSets = [["a_e79","ai24","al76","in59","ing39","or62","ous15","ry23","tive14","u_e19"],
+    let map16SyllableSets:[[String]] = [["a_e79","ai24","al76","in59","ing39","or62","ous15","ry23","tive14","u_e19"],
                              ["a_e80","ar42","ble32","ch46","er111","in60","ma3","ow26","tion69","ture10"],
                              ["al77","ce55","em9","en49","ful9","in61","ma4","me2","tic14","um12"],
                              ["al78","i_e44","in62","ly27","me3","mis4","mo3","ry24","ty27","us3"],
@@ -311,7 +311,7 @@ class NewGameScene: SKScene {
                              ["a_e86","ble35","ch49","ea64","i_e47","igh13","o_e24","or68","po4","sh36"]]
 
     
-    let map17SyllableSets = [["ai25","al84","ce59","ly29","ous18","pre1","ry26","tion74","tive17","ture12"],
+    let map17SyllableSets:[[String]] = [["ai25","al84","ce59","ly29","ous18","pre1","ry26","tion74","tive17","ture12"],
                              ["ce60","cy6","ee38","ge39","i_e48","ous19","pr16","pre2","sure4","tion75"],
                              ["al85","ct11","ing42","o_e25","pr17","sion18","tion76","tive18","ty31","u_e22"],
                              ["ble36","o_e26","pr18","qu13","st32","tion77","ty32","ue8","um15","ur15"],
@@ -328,7 +328,7 @@ class NewGameScene: SKScene {
                              ["er122","gle3","gy7","oa14","oi9","re22","sc7","sh39","sl3","th28"]]
 
     
-    let map18SyllableSets = [["ar44","ce66","i_e50","o_e27","ou37","ph17","sh40","so3","sp9","tion84"],
+    let map18SyllableSets:[[String]] = [["ar44","ce66","i_e50","o_e27","ou37","ph17","sh40","so3","sp9","tion84"],
                              ["a_e92","al89","ble39","ee40","ge43","ing45","ly32","ous22","sh41","sp10"],
                              ["ck26","ing46","ry29","sh42","sp11","st33","tic16","tle5","u_e25","um16"],
                              ["a_e93","ch51","ck27","ing47","oo30","sh43","sp12","st34","str6","sub3"],

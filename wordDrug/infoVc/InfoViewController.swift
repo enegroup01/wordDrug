@@ -36,8 +36,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var dif = CGFloat()
     var photoDif = CGFloat()
     
-    var sub1Rates = [0,0,0,0,0]
-    var sub2Rates = [0,Int(),Int(),Int(),Int()]
+    var sub1Rates:[Int] = [0,0,0,0,0]
+    var sub2Rates:[Int] = [0,Int(),Int(),Int(),Int()]
     
     @IBOutlet weak var alphaLayer: UIImageView!
     

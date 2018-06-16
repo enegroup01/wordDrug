@@ -527,6 +527,7 @@
 		AA5C2ED820A5542900EAD999 /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C2ED620A5542900EAD999 /* emptyStar.png */; };
 		AA5E2C46203D3738005E22A0 /* loginBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5E2C45203D3738005E22A0 /* loginBtnImg.png */; };
 		AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5E2C49203D374E005E22A0 /* registerBtnImg.png */; };
+		AA61E81B20D4E8E40040A1E8 /* relWords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA61E81A20D4E8E40040A1E8 /* relWords.txt */; };
 		AA63D1F52087588C000EA088 /* resultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F42087588B000EA088 /* resultBg.png */; };
 		AA63D1F820875DBD000EA088 /* wrongWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F620875DBA000EA088 /* wrongWordBtn.png */; };
 		AA63D1F920875DBD000EA088 /* rightWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F720875DBB000EA088 /* rightWordBtn.png */; };
@@ -720,7 +721,6 @@
 		AA7BB4F920CA8213001A1F66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4F820CA8213001A1F66 /* GoogleService-Info.plist */; };
 		AA7D61372040408200E0A94D /* blueBackBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D61362040408200E0A94D /* blueBackBtnImg.png */; };
 		AA7D6139204040A400E0A94D /* purpleBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7D6138204040A300E0A94D /* purpleBg.png */; };
-		AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */; };
 		AA7DCB952085BE65008AFFDF /* s1-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB942085BE64008AFFDF /* s1-7.txt */; };
 		AA7DCB972085BE71008AFFDF /* 1-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB962085BE70008AFFDF /* 1-7.txt */; };
 		AA8B69F62024777D0023E0FD /* NewGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA8B69F52024777D0023E0FD /* NewGameScene.sks */; };
@@ -1328,6 +1328,7 @@
 		AA5C2ED620A5542900EAD999 /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		AA5E2C45203D3738005E22A0 /* loginBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginBtnImg.png; sourceTree = "<group>"; };
 		AA5E2C49203D374E005E22A0 /* registerBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerBtnImg.png; sourceTree = "<group>"; };
+		AA61E81A20D4E8E40040A1E8 /* relWords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = relWords.txt; sourceTree = "<group>"; };
 		AA63D1F42087588B000EA088 /* resultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultBg.png; sourceTree = "<group>"; };
 		AA63D1F620875DBA000EA088 /* wrongWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongWordBtn.png; sourceTree = "<group>"; };
 		AA63D1F720875DBB000EA088 /* rightWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightWordBtn.png; sourceTree = "<group>"; };
@@ -1522,7 +1523,6 @@
 		AA7BB4F820CA8213001A1F66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA7D61362040408200E0A94D /* blueBackBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueBackBtnImg.png; sourceTree = "<group>"; };
 		AA7D6138204040A300E0A94D /* purpleBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleBg.png; sourceTree = "<group>"; };
-		AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "有發音問題的字.txt"; sourceTree = "<group>"; };
 		AA7DCB942085BE64008AFFDF /* s1-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s1-7.txt"; sourceTree = "<group>"; };
 		AA7DCB962085BE70008AFFDF /* 1-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-7.txt"; sourceTree = "<group>"; };
 		AA8B69F52024777D0023E0FD /* NewGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NewGameScene.sks; sourceTree = "<group>"; };
@@ -2487,7 +2487,7 @@
 				AA15E96F20D1531700A1AB82 /* s18-13.txt */,
 				AA15E9AB20D1532900A1AB82 /* s18-14.txt */,
 				AA15E98720D1531E00A1AB82 /* s18-15.txt */,
-				AA7DCB922085BB1C008AFFDF /* 有發音問題的字.txt */,
+				AA61E81A20D4E8E40040A1E8 /* relWords.txt */,
 				AAE46C8120A4213E00FA6FCD /* 老師唸錯的字.txt */,
 			);
 			path = words;
@@ -2857,12 +2857,12 @@
 				AA15E7D520D150D600A1AB82 /* s3-8.txt in Resources */,
 				AA15EAD020D1534C00A1AB82 /* s6-8.txt in Resources */,
 				AA36414A20D3A82300237B9F /* 4-2.txt in Resources */,
+				AA61E81B20D4E8E40040A1E8 /* relWords.txt in Resources */,
 				AA15E90020D1527600A1AB82 /* 14-14.txt in Resources */,
 				AA648EC7207CEA05003ACD07 /* s4-3.txt in Resources */,
 				AA15EAB020D1534C00A1AB82 /* s15-11.txt in Resources */,
 				AA36413520D395F400237B9F /* leftRoundedSqr2.png in Resources */,
 				AA648EA8207CEA05003ACD07 /* 3-14.txt in Resources */,
-				AA7DCB932085BB1C008AFFDF /* 有發音問題的字.txt in Resources */,
 				AA15EADE20D1534C00A1AB82 /* s6-11.txt in Resources */,
 				AA648EE1207CEA05003ACD07 /* s5-12.txt in Resources */,
 				AA6AA72D209C9A3200374241 /* popQuizBlock.png in Resources */,
