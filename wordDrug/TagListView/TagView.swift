@@ -164,7 +164,33 @@ open class TagView: UIButton {
         super.init(frame: CGRect.zero)
         //setTitle(title, for: UIControlState())
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 26), NSAttributedStringKey.foregroundColor : UIColor.white]
+        
+        var engFontSize = CGFloat()
+        
+        let height = UIScreen.main.bounds.height
+        
+         switch  height {
+         case 812:
+         
+         engFontSize = 24
+         case 736:
+         
+         engFontSize = 24
+         case 667:
+         
+         engFontSize = 20
+         case 568:
+         
+         engFontSize = 18
+         default:
+         engFontSize = 24
+         }
+         
+         
+         
+   
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 1), NSAttributedStringKey.foregroundColor : UIColor.clear]
         
         var attrTitle = NSMutableAttributedString()

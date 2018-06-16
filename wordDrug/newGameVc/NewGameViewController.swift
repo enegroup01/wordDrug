@@ -300,6 +300,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         var xDif = CGFloat()
         var tagFontSize = CGFloat()
+        var tagMarginY = CGFloat()
+        var btnDif2 = CGFloat()
+        var playBtnY = CGFloat()
         
         switch height {
         case 812:
@@ -308,14 +311,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 1.15
             senLabelHeightDif = 0.7
             iPadDif = 1
-            tagFontSize = 25
+            tagFontSize = 24
+            tagMarginY = 13
+            btnDif2 = 1
+            playBtnY = 0
         case 736:
             xDif = 1
             btnDif = 1.1
             dif = 1.1
             senLabelHeightDif = 0.78
             iPadDif = 1
-            tagFontSize = 25
+            tagFontSize = 24
+            tagMarginY = 13
+            btnDif2 = 1.1
+            playBtnY = 0
             
         case 667:
             xDif = 1
@@ -324,6 +333,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             senLabelHeightDif = 0.9
             iPadDif = 1
             tagFontSize = 20
+            tagMarginY = 10
+            btnDif2 = 1
+            playBtnY = 0
             
         case 568:
             xDif = 1
@@ -332,6 +344,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             senLabelHeightDif = 1
             iPadDif = 1
             tagFontSize = 18
+            tagMarginY = 8
+            btnDif2 = 0.9
+            playBtnY = 5
             
         default:
             xDif = 1
@@ -339,7 +354,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1.2
-            tagFontSize = 25
+            tagFontSize = 24
+            tagMarginY = 13
+            btnDif2 = 0.9
+            playBtnY = 0
             
         }
         
@@ -570,14 +588,35 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         
-        sen1Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: height / 2 , width: 350 * dif, height: 57 * dif)
+        sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: height / 2 , width: 350 * btnDif2, height: 57 * btnDif2)
+        //sen1Btn.imageView?.contentMode = .scaleAspectFit
         
-        sen2Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * dif, height: 57 * dif)
+        sen1Btn.titleLabel?.adjustsFontSizeToFitWidth = true
+        sen1Btn.titleLabel?.numberOfLines = 2
+        sen1Btn.titleEdgeInsets.left = 8
         
-        sen3Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * dif, height: 57 * dif)
         
-        sen4Btn.frame = CGRect(x:(width - 350 * dif) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * dif, height: 57 * dif)
+        sen2Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * btnDif2, height: 57 * btnDif2)
+        sen2Btn.titleLabel?.adjustsFontSizeToFitWidth = true
+
+        sen2Btn.titleLabel?.numberOfLines = 2
+        sen2Btn.titleEdgeInsets.left = 8
+
         
+        sen3Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
+        sen3Btn.titleLabel?.adjustsFontSizeToFitWidth = true
+
+        sen3Btn.titleLabel?.numberOfLines = 2
+        sen3Btn.titleEdgeInsets.left = 8
+
+        
+        sen4Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
+        
+        sen4Btn.titleLabel?.adjustsFontSizeToFitWidth = true
+     
+        sen4Btn.titleLabel?.numberOfLines = 2
+        sen4Btn.titleEdgeInsets.left = 8
+
 
         allBtns.append(sen1Btn)
         allBtns.append(sen2Btn)
@@ -646,7 +685,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         coverBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         coverBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
-        recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5)
+        
+        //改變高度
+        recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5.5)
+    
        //recogTextLabel.backgroundColor = .yellow
         //做三個對話圓
 
@@ -710,16 +752,23 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         tagView.delegate = self
         tagView.isHidden = true
 
+        tagView.marginY = tagMarginY
+        print(tagMarginY)
         
+        tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height * 2 / 5)
         
-        tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height / 2.7 * dif * senLabelHeightDif / iPadDif)
+        //tagView.backgroundColor = .red
         
-        //tagView.textFont = UIFont.boldSystemFont(ofSize: 10)
+        tagView.textFont = UIFont.boldSystemFont(ofSize: tagFontSize)
+        
+       
         
         
        
         //辨識字的大小設定
         recogTextLabel.adjustsFontSizeToFitWidth = true
+        //recogTextLabel.backgroundColor = .green
+        
         
         //wave畫面設定
         audioView.isHidden = true
@@ -733,7 +782,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         //設定發音鍵
-        playSoundBtn.frame = CGRect(x: width - 35 * dif * 1.5, y: height - 23 * dif * 1.5, width: 35 * dif, height: 23 * dif)
+        playSoundBtn.frame = CGRect(x: width - 35 * dif * 1.5, y: height - 23 * dif * 1.5 + playBtnY, width: 35 * dif - playBtnY, height: 23 * dif - playBtnY)
+        
+        
+        
         
 
 
@@ -3129,7 +3181,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
          
                 allBtns[i].contentHorizontalAlignment = .left
                
-                allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
+                allBtns[i].setTitle("\(i + 1). " + senBtnTitles[i], for: .normal)
           
             }
               print("10")

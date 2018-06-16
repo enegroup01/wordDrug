@@ -374,6 +374,39 @@ open class TagListView: UIView {
     }
     
     open func setTitle(_ title: String, at index: Int) {
+        
+        
+       // var engFontSize = CGFloat()
+        
+      //  let height = UIScreen.main.bounds.height
+        /*
+            switch  height {
+            case 812:
+
+                engFontSize = 30
+            case 736:
+           
+                engFontSize = 30
+            case 667:
+               
+                engFontSize = 25
+            case 568:
+            
+                engFontSize = 10
+            default:
+                engFontSize = 30
+            }
+        
+        
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 10), NSAttributedStringKey.foregroundColor : UIColor.white]
+        
+        
+        let attrTitle = NSAttributedString(string: title, attributes: attrs0)
+        
+        
+        tagViews[index].titleLabel?.attributedText = attrTitle
+        */
         tagViews[index].titleLabel?.text = title
     }
     

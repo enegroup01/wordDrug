@@ -1326,7 +1326,8 @@ class NewGameScene: SKScene {
         leftChiNode.name = "leftChi"
         leftChiNode.fontName = "Helvetica Bold"
         //leftChiNode.text = "age"
-       adjustLabelFontSizeToFitRect(labelNode: leftChiNode, rect: findImageNode(name: "leftChiBtn").frame)
+
+        adjustLabelFontSizeToFitRect(labelNode: leftChiNode, rect: findImageNode(name: "leftChiBtn").frame)
 
         addChild(leftChiNode)
         
@@ -3655,6 +3656,8 @@ class NewGameScene: SKScene {
         //changeTexture(nodeName: "leftChiBtn", newTexture: "popQuizBlock")
         //changeTexture(nodeName: "rightChiBtn", newTexture: "popQuizBlock")
         
+        adjustLabelFontSizeToFitRect(labelNode: findLabelNode(name: "bigChineseLabel"), rect: findLabelNode(name: "bigChineseLabel").frame)
+        
         findImageNode(name: "popUpBlock").alpha = 1
         findImageNode(name: "popDownBlock").alpha = 1
         
@@ -3754,6 +3757,9 @@ class NewGameScene: SKScene {
             
             //leftChiNode.text = twoEngAnswers[0]
             //rightChiNode.text = twoEngAnswers[1]
+            
+            adjustLabelFontSizeToFitRect(labelNode: findLabelNode(name: "popUpLabel"), rect: findLabelNode(name: "popUpLabel").frame)
+            adjustLabelFontSizeToFitRect(labelNode: findLabelNode(name: "popDownLabel"), rect: findLabelNode(name: "popDownLabel").frame)
             
             //adjustLabelFontSizeToFitRect(labelNode: leftChiNode, rect: findImageNode(name: "leftChiBtn").frame)
             
