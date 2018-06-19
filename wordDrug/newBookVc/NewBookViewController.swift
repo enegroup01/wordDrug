@@ -497,6 +497,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var leftBtnClickedImg = UIImageView()
     var rightBtnClickedImg = UIImageView()
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+    let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
 
     let wrongPronounceWords:[[String:[String]]] = [["烘焙":["烘陪"]], ["affect":["a fect"]], ["頭髮":["頭法"]], ["campaign":["cam pain"]], ["和":["汗"]], ["woman":["wo men"]], ["snowman":["snow man"]], ["fisherman":["fisher man"]], ["gentleman":["gentle man"]], ["supermarket":["super market"]], ["劣拙地":["列濁地"]], ["begin":["be ghing"]], ["巧克力":["巧顆粒"]], ["lead":["leed"]], ["tear":["tee er"]], ["度數":["度樹"]], ["年紀較長的":["年紀較漲的"]], ["告訴":["吿速"]], ["envelope":["anvelope"]], ["sensor":["sen sir"]], ["友誼":["有宜"]], ["kilometer":["killa meter"]], ["桶子":["統子"]], ["油炸":["油柵"]], ["外框":["外筐"]], ["高麗菜":["高力菜"]], ["油炸的":["油柵的"]], ["磨坊":["魔訪"]], ["螫":["遮"]], ["kneepad":["knee pad"]], ["iron":["eye ern"]], ["歌曲":["哥取"]], ["鵝":["蛾"]], ["forehead":["fore head"]], ["數":["鼠"]], ["April":["eigh pro"]], ["重播":["蟲剝"]], ["槳糊":["降胡"]], ["stupid":["stubid"]], ["錫":["習"]], ["曲線":["娶線"]], ["風箏":["風蒸"]], ["comb":["kome"]], ["wolf":["wallf"]], ["absurd":["a bsurd"]]]
     
@@ -620,7 +621,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         self.view.addSubview(ghostBtn)
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2 + xDif, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        alertBg.image = UIImage(named: "reviewQuitBg.png")
+        alertBg.image = UIImage(named: "reviewQuitBg2.png")
         self.view.addSubview(alertBg)
         
         ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
@@ -636,10 +637,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alertBg.addSubview(alertText)
         
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width, height: height * 44 / 667)
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * cellDif, width: alertBg.frame.width, height: height * 44 / 667)
    
         practiceWordBtn.setTitle("我知道了", for: .normal)
-        practiceWordBtn.setTitleColor(darkRed, for: .normal)
+        practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
         

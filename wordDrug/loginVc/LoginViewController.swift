@@ -152,7 +152,7 @@ dif = 1
         
 
         
-        loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: registerBtn.frame.minY, width: 138, height: 35)
+        loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
         loginBtn.layer.cornerRadius = loginBtn.frame.width / 40
         loginBtn.clipsToBounds = true
         loginBtn.titleLabel?.textAlignment = .center

@@ -40,6 +40,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
     let recordingPinkColor = UIColor.init(red: 1, green: 0, blue: 149/255, alpha: 1)
     let yellowColor = UIColor.init(red: 239/255, green: 196/255, blue: 91/255, alpha: 1)
+     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     //顯示辨識字的label
     @IBOutlet weak var recogTextLabel: UILabel!
@@ -312,7 +313,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         switch height {
         case 812:
-            xDif = 1.2
+            xDif = 1.05
             btnDif = 1
             dif = 1.15
             senLabelHeightDif = 0.7
@@ -540,7 +541,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(ghostBtn)
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        alertBg.image = UIImage(named: "reviewSelectBg.png")
+        alertBg.image = UIImage(named: "reviewSelectBg2.png")
         self.view.addSubview(alertBg)
         
         alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
@@ -553,18 +554,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         alertBg.addSubview(alertText)
         
         cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        
+        cancelBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
         cancelBtn.setTitle("取消", for: .normal)
-        cancelBtn.setTitleColor(darkRed, for: .normal)
+        cancelBtn.setTitleColor(orangeColor, for: .normal)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(cancelBtn)
         
         quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        quitBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
         quitBtn.setTitle("離開", for: .normal)
-        quitBtn.setTitleColor(darkRed, for: .normal)
+        quitBtn.setTitleColor(orangeColor, for: .normal)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         self.view.addSubview(quitBtn)
         
+        /*
         leftBtnClickedImg.frame = cancelBtn.frame
         leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
         
@@ -575,7 +578,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(rightBtnClickedImg)
         leftBtnClickedImg.alpha = 0
         rightBtnClickedImg.alpha = 0
-
+*/
 
         coverBg.image = UIImage(named:"coverBg.png")
         resultBg.image = UIImage(named:"resultBg.png")
@@ -1103,8 +1106,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         self.view.bringSubview(toFront: cancelBtn)
         self.view.bringSubview(toFront: quitBtn)
-        self.view.bringSubview(toFront: leftBtnClickedImg)
-        self.view.bringSubview(toFront: rightBtnClickedImg)
+       // self.view.bringSubview(toFront: leftBtnClickedImg)
+       // self.view.bringSubview(toFront: rightBtnClickedImg)
         self.view.bringSubview(toFront: bonusScoreLabel)
         
         
@@ -1313,9 +1316,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @objc func leaveWithoutSaving(){
         
+        
+        timer?.invalidate()
+        
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        /*
         UIView.animate(withDuration: 0.06, animations: {[weak self] in
             
-            self!.leftBtnClickedImg.alpha = 1
+           // self!.rightBtnClickedImg.alpha = 1
             
             
         }) {[weak self] (finished:Bool) in
@@ -1342,7 +1352,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 self!.dismiss(animated: true, completion: nil)
             }
         }
-        
+        */
     }
 
     @objc func removeBtns(){
@@ -1353,6 +1363,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartCounting"), object: nil, userInfo: nil)
        // }
+        
+
+        
         
         ghostBtn.isHidden = true
         alertBg.isHidden = true
@@ -3608,7 +3621,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         switch sentenceCounts{
             
-        case 0 ..< 15:
+        case 0...9:
+            senFontSize += 2
+            
+        case 10 ..< 15:
             print("小於15個字")
             
         case 15 ..< 20:

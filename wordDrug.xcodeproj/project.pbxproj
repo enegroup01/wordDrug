@@ -726,6 +726,8 @@
 		AA8D07D820D516FC005D2777 /* s11-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA8D07D720D516FB005D2777 /* s11-3.txt */; };
 		AA8FAE90202D912600342CED /* rightCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8FAE8F202D912600342CED /* rightCircle.png */; };
 		AA8FAE92202D913A00342CED /* wrongX.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8FAE91202D913A00342CED /* wrongX.png */; };
+		AA9457A920D8ED9E004681B7 /* reviewQuitBg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9457A820D8ED9E004681B7 /* reviewQuitBg2.png */; };
+		AA9457AB20D8F3C2004681B7 /* reviewSelectBg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9457AA20D8F3C1004681B7 /* reviewSelectBg2.png */; };
 		AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA96556020909461003E5AB7 /* reviewSelectBg.png */; };
 		AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */; };
 		AA9655652090A048003E5AB7 /* rightBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */; };
@@ -1528,6 +1530,8 @@
 		AA8D07D720D516FB005D2777 /* s11-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-3.txt"; sourceTree = "<group>"; };
 		AA8FAE8F202D912600342CED /* rightCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightCircle.png; sourceTree = "<group>"; };
 		AA8FAE91202D913A00342CED /* wrongX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongX.png; sourceTree = "<group>"; };
+		AA9457A820D8ED9E004681B7 /* reviewQuitBg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewQuitBg2.png; sourceTree = "<group>"; };
+		AA9457AA20D8F3C1004681B7 /* reviewSelectBg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSelectBg2.png; sourceTree = "<group>"; };
 		AA96556020909461003E5AB7 /* reviewSelectBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSelectBg.png; sourceTree = "<group>"; };
 		AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftBtnClickedImg.png; sourceTree = "<group>"; };
 		AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightBtnClickedImg.png; sourceTree = "<group>"; };
@@ -1722,6 +1726,7 @@
 				AA2B64CF205A609D00742226 /* bookBackBtn.png */,
 				AAFAFC9F205BD9C900307264 /* wordTableBg.png */,
 				AA45760520CE308D00B6680B /* newBookBg.png */,
+				AA9457A820D8ED9E004681B7 /* reviewQuitBg2.png */,
 				AA9655682090B7E2003E5AB7 /* practiceBook.png */,
 				AAFAFCA1205BDD6500307264 /* sylBlueBall.png */,
 				AAFAFCAD205BE11E00307264 /* bookPlayOn.png */,
@@ -1877,6 +1882,7 @@
 				AA8B69F52024777D0023E0FD /* NewGameScene.sks */,
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
+				AA9457AA20D8F3C1004681B7 /* reviewSelectBg2.png */,
 				AA6C95DD20AAAA8F001158E7 /* fire.sks */,
 				AA36412A20D392FF00237B9F /* darkSel3.png */,
 				AA36412B20D392FF00237B9F /* lightSel3.png */,
@@ -2680,6 +2686,7 @@
 				AA15EA5820D1534C00A1AB82 /* s16-11.txt in Resources */,
 				AA648E9D207CEA05003ACD07 /* s3-13.txt in Resources */,
 				AA15E8E320D1527600A1AB82 /* 11-13.txt in Resources */,
+				AA9457AB20D8F3C2004681B7 /* reviewSelectBg2.png in Resources */,
 				AA27DE1320B6E633003250D2 /* reviewSenResultBg.png in Resources */,
 				AA648EB4207CEA05003ACD07 /* 1-15.txt in Resources */,
 				AA36413D20D39D3300237B9F /* popDownBlock2.png in Resources */,
@@ -3112,6 +3119,7 @@
 				AA15E91520D1527600A1AB82 /* 17-5.txt in Resources */,
 				AA648E9C207CEA05003ACD07 /* 3-12.txt in Resources */,
 				AA15E93720D1527600A1AB82 /* 18-12.txt in Resources */,
+				AA9457A920D8ED9E004681B7 /* reviewQuitBg2.png in Resources */,
 				AA648EA7207CEA05003ACD07 /* s2-12.txt in Resources */,
 				AA15E8EC20D1527600A1AB82 /* 17-15.txt in Resources */,
 				AA15E94020D1527600A1AB82 /* 15-11.txt in Resources */,

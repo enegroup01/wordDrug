@@ -366,7 +366,7 @@ class LessonViewController: UIViewController{
     var rightBtnClickedImg = UIImageView()
     var bigQuitBtn = UIButton()
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
-    
+    let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     
     //發音單字
@@ -444,7 +444,7 @@ class LessonViewController: UIViewController{
         
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        alertBg.image = UIImage(named: "reviewSelectBg.png")
+        alertBg.image = UIImage(named: "reviewSelectBg2.png")
         self.view.addSubview(alertBg)
         
         ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
@@ -463,25 +463,27 @@ class LessonViewController: UIViewController{
         practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         
         practiceWordBtn.setTitle("拼字王挑戰", for: .normal)
-        practiceWordBtn.setTitleColor(darkRed, for: .normal)
+        practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
         
         practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         practiceSenBtn.setTitle("句型冠軍榜", for: .normal)
-        practiceSenBtn.setTitleColor(darkRed, for: .normal)
+        practiceSenBtn.setTitleColor(orangeColor, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
         
         bigQuitBtn = UIButton(type: .system)
         bigQuitBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width, height: height * 44 / 667)
  
+        bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
         bigQuitBtn.setTitle("我知道了", for: .normal)
-        bigQuitBtn.setTitleColor(.darkGray, for: .normal)
+        bigQuitBtn.setTitleColor(orangeColor, for: .normal)
         
         bigQuitBtn.addTarget(self, action:#selector(LessonViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(bigQuitBtn)
         
+        /*
         leftBtnClickedImg.frame = practiceWordBtn.frame
         leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
         
@@ -492,7 +494,7 @@ class LessonViewController: UIViewController{
         self.view.addSubview(rightBtnClickedImg)
         leftBtnClickedImg.alpha = 0
         rightBtnClickedImg.alpha = 0
-
+*/
         
         backBtn.frame = CGRect(x: width / 10, y: width / 8, width: 19, height: 31)
         lessonTitleLabel.frame = CGRect(x: width * 5.5 / 7, y: backBtn.frame.minY - 10 * dif, width: 66 , height: 22)
@@ -622,6 +624,7 @@ class LessonViewController: UIViewController{
         bigQuitBtn.isHidden = true
         practiceSenBtn.isEnabled = true
         practiceWordBtn.isEnabled = true
+        alertBg.image = UIImage(named: "reviewSelectBg2.png")
     }
     
     
@@ -630,6 +633,32 @@ class LessonViewController: UIViewController{
         print("practice Sen")
         
         gameMode = 2
+        
+        
+        
+        practiceWordBtn.isEnabled = false
+        practiceSenBtn.isEnabled = false
+        
+        //有bug, 印出以下兩數字
+        
+        /*
+        print(self!.mapPassedInt)
+        print(self!.gamePassedDic)
+        */
+        
+        if gamePassedDic == [0:0] && mapNumToReceive >= mapPassedInt{
+            
+            print("不能練習句子")
+            cannotPracticeAlert()
+            
+            
+        } else {
+            
+            performSegue(withIdentifier: "toGameVc", sender: self)
+        }
+        
+        
+        /*
         
         UIView.animate(withDuration: 0.06, animations: {[weak self] in
             
@@ -684,7 +713,7 @@ class LessonViewController: UIViewController{
                 
             }
         }
-        
+        */
         
     }
     
@@ -1136,7 +1165,7 @@ class LessonViewController: UIViewController{
         ghostBtn.isHidden = false
         
         
-        alertBg.image = UIImage(named: "reviewQuitBg.png")
+        alertBg.image = UIImage(named: "reviewQuitBg2.png")
         alertBg.isHidden = false
         bigQuitBtn.isHidden = false
         ghost2Btn.isHidden = false

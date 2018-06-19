@@ -10,6 +10,7 @@ import UIKit
 
 class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+      let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     //此兩數字要做動態
     var stageCount = 5
@@ -53,6 +54,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var yDif = CGFloat()
     var xDif = CGFloat()
     var alertY = CGFloat()
+    var iknowY = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,30 +68,35 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             xDif = 0
             
             alertY = 560
+            iknowY  = 5
         case 736:
             
             dif = 1.1
             yDif = 0
             xDif = 0
             alertY = 580
+            iknowY  = 0
         case 667:
             
             dif = 1
             yDif = 0
             xDif = 0
             alertY = 562
+            iknowY  = 0
         case 568:
             
             dif = 0.9
             yDif = 0
             xDif = 10
             alertY = 480
+            iknowY  = -5
             
         default:
             dif = 0.9
             yDif = 0
             xDif = 0
             alertY = 580
+            iknowY  = 0
         }
 
         // Do any additional setup after loading the view.
@@ -140,7 +147,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height * 1.5)
         ghostBtn.backgroundColor = lightGray
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 5, width: 237 * dif, height: 156 * dif)
-        alertBg.image = UIImage(named: "noClassAlertBg.png")
+        alertBg.image = UIImage(named: "reviewQuitBg2.png")
 
         alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
         alertText.font = UIFont(name: "Helvetica Neue Bold", size: 26)
@@ -152,11 +159,16 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         alertBg.addSubview(alertText)
 
-        let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
-        iknowBtn.frame = CGRect(x: (width - 150 * dif) / 2, y: height * 1.75 / 5, width: 150 * dif, height: 36 * dif)
-        iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
+        //let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+        iknowBtn.frame = CGRect(x: (width - 210 * dif) / 2, y: height * 1.83 / 5, width: 210 * dif, height: 40 * dif)
+        
+        
+
+        //iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
+        //iknowBtn.backgroundColor = .red
+        iknowBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
         iknowBtn.setTitle("我知道了", for: .normal)
-        iknowBtn.setTitleColor(darkRed, for: .normal)
+        iknowBtn.setTitleColor(orangeColor, for: .normal)
         iknowBtn.addTarget(self, action: #selector(StageViewController.iKnowClicked), for: .touchUpInside)
         collectionView.addSubview(ghostBtn)
         collectionView.addSubview(iknowBtn)
@@ -199,7 +211,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         iknowBtn.isEnabled = false
         
         alertBg.frame.origin.y = height * 1 / 5
-        iknowBtn.frame.origin.y = height * 1.75 / 5
+        iknowBtn.frame.origin.y = height * 1.83 / 5 - iknowY
     }
     
     @available(iOS 6.0, *)
