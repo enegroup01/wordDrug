@@ -30,6 +30,9 @@ let globalStart = "globalStart"
 
 var limitTimer = Timer()
 
+var sentenceCounts = Int()
+var senFontSize = CGFloat()
+
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
     
     //中文字粉紅色
@@ -288,6 +291,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var scoresToSend = Int()
   
     var newRels = [String]()
+          //  var tagFontSize = CGFloat()
+    
+    var sentenceCount = Int()
     
     override func viewDidLoad() {
         
@@ -299,7 +305,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var btnDif = CGFloat()
         
         var xDif = CGFloat()
-        var tagFontSize = CGFloat()
+
         var tagMarginY = CGFloat()
         var btnDif2 = CGFloat()
         var playBtnY = CGFloat()
@@ -311,7 +317,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 1.15
             senLabelHeightDif = 0.7
             iPadDif = 1
-            tagFontSize = 24
+            senFontSize = 26
             tagMarginY = 13
             btnDif2 = 1
             playBtnY = 0
@@ -321,7 +327,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 1.1
             senLabelHeightDif = 0.78
             iPadDif = 1
-            tagFontSize = 24
+            senFontSize = 26
             tagMarginY = 13
             btnDif2 = 1.1
             playBtnY = 0
@@ -332,7 +338,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 1
             senLabelHeightDif = 0.9
             iPadDif = 1
-            tagFontSize = 20
+            senFontSize = 22
             tagMarginY = 10
             btnDif2 = 1
             playBtnY = 0
@@ -343,7 +349,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1
-            tagFontSize = 18
+            senFontSize = 20
             tagMarginY = 8
             btnDif2 = 0.9
             playBtnY = 5
@@ -354,7 +360,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1.2
-            tagFontSize = 24
+            senFontSize = 26
             tagMarginY = 13
             btnDif2 = 0.9
             playBtnY = 0
@@ -759,7 +765,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //tagView.backgroundColor = .red
         
-        tagView.textFont = UIFont.boldSystemFont(ofSize: tagFontSize)
         
        
         
@@ -2758,6 +2763,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
 
     //檢查句子
+
+    //這裡的func 已經用不到了...
     
     func checkSentence(){
         print("trigger check sentence")
@@ -2912,11 +2919,35 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             self!.sentenceTag.shuffled()
             
+            
+            //在此可以決定句子有多少個字
+            
+            if self!.sentenceTag.count > 10 {
+                //10個字以上
+                
+                
+                
+            } else {
+                
+                
+            }
+            
+            
+            print("製作句子 check sentence")
+            
+            
+            
             for i in 0 ..< self!.sentenceTag.count{
                 
                 self!.tagView.addTag(self!.sentenceTag[i] + " " + String(i))
                 
+                
+                
             }
+ 
+            
+            //self!.tagView.addTags(self!.sentenceTag)
+            
             
             //準備選擇題
             self!.sentenceLabel.text = ""
@@ -3560,6 +3591,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //選擇題
     func makeTag(){
         
+        
+        print("makeTag 製作句子")
+        
         //製作tags
         sentenceTag = sentence.components(separatedBy: " ")
         
@@ -3567,12 +3601,63 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sentenceTag.shuffled()
         
         //加入tag裡
+        
+        
+        sentenceCounts = sentenceTag.count
+        
+        
+        switch sentenceCounts{
+            
+        case 0 ..< 15:
+            print("小於15個字")
+            
+        case 15 ..< 20:
+            print("字數15-20")
+            
+            senFontSize -= 2
+            
+        case 20...23:
+            
+            print("字數20 - 23以上")
+            senFontSize -= 4
+            
+            
+            case 24...26:
+            print("字數24 - 26")
+            
+            senFontSize -= 6
+            
+        case 26...:
+            print("字數26以上")
+            senFontSize -= 8
+            
+        default:
+            break
+   
+            
+            
+        }
+        
+        
+        
+        
+        tagView.textFont = UIFont.boldSystemFont(ofSize: senFontSize)
+
+        
+        
         for i in 0 ..< sentenceTag.count{
             
             //後方加入數字做辨認
             tagView.addTag(sentenceTag[i] + " " + String(i))
             
         }
+ 
+        
+        
+        
+        //tagView.addTags(sentenceTag)
+        
+        
         
         //準備選擇題
         sentenceLabel.text = ""

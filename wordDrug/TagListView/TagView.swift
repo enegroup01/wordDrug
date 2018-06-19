@@ -164,7 +164,7 @@ open class TagView: UIButton {
         super.init(frame: CGRect.zero)
         //setTitle(title, for: UIControlState())
         
-        
+        /*
         var engFontSize = CGFloat()
         
         let height = UIScreen.main.bounds.height
@@ -172,25 +172,50 @@ open class TagView: UIButton {
          switch  height {
          case 812:
          
-         engFontSize = 24
+         engFontSize = 26
          case 736:
          
-         engFontSize = 24
+         engFontSize = 26
          case 667:
          
-         engFontSize = 20
+         engFontSize = 22
          case 568:
          
-         engFontSize = 18
+         engFontSize = 20
          default:
-         engFontSize = 24
+         engFontSize = 26
          }
-         
-         
+        
+        
+        
+        switch sentenceCounts{
+            
+        case 0 ..< 15:
+            print("內部func小於15個字")
+            
+        case 15 ..< 20:
+            print("內部func字數15-20")
+            
+            engFontSize -= 2
+            
+        case 20...:
+            
+            print("內部func字數20以上")
+            engFontSize -= 6
+            
+            
+        default:
+            break
+            
+            
+            
+        }
+         */
          
    
+        //有加入數字在後面
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: senFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 1), NSAttributedStringKey.foregroundColor : UIColor.clear]
         
         var attrTitle = NSMutableAttributedString()
