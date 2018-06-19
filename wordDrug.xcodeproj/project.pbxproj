@@ -783,6 +783,8 @@
 		AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAE181991F97892D00683896 /* Assets.xcassets */; };
 		AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */; };
 		AAE46C8220A4213F00FA6FCD /* 老師唸錯的字.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAE46C8120A4213E00FA6FCD /* 老師唸錯的字.txt */; };
+		AAEB791E20D923E900B171D5 /* reviewQuitBg3.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEB791D20D923E900B171D5 /* reviewQuitBg3.png */; };
+		AAEB792020D92A7800B171D5 /* reviewSelectBg3.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEB791F20D92A7700B171D5 /* reviewSelectBg3.png */; };
 		AAF0687C20D401320060903C /* 18-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAF0687720D401310060903C /* 18-7.txt */; };
 		AAF0687D20D401320060903C /* s15-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAF0687820D401310060903C /* s15-9.txt */; };
 		AAF0687E20D401320060903C /* 10-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAF0687920D401320060903C /* 10-12.txt */; };
@@ -1589,6 +1591,8 @@
 		AAE1819C1F97892D00683896 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAE1819E1F97892D00683896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAE46C8120A4213E00FA6FCD /* 老師唸錯的字.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "老師唸錯的字.txt"; sourceTree = "<group>"; };
+		AAEB791D20D923E900B171D5 /* reviewQuitBg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewQuitBg3.png; sourceTree = "<group>"; };
+		AAEB791F20D92A7700B171D5 /* reviewSelectBg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSelectBg3.png; sourceTree = "<group>"; };
 		AAF0687720D401310060903C /* 18-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "18-7.txt"; sourceTree = "<group>"; };
 		AAF0687820D401310060903C /* s15-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s15-9.txt"; sourceTree = "<group>"; };
 		AAF0687920D401320060903C /* 10-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-12.txt"; sourceTree = "<group>"; };
@@ -1883,7 +1887,9 @@
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
 				AA9457AA20D8F3C1004681B7 /* reviewSelectBg2.png */,
+				AAEB791F20D92A7700B171D5 /* reviewSelectBg3.png */,
 				AA6C95DD20AAAA8F001158E7 /* fire.sks */,
+				AAEB791D20D923E900B171D5 /* reviewQuitBg3.png */,
 				AA36412A20D392FF00237B9F /* darkSel3.png */,
 				AA36412B20D392FF00237B9F /* lightSel3.png */,
 				AA064EDA20D23C7500DD87BA /* popDownBlock.png */,
@@ -2903,6 +2909,7 @@
 				AA648EE3207CEA05003ACD07 /* s5-15.txt in Resources */,
 				AA15E92720D1527600A1AB82 /* 17-8.txt in Resources */,
 				AA15EA9B20D1534C00A1AB82 /* s15-12.txt in Resources */,
+				AAEB792020D92A7800B171D5 /* reviewSelectBg3.png in Resources */,
 				AA648EBE207CEA05003ACD07 /* 5-13.txt in Resources */,
 				AA648E98207CEA05003ACD07 /* s4-10.txt in Resources */,
 				AA15EA9420D1534C00A1AB82 /* s15-2.txt in Resources */,
@@ -3347,6 +3354,7 @@
 				AA15E89B20D1527600A1AB82 /* 15-14.txt in Resources */,
 				AA648E8B207CEA05003ACD07 /* s3-2.txt in Resources */,
 				AA15EA2120D1534C00A1AB82 /* s17-12.txt in Resources */,
+				AAEB791E20D923E900B171D5 /* reviewQuitBg3.png in Resources */,
 				AA15EA2320D1534C00A1AB82 /* s17-2.txt in Resources */,
 				AA648ED3207CEA05003ACD07 /* s2-13.txt in Resources */,
 				AA15EA5F20D1534C00A1AB82 /* s17-14.txt in Resources */,

@@ -444,39 +444,42 @@ class LessonViewController: UIViewController{
         
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        alertBg.image = UIImage(named: "reviewSelectBg2.png")
+        alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
         
         ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         self.view.addSubview(ghost2Btn)
         
-        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 28)
+        alertText.frame = CGRect(x: 5 * dif , y: 20 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
         alertText.textColor = .white
-        alertText.text = "請選擇模式"
-        alertText.numberOfLines = 2
+        alertText.text = "請選擇挑戰模式"
+        alertText.numberOfLines = 4
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
         
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         
+        practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         practiceWordBtn.setTitle("拼字王挑戰", for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
         
-        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        
+        practiceSenBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         practiceSenBtn.setTitle("句型冠軍榜", for: .normal)
         practiceSenBtn.setTitleColor(orangeColor, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
         
         bigQuitBtn = UIButton(type: .system)
-        bigQuitBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width, height: height * 44 / 667)
+        bigQuitBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width, height: height * 44 / 667)
  
-        bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
+        bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         bigQuitBtn.setTitle("我知道了", for: .normal)
         bigQuitBtn.setTitleColor(orangeColor, for: .normal)
         
@@ -613,7 +616,7 @@ class LessonViewController: UIViewController{
     
     @objc func removeBtns(){
         
-        alertText.text = "請選擇模式"
+        alertText.text = "請選擇挑戰模式"
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         ghost2Btn.isHidden = true
@@ -624,7 +627,7 @@ class LessonViewController: UIViewController{
         bigQuitBtn.isHidden = true
         practiceSenBtn.isEnabled = true
         practiceWordBtn.isEnabled = true
-        alertBg.image = UIImage(named: "reviewSelectBg2.png")
+        alertBg.image = UIImage(named: "reviewSelectBg3.png")
     }
     
     
@@ -1161,11 +1164,11 @@ class LessonViewController: UIViewController{
     
     func cannotPracticeAlert(){
         
-        alertText.text = "此課程尚未學習，無法挑戰\n 至少需要學習一個單元才能挑戰複習"
+        alertText.text = "\n此課程尚未學習，無法挑戰\n至少需要學習一個單元才能挑戰"
         ghostBtn.isHidden = false
         
         
-        alertBg.image = UIImage(named: "reviewQuitBg2.png")
+        alertBg.image = UIImage(named: "reviewQuitBg3.png")
         alertBg.isHidden = false
         bigQuitBtn.isHidden = false
         ghost2Btn.isHidden = false

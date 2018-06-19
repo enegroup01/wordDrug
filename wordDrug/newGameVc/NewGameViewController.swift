@@ -541,11 +541,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(ghostBtn)
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        alertBg.image = UIImage(named: "reviewSelectBg2.png")
+        alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
         
-        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 34)
+        alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
         alertText.textColor = .white
         alertText.text = "\n離開目前課程\n學習進度不會儲存!"
         alertText.numberOfLines = 0
@@ -553,15 +553,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
         
-        cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        cancelBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
+        cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        cancelBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         cancelBtn.setTitle("取消", for: .normal)
         cancelBtn.setTitleColor(orangeColor, for: .normal)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(cancelBtn)
         
-        quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        quitBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
+        quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         quitBtn.setTitle("離開", for: .normal)
         quitBtn.setTitleColor(orangeColor, for: .normal)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)

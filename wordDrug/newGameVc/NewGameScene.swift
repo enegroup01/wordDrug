@@ -554,7 +554,12 @@ class NewGameScene: SKScene {
     let orangeColor = UIColor.init(red: 242/255, green: 79/255, blue: 43/255, alpha: 1)
     let purpleColor = UIColor.init(red: 212/255, green: 141/255, blue: 249/255, alpha: 1)
     
+    
+  
+    
     override func didMove(to view: SKView) {
+        
+         makeLabelNode(x: 0, y: -290, alignMent: .center, fontColor: pinkColor, fontSize: 40, text: "", zPosition: 3, name: "showHint", fontName: "Helvetica Bold", isHidden: true, alpha: 1)
         
         
         //啟動離開遊戲
@@ -794,6 +799,14 @@ class NewGameScene: SKScene {
             loadAllKindsOfWord()
             //設定畫面
             setUpScreen()
+            
+            
+            //提示timer
+            //hintTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameScene.showHint), userInfo: nil, repeats: true)
+            
+            
+            
+            
         }
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
@@ -802,6 +815,12 @@ class NewGameScene: SKScene {
         makeLabelNode(x: 0, y: -1380 / 2 + 228 * 1.5, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 3, name: "popUpLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeImageNode(name: "popDownBlock", image: "popDownBlock2", x: 0, y: -1334 / 2 + 114, width: 750, height: 228, z: 2, alpha: 0, isAnchoring: false)
         makeLabelNode(x: 0, y: -1380 / 2 + 114, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 3, name: "popDownLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+   
+    
+    
+       
+    
+    
     }
     
     //載入各種字, 這裡面的load word要換位置避免浪費資源
@@ -1009,6 +1028,17 @@ class NewGameScene: SKScene {
     }
     
     
+    var hintSec = Int()
+    
+    
+    /*
+    @objc func showHint(){
+        
+        hintSec += 1
+        
+        
+    }
+    */
     @objc func playEndingMusic(){
         
         self.run(endSound)
@@ -1035,6 +1065,8 @@ class NewGameScene: SKScene {
 
         
     }
+    
+    
     
     //只做句子練習畫面
     func setUpSentenceScreen(){
@@ -1089,6 +1121,8 @@ class NewGameScene: SKScene {
     //載入畫面
         var engFontSize = CGFloat()
     func setUpScreen(){
+        
+        findLabelNode(name: "showHint").text = "請連線"
         
         var chiBtnDif = CGFloat()
         var dif = CGFloat()
@@ -1930,6 +1964,9 @@ class NewGameScene: SKScene {
     
     @objc func backToSpell(_ notification:NSNotification){
         
+        
+        
+        
         //抓分數
         if let addScore = notification.userInfo?["addScore"] as? Int{
             if addScore != 0 {
@@ -2059,6 +2096,13 @@ class NewGameScene: SKScene {
     //練習模式
     func practice(){
         
+        
+        if isBackToSpell{
+        
+        hintSec = 0
+        findLabelNode(name: "showHint").text = "請連線"
+        }
+        
         var iPadDif = CGFloat()
         
         switch  height {
@@ -2105,6 +2149,8 @@ class NewGameScene: SKScene {
                     if self!.isBackToSpell{
                         
                         shouldPronounce = true
+                   
+                        
                         
                     } else {
                         shouldPronounce = false
@@ -2166,6 +2212,10 @@ class NewGameScene: SKScene {
                         
                         if !self!.countScoreTimer.isValid {
                                 self!.isUserInteractionEnabled = true
+                            
+                            
+                         
+                            
                         }
                     
                     })
@@ -2409,6 +2459,9 @@ class NewGameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        hintSec = 0
+
+        
         for touch in touches{
             
             location = touch.location(in: self)
@@ -2460,6 +2513,9 @@ class NewGameScene: SKScene {
             //之後要寫中文錯誤的機制
             //確認中文正確與否
             if node.name == "leftChiBtn" || node.name == "leftChi" || node.name == "popUpBlock" || node.name == "popUpLabel"{
+                
+                
+                //重置hintSec
                 
                 
                 //停止timer
@@ -2677,6 +2733,11 @@ class NewGameScene: SKScene {
             
             for touch in touches{
                 
+                
+                
+                //重置hintSec
+                hintSec = 0
+                
                 isEndOnNode = true
                 
                 //設定正在移動中的位置
@@ -2830,11 +2891,16 @@ class NewGameScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        //重置
+        hintSec = 0
+        
         if touchTimes > 0{
             
    
             if isDragAndPlayEnable{
                 print("dragAndPlay")
+                
+                
                 
                 // Part 通用模式
                 
@@ -2867,6 +2933,8 @@ class NewGameScene: SKScene {
                     
                 }
                 
+           
+                
                 //初始化
                 //isFirstTouch = false
                 touchTimes = 0
@@ -2878,6 +2946,8 @@ class NewGameScene: SKScene {
                 //假如答案正確
                 if wordEntered == currentWordArray{
                     
+                    hintSec = 0
+                    findLabelNode(name: "showHint").text = ""
                     
      
                     
@@ -3014,7 +3084,7 @@ class NewGameScene: SKScene {
                     if isBackToSpell{
                         
                         //如果是gameMode == 1, 錯一次就遊戲停止
-                        
+                     
                         
                         
                         if answerTime < 1 {
@@ -3079,6 +3149,11 @@ class NewGameScene: SKScene {
                             
                             
                         } else {
+                            
+                            
+                            
+                            findLabelNode(name: "showHint").text = ""
+                            
                             answerTime = 0
                             //失去機會
                             
@@ -3183,6 +3258,13 @@ class NewGameScene: SKScene {
     
     
     func testChinese(){
+        
+        
+        hintSec = 0
+        let moveUp = SKAction.moveTo(y: -150, duration: 0)
+        findLabelNode(name: "showHint").run(moveUp)
+        findLabelNode(name: "showHint").text = "請選擇正確中文"
+        
         
         for node in children{
             
@@ -3777,6 +3859,23 @@ class NewGameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        
+        
+        hintSec += 1
+        
+        if hintSec >  180{
+            //都沒動就發動
+            //print("需要提醒")
+            findLabelNode(name: "showHint").isHidden = false
+            
+            
+        } else {
+            //print("x")
+            findLabelNode(name: "showHint").isHidden = true
+        }
+        
+        
         
         
     }

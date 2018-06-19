@@ -147,10 +147,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height * 1.5)
         ghostBtn.backgroundColor = lightGray
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 5, width: 237 * dif, height: 156 * dif)
-        alertBg.image = UIImage(named: "reviewQuitBg2.png")
+        alertBg.image = UIImage(named: "reviewQuitBg3.png")
 
-        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 26)
+        alertText.frame = CGRect(x: 5 * dif , y: 25 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
         alertText.textColor = .white
         alertText.text = ""
         alertText.numberOfLines = 0
@@ -160,13 +160,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         alertBg.addSubview(alertText)
 
         //let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
-        iknowBtn.frame = CGRect(x: (width - 210 * dif) / 2, y: height * 1.83 / 5, width: 210 * dif, height: 40 * dif)
+        iknowBtn.frame = CGRect(x: (width - 210 * dif) / 2, y: height * 1.88 / 5, width: 210 * dif, height: 40 * dif)
         
         
 
         //iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
         //iknowBtn.backgroundColor = .red
-        iknowBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
+        iknowBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         iknowBtn.setTitle("我知道了", for: .normal)
         iknowBtn.setTitleColor(orangeColor, for: .normal)
         iknowBtn.addTarget(self, action: #selector(StageViewController.iKnowClicked), for: .touchUpInside)
@@ -211,7 +211,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         iknowBtn.isEnabled = false
         
         alertBg.frame.origin.y = height * 1 / 5
-        iknowBtn.frame.origin.y = height * 1.83 / 5 - iknowY
+        iknowBtn.frame.origin.y = height * 1.88 / 5 - iknowY
     }
     
     @available(iOS 6.0, *)

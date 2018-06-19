@@ -621,14 +621,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         self.view.addSubview(ghostBtn)
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2 + xDif, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        alertBg.image = UIImage(named: "reviewQuitBg2.png")
+        alertBg.image = UIImage(named: "reviewQuitBg3.png")
         self.view.addSubview(alertBg)
         
         ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         self.view.addSubview(ghost2Btn)
         
-        alertText.frame = CGRect(x: 5 * dif , y: 5 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Neue Bold", size: 28)
+        alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
         alertText.textColor = .white
         alertText.text = "選擇練習模式"
         alertText.numberOfLines = 0
@@ -637,8 +637,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alertBg.addSubview(alertText)
         
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 44 * cellDif, width: alertBg.frame.width, height: height * 44 / 667)
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif, width: alertBg.frame.width, height: height * 44 / 667)
    
+        practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         practiceWordBtn.setTitle("我知道了", for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
@@ -1486,7 +1487,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //載入錯誤單字, 使用時機: 移除錯誤單字即時顯示使用
     func loadMyWrongWords(){
         
-            alertTextShown = "此課程到目前為止\n無任何錯字!"
+            alertTextShown = "\n此課程到目前為止\n無任何錯字!"
         
         //載入我的錯誤單字
         if let myWrongWordsString = user?["wrongWords"] as! String?{
