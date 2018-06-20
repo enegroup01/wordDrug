@@ -295,6 +295,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
           //  var tagFontSize = CGFloat()
     
     var sentenceCount = Int()
+    @IBOutlet weak var hintLabel: UILabel!
     
     override func viewDidLoad() {
         
@@ -432,6 +433,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopLimitTimer), name: NSNotification.Name("stopLimitTimer"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPlayEndMusic), name: NSNotification.Name("playEndingMusic"), object: nil)
+        
+        
+     
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
 
         
         //做reviewAlert
@@ -790,7 +795,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         //設定發音鍵
-        playSoundBtn.frame = CGRect(x: width - 35 * dif * 1.5, y: height - 23 * dif * 1.5 + playBtnY, width: 35 * dif - playBtnY, height: 23 * dif - playBtnY)
+        playSoundBtn.frame = CGRect(x: width - 69 * dif, y: height - 23 * dif * 1.5 + playBtnY, width: 69 * dif - playBtnY, height: 32 * dif - playBtnY)
         
         
         
@@ -1181,6 +1186,34 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             newRels.append(newRel)
             
         }
+        
+        hintLabel.textColor = .white
+        hintLabel.frame = CGRect(x: (width - 200) / 2, y: recordBtn.frame.minY - 40, width: 200, height: 30)
+
+        hintLabel.frame.size = CGSize(width: 200, height: 30)
+        hintLabel.text = ""
+        //hintLabel.backgroundColor = .blue
+        hintLabel.adjustsFontSizeToFitWidth = true
+        hintLabel.textAlignment = .center
+        
+
+    }
+    
+    
+    
+    @objc func removePronounceBtn(){
+        
+
+        
+    }
+    
+    @objc func removePlaySoundBtn(){
+        
+        
+        print("remove pronounceBtn")
+        playSoundBtn.isHidden = true
+        
+        
     }
     
     
@@ -1498,6 +1531,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.stopLimitTimer), name: NSNotification.Name("stopLimitTimer"), object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
         
         
         //先確認有沒有購買
@@ -2380,6 +2416,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //改成小寫
         wordToReceive = wordToReceive.lowercased()
         
+        hintLabel.text = "請按一下麥克風"
+        
        
     }
     
@@ -2490,6 +2528,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }  else {
             
 
+            hintLabel.text = "請唸單字"
+            
             
             //btn圖案更改成錄音
             recordBtn.setImage(UIImage(named:"recordingBtn.png"), for: .normal)
@@ -2577,6 +2617,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         if let result = result {
     
                             if let resultWord = result.bestTranscription.formattedString.lowercased() as String?{
+                                
+                                
+                                self!.hintLabel.text = "再按一下麥克風結束"
                                 
                                 
                                 if relWordsFound.count != 0 {
@@ -2999,6 +3042,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //正確
         if wordRecorded == wordToReceive{
             
+            hintLabel.text = "很棒喔！"
+            
             recordBtn.setImage(UIImage(named:"recordCheck.png"), for: .normal)
             
             isRecogWordCorrect = true
@@ -3008,6 +3053,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         } else {
             
+            hintLabel.text = "Oops！錯了喔!"
        
             //錯誤
             recordBtn.setImage(UIImage(named:"recordCross.png"), for: .normal)
@@ -3041,6 +3087,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 var score = Int()
                 if self!.answerTime == 0 {
                     
+                    
+                    
                     score = 200
                 } else if self!.answerTime == 1 {
                     
@@ -3048,6 +3096,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     self?.answerTime = 0
                 }
                 
+                self!.hintLabel.text = ""
             
                 let addScore:[String:Int] = ["addScore":score]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToSpell"), object: nil, userInfo: addScore)
@@ -3058,6 +3107,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 if self!.answerTime < 1 {
                     
                     //可以繼續練習
+                    
+                    self!.hintLabel.text = "再試一次"
                 
                     self!.answerTime += 1
                     
@@ -3070,6 +3121,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     self!.answerTime = 0
                     
                     
+                    self!.hintLabel.text = ""
                     let addScore:[String:Int] = ["addScore":0]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToSpell"), object: nil, userInfo: addScore)
                     
@@ -3607,6 +3659,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         print("makeTag 製作句子")
         
+
+        
+        
         //製作tags
         sentenceTag = sentence.components(separatedBy: " ")
         
@@ -3688,7 +3743,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
  
         
         //隱藏輸入字
+        
+        
         recogTextLabel.text = ""
+        
+        //做提示
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor : UIColor.white]
+        
+        recogTextLabel.attributedText = NSAttributedString(string: "點擊下列單字來排列句型", attributes: attrs0)
         
         //顯示出tag
         tagView.isHidden = false
@@ -3757,6 +3820,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //確認tag的答案
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        
+        
+                 recogTextLabel.text = ""
        
         tagView.isSelected = !tagView.isSelected
         

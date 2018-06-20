@@ -347,7 +347,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FL0-p7-P4u">
                                 <rect key="frame" x="332" y="624" width="37" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="soundPng.png"/>
+                                <state key="normal" backgroundImage="pronounceBtn4.png"/>
                                 <connections>
                                     <action selector="playSoundClicked:" destination="v6L-yK-9Lk" eventType="touchUpInside" id="P7g-wN-F5d"/>
                                 </connections>
@@ -367,6 +367,13 @@
                                     <action selector="circleOkBtnClicked:" destination="v6L-yK-9Lk" eventType="touchUpInside" id="5Ft-jT-F0u"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHc-CQ-sxO">
+                                <rect key="frame" x="172" y="498" width="53" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                <color key="textColor" red="0.99931293725967407" green="0.60053938627243042" blue="0.83051162958145142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -380,6 +387,7 @@
                         <outlet property="firstChiWord" destination="gb0-cF-7Qd" id="8cq-Yf-iIp"/>
                         <outlet property="firstEngWord" destination="9Px-Py-9y0" id="dKK-kz-bpb"/>
                         <outlet property="firstWordBtn" destination="dx5-tV-myf" id="23x-iR-PnO"/>
+                        <outlet property="hintLabel" destination="KHc-CQ-sxO" id="6SX-U9-TEN"/>
                         <outlet property="limitTimerLabel" destination="KqC-1m-OfI" id="UwJ-oW-4d9"/>
                         <outlet property="playSoundBtn" destination="FL0-p7-P4u" id="GsL-Kz-Lxi"/>
                         <outlet property="recogTextLabel" destination="140-yy-deB" id="puS-3u-TFB"/>
@@ -1972,6 +1980,7 @@
         <image name="orangeChart.png" width="86" height="98"/>
         <image name="orangeStatus.png" width="74" height="96"/>
         <image name="practiceBook.png" width="20" height="24"/>
+        <image name="pronounceBtn4.png" width="209" height="98"/>
         <image name="purchaseBackBtn.png" width="19" height="31"/>
         <image name="purchaseBtnBg.png" width="375" height="62"/>
         <image name="purchaseDialogueBg.png" width="256" height="133"/>
@@ -1982,7 +1991,6 @@
         <image name="rightWordBtn.png" width="519" height="114"/>
         <image name="senBlock.png" width="699" height="114"/>
         <image name="seperateLine.png" width="740" height="2"/>
-        <image name="soundPng.png" width="70" height="46"/>
         <image name="stageTopCover.png" width="750" height="266"/>
         <image name="sylBlueBall" width="16" height="16"/>
         <image name="yellowBack.png" width="19" height="31"/>

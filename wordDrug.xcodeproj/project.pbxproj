@@ -728,6 +728,8 @@
 		AA8FAE92202D913A00342CED /* wrongX.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8FAE91202D913A00342CED /* wrongX.png */; };
 		AA9457A920D8ED9E004681B7 /* reviewQuitBg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9457A820D8ED9E004681B7 /* reviewQuitBg2.png */; };
 		AA9457AB20D8F3C2004681B7 /* reviewSelectBg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9457AA20D8F3C1004681B7 /* reviewSelectBg2.png */; };
+		AA95660B20DA4D0B005BD5E8 /* pronounceBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA95660A20DA4D0B005BD5E8 /* pronounceBtn.png */; };
+		AA95661120DA5644005BD5E8 /* pronounceBtn4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA95661020DA5644005BD5E8 /* pronounceBtn4.png */; };
 		AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA96556020909461003E5AB7 /* reviewSelectBg.png */; };
 		AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */; };
 		AA9655652090A048003E5AB7 /* rightBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */; };
@@ -1534,6 +1536,8 @@
 		AA8FAE91202D913A00342CED /* wrongX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongX.png; sourceTree = "<group>"; };
 		AA9457A820D8ED9E004681B7 /* reviewQuitBg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewQuitBg2.png; sourceTree = "<group>"; };
 		AA9457AA20D8F3C1004681B7 /* reviewSelectBg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSelectBg2.png; sourceTree = "<group>"; };
+		AA95660A20DA4D0B005BD5E8 /* pronounceBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pronounceBtn.png; sourceTree = "<group>"; };
+		AA95661020DA5644005BD5E8 /* pronounceBtn4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pronounceBtn4.png; sourceTree = "<group>"; };
 		AA96556020909461003E5AB7 /* reviewSelectBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSelectBg.png; sourceTree = "<group>"; };
 		AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftBtnClickedImg.png; sourceTree = "<group>"; };
 		AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightBtnClickedImg.png; sourceTree = "<group>"; };
@@ -1944,10 +1948,12 @@
 				AA7AE8F72047D8A200ADEEDA /* pauseBtn.png */,
 				AA7AE8F52047D88900ADEEDA /* newGameBg.png */,
 				AA36413A20D39D3200237B9F /* popDownBlock2.png */,
+				AA95660A20DA4D0B005BD5E8 /* pronounceBtn.png */,
 				AA36413B20D39D3200237B9F /* popQuizBg2.png */,
 				AA36413C20D39D3300237B9F /* popUpBlock2.png */,
 				AA36412420D38D9800237B9F /* newGameBg2.png */,
 				AA6AA726209C992B00374241 /* popQuizBg.png */,
+				AA95661020DA5644005BD5E8 /* pronounceBtn4.png */,
 				AA8FAE8F202D912600342CED /* rightCircle.png */,
 				AA8FAE91202D913A00342CED /* wrongX.png */,
 				AAB63B38204E5DFD00F96E9C /* talkPng.png */,
@@ -2703,6 +2709,7 @@
 				AA15EA6220D1534C00A1AB82 /* s14-13.txt in Resources */,
 				AA15E8F420D1527600A1AB82 /* 8-10.txt in Resources */,
 				AA15E8DD20D1527600A1AB82 /* 13-14.txt in Resources */,
+				AA95660B20DA4D0B005BD5E8 /* pronounceBtn.png in Resources */,
 				AA15E7A520D0F45300A1AB82 /* bluePoint.png in Resources */,
 				AA36414B20D3A82300237B9F /* 4-15.txt in Resources */,
 				AA15E8D220D1527600A1AB82 /* 13-8.txt in Resources */,
@@ -3289,6 +3296,7 @@
 				AA7BB4CC20C79070001A1F66 /* purchaseDownBg.png in Resources */,
 				AA15E90120D1527600A1AB82 /* 6-9.txt in Resources */,
 				AA15E8C520D1527600A1AB82 /* 15-2.txt in Resources */,
+				AA95661120DA5644005BD5E8 /* pronounceBtn4.png in Resources */,
 				AA3A847D20C5662B00BE88EC /* starPng.png in Resources */,
 				AA15EA9D20D1534C00A1AB82 /* s14-5.txt in Resources */,
 				AA36412320D38B9800237B9F /* courseBtmAlpha.png in Resources */,

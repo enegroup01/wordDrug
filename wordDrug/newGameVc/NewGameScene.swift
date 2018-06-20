@@ -16,6 +16,7 @@ let addScoreKey = "addScore"
 let pauseKey = "pause"
 let stopLimitTimerKey = "stopLimitTimer"
 let playEndingMusicKey = "playEndingMusic"
+let removePronounceBtnKey = "removePlaySoundBtn"
 
 class NewGameScene: SKScene {
 
@@ -549,17 +550,17 @@ class NewGameScene: SKScene {
     var rightSound = SKAction()
     var wrongSound = SKAction()
     var endSound = SKAction()
-    
-    
-    let orangeColor = UIColor.init(red: 242/255, green: 79/255, blue: 43/255, alpha: 1)
+
     let purpleColor = UIColor.init(red: 212/255, green: 141/255, blue: 249/255, alpha: 1)
-    
+
+   
+    let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
   
     
     override func didMove(to view: SKView) {
         
-         makeLabelNode(x: 0, y: -290, alignMent: .center, fontColor: pinkColor, fontSize: 40, text: "", zPosition: 3, name: "showHint", fontName: "Helvetica Bold", isHidden: true, alpha: 1)
+         makeLabelNode(x: 0, y: -290, alignMent: .center, fontColor: .white, fontSize: 40, text: "", zPosition: 3, name: "showHint", fontName: "Helvetica Bold", isHidden: true, alpha: 1)
         
         
         //啟動離開遊戲
@@ -617,6 +618,9 @@ class NewGameScene: SKScene {
         
         //接收再度倒數
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.playEndingMusic), name: NSNotification.Name("playEndingMusic"), object: nil)
+        
+        //移除發音符號
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyRemovePronounceBtn), name:  NSNotification.Name("removePlaySoundBtn"), object: nil)
 
         
         //接收再度倒數
@@ -1039,6 +1043,16 @@ class NewGameScene: SKScene {
         
     }
     */
+    
+    
+    
+    @objc func notifyRemovePronounceBtn(){
+        
+        print("notify remove pronounce btn")
+    }
+    
+    
+    
     @objc func playEndingMusic(){
         
         self.run(endSound)
@@ -1122,7 +1136,7 @@ class NewGameScene: SKScene {
         var engFontSize = CGFloat()
     func setUpScreen(){
         
-        findLabelNode(name: "showHint").text = "請連線"
+        findLabelNode(name: "showHint").text = "請連線拼字"
         
         var chiBtnDif = CGFloat()
         var dif = CGFloat()
@@ -2100,7 +2114,7 @@ class NewGameScene: SKScene {
         if isBackToSpell{
         
         hintSec = 0
-        findLabelNode(name: "showHint").text = "請連線"
+        findLabelNode(name: "showHint").text = "請連線拼字"
         }
         
         var iPadDif = CGFloat()
@@ -2168,6 +2182,14 @@ class NewGameScene: SKScene {
                     self!.firstChiWordLabel.text = self!.allThreeChiWords[self!.currentPracticeSequence]
                     
                     if self!.gameMode == 0 {
+                        
+                        let moveBack = SKAction.moveTo(y: -290, duration: 0)
+                        
+                        self!.findLabelNode(name: "showHint").run(moveBack)
+
+                        
+                        self!.hintSec = 0
+                        self!.findLabelNode(name: "showHint").text = "請連線拼字"
                     
                     self!.wordsToPronounce =  self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                     
@@ -2556,7 +2578,7 @@ class NewGameScene: SKScene {
                 }else{
                     //答錯
                     
-                          self.run(wrongSound)
+                    self.run(wrongSound)
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     changeImageAlfa(name: "popDownBlock", toAlpha: 0, time: 0.1)
                     
@@ -2577,7 +2599,9 @@ class NewGameScene: SKScene {
                      findLabelNode(name: "tempWord").fontColor = lightPink
                      findLabelNode(name: "tempWord").fontSize = 60
                      */
+                    
                     let time = DispatchTime.now() + 1
+                    
                     DispatchQueue.main.asyncAfter(deadline: time, execute: {[weak self] in
                         
                         self!.chooseChineseResult(isCorrect: false)
@@ -3059,6 +3083,9 @@ class NewGameScene: SKScene {
                                     //開始辨認單字NC
                                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startToRecognize"), object: nil, userInfo: nil)
                                     
+                                    //self!.hintSec = 0
+                                    //self!.findLabelNode(name: "showHint").text = "請按一下麥克風"
+                                    
                                     //不能dragAndPlay
                                     self!.isDragAndPlayEnable = false
                                     
@@ -3262,9 +3289,9 @@ class NewGameScene: SKScene {
         
         hintSec = 0
         let moveUp = SKAction.moveTo(y: -150, duration: 0)
+        
         findLabelNode(name: "showHint").run(moveUp)
         findLabelNode(name: "showHint").text = "請選擇正確中文"
-        
         
         for node in children{
             
@@ -3538,7 +3565,13 @@ class NewGameScene: SKScene {
             
         }
 
+            
         } else if gameMode == 1 {
+            
+            
+            let moveBack = SKAction.moveTo(y: -290, duration: 0)
+            
+            findLabelNode(name: "showHint").run(moveBack)
             
             //以下為單純複習單字的機制
             //確認allunitspotnums有無用完
@@ -3802,6 +3835,11 @@ class NewGameScene: SKScene {
             
         } else {
             
+            //remove pronounceBtn
+            print("trigger remove btn")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removePlaySoundBtn"), object: nil, userInfo: nil)
+            
+            
             //啟動timer
             popQuizTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameScene.popQuizCountDown), userInfo: nil, repeats: true)
         
@@ -3864,7 +3902,7 @@ class NewGameScene: SKScene {
         
         hintSec += 1
         
-        if hintSec >  180{
+        if hintSec >  150{
             //都沒動就發動
             //print("需要提醒")
             findLabelNode(name: "showHint").isHidden = false
@@ -4367,6 +4405,9 @@ class NewGameScene: SKScene {
             countScore(score: 300)
                 
                 
+                findLabelNode(name: "showHint").text = ""
+                
+                
             } else if gameMode == 1 {
                 //update wordReviewCount
                 
@@ -4514,6 +4555,10 @@ class NewGameScene: SKScene {
             var wrongWord = String()
             
             if gameMode == 0 {
+                
+                findLabelNode(name: "showHint").text = ""
+                
+                
              wrongWord = wordSets[currentWordSequence].replacingOccurrences(of: " ", with: "")
                 
                 
