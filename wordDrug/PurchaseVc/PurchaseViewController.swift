@@ -35,7 +35,12 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     var activeProduct: SKProduct?
     
     var isDirectedFromGame = false
-     var dif = CGFloat()
+    
+    var dif = CGFloat()
+    
+    
+    var activityIndicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,6 +74,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
   
             
         }
+
         
         
         upBg.frame = CGRect(x: 0, y: 0, width: width, height: 250)
@@ -110,6 +116,22 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     override func viewWillAppear(_ animated: Bool) {
         
         //確認購買狀態
+     
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.layer.zPosition = 15
+        let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.layer.cornerRadius = activityIndicator.frame.width / 20
+        activityIndicator.backgroundColor = alphaGray
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.addSubview(activityIndicator)
+        
+
+        
+        
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         
         isDirectToRegister = false
         purchaseBtn.isEnabled = false
@@ -120,6 +142,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         if let isPurchased = user?["isPurchased"] as? String{
             
             if isPurchased == "0" {
+                
+           
                 
                 print("not yet purchased")
                 
@@ -148,12 +172,15 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 purchaseBtn.titleLabel?.textAlignment = .center
                 purchaseBtn.setAttributedTitle(attrWords, for: .normal)
                 
-                
+            
             } else if isPurchased == "1" {
                 
                 
                 //已購買
                 print("purchased!")
+                
+                activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
            
                 purchasedBtnText()
                 
@@ -161,6 +188,14 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
         }
         } else {
+            
+            SKPaymentQueue.default().add(self)
+            
+            let productIdentifiers: Set<String> = ["unlockTimeLimit"]
+            let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
+            productRequest.delegate = self
+            
+            productRequest.start()
             
             let attrWords = NSMutableAttributedString()
             
@@ -232,6 +267,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             print("product:\(product.productIdentifier), \(product.localizedTitle), \(product.price.floatValue )")
             
             
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+            
             activeProduct = product
             
             
@@ -258,6 +296,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         if let activeProduct = activeProduct {
             
                     print("buying")
+            
+            activityIndicator.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
             
             let payment = SKPayment(product: activeProduct)
             SKPaymentQueue.default().add(payment)
@@ -303,13 +344,16 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 
                 updatePurchased()
                 
-                
+          
                 
                 
             case .failed:
                 
                 SKPaymentQueue.default().finishTransaction(transaction)
                 print("failed")
+                
+                activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 
                 //show error msgs
                 if isDirectedFromGame{
@@ -379,6 +423,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                     DispatchQueue.main.async(execute: {
                     
                         self!.purchasedBtnText()
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         
                         
                     })

@@ -756,7 +756,7 @@ dif = 1
         request.httpMethod = "POST"
         
         // body to be appended to url, 讓nickname = 註冊帳號
-        let body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava=\(ava)"
+        let body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava="
         
         request.httpBody = body.data(using: .utf8)
         //request.addValue("application/json", forHTTPHeaderField: "Content-Type")

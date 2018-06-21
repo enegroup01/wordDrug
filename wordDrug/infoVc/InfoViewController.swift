@@ -97,8 +97,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         changePhotoBtn.frame = CGRect(x: avaImg.frame.maxX - 28 * dif, y: avaImg.frame.maxY - 28 * dif, width: 28 * dif, height: 28 * dif)
         
-        usernameLabel.frame = CGRect(x: 50, y: avaImg.frame.maxY + 30 * dif / 2, width: width - 100, height: 30 * dif)
-        
+        usernameLabel.frame = CGRect(x: 50, y: avaImg.frame.maxY + 25 * dif / 2, width: width - 100, height: 40 * dif)
+        //usernameLabel.backgroundColor = .red
         
         alphaLayer.frame = CGRect(x: 0, y: chartUpBg.frame.maxY - 60 * dif, width: width, height: 60 * dif)
         

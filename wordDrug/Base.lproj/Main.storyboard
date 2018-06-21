@@ -374,6 +374,10 @@
                                 <color key="textColor" red="0.99931293725967407" green="0.60053938627243042" blue="0.83051162958145142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="purchaseAlert.png" translatesAutoresizingMaskIntoConstraints="NO" id="O13-hh-lQe">
+                                <rect key="frame" x="77" y="112" width="240" height="444"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -390,6 +394,7 @@
                         <outlet property="hintLabel" destination="KHc-CQ-sxO" id="6SX-U9-TEN"/>
                         <outlet property="limitTimerLabel" destination="KqC-1m-OfI" id="UwJ-oW-4d9"/>
                         <outlet property="playSoundBtn" destination="FL0-p7-P4u" id="GsL-Kz-Lxi"/>
+                        <outlet property="purchaseAlert" destination="O13-hh-lQe" id="pHY-B1-gfW"/>
                         <outlet property="recogTextLabel" destination="140-yy-deB" id="puS-3u-TFB"/>
                         <outlet property="recordBtn" destination="Im1-Oy-Q3k" id="X9V-hT-naw"/>
                         <outlet property="resultBg" destination="Npy-0N-1SM" id="jdQ-uh-uVg"/>
@@ -1586,7 +1591,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chartBg2.png" translatesAutoresizingMaskIntoConstraints="NO" id="LLZ-FV-BTP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chartBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="LLZ-FV-BTP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -1784,7 +1789,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cL0-LY-4sb">
                                 <rect key="frame" x="16" y="20" width="29" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="purchaseBackBtn.png"/>
+                                <state key="normal" backgroundImage="yellowBack.png"/>
                                 <connections>
                                     <action selector="backBtnClicked:" destination="9xs-zv-ylp" eventType="touchUpInside" id="xYc-aX-j4Z"/>
                                 </connections>
@@ -1888,7 +1893,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNQ-Be-E96">
                                 <rect key="frame" x="48" y="37" width="38" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="bigYellowBack.png">
+                                <state key="normal" backgroundImage="yellowBack.png">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -1944,7 +1949,6 @@
         <image name="alphaLayer.png" width="375" height="60"/>
         <image name="avatar.png" width="192" height="192"/>
         <image name="bigOkBtn.png" width="420" height="58"/>
-        <image name="bigYellowBack.png" width="38" height="62"/>
         <image name="block0Title.png" width="152" height="152"/>
         <image name="block1Title.png" width="152" height="148"/>
         <image name="block2Title.png" width="152" height="150"/>
@@ -1956,8 +1960,8 @@
         <image name="bookSpeed2.png" width="44" height="27"/>
         <image name="bookTimes1.png" width="46" height="8"/>
         <image name="camera.png" width="28" height="28"/>
-        <image name="chartBg2.png" width="375" height="667"/>
-        <image name="chartSeperator.png" width="378" height="6"/>
+        <image name="chartBg.png" width="750" height="1334"/>
+        <image name="chartSeperator.png" width="742" height="12"/>
         <image name="chartUpBg2.png" width="750" height="590"/>
         <image name="circleLogOut.png" width="60" height="42"/>
         <image name="circleOkBtn.png" width="256" height="256"/>
@@ -1981,11 +1985,11 @@
         <image name="orangeStatus.png" width="74" height="96"/>
         <image name="practiceBook.png" width="20" height="24"/>
         <image name="pronounceBtn4.png" width="209" height="98"/>
-        <image name="purchaseBackBtn.png" width="19" height="31"/>
+        <image name="purchaseAlert.png" width="490" height="932"/>
         <image name="purchaseBtnBg.png" width="375" height="62"/>
         <image name="purchaseDialogueBg.png" width="256" height="133"/>
-        <image name="purchaseDownBg.png" width="375" height="364"/>
-        <image name="purchaseUpBg.png" width="375" height="250"/>
+        <image name="purchaseDownBg.png" width="750" height="728"/>
+        <image name="purchaseUpBg.png" width="750" height="500"/>
         <image name="recordBtn.png" width="256" height="256"/>
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="519" height="114"/>
@@ -1993,7 +1997,7 @@
         <image name="seperateLine.png" width="740" height="2"/>
         <image name="stageTopCover.png" width="750" height="266"/>
         <image name="sylBlueBall" width="16" height="16"/>
-        <image name="yellowBack.png" width="19" height="31"/>
+        <image name="yellowBack.png" width="38" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rwi-hC-Ovx"/>

@@ -822,7 +822,7 @@ class NewGameScene: SKScene {
    
     
     
-       
+   
     
     
     }
@@ -1422,6 +1422,9 @@ class NewGameScene: SKScene {
         
         //建立好畫面後開始動畫
         
+        
+            makeImageNode(name: "abort", image: "abortPng", x: 300 * chiBtnDif, y: 500, width: 131, height: 46, z: 3, alpha: 0, isAnchoring: false)
+        
         introAnimation()
         
     }
@@ -1932,11 +1935,35 @@ class NewGameScene: SKScene {
     @objc func startCountDown(){
         //開始倒數tagQuestion
         
+        //顯示放棄鈕
+        
+
+        if let abortKey = childNode(withName: "abort") as? SKSpriteNode{
+            
+            abortKey.alpha = 1
+        }
+        
+        
         let lineNode = findImageNode(name: "countDownLine")
         lineNode.alpha = 1
     
+        var sec = TimeInterval()
         
-         let countDownAction = SKAction.resize(toWidth: 0, duration: 15)
+        switch courseReceived{
+          
+        case 0:
+            sec = 20
+        case 1:
+            sec = 30
+        case 2:
+            sec = 40
+        default:
+            break
+
+        }
+        
+        
+         let countDownAction = SKAction.resize(toWidth: 0, duration: sec)
         
         lineNode.run(countDownAction) {[weak self] in
             
@@ -2003,7 +2030,7 @@ class NewGameScene: SKScene {
         findImageNode(name: "recogWordsBg").alpha = 0
         
         //建立說話圖示
-        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380, width: 256, height: 210, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
         
         
         //宣告此為第二次練習
@@ -2022,7 +2049,7 @@ class NewGameScene: SKScene {
         findImageNode(name: "recogWordsBg").alpha = 0
         
         //建立說話圖示
-        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380, width: 256, height: 210, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
         
         
         //宣告此為第二次練習
@@ -2529,7 +2556,28 @@ class NewGameScene: SKScene {
                 
             }
             
-            //暫停func
+            //放棄func
+            
+            if node.name == "abort"{
+                
+                
+                //放棄
+                
+                //timesUp
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "timesUp"), object: nil, userInfo: nil)
+                
+                isFinalGetPoint = false
+                
+                
+                //在此的功能為刪除倒數線
+                practiceNextWord()
+
+                //findImageNode(name: "abort").alpha = 0
+                
+                
+                
+            }
+            
             
 
             //之後要寫中文錯誤的機制
@@ -3028,6 +3076,8 @@ class NewGameScene: SKScene {
                             
                             if gameMode == 0{
                                 
+                                print("play right Sound")
+                                
                                 self.run(rightSound)
                             }
                             
@@ -3441,6 +3491,14 @@ class NewGameScene: SKScene {
         lineNode.alpha = 0
         hintTime = 0
         
+        
+        if let abortKey = childNode(withName: "abort") as? SKSpriteNode{
+            
+            abortKey.alpha = 0
+        }
+        
+        
+        
         if gameMode == 0 {
         
         if currentWordSequence < (unitNumber + 1) * 3 - 1{
@@ -3760,6 +3818,7 @@ class NewGameScene: SKScene {
        
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLimitTimer"), object: nil, userInfo: nil)
         
+        //隱藏放棄鈕
         
         findLabelNode(name: "quizTitle").alpha = 1
         findImageNode(name: "timerBg").alpha = 1

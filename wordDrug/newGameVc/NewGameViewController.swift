@@ -237,6 +237,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     let darkColor = UIColor.init(red: 53/255, green: 53/255, blue: 53/255, alpha: 1)
     
+    var noBuyBtn = UIButton()
+    var goToBuyBtn = UIButton()
     
     
     //reviewWord & sentence alert
@@ -248,8 +250,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var reviewAlertUnitLabel = UILabel()
     var reviewOkBtn = UIButton()
     var isReviewWrong = false
-    
-    
 
     var isCountingTriggered = false
     var isCelebratingClassPassed = false
@@ -297,6 +297,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var sentenceCount = Int()
     @IBOutlet weak var hintLabel: UILabel!
     
+    @IBOutlet weak var purchaseAlert: UIImageView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -315,57 +316,57 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         switch height {
         case 812:
             xDif = 1.05
-            btnDif = 1
+            btnDif = 0
             dif = 1.15
             senLabelHeightDif = 0.7
             iPadDif = 1
             senFontSize = 26
             tagMarginY = 13
             btnDif2 = 1
-            playBtnY = 0
+            playBtnY = 0.95
         case 736:
             xDif = 1
-            btnDif = 1.1
+            btnDif = 0
             dif = 1.1
             senLabelHeightDif = 0.78
             iPadDif = 1
             senFontSize = 26
             tagMarginY = 13
             btnDif2 = 1.1
-            playBtnY = 0
+            playBtnY = 1
             
         case 667:
             xDif = 1
-            btnDif = 1
+            btnDif = 0
             dif = 1
             senLabelHeightDif = 0.9
             iPadDif = 1
             senFontSize = 22
             tagMarginY = 10
             btnDif2 = 1
-            playBtnY = 0
+            playBtnY = 1
             
         case 568:
             xDif = 1
-            btnDif = 0.9
+            btnDif = 5
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1
             senFontSize = 20
             tagMarginY = 8
             btnDif2 = 0.9
-            playBtnY = 5
+            playBtnY = 0.95
             
         default:
             xDif = 1
-            btnDif = 0.9
+            btnDif = 0
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1.2
             senFontSize = 26
             tagMarginY = 13
             btnDif2 = 0.9
-            playBtnY = 0
+            playBtnY = 1
             
         }
         
@@ -545,9 +546,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //ghostBtn.addTarget(self, action: #selector(LessonViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
         
-        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        //alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        
+        
+        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: 237 * dif, height: 158 * dif)
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
+        
+        
+        purchaseAlert.isHidden = true
+        purchaseAlert.frame = CGRect(x: (width - 237 * dif) / 2, y: height / 6, width: 237 * dif, height: 462 * dif)
         
         alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
         alertText.font = UIFont(name: "Helvetica Bold", size: 16)
@@ -557,6 +565,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
+
         
         cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         cancelBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
@@ -564,6 +573,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         cancelBtn.setTitleColor(orangeColor, for: .normal)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(cancelBtn)
+        //purchaseAlert.addSubview(cancelBtn)
+        
+        noBuyBtn.frame = CGRect(x: purchaseAlert.frame.minX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
+        noBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+      
+        noBuyBtn.setTitleColor(orangeColor, for: .normal)
+       
+        self.view.addSubview(noBuyBtn)
+        
+        
         
         quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
@@ -571,6 +590,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.setTitleColor(orangeColor, for: .normal)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         self.view.addSubview(quitBtn)
+        
+        
+        goToBuyBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
+        goToBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+       
+        goToBuyBtn.setTitleColor(orangeColor, for: .normal)
+   
+        self.view.addSubview(goToBuyBtn)
+        
+        
+        //purchaseAlert.addSubview(quitBtn)
         
         /*
         leftBtnClickedImg.frame = cancelBtn.frame
@@ -795,7 +825,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         //設定發音鍵
-        playSoundBtn.frame = CGRect(x: width - 69 * dif, y: height - 23 * dif * 1.5 + playBtnY, width: 69 * dif - playBtnY, height: 32 * dif - playBtnY)
+        playSoundBtn.frame = CGRect(x: width - 69 * dif, y: height - 23 * dif * 1.5 + btnDif, width: 69 * dif * playBtnY, height: 32 * dif * playBtnY)
         
         
         
@@ -855,6 +885,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+            
+            //limitSeconds = 2
             
             //不論如何都啟動, 但是有購買就會invalidate
             print("really start to count down")
@@ -1085,7 +1117,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             })
             
-            
+
         }
 
         
@@ -1108,9 +1140,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //拉到最前方
         self.view.bringSubview(toFront: ghostBtn)
         self.view.bringSubview(toFront: alertBg)
+        self.view.bringSubview(toFront: purchaseAlert)
         
         self.view.bringSubview(toFront: cancelBtn)
         self.view.bringSubview(toFront: quitBtn)
+        
+        self.view.bringSubview(toFront: noBuyBtn)
+        self.view.bringSubview(toFront: goToBuyBtn)
+        
+        
        // self.view.bringSubview(toFront: leftBtnClickedImg)
        // self.view.bringSubview(toFront: rightBtnClickedImg)
         self.view.bringSubview(toFront: bonusScoreLabel)
@@ -1128,6 +1166,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: limitTimerLabel)
  
 
+        noBuyBtn.isHidden = true
+        goToBuyBtn.isHidden = true
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         cancelBtn.isHidden = true
@@ -1195,6 +1235,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //hintLabel.backgroundColor = .blue
         hintLabel.adjustsFontSizeToFitWidth = true
         hintLabel.textAlignment = .center
+        
+        
+        
+        
+        
+        
         
 
     }
@@ -1296,24 +1342,25 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     func timerPause(){
         
         
-        alertText.text = "\n每日7分鐘免費學習時間到囉!\n立即購買無限學習時間!\n$ 90.00"
-        quitBtn.setTitle("前往商城", for: .normal)
-        cancelBtn.setTitle("先不買", for: .normal)
+        //alertText.text = ""
+        goToBuyBtn.setTitle("前往商城", for: .normal)
+        noBuyBtn.setTitle("先不買", for: .normal)
         ghostBtn.isHidden = false
-        alertBg.isHidden = false
-        cancelBtn.isHidden = false
-        quitBtn.isHidden = false
+        //alertBg.isHidden = false
+        purchaseAlert.isHidden = false
+        goToBuyBtn.isHidden = false
+        noBuyBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
         rightBtnClickedImg.isHidden = false
 
 
-        quitBtn.removeTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
+      //  quitBtn.removeTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
     
 
-        quitBtn.addTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
+        goToBuyBtn.addTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
         
-        cancelBtn.removeTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
-        cancelBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
+     //   cancelBtn.removeTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
+        noBuyBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         
         
         limitTimer.invalidate()
@@ -1399,13 +1446,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
 
         
-        
+        purchaseAlert.isHidden = true
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         cancelBtn.isHidden = true
         quitBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
         rightBtnClickedImg.isHidden = true
+        noBuyBtn.isHidden = true
+        goToBuyBtn.isHidden = true
         
         if gameMode == 0 {
             if isPurchased == "0" {
@@ -1571,6 +1620,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     */
                     
                     limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+                    
+                    //測試
+                    //limitSeconds = 2
                     
                     if(limitSeconds > 0){
                       
@@ -3677,7 +3729,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         switch sentenceCounts{
             
         case 0...9:
-            senFontSize += 2
+            //senFontSize += 2
+            print("小於9個字")
             
         case 10 ..< 15:
             print("小於15個字")

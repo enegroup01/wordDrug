@@ -73,8 +73,16 @@ class IntroScene: SKScene {
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     var xDif = CGFloat()
+    
+    var rightSound = SKAction()
+   
+
     override func didMove(to view: SKView) {
         print("yes scene")
+        
+        
+        rightSound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
+
         
         switch height {
         case 812:
@@ -264,8 +272,6 @@ class IntroScene: SKScene {
         findLabelNode(name: "bigWordLabel").text = "測驗看看你的單字程度!"
         isBigWordLocked = true
         
-        
-        
         isOkClicked = false
         isEnterTest = true
         findLabelNode(name: "okBtnLabel").text = "進入分級測驗"
@@ -274,12 +280,10 @@ class IntroScene: SKScene {
         changeImageAlfa(name: "okBtnFrame", toAlpha: 1, time: 0.3)
         changeLabelAlfa(name: "okBtnLabel", toAlpha: 1, time: 0.3)
         
-        
         let rotate = SKAction.rotate(toAngle: 180, duration: 600)
         
         findImageNode(name: "world").run(rotate)
         
-
     }
     
     
@@ -573,6 +577,7 @@ class IntroScene: SKScene {
             
             if isCorrect{
                 
+              
                 print("add Right")
 
                 switch sequence{
@@ -592,9 +597,8 @@ class IntroScene: SKScene {
                 }
                 
             }
-        
         //測試用
-       if sequence == 2{
+       if sequence == 21{
             
        //     if sequence == 2{
             print("test is over")
@@ -836,6 +840,8 @@ class IntroScene: SKScene {
           if isTouchedNode{
             
             if node.name == "ss" || node.name == "ssLabel" || node.name == "ss2" ||  findLabelNode(name: "bigWordLabel").text == "Miss"{
+                
+                self.run(rightSound)
                 
                 print("1111")
                 //passed
