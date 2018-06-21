@@ -20,6 +20,7 @@ class InfoTableViewCell: UITableViewCell {
     @IBOutlet weak var sub1Title: UILabel!
     @IBOutlet weak var infoCellBg: UIView!
     let lightGrayShadow = UIColor.init(red: 211/255, green: 211/255, blue: 211/255, alpha: 0.5)
+        let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     let darkColor = UIColor.init(red: 41/255, green: 56/255, blue: 87/255, alpha: 1)
     let midColor = UIColor.init(red: 138/255, green: 152/255, blue: 170/255, alpha: 1)
@@ -65,6 +66,7 @@ class InfoTableViewCell: UITableViewCell {
         infoTitle.frame = CGRect(x: self.frame.width / 25, y: self.frame.height / 10, width: self.frame.width / 3.5, height: self.frame.height / 8)
         infoTitle.font = UIFont(name: "Helvetica Bold", size: 20)
         infoTitle.textAlignment = .left
+        infoTitle.adjustsFontSizeToFitWidth = true
         
         //sub1Title.backgroundColor = .red
         sub1Title.frame = CGRect(x: 0, y: infoTitle.frame.maxY * 1.2, width: self.frame.width / 3.5, height: self.frame.height / 9)
@@ -120,9 +122,11 @@ class InfoTableViewCell: UITableViewCell {
         bigCountLabel.textAlignment = .center
         bigCountLabel.frame = CGRect(x: ringView.frame.minX, y: ringView.frame.minY, width: ringView.frame.width, height: ringView.frame.height)
         bigCountLabel.adjustsFontSizeToFitWidth = true
+        bigCountLabel.textColor = yellowColor
         //bigCountLabel.backgroundColor = .blue
         
         countUnitLabel.frame = CGRect(x: bigCountLabel.frame.maxX, y: bigCountLabel.frame.maxY - 28 * 1.5, width: 38 , height:28)
+        countUnitLabel.textColor = darkColor
         //countUnitLabel.backgroundColor = .red
         
         

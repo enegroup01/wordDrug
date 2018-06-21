@@ -16,6 +16,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let yellowColor = UIColor.init(red: 255/255, green: 182/255, blue: 13/255, alpha: 1)
 
     let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
+    let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
+    let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
+
 
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var rankCountLabel: UILabel!
@@ -196,15 +199,15 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
        
        // let attrs0 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Neue", size: 12), NSAttributedStringKey.foregroundColor : lightColor]
       
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor : UIColor.red]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor : yellowColor]
         
 
-        let attrs2 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: 20), NSAttributedStringKey.foregroundColor : lightBlueColor]
+        let attrs2 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: 20), NSAttributedStringKey.foregroundColor : darkColor]
 
         
         cell.backgroundColor = .clear
         
-        let infoTitles = ["單字成就", "發音成就", "句型成就", "快速複習", "快速複習"]
+        let infoTitles = ["單字成就", "發音成就", "句型成就", "英文拼字王", "句型冠軍榜"]
         let sub1Titles = ["拼字正確率","發音正確率","排列正確率","單字達成","句型達成"]
         let sub2Titles = ["中文正確率",String(),String(),String(),String()]
         let countUnits = ["","","","字","句"]

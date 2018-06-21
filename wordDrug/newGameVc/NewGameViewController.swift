@@ -632,7 +632,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         
-        sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: height / 2 , width: 350 * btnDif2, height: 57 * btnDif2)
+        sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: height / 2 - 10, width: 350 * btnDif2, height: 57 * btnDif2)
         //sen1Btn.imageView?.contentMode = .scaleAspectFit
         
         sen1Btn.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -825,7 +825,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         //設定發音鍵
-        playSoundBtn.frame = CGRect(x: width - 69 * dif, y: height - 23 * dif * 1.5 + btnDif, width: 69 * dif * playBtnY, height: 32 * dif * playBtnY)
+        playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif, width: 69 * dif * playBtnY, height: 32 * dif * playBtnY)
         
         
         
