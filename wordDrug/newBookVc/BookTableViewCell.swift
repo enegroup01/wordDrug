@@ -61,6 +61,11 @@ class BookTableViewCell: UITableViewCell {
         chiSenLabel.frame = CGRect(x: engWordLabel.frame.minX, y: engSenLabel.frame.maxY, width: 200 * dif, height: 30)
         
         chiWordLabel.frame = CGRect(x: partOfSpeechLabel.frame.maxX, y: engWordLabel.frame.maxY, width: 200 * dif, height: 20)
+        //partOfSpeechLabel.backgroundColor = .red
+        partOfSpeechLabel.adjustsFontSizeToFitWidth = true
+        
+        //syllableLabel.backgroundColor = .red
+        syllableLabel.adjustsFontSizeToFitWidth = true
         
         /*
         engWordLabel.backgroundColor = .red

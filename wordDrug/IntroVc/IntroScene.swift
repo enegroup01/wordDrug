@@ -269,7 +269,7 @@ class IntroScene: SKScene {
         
         findImageNode(name: "recogWordsBg").alpha = 0
         findLabelNode(name: "bigWordLabel").fontSize = 50
-        findLabelNode(name: "bigWordLabel").text = "測驗看看你的單字程度!"
+        findLabelNode(name: "bigWordLabel").text = "為了建議適合你的課程\n請先試試你的單字程度"
         isBigWordLocked = true
         
         isOkClicked = false
@@ -845,6 +845,16 @@ class IntroScene: SKScene {
                 
                 print("1111")
                 //passed
+                
+                findImageNode(name: "finger").removeAllActions()
+                findImageNode(name: "arrow").removeAllActions()
+                findImageNode(name: "point").removeAllActions()
+                changeImageAlfa(name: "finger", toAlpha: 0, time: 0.2)
+                changeImageAlfa(name: "arrow", toAlpha: 0, time: 0.2)
+                changeImageAlfa(name: "point", toAlpha: 0, time: 0.2)
+                
+                
+                
                 let moveUp = SKAction.moveTo(y: 280, duration: 0.7)
                 let fadeOut = SKAction.fadeOut(withDuration: 0.5)
                 let quickFadeOut = SKAction.fadeOut(withDuration: 0.2)
@@ -987,7 +997,14 @@ class IntroScene: SKScene {
             
    
   
-            self?.findImageNode(name: "finger").run(blinkOut)
+            //self?.findImageNode(name: "finger").run(blinkOut)
+            
+            self?.findImageNode(name: "finger").run(blinkOut, completion: {[weak self] in
+                let originalPos = CGPoint(x: -180, y: -110)
+                let moveBack = SKAction.move(to: originalPos, duration: 0)
+                self!.findImageNode(name: "finger").run(moveBack)
+                self!.step3()
+            })
             
         }
         

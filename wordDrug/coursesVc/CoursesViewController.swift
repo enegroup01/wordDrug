@@ -153,6 +153,8 @@ class CoursesViewController: UIViewController {
     @IBOutlet weak var logoImg: UIImageView!
     var fingerTimer = Timer()
     
+    var activityIndicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -228,6 +230,15 @@ class CoursesViewController: UIViewController {
             
         }
         
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.layer.zPosition = 15
+        let alphaGray = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.4)
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.layer.cornerRadius = activityIndicator.frame.width / 20
+        activityIndicator.backgroundColor = alphaGray
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.addSubview(activityIndicator)
         
         //這部分的顯示還沒安排位置
         var nickname = String()
@@ -790,6 +801,9 @@ func fingerAnimation(){
         //self.view.layer.removeAllAnimations()
         finger.alpha = 0
         point.alpha = 0
+        
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     
         self.view.subviews.forEach({$0.layer.removeAllAnimations()})
         self.view.layer.removeAllAnimations()
@@ -1213,27 +1227,54 @@ func fingerAnimation(){
      }
      */
     @IBAction func toNewBookBtn(_ sender: Any) {
-        courseSent = 0
-        performSegue(withIdentifier: "toNewBookVc", sender: self)
+        
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        
+        let time = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+            self!.courseSent = 0
+            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
+        }
+        
+        
         
     }
     
     
     
     @IBAction func toNewBook2Btn(_ sender: Any) {
-        courseSent = 1
-        performSegue(withIdentifier: "toNewBookVc", sender: self)
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        
+        let time = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+            self!.courseSent = 1
+            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
+        }
         
         
     }
     @IBAction func toNewBook3Btn(_ sender: Any) {
-        courseSent = 2
-        performSegue(withIdentifier: "toNewBookVc", sender: self)
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        
+        let time = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+            self!.courseSent = 2
+            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
+        }
     }
     
     @IBAction func toInfoVcClicked(_ sender: Any) {
+        
         performSegue(withIdentifier: "toInfoVc", sender: self)
     }
+    
+    
     
     @IBAction func logOutClicked(_ sender: Any) {
         

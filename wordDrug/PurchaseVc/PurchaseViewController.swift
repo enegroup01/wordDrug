@@ -127,11 +127,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
         
-
-        
-        
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        
         
         isDirectToRegister = false
         purchaseBtn.isEnabled = false

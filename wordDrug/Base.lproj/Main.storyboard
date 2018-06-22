@@ -948,6 +948,20 @@
                                     <action selector="reviewBtnClicked:" destination="j5T-Gi-rw6" eventType="touchUpInside" id="K4i-qV-h0A"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="即將學習" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCk-r9-PDn">
+                                <rect key="frame" x="49" y="105" width="251" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="選擇下方學習功能" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNz-kY-sPC">
+                                <rect key="frame" x="153" y="572" width="112" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="0.96924716234207153" green="0.49911433458328247" blue="0.4846041202545166" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.12604087591171265" green="0.10186529904603958" blue="0.10163567215204239" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -956,6 +970,7 @@
                         <outlet property="enterBtn" destination="wVJ-I3-3pi" id="mvz-gD-z0x"/>
                         <outlet property="firstLabel" destination="u8P-kk-nQP" id="yWk-X3-fr4"/>
                         <outlet property="fullLength" destination="YDd-Fa-66a" id="EmR-yt-j3G"/>
+                        <outlet property="hintLabel" destination="XNz-kY-sPC" id="aTv-qQ-mQm"/>
                         <outlet property="lessonLabel" destination="YTi-eb-Vcw" id="W6x-j2-1UG"/>
                         <outlet property="lessonTitleLabel" destination="UBD-lg-gJM" id="tEV-wC-ZIZ"/>
                         <outlet property="progressLength" destination="K3E-2V-8PM" id="TFo-08-RYB"/>
@@ -963,6 +978,7 @@
                         <outlet property="secondLabel" destination="9Pj-5n-3Oh" id="o8S-bO-Z5H"/>
                         <outlet property="syllableLabel" destination="k8N-yx-MJm" id="5lm-vz-CeE"/>
                         <outlet property="thirdLabel" destination="8Hh-II-Sga" id="NgP-5Z-DCA"/>
+                        <outlet property="titleLabel" destination="tCk-r9-PDn" id="RF0-SK-RZe"/>
                         <segue destination="v6L-yK-9Lk" kind="presentation" identifier="toGameVc" id="jNM-DD-XKH"/>
                     </connections>
                 </viewController>
@@ -2002,6 +2018,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="rwi-hC-Ovx"/>
         <segue reference="Qsn-eF-t3O"/>
-        <segue reference="QVk-5k-4AB"/>
+        <segue reference="08a-wE-CO2"/>
     </inferredMetricsTieBreakers>
 </document>

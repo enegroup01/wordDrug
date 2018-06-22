@@ -36,13 +36,16 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var subTitleLabel: UILabel!
     
-        let darkTextColor = UIColor.init(red: 39/255, green: 48/255, blue: 86/255, alpha: 1)
-    
+    let darkTextColor = UIColor.init(red: 39/255, green: 48/255, blue: 86/255, alpha: 1)
     
     @IBOutlet weak var doubleLine2: UIImageView!
     
-    
     var isWelcome = false
+    
+    var activityIndicator = UIActivityIndicatorView()
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +60,15 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         // Do any additional setup after loading the view.
         
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.layer.zPosition = 15
+        let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.layer.cornerRadius = activityIndicator.frame.width / 20
+        activityIndicator.backgroundColor = alphaGray
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.addSubview(activityIndicator)
         
        
         
@@ -236,6 +248,13 @@ dif = 1
             
         } else {
             
+      
+            
+            activityIndicator.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
+
+            
         
         print("register")
         // shortcuts
@@ -276,6 +295,10 @@ dif = 1
                         guard let parseJSON = json else {
                             print("Error while parsing")
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            
+                            
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                             return
                         }
                         
@@ -332,9 +355,13 @@ dif = 1
                         // successfully registered
                         if id != nil {
 
+             
 
                             //登入
                                 DispatchQueue.main.async(execute: {
+                                    
+                                    self!.activityIndicator.stopAnimating()
+                                    UIApplication.shared.endIgnoringInteractionEvents()
                              
                                     self!.isWelcome = true
                                  
@@ -350,6 +377,9 @@ dif = 1
                             
                             // get main queue to communicate back to user
                             DispatchQueue.main.async(execute: {
+                                
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                                 
                                 print("1")
                                 self?.usernameTxt.text = ""
@@ -367,6 +397,9 @@ dif = 1
                         
                         // get main queue to communicate back to user
                         DispatchQueue.main.async(execute: {
+                            
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                             
                                      print("2")
                             self?.usernameTxt.text = ""
@@ -386,6 +419,9 @@ dif = 1
                 // get main queue to communicate back to user
                 DispatchQueue.main.async(execute: {
                     
+                    
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                              print("3")
                     let message = error!.localizedDescription
                     print(message)
@@ -449,6 +485,10 @@ dif = 1
             
         } else {
         
+            
+            activityIndicator.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
         
         // shortcuts
         let username = usernameTxt.text!.lowercased()
@@ -482,6 +522,8 @@ dif = 1
                     guard let parseJSON = json else {
                         print("Error while parsing")
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         return
                     }
                     
@@ -584,6 +626,9 @@ dif = 1
                       
                         DispatchQueue.main.async(execute: {
                             print("successfully logged in")
+                            
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                    
                                   self!.toCourses()
                             
@@ -594,6 +639,10 @@ dif = 1
                         
                         // 抓錯誤訊息
                         DispatchQueue.main.async(execute: {
+                            
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
+                            
                             if let errorStatus = parseJSON["status"] as? String{
                                 
                                 if errorStatus == "403"{
@@ -625,6 +674,11 @@ dif = 1
                     
                     // get main queue to communicate back to user
                     DispatchQueue.main.async(execute: {
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                        
+                        
                         self?.usernameTxt.text = ""
                         self?.passwordTxt.text = ""
                         self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
@@ -640,6 +694,10 @@ dif = 1
                 
                 // get main queue to communicate back to user
                 DispatchQueue.main.async(execute: {
+                    
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                    
                     let message = error!.localizedDescription
                     print(message)
                     self?.usernameTxt.text = ""
@@ -680,6 +738,9 @@ dif = 1
         let loginManager = LoginManager()
         
         
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         
         
         loginManager.logIn(readPermissions: [.publicProfile,.email], viewController: self) { [weak self](loginResult) in
@@ -687,9 +748,13 @@ dif = 1
             switch loginResult{
             case .failed(let error):
                 print(error)
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
             //失敗的時候回傳
             case .cancelled:
                 print("the user cancels login")
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
             //取消時回傳內容
             case .success(grantedPermissions: _, declinedPermissions: _, token: _):
                 self!.getDetails()
@@ -711,6 +776,8 @@ dif = 1
         graphRequest.start { [weak self](urlResponse, requestResult) in
             switch requestResult{
             case .failed(let error):
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 print(error)
             case .success(response: let graphResponse):
                 if let responseDictionary = graphResponse.dictionaryValue{
@@ -779,6 +846,8 @@ dif = 1
                         guard let parseJSON = json else {
                             print("Error while parsing")
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                             return
                         }
                         
@@ -857,6 +926,8 @@ dif = 1
                             
                             //登入
                             DispatchQueue.main.async(execute: {
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                           
                                 self!.toCourses()
                                 
@@ -871,6 +942,8 @@ dif = 1
                             
                             // get main queue to communicate back to user
                             DispatchQueue.main.async(execute: {
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                                 
                                 print("1")
                                 self?.usernameTxt.text = ""
@@ -889,6 +962,9 @@ dif = 1
                         // get main queue to communicate back to user
                         DispatchQueue.main.async(execute: {
                             
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
+                            
                             print("2")
                             self?.usernameTxt.text = ""
                             self?.passwordTxt.text = ""
@@ -906,6 +982,9 @@ dif = 1
                 
                 // get main queue to communicate back to user
                 DispatchQueue.main.async(execute: {
+                    
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     
                     print("3")
                     let message = error!.localizedDescription

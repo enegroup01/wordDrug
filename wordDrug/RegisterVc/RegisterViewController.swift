@@ -80,6 +80,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     //用來計算錯誤字是否已加入
     var wrongWordsCounts = 0
     
+    var activityIndicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -113,6 +115,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
           
             
         }
+        
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.layer.zPosition = 15
+        let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.layer.cornerRadius = activityIndicator.frame.width / 20
+        activityIndicator.backgroundColor = alphaGray
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.addSubview(activityIndicator)
         
         registerBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         registerBg.image = UIImage(named: "newRegisterBg.png")
@@ -353,6 +366,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         } else {
             
             
+            activityIndicator.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
             print("register")
             // shortcuts
             let username = accountTextField.text!.lowercased()
@@ -401,6 +417,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             guard let parseJSON = json else {
                                 print("Error while parsing")
                                 //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                                 return
                             }
                             
@@ -596,6 +614,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     //dimiss掉3個VCs
                                     if self!.isDirectedHere {
                                         
+                                        self!.activityIndicator.stopAnimating()
+                                        UIApplication.shared.endIgnoringInteractionEvents()
+                                        
                                         self!.dismiss(animated: false, completion: nil)
                                         
                                         
@@ -615,6 +636,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 // get main queue to communicate back to user
                                 DispatchQueue.main.async(execute: {
                                     
+                                    self!.activityIndicator.stopAnimating()
+                                    UIApplication.shared.endIgnoringInteractionEvents()
+                                    
                                     print("1")
                                     self?.accountTextField.text = ""
                                     self?.passwordTextField.text = ""
@@ -631,6 +655,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             // get main queue to communicate back to user
                             DispatchQueue.main.async(execute: {
+                                
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                                 
                                 print("2")
                                 self?.accountTextField.text = ""
@@ -649,6 +676,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     
                     // get main queue to communicate back to user
                     DispatchQueue.main.async(execute: {
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         
                         print("3")
                         let message = error!.localizedDescription
@@ -676,14 +706,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         let loginManager = LoginManager()
         
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
   
         loginManager.logIn(readPermissions: [.publicProfile,.email], viewController: self) {[weak self] (loginResult) in
             
             switch loginResult{
             case .failed(let error):
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 print(error)
             //失敗的時候回傳
             case .cancelled:
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 print("the user cancels login")
             //取消時回傳內容
             case .success(grantedPermissions: _, declinedPermissions: _, token: _):
@@ -703,6 +740,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         graphRequest.start { [weak self](urlResponse, requestResult) in
             switch requestResult{
             case .failed(let error):
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 print(error)
             case .success(response: let graphResponse):
                 if let responseDictionary = graphResponse.dictionaryValue{
@@ -780,6 +819,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         // assign json to new var parseJSON in guard/secured way
                         guard let parseJSON = json else {
                             print("Error while parsing")
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                             return
                         }
@@ -900,6 +941,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 DispatchQueue.main.async(execute: {
                                     //是的話 註冊完就跳掉
+                                    self!.activityIndicator.stopAnimating()
+                                    UIApplication.shared.endIgnoringInteractionEvents()
                                     self!.dismiss(animated: false, completion: nil)
                                     
           
@@ -1010,6 +1053,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             // get main queue to communicate back to user
                             DispatchQueue.main.async(execute: {
                                 
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
+                                
                                 print("1")
                                 self?.accountTextField.text = ""
                                 self?.passwordTextField.text = ""
@@ -1026,6 +1072,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         
                         // get main queue to communicate back to user
                         DispatchQueue.main.async(execute: {
+                            
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                             
                             print("2")
                             self?.accountTextField.text = ""
@@ -1044,6 +1093,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 
                 // get main queue to communicate back to user
                 DispatchQueue.main.async(execute: {
+                    
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     
                     print("3")
                     let message = error!.localizedDescription
@@ -1099,6 +1151,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         } else {
             
             
+            
+            activityIndicator.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
             // shortcuts
             let username = accountTextField.text!.lowercased()
             let password = passwordTextField.text!
@@ -1130,6 +1186,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         
                         guard let parseJSON = json else {
                             print("Error while parsing")
+                            
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
+                            
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                             return
                         }
@@ -1246,6 +1306,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             DispatchQueue.main.async(execute: {
                                 //是的話 註冊完就跳掉
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                                 self!.dismiss(animated: false, completion: nil)
                             })
                             
@@ -1325,6 +1387,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 
                                 DispatchQueue.main.async(execute: {[weak self] in
+                                    
+                                    self!.activityIndicator.stopAnimating()
+                                    UIApplication.shared.endIgnoringInteractionEvents()
                                     self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
                                 })
                                 
@@ -1404,6 +1469,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             // 抓錯誤訊息
                             DispatchQueue.main.async(execute: {
+                                
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                                 if let errorStatus = parseJSON["status"] as? String{
                                     
                                     if errorStatus == "403"{
@@ -1435,6 +1503,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         
                         // get main queue to communicate back to user
                         DispatchQueue.main.async(execute: {
+                            
+                            self!.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                             self?.accountTextField.text = ""
                             self?.passwordTextField.text = ""
                             self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
@@ -1450,6 +1521,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     
                     // get main queue to communicate back to user
                     DispatchQueue.main.async(execute: {
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         let message = error!.localizedDescription
                         print(message)
                         self?.accountTextField.text = ""
@@ -1509,6 +1583,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 guard let parseJSON = json else {
                                     print("Error while parsing")
                                     //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                                    
+                                    self!.activityIndicator.stopAnimating()
+                                    UIApplication.shared.endIgnoringInteractionEvents()
                                     return
                                 }
                                 
@@ -1527,6 +1604,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                         
                                         
                                         DispatchQueue.main.async(execute: {[weak self] in
+                                            
+                                            self!.activityIndicator.stopAnimating()
+                                            UIApplication.shared.endIgnoringInteractionEvents()
                                             self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
                                         })
                                         
@@ -1538,10 +1618,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 print("catch error")
                                 
+                                DispatchQueue.main.async(execute: {[weak self] in
+                                    
+                                    self!.activityIndicator.stopAnimating()
+                                    UIApplication.shared.endIgnoringInteractionEvents()
+                                })
+                                
                             }
                         } else {
                             
                             print("urlsession has error")
+                            
+                            DispatchQueue.main.async(execute: {[weak self] in
+                                
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
+                            })
                             
                         }
                     }).resume()
@@ -1588,6 +1680,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         print("Error while parsing")
                         
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         return
                     }
                     
@@ -1615,6 +1710,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                             } else {
                                 
+                                self!.activityIndicator.stopAnimating()
+                                UIApplication.shared.endIgnoringInteractionEvents()
                                 
                                 self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
                                 
@@ -1636,10 +1733,25 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     
                 } catch{
                     
+                    DispatchQueue.main.async(execute: {
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                        
+                    })
+
+                    
                     print("catch error")
                     
                 }
             } else {
+                DispatchQueue.main.async(execute: {
+                    
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                    
+                })
+
                 
                 print("urlsession has error")
                 
@@ -1686,7 +1798,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         // append body to our request that gonna be sent
         request.httpBody = body.data(using: .utf8)
         
-        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self]data, response, error in
             // no error
             
             
@@ -1699,6 +1811,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     guard let parseJSON = json else {
                         print("Error while parsing")
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
                         
                         return
                     }
@@ -1749,12 +1863,28 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     
                 } catch{
                     
+                    DispatchQueue.main.async(execute: {
+                        
+                        self!.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                        
+                    })
+                    
                     print("catch error:\(error)")
                     
                     
                 }
             } else {
                 print("urlsession has error")
+                
+                
+                DispatchQueue.main.async(execute: {
+                    
+                    self!.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                    
+                })
+
                 
             }
         }).resume()

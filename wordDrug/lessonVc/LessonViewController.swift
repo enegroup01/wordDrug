@@ -368,6 +368,7 @@ class LessonViewController: UIViewController{
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
+    @IBOutlet weak var hintLabel: UILabel!
     
     //發音單字
     var synWord = String()
@@ -376,6 +377,7 @@ class LessonViewController: UIViewController{
     var synth = AVSpeechSynthesizer()
     var audioSession = AVAudioSession.sharedInstance()
    
+    @IBOutlet weak var titleLabel: UILabel!
     
     //收到的課程數字
     var courseReceived = Int()
@@ -386,6 +388,9 @@ class LessonViewController: UIViewController{
     var maxMapNum = Int()
     var sylFontSize = CGFloat()
     var wordFontSize = CGFloat()
+    var titleFontSize = CGFloat()
+    
+    var hiddenBtn = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -400,12 +405,15 @@ class LessonViewController: UIViewController{
             dif = 1
             sylFontSize = 130
             wordFontSize = 40
+            titleFontSize = 28
+            
 
         case 736:
             xDif = 1
             dif = 1.1
             sylFontSize = 130
             wordFontSize = 40
+            titleFontSize = 28
 
             
         case 667:
@@ -413,6 +421,7 @@ class LessonViewController: UIViewController{
             dif = 1
             sylFontSize = 120
             wordFontSize = 35
+            titleFontSize = 26
 
             
         case 568:
@@ -420,6 +429,7 @@ class LessonViewController: UIViewController{
             dif = 0.9
             sylFontSize = 100
             wordFontSize = 30
+            titleFontSize = 24
 
 
             
@@ -428,6 +438,7 @@ class LessonViewController: UIViewController{
             dif = 0.9
             sylFontSize = 130
             wordFontSize = 40
+            titleFontSize = 30
 
 
             
@@ -514,7 +525,18 @@ class LessonViewController: UIViewController{
         syllableLabel.textAlignment = .center
         //syllableLabel.backgroundColor = .blue
         
+        
+        titleLabel.frame = CGRect(x: 0, y: syllableLabel.frame.minY - 72 * dif, width: width, height: 72 * dif)
+        //titleLabel.backgroundColor = .red
 
+        titleLabel.numberOfLines = 2
+        titleLabel.text = "即將學習\n下列三個新單字"
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .white
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.font = titleLabel.font.withSize(titleFontSize)
+        
+        
         firstLabel.frame = CGRect(x: 0, y: syllableLabel.frame.maxY + 10 * dif, width: width, height: 44 * dif)
         firstLabel.adjustsFontSizeToFitWidth = true
         firstLabel.font = firstLabel.font.withSize(wordFontSize)
@@ -532,6 +554,7 @@ class LessonViewController: UIViewController{
         thirdLabel.font = thirdLabel.font.withSize(wordFontSize)
 
         
+ 
         //thirdLabel.backgroundColor = .yellow
         
         
@@ -540,6 +563,8 @@ class LessonViewController: UIViewController{
         reviewBtn.frame = CGRect(x: 0, y: height - 66 * dif, width: width / 2, height: 66 * dif)
         
         fullLength.frame = CGRect(x: 0, y: enterBtn.frame.minY, width: width, height: 3)
+        
+        hintLabel.frame = CGRect(x: (width - 136 * dif) / 2, y: enterBtn.frame.minY - 36, width: 136 * dif, height: 21 * dif)
         
         
         //拉到最前方
@@ -785,7 +810,8 @@ class LessonViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         
-       
+        
+        
         //確認進入的地圖是否為當下地圖, 是的話跳轉到目前的元素, 不是的話代表以全過關, 跳轉到第一個重來
         
         //測試用
@@ -820,6 +846,16 @@ class LessonViewController: UIViewController{
     
         
         if isClassAllPassed == false{
+            
+            
+            //加入可以按的按鍵
+            /*
+            hiddenBtn.frame = CGRect(x: 0, y: titleLabel.frame.minY, width: width, height: thirdLabel.frame.maxY - titleLabel.frame.minY)
+            hiddenBtn.addTarget(self, action: #selector(LessonViewController.enterGameClicked(_:)), for: .touchUpInside)
+            self.view.addSubview(hiddenBtn)
+            self.view.bringSubview(toFront: hiddenBtn)
+*/
+            
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 45), NSAttributedStringKey.foregroundColor : pinkColor]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -1111,6 +1147,9 @@ class LessonViewController: UIViewController{
         
         } else {
             //進度條
+            
+            titleLabel.text = ""
+            
             
             
             let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 36), NSAttributedStringKey.foregroundColor : UIColor.white]

@@ -528,8 +528,8 @@
 		AA5E2C4A203D374E005E22A0 /* registerBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5E2C49203D374E005E22A0 /* registerBtnImg.png */; };
 		AA61E81B20D4E8E40040A1E8 /* relWords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA61E81A20D4E8E40040A1E8 /* relWords.txt */; };
 		AA63D1F52087588C000EA088 /* resultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F42087588B000EA088 /* resultBg.png */; };
-		AA63D1F820875DBD000EA088 /* wrongWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F620875DBA000EA088 /* wrongWordBtn.png */; };
-		AA63D1F920875DBD000EA088 /* rightWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F720875DBB000EA088 /* rightWordBtn.png */; };
+		AA63D1F820875DBD000EA088 /* wrongWordBtn-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F620875DBA000EA088 /* wrongWordBtn-1.png */; };
+		AA63D1F920875DBD000EA088 /* rightWordBtn-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F720875DBB000EA088 /* rightWordBtn-1.png */; };
 		AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1FA2087661A000EA088 /* bigOkBtn.png */; };
 		AA63D1FD20879A31000EA088 /* unlockOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1FC20879A31000EA088 /* unlockOkBtn.png */; };
 		AA648E65207CEA05003ACD07 /* 5-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA648DCD207CE9E9003ACD07 /* 5-10.txt */; };
@@ -680,6 +680,8 @@
 		AA6AA72D209C9A3200374241 /* popQuizBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6AA72C209C9A3200374241 /* popQuizBlock.png */; };
 		AA6C95DB20AAA29C001158E7 /* reviewQuitBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95DA20AAA29C001158E7 /* reviewQuitBg.png */; };
 		AA6C95DE20AAAA8F001158E7 /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95DD20AAAA8F001158E7 /* fire.sks */; };
+		AA6D83E120DCE76300A6025C /* rightWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83E020DCE76200A6025C /* rightWordBtn.png */; };
+		AA6D83E320DCE8DB00A6025C /* wrongWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83E220DCE8DA00A6025C /* wrongWordBtn.png */; };
 		AA6FB73320AE7ACD0001EFED /* chartUpBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6FB73220AE7ACD0001EFED /* chartUpBg.png */; };
 		AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73420AE7B030001EFED /* InfoViewController.swift */; };
 		AA6FB73720AE7F910001EFED /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73620AE7F910001EFED /* InfoTableViewCell.swift */; };
@@ -1343,8 +1345,8 @@
 		AA5E2C49203D374E005E22A0 /* registerBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerBtnImg.png; sourceTree = "<group>"; };
 		AA61E81A20D4E8E40040A1E8 /* relWords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = relWords.txt; sourceTree = "<group>"; };
 		AA63D1F42087588B000EA088 /* resultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultBg.png; sourceTree = "<group>"; };
-		AA63D1F620875DBA000EA088 /* wrongWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongWordBtn.png; sourceTree = "<group>"; };
-		AA63D1F720875DBB000EA088 /* rightWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightWordBtn.png; sourceTree = "<group>"; };
+		AA63D1F620875DBA000EA088 /* wrongWordBtn-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wrongWordBtn-1.png"; sourceTree = "<group>"; };
+		AA63D1F720875DBB000EA088 /* rightWordBtn-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightWordBtn-1.png"; sourceTree = "<group>"; };
 		AA63D1FA2087661A000EA088 /* bigOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigOkBtn.png; sourceTree = "<group>"; };
 		AA63D1FC20879A31000EA088 /* unlockOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlockOkBtn.png; sourceTree = "<group>"; };
 		AA648DCD207CE9E9003ACD07 /* 5-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "5-10.txt"; sourceTree = "<group>"; };
@@ -1495,6 +1497,8 @@
 		AA6AA72C209C9A3200374241 /* popQuizBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popQuizBlock.png; sourceTree = "<group>"; };
 		AA6C95DA20AAA29C001158E7 /* reviewQuitBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewQuitBg.png; sourceTree = "<group>"; };
 		AA6C95DD20AAAA8F001158E7 /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
+		AA6D83E020DCE76200A6025C /* rightWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightWordBtn.png; sourceTree = "<group>"; };
+		AA6D83E220DCE8DA00A6025C /* wrongWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongWordBtn.png; sourceTree = "<group>"; };
 		AA6FB73220AE7ACD0001EFED /* chartUpBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartUpBg.png; sourceTree = "<group>"; };
 		AA6FB73420AE7B030001EFED /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		AA6FB73620AE7F910001EFED /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1956,11 +1960,13 @@
 				AAF078A420CBA399005A0C3D /* classFinishedBtn.png */,
 				AA63D1FA2087661A000EA088 /* bigOkBtn.png */,
 				AA63D1FC20879A31000EA088 /* unlockOkBtn.png */,
-				AA63D1F720875DBB000EA088 /* rightWordBtn.png */,
+				AA63D1F720875DBB000EA088 /* rightWordBtn-1.png */,
 				AA0EAA6D20A486E600E256AF /* answerRightBtn.png */,
+				AA6D83E020DCE76200A6025C /* rightWordBtn.png */,
 				AA5C2ED620A5542900EAD999 /* emptyStar.png */,
 				AA5C2ED520A5542900EAD999 /* filledStar.png */,
-				AA63D1F620875DBA000EA088 /* wrongWordBtn.png */,
+				AA6D83E220DCE8DA00A6025C /* wrongWordBtn.png */,
+				AA63D1F620875DBA000EA088 /* wrongWordBtn-1.png */,
 				AAA591722064C543006CC5A6 /* outCircle.png */,
 				AA4E2E73207CDC2800AAACC3 /* coverBg.png */,
 				AA7AE8FF2049675100ADEEDA /* recordCross.png */,
@@ -3008,6 +3014,7 @@
 				AA648EC0207CEA05003ACD07 /* 3-2.txt in Resources */,
 				AA648ED1207CEA05003ACD07 /* s2-1.txt in Resources */,
 				AA15E95B20D1527600A1AB82 /* 16-5.txt in Resources */,
+				AA6D83E120DCE76300A6025C /* rightWordBtn.png in Resources */,
 				AA15EACE20D1534C00A1AB82 /* s10-8.txt in Resources */,
 				AA7BB4E520C93392001A1F66 /* logBtn.png in Resources */,
 				AA2CFA8520BD91DA009DBBB6 /* finger.png in Resources */,
@@ -3245,7 +3252,7 @@
 				AA15E8AF20D1527600A1AB82 /* 14-5.txt in Resources */,
 				AA648EF9207CEA05003ACD07 /* s1-12.txt in Resources */,
 				AA0752F320CD17F8006FCCAB /* registerBg.png in Resources */,
-				AA63D1F920875DBD000EA088 /* rightWordBtn.png in Resources */,
+				AA63D1F920875DBD000EA088 /* rightWordBtn-1.png in Resources */,
 				AA36414720D3A80A00237B9F /* 1-1.txt in Resources */,
 				AA15E93D20D1527600A1AB82 /* 14-13.txt in Resources */,
 				AA15E95120D1527600A1AB82 /* 16-6.txt in Resources */,
@@ -3399,7 +3406,7 @@
 				AA15EACA20D1534C00A1AB82 /* s13-12.txt in Resources */,
 				AA15E89920D1527600A1AB82 /* 7-3.txt in Resources */,
 				AA04ED8A203D7E9700EC0A8E /* dialogueBg.png in Resources */,
-				AA63D1F820875DBD000EA088 /* wrongWordBtn.png in Resources */,
+				AA63D1F820875DBD000EA088 /* wrongWordBtn-1.png in Resources */,
 				AA36413420D395F400237B9F /* rightRoundedSqr2.png in Resources */,
 				AA15EABF20D1534C00A1AB82 /* s10-12.txt in Resources */,
 				AAFAFCB6205BE11F00307264 /* bookTimes1.png in Resources */,
@@ -3434,6 +3441,7 @@
 				AA15E8A020D1527600A1AB82 /* 9-11.txt in Resources */,
 				AA27DE1120B6E2B2003250D2 /* reviewOkBtnPng.png in Resources */,
 				AAFAFCB0205BE11F00307264 /* bookSpeed1.png in Resources */,
+				AA6D83E320DCE8DB00A6025C /* wrongWordBtn.png in Resources */,
 				AA15EA8820D1534C00A1AB82 /* s13-13.txt in Resources */,
 				AA15EA7C20D1534C00A1AB82 /* s7-2.txt in Resources */,
 				AA15EA3620D1534C00A1AB82 /* s6-5.txt in Resources */,
