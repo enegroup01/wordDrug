@@ -682,6 +682,17 @@
 		AA6C95DE20AAAA8F001158E7 /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA6C95DD20AAAA8F001158E7 /* fire.sks */; };
 		AA6D83E120DCE76300A6025C /* rightWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83E020DCE76200A6025C /* rightWordBtn.png */; };
 		AA6D83E320DCE8DB00A6025C /* wrongWordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83E220DCE8DA00A6025C /* wrongWordBtn.png */; };
+		AA6D83E520DCFEC000A6025C /* bookSenOn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83E420DCFEBF00A6025C /* bookSenOn.png */; };
+		AA6D83E720DCFF0900A6025C /* bookSenOff.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83E620DCFF0900A6025C /* bookSenOff.png */; };
+		AA6D83E920DCFFAF00A6025C /* bookTimes0.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83E820DCFFAF00A6025C /* bookTimes0.png */; };
+		AA6D83EB20DCFFC500A6025C /* bookTimes1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83EA20DCFFC500A6025C /* bookTimes1.png */; };
+		AA6D83ED20DCFFDA00A6025C /* bookTimes2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83EC20DCFFDA00A6025C /* bookTimes2.png */; };
+		AA6D83EF20DD007300A6025C /* bookPlayOn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83EE20DD007300A6025C /* bookPlayOn.png */; };
+		AA6D83F120DD008400A6025C /* bookPlayOff.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F020DD008400A6025C /* bookPlayOff.png */; };
+		AA6D83F520DD010900A6025C /* bookSpeed1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F220DD010800A6025C /* bookSpeed1.png */; };
+		AA6D83F620DD010900A6025C /* bookSpeed2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F320DD010800A6025C /* bookSpeed2.png */; };
+		AA6D83F720DD010900A6025C /* bookSpeed0.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F420DD010900A6025C /* bookSpeed0.png */; };
+		AA6D83F920DD017A00A6025C /* lessonBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F820DD017A00A6025C /* lessonBackBtn.png */; };
 		AA6FB73320AE7ACD0001EFED /* chartUpBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6FB73220AE7ACD0001EFED /* chartUpBg.png */; };
 		AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73420AE7B030001EFED /* InfoViewController.swift */; };
 		AA6FB73720AE7F910001EFED /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73620AE7F910001EFED /* InfoTableViewCell.swift */; };
@@ -758,7 +769,7 @@
 		AA98E6242086197A001100BA /* bookPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6232086197A001100BA /* bookPng.png */; };
 		AA98E6282086226E001100BA /* backBtnImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6272086226D001100BA /* backBtnImg.png */; };
 		AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */; };
-		AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn.png */; };
+		AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn-1.png */; };
 		AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC122088FB4F003A61E9 /* lessonProgress.png */; };
 		AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC142088FB58003A61E9 /* lessonFullLength.png */; };
 		AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA0E10420987FF5007148EB /* wrongSenBlock.png */; };
@@ -807,16 +818,16 @@
 		AAF31A11207E23DA002F8FD8 /* lightSel.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF31A0F207E23D9002F8FD8 /* lightSel.png */; };
 		AAFAFCA0205BD9CA00307264 /* wordTableBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFC9F205BD9C900307264 /* wordTableBg.png */; };
 		AAFAFCA2205BDD6500307264 /* sylBlueBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA1205BDD6500307264 /* sylBlueBall.png */; };
-		AAFAFCAF205BE11F00307264 /* bookTimes2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA5205BE11A00307264 /* bookTimes2.png */; };
-		AAFAFCB0205BE11F00307264 /* bookSpeed1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA6205BE11A00307264 /* bookSpeed1.png */; };
-		AAFAFCB1205BE11F00307264 /* bookPlayOff.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA7205BE11B00307264 /* bookPlayOff.png */; };
-		AAFAFCB2205BE11F00307264 /* bookSpeed2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA8205BE11B00307264 /* bookSpeed2.png */; };
-		AAFAFCB3205BE11F00307264 /* bookSenOn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA9205BE11C00307264 /* bookSenOn.png */; };
-		AAFAFCB4205BE11F00307264 /* bookSenOff.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAA205BE11D00307264 /* bookSenOff.png */; };
-		AAFAFCB5205BE11F00307264 /* bookTimes0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAB205BE11D00307264 /* bookTimes0.png */; };
-		AAFAFCB6205BE11F00307264 /* bookTimes1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAC205BE11E00307264 /* bookTimes1.png */; };
-		AAFAFCB7205BE11F00307264 /* bookPlayOn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAD205BE11E00307264 /* bookPlayOn.png */; };
-		AAFAFCB8205BE11F00307264 /* bookSpeed0.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAE205BE11F00307264 /* bookSpeed0.png */; };
+		AAFAFCAF205BE11F00307264 /* bookTimes2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA5205BE11A00307264 /* bookTimes2-1.png */; };
+		AAFAFCB0205BE11F00307264 /* bookSpeed1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA6205BE11A00307264 /* bookSpeed1-1.png */; };
+		AAFAFCB1205BE11F00307264 /* bookPlayOff-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA7205BE11B00307264 /* bookPlayOff-1.png */; };
+		AAFAFCB2205BE11F00307264 /* bookSpeed2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA8205BE11B00307264 /* bookSpeed2-1.png */; };
+		AAFAFCB3205BE11F00307264 /* bookSenOn-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCA9205BE11C00307264 /* bookSenOn-1.png */; };
+		AAFAFCB4205BE11F00307264 /* bookSenOff-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAA205BE11D00307264 /* bookSenOff-1.png */; };
+		AAFAFCB5205BE11F00307264 /* bookTimes0-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAB205BE11D00307264 /* bookTimes0-1.png */; };
+		AAFAFCB6205BE11F00307264 /* bookTimes1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAC205BE11E00307264 /* bookTimes1-1.png */; };
+		AAFAFCB7205BE11F00307264 /* bookPlayOn-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAD205BE11E00307264 /* bookPlayOn-1.png */; };
+		AAFAFCB8205BE11F00307264 /* bookSpeed0-1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAFAFCAE205BE11F00307264 /* bookSpeed0-1.png */; };
 		BEC32621193E6AA98B13685E /* Pods_wordDrug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59A7E8A0129B76F4791D5AB /* Pods_wordDrug.framework */; };
 /* End PBXBuildFile section */
 
@@ -1499,6 +1510,17 @@
 		AA6C95DD20AAAA8F001158E7 /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
 		AA6D83E020DCE76200A6025C /* rightWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightWordBtn.png; sourceTree = "<group>"; };
 		AA6D83E220DCE8DA00A6025C /* wrongWordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongWordBtn.png; sourceTree = "<group>"; };
+		AA6D83E420DCFEBF00A6025C /* bookSenOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSenOn.png; sourceTree = "<group>"; };
+		AA6D83E620DCFF0900A6025C /* bookSenOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSenOff.png; sourceTree = "<group>"; };
+		AA6D83E820DCFFAF00A6025C /* bookTimes0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTimes0.png; sourceTree = "<group>"; };
+		AA6D83EA20DCFFC500A6025C /* bookTimes1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTimes1.png; sourceTree = "<group>"; };
+		AA6D83EC20DCFFDA00A6025C /* bookTimes2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTimes2.png; sourceTree = "<group>"; };
+		AA6D83EE20DD007300A6025C /* bookPlayOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPlayOn.png; sourceTree = "<group>"; };
+		AA6D83F020DD008400A6025C /* bookPlayOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPlayOff.png; sourceTree = "<group>"; };
+		AA6D83F220DD010800A6025C /* bookSpeed1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed1.png; sourceTree = "<group>"; };
+		AA6D83F320DD010800A6025C /* bookSpeed2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed2.png; sourceTree = "<group>"; };
+		AA6D83F420DD010900A6025C /* bookSpeed0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed0.png; sourceTree = "<group>"; };
+		AA6D83F820DD017A00A6025C /* lessonBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBackBtn.png; sourceTree = "<group>"; };
 		AA6FB73220AE7ACD0001EFED /* chartUpBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartUpBg.png; sourceTree = "<group>"; };
 		AA6FB73420AE7B030001EFED /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		AA6FB73620AE7F910001EFED /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1576,7 +1598,7 @@
 		AA98E6232086197A001100BA /* bookPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPng.png; sourceTree = "<group>"; };
 		AA98E6272086226D001100BA /* backBtnImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backBtnImg.png; sourceTree = "<group>"; };
 		AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
-		AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBackBtn.png; sourceTree = "<group>"; };
+		AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lessonBackBtn-1.png"; sourceTree = "<group>"; };
 		AA9AFC122088FB4F003A61E9 /* lessonProgress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonProgress.png; sourceTree = "<group>"; };
 		AA9AFC142088FB58003A61E9 /* lessonFullLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonFullLength.png; sourceTree = "<group>"; };
 		AAA0E10420987FF5007148EB /* wrongSenBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongSenBlock.png; sourceTree = "<group>"; };
@@ -1627,16 +1649,16 @@
 		AAF31A0F207E23D9002F8FD8 /* lightSel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightSel.png; sourceTree = "<group>"; };
 		AAFAFC9F205BD9C900307264 /* wordTableBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wordTableBg.png; sourceTree = "<group>"; };
 		AAFAFCA1205BDD6500307264 /* sylBlueBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sylBlueBall.png; sourceTree = "<group>"; };
-		AAFAFCA5205BE11A00307264 /* bookTimes2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTimes2.png; sourceTree = "<group>"; };
-		AAFAFCA6205BE11A00307264 /* bookSpeed1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed1.png; sourceTree = "<group>"; };
-		AAFAFCA7205BE11B00307264 /* bookPlayOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPlayOff.png; sourceTree = "<group>"; };
-		AAFAFCA8205BE11B00307264 /* bookSpeed2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed2.png; sourceTree = "<group>"; };
-		AAFAFCA9205BE11C00307264 /* bookSenOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSenOn.png; sourceTree = "<group>"; };
-		AAFAFCAA205BE11D00307264 /* bookSenOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSenOff.png; sourceTree = "<group>"; };
-		AAFAFCAB205BE11D00307264 /* bookTimes0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTimes0.png; sourceTree = "<group>"; };
-		AAFAFCAC205BE11E00307264 /* bookTimes1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTimes1.png; sourceTree = "<group>"; };
-		AAFAFCAD205BE11E00307264 /* bookPlayOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookPlayOn.png; sourceTree = "<group>"; };
-		AAFAFCAE205BE11F00307264 /* bookSpeed0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed0.png; sourceTree = "<group>"; };
+		AAFAFCA5205BE11A00307264 /* bookTimes2-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookTimes2-1.png"; sourceTree = "<group>"; };
+		AAFAFCA6205BE11A00307264 /* bookSpeed1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookSpeed1-1.png"; sourceTree = "<group>"; };
+		AAFAFCA7205BE11B00307264 /* bookPlayOff-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookPlayOff-1.png"; sourceTree = "<group>"; };
+		AAFAFCA8205BE11B00307264 /* bookSpeed2-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookSpeed2-1.png"; sourceTree = "<group>"; };
+		AAFAFCA9205BE11C00307264 /* bookSenOn-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookSenOn-1.png"; sourceTree = "<group>"; };
+		AAFAFCAA205BE11D00307264 /* bookSenOff-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookSenOff-1.png"; sourceTree = "<group>"; };
+		AAFAFCAB205BE11D00307264 /* bookTimes0-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookTimes0-1.png"; sourceTree = "<group>"; };
+		AAFAFCAC205BE11E00307264 /* bookTimes1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookTimes1-1.png"; sourceTree = "<group>"; };
+		AAFAFCAD205BE11E00307264 /* bookPlayOn-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookPlayOn-1.png"; sourceTree = "<group>"; };
+		AAFAFCAE205BE11F00307264 /* bookSpeed0-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookSpeed0-1.png"; sourceTree = "<group>"; };
 		F59A7E8A0129B76F4791D5AB /* Pods_wordDrug.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wordDrug.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1757,16 +1779,26 @@
 				AA9457A820D8ED9E004681B7 /* reviewQuitBg2.png */,
 				AA9655682090B7E2003E5AB7 /* practiceBook.png */,
 				AAFAFCA1205BDD6500307264 /* sylBlueBall.png */,
-				AAFAFCAD205BE11E00307264 /* bookPlayOn.png */,
-				AAFAFCA7205BE11B00307264 /* bookPlayOff.png */,
-				AAFAFCA9205BE11C00307264 /* bookSenOn.png */,
-				AAFAFCAA205BE11D00307264 /* bookSenOff.png */,
-				AAFAFCAE205BE11F00307264 /* bookSpeed0.png */,
-				AAFAFCA6205BE11A00307264 /* bookSpeed1.png */,
-				AAFAFCA8205BE11B00307264 /* bookSpeed2.png */,
-				AAFAFCAB205BE11D00307264 /* bookTimes0.png */,
-				AAFAFCAC205BE11E00307264 /* bookTimes1.png */,
-				AAFAFCA5205BE11A00307264 /* bookTimes2.png */,
+				AA6D83EE20DD007300A6025C /* bookPlayOn.png */,
+				AAFAFCAD205BE11E00307264 /* bookPlayOn-1.png */,
+				AAFAFCA7205BE11B00307264 /* bookPlayOff-1.png */,
+				AA6D83F020DD008400A6025C /* bookPlayOff.png */,
+				AA6D83E420DCFEBF00A6025C /* bookSenOn.png */,
+				AAFAFCA9205BE11C00307264 /* bookSenOn-1.png */,
+				AA6D83E620DCFF0900A6025C /* bookSenOff.png */,
+				AAFAFCAA205BE11D00307264 /* bookSenOff-1.png */,
+				AA6D83F420DD010900A6025C /* bookSpeed0.png */,
+				AA6D83F220DD010800A6025C /* bookSpeed1.png */,
+				AA6D83F320DD010800A6025C /* bookSpeed2.png */,
+				AAFAFCAE205BE11F00307264 /* bookSpeed0-1.png */,
+				AAFAFCA6205BE11A00307264 /* bookSpeed1-1.png */,
+				AAFAFCA8205BE11B00307264 /* bookSpeed2-1.png */,
+				AA6D83E820DCFFAF00A6025C /* bookTimes0.png */,
+				AAFAFCAB205BE11D00307264 /* bookTimes0-1.png */,
+				AA6D83EA20DCFFC500A6025C /* bookTimes1.png */,
+				AAFAFCAC205BE11E00307264 /* bookTimes1-1.png */,
+				AA6D83EC20DCFFDA00A6025C /* bookTimes2.png */,
+				AAFAFCA5205BE11A00307264 /* bookTimes2-1.png */,
 				AA45760720CE44B700B6680B /* newBookVcBottom.png */,
 				AA9655662090B0C2003E5AB7 /* bookViewBottomBg.png */,
 			);
@@ -2551,7 +2583,8 @@
 			isa = PBXGroup;
 			children = (
 				AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */,
-				AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn.png */,
+				AA9AFC0E2088EF0E003A61E9 /* lessonBackBtn-1.png */,
+				AA6D83F820DD017A00A6025C /* lessonBackBtn.png */,
 				AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */,
 				AA9AFC122088FB4F003A61E9 /* lessonProgress.png */,
 				AA9AFC142088FB58003A61E9 /* lessonFullLength.png */,
@@ -2754,6 +2787,7 @@
 				AAD62F4820C15897001D6275 /* step1Line2.png in Resources */,
 				AAD62F4E20C16B50001D6275 /* step0Chart.png in Resources */,
 				AA98E6102085E94E001100BA /* block1.png in Resources */,
+				AA6D83E920DCFFAF00A6025C /* bookTimes0.png in Resources */,
 				AA15E8AB20D1527600A1AB82 /* 12-9.txt in Resources */,
 				AA648E82207CEA05003ACD07 /* s3-4.txt in Resources */,
 				AA15EA2A20D1534C00A1AB82 /* s8-13.txt in Resources */,
@@ -2762,6 +2796,7 @@
 				AA15EAAF20D1534C00A1AB82 /* s14-14.txt in Resources */,
 				AA648EC9207CEA05003ACD07 /* s4-7.txt in Resources */,
 				AA648E7B207CEA05003ACD07 /* 4-6.txt in Resources */,
+				AA6D83E720DCFF0900A6025C /* bookSenOff.png in Resources */,
 				AA15E93B20D1527600A1AB82 /* 13-2.txt in Resources */,
 				AA15E8B420D1527600A1AB82 /* 7-11.txt in Resources */,
 				AA15EAD120D1534C00A1AB82 /* s13-14.txt in Resources */,
@@ -2769,7 +2804,7 @@
 				AA15E8CF20D1527600A1AB82 /* 9-9.txt in Resources */,
 				AA648EA6207CEA05003ACD07 /* s1-5.txt in Resources */,
 				AA15E8D720D1527600A1AB82 /* 6-13.txt in Resources */,
-				AAFAFCB3205BE11F00307264 /* bookSenOn.png in Resources */,
+				AAFAFCB3205BE11F00307264 /* bookSenOn-1.png in Resources */,
 				AA36412120D3731B00237B9F /* s12-1.txt in Resources */,
 				AA15EA5D20D1534C00A1AB82 /* s13-2.txt in Resources */,
 				AA2CFA8720BD91E8009DBBB6 /* point.png in Resources */,
@@ -2784,6 +2819,7 @@
 				AAD62F4220C14A4E001D6275 /* step0Line.png in Resources */,
 				AA15EA6920D1534C00A1AB82 /* s8-9.txt in Resources */,
 				AA15E95820D1527600A1AB82 /* 14-2.txt in Resources */,
+				AA6D83F720DD010900A6025C /* bookSpeed0.png in Resources */,
 				AA15EA5420D1534C00A1AB82 /* s18-3.txt in Resources */,
 				AA648E9E207CEA05003ACD07 /* 3-3.txt in Resources */,
 				AA15E92C20D1527600A1AB82 /* 18-5.txt in Resources */,
@@ -2985,6 +3021,7 @@
 				AA15EA3F20D1534C00A1AB82 /* s15-14.txt in Resources */,
 				AA15EA5920D1534C00A1AB82 /* s11-12.txt in Resources */,
 				AA15EA3920D1534C00A1AB82 /* s13-10.txt in Resources */,
+				AA6D83F120DD008400A6025C /* bookPlayOff.png in Resources */,
 				AA15E89D20D1527600A1AB82 /* 11-12.txt in Resources */,
 				AA15EA7720D1534C00A1AB82 /* s18-2.txt in Resources */,
 				AA15E8F520D1527600A1AB82 /* 9-5.txt in Resources */,
@@ -3049,7 +3086,7 @@
 				AA15E94620D1527600A1AB82 /* 18-10.txt in Resources */,
 				AA15E8BB20D1527600A1AB82 /* 7-6.txt in Resources */,
 				AA15EAD420D1534C00A1AB82 /* s11-5.txt in Resources */,
-				AAFAFCB2205BE11F00307264 /* bookSpeed2.png in Resources */,
+				AAFAFCB2205BE11F00307264 /* bookSpeed2-1.png in Resources */,
 				AA15E91120D1527600A1AB82 /* 12-10.txt in Resources */,
 				AA15E8B320D1527600A1AB82 /* 11-15.txt in Resources */,
 				AA15E94520D1527600A1AB82 /* 6-7.txt in Resources */,
@@ -3108,7 +3145,7 @@
 				AA15EAA520D1534C00A1AB82 /* s8-15.txt in Resources */,
 				AA39854820D285B5004E9CE3 /* ending80.mp3 in Resources */,
 				AA648EBA207CEA05003ACD07 /* 3-13.txt in Resources */,
-				AAFAFCB5205BE11F00307264 /* bookTimes0.png in Resources */,
+				AAFAFCB5205BE11F00307264 /* bookTimes0-1.png in Resources */,
 				AA15E7A720D0F4D600A1AB82 /* blueArrow.png in Resources */,
 				AA15E8CB20D1527600A1AB82 /* 6-11.txt in Resources */,
 				AA648EBB207CEA05003ACD07 /* s5-9.txt in Resources */,
@@ -3132,6 +3169,7 @@
 				AA648EF4207CEA05003ACD07 /* 2-1.txt in Resources */,
 				AA648E92207CEA05003ACD07 /* 4-1.txt in Resources */,
 				AA15EA9A20D1534C00A1AB82 /* s6-1.txt in Resources */,
+				AA6D83F520DD010900A6025C /* bookSpeed1.png in Resources */,
 				AA702FBC20CFF413005FA73B /* courseBtnYellow.png in Resources */,
 				AA648EB9207CEA05003ACD07 /* 4-12.txt in Resources */,
 				AA15EA7A20D1534C00A1AB82 /* s8-7.txt in Resources */,
@@ -3162,7 +3200,7 @@
 				AA15E8D920D1527600A1AB82 /* 12-14.txt in Resources */,
 				AA648ED8207CEA05003ACD07 /* 5-4.txt in Resources */,
 				AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */,
-				AAFAFCB8205BE11F00307264 /* bookSpeed0.png in Resources */,
+				AAFAFCB8205BE11F00307264 /* bookSpeed0-1.png in Resources */,
 				AA648EB0207CEA05003ACD07 /* 5-1.txt in Resources */,
 				AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */,
 				AA39855920D2A6DB004E9CE3 /* loginBgPng.png in Resources */,
@@ -3222,6 +3260,7 @@
 				AA15EAAA20D1534C00A1AB82 /* s12-15.txt in Resources */,
 				AA126A6520D3D30400419AD5 /* chartBg2-1.png in Resources */,
 				AA2CFA7720BD81FF009DBBB6 /* volume.png in Resources */,
+				AA6D83ED20DCFFDA00A6025C /* bookTimes2.png in Resources */,
 				AA648EFC207CEA05003ACD07 /* 4-14.txt in Resources */,
 				AA15E8E020D1527600A1AB82 /* 8-1.txt in Resources */,
 				AA648EEE207CEA05003ACD07 /* 2-8.txt in Resources */,
@@ -3269,8 +3308,8 @@
 				AA648EF2207CEA05003ACD07 /* 2-13.txt in Resources */,
 				AA648EB3207CEA05003ACD07 /* s5-8.txt in Resources */,
 				AA648ECD207CEA05003ACD07 /* s4-8.txt in Resources */,
-				AAFAFCAF205BE11F00307264 /* bookTimes2.png in Resources */,
-				AAFAFCB7205BE11F00307264 /* bookPlayOn.png in Resources */,
+				AAFAFCAF205BE11F00307264 /* bookTimes2-1.png in Resources */,
+				AAFAFCB7205BE11F00307264 /* bookPlayOn-1.png in Resources */,
 				AA21142F2043F0200047B866 /* leftPageBtn.png in Resources */,
 				AA648E79207CEA05003ACD07 /* 3-5.txt in Resources */,
 				AA15EA6E20D1534C00A1AB82 /* s18-14.txt in Resources */,
@@ -3281,6 +3320,7 @@
 				AA15EA6B20D1534C00A1AB82 /* s9-15.txt in Resources */,
 				AA27712B208A54E700414E5D /* noClassAlertBg.png in Resources */,
 				AA648EC8207CEA05003ACD07 /* 5-11.txt in Resources */,
+				AA6D83E520DCFEC000A6025C /* bookSenOn.png in Resources */,
 				AA15E94D20D1527600A1AB82 /* 11-14.txt in Resources */,
 				AA35E39920BEDEFA00084EB2 /* world.png in Resources */,
 				AA15E94E20D1527600A1AB82 /* 10-6.txt in Resources */,
@@ -3331,6 +3371,7 @@
 				AA96556120909461003E5AB7 /* reviewSelectBg.png in Resources */,
 				AA7BB4CC20C79070001A1F66 /* purchaseDownBg-1.png in Resources */,
 				AA15E90120D1527600A1AB82 /* 6-9.txt in Resources */,
+				AA6D83F620DD010900A6025C /* bookSpeed2.png in Resources */,
 				AA15E8C520D1527600A1AB82 /* 15-2.txt in Resources */,
 				AA95661120DA5644005BD5E8 /* pronounceBtn4.png in Resources */,
 				AA3A847D20C5662B00BE88EC /* starPng.png in Resources */,
@@ -3368,6 +3409,7 @@
 				AA5C2ED720A5542900EAD999 /* filledStar.png in Resources */,
 				AA15E8DA20D1527600A1AB82 /* 15-3.txt in Resources */,
 				AA0752ED20CD0AAA006FCCAB /* circleOkBtn.png in Resources */,
+				AA6D83EF20DD007300A6025C /* bookPlayOn.png in Resources */,
 				AA648E6A207CEA05003ACD07 /* s3-15.txt in Resources */,
 				AA15E93420D1527600A1AB82 /* 8-11.txt in Resources */,
 				AA04ED8D203D7F6200EC0A8E /* toeflBg.png in Resources */,
@@ -3409,7 +3451,7 @@
 				AA63D1F820875DBD000EA088 /* wrongWordBtn-1.png in Resources */,
 				AA36413420D395F400237B9F /* rightRoundedSqr2.png in Resources */,
 				AA15EABF20D1534C00A1AB82 /* s10-12.txt in Resources */,
-				AAFAFCB6205BE11F00307264 /* bookTimes1.png in Resources */,
+				AAFAFCB6205BE11F00307264 /* bookTimes1-1.png in Resources */,
 				AA36412520D38D9900237B9F /* newGameBg2.png in Resources */,
 				AA648E97207CEA05003ACD07 /* s5-6.txt in Resources */,
 				AA98E62220861560001100BA /* block3Title.png in Resources */,
@@ -3426,26 +3468,27 @@
 				AA36411F20D3731100237B9F /* 12-1.txt in Resources */,
 				AA15E8FC20D1527600A1AB82 /* 7-13.txt in Resources */,
 				AA15E95720D1527600A1AB82 /* 17-10.txt in Resources */,
-				AAFAFCB1205BE11F00307264 /* bookPlayOff.png in Resources */,
+				AAFAFCB1205BE11F00307264 /* bookPlayOff-1.png in Resources */,
 				AA064EDE20D25A5000DD87BA /* correct.wav in Resources */,
 				AA15E8DE20D1527600A1AB82 /* 16-2.txt in Resources */,
 				AA15EA7F20D1534C00A1AB82 /* s17-7.txt in Resources */,
 				AAD62F5820C17A52001D6275 /* step2Circle.png in Resources */,
 				AA45760A20CEB41100B6680B /* beats.wav in Resources */,
 				AA15E8E520D1527600A1AB82 /* 9-2.txt in Resources */,
-				AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn.png in Resources */,
+				AA9AFC0F2088EF0E003A61E9 /* lessonBackBtn-1.png in Resources */,
 				AA15E78020D0DDE400A1AB82 /* step2Png.png in Resources */,
 				AA15EA7320D1534C00A1AB82 /* s18-1.txt in Resources */,
 				AA15EAA120D1534C00A1AB82 /* s9-8.txt in Resources */,
 				AA15EA9520D1534C00A1AB82 /* s7-14.txt in Resources */,
 				AA15E8A020D1527600A1AB82 /* 9-11.txt in Resources */,
 				AA27DE1120B6E2B2003250D2 /* reviewOkBtnPng.png in Resources */,
-				AAFAFCB0205BE11F00307264 /* bookSpeed1.png in Resources */,
+				AAFAFCB0205BE11F00307264 /* bookSpeed1-1.png in Resources */,
 				AA6D83E320DCE8DB00A6025C /* wrongWordBtn.png in Resources */,
 				AA15EA8820D1534C00A1AB82 /* s13-13.txt in Resources */,
 				AA15EA7C20D1534C00A1AB82 /* s7-2.txt in Resources */,
 				AA15EA3620D1534C00A1AB82 /* s6-5.txt in Resources */,
 				AA648EFA207CEA05003ACD07 /* 1-10.txt in Resources */,
+				AA6D83F920DD017A00A6025C /* lessonBackBtn.png in Resources */,
 				AA648EE0207CEA05003ACD07 /* s2-10.txt in Resources */,
 				AA15E93A20D1527600A1AB82 /* 12-5.txt in Resources */,
 				AA15E92920D1527600A1AB82 /* 12-12.txt in Resources */,
@@ -3459,6 +3502,7 @@
 				AAF0687F20D401320060903C /* 17-14.txt in Resources */,
 				AA98E6082085DC5F001100BA /* loginBgImg.png in Resources */,
 				AA648EF7207CEA05003ACD07 /* 3-7.txt in Resources */,
+				AA6D83EB20DCFFC500A6025C /* bookTimes1.png in Resources */,
 				AA15E8B620D1527600A1AB82 /* 15-15.txt in Resources */,
 				AAF078A520CBA39A005A0C3D /* classFinishedBtn.png in Resources */,
 				AAFAFCA2205BDD6500307264 /* sylBlueBall.png in Resources */,
@@ -3477,7 +3521,7 @@
 				AA36413720D39AE100237B9F /* ending30.mp3 in Resources */,
 				AA3A84BB20C57B3A00BE88EC /* doubleLine.png in Resources */,
 				AA15EAB120D1534C00A1AB82 /* s12-3.txt in Resources */,
-				AAFAFCB4205BE11F00307264 /* bookSenOff.png in Resources */,
+				AAFAFCB4205BE11F00307264 /* bookSenOff-1.png in Resources */,
 				AA15EA5520D1534C00A1AB82 /* s6-3.txt in Resources */,
 				AA15EA3E20D1534C00A1AB82 /* s10-11.txt in Resources */,
 				AA648EE9207CEA05003ACD07 /* s3-7.txt in Resources */,

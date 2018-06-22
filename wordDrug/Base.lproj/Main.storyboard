@@ -609,9 +609,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TG2-0h-oEG">
-                                <rect key="frame" x="16" y="30" width="19" height="31"/>
+                                <rect key="frame" x="7" y="15" width="38" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="bookBackBtn.png"/>
+                                <state key="normal" image="lessonBackBtn.png"/>
                                 <connections>
                                     <action selector="backBtnClicked:" destination="1ci-A8-OIj" eventType="touchUpInside" id="6Ok-94-3uj"/>
                                 </connections>
@@ -1970,11 +1970,10 @@
         <image name="block2Title.png" width="152" height="150"/>
         <image name="blueFinger.png" width="270" height="352"/>
         <image name="bluePoint.png" width="94" height="94"/>
-        <image name="bookBackBtn.png" width="19" height="31"/>
-        <image name="bookPlayOff.png" width="21" height="21"/>
-        <image name="bookSenOff.png" width="27" height="23"/>
-        <image name="bookSpeed2.png" width="44" height="27"/>
-        <image name="bookTimes1.png" width="46" height="8"/>
+        <image name="bookPlayOff.png" width="42" height="42"/>
+        <image name="bookSenOff.png" width="96" height="78"/>
+        <image name="bookSpeed2.png" width="88" height="54"/>
+        <image name="bookTimes1.png" width="92" height="16"/>
         <image name="camera.png" width="28" height="28"/>
         <image name="chartBg.png" width="750" height="1334"/>
         <image name="chartSeperator.png" width="742" height="12"/>
@@ -1984,7 +1983,7 @@
         <image name="courseBtmAlpha.png" width="750" height="170"/>
         <image name="courseBtnOrange.png" width="210" height="70"/>
         <image name="freePng.png" width="35" height="35"/>
-        <image name="lessonBackBtn.png" width="19" height="31"/>
+        <image name="lessonBackBtn.png" width="38" height="62"/>
         <image name="lessonBtn.png" width="188" height="66"/>
         <image name="lessonFullLength.png" width="375" height="3"/>
         <image name="lessonProgress.png" width="375" height="3"/>
@@ -2008,7 +2007,7 @@
         <image name="purchaseUpBg.png" width="750" height="500"/>
         <image name="recordBtn.png" width="256" height="256"/>
         <image name="resultBg.png" width="560" height="976"/>
-        <image name="rightWordBtn.png" width="519" height="114"/>
+        <image name="rightWordBtn.png" width="1038" height="228"/>
         <image name="senBlock.png" width="699" height="114"/>
         <image name="seperateLine.png" width="740" height="2"/>
         <image name="stageTopCover.png" width="750" height="266"/>

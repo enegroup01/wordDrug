@@ -815,10 +815,10 @@ class NewGameScene: SKScene {
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
         
-        makeImageNode(name: "popUpBlock", image: "popUpBlock2", x: 0, y: -1334 / 2 + 228 * 1.5, width: 750, height: 228, z: 2, alpha: 0, isAnchoring: false)
-        makeLabelNode(x: 0, y: -1380 / 2 + 228 * 1.5, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 3, name: "popUpLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-        makeImageNode(name: "popDownBlock", image: "popDownBlock2", x: 0, y: -1334 / 2 + 114, width: 750, height: 228, z: 2, alpha: 0, isAnchoring: false)
-        makeLabelNode(x: 0, y: -1380 / 2 + 114, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 3, name: "popDownLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeImageNode(name: "popUpBlock", image: "popUpBlock2", x: 0, y: -1334 / 2 + 228 * 1.5, width: 750, height: 228, z: 7, alpha: 0, isAnchoring: false)
+        makeLabelNode(x: 0, y: -1380 / 2 + 228 * 1.5, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 8, name: "popUpLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeImageNode(name: "popDownBlock", image: "popDownBlock2", x: 0, y: -1334 / 2 + 114, width: 750, height: 228, z: 7, alpha: 0, isAnchoring: false)
+        makeLabelNode(x: 0, y: -1380 / 2 + 114, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 8, name: "popDownLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
    
     
     
@@ -2418,7 +2418,7 @@ class NewGameScene: SKScene {
         
         //建立所有單字選項
         //設定5格的位置
-        let positions = [[-135,-515],[-230,-295],[135,-515],[230,-295],[0,-105]]
+        let positions = [[-135,-519],[-230,-299],[135,-519],[230,-299],[0,-109]]
         
         var waitMoreTime = DispatchTime.now()
         if isBackToSpell {
