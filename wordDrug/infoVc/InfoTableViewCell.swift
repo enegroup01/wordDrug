@@ -38,6 +38,30 @@ class InfoTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        var iPadDif = CGFloat()
+        
+        switch height {
+        case 812:
+            
+   iPadDif = 1
+            
+        case 736:
+             iPadDif = 1
+            
+        case 667:
+            
+            iPadDif = 1
+            
+        case 568:
+            
+          iPadDif = 1
+            
+        default:
+          
+             iPadDif =  0.9
+        }
+        
+        
         self.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.height)
         
         infoCellBg.backgroundColor = .white
@@ -92,7 +116,7 @@ class InfoTableViewCell: UITableViewCell {
 
         
 
-        ringView.frame = CGRect(x: self.frame.width / 3.3, y: self.frame.height / 8, width: self.frame.width / 3.3, height: self.frame.width / 3.3)
+        ringView.frame = CGRect(x: self.frame.width / 3.3, y: self.frame.height / 8, width: self.frame.width / 3.3 * iPadDif * iPadDif, height: self.frame.width / 3.3 * iPadDif * iPadDif)
         
         
         /*

@@ -68,6 +68,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     
     var recommendedClassToPass = String()
     
+   
+    var answerTime = Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -196,13 +199,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     
     
     @objc func startToRecognize(){
-        
-        
+   
         
         sayHi()
-        
-        
-     
         
     }
     
@@ -266,15 +265,18 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                     
                           self!.recordBtn.isEnabled = true
                        self!.failToAuthorizeMic()
+                           self!.authorized()
                 case .restricted:
 
                           self!.recordBtn.isEnabled = true
                        self!.failToAuthorizeMic()
+                           self!.authorized()
+                    
                 case .notDetermined:
               
                           self!.recordBtn.isEnabled = true
                     self!.failToAuthorizeMic()
-                    
+                           self!.authorized()
                 }
                 
                 
@@ -288,7 +290,6 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     
     func failToAuthorizeMic(){
         
-
         recogTextLabel.text = "請到[設定] -> [MissWord] 裡開啟麥克風及語音辨識權限"
         
     }
@@ -311,7 +312,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
-    var answerTime = Int()
+
     @IBAction func recordClicked(_ sender: Any) {
         
         //停止
@@ -374,9 +375,6 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                     
                     isRecogRight = true
                     
-                    
-
-
                 }
                 
             }
@@ -437,28 +435,10 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                                 self!.recogTextLabel.text = resultWord
                                 
                                 self!.hintLabel.text = "再按一下麥克風來結束"
-                                /*
-                                if relWords != nil {
-                                    
-                                    if relWords!.contains(resultWord){
-                                        
-                                        self!.recogTextLabel.text = self!.wordToReceive
-                                        
-                                    } else {
-                                        
-                                        self!.recogTextLabel.text = resultWord
-                                    }
-                                } else {
-                                    
-                                    self!.recogTextLabel.text = resultWord
-                                    
-                                }
-                                */
+
                             }
                             
-                            //對答案的部分要修掉標點符號
-                           // self!.wordRecorded = self!.recogTextLabel.text!.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
-                            
+
                             
                             if result.isFinal {
                                 
@@ -469,7 +449,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                                 self!.recognitionRequest = nil
                                 self!.recognitionTask = nil
                                 
-                                //self!.recordBtn.setTitle("Start Recording", for: [])
+                   
                                 
                                 
                             }
@@ -492,8 +472,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                     audioEngine.prepare()
                     try audioEngine.start()
                     
-                    //開啟錄音
-                   // playSoundBtn.isEnabled = false
+               
                 }
                 
                 
@@ -621,12 +600,10 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
         print("**Finish")
         
-    
-        
+            
         requestMicAuth()
         
 
-        
         print("nc received")
         
     }

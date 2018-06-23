@@ -488,7 +488,7 @@
                                 <rect key="frame" x="16" y="298" width="136" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
-                                <state key="normal" title="註冊" backgroundImage="newRegisterBtn.png">
+                                <state key="normal" title="註冊" backgroundImage="regBtn.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1002,10 +1002,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-xK-9h2">
-                                <rect key="frame" x="0.0" y="500" width="375" height="167"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykw-pZ-wIi">
                                 <rect key="frame" x="0.0" y="167" width="375" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1014,17 +1010,6 @@
                                 <rect key="frame" x="0.0" y="334" width="375" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cLz-3m-g61">
-                                <rect key="frame" x="135" y="20" width="218" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQz-Vd-la3">
-                                <rect key="frame" x="151" y="28" width="188" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDT-hO-Fzz">
                                 <rect key="frame" x="176" y="131" width="114" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1283,13 +1268,10 @@
                         <outlet property="block2RBtn" destination="tcF-be-kSJ" id="JdU-F6-jwR"/>
                         <outlet property="block2TitleImg" destination="t1Q-my-jOC" id="aZh-B7-lR5"/>
                         <outlet property="block2WordCountLabel" destination="f6f-OP-fnc" id="jlO-NQ-rhA"/>
-                        <outlet property="block3" destination="i6f-xK-9h2" id="4lB-Wf-Zbl"/>
                         <outlet property="bottomBg" destination="JX5-fw-d7o" id="uk3-Bw-UXI"/>
                         <outlet property="bottomLabel" destination="VHA-5o-q6H" id="KnG-in-ocP"/>
                         <outlet property="dayTitleLabel" destination="ohj-Ne-WFq" id="SYi-bj-nNR"/>
                         <outlet property="daysLabel" destination="pSo-Gt-U6x" id="PgW-VQ-JDZ"/>
-                        <outlet property="dialogueBg" destination="cLz-3m-g61" id="ZCg-Qb-Aii"/>
-                        <outlet property="dialogueLabel" destination="YQz-Vd-la3" id="3xk-P5-VZp"/>
                         <outlet property="finger" destination="JjV-ow-DLG" id="lsK-Mq-ttm"/>
                         <outlet property="logOutBtn" destination="a1e-Ia-agD" id="x1z-Oy-SAr"/>
                         <outlet property="logoImg" destination="Psd-ol-vLF" id="ErM-4G-jyM"/>
@@ -1994,7 +1976,6 @@
         <image name="newBookVcBottom.png" width="375" height="66"/>
         <image name="newFbBtn.png" width="306" height="37"/>
         <image name="newLoginBtn.png" width="143" height="37"/>
-        <image name="newRegisterBtn.png" width="142" height="37"/>
         <image name="orangeCart.png" width="86" height="88"/>
         <image name="orangeChart.png" width="86" height="98"/>
         <image name="orangeStatus.png" width="74" height="96"/>
@@ -2006,6 +1987,7 @@
         <image name="purchaseDownBg.png" width="750" height="728"/>
         <image name="purchaseUpBg.png" width="750" height="500"/>
         <image name="recordBtn.png" width="256" height="256"/>
+        <image name="regBtn.png" width="138" height="33"/>
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="1038" height="228"/>
         <image name="senBlock.png" width="699" height="114"/>
@@ -2015,7 +1997,7 @@
         <image name="yellowBack.png" width="38" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rwi-hC-Ovx"/>
+        <segue reference="FzF-te-kXe"/>
         <segue reference="Qsn-eF-t3O"/>
         <segue reference="08a-wE-CO2"/>
     </inferredMetricsTieBreakers>

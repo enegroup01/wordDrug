@@ -55,6 +55,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var xDif = CGFloat()
     var alertY = CGFloat()
     var iknowY = CGFloat()
+    var iPadSmall = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,6 +70,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             alertY = 560
             iknowY  = 5
+            iPadSmall = 0
         case 736:
             
             dif = 1.1
@@ -76,6 +78,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             xDif = 0
             alertY = 580
             iknowY  = 0
+            iPadSmall = 0
         case 667:
             
             dif = 1
@@ -83,6 +86,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             xDif = 0
             alertY = 562
             iknowY  = 0
+            iPadSmall = 0
         case 568:
             
             dif = 0.9
@@ -90,13 +94,15 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             xDif = 10
             alertY = 480
             iknowY  = -5
+            iPadSmall = 0
             
         default:
             dif = 0.9
             yDif = 0
             xDif = 0
-            alertY = 580
+            alertY = 480
             iknowY  = 0
+            iPadSmall = 20
         }
 
         // Do any additional setup after loading the view.
@@ -159,13 +165,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         alertBg.addSubview(alertText)
 
-        //let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
-        iknowBtn.frame = CGRect(x: (width - 210 * dif) / 2, y: height * 1.88 / 5, width: 210 * dif, height: 40 * dif)
+    
+        iknowBtn.frame = CGRect(x: (width - 210 * dif) / 2, y: height * 1.88 / 5 + iPadSmall, width: 210 * dif, height: 40 * dif)
         
-        
-
-        //iknowBtn.setBackgroundImage(UIImage(named:"noClassOkBtn.png"), for: .normal)
-        //iknowBtn.backgroundColor = .red
+    
         iknowBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         iknowBtn.setTitle("我知道了", for: .normal)
         iknowBtn.setTitleColor(orangeColor, for: .normal)
@@ -179,12 +182,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         classTitle.frame = CGRect(x: width / 5, y: height / 20 + yDif, width: 73 * dif, height: 78 * dif)
         classTitle.image = UIImage(named: titleImg)
  
-        alreadyLearnedLabel.frame = CGRect(x: width / 2 - xDif, y: classTitle.frame.minY, width: 169, height: 28)
-        wordCountsLabel.frame = CGRect(x: width / 2 - xDif, y: alreadyLearnedLabel.frame.maxY + 5, width: 169, height: 55)
-        
-        
-        
-        //wordCountsLabel.backgroundColor = .red
+        alreadyLearnedLabel.frame = CGRect(x: width / 2 - xDif - iPadSmall, y: classTitle.frame.minY, width: 169, height: 28)
+        wordCountsLabel.frame = CGRect(x: width / 2 - xDif - iPadSmall, y: alreadyLearnedLabel.frame.maxY + 5 - iPadSmall, width: 169, height: 55)
         
         removeBtns()
 
@@ -211,7 +210,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         iknowBtn.isEnabled = false
         
         alertBg.frame.origin.y = height * 1 / 5
-        iknowBtn.frame.origin.y = height * 1.88 / 5 - iknowY
+        iknowBtn.frame.origin.y = height * 1.88 / 5 - iknowY + iPadSmall
     }
     
     @available(iOS 6.0, *)
@@ -227,8 +226,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var mapPassedInt = Int()
     
     override func viewWillAppear(_ animated: Bool) {
-            var totalWordsLearned = Int()
-        print("courseReceived:\(courseReceived)")
+
+        var totalWordsLearned = Int()
+
         isClassAllPassed = false
         
         //抓所有學習單字字數
@@ -241,36 +241,32 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             mapPassedInt = mapPassed!
             
         case 1:
-            print("1")
+     
 
             stageCount = 6
             elemWordsMax = [450,450,450,450,450,450]
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
-            
-            print(gamePassedDic)
-            print(mapPassedInt)
+
             
             
         case 2:
-            print("2")
+       
             
             stageCount = 7
             elemWordsMax = [450,450,450,450,450,450,450]
             gamePassedDic = gamePassed3!
             mapPassedInt = mapPassed3!
             
-            print(gamePassedDic)
-            print(mapPassedInt)
+ 
         default:
             break
         }
         
-        
-        //mapPassed = 4
+ 
         
         for (s,u) in gamePassedDic!{
-            print("2")
+          
             
             wordCounts = s * 30 + u * 3
             
@@ -282,7 +278,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             case 0:
                 eachCellMyWordsCount[0] = wordCounts
             case 1:
-                print("3")
+            
                 eachCellMyWordsCount[0] = elemWordsMax[0]
                 eachCellMyWordsCount[1] = wordCounts
               
@@ -357,7 +353,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         wordCountsLabel.text = String(totalWordsLearned)
         
-        //topWordsNumberLabel.text = "\(totalWordsLearned)/2250"
+     
             
              collectionView.reloadData()
         
@@ -416,7 +412,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         switch courseReceived{
             
         case 0:
-            print("英檢初")
+        
             p1Color = UIColor.init(red: 123/255, green: 177/255, blue: 247/255, alpha: 1)
             p2Color = UIColor.init(red: 83/255, green: 153/255, blue: 243/255, alpha: 1)
             p3Color = UIColor.init(red: 44/255, green: 124/255, blue: 216/255, alpha: 1)
@@ -425,7 +421,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             p6Color = UIColor.init(red: 22/255, green: 51/255, blue: 87/255, alpha: 1)
             colors = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color]
         case 1:
-            print("英檢中")
+
             p1Color = UIColor.init(red: 147/255, green: 152/255, blue: 194/255, alpha: 1)
             p2Color = UIColor.init(red: 98/255, green: 104/255, blue: 152/255, alpha: 1)
             p3Color = UIColor.init(red: 87/255, green: 91/255, blue: 127/255, alpha: 1)
@@ -434,7 +430,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             p6Color = UIColor.init(red: 30/255, green: 36/255, blue: 83/255, alpha: 1)
             colors = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color]
         case 2:
-            print("多益滿")
+          
             p1Color = UIColor.init(red: 247/255, green: 128/255, blue: 176/255, alpha: 1)
             p2Color = UIColor.init(red: 230/255, green: 88/255, blue: 145/255, alpha: 1)
             p3Color = UIColor.init(red: 196/255, green: 63/255, blue: 116/255, alpha: 1)
@@ -448,22 +444,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             break
         }
         
-        /*
-        let p1Color = UIColor.init(red: 246/255, green: 217/255, blue: 218/255, alpha: 1)
-        
-        let p2Color = UIColor.init(red: 248/255, green: 195/255, blue: 193/255, alpha: 1)
-        
-        let p3Color = UIColor.init(red: 248/255, green: 146/255, blue: 150/255, alpha: 1)
-        
-        let p4Color = UIColor.init(red: 248/255, green: 120/255, blue: 125/255, alpha: 1)
-      
-        let p5Color = UIColor.init(red: 220/255, green: 82/255, blue: 82/255, alpha: 1)
-        
-        let p6Color = UIColor.init(red: 179/255, green: 78/255, blue: 81/255, alpha: 1)
-        
-        let colors:[UIColor] = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color]
-        */
-        
+     
        
         cell.backgroundColor = colors[indexPath.row % colors.count]
         
@@ -497,8 +478,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         mapNumToPass = indexPath.row
         
         //在此先暫時預設mapPassed...之後要寫在過關時做儲存
-        //mapPassed = 2
-        print("mapPassed in stage:\(mapPassedInt)")
+     
         //有過地圖才能進關卡
         if mapPassedInt == indexPath.row {
     
@@ -558,17 +538,17 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             if yPos >= CGFloat(alertY) {
                 
-                print("需要調整位置")
+print(visibleCells.count)
                 
                 if visibleCells.count == 5 {
                     
-                    print("條很大")
+      
                     alertBg.frame.origin.y  += CGFloat(200)
                     iknowBtn.frame.origin.y += CGFloat(200)
                     
                 } else {
                     
-                    print("小調整")
+           
                     alertBg.frame.origin.y  += CGFloat(100)
                     iknowBtn.frame.origin.y += CGFloat(100)
                 }

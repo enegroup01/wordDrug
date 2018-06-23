@@ -231,7 +231,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         //textLabel.backgroundColor = .red
         textLabel.textAlignment = .left
         textLabel.numberOfLines = 3
-        var textContent = NSMutableAttributedString()
+        let textContent = NSMutableAttributedString()
         let textLabeltext1 = NSMutableAttributedString(string: "每日免費7分鐘，學習9個新單字", attributes: attrs1)
         let textLabelText2 = NSMutableAttributedString(string: "聽說拼讀一把罩！", attributes: attrs0)
         let textLabelText3 = NSMutableAttributedString(string: "*可至購物商城購買無限學習時間", attributes: attrs2)

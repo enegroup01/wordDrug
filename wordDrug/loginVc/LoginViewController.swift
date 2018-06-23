@@ -92,11 +92,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         subTitleLabel.textAlignment = .center
         subTitleLabel.numberOfLines = 0
 
-        
-        
-        /*
-         logoLabel.frame = CGRect(x: (width - 106 * dif) / 2, y: height / 10, width: 106 * dif, height: 43 * dif)
-         */
+
         
         
         accountPng.frame = CGRect(x: (width - 302) / 2, y: subTitleLabel.frame.maxY + 10, width: 302, height: 42)
@@ -106,6 +102,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
         passwordPng.image = UIImage(named: "newPasswordPng.png")
  
+        
+        
+        /*
        var iphoneWidth = CGFloat()
        var fontSize = CGFloat()
         var dif = CGFloat()
@@ -138,31 +137,12 @@ dif = 1
             
         }
         
-        
+        */
 
         
         bgView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         bgImg.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        
-       // usernameTxt.frame = CGRect(x: width / 6, y: height / 3.4, width: width * 2 / 3, height: 30)
-        
-        
-      
-     
-        //usernameTxt.font = UIFont(name: "Helvetica Neue", size: 18)
-        //usernameTxt.backgroundColor = .red
-        
-        
-        /*
-        passwordTxt.frame = CGRect(x: width / 6, y: height / 2.5, width: width * 2 / 3, height: 30)
-        passwordTxt.font = UIFont(name: "Helvetica Neue", size: 18)
- */
- //passwordTxt.backgroundColor = .blue
-        
-        
     
-        
-
         
         loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
         loginBtn.layer.cornerRadius = loginBtn.frame.width / 40
@@ -254,9 +234,6 @@ dif = 1
             UIApplication.shared.beginIgnoringInteractionEvents()
             
 
-            
-        
-        print("register")
         // shortcuts
         let username = usernameTxt.text!.lowercased()
         let password = passwordTxt.text!
@@ -335,18 +312,21 @@ dif = 1
 
                         
                         mapPassed3 = 0
-                        
-                        
-                        
-                        userDefaults.set(mapPassed2!, forKey: "mapPassed3")
+        
+                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
                         
                         gamePassed3 = [0:0]
                         
                         let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                        userDefaults.set(encodedObject2, forKey: "gamePassed3")
+                        userDefaults.set(encodedObject3, forKey: "gamePassed3")
                         
                         //全新註冊者重新算秒數
                         UserDefaults.standard.set(420, forKey: "limitSeconds")
+                        
+                        
+                        isRegistered = true
+                        
+                        UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
 
                         
                         // get id from parseJSON dictionary
@@ -381,7 +361,6 @@ dif = 1
                                 self!.activityIndicator.stopAnimating()
                                 UIApplication.shared.endIgnoringInteractionEvents()
                                 
-                                print("1")
                                 self?.usernameTxt.text = ""
                                 self?.passwordTxt.text = ""
                                 self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
@@ -532,6 +511,8 @@ dif = 1
                     
                     UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                     
+                    
+                             //先儲存使用者資訊
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     
@@ -618,7 +599,7 @@ dif = 1
                     }
                     
                     
-                    //先儲存使用者資訊
+           
                     print(user!)
                     
                     // successfully logged in
@@ -725,6 +706,7 @@ dif = 1
         
         if segue.identifier == "toCoursesVc"{
             
+            //暫時保留以後可以做歡迎畫面
             let destineVc = segue.destination as! CoursesViewController
             destineVc.isWelcome = isWelcome
             
@@ -808,8 +790,7 @@ dif = 1
     
     
     func fbRegister(fbid:String,nickname:String, ava:String){
-        
-        print("register")
+
         // shortcuts
         
         //檢查註冊

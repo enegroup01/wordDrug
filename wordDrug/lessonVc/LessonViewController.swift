@@ -11,40 +11,27 @@ import AVFoundation
 
 class LessonViewController: UIViewController{
     
-    /*
-    let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
-                            ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
-                            ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
-                            ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
-                            ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
-                            ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
-                            ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
-                            ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
-                            ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
-                            ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
-                            ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
-                            ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
-                            ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
-                            ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
-                            ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
-    */
+
     
     
-    let map1SyllableSets:[[String]] = [["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
-                            ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
-                            ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
-                            ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
-                            ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
-                            ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
-                            ["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
-                            ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
-                            ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
-                            ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
-                            ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
-                            ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
-                            ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
-                            ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
-                            ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+    let map1SyllableSets:[[String]] = [["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
+                                       ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
+                                       ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
+                                       ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
+                                       ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
+                                       ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
+                                       ["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
+                                       ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
+                                       ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
+                                       ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
+                                       ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
+                                       ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+                                       ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
+                                       ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
+                                       ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+
+    
+    
     let map2SyllableSets:[[String]] = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
                             ["bo2","bu2","ce2","ch2","ck2","cl2","co2","com2","cr2", "con2"],
                             ["di2","do2","dr2","ea2","ee2","el2","en2","er2","et2", "em2"],
@@ -391,6 +378,9 @@ class LessonViewController: UIViewController{
     var titleFontSize = CGFloat()
     
     var hiddenBtn = UIButton()
+    
+    var iPadSmall = CGFloat()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -406,6 +396,7 @@ class LessonViewController: UIViewController{
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
+            iPadSmall = 0
             
 
         case 736:
@@ -414,6 +405,7 @@ class LessonViewController: UIViewController{
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
+            iPadSmall = 0
 
             
         case 667:
@@ -422,6 +414,7 @@ class LessonViewController: UIViewController{
             sylFontSize = 120
             wordFontSize = 35
             titleFontSize = 26
+            iPadSmall = 0
 
             
         case 568:
@@ -430,6 +423,7 @@ class LessonViewController: UIViewController{
             sylFontSize = 100
             wordFontSize = 30
             titleFontSize = 24
+            iPadSmall = 0
 
 
             
@@ -439,6 +433,7 @@ class LessonViewController: UIViewController{
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 30
+            iPadSmall = 10
 
 
             
@@ -471,7 +466,7 @@ class LessonViewController: UIViewController{
         alertBg.addSubview(alertText)
         
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif + iPadSmall, width: alertBg.frame.width / 2, height: height * 44 / 667)
         
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         practiceWordBtn.setTitle("拼字王挑戰", for: .normal)
@@ -479,7 +474,7 @@ class LessonViewController: UIViewController{
         practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
         
-        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif + iPadSmall, width: alertBg.frame.width / 2, height: height * 44 / 667)
         
         practiceSenBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         practiceSenBtn.setTitle("句型冠軍榜", for: .normal)
@@ -488,7 +483,7 @@ class LessonViewController: UIViewController{
         self.view.addSubview(practiceSenBtn)
         
         bigQuitBtn = UIButton(type: .system)
-        bigQuitBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width, height: height * 44 / 667)
+        bigQuitBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
  
         bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         bigQuitBtn.setTitle("我知道了", for: .normal)
@@ -497,18 +492,7 @@ class LessonViewController: UIViewController{
         bigQuitBtn.addTarget(self, action:#selector(LessonViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(bigQuitBtn)
         
-        /*
-        leftBtnClickedImg.frame = practiceWordBtn.frame
-        leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
-        
-        rightBtnClickedImg.frame = practiceSenBtn.frame
-        rightBtnClickedImg.image = UIImage(named: "rightBtnClickedImg.png")
-        
-        self.view.addSubview(leftBtnClickedImg)
-        self.view.addSubview(rightBtnClickedImg)
-        leftBtnClickedImg.alpha = 0
-        rightBtnClickedImg.alpha = 0
-*/
+
         
         backBtn.frame = CGRect(x: width / 10, y: width / 8, width: 19, height: 31)
         lessonTitleLabel.frame = CGRect(x: width * 5.5 / 7, y: backBtn.frame.minY - 10 * dif, width: 66 , height: 22)
@@ -686,62 +670,7 @@ class LessonViewController: UIViewController{
         }
         
         
-        /*
-        
-        UIView.animate(withDuration: 0.06, animations: {[weak self] in
-            
-            self!.rightBtnClickedImg.alpha = 1
-            
-            
-        }) {[weak self] (finished:Bool) in
-            
-            
-            if finished {
-                
-                self!.rightBtnClickedImg.alpha = 0
-                
-                self?.practiceWordBtn.isEnabled = false
-                self?.practiceSenBtn.isEnabled = false
-                
-                //有bug, 印出以下兩數字
-
-                print(self!.mapPassedInt)
-                print(self!.gamePassedDic)
-                
-                
-                if self!.gamePassedDic == [0:0] && self!.mapNumToReceive >= self!.mapPassedInt{
-                    
-                    print("不能練習句子")
-                    self!.cannotPracticeAlert()
-                    
-                
-                } else {
-                    
-                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
-                }
-                
-                /*
-                if self!.mapPassedInt == 0 {
-                    
-                    if self!.gamePassedDic == [0:0] {
-                 
-                        
-                        
-                    } else {
-                 
-                        
-                    }
-                } else {
-   
-                    self!.performSegue(withIdentifier: "toGameVc", sender: self)
-                    
-                }
-                */
-
-                
-            }
-        }
-        */
+      
         
     }
     
@@ -773,23 +702,8 @@ class LessonViewController: UIViewController{
                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 }
                 
-                /*
-                if self!.mapPassedInt == 0 {
-                    
-                    if self!.gamePassedDic == [0:0] {
-                        
-                        print("不能練習")
-                    } else {
-                        
-                        self!.performSegue(withIdentifier: "toGameVc", sender: self)
-                    }
-                    
-                } else {
+             
                 
-                self!.performSegue(withIdentifier: "toGameVc", sender: self)
-                }
-                
-                */
             }
         }
         

@@ -25,6 +25,8 @@ class ChartTableViewCell: UITableViewCell {
     @IBOutlet weak var seperatorLine: UIImageView!
     
     var dif = CGFloat()
+    var iPadDif = CGFloat()
+    var fontSize = CGFloat()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,22 +37,30 @@ class ChartTableViewCell: UITableViewCell {
             
             
             dif = 1.1
+            iPadDif = 1
+            fontSize = 25
             
         case 736:
             
             dif = 1
-         
+         iPadDif = 1
+            fontSize = 25
             
         case 667:
             
             dif = 1
-            
+            iPadDif = 1
+            fontSize = 25
         case 568:
             
             
             dif = 0.2
+            iPadDif = 1
+            fontSize = 25
         default:
             dif = 1
+            iPadDif = 0.8
+            fontSize = 18
            
             
         }
@@ -61,15 +71,17 @@ class ChartTableViewCell: UITableViewCell {
         //rankLabel.backgroundColor = .red
         rankLabel.textAlignment = .center
         
-        avaImg.frame = CGRect(x: rankLabel.frame.maxX * 1.1, y: rankLabel.frame.minY, width: 50, height: 50)
+        avaImg.frame = CGRect(x: rankLabel.frame.maxX * 1.1, y: rankLabel.frame.minY, width: 50 * iPadDif, height: 50 * iPadDif)
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
         
-        usernameLabel.frame = CGRect(x: avaImg.frame.maxX * 1.2, y: avaImg.frame.minY - 4, width: width / 2.5, height: 29)
+        usernameLabel.frame = CGRect(x: avaImg.frame.maxX * 1.2, y: avaImg.frame.minY - 4, width: width / 2.5 * iPadDif, height: 29 * iPadDif)
         //usernameLabel.backgroundColor = .green
+        usernameLabel.font = usernameLabel.font.withSize(fontSize)
         usernameLabel.adjustsFontSizeToFitWidth = true
         
-        totalScoreLabel.frame = CGRect(x: usernameLabel.frame.minX, y: usernameLabel.frame.maxY, width: usernameLabel.frame.width, height: 25)
+        totalScoreLabel.frame = CGRect(x: usernameLabel.frame.minX, y: usernameLabel.frame.maxY, width: usernameLabel.frame.width * iPadDif, height: 25 * iPadDif)
         //totalScoreLabel.backgroundColor = .gray
+         totalScoreLabel.font = totalScoreLabel.font.withSize(fontSize)
         totalScoreLabel.adjustsFontSizeToFitWidth = true
         
         wordCountTitleLabel.frame = CGRect(x: usernameLabel.frame.maxX, y: usernameLabel.frame.minY, width: width - usernameLabel.frame.maxX * 1.05, height: 25)

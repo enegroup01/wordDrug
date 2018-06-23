@@ -47,31 +47,35 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         // Do any additional setup after loading the view.
         
         
+        var iPadSmall = CGFloat()
+        
         switch height {
         case 812:
             
             
             dif = 8
      
+            iPadSmall = 0
             
         case 736:
             
             dif = 0
-      
+      iPadSmall = 0
             
         case 667:
             
             dif = 0
-    
+    iPadSmall = 0
             
         case 568:
             
             
             dif = 0
+            iPadSmall = 0
        
         default:
             dif = 0
-  
+  iPadSmall = 7
             
         }
 
@@ -104,7 +108,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         downTitle2.text = "英檢初級2100字\n英檢中級2250字\n多益滿分2400字\n及更多字庫更新內容..."
         
         
-        backBtn.frame = CGRect(x: 15, y: 17 + dif, width: 19, height: 31)
+        backBtn.frame = CGRect(x: 15, y: 17 + dif + iPadSmall, width: 19, height: 31)
         
 
         

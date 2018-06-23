@@ -17,40 +17,26 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //所有音節
     var syllableSets = [String]()
     
-    /*
-    let map1SyllableSets = [["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
-                            ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
-                            ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
-                            ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
-                            ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
-                            ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
-                            ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
-                            ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
-                            ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
-                            ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
-                            ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
-                            ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
-                            ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
-                            ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
-                            ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
-    */
+
     
     
-    let map1SyllableSets:[[String]] = [["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
-                            ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
-                            ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
-                            ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
-                            ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
-                            ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
-                            ["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
-                            ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
-                            ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
-                            ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
-                            ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
-                            ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
-                            ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
-                            ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
-                            ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+    
+    let map1SyllableSets:[[String]] = [["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
+                                       ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
+                                       ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
+                                       ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
+                                       ["do1","dr1","dy1","dis1","ea1","ee1","el1","en1","er1","em1"],
+                                       ["et1","ew1","ex1","ey1","fi1","fl1","fo1","fr1","ft1","ful1"],
+                                       ["ab1","ac1","ad1","a_e1","af1","ai1","al1","am1","an1","any1"],
+                                       ["il1","im1","in1","ing1","ir1","is1","ject1","le1","li1","kn1"],
+                                       ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
+                                       ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
+                                       ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
+                                       ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+                                       ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
+                                       ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
+                                       ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
+
     
     
     let map2SyllableSets:[[String]] = [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
@@ -518,6 +504,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        var iPadSmall = CGFloat()
  
         switch height {
         case 812:
@@ -527,6 +515,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1.2
             fontDif = 0
             xDif = 50
+            iPadSmall = 0
             
         case 736:
             seperatorDif = 1.1
@@ -534,6 +523,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1.1
             fontDif = 3
             xDif = 0
+            iPadSmall = 0
         case 667:
             
             seperatorDif = 1
@@ -541,18 +531,21 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1
             fontDif = 4
             xDif = 0
+            iPadSmall = 0
         case 568:
             seperatorDif = 0.9
             dif = 0.9
             cellDif = 0.9
             fontDif = 5
             xDif = 0
+            iPadSmall = 0
         default:
             seperatorDif = 0.9
             dif = 0.9
             cellDif = 0.9
             fontDif = 5
             xDif = 0
+            iPadSmall = 10
             
             
         }
@@ -637,7 +630,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alertBg.addSubview(alertText)
         
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif, width: alertBg.frame.width, height: height * 44 / 667)
+        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
    
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         practiceWordBtn.setTitle("我知道了", for: .normal)
@@ -810,43 +803,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
  
 
-   /*
-        for group in map1SyllableSets{
-            
-            for syl in group{
-                
-                syllableSets.append(syl)
-            }
-        }
-        for group in map2SyllableSets{
-            
-            for syl in group{
-                
-                syllableSets.append(syl)
-            }
-        }
-        for group in map3SyllableSets{
-            
-            for syl in group{
-                
-                syllableSets.append(syl)
-            }
-        }
-        for group in map4SyllableSets{
-            
-            for syl in group{
-                
-                syllableSets.append(syl)
-            }
-        }
-        for group in map5SyllableSets{
-        
-            for syl in group{
-                
-                syllableSets.append(syl)
-            }
-        }
-     */
+  
         
         //讀取所有syl, 排除相同的再次出現
         for syl in syllableSets{
@@ -1565,16 +1522,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             //切換到可以修改最愛的模式
             likeMode = true
       
-            
-            //設定要顯示的字
-            /*
-            engWordsSelected = engWordsToShow
-            chiWordsSelected = chiWordsToShow
-            partOfSpeechSelected = partOfSpeechToShow
-            syllablesSelected = syllablesToShow
-            engSenSelected = engSenToShow
-            chiSenSelected = chiSenToShow
-            */
+         
             
             engWordsSelected = sortedEngWordsToShow
             chiWordsSelected = sortedChiWordsToShow
@@ -2568,31 +2516,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
     
         
-        /*
-        if isJump == false {
-            
-            print("沒有單字")
-            if isAlertPoppedOut == false {
-                isAlertPoppedOut = true
-            alertText.text = "尚未學習此音節的任何單字!"
-            ghostBtn.isHidden = false
-            alertBg.isHidden = false
-            ghost2Btn.isHidden = false
-            practiceWordBtn.isHidden = false
-            //practiceSenBtn.isHidden = false
-            leftBtnClickedImg.isHidden = false
-            rightBtnClickedImg.isHidden = false
-         
-            alertText.textAlignment = .center
-            }
-        } else {
-            
-            print("有單字")
-            
-            
-            
-        }
-   */
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {

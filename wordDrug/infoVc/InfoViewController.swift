@@ -49,30 +49,37 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
        
         print(user)
         
+        var iPadSmall = CGFloat()
+        
         switch height {
         case 812:
             
             dif = 1.1
             photoDif = 1
+            iPadSmall = 0
             
         case 736:
             
             dif = 1
             photoDif = 1
+            iPadSmall = 0
             
         case 667:
             
             dif = 1
             photoDif = 0.8
+            iPadSmall = 0
             
         case 568:
             
             dif = 1
             photoDif = 0.7
+            iPadSmall = 0
             
         default:
             dif = 1
-            photoDif = 1
+            photoDif = 0.5
+            iPadSmall = 10
             
         }
 
@@ -82,12 +89,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         infoTableView.frame = CGRect(x: 0, y: chartUpBg.frame.maxY, width: width, height: height - chartUpBg.frame.height)
         
         
-        backBtn.frame = CGRect(x: width / 30, y: height / 30, width: 19 * dif, height: 31 * dif)
+        backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
         titleLabel.frame = CGRect(x: backBtn.frame.maxX , y: backBtn.frame.maxY / 2, width: width - backBtn.frame.maxX * 2, height: 28 * dif)
         titleLabel.textAlignment = .center
         //titleLabel.backgroundColor = .red
         
-        avaImg.frame = CGRect(x: width / 2 - (120 * dif * photoDif) / 2, y: titleLabel.frame.maxY * 1.7 * photoDif, width: 120 * dif * photoDif, height: 120 * dif * photoDif)
+        avaImg.frame = CGRect(x: width / 2 - (120 * dif * photoDif) / 2, y: titleLabel.frame.maxY * 1.7 * photoDif + iPadSmall, width: 120 * dif * photoDif, height: 120 * dif * photoDif)
         
         avaImg.contentMode = .scaleAspectFill
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
@@ -100,7 +107,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         changePhotoBtn.frame = CGRect(x: avaImg.frame.maxX - 28 * dif, y: avaImg.frame.maxY - 28 * dif, width: 28 * dif, height: 28 * dif)
         
-        usernameLabel.frame = CGRect(x: 50, y: avaImg.frame.maxY + 25 * dif / 2, width: width - 100, height: 40 * dif)
+        usernameLabel.frame = CGRect(x: 50, y: avaImg.frame.maxY + 25 * dif / 2 - iPadSmall, width: width - 100, height: 40 * dif)
         //usernameLabel.backgroundColor = .red
         
         alphaLayer.frame = CGRect(x: 0, y: chartUpBg.frame.maxY - 60 * dif, width: width, height: 60 * dif)
@@ -142,23 +149,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         rankLabel.textAlignment = .center
         rankLabel.adjustsFontSizeToFitWidth = true
         
-       // checkRankBtn.frame = CGRect(x: rankCountLabel.frame.maxX - 80 * dif, y: alphaLayer.frame.minY - 30 * dif, width: 80 * dif, height: 30 * dif)
-        
-        //checkRankBtn.setTitleColor(yellowColor, for: .normal)
-        //checkRankBtn.backgroundColor = .red
-        
-        /*
-        let photos = PHPhotoLibrary.authorizationStatus()
-        if photos == .notDetermined {
-            PHPhotoLibrary.requestAuthorization({status in
-                if status == .authorized{
-                    print("ok")
-                } else {}
-            })
-        }
-        */
-        
-        //getUserInfo()
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

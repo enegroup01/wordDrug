@@ -177,7 +177,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //錄音動畫
     var recordingIndicator:NVActivityIndicatorView?
-    //var pointsIndicator:NVActivityIndicatorView?
     
     
     let width = UIScreen.main.bounds.width
@@ -292,7 +291,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var scoresToSend = Int()
   
     var newRels = [String]()
-          //  var tagFontSize = CGFloat()
+
     
     var sentenceCount = Int()
     @IBOutlet weak var hintLabel: UILabel!
@@ -306,12 +305,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var senLabelHeightDif = CGFloat()
         var iPadDif = CGFloat()
         var btnDif = CGFloat()
-        
         var xDif = CGFloat()
-
         var tagMarginY = CGFloat()
         var btnDif2 = CGFloat()
         var playBtnY = CGFloat()
+        var okBtnDif = CGFloat()
+        var bigDif = CGFloat()
         
         switch height {
         case 812:
@@ -324,16 +323,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             tagMarginY = 13
             btnDif2 = 1
             playBtnY = 0.95
+            okBtnDif = 15
+            bigDif = 0
         case 736:
             xDif = 1
             btnDif = 0
             dif = 1.1
             senLabelHeightDif = 0.78
             iPadDif = 1
-            senFontSize = 26
+            senFontSize = 28
             tagMarginY = 13
             btnDif2 = 1.1
             playBtnY = 1
+            okBtnDif = 10
+            bigDif = 0
             
         case 667:
             xDif = 1
@@ -341,10 +344,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 1
             senLabelHeightDif = 0.9
             iPadDif = 1
-            senFontSize = 22
+            senFontSize = 24
             tagMarginY = 10
             btnDif2 = 1
             playBtnY = 1
+            okBtnDif = 10
+            bigDif = 0
             
         case 568:
             xDif = 1
@@ -352,10 +357,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1
-            senFontSize = 20
+            senFontSize = 22
             tagMarginY = 8
             btnDif2 = 0.9
             playBtnY = 0.95
+            okBtnDif = -5
+            bigDif = 0
             
         default:
             xDif = 1
@@ -363,10 +370,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1.2
-            senFontSize = 26
+            senFontSize = 28
             tagMarginY = 13
             btnDif2 = 0.9
             playBtnY = 1
+            okBtnDif = 10
+            bigDif = -350
             
         }
         
@@ -497,7 +506,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         reviewOkBtn = UIButton(type: .system)
         //reviewOkBtn.showsTouchWhenHighlighted = true
-        reviewOkBtn.frame = CGRect(x: (width - 169 * dif) / 2, y: reviewWordBg.frame.maxY - 27 * dif * 1.5, width: 169 * dif, height: 27 * dif)
+        reviewOkBtn.frame = CGRect(x: (width - 169 * dif) / 2 + okBtnDif, y: reviewWordBg.frame.maxY - 27 * dif * 1.5, width: 169 * dif, height: 27 * dif)
         reviewOkBtn.addTarget(self, action: #selector(NewGameViewController.reviewOkBtnClicked), for: .touchUpInside)
         reviewOkBtn.setBackgroundImage(UIImage(named:"reviewOkBtnPng.png"), for: .normal)
         reviewOkBtn.setAttributedTitle(title, for: .normal)
@@ -505,36 +514,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         
-        limitTimerLabel.center = CGPoint(x: width / 2 - 25, y: 55)
+        limitTimerLabel.center = CGPoint(x: width / 2 - 25, y: 45)
         limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
         limitTimerLabel.textAlignment = .center
         
         
-        //limitTimerLabel.backgroundColor = .red
-        
-
-
-        
-        /*
-        switch courseReceived {
-            
-        case 0:
-            
-            gamePassedDic = gamePassed!
-            mapPassedInt = mapPassed!
-            increaseNum = 0
-            
-        case 1:
-            
-            gamePassedDic = gamePassed2!
-            mapPassedInt = mapPassed2!
-            increaseNum = 5
-            
-        default:
-            break
-        
-        }
-        */
+       
         // Do any additional setup after loading the view.
        
         //暫時測試畫面使用
@@ -600,20 +585,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(goToBuyBtn)
         
         
-        //purchaseAlert.addSubview(quitBtn)
-        
-        /*
-        leftBtnClickedImg.frame = cancelBtn.frame
-        leftBtnClickedImg.image = UIImage(named: "leftBtnClickedImg.png")
-        
-        rightBtnClickedImg.frame = quitBtn.frame
-        rightBtnClickedImg.image = UIImage(named: "rightBtnClickedImg.png")
-        
-        self.view.addSubview(leftBtnClickedImg)
-        self.view.addSubview(rightBtnClickedImg)
-        leftBtnClickedImg.alpha = 0
-        rightBtnClickedImg.alpha = 0
-*/
+
 
         coverBg.image = UIImage(named:"coverBg.png")
         resultBg.image = UIImage(named:"resultBg.png")
@@ -632,19 +604,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         
-        sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: height / 2 - 10, width: 350 * btnDif2, height: 57 * btnDif2)
+        sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: (height / 2 - 10) / iPadDif, width: 350 * btnDif2, height: 57 * btnDif2)
         //sen1Btn.imageView?.contentMode = .scaleAspectFit
         
         sen1Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen1Btn.titleLabel?.numberOfLines = 2
         sen1Btn.titleEdgeInsets.left = 8
-        
+      
         
         sen2Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * btnDif2, height: 57 * btnDif2)
         sen2Btn.titleLabel?.adjustsFontSizeToFitWidth = true
 
         sen2Btn.titleLabel?.numberOfLines = 2
         sen2Btn.titleEdgeInsets.left = 8
+       
 
         
         sen3Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
@@ -652,6 +625,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         sen3Btn.titleLabel?.numberOfLines = 2
         sen3Btn.titleEdgeInsets.left = 8
+      
 
         
         sen4Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
@@ -660,6 +634,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
      
         sen4Btn.titleLabel?.numberOfLines = 2
         sen4Btn.titleEdgeInsets.left = 8
+      
 
 
         allBtns.append(sen1Btn)
@@ -701,13 +676,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         scoreLabel.frame = CGRect(x: resultBg.frame.maxX - 140 * dif, y: resultBg.frame.minY + 53 * dif, width: 106 * dif, height: 21 * dif)
         
         
-    /*
-        limitTimerLabel.center = CGPoint(x: width / 2, y: 60)
-        limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
-        limitTimerLabel.textAlignment = .center
-      */
-        
-        //bonusScoreLabel.frame = CGRect(x: scoreLabel.frame.minX, y: scoreLabel.frame.minY, width: scoreLabel.frame.width, height: scoreLabel.frame.height)
+
         bonusScoreLabel.frame = scoreLabel.frame
         bonusScoreLabel.frame.origin.x = bonusScoreLabel.frame.origin.x - bonusScoreLabel.frame.width / 2
         
@@ -734,22 +703,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5.5)
     
        //recogTextLabel.backgroundColor = .yellow
-        //做三個對話圓
 
-        /*
-        outCircle.frame.size = CGSize(width: 230, height: 230)
-        outCircle.center = CGPoint(x: 187, y: 500)
-        outCircle.image = UIImage(named:"outCircle.png")
-        view.addSubview(outCircle)
-        midCircle.frame.size = CGSize(width: 150, height: 150)
-        midCircle.center = CGPoint(x: 187, y: 500)
-        midCircle.image = UIImage(named:"midCircle.png")
-        view.addSubview(midCircle)
-        inCircle.frame.size = CGSize(width: 90, height: 90)
-        inCircle.center = CGPoint(x: 187, y: 500)
-        inCircle.image = UIImage(named:"inCircle.png")
-        view.addSubview(inCircle)
-        */
         word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
         word1Label.textColor = .white
         word1Label.font = UIFont(name: "Helvetica Bold", size: 14)
@@ -803,11 +757,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //tagView.backgroundColor = .red
         
-        
-       
-        
-        
-       
         //辨識字的大小設定
         recogTextLabel.adjustsFontSizeToFitWidth = true
         //recogTextLabel.backgroundColor = .green
@@ -825,19 +774,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         //設定發音鍵
-        playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif, width: 69 * dif * playBtnY, height: 32 * dif * playBtnY)
+        playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif - bigDif, width: 69 * dif * playBtnY, height: 32 * dif * playBtnY)
         
-        
-        
-        
-
-
         
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
 
         recogTextLabel.isHidden = true
-        
         
         
         //讀目前課程數字數量
@@ -878,23 +821,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var sentenceFile:String?
         
         if gameMode == 0 {
-            
 
-        
-            //gameMode == 0 才計時
-            
             
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
             
+            //測試用
             //limitSeconds = 2
             
             //不論如何都啟動, 但是有購買就會invalidate
             print("really start to count down")
             limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
-           
-            
-        
-            
+
             
         //這裡的mapNum 已經加過increaseNum
         let sentenceName = "s" + String(mapNumber + 1) + "-" + String(spotNumber + 1)
@@ -1100,15 +1037,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     self.recordBtn.isEnabled = true
                     
                 case .denied:
-                    self.recordBtn.isEnabled = false
+                    self.recordBtn.isEnabled = true
                     //self.recordingButton.setTitle("User denied access to speech recogniztion", for: .disabled)
                     
                 case .restricted:
-                    self.recordBtn.isEnabled = false
+                    self.recordBtn.isEnabled = true
                     //self.recordingButton.setTitle("Speech recogniztion is restricted on this device", for: .disabled)
                     
                 case .notDetermined:
-                    self.recordBtn.isEnabled = false
+                    self.recordBtn.isEnabled = true
                     //self.recordingButton.setTitle("Speech recognition has not yet been authorized", for: .disabled)
                     
                     
@@ -1148,9 +1085,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: noBuyBtn)
         self.view.bringSubview(toFront: goToBuyBtn)
         
-        
-       // self.view.bringSubview(toFront: leftBtnClickedImg)
-       // self.view.bringSubview(toFront: rightBtnClickedImg)
+
         self.view.bringSubview(toFront: bonusScoreLabel)
         
         
@@ -1177,19 +1112,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         reviewWordBg.isHidden = true
         reviewOkBtn.isHidden = true
-        
-        
-      
-        //bonusAnimation()
-
-        //moveUpAndGone(label: bonusScoreLabel)
-    
-        /*
-        scoreLabel.text = "0"
-        scoreLabel.textColor = .white
-        countScore(score: 1500)
-        bonusAnimation(repeatCount: 3)
-        */
         
         
         
@@ -1236,12 +1158,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         hintLabel.adjustsFontSizeToFitWidth = true
         hintLabel.textAlignment = .center
         
-        
-        
-        
-        
-        
-        
+
 
     }
     
@@ -1354,12 +1271,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         rightBtnClickedImg.isHidden = false
 
 
-      //  quitBtn.removeTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
-    
 
         goToBuyBtn.addTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
-        
-     //   cancelBtn.removeTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
+
         noBuyBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         
         
@@ -1387,8 +1301,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //避免空字也發音
         if synWord != String(){
         
-          //  print("playSound")
-          //  print(synWord)
+
             synPronounce()
         }
     }
@@ -1402,48 +1315,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         self.dismiss(animated: true, completion: nil)
         
-        /*
-        UIView.animate(withDuration: 0.06, animations: {[weak self] in
-            
-           // self!.rightBtnClickedImg.alpha = 1
-            
-            
-        }) {[weak self] (finished:Bool) in
-            
-            
-            if finished {
-                /*
-                 self!.leftBtnClickedImg.alpha = 0
-                 self?.cancelBtn.isEnabled = false
-                 self?.quitBtn.isEnabled = false
- 
-                 //停止動畫
-                 self!.recordingIndicator?.stopAnimating()
- 
-                 //停止辨識
-                 self!.audioEngine.stop()
-                 self!.recognitionRequest?.endAudio()
-                 self!.recognitionTask?.cancel()
-                 */
- 
-                self!.timer?.invalidate()
-                
-
-                self!.dismiss(animated: true, completion: nil)
-            }
-        }
-        */
+     
     }
 
     @objc func removeBtns(){
         
         //send Nc去continue
-        
-     //   if isCountingTriggered{
-            
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartCounting"), object: nil, userInfo: nil)
-       // }
-        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartCounting"), object: nil, userInfo: nil)
+    
 
         
         purchaseAlert.isHidden = true
@@ -1518,7 +1397,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     override func viewWillAppear(_ animated: Bool) {
         
         
-                NotificationCenter.default.removeObserver(self)
+        
+        NotificationCenter.default.removeObserver(self)
        
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -1595,8 +1475,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if isPurchased == "1"{
                 
                 //已購買, 不計時
-                
-                print("no counting time")
                 limitTimer.invalidate()
                 
                 
@@ -1605,19 +1483,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 
             } else if isPurchased == "0"{
-                
-                
-                print("start to count time")
+
                 
                 if gameMode == 0 {
                     
-                    /*
-                    limitTimerLabel.center = CGPoint(x: width / 2, y: 60)
-                    limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
-                    limitTimerLabel.textAlignment = .center
-            
-                    self.view.bringSubview(toFront: limitTimerLabel)
-                    */
+                    
                     
                     limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
                     
@@ -1644,8 +1514,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     } else{
                         
                         //本日時間已到
-                        
-                        print("timesup")
                         
                         limitTimerLabel.text = "0:00"
                         timerPause()
@@ -2426,23 +2294,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
     }
     
-    
-    /*
-    func bonusAnimation(){
-        
-        
-        bonusScoreLabel.alpha = 0.3
-        let originY = bonusScoreLabel.frame.origin.y
-        bonusScoreLabel.frame.origin.y = originY + 20
-        UIView.animate(withDuration: 0.3) {[weak self] in
-            self!.bonusScoreLabel.alpha = 1
-            self!.bonusScoreLabel.frame.origin.y = originY
-            
-        }
-        
-        
-    }
-    */
+
     //開始辨識聲音
     @objc func startToRecognize(){
 
@@ -2473,20 +2325,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
        
     }
     
-    //接收發音單字
-    
-    /*
-    @objc func pronounceWord(_ notification: NSNotification){
-
-        if let wordToPronunce = notification.userInfo?["wordToPass"] as? String {
-                //設訂發音的單字
-                synWord = wordToPronunce
-
-        }
-        //發音
-        synPronounce()
-    }
-    */
     
     
     var pronounceTime = Int()
@@ -2625,24 +2463,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
             
             print(relWordsFound)
-            //抓發音錯誤字集
-            /*
-            for i in 0 ..< relevantWords2.count{
-                
-                for (word,rels) in relevantWords2[i]{
 
-                    //假如有抓到的話
-                    if word == wordToReceive{
-                        
-                        relWords = rels
-  
-                    }
-
-                }
-
-                
-            }
-*/
             //開始辨識
            
 
@@ -2975,14 +2796,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-        //結果決定圖片
-        /*
-         if finalPoints >= 70 {
-         recordBtn.setImage(UIImage(named:"recordCheck.png"), for: .normal)
-         } else{
-         recordBtn.setImage(UIImage(named:"recordCross.png"), for: .normal)
-         }
-         */
+
         
         //計算分數
         var score = Int()
@@ -3306,11 +3120,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //抓四個隨機數, 並且避開重複值
                 allRandomSens[i] = getRandom()
                 
+                
+                
                 for (s,u) in allRandomSens[i] {
 
                     //填入中文句子當作選項
                     senBtnTitles[i] = allSentenceSets[s][u + halfCount]
                     
+         
                 }
 
                 //設定好其餘選項的tag
@@ -3327,9 +3144,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //設定所有案件的中文內文
             for i in 0 ..< allBtns.count {
          
+                
+ 
+                
+                
+                
                 allBtns[i].contentHorizontalAlignment = .left
-               
-                allBtns[i].setTitle("\(i + 1). " + senBtnTitles[i], for: .normal)
+                
+                allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
+                
+              
           
             }
               print("10")
@@ -3375,6 +3199,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             */
             
            // newMakeSentenceTest()
+            
+            //只讀句子
             guidedSentence()
         }
         
@@ -3425,13 +3251,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
         
 
-        print(sentence)
-        print(chiSentence)
-
- /*
-         print(sentence)
-         print(chiSentence)
-         */
         
         //製作4個中文選項Btn
         for btn in allBtns{
@@ -3440,7 +3259,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
 
         //抓好中英文句子答案
-     //   sentenceLabel.text = sentence
+    
        chiSentenceLabel.text = "請選出正確中文翻譯"
 
         
@@ -3478,11 +3297,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //填滿其他的隨機數
         
+   
+
+        
         for i in 0 ..< 4 where i != correctRandom{
             
             randomSens[i] = getRan()
            
             senBtnTitles[i] = sentenceSets[randomSens[i] + halfCount]
+            
+
             
             //設定好其餘選項的tag
             allBtns[i].tag = i
@@ -3526,7 +3350,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
             
+            
         }
+        
         print("10")
         
         //避免再次產生hint
@@ -3611,7 +3437,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     func reviewResult(type:Int, count:Int){
-        
         
         
         var bgImage = String()
@@ -3738,22 +3563,22 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         case 15 ..< 20:
             print("字數15-20")
             
-            senFontSize -= 2
+            senFontSize -= 4
             
         case 20...23:
             
             print("字數20 - 23以上")
-            senFontSize -= 4
+            senFontSize -= 6
             
             
             case 24...26:
             print("字數24 - 26")
             
-            senFontSize -= 6
+            senFontSize -= 8
             
         case 26...:
             print("字數26以上")
-            senFontSize -= 8
+            senFontSize -= 10
             
         default:
             break
