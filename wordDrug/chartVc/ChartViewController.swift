@@ -154,6 +154,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
+    deinit {
+        print("chart deinit")
+    }
+    
     @IBAction func chart1Clicked(_ sender: Any) {
         
         chart1Btn.setTitleColor(grassGreen, for: .normal)

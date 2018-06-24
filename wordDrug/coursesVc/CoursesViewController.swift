@@ -668,6 +668,10 @@ func fingerAnimation(){
     }
     
     
+    deinit {
+        print("course deinit")
+    }
+    
     
     @IBAction func toNewBook2Btn(_ sender: Any) {
         activityIndicator.startAnimating()

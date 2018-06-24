@@ -243,7 +243,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     }
     
     
-    
+    deinit {
+        print("intro deinit")
+    }
     
     func requestMicAuth(){
         
@@ -452,6 +454,8 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                    
                                 
                                 
+                                
+                                
                             }
                             
                         }
@@ -489,6 +493,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     
     
     override func viewDidDisappear(_ animated: Bool) {
+        
+      
+        
         
         restultTimer.invalidate()
         NotificationCenter.default.removeObserver(self)

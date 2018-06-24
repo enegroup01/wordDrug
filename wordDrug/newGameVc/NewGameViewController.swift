@@ -311,6 +311,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var playBtnY = CGFloat()
         var okBtnDif = CGFloat()
         var bigDif = CGFloat()
+        var iPadSmall = CGFloat()
         
         switch height {
         case 812:
@@ -325,6 +326,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             playBtnY = 0.95
             okBtnDif = 15
             bigDif = 0
+            
+            iPadSmall = 0
         case 736:
             xDif = 1
             btnDif = 0
@@ -338,6 +341,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             okBtnDif = 10
             bigDif = 0
             
+            iPadSmall = 0
         case 667:
             xDif = 1
             btnDif = 0
@@ -351,6 +355,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             okBtnDif = 10
             bigDif = 0
             
+            iPadSmall = 0
         case 568:
             xDif = 1
             btnDif = 5
@@ -364,18 +369,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             okBtnDif = -5
             bigDif = 0
             
+            iPadSmall = 0
         default:
             xDif = 1
             btnDif = 0
             dif = 0.9
             senLabelHeightDif = 1
             iPadDif = 1.2
-            senFontSize = 28
+            senFontSize = 18
             tagMarginY = 13
             btnDif2 = 0.9
             playBtnY = 1
             okBtnDif = 10
             bigDif = -350
+            iPadSmall = 10
             
         }
         
@@ -540,7 +547,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         purchaseAlert.isHidden = true
-        purchaseAlert.frame = CGRect(x: (width - 237 * dif) / 2, y: height / 6, width: 237 * dif, height: 462 * dif)
+        purchaseAlert.frame = CGRect(x: (width - 237 * dif) / 2, y: height / 6 - iPadSmall * 3
+            , width: 237 * dif, height: 462 * dif)
         
         alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
         alertText.font = UIFont(name: "Helvetica Bold", size: 16)
@@ -774,7 +782,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         //設定發音鍵
-        playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif - bigDif, width: 69 * dif * playBtnY, height: 32 * dif * playBtnY)
+        playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif + iPadSmall, width: 69 * dif * playBtnY / iPadDif, height: 32 * dif * playBtnY / iPadDif)
         
         
         //先隱藏錄音及辨識
@@ -1150,7 +1158,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
         hintLabel.textColor = .white
-        hintLabel.frame = CGRect(x: (width - 200) / 2, y: recordBtn.frame.minY - 40, width: 200, height: 30)
+        hintLabel.frame = CGRect(x: (width - 200) / 2, y: recordBtn.frame.minY - 40 + iPadSmall, width: 200, height: 30)
 
         hintLabel.frame.size = CGSize(width: 200, height: 30)
         hintLabel.text = ""
@@ -1160,6 +1168,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
 
 
+    }
+    
+    deinit {
+        print("new game deinit")
     }
     
     

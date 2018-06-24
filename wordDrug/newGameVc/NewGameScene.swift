@@ -2061,9 +2061,12 @@ iPadDif = 1.2
     
     
     deinit {
-        print("deinit")
         NotificationCenter.default.removeObserver(self)
+
+        print("gamescene deinit")
     }
+    
+    
     //練習模式
     var iPadDif = CGFloat()
     func practice(){
@@ -4582,6 +4585,8 @@ iPadDif = 1.2
     }
     
 
+    
+    
     
     func battleModeWrong(){
         print("wrong")

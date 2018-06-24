@@ -1260,6 +1260,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+    
+    deinit {
+        print("book deinit")
+    }
+    
     @objc func removeBtns(){
         
         

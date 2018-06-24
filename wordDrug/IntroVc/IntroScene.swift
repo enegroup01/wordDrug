@@ -243,6 +243,12 @@ iPadDif = 0
     }
     
 
+    deinit {
+        
+        
+            NotificationCenter.default.removeObserver(self)
+        print("intro scene deinit")
+    }
     
     @objc func notifyStartToRecognize(){
         

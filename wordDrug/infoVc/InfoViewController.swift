@@ -161,6 +161,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
+    deinit {
+        print("info deinit")
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

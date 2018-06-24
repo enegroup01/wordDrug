@@ -76,7 +76,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     var myWrongWords = [String]()
     
-    
     //用來計算錯誤字是否已加入
     var wrongWordsCounts = 0
     
@@ -113,7 +112,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         default:
             text = "複習挑戰模式。"
           
-            
         }
         
         
@@ -335,8 +333,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
             
-            
-            
             accountTextField.text = ""
             accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
             
@@ -502,8 +498,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             UserDefaults.standard.set(420, forKey: "limitSeconds")
 
 
-                            
-                            // Part 1. 登入者抓所有數值
+                            // Part 1. 登入者抓所有數值, 在此這些數字應該都為0
                             if let mapPassedString = user?["mapPassed"] as! String?{
                                 
                                 mapPassed = Int(mapPassedString)!
@@ -552,6 +547,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(encodedObject, forKey: "gamePassed")
                                 
                             }
+                            
+                            
                             
                             if let gamePassed2String = user?["gamePassed2"] as! String?{
                                 
@@ -849,8 +846,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                             
                             
-                            
-                            // Part 1. 登入者抓所有數值
+                            // Part 1. 登入者抓所有數值, 這裡不一定是0因為fb login有可能有玩過
                             if let mapPassedString = user?["mapPassed"] as! String?{
                                 
                                 mapPassed = Int(mapPassedString)!
@@ -859,7 +855,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 print("retrieve mapPassed:\(mapPassed!)")
                                 
+                                
                             }
+                            
+                            
                             if let mapPassed2String = user?["mapPassed2"] as! String?{
                                 
                                 mapPassed2 = Int(mapPassed2String)!
@@ -869,6 +868,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 print("retrieve mapPassed:\(mapPassed2!)")
                                 
                             }
+                            
                             
                             if let mapPassed3String = user?["mapPassed3"] as! String?{
                                 
@@ -898,6 +898,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                             }
                             
+                            
                             if let gamePassed2String = user?["gamePassed2"] as! String?{
                                 
                                 let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
@@ -913,6 +914,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(encodedObject, forKey: "gamePassed2")
                                 
                             }
+                            
                             
                             if let gamePassed3String = user?["gamePassed3"] as! String?{
                                 
@@ -1597,7 +1599,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 if user != nil {
                                     
                                    
-                              
                                     self!.wrongWordsCounts += 1
                                     
                                     if self!.wrongWordsCounts == self!.wrongWordsToAdd.count {
@@ -1608,6 +1609,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                             self!.activityIndicator.stopAnimating()
                                             UIApplication.shared.endIgnoringInteractionEvents()
                                             self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                                       
+                                     
                                         })
                                         
                                     }
@@ -1647,10 +1650,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     
     func updateScore(score:Int, wrongWordsCount:Int, proRate:Int, senRate:Int){
-        
-        
-        
-        
+
         
         let id = user?["id"] as! String
         

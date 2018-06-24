@@ -430,9 +430,9 @@ class LessonViewController: UIViewController{
         default:
             xDif = 1
             dif = 0.9
-            sylFontSize = 130
-            wordFontSize = 40
-            titleFontSize = 30
+            sylFontSize = 80
+            wordFontSize = 30
+            titleFontSize = 18
             iPadSmall = 10
 
 
@@ -639,6 +639,11 @@ class LessonViewController: UIViewController{
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
     }
     
+    
+    
+    deinit {
+        print("lesson deinit")
+    }
     
     
     @objc func practiceSen(){

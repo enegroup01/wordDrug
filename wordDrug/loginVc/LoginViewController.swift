@@ -343,6 +343,7 @@ dif = 1
                                     self!.activityIndicator.stopAnimating()
                                     UIApplication.shared.endIgnoringInteractionEvents()
                              
+                                    //暫時留著之後可能可以使用
                                     self!.isWelcome = true
                                  
                                     self!.toCourses()
@@ -465,6 +466,7 @@ dif = 1
         } else {
         
             
+        
             activityIndicator.startAnimating()
             UIApplication.shared.beginIgnoringInteractionEvents()
             
@@ -516,22 +518,25 @@ dif = 1
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     
-                    let id = user?["id"] as? String
+             
                     
                     //抓mapPassed & gamePassed
                     
                     if let mapPassedString = user?["mapPassed"] as! String?{
                         
                         mapPassed = Int(mapPassedString)!
+                        
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed!, forKey: "mapPassed")
                         
                         print("retrieve mapPassed:\(mapPassed!)")
                         
                     }
+                    
                     if let mapPassed2String = user?["mapPassed2"] as! String?{
                         
                         mapPassed2 = Int(mapPassed2String)!
+                        
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed2!, forKey: "mapPassed2")
                         
@@ -601,6 +606,9 @@ dif = 1
                     
            
                     print(user!)
+                    
+                    
+                           let id = user?["id"] as? String
                     
                     // successfully logged in
                     if id != nil {
@@ -846,11 +854,16 @@ dif = 1
 
                         var gp:[Int:Int]?
                         gp = [Int((gamePassedInt?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt?.components(separatedBy: ":")[1])!)!]
+                        
+                        
+                        
                         let mapPassedInt2 = user?["mapPassed2"] as? String
                         let gamePassedInt2 = user?["gamePassed2"] as? String
                         
                         var gp2:[Int:Int]?
                         gp2 = [Int((gamePassedInt2?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt2?.components(separatedBy: ":")[1])!)!]
+                        
+                        
 
                         let mapPassedInt3 = user?["mapPassed3"] as? String
                         let gamePassedInt3 = user?["gamePassed3"] as? String

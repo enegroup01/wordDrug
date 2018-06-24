@@ -260,6 +260,11 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
     }
     
+    deinit {
+        print("purchase deinit")
+    }
+    
+    
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         
         print("loaded product")
