@@ -669,6 +669,7 @@
 		AA7DCB972085BE71008AFFDF /* 1-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA7DCB962085BE70008AFFDF /* 1-7.txt */; };
 		AA8B69F62024777D0023E0FD /* NewGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA8B69F52024777D0023E0FD /* NewGameScene.sks */; };
 		AA8D07D820D516FC005D2777 /* s11-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA8D07D720D516FB005D2777 /* s11-3.txt */; };
+		AA8D92C320E33ABC001144D9 /* restoreBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8D92C220E33ABB001144D9 /* restoreBtn.png */; };
 		AA8FAE90202D912600342CED /* rightCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8FAE8F202D912600342CED /* rightCircle.png */; };
 		AA8FAE92202D913A00342CED /* wrongX.png in Resources */ = {isa = PBXBuildFile; fileRef = AA8FAE91202D913A00342CED /* wrongX.png */; };
 		AA95661120DA5644005BD5E8 /* pronounceBtn4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA95661020DA5644005BD5E8 /* pronounceBtn4.png */; };
@@ -690,6 +691,8 @@
 		AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA0E10420987FF5007148EB /* wrongSenBlock.png */; };
 		AAAE4EA3207C942A00C4A8EB /* recordingBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA1207C942900C4A8EB /* recordingBtn.png */; };
 		AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */; };
+		AAB30D2D20E20A3700D4EE4A /* toLoginVcBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */; };
+		AAB30D3120E2138600D4EE4A /* registerLaterBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */; };
 		AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */; };
 		AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */; };
 		AAD62F3520BFC678001D6275 /* gradeChiBtnRight.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3320BFC677001D6275 /* gradeChiBtnRight.png */; };
@@ -1383,6 +1386,7 @@
 		AA7DCB962085BE70008AFFDF /* 1-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-7.txt"; sourceTree = "<group>"; };
 		AA8B69F52024777D0023E0FD /* NewGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NewGameScene.sks; sourceTree = "<group>"; };
 		AA8D07D720D516FB005D2777 /* s11-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-3.txt"; sourceTree = "<group>"; };
+		AA8D92C220E33ABB001144D9 /* restoreBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restoreBtn.png; sourceTree = "<group>"; };
 		AA8FAE8F202D912600342CED /* rightCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightCircle.png; sourceTree = "<group>"; };
 		AA8FAE91202D913A00342CED /* wrongX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongX.png; sourceTree = "<group>"; };
 		AA95661020DA5644005BD5E8 /* pronounceBtn4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pronounceBtn4.png; sourceTree = "<group>"; };
@@ -1404,6 +1408,8 @@
 		AAA0E10420987FF5007148EB /* wrongSenBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongSenBlock.png; sourceTree = "<group>"; };
 		AAAE4EA1207C942900C4A8EB /* recordingBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordingBtn.png; sourceTree = "<group>"; };
 		AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordBtn.png; sourceTree = "<group>"; };
+		AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toLoginVcBtn.png; sourceTree = "<group>"; };
+		AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerLaterBtn.png; sourceTree = "<group>"; };
 		AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
 		AAD62F3320BFC677001D6275 /* gradeChiBtnRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradeChiBtnRight.png; sourceTree = "<group>"; };
@@ -1467,6 +1473,7 @@
 			isa = PBXGroup;
 			children = (
 				AA04ED7E203D7A1300EC0A8E /* CoursesViewController.swift */,
+				AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */,
 				AA39854C20D29203004E9CE3 /* orangeCart.png */,
 				AA39854E20D29204004E9CE3 /* orangeChart.png */,
 				AA39854D20D29204004E9CE3 /* orangeStatus.png */,
@@ -1580,6 +1587,7 @@
 			isa = PBXGroup;
 			children = (
 				AA4642841FC4216300D34516 /* LoginViewController.swift */,
+				AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */,
 				AA39855820D2A6DA004E9CE3 /* loginBgPng.png */,
 				AA7BB4F220C93CBC001A1F66 /* longFbBtn.png */,
 				AA7BB4E620C9339B001A1F66 /* regBtn.png */,
@@ -1608,6 +1616,7 @@
 			isa = PBXGroup;
 			children = (
 				AA7BB4C320C78FED001A1F66 /* PurchaseViewController.swift */,
+				AA8D92C220E33ABB001144D9 /* restoreBtn.png */,
 				AA7BB4C620C7906F001A1F66 /* purchaseDialogueBg.png */,
 				AA7BB4C520C7906F001A1F66 /* purchaseBtnBg.png */,
 				AA95661A20DB4C98005BD5E8 /* purchaseDownBg.png */,
@@ -2389,6 +2398,7 @@
 				AA15EA8F20D1534C00A1AB82 /* s9-13.txt in Resources */,
 				AA15EA6620D1534C00A1AB82 /* s7-6.txt in Resources */,
 				AA5C2ED820A5542900EAD999 /* emptyStar.png in Resources */,
+				AAB30D3120E2138600D4EE4A /* registerLaterBtn.png in Resources */,
 				AA648E71207CEA05003ACD07 /* 1-6.txt in Resources */,
 				AA15EA2920D1534C00A1AB82 /* s11-13.txt in Resources */,
 				AA95661D20DB880D005BD5E8 /* abortPng.png in Resources */,
@@ -2484,6 +2494,7 @@
 				AA39855320D294A0004E9CE3 /* logoText.png in Resources */,
 				AA5AF41A204EC68A005FCC87 /* Info.plist in Resources */,
 				AA648EC1207CEA05003ACD07 /* 3-9.txt in Resources */,
+				AAB30D2D20E20A3700D4EE4A /* toLoginVcBtn.png in Resources */,
 				AA15E7CF20D148E200A1AB82 /* block2Title.png in Resources */,
 				AA648E67207CEA05003ACD07 /* s4-9.txt in Resources */,
 				AA39854F20D29204004E9CE3 /* orangeCart.png in Resources */,
@@ -2819,6 +2830,7 @@
 				AA15E8CC20D1527600A1AB82 /* 12-4.txt in Resources */,
 				AA15EA9320D1534C00A1AB82 /* s11-10.txt in Resources */,
 				AA648E6C207CEA05003ACD07 /* 3-8.txt in Resources */,
+				AA8D92C320E33ABC001144D9 /* restoreBtn.png in Resources */,
 				AA648E9F207CEA05003ACD07 /* s4-13.txt in Resources */,
 				AA15EABB20D1534C00A1AB82 /* s11-11.txt in Resources */,
 				AA15E95620D1527600A1AB82 /* 11-2.txt in Resources */,

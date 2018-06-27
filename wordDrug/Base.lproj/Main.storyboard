@@ -109,6 +109,17 @@
                                         <rect key="frame" x="31" y="435" width="312" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qu6-Yn-697">
+                                        <rect key="frame" x="96" y="463" width="183" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" backgroundImage="registerLaterBtn.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="registerLaterBtnClicked:" destination="MDq-zg-zeG" eventType="touchUpInside" id="4WD-Ui-srk"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -127,6 +138,7 @@
                         <outlet property="passwordPng" destination="5kh-o2-hjE" id="Za8-Hg-zQa"/>
                         <outlet property="passwordTxt" destination="7n9-4j-B2s" id="Ao1-QP-e6U"/>
                         <outlet property="registerBtn" destination="JBJ-HI-heC" id="Qrm-3W-C4j"/>
+                        <outlet property="registerLaterBtn" destination="qu6-Yn-697" id="7Fl-7P-IVV"/>
                         <outlet property="subTitleLabel" destination="fxZ-Oc-JXN" id="yB6-mh-XOb"/>
                         <outlet property="usernameTxt" destination="cfg-84-fds" id="VEs-LI-UbD"/>
                         <segue destination="2JK-8B-Ztd" kind="presentation" identifier="toCoursesVc" id="Qsn-eF-t3O"/>
@@ -1248,6 +1260,14 @@
                                 <rect key="frame" x="121" y="28" width="135" height="131"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXb-sn-KII">
+                                <rect key="frame" x="21" y="20" width="63" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="toLoginVcBtn.png"/>
+                                <connections>
+                                    <action selector="toLoginVcBtnClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="xuY-v5-92p"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.12604087591171265" green="0.10186529904603958" blue="0.10163567215204239" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -1283,6 +1303,7 @@
                         <outlet property="toChartVcBtn" destination="0JX-c3-hHb" id="fKh-Zy-0th"/>
                         <outlet property="toInfoLabel" destination="xll-v6-3Ij" id="lMP-bV-J1m"/>
                         <outlet property="toInfoVcBtn" destination="DeZ-l8-Y7s" id="Jz0-EZ-DNr"/>
+                        <outlet property="toLoginVcBtn" destination="RXb-sn-KII" id="7da-Cv-YRe"/>
                         <outlet property="toShopLabel" destination="pq9-K6-5JH" id="C0k-cd-8H1"/>
                         <outlet property="toShopVcBtn" destination="Cv6-F5-G77" id="zYj-7I-7Pj"/>
                         <outlet property="unitLabel" destination="vRD-HC-d1X" id="9F4-rV-18o"/>
@@ -1294,6 +1315,7 @@
                         <segue destination="Y58-0X-len" kind="show" identifier="toInfoVc" id="5ef-Bt-A4B"/>
                         <segue destination="9xs-zv-ylp" kind="show" identifier="toShopVc" id="FzF-te-kXe"/>
                         <segue destination="8TX-sA-F2o" kind="show" identifier="toChartVc" id="Z9s-Y6-tg2"/>
+                        <segue destination="MDq-zg-zeG" kind="show" identifier="fromCourseToLogin" id="5NS-9I-ikF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOz-KG-elN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1792,6 +1814,16 @@
                                     <action selector="backBtnClicked:" destination="9xs-zv-ylp" eventType="touchUpInside" id="xYc-aX-j4Z"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NR9-1e-Wuv">
+                                <rect key="frame" x="255" y="204" width="81" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="恢復購買" backgroundImage="restoreBtn.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="restoreBtnClicked:" destination="9xs-zv-ylp" eventType="touchUpInside" id="47i-zb-62y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -1804,6 +1836,7 @@
                         <outlet property="downTitle" destination="bSJ-9J-HD7" id="pjw-Hg-2IJ"/>
                         <outlet property="downTitle2" destination="xk6-m0-BrD" id="RWm-t3-aIE"/>
                         <outlet property="purchaseBtn" destination="oTx-wR-MN3" id="LFw-QO-18U"/>
+                        <outlet property="restoreBtn" destination="NR9-1e-Wuv" id="AdK-Yc-x4k"/>
                         <outlet property="upBg" destination="mea-XC-VeU" id="DMw-4i-EDc"/>
                         <segue destination="U8l-e9-jsA" kind="show" identifier="fromPurchaseToRegisterVc" id="08a-wE-CO2"/>
                     </connections>
@@ -1988,12 +2021,15 @@
         <image name="purchaseUpBg.png" width="750" height="500"/>
         <image name="recordBtn.png" width="256" height="256"/>
         <image name="regBtn.png" width="138" height="33"/>
+        <image name="registerLaterBtn.png" width="366" height="66"/>
+        <image name="restoreBtn.png" width="162" height="52"/>
         <image name="resultBg.png" width="560" height="976"/>
         <image name="rightWordBtn.png" width="1038" height="228"/>
         <image name="senBlock.png" width="699" height="114"/>
         <image name="seperateLine.png" width="740" height="2"/>
         <image name="stageTopCover.png" width="750" height="266"/>
         <image name="sylBlueBall" width="16" height="16"/>
+        <image name="toLoginVcBtn.png" width="126" height="48"/>
         <image name="yellowBack.png" width="38" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>

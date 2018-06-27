@@ -2,32 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    
-    
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb641689092834267</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>641689092834267</string>
-    <key>FacebookDisplayName</key>
-    <string>missWord</string>
-    
-    
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>fbapi</string>
-        <string>fb-messenger-share-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
-    </array>
-    
-    
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -43,9 +17,29 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.3</string>
+	<string>1.0.6</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb641689092834267</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>641689092834267</string>
+	<key>FacebookDisplayName</key>
+	<string>missWord</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -54,11 +48,11 @@
 		<true/>
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>啟動麥克風</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>辨識語音</string>
+	<string>MissWord會錄製你的單字發音來辨識發音準確度</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>MissWord 想打開你的相簿</string>
+	<string>MissWord 想打開你的相簿讓你選擇照片來更新個人大頭照</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>MissWord會使用語音辨識來辨識你的單字發音</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -69,6 +63,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    
 </dict>
 </plist>

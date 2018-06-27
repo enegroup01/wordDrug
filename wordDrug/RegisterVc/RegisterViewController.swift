@@ -136,9 +136,19 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
+        
+         let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        
         if isDirectedHere{
             
             titleLabel.text = "註冊帳號完後\n即可購買無限學習時間"
+        }
+        
+        if isPurchased{
+            //有買了
+            
+            titleLabel.text = "註冊帳號\n開始紀錄你的學習"
+            
         }
         
         /*
@@ -230,9 +240,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         textLabel.textAlignment = .left
         textLabel.numberOfLines = 3
         let textContent = NSMutableAttributedString()
+        
         let textLabeltext1 = NSMutableAttributedString(string: "每日免費7分鐘，學習9個新單字", attributes: attrs1)
         let textLabelText2 = NSMutableAttributedString(string: "聽說拼讀一把罩！", attributes: attrs0)
         let textLabelText3 = NSMutableAttributedString(string: "*可至購物商城購買無限學習時間", attributes: attrs2)
+        
+
+
         textLabel.adjustsFontSizeToFitWidth = true
         textContent.append(textLabeltext1)
         textContent.append(NSAttributedString(string: "\n"))

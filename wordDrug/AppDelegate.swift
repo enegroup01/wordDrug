@@ -55,7 +55,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshToken(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
         
+        //設定購買狀態
         
+        if (UserDefaults.standard.object(forKey: "isPurchased") as! Bool?) != nil{
+            
+            print("非第一次玩")
+            
+        } else {
+            print("第一次玩")
+            
+            UserDefaults.standard.set(false, forKey: "isPurchased")
+            
+            
+            
+        }
         
         
         //抓使用者檔案

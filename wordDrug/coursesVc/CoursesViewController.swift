@@ -112,6 +112,7 @@ class CoursesViewController: UIViewController {
     var repeatTimes = 0
     
     
+    @IBOutlet weak var toLoginVcBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -311,6 +312,7 @@ class CoursesViewController: UIViewController {
         logOutBtn.frame = CGRect(x: width / 18, y: height / 24, width: 30 * dif * iPadDif, height: 21 * dif * iPadDif)
         
       
+        toLoginVcBtn.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.minY, width: 63 * dif * iPadDif, height: 24 * dif * iPadDif)
         
         block0WordCountLabel.font = block0WordCountLabel.font.withSize(fontSize)
         block0WordCountLabel.adjustsFontSizeToFitWidth = true
@@ -526,6 +528,12 @@ func fingerAnimation(){
         performSegue(withIdentifier: "toShopVc", sender: self)
     }
     
+    @IBAction func toLoginVcBtnClicked(_ sender: Any) {
+        
+        performSegue(withIdentifier: "fromCourseToLogin", sender: self)
+
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -540,11 +548,28 @@ func fingerAnimation(){
          var nickname = String()
          var purchaseStatus = String()
          //測試用
-         
+        
+        
+        
+        let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        
+        if isPurchased{
+            //買了
+            purchaseStatus = "付費用戶\n新課程：不限時間\n單字集/挑戰模式：不限時間"
+        } else {
+            //還沒買
+            purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
+            
+        }
+        
+        
          if user != nil {
             
          nickname = user?["nickname"] as! String
             
+
+            
+            /*
          let isPurchased = user?["isPurchased"] as? String
             
             if isPurchased == "0"{
@@ -554,7 +579,7 @@ func fingerAnimation(){
                 
                 purchaseStatus = "付費用戶\n新課程：不限時間\n單字集/挑戰模式：不限時間"
             }
-            
+            */
             
             let startDateString = user?["date"] as! String
             let startDate = startDateString.components(separatedBy: " ")
@@ -574,9 +599,10 @@ func fingerAnimation(){
          } else {
             
          nickname = "新學生"
-            purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
+            //purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
             daysLabel.text = "0"
             
+            toLoginVcBtn.isHidden = false
          }
 
 
@@ -586,9 +612,11 @@ func fingerAnimation(){
         if isRegistered == false{
             
             logOutBtn.isHidden = true
+              toLoginVcBtn.isHidden = false
         } else {
             
             logOutBtn.isHidden = false
+              toLoginVcBtn.isHidden = true
         }
        
         
@@ -752,6 +780,16 @@ func fingerAnimation(){
             
             destinationVc.courseReceived = courseSent
         }
+        
+        
+        if segue.identifier == "fromCourseToLogin"{
+            
+            let destinationVc = segue.destination as! LoginViewController
+            
+            destinationVc.isFromCourse = true
+            
+        }
+        
     }
     
     /*

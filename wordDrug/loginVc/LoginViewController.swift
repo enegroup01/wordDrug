@@ -44,8 +44,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     var activityIndicator = UIActivityIndicatorView()
 
+    @IBOutlet weak var registerLaterBtn: UIButton!
     
+    var isFromCourse = false
     
+    var orLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +89,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         doubleLine.image = UIImage(named: "doubleLine.png")
         doubleLine.contentMode = .scaleAspectFit
         
-        subTitleLabel.text = "英檢初級，中級，多益滿分等\n所有單字任你學習！"
+        subTitleLabel.text = "立即註冊新帳號\n每日免費7分鐘學習新單字！"
         subTitleLabel.frame = CGRect(x: 0, y: doubleLine.frame.maxY + 10, width: width, height: 50)
         subTitleLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         subTitleLabel.textAlignment = .center
@@ -181,11 +184,38 @@ dif = 1
         doubleLine2.image = UIImage(named: "doubleLine.png")
         doubleLine2.contentMode = .scaleAspectFit
         
+
+        orLabel.frame = CGRect(x: doubleLine2.frame.minX, y: doubleLine2.frame.maxY + 10, width: doubleLine2.frame.width, height: 10)
+ 
+        orLabel.textColor = .white
+        orLabel.font = orLabel.font.withSize(14)
+        orLabel.textAlignment = .center
+        orLabel.text = "或"
+        self.view.addSubview(orLabel)
+        
+        
+        
+        registerLaterBtn.center = CGPoint(x: width / 2, y: orLabel.frame.maxY + 23)
+        registerLaterBtn.frame.size = CGSize(width: 183 , height: 33)
+        registerLaterBtn.setTitle("先試用，晚點再註冊", for: .normal)
         
         
     }
 
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isFromCourse{
+            orLabel.isHidden = false
+            registerLaterBtn.isHidden = false
+        } else {
+            
+
+            orLabel.isHidden = true
+            registerLaterBtn.isHidden = true
+            
+        }
+    }
 
     
     //註冊功能
@@ -346,8 +376,14 @@ dif = 1
                                     //暫時留著之後可能可以使用
                                     self!.isWelcome = true
                                  
-                                    self!.toCourses()
+                                    if self!.isFromCourse{
+                                        
+                                        self!.dismiss(animated: true, completion: nil)
+                                        
+                                    } else {
                                     
+                                    self!.toCourses()
+                                    }
                                     
                                 })
                                 
@@ -619,8 +655,15 @@ dif = 1
                             self!.activityIndicator.stopAnimating()
                             UIApplication.shared.endIgnoringInteractionEvents()
                    
-                                  self!.toCourses()
                             
+                            if self!.isFromCourse{
+                                
+                                self!.dismiss(animated: true, completion: nil)
+                                
+                            } else {
+                                
+                                self!.toCourses()
+                            }
                         })
                     
 
@@ -797,6 +840,14 @@ dif = 1
     
     
     
+    @IBAction func registerLaterBtnClicked(_ sender: Any) {
+        
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    
     func fbRegister(fbid:String,nickname:String, ava:String){
 
         // shortcuts
@@ -923,7 +974,15 @@ dif = 1
                                 self!.activityIndicator.stopAnimating()
                                 UIApplication.shared.endIgnoringInteractionEvents()
                           
-                                self!.toCourses()
+                                
+                                if self!.isFromCourse{
+                                    
+                                    self!.dismiss(animated: true, completion: nil)
+                                    
+                                } else {
+                                    
+                                    self!.toCourses()
+                                }
                                 
                               
                             })
@@ -1022,6 +1081,9 @@ dif = 1
         passwordTxt.placeholder = nil
     }
     
+    deinit {
+        print("login deinit")
+    }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

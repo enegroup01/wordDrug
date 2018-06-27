@@ -284,7 +284,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     @IBOutlet weak var circleOkBtn: UIButton!
-    var isPurchased = String()
+    //var isPurchased = String()
     
     var originalPoints = Int()
     var wrongWordsToSend = [String]()
@@ -1347,8 +1347,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         noBuyBtn.isHidden = true
         goToBuyBtn.isHidden = true
         
+        
+         let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        
+        
         if gameMode == 0 {
-            if isPurchased == "0" {
+            //沒有買的話
+            if isPurchased == false {
         limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
         }
         }
@@ -1479,6 +1484,66 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //先確認有沒有購買
         
+        let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        
+        if isPurchased{
+            
+            
+            print("已購買, 不計時")
+            //已購買, 不計時
+            limitTimer.invalidate()
+            
+            
+            limitTimerLabel.text = ""
+            removeBtns()
+            
+        } else {
+            
+            print("還沒買所以要計時")
+            
+            if gameMode == 0 {
+                
+                
+                
+                limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+                
+                //測試
+                //limitSeconds = 2
+                
+                if(limitSeconds > 0){
+                    
+                    let minutes = String(limitSeconds / 60)
+                    var seconds = String(limitSeconds % 60)
+                    let secondsToCheck = limitSeconds % 60
+                    
+                    if seconds == "0" {
+                        
+                        seconds = "00"
+                    } else if secondsToCheck < 10 {
+                        
+                        seconds = "0" + seconds
+                        
+                    }
+                    
+                    limitTimerLabel.text = minutes + ":" + seconds
+                    
+                } else{
+                    
+                    //本日時間已到
+                    
+                    limitTimerLabel.text = "0:00"
+                    timerPause()
+                    
+                }
+                
+            }
+            
+            
+        }
+        
+    
+        
+        /*
         if let isPurchasedStatus = user?["isPurchased"] as? String{
             
             //指定好數字
@@ -1536,8 +1601,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
         }
- 
+ */
     }
+ 
     
     //造句子
     @objc func showSentence(_ notification: NSNotification){
@@ -2258,6 +2324,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         bonusScoreLabel.alpha = 0.3
+        
+        bigOkBtn.isEnabled = false
+        bigOkBtn.isHidden = true
       
         let originY = bonusScoreLabel.frame.origin.y
         //bonusScoreLabel.frame.origin.y = originY + 20
@@ -2281,6 +2350,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     }, completion: {[weak self] (true) in
                         
                             self!.bonusScoreLabel.frame.origin.y = originY
+                        self!.bigOkBtn.isHidden = false
+
+                        self!.bigOkBtn.isEnabled = true
                
                 })
             }
