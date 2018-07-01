@@ -272,8 +272,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-               NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
+      
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
         Messaging.messaging().shouldEstablishDirectChannel = false
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -285,27 +287,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
     
+        print("did become active")
         FBHandler()
         AppEventsLogger.activate()
         
       
         UIApplication.shared.applicationIconBadgeNumber = 0
         
-        let date = Date().description(with: .current)
+        //let date = Date().description(with: .current)
         //let formatter = DateFormatter()
 
         //formatter.dateFormat = "dd.MM.yyyy"
         //let result = formatter.string(from: date)
 
-        let result = date.components(separatedBy: "at")
+        
+        
+        //1.0.7 BUG fixed
+        
+        let dateFetch = Date().addingTimeInterval(28800)
+        
+        print(dateFetch)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: dateFetch)
+        
+        print(dateString)
+        
+        
+        //print("date:\(date)")
+        //let result = date.components(separatedBy: " at")
 
+        //print("result:\(result)")
+        
 
         let previousDate = UserDefaults.standard.object(forKey: "previousDate") as? String
         
         if previousDate == nil {
             //第一次玩的話給7分鐘, 並且設定時間
             
-            UserDefaults.standard.set(result[0], forKey: "previousDate")
+            UserDefaults.standard.set(dateString, forKey: "previousDate")
             UserDefaults.standard.set(420, forKey: "limitSeconds")
             
             print("第一次玩給7分鐘")
@@ -314,11 +335,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             //非第一次玩, 比較日期
             
-            if previousDate != result[0]{
+            if previousDate != dateString{
                 //換一天, 就給7分鐘, 並且改變時間
                 
                 
-                UserDefaults.standard.set(result[0], forKey: "previousDate")
+                UserDefaults.standard.set(dateString, forKey: "previousDate")
                 UserDefaults.standard.set(420, forKey: "limitSeconds")
                 print("換一天給7分鐘")
                 
@@ -332,12 +353,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             
         }
-        
-        
-        
-        
-        
-        
+
         
         
     }

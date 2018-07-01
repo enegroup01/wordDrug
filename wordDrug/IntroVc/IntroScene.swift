@@ -136,9 +136,10 @@ iPadDif = 0
         makeImageNode(name: "volume", image: "volume", x: -200, y: 500 - iPadDif, width: 45, height: 68, z: 1, alpha: 1, isAnchoring: false)
     
         makeImageNode(name: "volumeBlock", image: "volumeBlock", x: -210, y: 500 - iPadDif, width: 101, height: 108, z: 2, alpha: 1, isAnchoring: false)
-        makeLabelNode(x: 0, y: 0, alignMent: .center, fontColor: .cyan, fontSize: 48, text: "歡迎來到快速導覽\n請先打開音量按鈕", zPosition: 1, name: "tutorialLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
-
+        makeLabelNode(x: 0, y: 0, alignMent: .center, fontColor: .cyan, fontSize: 40, text: "歡迎來到快速導覽\n請先打開音量按鈕", zPosition: 1, name: "tutorialLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        
+        
         makeImageNode(name: "okBtnFrame", image: "okBtnFrame", x: 0, y: -400, width: 253, height: 75, z: 1, alpha: 0, isAnchoring: false)
         
         makeLabelNode(x: 0, y: -425, alignMent: .center, fontColor: .cyan, fontSize: 36, text: "下一步", zPosition: 2, name: "okBtnLabel", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
@@ -228,18 +229,16 @@ iPadDif = 0
         
         makeLabelNode(x: -120  / xDif, y: -100  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 60 / xDif / xDif, text: "14", zPosition: 2, name: "rightWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        
         makeLabelNode(x: 115  / xDif, y: 10  / xDif, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "錯誤字數", zPosition: 2, name: "wrongWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
           makeLabelNode(x: 260  / xDif, y: -30  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 60 / xDif / xDif, text: "7", zPosition: 2, name: "wrongWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
-        
-
         
         makeImageNode(name: "steps", image: "step1Png", x: 0, y: -600 + iPadDif * 3, width: 79, height: 15, z: 2, alpha: 0, isAnchoring: false)
         
         let stepFadeIn = SKAction.fadeIn(withDuration: 2)
         let stepAction = SKAction.sequence([wait, stepFadeIn])
         findImageNode(name: "steps").run(stepAction)
+        
     }
     
 
@@ -266,8 +265,8 @@ iPadDif = 0
         changeImageAlfa(name: "steps", toAlpha: 0, time: 0.3)
         
         findImageNode(name: "recogWordsBg").alpha = 0
-        findLabelNode(name: "bigWordLabel").fontSize = 50
-        findLabelNode(name: "bigWordLabel").text = "為了建議適合你的課程\n請先試試你的單字程度"
+        findLabelNode(name: "bigWordLabel").fontSize = 40
+        findLabelNode(name: "bigWordLabel").text = "請先測試你的單字程度"
         isBigWordLocked = true
         
         isOkClicked = false

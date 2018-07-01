@@ -301,6 +301,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         super.viewDidLoad()
         
+              print("G viewDidLoad")
+        
         var dif = CGFloat()
         var senLabelHeightDif = CGFloat()
         var iPadDif = CGFloat()
@@ -832,6 +834,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
             
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+         
+            //limitSeconds = UserDefaults.standard.integer(forKey: "limitSeconds")
+            
+                print("did load limitSeconds:\(limitSeconds)")
             
             //測試用
             //limitSeconds = 2
@@ -1074,8 +1080,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let frame = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:145 * dif, height: 145 * dif)
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
         
-        
-        
         circleOkBtn.frame = recordBtn.frame
         circleOkBtn.isHidden = true
         
@@ -1093,9 +1097,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: noBuyBtn)
         self.view.bringSubview(toFront: goToBuyBtn)
         
-
         self.view.bringSubview(toFront: bonusScoreLabel)
-        
         
         self.view.bringSubview(toFront: reviewWordBg)
         self.view.bringSubview(toFront: reviewAlertTitle1)
@@ -1105,10 +1107,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: reviewAlertUnitLabel)
         self.view.bringSubview(toFront: reviewOkBtn)
 
-     
         self.view.bringSubview(toFront: limitTimerLabel)
  
-
         noBuyBtn.isHidden = true
         goToBuyBtn.isHidden = true
         ghostBtn.isHidden = true
@@ -1122,7 +1122,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewOkBtn.isHidden = true
         
         
-        
         //抓發音相關字
         var relWordFile = String()
         var relArray = [String]()
@@ -1134,8 +1133,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 relArray = relWordFile.components(separatedBy: "]],")
                 
-                
-                
             } catch {
                 // contents could not be loaded
             }
@@ -1146,8 +1143,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         var newRel = String()
         for rel in relArray {
-            
-            
             
             newRel = rel.replacingOccurrences(of: "[", with:"")
             newRel = newRel.replacingOccurrences(of: "]", with:"")
@@ -1167,7 +1162,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         hintLabel.textAlignment = .center
         
 
-
     }
     
     deinit {
@@ -1184,10 +1178,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @objc func removePlaySoundBtn(){
         
-        
         print("remove pronounceBtn")
         playSoundBtn.isHidden = true
-        
         
     }
     
@@ -1195,9 +1187,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @objc func countLimit(){
         
         if(limitSeconds > 0){
+            
             let minutes = String(limitSeconds / 60)
             var seconds = String(limitSeconds % 60)
             let secondsToCheck = limitSeconds % 60
+            
             if seconds == "0" {
                 
                 seconds = "00"
@@ -1206,8 +1200,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 seconds = "0" + seconds
                 
             }
+            
             limitTimerLabel.text = minutes + ":" + seconds
             limitSeconds -= 1
+            
         } else {
             
             //本日時間已到
@@ -1246,6 +1242,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @objc func pauseGame(){
         
 
+                //1.0.7 把這兩條放到前面
+        
+        limitTimer.invalidate()
+        
+        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
+
+
+        
         alertText.text = "\n離開目前課程\n學習進度不會儲存!"
         quitBtn.setTitle("離開", for: .normal)
         cancelBtn.setTitle("取消", for: .normal)
@@ -1262,13 +1266,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         cancelBtn.removeTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         
-        limitTimer.invalidate()
-        
-        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
-        
+ 
     }
     
     func timerPause(){
+        
+        
+        //1.0.7 把這兩條放到前面
+        
+        limitTimer.invalidate()
+        
+        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         
         
         //alertText.text = ""
@@ -1288,10 +1296,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         noBuyBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         
-        
-        limitTimer.invalidate()
-        
-        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
+  
         
     }
     
@@ -1352,10 +1357,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         if gameMode == 0 {
+   
             //沒有買的話
             if isPurchased == false {
-        limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
+  
+                limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
         }
+     
         }
 
         
@@ -1413,6 +1421,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("G viewWillAppear")
         
         
         NotificationCenter.default.removeObserver(self)
@@ -1481,13 +1490,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
         
+  
+        //1.0.7 bug fixed
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPlayEndMusic), name: NSNotification.Name("playEndingMusic"), object: nil)
         
         //先確認有沒有購買
         
         let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
         
         if isPurchased{
-            
             
             print("已購買, 不計時")
             //已購買, 不計時
@@ -1504,8 +1515,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if gameMode == 0 {
                 
                 
-                
                 limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
+                
+                  //limitSeconds = UserDefaults.standard.integer(forKey: "limitSeconds")
+                
+                print("will appear limitSeconds:\(limitSeconds)")
                 
                 //測試
                 //limitSeconds = 2
@@ -1532,6 +1546,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     //本日時間已到
                     
                     limitTimerLabel.text = "0:00"
+                    
                     timerPause()
                     
                 }
@@ -1542,66 +1557,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
     
-        
-        /*
-        if let isPurchasedStatus = user?["isPurchased"] as? String{
-            
-            //指定好數字
-            isPurchased = isPurchasedStatus
-            
-            if isPurchased == "1"{
-                
-                //已購買, 不計時
-                limitTimer.invalidate()
-                
-                
-                limitTimerLabel.text = ""
-                removeBtns()
-                
-                
-            } else if isPurchased == "0"{
-
-                
-                if gameMode == 0 {
-                    
-                    
-                    
-                    limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
-                    
-                    //測試
-                    //limitSeconds = 2
-                    
-                    if(limitSeconds > 0){
-                      
-                        let minutes = String(limitSeconds / 60)
-                        var seconds = String(limitSeconds % 60)
-                        let secondsToCheck = limitSeconds % 60
-                      
-                        if seconds == "0" {
-                            
-                            seconds = "00"
-                        } else if secondsToCheck < 10 {
-                            
-                            seconds = "0" + seconds
-                            
-                        }
-                       
-                        limitTimerLabel.text = minutes + ":" + seconds
-                        
-                    } else{
-                        
-                        //本日時間已到
-                        
-                        limitTimerLabel.text = "0:00"
-                        timerPause()
-                        
-                    }
-              
-                }
-                
-            }
-        }
- */
     }
  
     
@@ -1696,6 +1651,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         limitTimer.invalidate()
         UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         }
+        
+        
         playSoundBtn.isEnabled = false
 
         coverBtn.isHidden = false

@@ -805,7 +805,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
              body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava="
         } else {
         
-        body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=\(coursePlayed)&ava="
+      
+            body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=\(coursePlayed)&ava="
         }
             print(body)
         

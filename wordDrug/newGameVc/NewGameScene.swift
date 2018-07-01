@@ -1041,7 +1041,6 @@ class NewGameScene: SKScene {
     }
     
     @objc func restartCounting(){
-        
      
         let lineNode = findImageNode(name: "countDownLine")
         
@@ -1050,9 +1049,7 @@ class NewGameScene: SKScene {
             lineNode.isPaused = false
         }
 
-        
     }
-    
     
     
     //只做句子練習畫面
