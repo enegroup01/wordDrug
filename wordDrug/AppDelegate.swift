@@ -288,6 +288,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     
         print("did become active")
+        
         FBHandler()
         AppEventsLogger.activate()
         
@@ -304,7 +305,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //1.0.7 BUG fixed
         
-        let dateFetch = Date().addingTimeInterval(28800)
+        let dateFetch = Date()
         
         print(dateFetch)
         
