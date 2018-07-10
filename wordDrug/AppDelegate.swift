@@ -12,6 +12,7 @@ import Firebase
 import FirebaseMessaging
 import FirebaseInstanceID
 import UserNotifications
+import StoreKit
 
 
 var user : NSDictionary?
@@ -39,6 +40,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
               NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
     
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPurchased), name: NSNotification.Name("purchased"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToPurchase), name: NSNotification.Name("failedToPurchase"), object: nil)
+       
+        
+        /*
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyRestored), name: NSNotification.Name("restored"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyStartToRestore), name: NSNotification.Name("startToRestore"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToRestore), name: NSNotification.Name("failedToRestore"), object: nil)
+        */
+        
+        SKPaymentQueue.default().add(self)
+        
+        
+        
         
         FirebaseApp.configure()
 
@@ -246,6 +262,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+
+    
     func toCourse(){
         
         let mainStoryBoard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -282,7 +300,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
+    @objc func notifyFailedToPurchase(){
+        
+        print("appDelegate failed to purchased")
+    }
+    @objc func notifyPurchased(){
+         print("appDelegate purchased successfully")
+        
+    }
     
+    
+    /*
+    @objc func notifyRestored(){
+        print("appDelegate restored successfully")
+        
+    }
+    
+    @objc func notifyStartToRestore(){
+         print("appDelegate start to restore")
+        
+    }
+    @objc func notifyFailedToRestore(){
+        
+         print("appDelegate failed to restore")
+    }
+ */
+ 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
@@ -361,6 +404,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        print("will terminate")
+        
+        SKPaymentQueue.default().remove(self)
     }
 
     
@@ -386,4 +433,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+extension AppDelegate: SKPaymentTransactionObserver {
+    
+    // the `SKPaymentTransactionObserver` methods here
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        
+        
+        for transaction in transactions{
+            
+            switch (transaction.transactionState){
+            case .purchased:
+                
+                
+                SKPaymentQueue.default().finishTransaction(transaction)
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: purchasedKey), object: nil)
+                
+                
+                print("purchased")
+            case .failed:
+                
+                print("failed to purchase")
+                SKPaymentQueue.default().finishTransaction(transaction)
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: failedToPurchaseKey), object: nil)
+                
+  
+                
+             
+                /*
+            case .restored:
+                
+                print("restored")
+                
+                //SKPaymentQueue.default().finishTransaction(transaction)
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: restoredKey), object: nil)
+                
+                */
+
+                
+            default:
+                break
+                
+                
+            }
+            
+            
+        }
+        
+        
+    }
+    
+
+    /*
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: startToRestoreKey), object: nil)
+        print("start To restore")
+        
+    }
+    
+    
+    
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: failedToRestoreKey), object: nil)
+        
+    }
+ */
+}
+
 

@@ -17,9 +17,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //所有音節
     var syllableSets = [String]()
     
-
-    
-    
     
     let map1SyllableSets:[[String]] = [["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
                                        ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
