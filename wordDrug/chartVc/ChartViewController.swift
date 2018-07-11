@@ -564,7 +564,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         }
                         
                        
-                        print(self!.avas)
+                        //print(self!.avas)
                       
                         var mapWord = Int()
                         var mapWord2 = Int()
@@ -590,6 +590,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             
                         }
                         */
+                        
+                        
                         var gameWord = Int()
                         var gameWord2 = Int()
                         var gameWord3 = Int()

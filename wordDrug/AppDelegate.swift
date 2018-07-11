@@ -294,6 +294,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
         Messaging.messaging().shouldEstablishDirectChannel = false
         
+        
+        
+        
+        print("did enter background")
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -432,6 +437,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().shouldEstablishDirectChannel = true
     }
 
+    
+    
+    
+    
 }
 
 extension AppDelegate: SKPaymentTransactionObserver {
@@ -486,6 +495,10 @@ extension AppDelegate: SKPaymentTransactionObserver {
         
         
     }
+    
+    
+
+    
     
 
     /*

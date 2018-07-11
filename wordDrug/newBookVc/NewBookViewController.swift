@@ -11,6 +11,7 @@ import TwicketSegmentedControl
 import Speech
 
 
+
 class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, AVSpeechSynthesizerDelegate{
     
     
@@ -497,6 +498,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var isAllEmpty = true
     
     var xDif = CGFloat()
+    
+
+    
+    
+    var wordsToAddToFav = [String]()
+    var wordsToDeleteInFav = [String]()
+    var wordsToDeleteInWrong = [String]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1324,11 +1333,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     }
     
     //再次載入所有單字裡我的最愛要反紅的字, 使用時機: 在我的最愛裡修改過後跳回所有單字
+    //顯示是否有加入最愛先不要做
     func loadAllWordFavs(){
         
         
         
-              alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
+        
+        alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
         
         //載入我的最愛單字
         if let myWordsString = user?["myWords"] as! String?{
@@ -1367,6 +1378,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     }
     
     
+    
+    var laterSaveMyFav = [String]()
+    
     //讀取我的最愛的單字, 使用時機: (1) 在我的最愛裡刪除最愛單字, 做即時反應 (2) 其他時候跳轉到我的最愛畫面時
     func loadMyFavWords(){
         
@@ -1398,12 +1412,71 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         */
         
+        //把臨時的加入myFavWord裡
+        
+ 
+        
         //以所有的單字來match我的最愛單字的資訊
         for i in 0 ..< sortedEngWordsToShow.count{
             
             //做比對使用
             let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            
+            
             for myWord in myFavWords{
+                
+                if myWord == word && !tempFavWordsToDelete.contains(myWord) {
+                    
+                    let chiWord = sortedChiWordsToShow[i]
+                    let partOfSpeech = sortedPartOfSpeechToShow[i]
+                    let syllables = sortedSyllablesToShow[i]
+                    let wordToAppend = sortedEngWordsToShow[i]
+                    let engSenToAppend = sortedEngSenToShow[i]
+                    let chiSenToAppend = sortedChiSenToShow[i]
+                    
+                    myFavEngWordsToShow.append(wordToAppend)
+                    myFavChiWordsToShow.append(chiWord)
+                    myFavPartOfSpeechToShow.append(partOfSpeech)
+                    myFavSyllablesToShow.append(syllables)
+                    myFavEngSenToShow.append(engSenToAppend)
+                    myFavChiSenToShow.append(chiSenToAppend)
+                    
+                    
+                }
+                
+            }
+            
+            
+        }
+        
+        //目前機制 先看delete完再看add就是正確
+        for temp in tempMyFav {
+            
+            
+            for fav in myFavWords{
+                
+                
+                if temp == fav && !tempFavWordsToDelete.contains(temp){
+                    
+                    
+                    tempMyFav = tempMyFav.filter { $0 != temp }
+                }
+                
+            }
+            
+            
+        }
+
+
+
+        //以所有的單字來match我的最愛單字的資訊
+        for i in 0 ..< sortedEngWordsToShow.count{
+            
+            //做比對使用
+            let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
+            
+            
+            for myWord in tempMyFav{
                 
                 if myWord == word {
                     
@@ -1426,7 +1499,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             }
             
+            
         }
+
+        
+
+
+        
         
         //選擇好要show的單字
         engWordsSelected = myFavEngWordsToShow
@@ -1443,10 +1522,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+    
+    
     //載入錯誤單字, 使用時機: 移除錯誤單字即時顯示使用
     func loadMyWrongWords(){
         
-            alertTextShown = "\n此課程到目前為止\n無任何錯字!"
+        alertTextShown = "\n此課程到目前為止\n無任何錯字!"
         
         //載入我的錯誤單字
         if let myWrongWordsString = user?["wrongWords"] as! String?{
@@ -1461,15 +1542,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         myWrongEngSenToShow.removeAll(keepingCapacity: false)
         myWrongChiSenToShow.removeAll(keepingCapacity: false)
         
+        print(myWrongWords.count)
         
         for i in 0 ..< sortedEngWordsToShow.count{
             
             let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
             
-            //抓我的錯字
-            for myWrongWord in myWrongWords{
-                
-                if myWrongWord == word {
+                for myWrongWord in myWrongWords{
+                    
+                     if myWrongWord == word && !tempWrongWordsToDelete.contains(myWrongWord){
+                    
                     
                     let chiWord = sortedChiWordsToShow[i]
                     let partOfSpeech = sortedPartOfSpeechToShow[i]
@@ -1484,16 +1566,58 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     myWrongSyllablesToShow.append(syllables)
                     myWrongEngSenToShow.append(engSenToAppend)
                     myWrongChiSenToShow.append(chiSenToAppend)
-                    
-                    
+                    }
                 }
+
+            
+            
+        /*
+            
+            //抓我的錯字
+            for myWrongWord in myWrongWords{
                 
+                //排除暫時刪除的字
+      //          for temp in tempWrongWordsToDelete{
+                
+                
+                if myWrongWord == word {
+                    
+                    if tempWrongWordsToDelete.count > 0 {
+                    
+                    for temp in tempWrongWordsToDelete {
+                        
+                        if myWrongWord != temp {
+                            
+                            
+                            let chiWord = sortedChiWordsToShow[i]
+                            let partOfSpeech = sortedPartOfSpeechToShow[i]
+                            let syllables = sortedSyllablesToShow[i]
+                            let wordToAppend = sortedEngWordsToShow[i]
+                            let engSenToAppend = sortedEngSenToShow[i]
+                            let chiSenToAppend = sortedChiSenToShow[i]
+                            
+                            myWrongEngWordsToShow.append(wordToAppend)
+                            myWrongChiWordsToShow.append(chiWord)
+                            myWrongPartOfSpeechToShow.append(partOfSpeech)
+                            myWrongSyllablesToShow.append(syllables)
+                            myWrongEngSenToShow.append(engSenToAppend)
+                            myWrongChiSenToShow.append(chiSenToAppend)
+
+                        }
+                        
+                    }
+                    } else {
+             
+                    
+                    }
+                }
+          
                 
             }
             
-            
+            */
         }
-        
+ 
         engWordsSelected = myWrongEngWordsToShow
         chiWordsSelected = myWrongChiWordsToShow
         partOfSpeechSelected = myWrongPartOfSpeechToShow
@@ -1509,6 +1633,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //上方segMent選擇
     
     var alertTextShown = String()
+
     func didSelect(_ segmentIndex: Int) {
         
         //停止所有func
@@ -1519,8 +1644,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         case 0:
             
             isAllEmpty = true
-            //再次讀我的最愛反紅部分
-            loadAllWordFavs()
+            //再次讀我的最愛反紅部分, 這件事情暫時不用作
+            //loadAllWordFavs()
             //切換到可以修改最愛的模式
             likeMode = true
       
@@ -2080,6 +2205,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let chiSenLabel = cell.viewWithTag(6) as! UILabel
 
         
+        
+        cell.accessoryType = .disclosureIndicator
+
+        
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row]
         
@@ -2255,6 +2384,216 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    var tempMyFav = [String]()
+    var tempFavWordsToDelete = [String]()
+    var tempWrongWordsToDelete = [String]()
+    
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+
+        
+        switch segControl.selectedSegmentIndex{
+            
+        case 0:
+            
+            let addToFavAction = UITableViewRowAction(style: .default, title: "加入最愛") { [weak self](action, indexPath) in
+                
+                //抓單字
+                
+                let wordToCheck = self!.engWordsSelected[indexPath.row]
+                
+                let wordToAdd = wordToCheck.replacingOccurrences(of: " ", with: "")
+          
+                
+                //tempMyFav
+                
+                if !self!.tempMyFav.contains(wordToAdd){
+                
+                self!.tempMyFav.append(wordToAdd)
+                
+                }
+                
+                
+                /*
+                if self!.tempFavWordsToDelete.count > 0 {
+                
+                for i in 0 ..< self!.tempFavWordsToDelete.count {
+                    
+                    if self!.tempFavWordsToDelete[i] == wordToAdd {
+                        
+                        self!.tempFavWordsToDelete.remove(at: i)
+                  
+                    }
+                    
+                    }
+               
+                }
+            */
+                
+            }
+         
+            print("add:\(tempMyFav)")
+            
+            print("toDelete:\(tempFavWordsToDelete)")
+
+            return [addToFavAction]
+
+            
+        case 1:
+            
+            
+            let addToFavAction = UITableViewRowAction(style: .default, title: "加入最愛") {[weak self] (action, indexPath) in
+                
+                //抓單字
+                
+                let wordToCheck = self!.engWordsSelected[indexPath.row]
+                
+                let wordToAdd = wordToCheck.replacingOccurrences(of: " ", with: "")
+                
+                print(wordToAdd)
+                
+                //tempMyFav
+                
+                if !self!.tempMyFav.contains(wordToAdd){
+                    
+                    self!.tempMyFav.append(wordToAdd)
+                    
+                }
+                
+               
+                
+
+                /*
+                if self!.tempFavWordsToDelete.count > 0 {
+                
+                for i in 0 ..< self!.tempFavWordsToDelete.count {
+                    
+                    if self!.tempFavWordsToDelete[i] == wordToAdd {
+                        
+                        self!.tempFavWordsToDelete.remove(at: i)
+                    }
+                    
+                }
+                }
+                */
+                
+                
+            }
+
+            
+            let deleteAction = UITableViewRowAction(style: .normal, title: "移除單字", handler: {[weak self] (action, indexPath) in
+                
+                
+                let wordToCheck = self!.engWordsSelected[indexPath.row]
+                let wordToDelete = wordToCheck.replacingOccurrences(of: " ", with: "")
+                
+                //之後給後端儲存使用
+                self!.tempWrongWordsToDelete.append(wordToDelete)
+                
+                
+                //前段直接刪掉
+                self!.engWordsSelected.remove(at: indexPath.row)
+                self!.syllablesSelected.remove(at: indexPath.row)
+                self!.chiWordsSelected.remove(at: indexPath.row)
+                self!.partOfSpeechSelected.remove(at: indexPath.row)
+                self!.engSenSelected.remove(at: indexPath.row)
+                self!.chiSenSelected.remove(at: indexPath.row)
+                
+                
+                self!.tableView.reloadData()
+                
+
+            })
+            
+             print("add:\(tempMyFav)")
+             print("toDelete:\(tempFavWordsToDelete)")
+             print("wrongToDelete:\(tempWrongWordsToDelete)")
+
+            return [addToFavAction,deleteAction]
+
+            
+        case 2:
+            
+            let deleteAction = UITableViewRowAction(style: .normal, title: "移除最愛", handler: {[weak self] (action, indexPath) in
+                
+                
+                let wordToCheck = self!.engWordsSelected[indexPath.row]
+                let wordToDelete = wordToCheck.replacingOccurrences(of: " ", with: "")
+                
+                
+                //之後給後端儲存使用
+                if !self!.tempFavWordsToDelete.contains(wordToDelete) {
+                self!.tempFavWordsToDelete.append(wordToDelete)
+                
+                }
+                
+                
+            /*
+                var indexToRemove = [Int]()
+                for i in 0 ..< self!.tempMyFav.count{
+                    
+                    if self!.tempMyFav[i] == wordToDelete {
+                        
+                        indexToRemove.append(i)
+                        
+                    }
+
+                }
+                */
+                
+                
+                for temp in self!.tempMyFav {
+                    
+                    
+                    if temp == wordToDelete {
+                                self?.tempMyFav = self!.tempMyFav.filter { $0 != temp }
+                        
+                    }
+                    
+                }
+                
+                
+        
+                
+ 
+                
+                
+                //for前端顯示only
+                self!.engWordsSelected.remove(at: indexPath.row)
+                self!.syllablesSelected.remove(at: indexPath.row)
+
+                self!.chiWordsSelected.remove(at: indexPath.row)
+                self!.partOfSpeechSelected.remove(at: indexPath.row)
+                self!.engSenSelected.remove(at: indexPath.row)
+                self!.chiSenSelected.remove(at: indexPath.row)
+ 
+                self!.tableView.reloadData()
+                
+            })
+
+             print("toDelete:\(tempFavWordsToDelete)")
+             print("toAdd:\(tempMyFav)")
+            
+            return [deleteAction]
+
+        default:
+            return []
+        
+            
+        }
+
+
+        
+        
+        
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //立即停止發音 & 停止上次動作
@@ -2266,6 +2605,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         synEngWord = engWordsSelected[indexPath.row].replacingOccurrences(of: " ", with: "")
         
+    
         //抓發音錯誤字集
         for i in 0 ..< wrongPronounceWords.count{
             
@@ -2447,6 +2787,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SylCell", for: indexPath as IndexPath)
         
+        
         let blueBall = cell.viewWithTag(2) as! UIImageView
         let sylText = cell.viewWithTag(1) as!UILabel
         let sylToDisplay = sortedSylArray[indexPath.row]
@@ -2617,6 +2958,381 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     }
 
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        //在此存檔後端
+        
+        print("book will disapear")
+        
+        //確認錯誤單字的刪除狀態
+        
+        if tempWrongWordsToDelete.count > 0 {
+            
+            
+            
+            for word in tempWrongWordsToDelete {
+                
+                
+                wordsToDeleteInWrong.append(word)
+                print("錯誤字刪除:\(word)")
+                
+                
+                
+            }
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        //確認我的最愛刪除狀況
+        
+        if tempFavWordsToDelete.count > 0 {
+            
+            
+            for word in tempFavWordsToDelete {
+                
+                
+                if myFavWords.contains(word) {
+                    
+                    //有包含的話
+                    
+
+                    //確認有沒有add
+                    
+                    
+                    if !tempMyFav.contains(word){
+                        
+                        
+                        //直接delete
+                        
+                        print("刪除字1:\(word)")
+                        wordsToDeleteInFav.append(word)
+                        
+                        
+                        for fav in tempMyFav {
+                            
+                            
+                            if !myFavWords.contains(fav) {
+                                
+                                
+                                
+                                wordsToAddToFav.append(fav)
+                                
+                                tempMyFav = tempMyFav.filter { $0 != fav }
+
+                                
+                                print("新增字1:\(fav)")
+                                
+                            }
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                    }
+
+                    
+                    
+                    
+                    
+
+                    
+                } else {
+                    
+                    
+                    
+                    //沒有包含的話
+                    
+                    
+                    for fav in tempMyFav {
+                        
+                     
+                            //直接add
+                        
+                            wordsToAddToFav.append(fav)
+                        
+                        tempMyFav = tempMyFav.filter { $0 != fav }
+                            
+                            print("新增字2:\(fav)")
+                   
+                        
+                        
+                    }
+                    
+
+                    
+                    
+                    
+                    
+                }
+                
+
+            }
+            
+            
+            
+        } else {
+            
+            if tempMyFav.count > 0 {
+                
+                
+                //直接add
+                
+                
+
+                for fav in tempMyFav {
+                    
+                    
+                    if !myFavWords.contains(fav) {
+                             wordsToAddToFav.append(fav)
+                    
+                    print("新增字3:\(fav)")
+                    
+                    }
+                    
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+            
+        }
+       
+        
+        
+        print(wordsToAddToFav)
+        
+        if wordsToAddToFav.count > 0 {
+            
+            addWord()
+        }
+        
+        
+        if wordsToDeleteInFav.count > 0 {
+            
+            removeWord()
+        }
+        
+        if wordsToDeleteInWrong.count > 0 {
+            
+            removeWrongWord()
+            
+            
+        }
+    }
+    
+    
+    
+    
+    //新增最愛單字
+    func addWord(){
+        
+
+        for word in wordsToAddToFav {
+        
+            
+            let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&word=\(word)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            //self?.isParseEnabled = true
+                            return
+                        }
+                        print("add word")
+                        
+                   
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        
+                        //載入我的最愛單字
+                        /*
+                        if let myWordsString = user!["myWords"] as! String?{
+                            self!.myWords = myWordsString.components(separatedBy: ";")
+                            
+                        }
+                        self?.isParseEnabled = true
+                        */
+                    } catch{
+                       // self?.isParseEnabled = true
+                        print("catch error")
+                        
+                        
+                    }
+                } else {
+                 //   self?.isParseEnabled = true
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        }
+            }
+    
+    
+    
+    func removeWord(){
+        
+        for word in wordsToDeleteInFav{
+            let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&word=\(word)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                          //  self?.isParseEnabled = true
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                        
+                        
+                        
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        print(user!)
+                        /*
+                        //載入我的最愛單字
+                        if let myWordsString = user!["myWords"] as! String?{
+                            self!.myWords = myWordsString.components(separatedBy: ";")
+                            
+                        }
+                        
+                        self?.isParseEnabled = true
+                        */
+                    } catch{
+                        
+                      //  self?.isParseEnabled = true
+                        print("catch error")
+                        
+                    }
+                } else {
+               //     self?.isParseEnabled = true
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        }
+    }
+    
+    func removeWrongWord(){
+        
+        for word in wordsToDeleteInWrong{
+            let id = user?["id"] as! String
+            
+            // url to access our php file
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWrongWord.php")!
+            
+            // request url
+            var request = URLRequest(url: url)
+            
+            // method to pass data POST - cause it is secured
+            request.httpMethod = "POST"
+            
+            // body gonna be appended to url
+            let body = "userID=\(id)&word=\(word)"
+            
+            // append body to our request that gonna be sent
+            request.httpBody = body.data(using: .utf8)
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                // no error
+                if error == nil {
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //  self?.isParseEnabled = true
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                            return
+                        }
+                        
+                  
+                        
+                        
+                        //再次儲存使用者資訊
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        print(user!)
+                        /*
+                         //載入我的最愛單字
+                         if let myWordsString = user!["myWords"] as! String?{
+                         self!.myWords = myWordsString.components(separatedBy: ";")
+                         
+                         }
+                         
+                         self?.isParseEnabled = true
+                         */
+                    } catch{
+                        
+                        //  self?.isParseEnabled = true
+                        print("catch error")
+                        
+                    }
+                } else {
+                    //     self?.isParseEnabled = true
+                    print("urlsession has error")
+                    
+                }
+            }).resume()
+        }
+    }
     
     /*
      // MARK: - Navigation
