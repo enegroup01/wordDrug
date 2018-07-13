@@ -4336,15 +4336,39 @@ iPadDif = 1.2
     
     func wrongAnswerAction() -> SKAction{
         //閃紅字動畫
+        
+        var correctWord = String()
+           var countNum = Int()
+        for word in currentWordArray{
+            
+            correctWord += word
+            
+        }
+        if gameMode == 1 {
+            findLabelNode(name: "tempWord").text = correctWord
+            countNum = 3
+            
+        } else {
+            
+            countNum = 2
+        }
+
+        
         let wait = SKAction.wait(forDuration: 0.2)
         let redFontAction = SKAction.run({[weak self] in
             self!.findLabelNode(name: "tempWord").fontColor = .red
         })
         let whiteFontAction = SKAction.run({[weak self] in
+            if self!.gameMode != 1 {
+
             self!.findLabelNode(name: "tempWord").fontColor = .white
+            }
         })
         let sequence = SKAction.sequence([redFontAction,wait,whiteFontAction,wait])
-        let repeatAction = SKAction.repeat(sequence, count: 2)
+     
+        
+        
+        let repeatAction = SKAction.repeat(sequence, count: countNum)
         
         return repeatAction
     }

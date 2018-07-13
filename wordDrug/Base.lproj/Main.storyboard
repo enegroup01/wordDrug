@@ -722,6 +722,13 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;&lt; 向左滑動" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZM-dh-vtN">
+                                                    <rect key="frame" x="290" y="17" width="68" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="3TI-bh-w5L" firstAttribute="leading" secondItem="LdO-1X-WBF" secondAttribute="leading" constant="10" id="8vu-ey-HIp"/>
@@ -734,6 +741,7 @@
                                             <outlet property="chiWordLabel" destination="MTS-rg-wy4" id="UD8-W3-xZm"/>
                                             <outlet property="engSenLabel" destination="CsF-uf-Ct2" id="S9b-Fm-stD"/>
                                             <outlet property="engWordLabel" destination="Wx6-VG-VDo" id="Jw6-Wy-H2m"/>
+                                            <outlet property="hintLabel" destination="7ZM-dh-vtN" id="lBL-Hn-Rnc"/>
                                             <outlet property="partOfSpeechLabel" destination="ICZ-2d-zZC" id="ewk-jb-ATz"/>
                                             <outlet property="syllableLabel" destination="3TI-bh-w5L" id="KsE-zJ-GGK"/>
                                         </connections>

@@ -2207,7 +2207,34 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         cell.accessoryType = .disclosureIndicator
-
+        
+        if indexPath.row == 0 {
+            
+            
+            
+            
+            cell.hintLabel.isHidden = false
+            
+ 
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.autoreverse,.repeat], animations: {
+                
+                UIView.setAnimationRepeatCount(5)
+                cell.hintLabel.alpha = 0
+            })
+            
+            
+        } else {
+            
+            cell.hintLabel.isHidden = true
+        }
+        
+        
+        /*
+        cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height:10))
+        cell.accessoryView?.layer.cornerRadius = (cell.accessoryView?.frame.width)! / 2
+        cell.accessoryView?.backgroundColor = .lightGray
+        */
         
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row]
@@ -2402,9 +2429,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         case 0:
             
+            
             let addToFavAction = UITableViewRowAction(style: .default, title: "加入最愛") { [weak self](action, indexPath) in
                 
                 //抓單字
+                
                 
                 let wordToCheck = self!.engWordsSelected[indexPath.row]
                 
@@ -2800,6 +2829,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         if !isScrolling{
             jumpToRow(sylSelected: sylSelected!)
         }
+        
+        
+
         
         
         if collectionTouched[indexPath.row] == 1 {

@@ -20,6 +20,7 @@ class BookTableViewCell: UITableViewCell {
     @IBOutlet weak var engSenLabel: UILabel!
     @IBOutlet weak var syllableLabel: UILabel!
     
+    @IBOutlet weak var hintLabel: UILabel!
     @IBOutlet weak var partOfSpeechLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,9 +54,13 @@ class BookTableViewCell: UITableViewCell {
             
         }
 
-        
        
         engWordLabel.frame = CGRect(x: 52 , y: 3, width: 250 * dif, height: 35)
+        
+        
+        
+   
+
         partOfSpeechLabel.frame = CGRect(x: engWordLabel.frame.minX, y: engWordLabel.frame.maxY, width: 30 * dif, height: 20)
         engSenLabel.frame = CGRect(x: engWordLabel.frame.minX, y: partOfSpeechLabel.frame.maxY, width: 250 * dif, height: 35)
         chiSenLabel.frame = CGRect(x: engWordLabel.frame.minX, y: engSenLabel.frame.maxY, width: 200 * dif, height: 30)
@@ -66,6 +71,9 @@ class BookTableViewCell: UITableViewCell {
         
         //syllableLabel.backgroundColor = .red
         syllableLabel.adjustsFontSizeToFitWidth = true
+        
+        hintLabel.frame = CGRect(x: width - 80, y: engWordLabel.frame.minY, width: 70, height: 21)
+        
         
         /*
         engWordLabel.backgroundColor = .red
