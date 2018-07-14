@@ -17,7 +17,6 @@
 		AA0A3FDF20C65B2600CCDCFB /* alarmClock.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FDE20C65B2600CCDCFB /* alarmClock.png */; };
 		AA0A3FE120C65B5000CCDCFB /* freePng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A3FE020C65B5000CCDCFB /* freePng.png */; };
 		AA0EAA6E20A486E600E256AF /* answerRightBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0EAA6D20A486E600E256AF /* answerRightBtn.png */; };
-		AA126A5C20D3AF2200419AD5 /* launchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = AA126A5A20D3AF2100419AD5 /* launchLogo.png */; };
 		AA126A5D20D3AF2200419AD5 /* launchBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA126A5B20D3AF2200419AD5 /* launchBg.png */; };
 		AA126A5F20D3D0AC00419AD5 /* chartUpBg2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA126A5E20D3D0AC00419AD5 /* chartUpBg2.png */; };
 		AA15E77F20D0DDE400A1AB82 /* step3Png.png in Resources */ = {isa = PBXBuildFile; fileRef = AA15E77C20D0DDE300A1AB82 /* step3Png.png */; };
@@ -466,6 +465,8 @@
 		AA3A84BB20C57B3A00BE88EC /* doubleLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84BA20C57B3A00BE88EC /* doubleLine.png */; };
 		AA3C6C0F2091A55000B7F83C /* enterGameBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */; };
 		AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C102091AF6B00B7F83C /* lessonBtn.png */; };
+		AA408BF320F984D400CD6D72 /* redHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = AA408BF220F984D300CD6D72 /* redHeart.png */; };
+		AA408BF520F9971F00CD6D72 /* launchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = AA408BF420F9971E00CD6D72 /* launchLogo.png */; };
 		AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */; };
 		AA45760620CE308D00B6680B /* newBookBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA45760520CE308D00B6680B /* newBookBg.png */; };
 		AA45760820CE44B700B6680B /* newBookVcBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = AA45760720CE44B700B6680B /* newBookVcBottom.png */; };
@@ -732,7 +733,6 @@
 		AA0A3FDE20C65B2600CCDCFB /* alarmClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmClock.png; sourceTree = "<group>"; };
 		AA0A3FE020C65B5000CCDCFB /* freePng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freePng.png; sourceTree = "<group>"; };
 		AA0EAA6D20A486E600E256AF /* answerRightBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = answerRightBtn.png; sourceTree = "<group>"; };
-		AA126A5A20D3AF2100419AD5 /* launchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchLogo.png; sourceTree = "<group>"; };
 		AA126A5B20D3AF2200419AD5 /* launchBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchBg.png; sourceTree = "<group>"; };
 		AA126A5E20D3D0AC00419AD5 /* chartUpBg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chartUpBg2.png; path = wordDrug/infoVc/chartUpBg2.png; sourceTree = SOURCE_ROOT; };
 		AA15E77C20D0DDE300A1AB82 /* step3Png.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step3Png.png; sourceTree = "<group>"; };
@@ -1181,6 +1181,8 @@
 		AA3A84BA20C57B3A00BE88EC /* doubleLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doubleLine.png; sourceTree = "<group>"; };
 		AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterGameBtn.png; sourceTree = "<group>"; };
 		AA3C6C102091AF6B00B7F83C /* lessonBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBtn.png; sourceTree = "<group>"; };
+		AA408BF220F984D300CD6D72 /* redHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redHeart.png; sourceTree = "<group>"; };
+		AA408BF420F9971E00CD6D72 /* launchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchLogo.png; sourceTree = "<group>"; };
 		AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		AA45760520CE308D00B6680B /* newBookBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookBg.png; sourceTree = "<group>"; };
 		AA45760720CE44B700B6680B /* newBookVcBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookVcBottom.png; sourceTree = "<group>"; };
@@ -1506,6 +1508,7 @@
 				AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */,
 				AA2B64D3205A63F200742226 /* NewBookViewController.swift */,
 				AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */,
+				AA408BF220F984D300CD6D72 /* redHeart.png */,
 				AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */,
 				AAFAFC9F205BD9C900307264 /* wordTableBg.png */,
 				AA45760520CE308D00B6680B /* newBookBg.png */,
@@ -2309,7 +2312,7 @@
 				AAE181991F97892D00683896 /* Assets.xcassets */,
 				AA15E7A820D112D900A1AB82 /* logoWord.png */,
 				AA126A5B20D3AF2200419AD5 /* launchBg.png */,
-				AA126A5A20D3AF2100419AD5 /* launchLogo.png */,
+				AA408BF420F9971E00CD6D72 /* launchLogo.png */,
 				AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */,
 				AAE1819E1F97892D00683896 /* Info.plist */,
 				AA7FA7CE1FB5BF9900315524 /* words */,
@@ -2569,7 +2572,6 @@
 				AA648ED9207CEA05003ACD07 /* s2-5.txt in Resources */,
 				AA15EA5A20D1534C00A1AB82 /* s10-15.txt in Resources */,
 				AA648E72207CEA05003ACD07 /* s2-9.txt in Resources */,
-				AA126A5C20D3AF2200419AD5 /* launchLogo.png in Resources */,
 				AA15EA9E20D1534C00A1AB82 /* s6-14.txt in Resources */,
 				AA15E8E620D1527600A1AB82 /* 10-5.txt in Resources */,
 				AA8FAE90202D912600342CED /* rightCircle.png in Resources */,
@@ -2692,6 +2694,7 @@
 				AA15E91320D1527600A1AB82 /* 17-11.txt in Resources */,
 				AA15E8A220D1527600A1AB82 /* 13-11.txt in Resources */,
 				AA15EA2820D1534C00A1AB82 /* s18-5.txt in Resources */,
+				AA408BF520F9971F00CD6D72 /* launchLogo.png in Resources */,
 				AA15EAC520D1534C00A1AB82 /* s14-7.txt in Resources */,
 				AA15E95A20D1527600A1AB82 /* 8-7.txt in Resources */,
 				AA15E7A920D112D900A1AB82 /* logoWord.png in Resources */,
@@ -2738,6 +2741,7 @@
 				AA15E92520D1527600A1AB82 /* 15-9.txt in Resources */,
 				AA648EDD207CEA05003ACD07 /* s5-4.txt in Resources */,
 				AA648EF3207CEA05003ACD07 /* 2-4.txt in Resources */,
+				AA408BF320F984D400CD6D72 /* redHeart.png in Resources */,
 				AA15E91220D1527600A1AB82 /* 6-3.txt in Resources */,
 				AA648ECE207CEA05003ACD07 /* 4-5.txt in Resources */,
 				AA15EA5C20D1534C00A1AB82 /* s16-5.txt in Resources */,

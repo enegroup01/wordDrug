@@ -499,13 +499,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     var xDif = CGFloat()
     
-
     
     
     var wordsToAddToFav = [String]()
     var wordsToDeleteInFav = [String]()
     var wordsToDeleteInWrong = [String]()
 
+    
+    var favAddedLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -790,6 +791,20 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playSpeedText.textColor = btnOffColor
         playSenText.textColor = btnOnColor
         playSenImg.image = UIImage(named:"bookSenOn.png")
+        
+        
+        favAddedLabel.frame = CGRect(x: (width - width * 0.8) / 2 , y: height / 2, width: width * 0.8, height: 50)
+        favAddedLabel.adjustsFontSizeToFitWidth = true
+        favAddedLabel.textColor = .white
+        favAddedLabel.backgroundColor = .black
+        favAddedLabel.clipsToBounds = true
+        favAddedLabel.layer.cornerRadius = favAddedLabel.frame.width / 15
+        favAddedLabel.font = UIFont(name: "Helvetica Bold", size: 20)
+        favAddedLabel.textAlignment = .center
+        favAddedLabel.numberOfLines = 2
+        favAddedLabel.alpha = 0
+        self.view.addSubview(favAddedLabel)
+        self.view.bringSubview(toFront: favAddedLabel)
         
         
         //歸類所有syllable
@@ -1328,6 +1343,39 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             }
         }
+        
+        
+    }
+    
+    
+    
+    //addToFav animation
+    
+    func addToFavAnimation(word:String){
+        
+        favAddedLabel.text = "\(word)\n已新增至最愛"
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {[weak self] in
+            self!.favAddedLabel.alpha = 1
+            self!.favAddedLabel.frame.origin.y -= 20
+        
+        
+        }) {[weak self] (finished:Bool) in
+            
+            UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveLinear, animations: {
+                self!.favAddedLabel.alpha = 0
+            }, completion: {[weak self] (finished:Bool) in
+                
+                self!.favAddedLabel.frame.origin.y += 20
+                
+                
+                
+            })
+            
+            
+            
+        }
+        
         
         
     }
@@ -2434,7 +2482,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 //抓單字
                 
-                
                 let wordToCheck = self!.engWordsSelected[indexPath.row]
                 
                 let wordToAdd = wordToCheck.replacingOccurrences(of: " ", with: "")
@@ -2447,6 +2494,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 self!.tempMyFav.append(wordToAdd)
                 
                 }
+                
+                self!.addToFavAnimation(word: wordToAdd)
                 
                 
                 /*
@@ -2463,7 +2512,21 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     }
                
                 }
+                 
             */
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
             }
          
@@ -2496,7 +2559,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 }
                 
                
-                
+                           self!.addToFavAnimation(word: wordToAdd)
 
                 /*
                 if self!.tempFavWordsToDelete.count > 0 {

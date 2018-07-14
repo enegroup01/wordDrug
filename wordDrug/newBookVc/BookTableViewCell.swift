@@ -73,7 +73,7 @@ class BookTableViewCell: UITableViewCell {
         syllableLabel.adjustsFontSizeToFitWidth = true
         
         hintLabel.frame = CGRect(x: width - 80, y: engWordLabel.frame.minY, width: 70, height: 21)
-        
+ 
         
         /*
         engWordLabel.backgroundColor = .red
