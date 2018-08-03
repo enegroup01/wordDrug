@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        FirebaseApp.configure()
+       FirebaseApp.configure()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
             
@@ -246,7 +246,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("gamePassed:\(gamePassed3)")
      
         print("mapPassed:\(mapPassed3)")
-        
         
         return true
     }

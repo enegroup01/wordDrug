@@ -28,7 +28,56 @@ class NewGameScene: SKScene {
     //以下為各地圖的音節
 
     
+    let map1SyllableSets:[[String]] = [["a_e98","ab7","ce70","i_e54","ment22","oa15","sh46","tion88","tive19","ty36"],
+                                       ["ab8","ac6","ge47","ly35","mic5","my3","nt7","tion96","u_e26","un19"],
+                                       ["a_e99","ab9","ac7","ble42","ch54","com23","cr17","ing49","ou38","tion97"],
+                                       ["al95","ce78","ci14","dr10","e_e6","ment23","or72","pt2","qu17","tion98"],
+                                       ["ad9","ce79","in65","ly36","qu18","sion21","sive9","tion99","tive20","ult4"],
+                                       ["ad10","ce80","ct13","cy7","ir9","or73","ous26","ry31","tion100","ture15"],
+                                       ["a_e100","ai30","ar47","ble43","en51","er127","gr11","ment24","ny4","um18"],
+                                       ["a_e101","gy9","o_e28","ong5","ot5","ow29","oy4","tion101","u_e27","ur16"],
+                                       ["a_e102","am14","ame2","ce81","fy3","ment25","ple7","sis4","tion102","ty38"],
+                                       ["a_e103","al96","an37","ex6","lar2","ly37","ou39","ous27","que5","tic18"],
+                                       ["an38","au17","ble44","ea69","i_e55","oi10","pr21","tion103","tive21","us4"],
+                                       ["a_e104","ar48","ay22","ce82","ge48","gy10","ment26","na4","nt8","st40"],
+                                       ["ar49","as6","cle5","em10","er128","gn4","i_e56","ment27","tion104","u_e28"],
+                                       ["ar50","as7","at6","ch55","ck30","ph18","sh61","sure5","th37","tr12"],
+                                       ["ai31","au18","aw11","ce83","ey6","ful10","nd9","tic19","tion105","ue10"]]
     
+    let map2SyllableSets:[[String]] = [["a_e105","ad11","au19","ax4","ba6","fle2","ge49","is5","tion106","um19"],
+                                       ["al97","ar51","au20","ban3","bar2","ble45","el123","ly38","on9","oo31"],
+                                       ["bar3","be5","bio2","ea73","en52","er129","ge50","il4","ow30","ry32"],
+                                       ["an39","be6","bl8","ea70","i_e57","ing50","ness7","old5","oo32","th38"],
+                                       ["bl9","bo4","br4","ch56","dle4","igh15","oo33","or74","ow35","th39"],
+                                       ["ai32","al98","bl10","br16","bu9","by6","ca11","ck31","some4","tle6"],
+                                       ["a_e106","an40","an41","ble46","br17","bu10","ca12","ee41","tion107","ty39"],
+                                       ["ar52","br18","bu11","ca13","ch57","ing51","less8","ry33","sh62","ture16"],
+                                       ["al99","ar53","br19","bu12","ca14","ce84","ea74","er130","ous28","rn3"],
+                                       ["a_e107","ar54","br20","ca15","ce85","ch58","ew7","ment28","ry34","ty40"],
+                                       ["al100","au21","br21","ce86","ch59","cl16","i_e58","o_e29","oa16","tion108"],
+                                       ["ch60","ci15","cl17","co26","dy6","ea75","nic6","oi11","tion109","tive22"],
+                                       ["a_e108","br23","ch61","cl18","com24","con43","ment29","sion22","sive10","tion110"],
+                                       ["ch62","cl19","com25","con44","cy8","ous29","sion23","sis5","tion111","tive23"],
+                                       ["a_e109","br22","ch63","cl20","com26","con45","nd10","ness8","or75","tion112"]]
+    
+    let map3SyllableSets:[[String]] = [["ce87","ch64","com27","con46","mic6","or76","or77","po5","sion24","tion114"],
+                                       ["aw12","com29","con47","cr18","er131","mo4","ou40","sh63","sy2","tion113"],
+                                       ["al101","ch75","ck32","com28","con48","cr19","ing52","tion115","u_e29","um20"],
+                                       ["ble47","ch65","com30","con49","cr20","er132","ism1","tion116","ty41","ur17"],
+                                       ["am15","com31","con50","cr21","er133","ly39","ous30","ry35","tion117","ur18"],
+                                       ["a_e110","at23","bt2","ce88","com32","con51","cr22","ing53","ta5","tion118"],
+                                       ["a_e111","cl21","com33","con52","cr23","ct14","ea76","ee42","i_e59","o_e30"],
+                                       ["a_e112","ce89","com34","con54","cy9","de9","en53","fy4","tion119","tive24"],
+                                       ["a_e113","al102","ar55","com35","con53","cr24","en54","qu19","sh64","tion120"],
+                                       ["a_e114","com36","con55","de11","er134","i_e60","ment30","tion121","tive25","ty42"],
+                                       ["ce90","con56","ct15","de10","dia2","dic2","er135","i_e61","o_e31","tion122"],
+                                       ["ce94","con57","de12","ge51","gi7","i_e62","im14","sion25","tion123","u_e30"],
+                                       ["ble48","ce91","con58","cy10","de13","dis22","ma5","ous31","tic20","tion24"],
+                                       ["a_e115","ch66","con59","de14","di5","dis23","er136","i_e63","sion26","tion125"],
+                                       ["aw13","con60","dis24","dr11","ge52","nt9","o_e32","ow36","tic21","ul3"]]
+    
+    
+    /*
     let map1SyllableSets:[[String]] = [["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
                             ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
                             ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
@@ -77,6 +126,8 @@ class NewGameScene: SKScene {
                             ["al7","am7","an7","ar7","ay7","ch7","ea7","ee7","el7","ce7"],
                             ["en7","er7","i_e7","in7","ing7","oo7","or7","ou7","ow7","gy1"],
                             ["er47","er48","er49","er50","er51","er52","ea36","ea37","ea38","ce9"]]
+    
+    */
     
     let map4SyllableSets:[[String]] = [["sh7","st7","th7","a_e8","ai8","al8","am8","an8","ar8","ay8"],
                             ["ce8","ea8","ee8","el8","en8","er8","i_e8","in8","ing8","ch8"],
