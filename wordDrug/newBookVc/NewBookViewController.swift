@@ -66,6 +66,104 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                                        ["a_e115","ch66","con59","de14","di5","dis23","er136","i_e63","sion26","tion125"],
                                        ["aw13","con60","dis24","dr11","ge52","nt9","o_e32","ow36","tic21","ul3"]]
     
+    
+    let map4SyllableSets:[[String]] = [["con61","dis25","dr12","dw1","ea77","ly40","th40","tion126","tr13","ty43"],
+                                       ["cian5","con62","dis26","dr13","en55","ject3","mic7","or78","st41","tion127"],
+                                       ["a_e116","ce92","con63","dis27","dr14","ge53","it7","ment31","ry36","tion128"],
+                                       ["ch67","cle6","con64","dis28","em11","gr12","ment32","oi12","sis6","tion29"],
+                                       ["ai33","ce93","con65","dis29","em12","en56","ment33","pr22","qu20","sure6"],
+                                       ["a_e117","al103","con66","dis30","em13","en57","pt3","qu21","tion130","tr14"],
+                                       ["a_e118","al104","ay24","con67","dis31","nt10","or79","tion131","um21","ve4"],
+                                       ["a_e119","al105","ce95","cl22","con68","dis32","ge54","ment34","sion27","sive11"],
+                                       ["a_e120","au22","con69","dis33","er137","ex7","i_e64","tion132","tive26","ture17"],
+                                       ["con70","dis34","en58","er138","ex8","ly41","o_e33","sion28","sive12","tion133"],
+                                       ["a_e121","con71","ct16","dis35","ex9","ful11","or80","sh65","tion134","ty44"],
+                                       ["a_e122","al106","an42","ble49","ci16","con72","dis36","th41","tic22","tion135"],
+                                       ["a_e123","ble50","ch68","ck33","dis37","ee43","er139","gue4","ous32","ry37"],
+                                       ["al107","ce96","fi4","fl5","i_e65","ing54","ir10","sh66","tion136","u_e31"],
+                                       ["cy11","ee44","er140","fl6","fo4","oa17","oe2","oo34","or81","sh67"]]
+    let map5SyllableSets:[[String]] = [["a_e124","fl7","fr6","ing55","or82","ou41","th42","tion137","tion138","ture18"],
+                                       ["al108","ble51","fl8","fr7","ge55","or83","ow37","ry38","str9","ue11"],
+                                       ["a_e125","al109","ea78","ga3","ge56","gl5","gle4","gy11","oa18","or84"],
+                                       ["ful12","fy5","ga4","ge57","gl6","go4","gr13","ous33","ty45","u_e32"],
+                                       ["a_e126","ar56","bit2","ee45","ge58","gl7","gr14","ou42","ow38","tic23"],
+                                       ["ai34","al110","am16","an43","ar57","dy7","ful13","ge59","gr15","oo35"],
+                                       ["an44","ar58","au23","aw14","con73","en59","gr16","less9","st42","ty46"],
+                                       ["ar59","ce97","ea79","el24","er141","ge60","gr17","igh16","ing56","ph19"],
+                                       ["ch69","ck34","ea71","gr18","i_e66","in66","ly42","ous34","ow31","th43"],
+                                       ["al111","ble52","ge61","gr19","mid2","o_e34","op6","or85","ty47","ul4"],
+                                       ["a_e127","e_e7","gr20","im15","ment35","or86","pl5","sh68","stle2","tion139"],
+                                       ["a_e128","ble53","con74","dle5","im16","in67","qu22","sis7","sive13","tion140"],
+                                       ["al112","ble54","ce98","im17","in68","ly43","ment36","tion141","tive27","ur19"],
+                                       ["a_e129","al113","ct17","ge62","in69","or87","ous35","ry39","tion142","ty48"],
+                                       ["al114","ble55","ce99","ct18","in70","ment37","tion143","tive28","tr15","ty49"]]
+    
+    let map6SyllableSets:[[String]] = [["a_e130","al115","ce100","in71","lar3","ly44","ny5","oi13","ous36","tion144"],
+                                       ["a_e131","ble56","ce101","ee46","er142","ge63","i_e67","in72","ry40","tion145"],
+                                       ["a_e132","al116","ay25","ea80","in73","ing57","kn4","la3","tion146","ture19"],
+                                       ["a_e133","ar60","ce102","ea81","er143","i_e68","im18","in74","o_e35","tion147"],
+                                       ["by7","ck35","er144","ge64","in75","oa19","qu23","st43","tic24","tion148"],
+                                       ["a_e134","al117","er145","fy6","in76","oo36","ry41","tive29","ty50","u_e33"],
+                                       ["ai35","ar61","ble57","ce103","in77","oo37","ous37","ple8","sion29","ty51"],
+                                       ["al118","ar62","gi8","ism2","ma6","sh69","sive14","sk5","st44","ture20"],
+                                       ["al119","ch70","el25","i_e69","in78","ly45","me5","nic7","tion149","um22"],
+                                       ["a_e135","ai36","ce104","cy12","gle5","gr21","igh17","in79","me6","ry42"],
+                                       ["a_e136","ge65","i_e70","in80","mis5","mo5","oa20","th44","ty52","u_e34"],
+                                       ["er146","in81","ing58","mis6","mo6","or88","ou43","ous38","ry43","sh70"],
+                                       ["a_e137","al120","au24","ble58","in82","ous39","tion150","tion151","tive30","tr16"],
+                                       ["el26","in83","less10","ly46","ough3","tion152","ty53","u_e35","us5","wh12"],
+                                       ["a_e138","al121","en60","fy7","in84","ject4","on10","ong6","ous40","ry44"]]
+    
+    let map7SyllableSets:[[String]] = [["ble59","ce105","er147","in86","nt11","op7","set2","sion30","tion153","ur20"],
+                                       ["ce106","en61","ge66","in85","ism3","ment38","op8","or89","ou44","um23"],
+                                       ["al122","er148","ing59","oa21","oo38","or90","ou45","ous41","ow39","st45"],
+                                       ["ck36","dy8","i_e71","igh18","ing60","or91","ow32","ox2","sh71","th45"],
+                                       ["a_e39","al123","an45","ar63","ci17","cle7","i_e72","tion154","ture21","u_e36"],
+                                       ["a_e140","an46","ch71","ea82","ee47","pe2","sion31","tic25","tr17","ty54"],
+                                       ["a_e141","ce107","er149","it8","lar4","or92","pe3","ph20","sive15","tion155"],
+                                       ["ai37","al124","e_e8","ment39","nt12","ph21","que6","sis8","tive31","u_e37"],
+                                       ["ch72","ge67","o_e36","ow34","ph22","pi4","pl6","sure7","tion156","un20"],
+                                       ["al125","ce108","ck37","o_e37","or93","pl7","po6","tic26","tr18","ty55"],
+                                       ["ble60","ch73","ing61","ly47","ou46","pl8","pre3","sion32","tion157","ty56"],
+                                       ["ce109","ct19","cy13","i_e73","ous42","ple9","pr23","pre4","u_e38","um24"],
+                                       ["an47","ce110","ge68","o_e38","pr24","pre5","sion33","tic27","tion158","tive32"],
+                                       ["a_e142","al126","ce111","er150","o_e39","pr25","pre6","sh72","tion159","ty57"],
+                                       ["gy12","nt13","pr26","pre7","pu2","qu24","tive33","ty58","ue12","ui7"]]
+    
+    let map8SyllableSets:[[String]] = [["ai38","an48","ar64","ch74","ck38","ow33","pr27","qu25","ry45","tion160"],
+                                       ["aw15","ay26","fy8","ge69","ly48","pr28","qu26","ra2","tion161","tle7"],
+                                       ["al127","ble61","ci18","ea83","el127","i_e74","qu27","sion34","tion162","u_e39"],
+                                       ["ai39","ce112","ct20","ee48","ing62","nd11","or97","re23","tion163","ur21"],
+                                       ["a_e143","ce113","e_e9","ee49","gi9","gn5","ject5","oi14","re24","tion164"],
+                                       ["al128","ble62","ce71","ew8","ment40","ous43","qu28","re25","sis9","tion165"],
+                                       ["ble63","ce72","ea84","or94","re26","str10","tion166","tive34","tr19","u_e40"],
+                                       ["i_e75","ly49","o_e40","oa22","ous44","re27","ri4","st46","tion167","ty59"],
+                                       ["a_e144","al129","i_e76","ou47","re28","ri5","ry46","th46","tion168","u_e41"],
+                                       ["ar65","au25","ce73","ge70","lar5","nic8","ou48","re29","ri6","sc8"],
+                                       ["ea85","ee50","en62","ew9","old6","re30","ri7","sc9","sh47","ture22"],
+                                       ["a_e145","ck39","e_e10","ment41","ness9","re31","sc10","set3","sh48","ty60"],
+                                       ["al130","ci19","igh19","ing63","nt14","ph23","re32","sc11","sh49","si3"],
+                                       ["ay27","ce74","en63","er151","ous45","re33","sc12","sh50","sk6","sl4"],
+                                       ["ble64","ck40","ly50","oa23","re34","ry47","sh51","sl5","sn2","so4"]]
+    
+    let map9SyllableSets:[[String]] = [["oo39","or95","re35","sc13","sh52","sl6","tion89","ty61","u_e42","wh13"],
+                                       ["a_e146","al131","ar66","ci20","fy9","i_e77","re36","sh53","sp14","st47"],
+                                       ["al132","dy9","ple10","sh54","sp15","st48","tic28","tion90","tle8","um25"],
+                                       ["a_e147","ch76","ey7","gy13","ing64","sh55","sp16","st49","str11","tion91"],
+                                       ["ble65","ce75","en64","ge71","sh56","sion35","sp17","st50","str12","sub6"],
+                                       ["ow40","ry48","sh57","sp18","st51","str13","sub7","tr20","ue13","um26"],
+                                       ["ge72","i_e78","ous46","sh58","st52","str14","sub8","sw2","ur22","us6"],
+                                       ["ea72","ee51","er152","ny6","ple11","sh59","st53","str15","sub9","sym5"],
+                                       ["ai40","ar67","ck41","en65","kle3","sh60","st54","str16","sym6","ta6"],
+                                       ["a_e148","al133","ce76","ea86","o_e41","ph24","st55","str17","sym7","tion92"],
+                                       ["ble66","i_e79","igh20","nt15","or96","ry49","sion36","st56","th47","tr21"],
+                                       ["al134","ble67","er153","ly51","ous47","th48","tion93","tr22","tw4","ty62"],
+                                       ["a_e149","al135","i_e80","ing65","ly52","th49","tion94","tr23","ty37","un21"],
+                                       ["a_e150","ble68","ce77","ge73","th50","tion95","tr24","un22","va2","war2"],
+                                       ["al136","ea87","ge74","oo40","ous48","th51","tr25","va3","wh14","wr3"]]
+    
+    
+    
     /*
     let map1SyllableSets:[[String]] = [["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
                                        ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
@@ -117,6 +215,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["en7","er7","i_e7","in7","ing7","oo7","or7","ou7","ow7","gy1"],
                             ["er47","er48","er49","er50","er51","er52","ea36","ea37","ea38","ce9"]]
     */
+    
+    /*
     let map4SyllableSets:[[String]] = [["sh7","st7","th7","a_e8","ai8","al8","am8","an8","ar8","ay8"],
                             ["ce8","ea8","ee8","el8","en8","er8","i_e8","in8","ing8","ch8"],
                             ["oo8","or8","ou8","ow8","nic1","st8","th8","a_e9","ai9","sh8"],
@@ -215,7 +315,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             ["ch23","er72","ing18","oc1","on5","op4","or40","pic1","sive2","tion26"],
                             ["al42","ce23","er73","ge16","oa9","or41","ou27","ough1","th20","tion27"],
                             ["ar32","ck15","ea54","eigh1","er90","i_e30","th19","we1","wh5","wh6"]]
-    
+ 
+ 
+ */
+ 
     let map10SyllableSets:[[String]] = [["a_e35","an27","ci7","ea52","ma1","o_e13","ow17","ox1","pa1","sh16"],
                              ["al43","ar27","ce24","ea48","ee29","i_e23","ly11","pa2","rl1","sion6"],
                              ["a_e36","al44","er74","ing19","ph5","ri1","st19","tic4","ty10","um6"],
