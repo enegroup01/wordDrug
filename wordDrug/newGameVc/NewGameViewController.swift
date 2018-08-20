@@ -794,6 +794,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //讀目前課程數字數量
+        //這裡的maxMapNum 跟 Lesson的maxMapNum差1....
+        //MARK: must update variables
         switch courseReceived {
             
         case 0:
@@ -820,6 +822,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             increaseNum = 11
             maxSpotNum = 14
             maxMapNum = 6
+            
+        case 3:
+            gamePassedDic = gamePassed4!
+            mapPassedInt = mapPassed4!
+            increaseNum = 18
+            maxMapNum = 8
+            maxSpotNum = 14
+
 
             
         default:
@@ -1141,6 +1151,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
         
+        
+        //MARK: relevant word Rules
         var newRel = String()
         for rel in relArray {
             
@@ -1928,6 +1940,27 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         updateMapPassed(course:courseReceived)
                                                         updateGamePassed(course:courseReceived)
                                                         
+                                                    case 3:
+                                                        mapPassed4! += 1
+                                                        gamePassed4 = [0:0]
+                                                        
+                                                        
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed4!
+                                                        gamePassedDic = gamePassed4
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                                        UserDefaults.standard.set(mapPassed4!, forKey: "mapPassed4")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                                        
+                                                        //pending做一個純粹更新中級的sql
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+                                                        
 
                                                     default:
                                                         break
@@ -1990,6 +2023,24 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         
                                                         updateGamePassed(course:courseReceived)
                                                         
+                                                    case 3:
+                                                        
+                                                        gamePassed4 = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed4
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                                        
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                                        
+                                                        
+                                                        //pending update to sql
+                                                        
+                                                        updateGamePassed(course:courseReceived)
+
+                                                        
                                                     default:
                                                         break
                                                         
@@ -2049,6 +2100,23 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                    //  UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
                                                     //pending update to sql
                                                     updateGamePassed(course:courseReceived)
+                                                    
+                                                    
+                                                case 3:
+                                                    
+                                                    print("更新新關卡")
+                                                    gamePassed4 = [spotNumber: unitNumber + 1]
+                                                    gamePassedDic = gamePassed4
+                                                    
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                                    // mapPassed3 = 0
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                                    //  UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
+                                                    //pending update to sql
+                                                    updateGamePassed(course:courseReceived)
+                                                    
                                                     
                                                 default:
                                                     break
@@ -2187,6 +2255,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
             for (s,u) in gamePassed3!{
+                
+                wordsCounts += s * 30 + u * 3
+                
+            }
+            
+            
+        case 3:
+            
+            
+            wordsCounts += mapPassed4! * 450
+            
+            
+            for (s,u) in gamePassed4!{
                 
                 wordsCounts += s * 30 + u * 3
                 
@@ -2584,8 +2665,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     inputNode.removeTap(onBus: 0)
                     inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat, block: {[weak self] (buffer, when) in
                         
-                        self!
-                            .recognitionRequest?.append(buffer)
+                        self!.recognitionRequest?.append(buffer)
            
                     })
                     
@@ -3115,10 +3195,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             chiSentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!] + halfCount]
               print("3")
             
-            /*
-            print(sentence)
-            print(chiSentence)
-            */
+
             
             //製作4個中文選項Btn
             for btn in allBtns{
@@ -3927,6 +4004,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
+    //MARK: must update reviewWord
     func updateReviewWordCount(wordCount:Int, course:Int){
         
         
@@ -3971,6 +4049,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     var tempJsonName = String()
                     var otherCountName = String()
                     var otherCountName2 = String()
+                    var otherCountName3 = String()
                     var totalCount = Int()
                 
                     
@@ -3980,17 +4059,27 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         tempJsonName = "wordReviewCount"
                         otherCountName = "wordReviewCount2"
                         otherCountName2 = "wordReviewCount3"
+                        otherCountName3 = "wordReviewCount4"
 
                     case 1:
                         tempJsonName = "wordReviewCount2"
                         otherCountName = "wordReviewCount"
                         otherCountName2 = "wordReviewCount3"
+                        otherCountName3 = "wordReviewCount4"
                         
                         
                     case 2:
                         tempJsonName = "wordReviewCount3"
                         otherCountName = "wordReviewCount"
                         otherCountName2 = "wordReviewCount2"
+                        otherCountName3 = "wordReviewCount4"
+                        
+                    case 3:
+                        tempJsonName = "wordReviewCount4"
+                        otherCountName = "wordReviewCount"
+                        otherCountName2 = "wordReviewCount2"
+                        otherCountName3 = "wordReviewCount3"
+                        
                         
                     default:
                         break
@@ -4008,8 +4097,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         tempCount = Int(resultCount)!
                         let otherCount = user?[otherCountName] as! String
                         let otherCount2 = user?[otherCountName2] as! String
+                        let otherCount3 = user?[otherCountName3] as! String
                     
-                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)!
+                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)!
                         
                         
                         
@@ -4023,8 +4113,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let count = user?["wordReviewCount"] as! String
                         let otherCount = user?["wordReviewCount2"] as! String
                         let otherCount2 = user?["wordReviewCount3"] as! String
+                        let otherCount3 = user?["wordReviewCount4"] as! String
 
-                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)!
+                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)!
 
                     }
                     
@@ -4058,7 +4149,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
-    
+    //MARK: must update reviewSen
     func updateReviewSenCount(senCount:Int, course:Int){
         
         
@@ -4103,6 +4194,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     var tempJsonName = String()
                     var otherCountName = String()
                     var otherCountName2 = String()
+                    var otherCountName3 = String()
                     var totalCount = Int()
                     
                     
@@ -4112,17 +4204,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         tempJsonName = "senReviewCount"
                         otherCountName = "senReviewCount2"
                         otherCountName2 = "senReviewCount3"
+                        otherCountName3 = "senReviewCount4"
                         
                     case 1:
                         tempJsonName = "senReviewCount2"
                         otherCountName = "senReviewCount"
                         otherCountName2 = "senReviewCount3"
+                        otherCountName3 = "senReviewCount4"
                         
                         
                     case 2:
                         tempJsonName = "senReviewCount3"
                         otherCountName = "senReviewCount"
                         otherCountName2 = "senReviewCount2"
+                        otherCountName3 = "senReviewCount4"
+                        
+                    case 3:
+                        tempJsonName = "senReviewCount4"
+                        otherCountName = "senReviewCount"
+                        otherCountName2 = "senReviewCount2"
+                        otherCountName3 = "senReviewCount3"
                         
                     default:
                         break
@@ -4140,8 +4241,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         tempCount = Int(resultCount)!
                         let otherCount = user?[otherCountName] as! String
                         let otherCount2 = user?[otherCountName2] as! String
+                        let otherCount3 = user?[otherCountName3] as! String
                         
-                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)!
+                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)!
                         
                         
                         
@@ -4155,8 +4257,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let count = user?["senReviewCount"] as! String
                         let otherCount = user?["senReviewCount2"] as! String
                         let otherCount2 = user?["senReviewCount3"] as! String
+                        let otherCount3 = user?["senReviewCount3"] as! String
                         
-                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)!
+                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)!
                         
                     }
                     

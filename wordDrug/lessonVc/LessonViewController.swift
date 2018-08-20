@@ -11,7 +11,7 @@ import AVFoundation
 
 class LessonViewController: UIViewController{
     
-
+/*
     let map1SyllableSets:[[String]] = [["a_e98","ab7","ce70","i_e54","ment22","oa15","sh46","tion88","tive19","ty36"],
                 ["ab8","ac6","ge47","ly35","mic5","my3","nt7","tion96","u_e26","un19"],
                 ["a_e99","ab9","ac7","ble42","ch54","com23","cr17","ing49","ou38","tion97"],
@@ -461,7 +461,7 @@ class LessonViewController: UIViewController{
                              ["a_e97","al94","ax3","ble41","ge46","no3","th34","un18","ve3","vi1"],
                              ["ar46","ck29","th36","ut1","vi2","we1","wh10","wh11","wr1","ya1"]]
     
-    
+    */
     
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -908,6 +908,14 @@ class LessonViewController: UIViewController{
             mapPassedInt = mapPassed3!
             increaseNum = 11
             maxMapNum = 7
+            
+            
+        case 3:
+            gamePassedDic = gamePassed4!
+            mapPassedInt = mapPassed4!
+            increaseNum = 18
+            maxMapNum = 9
+
         default:
             break
         }
@@ -974,6 +982,24 @@ class LessonViewController: UIViewController{
             syllableSets = map17SyllableSets
         case 17:
             syllableSets = map18SyllableSets
+        case 18:
+            syllableSets = map19SyllableSets
+        case 19:
+            syllableSets = map20SyllableSets
+        case 20:
+            syllableSets = map21SyllableSets
+        case 21:
+            syllableSets = map22SyllableSets
+        case 22:
+            syllableSets = map23SyllableSets
+        case 23:
+            syllableSets = map24SyllableSets
+        case 24:
+            syllableSets = map25SyllableSets
+        case 25:
+            syllableSets = map26SyllableSets
+        case 26:
+            syllableSets = map27SyllableSets
             
         default:
             break

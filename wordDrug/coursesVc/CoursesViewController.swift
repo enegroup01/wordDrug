@@ -8,15 +8,13 @@
 
 import UIKit
 
-class CoursesViewController: UIViewController {
+class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate{
+
     
-    
-    @IBOutlet weak var block0: UIImageView!
-    @IBOutlet weak var block2: UIImageView!
+
     @IBOutlet weak var block0LBtn: UIButton!
     
     @IBOutlet weak var block0RBtn: UIButton!
-    @IBOutlet weak var block1: UIImageView!
     
     @IBOutlet weak var block1LBtn: UIButton!
     
@@ -24,58 +22,20 @@ class CoursesViewController: UIViewController {
     @IBOutlet weak var block2LBtn: UIButton!
     @IBOutlet weak var block1RBtn: UIButton!
     
-    
-    @IBOutlet weak var block0WordCountLabel: UILabel!
-    
-    @IBOutlet weak var block1WordCountLabel: UILabel!
-    
-    @IBOutlet weak var block2WordCountLabel: UILabel!
-    
-   
-    
-    @IBOutlet weak var block0TitleImg: UIImageView!
-    
-    @IBOutlet weak var block1TitleImg: UIImageView!
-    
-
-  
-    @IBOutlet weak var block2TitleImg: UIImageView!
-    
-    
-
-    
     @IBOutlet weak var logOutBtn: UIButton!
-
  
- var courseSent = Int()
-    
-    
+    var courseSent = Int()
     
     //layOut
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
     @IBOutlet weak var toInfoVcBtn: UIButton!
-    
 
-    
     var recommendedClass:String?
     
-    @IBOutlet weak var sepLine0: UIImageView!
-    
-    @IBOutlet weak var sepLine1: UIImageView!
-    
-    
-    @IBOutlet weak var sepLine2: UIImageView!
-    
-
-    
     @IBOutlet weak var bottomBg: UIImageView!
-    @IBOutlet weak var unitLabel: UILabel!
-    @IBOutlet weak var unitLabel1: UILabel!
-    
-    @IBOutlet weak var unitLabel2: UILabel!
-    
+
     @IBOutlet weak var toChartVcBtn: UIButton!
     
     @IBOutlet weak var toInfoLabel: UILabel!
@@ -105,12 +65,11 @@ class CoursesViewController: UIViewController {
     
     @IBOutlet weak var logoImg: UIImageView!
    
-    
     var activityIndicator = UIActivityIndicatorView()
     
-   
     var repeatTimes = 0
     
+    @IBOutlet weak var courseTableView: UITableView!
     
     @IBOutlet weak var toLoginVcBtn: UIButton!
     
@@ -122,85 +81,67 @@ class CoursesViewController: UIViewController {
         //print("coursesVC:\(user!)")
         
         
-        
-        var xPos = CGFloat()
         var iPadFix = CGFloat()
         var titleDif = CGFloat()
         var dif = CGFloat()
         var iPadDif = CGFloat()
-        var wordCountX = CGFloat()
+
         var btnDif = CGFloat()
-        var btnY = CGFloat()
-        var iPadSmall = CGFloat()
-        
-        var fontSize = CGFloat()
         
         switch height {
             
         case 812:
             iPadFix = 1
-            xPos = -22
+ 
             titleDif = 1
             dif = 1.15
             iPadDif = 1
-            wordCountX = 1.03
+          
             btnDif = 1
-            btnY = -5
-            fontSize = 60
-            iPadSmall = 0
+
             
         case 736:
             
             iPadFix = 1
-            xPos = 0
+
             titleDif = 1
             dif = 1.1
             iPadDif = 1
-             wordCountX = 1
+       
             btnDif = 1
-            btnY = 0
-            fontSize = 60
-            iPadSmall = 0
+
             
         case 667:
             
             iPadFix = 1
-            xPos = 0
+          
             titleDif = 0.9
             dif = 1
             iPadDif = 1
-             wordCountX = 1.03
             btnDif = 0.95
-            btnY = 0
-            fontSize = 60
-            iPadSmall = 0
+          
             
         case 568:
             iPadFix = 1
-            xPos = 0
             titleDif = 0.8
             dif = 0.9
             iPadDif = 1
-             wordCountX = 1.03
+          
             btnDif = 0.8
-            btnY = 0
-            fontSize = 60
-            iPadSmall = 0
+         
             
         default:
             iPadFix = 0.8
-            xPos = 0
             titleDif = 0.8
             dif = 0.9
             iPadDif = 0.9
-             wordCountX = 1
+
             btnDif = 1
-            btnY = 0
-            
-            fontSize = 40
-            iPadSmall = 20
+   
             
         }
+        
+     
         
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         activityIndicator.layer.zPosition = 15
@@ -223,52 +164,7 @@ class CoursesViewController: UIViewController {
         }
         
         
-        
-        block0.frame = CGRect(x: xPos, y: 0, width: width, height: height / 4)
-        block0.contentMode = .scaleAspectFill
-        block1.frame = CGRect(x: xPos, y: height / 4, width: width, height: height / 4)
-        block2.frame = CGRect(x: xPos, y: height / 2, width: width, height: height / 4)
-       
-        //新位置
-        
-        block0TitleImg.frame = CGRect(x: block0.frame.width / 26, y: height / 3.5 * iPadDif, width: 136 * titleDif * iPadFix * iPadFix, height: 94 * titleDif)
-        
-
-   
-        
-        
-        //新位置
-        block1TitleImg.frame = CGRect(x: block0.frame.width / 26, y: height / 2 , width: 136 * titleDif * iPadFix * iPadFix, height: 97 * titleDif)
-        
-        
-        
-        
-        //新位置
-        block2TitleImg.frame = CGRect(x: block0.frame.width / 40, y: height / 1.38
-            * iPadDif + iPadSmall, width: 146 * titleDif * iPadFix * iPadFix, height: 92 * titleDif)
-
-        
-        //新位置
-        block0LBtn.frame = CGRect(x: width / 2.5, y: block0TitleImg.frame.maxY * 0.95 - btnY - iPadSmall, width: 105 * btnDif * iPadDif, height: 35 * btnDif * iPadDif)
-        block0RBtn.frame = CGRect(x: block0LBtn.frame.maxX + 10, y: block0LBtn.frame.minY, width: 105 * btnDif * iPadFix, height: 35 * btnDif * iPadDif)
-        
-        
-    
-        //新位置
-        block1LBtn.frame = CGRect(x: width / 2.5, y: block1TitleImg.frame.maxY * 0.95 - btnY - iPadSmall, width: 105 * btnDif * iPadDif, height: 35 * btnDif * iPadDif)
-        
-     
-        //新位置
-        block1RBtn.frame = CGRect(x: block1LBtn.frame.maxX + 10, y: block1LBtn.frame.minY, width: 105 * btnDif * iPadFix, height: 35 * btnDif * iPadDif)
-        
-   
-        
-        //新位置
-       block2LBtn.frame = CGRect(x: width / 2.5, y: block2TitleImg.frame.maxY * 0.97 - btnY - iPadSmall, width: 105 * btnDif * iPadDif, height: 35 * btnDif * iPadDif)
-        
-   
-        block2RBtn.frame = CGRect(x: block2LBtn.frame.maxX + 10, y: block2LBtn.frame.minY, width: 105 * btnDif * iPadFix, height: 35 * btnDif * iPadDif)
-  
+      
         //新位置
         
         bottomBg.frame = CGRect(x: 0, y: height - 80 * dif * btnDif, width: width, height: 80 * dif)
@@ -313,45 +209,10 @@ class CoursesViewController: UIViewController {
         
       
         toLoginVcBtn.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.minY, width: 63 * dif * iPadDif, height: 24 * dif * iPadDif)
-        
-        block0WordCountLabel.font = block0WordCountLabel.font.withSize(fontSize)
-        block0WordCountLabel.adjustsFontSizeToFitWidth = true
 
-        //新位置
-        block0WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block0TitleImg.frame.minY * 1.05, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
-        
-        
-      
-        //新位置
-          block1WordCountLabel.font = block1WordCountLabel.font.withSize(fontSize)
-        block1WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block1TitleImg.frame.minY * 1.02, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
-
-        block1WordCountLabel.adjustsFontSizeToFitWidth = true
-       
-     
-         block2WordCountLabel.font = block2WordCountLabel.font.withSize(fontSize)
-        block2WordCountLabel.adjustsFontSizeToFitWidth = true
-        //新位置
-         block2WordCountLabel.frame = CGRect(x: width * 2 / 3 * 0.85, y: block2TitleImg.frame.minY, width: width / 2.8, height: block0.frame.height / 3 * iPadDif)
-        
-        
-        unitLabel.frame = CGRect(x: block0WordCountLabel.frame.maxX * 0.98 * wordCountX, y: block0WordCountLabel.frame.maxY - 20, width: 14, height: 20)
-        
-                unitLabel1.frame = CGRect(x: block1WordCountLabel.frame.maxX * 0.98 * wordCountX, y: block1WordCountLabel.frame.maxY - 20, width: 14, height: 20)
-                unitLabel2.frame = CGRect(x: block2WordCountLabel.frame.maxX * 0.98 * wordCountX
-                    , y: block2WordCountLabel.frame.maxY - 20, width: 14, height: 20)
         
         
         // Do any additional setup after loading the view.
-        
-
-      
-        
-        sepLine0.frame = CGRect(x: 0, y: height / 4.2, width: width, height: 1)
-        sepLine1.frame = CGRect(x: 0, y: height / 2.2, width: width, height: 1)
-        sepLine2.frame = CGRect(x: 0, y: height / 1.5, width: width, height: 1)
-        
-
         
         bigNameLabel.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.maxY * 1.5 * titleDif * titleDif, width:  190 * iPadFix, height: 42 * iPadFix)
 
@@ -359,11 +220,24 @@ class CoursesViewController: UIViewController {
         bigNameLabel.adjustsFontSizeToFitWidth = true
         userStatusLabel.frame = CGRect(x: bigNameLabel.frame.minX, y: bigNameLabel.frame.maxY, width: 190 * iPadFix, height: 55 * iPadFix)
      
-        dayTitleLabel.frame = CGRect(x: block0WordCountLabel.frame.minX * titleDif, y: bigNameLabel.frame.midY - 3, width: 160 * iPadFix, height: 25 * iPadFix)
+        dayTitleLabel.frame = CGRect(x: 240, y: bigNameLabel.frame.midY - 3, width: 160 * iPadFix, height: 25 * iPadFix)
      
-        daysLabel.frame = CGRect(x: block0WordCountLabel.frame.minX * titleDif, y: dayTitleLabel.frame.maxY, width: 160 * iPadFix, height: 55 * iPadFix)
+        daysLabel.frame = CGRect(x: 245, y: dayTitleLabel.frame.maxY, width: 160 * iPadFix, height: 55 * iPadFix)
     
         daysLabel.adjustsFontSizeToFitWidth = true
+        
+        //設定tableview高度
+        courseTableView.backgroundColor = .clear
+        courseTableView.frame = CGRect(x: 0, y: daysLabel.frame.maxY + 2, width: width, height: height - daysLabel.frame.maxY - 2 - bottomBg.frame.height)
+        
+        courseTableView.separatorColor = .lightGray
+        courseTableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        
+        
+        
+        let borderLine = UIView(frame: CGRect(x: 0, y: courseTableView.frame.minY - 2, width: width, height: 0.5))
+        borderLine.backgroundColor = .lightGray
+        self.view.addSubview(borderLine)
         
         bigNameLabel.text = ""
         userStatusLabel.text = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
@@ -372,16 +246,12 @@ class CoursesViewController: UIViewController {
         dayTitleLabel.text = "學習天數"
         daysLabel.text = ""
         
-        
         //稍稍靠右邊
         logoImg.center = CGPoint(x: width / 2 + 5, y: height / 8)
         logoImg.frame.size = CGSize(width: 135 * dif * iPadFix, height: 131 * dif * iPadFix)
 
-
-       
         if recommendedClass != nil {
         
-            
             //假如尚未註冊者, 就是開始引導
             
             var posX = CGFloat()
@@ -428,11 +298,7 @@ class CoursesViewController: UIViewController {
     }
     
     
-
-    
-func fingerAnimation(){
-        
-        
+    func fingerAnimation(){
         
         UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear, animations: {[weak self] in
             
@@ -495,6 +361,61 @@ func fingerAnimation(){
         
         
         
+    }
+    
+    
+    //MARK: TableView delegate
+    @available(iOS 2.0, *)
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        
+        return 4
+        
+    }
+    
+    
+    func didTapEnterClass(indexPath: IndexPath) {
+        print("enter class: \(indexPath.row)")
+        
+        courseSent = indexPath.row
+        performSegue(withIdentifier: "toStageVc", sender: self)
+        
+    }
+    
+    func didTapEnterBook(indexPath: IndexPath) {
+        print("enter book: \(indexPath.row)")
+        
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        
+        let time = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+            self!.courseSent = indexPath.row
+            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
+        }
+        
+    }
+
+    
+    @available(iOS 2.0, *)
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+       
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoursesCell", for: indexPath) as! CourseTableViewCell
+        
+        
+        let titleImg = ["block0Title","block1Title","block2Title","block3Title"]
+        let wordCounts = [2250,2700, 3150, 4050]
+
+        cell.wordCountOutlet.text = "\(wordCounts[indexPath.row])"
+        cell.courseTitleImg.image = UIImage(named: titleImg[indexPath.row] + ".png")
+        cell.courseTitleImg.contentMode = .scaleAspectFill
+        cell.generateCell(indexPath: indexPath)
+        cell.backgroundColor = .clear
+        
+        
+        
+        cell.delegate = self
+        return cell
     }
     
 

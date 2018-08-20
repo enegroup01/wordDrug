@@ -122,17 +122,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mapPassed3 = UserDefaults.standard.object(forKey: "mapPassed3") as? Int
         
         
-        /*
-        //抓gamePassed4
+        
+        //抓gamePassed4, 在此對原本玩家來說抓不到值 就賦予值
         let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
         
         if let decoded = decodedObject4 {
             gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        } else {
+            print("give value for nil")
+            // give value for nil
+            mapPassed4 = 0
+            
+            userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+            
+            gamePassed4 = [0:0]
+            
+            let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+            userDefaults.set(encodedObject4, forKey: "gamePassed4")
+
+            
         }
         
         //抓mapPassed4
         mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
-*/
+
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
         isRegistered = UserDefaults.standard.object(forKey: "isRegistered") as? Bool
         
@@ -164,8 +177,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           
             if introWatched == nil {
                 
-              
-                let userDefaults = UserDefaults.standard
                 introWatched = false
                 userDefaults.set(introWatched, forKey: "introWatched")
                 
@@ -206,6 +217,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
                 
+                mapPassed4 = 0
+                
+                userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                
+                gamePassed4 = [0:0]
+                
+                let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                userDefaults.set(encodedObject4, forKey: "gamePassed4")
+
+                
                 
                 
               toIntro()
@@ -243,9 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         print("user:\(user)")
-        print("gamePassed:\(gamePassed3)")
-     
-        print("mapPassed:\(mapPassed3)")
+
         
         return true
     }

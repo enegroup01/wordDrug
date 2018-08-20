@@ -18,6 +18,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //所有音節
     var syllableSets = [String]()
     
+    
+    /*
+    
     let map1SyllableSets:[[String]] = [["a_e98","ab7","ce70","i_e54","ment22","oa15","sh46","tion88","tive19","ty36"],
                                        ["ab8","ac6","ge47","ly35","mic5","my3","nt7","tion96","u_e26","un19"],
                                        ["a_e99","ab9","ac7","ble42","ch54","com23","cr17","ing49","ou38","tion97"],
@@ -469,7 +472,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                              ["al93","ce69","ness6","ous25","th35","tr11","ture14","ty35","un17","ve2"],
                              ["a_e97","al94","ax3","ble41","ge46","no3","th34","un18","ve3","vi1"],
                              ["ar46","ck29","th36","ut1","vi2","we1","wh10","wh11","wr1","ya1"]]
-    
+ 
+ 
+ */
+ 
     //刪掉數字的音節
     var sylArray = [String]()
     
@@ -711,6 +717,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         print("courseReceived\(courseReceived)")
         
+        
+        //MARK: must update courseReceived
+        
         switch courseReceived{
             
         case 0:
@@ -758,6 +767,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             maxMapNum = 7
             maxSpotNum = 14
             
+            
+        case 3:
+            syllableGroup.append(map19SyllableSets)
+            syllableGroup.append(map20SyllableSets)
+            syllableGroup.append(map21SyllableSets)
+            syllableGroup.append(map22SyllableSets)
+            syllableGroup.append(map23SyllableSets)
+            syllableGroup.append(map24SyllableSets)
+            syllableGroup.append(map25SyllableSets)
+            syllableGroup.append(map26SyllableSets)
+            syllableGroup.append(map27SyllableSets)
+            
+            
+            mapPassedInt = mapPassed4
+            gamePassedDic = gamePassed4
+            increaseNum = 18
+            maxMapNum = 9
+            maxSpotNum = 14
+
         default:
             break
       
@@ -1203,7 +1231,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //抓單字
         for i in 0 ..< wordSets.count{
             
-           
             for w in 0 ..< 30{
                 
                 engWordsToShow.append(wordSets[i][w])
@@ -1430,6 +1457,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //預設值
         alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
         
+        
+        //沒有值的話 無線條
+        tableView.tableFooterView = UIView()
+        
     }
     
     
@@ -1439,8 +1470,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     @objc func removeBtns(){
         
-        
-        
+  
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         ghost2Btn.isHidden = true
@@ -1448,8 +1478,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         practiceSenBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
         rightBtnClickedImg.isHidden = true
- 
- 
+  
     }
     
     @objc func practiceWord(){
@@ -1612,11 +1641,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         */
         
         //把臨時的加入myFavWord裡
-        
+        print("sortedEngWord:\(sortedEngWordsToShow)")
  
+        //假如沒有全破關的話全部可顯示字要扣掉三個
+        var tempCount = sortedEngSenToShow.count
+        
+        if (mapPassedInt! + 1) != maxMapNum{
+            
+            tempCount -= 3
+        }
+        
         
         //以所有的單字來match我的最愛單字的資訊
-        for i in 0 ..< sortedEngWordsToShow.count{
+        for i in 0 ..< tempCount{
             
             //做比對使用
             let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
@@ -1991,12 +2028,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                                 }
                                 
                             }
-
-                            
-                            
-                            
-                            
-                            
+     
                             
                             synChiWord = chiWordsSelected[i]
                             synEngSen = engSenSelected[i]
@@ -3043,10 +3075,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         if !isScrolling{
             jumpToRow(sylSelected: sylSelected!)
         }
-        
-        
 
-        
         
         if collectionTouched[indexPath.row] == 1 {
             sylText.textColor = .white
@@ -3283,10 +3312,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                     }
 
-                    
-                    
-                    
-                    
 
                     
                 } else {
@@ -3310,11 +3335,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                         
                     }
-                    
 
-                    
-                    
-                    
                     
                 }
                 
@@ -3343,14 +3364,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     }
                     
                 }
-                
-                
-                
-                
-                
-                
-                
-                
+         
                 
             }
             
