@@ -47,8 +47,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        print(user)
-        
         var iPadSmall = CGFloat()
         
         switch height {
@@ -82,12 +80,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             iPadSmall = 10
             
         }
+        
 
 
         // Do any additional setup after loading the view.
         chartUpBg.frame = CGRect(x: 0, y: 0, width: width, height: height / 2.2)
         infoTableView.frame = CGRect(x: 0, y: chartUpBg.frame.maxY, width: width, height: height - chartUpBg.frame.height)
-        
         
         backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
         titleLabel.frame = CGRect(x: backBtn.frame.maxX , y: backBtn.frame.maxY / 2, width: width - backBtn.frame.maxX * 2, height: 28 * dif)
@@ -150,6 +148,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         rankLabel.adjustsFontSizeToFitWidth = true
         
         
+
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -208,10 +207,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let countUnits = ["","","","字","句"]
 
         var totalRates = [Int(),Int(),Int(),Int(),Int()]
-        
-        
-        
-     
+
         
         //快速複習的數字不show
         if indexPath.row < 3 {
@@ -311,8 +307,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     
     override func viewWillAppear(_ animated: Bool) {
-        getUserInfo()
-        myRank()
+       
+
+        selectUser()
     }
 
     
@@ -410,6 +407,178 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    
+    func selectUser(){
+        
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        
+        let id = user?["id"] as! String
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        
+        // body gonna be appended to url
+        let body = "id=\(id)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+   
+                    
+                    
+                    print("selectUser:\(parseJSON)")
+                    
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    if let mapPassedString = user?["mapPassed"] as! String?{
+                        
+                        mapPassed = Int(mapPassedString)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed!, forKey: "mapPassed")
+                        
+                        print("retrieve mapPassed:\(mapPassed!)")
+                        
+                    }
+                    
+                    if let mapPassed2String = user?["mapPassed2"] as! String?{
+                        
+                        mapPassed2 = Int(mapPassed2String)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                        
+                        print("retrieve mapPassed:\(mapPassed2!)")
+                        
+                    }
+                    
+                    if let mapPassed3String = user?["mapPassed3"] as! String?{
+                        
+                        mapPassed3 = Int(mapPassed3String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                        
+                        print("retrieve mapPassed:\(mapPassed3!)")
+                        
+                    }
+                    
+                    if let mapPassed4String = user?["mapPassed4"] as! String?{
+                        
+                        mapPassed4 = Int(mapPassed4String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                        
+                        print("retrieve mapPassed:\(mapPassed4!)")
+                        
+                    }
+                    
+                    
+                    if let gamePassedString = user?["gamePassed"] as! String?{
+                        
+                        let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+                        
+                        let s = gamePassedStringArray[0]
+                        let u = gamePassedStringArray[1]
+                        gamePassed = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                        
+                        print("retrieve gamePassed:\(gamePassed!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                    }
+                    
+                    if let gamePassed2String = user?["gamePassed2"] as! String?{
+                        
+                        let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+                        
+                        let s = gamePassed2StringArray[0]
+                        let u = gamePassed2StringArray[1]
+                        gamePassed2 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                        
+                        print("retrieve gamePassed:\(gamePassed2!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                        
+                    }
+                    
+                    if let gamePassed3String = user?["gamePassed3"] as! String?{
+                        
+                        let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
+                        
+                        let s = gamePassed3StringArray[0]
+                        let u = gamePassed3StringArray[1]
+                        gamePassed3 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                        
+                        print("retrieve gamePassed:\(gamePassed3!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                        
+                    }
+                    
+                    
+                    if let gamePassed4String = user?["gamePassed4"] as! String?{
+                        
+                        let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                        
+                        let s = gamePassed4StringArray[0]
+                        let u = gamePassed4StringArray[1]
+                        gamePassed4 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                        
+                        print("retrieve gamePassed:\(gamePassed4!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                        
+                    }
+
+                    DispatchQueue.main.async {
+                       
+                        self!.getUserInfo()
+                        self!.myRank()
+                    }
+               
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+    
     func getUserInfo(){
         
         print("perform get user")
@@ -461,7 +630,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         //算字數
-        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 450 + mapPassed3! * 450
+        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 450 + mapPassed3! * 450 + mapPassed4! * 450
         var gamePassedCount = Int()
         var gamePassed2Count = Int()
         var gamePassed3Count = Int()
@@ -480,11 +649,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         for (s,u) in gamePassed3!{
             gamePassed3Count = s * 30 + u * 3
         }
-        /*
+        
         for (s,u) in gamePassed4!{
             gamePassed4Count = s * 30 + u * 3
         }
- */
+ 
         allWordsCount = allMapPassedCount + gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count
         
         wordCountLabel.text = String(allWordsCount)
@@ -580,17 +749,21 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
         
+        
+        //去避開更新使用者...temp func
+        
        //快速複習單字數
         if let wordCount = user?["wordReviewCount"] as? String{
             
-            
-        
+
             if let wordCount2 = user?["wordReviewCount2"] as? String{
                 if let wordCount3 = user?["wordReviewCount3"] as? String{
+                    if let wordCount4 = user?["wordReviewCount4"] as? String{
 
-        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)!
+                        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)!
         
-        sub1Rates[3] = totalWordCount
+                        sub1Rates[3] = totalWordCount
+                    }
                 }
             }
         }
@@ -599,14 +772,20 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let senCount = user?["senReviewCount"] as? String{
             if let senCount2 = user?["senReviewCount2"] as? String{
                 if let senCount3 = user?["senReviewCount3"] as? String{
+                    if let senCount4 = user?["senReviewCount4"] as? String {
         
-        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)!
+                        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)!
         
-        sub1Rates[4] = totalSenCount
+                        sub1Rates[4] = totalSenCount
+                    }
                 }
             }
         }
         
+
+        infoTableView.reloadData()
+
+
     }
 
     

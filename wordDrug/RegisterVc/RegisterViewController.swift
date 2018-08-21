@@ -544,6 +544,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                             }
                             
+                            if let mapPassed4String = user?["mapPassed4"] as! String?{
+                                
+                                mapPassed4 = Int(mapPassed4String)!
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                                
+                                print("retrieve mapPassed:\(mapPassed4!)")
+                                
+                            }
+
+                            
                             
                             
                             if let gamePassedString = user?["gamePassed"] as! String?{
@@ -595,6 +607,23 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(encodedObject, forKey: "gamePassed3")
                                 
                             }
+                            
+                            if let gamePassed4String = user?["gamePassed4"] as! String?{
+                                
+                                let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                                
+                                let s = gamePassed4StringArray[0]
+                                let u = gamePassed4StringArray[1]
+                                gamePassed4 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                
+                                print("retrieve gamePassed:\(gamePassed4!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                
+                            }
+
                             
                             
                             /*
@@ -895,6 +924,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                             }
                             
+                            if let mapPassed4String = user?["mapPassed4"] as! String?{
+                                
+                                mapPassed4 = Int(mapPassed4String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                                
+                                print("retrieve mapPassed:\(mapPassed4!)")
+                                
+                            }
+
+                            
                           
                             
                             if let gamePassedString = user?["gamePassed"] as! String?{
@@ -947,6 +987,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                             }
 
+                            if let gamePassed4String = user?["gamePassed4"] as! String?{
+                                
+                                let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                                
+                                let s = gamePassed4StringArray[0]
+                                let u = gamePassed4StringArray[1]
+                                gamePassed4 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                
+                                print("retrieve gamePassed:\(gamePassed4!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                
+                            }
+
                             
                             
                             // part 2. 判斷是不是從購買畫面轉過來的
@@ -962,20 +1018,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     UIApplication.shared.endIgnoringInteractionEvents()
                                     self!.dismiss(animated: false, completion: nil)
                                     
-          
-
-                                    
-                                    
                                 })
                                 
 
-                                
                             } else {
-                                
-                                
-                                
-                              
-                                
+
                                 
                                 DispatchQueue.main.async(execute: {[weak self] in
                                     
@@ -1260,6 +1307,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             print("retrieve mapPassed:\(mapPassed3!)")
                             
                         }
+                            
+        
+                            if let mapPassed4String = user?["mapPassed4"] as! String?{
+                                
+                                mapPassed4 = Int(mapPassed4String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                                
+                                print("retrieve mapPassed:\(mapPassed4!)")
+                                
+                            }
                         
                         
                         if let gamePassedString = user?["gamePassed"] as! String?{
@@ -1311,6 +1369,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         
+                            if let gamePassed4String = user?["gamePassed4"] as! String?{
+                                
+                                let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                                
+                                let s = gamePassed4StringArray[0]
+                                let u = gamePassed4StringArray[1]
+                                gamePassed4 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                
+                                print("retrieve gamePassed:\(gamePassed4!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                
+                            }
+
                         
                         
                         
@@ -1352,16 +1426,27 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed = [0:1]
                                     gamePassed2 = [0:0]
                                     gamePassed3 = [0:0]
+                                    gamePassed4 = [0:0]
                                 case 1:
                                     gamePassed2 = [0:1]
                                     gamePassed = [0:0]
                                     gamePassed3 = [0:0]
+                                    gamePassed4 = [0:0]
                                     
                                     
                                 case 2:
                                     gamePassed3 = [0:1]
                                     gamePassed = [0:0]
                                     gamePassed2 = [0:0]
+                                    gamePassed4 = [0:0]
+                                    
+                                    
+                                case 3:
+                                    gamePassed3 = [0:0]
+                                    gamePassed = [0:0]
+                                    gamePassed2 = [0:0]
+                                    gamePassed4 = [0:1]
+
                                     
                                 default:
                                     break
@@ -1382,6 +1467,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                                 userDefaults.set(encodedObject3, forKey: "gamePassed3")
+                                
+                                let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                userDefaults.set(encodedObject4, forKey: "gamePassed4")
+
                                 
                                 
                                 

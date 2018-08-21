@@ -218,7 +218,7 @@ iPadDif = 0
         makeLabelNode(x: -290 / xDif, y: 160  / xDif, alignMent: .left, fontColor: .white, fontSize: 30, text: "MissWord\n建議你學習", zPosition: 2, name: "resultTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
 
-        makeLabelNode(x: 310  / xDif, y: 60  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 100  / xDif, text: "英檢初級", zPosition: 2, name: "suggestedClass", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 310  / xDif, y: 60  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 90  / xDif, text: "英檢初級", zPosition: 2, name: "suggestedClass", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         makeLabelNode(x: 0, y: -50, alignMent: .center, fontColor: darkTextColor, fontSize: 24, text: "正確率", zPosition: 2, name: "percentTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         makeLabelNode(x: 0, y: -90, alignMent: .center, fontColor: darkTextColor, fontSize: 30, text: "83%", zPosition: 2, name: "percent", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
@@ -582,7 +582,12 @@ iPadDif = 0
        //if sequence == 2{
         
             
-        
+        if right1 + right2 + right3 == 21 {
+            
+            
+            recommendedClass = "雅思IELTS"
+            
+        } else {
         
         if right1 >= 5 {
             
@@ -592,7 +597,7 @@ iPadDif = 0
                 
                  recommendedClass = "英檢中級"
  
-                    
+                
                     if right3 >= 5 {
                         
                          recommendedClass = "多益滿分"
@@ -614,7 +619,7 @@ iPadDif = 0
            recommendedClass = "英檢初級"
             
         }
-        
+        }
         
        
         let rightCount = right1 + right2 + right3

@@ -91,9 +91,6 @@ class ChartTableViewCell: UITableViewCell {
         wordCountLabel.adjustsFontSizeToFitWidth = true
         //wordCountLabel.backgroundColor = .brown
         
-        
-        
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

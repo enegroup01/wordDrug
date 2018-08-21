@@ -26,6 +26,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     var wordCounts = Int()
     
+    
     //上方單字總計label
     @IBOutlet weak var topWordsNumberLabel: UILabel!
     
@@ -588,12 +589,15 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         for cell in visibleCells {
             
+            
             let yPos = cell.frame.origin.y
             
             
             if yPos >= CGFloat(alertY) {
                 
 print(visibleCells.count)
+                
+      
                 
                 if visibleCells.count == 5 {
                     

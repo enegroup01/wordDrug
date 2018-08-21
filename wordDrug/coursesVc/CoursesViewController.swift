@@ -250,6 +250,9 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         logoImg.center = CGPoint(x: width / 2 + 5, y: height / 8)
         logoImg.frame.size = CGSize(width: 135 * dif * iPadFix, height: 131 * dif * iPadFix)
 
+        
+        /*
+        
         if recommendedClass != nil {
         
             //假如尚未註冊者, 就是開始引導
@@ -279,6 +282,14 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
                 posX = block2LBtn.frame.minX
                 posY = block2LBtn.frame.midY
                 
+                
+            case "雅思IELTS":
+                print("多益")
+                posX = block2LBtn.frame.minX
+                posY = block2LBtn.frame.midY
+            
+                
+                
             default:
                 break
                 
@@ -295,6 +306,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
            
         
         }
+ */
     }
     
     
@@ -489,7 +501,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
          nickname = user?["nickname"] as! String
             
 
-            
             /*
          let isPurchased = user?["isPurchased"] as? String
             
@@ -571,6 +582,17 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         
         //抓mapPassed3
         mapPassed3 = UserDefaults.standard.object(forKey: "mapPassed3") as? Int
+        
+        //抓gamePassed4
+        let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
+        
+        if let decoded = decodedObject4 {
+            gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed4
+        mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
+
         
         
     }

@@ -129,8 +129,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let decoded = decodedObject4 {
             gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
         } else {
-            print("give value for nil")
+            print("give value for nil value")
             // give value for nil
+            
+            if user != nil {
             mapPassed4 = 0
             
             userDefaults.set(mapPassed4!, forKey: "mapPassed4")
@@ -140,8 +142,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
             userDefaults.set(encodedObject4, forKey: "gamePassed4")
 
-            
+            }
         }
+        
+    
         
         //抓mapPassed4
         mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
@@ -153,11 +157,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // if user is once logged in / register, keep him logged in
         if user != nil {
             
+            
             let id = user!["id"] as? String
             if id != nil {
 
                 //跳轉到角色畫面
-                
                 
                //mapPassed3 = 0
                //gamePassed3 = [0:0]

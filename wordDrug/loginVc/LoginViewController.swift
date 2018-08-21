@@ -350,6 +350,17 @@ dif = 1
                         let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                         userDefaults.set(encodedObject3, forKey: "gamePassed3")
                         
+                        
+                        mapPassed4 = 0
+                        
+                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                        
+                        gamePassed4 = [0:0]
+                        
+                        let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                        userDefaults.set(encodedObject4, forKey: "gamePassed4")
+
+                        
                         //全新註冊者重新算秒數
                         UserDefaults.standard.set(420, forKey: "limitSeconds")
                         
@@ -590,6 +601,16 @@ dif = 1
                         
                     }
                     
+                    if let mapPassed4String = user?["mapPassed4"] as! String?{
+                        
+                        mapPassed4 = Int(mapPassed4String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                        
+                        print("retrieve mapPassed:\(mapPassed4!)")
+                        
+                    }
+                    
                     
                     if let gamePassedString = user?["gamePassed"] as! String?{
                         
@@ -636,6 +657,23 @@ dif = 1
                         
                         print("retrieve gamePassed:\(gamePassed3!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed3")
+                        
+                    }
+                    
+                    
+                    if let gamePassed4String = user?["gamePassed4"] as! String?{
+                        
+                        let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                        
+                        let s = gamePassed4StringArray[0]
+                        let u = gamePassed4StringArray[1]
+                        gamePassed4 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                        
+                        print("retrieve gamePassed:\(gamePassed4!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
                     
@@ -923,6 +961,11 @@ dif = 1
                         gp3 = [Int((gamePassedInt3?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt3?.components(separatedBy: ":")[1])!)!]
 
                         
+                        let mapPassedInt4 = user?["mapPassed4"] as? String
+                        let gamePassedInt4 = user?["gamePassed4"] as? String
+                        
+                        var gp4:[Int:Int]?
+                        gp4 = [Int((gamePassedInt4?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt4?.components(separatedBy: ":")[1])!)!]
                         
                         
                         let userDefaults = UserDefaults.standard
@@ -946,6 +989,13 @@ dif = 1
                         
                         let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gp3!)
                         userDefaults.set(encodedObject3, forKey: "gamePassed3")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt4!), forKey: "mapPassed4")
+                        
+                        
+                        let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gp4!)
+                        userDefaults.set(encodedObject4, forKey: "gamePassed4")
                         
                         isRegistered = true
                         

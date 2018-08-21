@@ -17,7 +17,6 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var chartTableView: UITableView!
     
-
     @IBOutlet weak var chart0Btn: UIButton!
     @IBOutlet weak var chart1Btn: UIButton!
     
@@ -36,10 +35,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var rankMode = Int()
     
     let lightGrayColor = UIColor.init(red: 206/255, green: 208/255, blue: 208/255, alpha: 1)
-    
-    
-    
-        var activityIndicator = UIActivityIndicatorView()
+   
+    var activityIndicator = UIActivityIndicatorView()
     var difX = CGFloat()
     var iPadDif = CGFloat()
     var iPadSmall = CGFloat()
@@ -51,7 +48,6 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         switch height {
         case 812:
-            
             
             dif = 1.1
             photoDif = 4
@@ -569,6 +565,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         var mapWord = Int()
                         var mapWord2 = Int()
                         var mapWord3 = Int()
+                        var mapWord4 = Int()
                         
                         
                         if let mapPassed = parseJSON[i]["mapPassed"] as? String{
@@ -576,7 +573,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             
                         }
                         if let mapPassed2 = parseJSON[i]["mapPassed2"] as? String{
-                            mapWord2 = Int(mapPassed2)! * 420
+                            mapWord2 = Int(mapPassed2)! * 450
                         }
                         
                         
@@ -584,17 +581,19 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                           
                            mapWord3 = Int(mapPassed3)! * 450
                         }
-                        /*
+                        
                         if let mapPassed4 = parseJSON[i]["mapPassed4"] as? String{
                       
                             
+                            mapWord4 = Int(mapPassed4)! * 450
                         }
-                        */
+                        
                         
                         
                         var gameWord = Int()
                         var gameWord2 = Int()
                         var gameWord3 = Int()
+                        var gameWord4 = Int()
                       
                         if let gamePassed = parseJSON[i]["gamePassed"] as? String{
                             
@@ -617,29 +616,25 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             
                         }
                         
+                        if let gamePassed4 = parseJSON[i]["gamePassed4"] as? String{
+                            
+                            let sep = gamePassed4.components(separatedBy: ":")
+                            gameWord4 = Int(sep[0])! * 30 + Int(sep[1])! * 3
+                            
+                        }
                         
-                        let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2 + mapWord3 + gameWord3
+                        
+                        let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2 + mapWord3 + gameWord3 + mapWord4 + gameWord4
+                        
                         self!.wordCounts.append(totalWordCount)
 
-                        /*
-                        if let gamePassed3 = parseJSON[i]["gamePassed3"] as? String{
-                      
-                            
-                        }
-                        if let gamePassed4 = parseJSON[i]["gamePassed4"] as? String{
-                        
-                            
-                        }
-                        */
-
+   
                     }
 
   
-
                     DispatchQueue.main.async(execute: {
                         self!.chartTableView.reloadData()
      
-
                     })
                    
                     
