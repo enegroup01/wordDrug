@@ -23,9 +23,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
   
     var eachCellMyWordsCount:[Int] = [0,0,0,0,0,0,0,0,0]
 
-    
     var wordCounts = Int()
-    
     
     //上方單字總計label
     @IBOutlet weak var topWordsNumberLabel: UILabel!
@@ -111,8 +109,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         var bgColor = UIColor()
         var titleImg = String()
         
-        
-        
         switch courseReceived{
         case 0:
           
@@ -125,7 +121,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
              bgColor = UIColor.init(red: 59/255, green: 5/255, blue: 27/255, alpha: 1)
             titleImg = "block2Title.png"
         case 3:
-            bgColor = UIColor.init(red: 59/255, green: 5/255, blue: 27/255, alpha: 1)
+            //color literal
+            bgColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             titleImg = "block3Title.png"
             
         default:
@@ -143,9 +140,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //layOut
 
         stageTopImg.frame = CGRect(x: 0, y: 0, width: width, height: height * 3.8 / 19)
-    
-        
-        
+
         collectionView.frame = CGRect(x: 0, y: stageTopImg.frame.maxY, width: width, height: height - stageTopImg.frame.height)
         
         
@@ -169,11 +164,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         alertText.adjustsFontSizeToFitWidth = true
         
         alertBg.addSubview(alertText)
-
-    
         iknowBtn.frame = CGRect(x: (width - 210 * dif) / 2, y: height * 1.88 / 5 + iPadSmall, width: 210 * dif, height: 40 * dif)
         
-    
         iknowBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         iknowBtn.setTitle("我知道了", for: .normal)
         iknowBtn.setTitleColor(orangeColor, for: .normal)
@@ -268,7 +260,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             
             stageCount = 9
-            elemWordsMax = [450,450,450,450,450,450,450, 450, 450]
+            elemWordsMax = [450,450,450,450,450,450,450,450,450]
             gamePassedDic = gamePassed4!
             mapPassedInt = mapPassed4!
             
@@ -327,7 +319,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 eachCellMyWordsCount[4] = elemWordsMax[0]
                 eachCellMyWordsCount[5] = elemWordsMax[0]
                 eachCellMyWordsCount[6] = wordCounts
-                
+
             case 7:
                 eachCellMyWordsCount[0] = elemWordsMax[0]
                 eachCellMyWordsCount[1] = elemWordsMax[0]
@@ -335,7 +327,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 eachCellMyWordsCount[3] = elemWordsMax[0]
                 eachCellMyWordsCount[4] = elemWordsMax[0]
                 eachCellMyWordsCount[5] = elemWordsMax[0]
-                eachCellMyWordsCount[6] = wordCounts
+                eachCellMyWordsCount[6] = elemWordsMax[0]
+                eachCellMyWordsCount[7] = wordCounts
 
             case 8:
                 eachCellMyWordsCount[0] = elemWordsMax[0]
@@ -345,7 +338,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 eachCellMyWordsCount[4] = elemWordsMax[0]
                 eachCellMyWordsCount[5] = elemWordsMax[0]
                 eachCellMyWordsCount[6] = elemWordsMax[0]
-                eachCellMyWordsCount[7] = wordCounts
+                eachCellMyWordsCount[7] = elemWordsMax[0]
+                eachCellMyWordsCount[8] = wordCounts
+             
 
             case 9:
                 eachCellMyWordsCount[0] = elemWordsMax[0]
@@ -386,15 +381,11 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
         for c in eachCellMyWordsCount{
             totalWordsLearned += c
-            
         }
         
         wordCountsLabel.text = String(totalWordsLearned)
-        
-             collectionView.reloadData()
-        
-        
-        
+        collectionView.reloadData()
+
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {
@@ -483,24 +474,20 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
         case 3:
             
-            p1Color = UIColor.init(red: 247/255, green: 128/255, blue: 176/255, alpha: 1)
-            p2Color = UIColor.init(red: 230/255, green: 88/255, blue: 145/255, alpha: 1)
-            p3Color = UIColor.init(red: 196/255, green: 63/255, blue: 116/255, alpha: 1)
-            p4Color = UIColor.init(red: 189/255, green: 39/255, blue: 99/255, alpha: 1)
-            p5Color = UIColor.init(red: 195/255, green: 20/255, blue: 90/255, alpha: 1)
-            p6Color = UIColor.init(red: 146/255, green: 0/255, blue: 59/255, alpha: 1)
-            p7Color = UIColor.init(red: 88/255, green: 2/255, blue: 37/255, alpha: 1)
-            p8Color = UIColor.init(red: 59/255, green: 5/255, blue: 27/255, alpha: 1)
-            p9Color = UIColor.init(red: 88/255, green: 2/255, blue: 37/255, alpha: 1)
-            p10Color = UIColor.init(red: 59/255, green: 5/255, blue: 27/255, alpha: 1)
-
+            p1Color = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            p2Color = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+                p3Color = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+            p4Color = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+            p5Color = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+            p6Color = #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)
+            p7Color = #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1)
+            p8Color = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
+                p9Color = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
+            p10Color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             colors = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color, p7Color, p8Color, p9Color, p10Color]
         default:
             break
         }
-        
-     
-       
         cell.backgroundColor = colors[indexPath.row % colors.count]
         
         return cell
@@ -551,7 +538,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
         } else if mapPassedInt < indexPath.row{
             
-            openAlert(text: "此單元尚未解鎖，請加油！")
+            openAlert(text: "要先學完前面的單元喔，請加油！")
         }
     
         
@@ -587,6 +574,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         let visibleCells = collectionView.visibleCells
         print(visibleCells)
         
+    
+        
         for cell in visibleCells {
             
             
@@ -595,9 +584,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             if yPos >= CGFloat(alertY) {
                 
-print(visibleCells.count)
-                
-      
+
+                print(visibleCells.count)
+
                 
                 if visibleCells.count == 5 {
                     

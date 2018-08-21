@@ -582,7 +582,7 @@ class LessonViewController: UIViewController{
             
         } else {
             
-            print("not the same")
+  
             //跳轉到該地圖的第一個元素
             mapNum = mapNumToReceive
             spotNum = 0

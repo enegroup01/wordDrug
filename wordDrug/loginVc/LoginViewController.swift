@@ -24,14 +24,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var loginBtn: SSBouncyButton!
     @IBOutlet weak var registerBtn: SSBouncyButton!
     
-    
     @IBOutlet weak var accountPng: UIImageView!
     
     @IBOutlet weak var passwordPng: UIImageView!
-    
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
-    
+
     @IBOutlet weak var doubleLine: UIImageView!
     
     @IBOutlet weak var subTitleLabel: UILabel!
@@ -224,8 +222,7 @@ dif = 1
         
         if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
             
-            
-            
+
             usernameTxt.text = ""
             usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
             
@@ -235,8 +232,6 @@ dif = 1
                 
                 passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
 
-                
-                
                 
             }
             
@@ -260,6 +255,7 @@ dif = 1
             
       
             
+          
             activityIndicator.startAnimating()
             UIApplication.shared.beginIgnoringInteractionEvents()
             
@@ -353,7 +349,7 @@ dif = 1
                         
                         mapPassed4 = 0
                         
-                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                         
                         gamePassed4 = [0:0]
                         
@@ -375,8 +371,6 @@ dif = 1
 
                         // successfully registered
                         if id != nil {
-
-             
 
                             //登入
                                 DispatchQueue.main.async(execute: {
@@ -488,10 +482,7 @@ dif = 1
                 passwordTxt.text = ""
                 
                 passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                
-                
-                
-                
+
             }
             
         } else if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
@@ -682,7 +673,8 @@ dif = 1
                     print(user!)
                     
                     
-                           let id = user?["id"] as? String
+                  
+                    let id = user?["id"] as? String
                     
                     // successfully logged in
                     if id != nil {
@@ -799,7 +791,6 @@ dif = 1
             let destineVc = segue.destination as! CoursesViewController
             destineVc.isWelcome = isWelcome
             
-            
         }
     }
     
@@ -811,8 +802,6 @@ dif = 1
         
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        
         
         loginManager.logIn(readPermissions: [.publicProfile,.email], viewController: self) { [weak self](loginResult) in
             

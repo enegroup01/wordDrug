@@ -54,7 +54,8 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
-        var audioSession = AVAudioSession.sharedInstance()
+    
+    var audioSession = AVAudioSession.sharedInstance()
     
     var hintLabel = UILabel()
     
@@ -67,8 +68,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     var second = Int()
     
     var recommendedClassToPass = String()
-    
-   
+
     var answerTime = Int()
     
     override func viewDidLoad() {

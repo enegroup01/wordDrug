@@ -26,8 +26,11 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var photoDif = CGFloat()
     
     var usernames = [String]()
+
     var scores = [String]()
     var avas = [String]()
+
+    
     var wordCounts = [Int]()
     var wordReviewCounts = [Int]()
     var senReviewCounts = [Int]()
@@ -196,7 +199,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         UIApplication.shared.beginIgnoringInteractionEvents()
         disableBtns()
 */
- rankUsers()
+ 
+        rankUsers()
     }
 
     override func didReceiveMemoryWarning() {
@@ -402,7 +406,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     self!.senReviewCounts.removeAll(keepingCapacity: false)
                     self!.wordCounts.removeAll(keepingCapacity: false)
                     self!.scores.removeAll(keepingCapacity: false)
+ 
                     
+
                     for i in 0 ..< parseJSON.count{
                         
                         
@@ -437,17 +443,19 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
               
                     
 
+                    
+                    }
+                    
                     DispatchQueue.main.async(execute: {
                         
                         
                         self!.chartTableView.reloadData()
-
+                        
                         
                         //self!.view.isUserInteractionEnabled = true
-    
+                        
                     })
-                    
-                    }
+
                     
                 } catch{
                     

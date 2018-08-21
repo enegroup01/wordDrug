@@ -14,7 +14,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let midColor = UIColor.init(red: 138/255, green: 152/255, blue: 170/255, alpha: 1)
     let lightColor = UIColor.init(red: 196/255, green: 203/255, blue: 213/255, alpha: 1)
     let yellowColor = UIColor.init(red: 255/255, green: 182/255, blue: 13/255, alpha: 1)
-
     let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
@@ -308,104 +307,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
        
-
         selectUser()
     }
 
-    
-    
-    func myRank(){
-        
-        
-        // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
-        
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "GET"
-        
-        // append body to our request that gonna be sent
-        //request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-            // no error
-            if error == nil {
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [NSDictionary]
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        return
-                    }
-                    
-                    //print("rank")
-                    //再次儲存使用者資訊
-                    
-                    //print(parseJSON)
-                    
-                    //抓名次
-                    
-       //             if let parseJsonDic = parseJSON as [NSDictionary]?{
-
-                        for i in 0 ..< parseJSON.count{
-         
-                            if let id = parseJSON[i]["id"] as? Int{
-              
-                                if user != nil {
-                                
-                                let userId = user?["id"] as! String
-                                
-                                //找到該使用者
-                                if String(id) == userId{
-                                    
-                                    //抓他的分數
-                                    let score = parseJSON[i]["score"] as! Int
-                                    
-                                    if score == 0 {
-                                        
-                                        DispatchQueue.main.async(execute: {
-                                            
-                                            
-                                            self!.rankCountLabel.text = "尚未排名"
-                                            
-                                        })
-                                    
-                                    } else {
-                                    
-                                        DispatchQueue.main.async(execute: {
-                                        //print(i)
-                                    
-                                        self!.rankCountLabel.text = String(i + 1)
-                            
-                                        })
-                                   
-                                    }
-                                }
-                            }
-                            }
-                    }
-                        
-                    
-             //       }
-                    
-                } catch{
-                    
-                    print("catch error")
-                    
-                }
-            } else {
-                
-                print("urlsession has error")
-                
-            }
-        }).resume()
-        
-    }
+  
     
     
     func selectUser(){
@@ -579,6 +484,89 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    
+    
+    func myRank(){
+        
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "GET"
+        
+        // append body to our request that gonna be sent
+        //request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [NSDictionary]
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    
+                    for i in 0 ..< parseJSON.count{
+                        
+                        if let id = parseJSON[i]["id"] as? Int{
+                            
+                            if user != nil {
+                                
+                                let userId = user?["id"] as! String
+                                
+                                //找到該使用者
+                                if String(id) == userId{
+                                    
+                                    //抓他的分數
+                                    let score = parseJSON[i]["score"] as! Int
+                                    
+                                    if score == 0 {
+                                        
+                                        DispatchQueue.main.async(execute: {
+                                            
+                                            self!.rankCountLabel.text = "尚未排名"
+                                            
+                                        })
+                                        
+                                    } else {
+                                        
+                                        DispatchQueue.main.async(execute: {
+                                            
+                                            self!.rankCountLabel.text = String(i + 1)
+                                            
+                                        })
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+    
     func getUserInfo(){
         
         print("perform get user")
@@ -669,9 +657,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //算拼字正確率
         if let wrongWords = user?["wrongWords"] as? String{
             
-            
-            print(wrongWords)
-            
             let wrongWordArray = wrongWords.components(separatedBy: ";")
             
             wrongWordsCount = wrongWordArray.count - 1
@@ -696,25 +681,19 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         if let wrongChinese = user?["wrongChinese"] as? String{
             
-            print(wrongChinese)
-            print(allWordsCount)
+
 
             if allWordsCount == 0 {
                 //這樣的話比例也是0
-                print("wChinese 0")
+         
                 sub2Rates[0] = 0
                 
             } else {
-                
-            print("wChinese 1")
+
             sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
             
             }
         }
-        
-
-        
-        
         
         //發音正確率
         
@@ -749,13 +728,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
         
-        
-        //去避開更新使用者...temp func
-        
        //快速複習單字數
         if let wordCount = user?["wordReviewCount"] as? String{
-            
-
             if let wordCount2 = user?["wordReviewCount2"] as? String{
                 if let wordCount3 = user?["wordReviewCount3"] as? String{
                     if let wordCount4 = user?["wordReviewCount4"] as? String{

@@ -28,8 +28,6 @@ var introWatched:Bool?
 var isRegistered:Bool?
 var seconds:Int?
 
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -38,25 +36,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
-              NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
-    
+      
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPurchased), name: NSNotification.Name("purchased"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToPurchase), name: NSNotification.Name("failedToPurchase"), object: nil)
        
         
         /*
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyRestored), name: NSNotification.Name("restored"), object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyStartToRestore), name: NSNotification.Name("startToRestore"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToRestore), name: NSNotification.Name("failedToRestore"), object: nil)
         */
         
         SKPaymentQueue.default().add(self)
         
-        
-        
-        
-      // FirebaseApp.configure()
+        FirebaseApp.configure()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
             
@@ -81,9 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("第一次玩")
             
             UserDefaults.standard.set(false, forKey: "isPurchased")
-            
-            
-            
         }
         
         
@@ -98,9 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         //抓mapPassed
         mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
-            
-    
-        
+     
         //抓gamePassed2
         let decodedObject2 = UserDefaults.standard.object(forKey: "gamePassed2") as? NSData
         
@@ -145,18 +134,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-    
-        
         //抓mapPassed4
         mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
 
+        
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
         isRegistered = UserDefaults.standard.object(forKey: "isRegistered") as? Bool
         
 
         // if user is once logged in / register, keep him logged in
         if user != nil {
-            
             
             let id = user!["id"] as? String
             if id != nil {
@@ -219,8 +206,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                 userDefaults.set(encodedObject3, forKey: "gamePassed3")
                 
-                
-                
                 mapPassed4 = 0
                 
                 userDefaults.set(mapPassed4!, forKey: "mapPassed4")
@@ -230,9 +215,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                 userDefaults.set(encodedObject4, forKey: "gamePassed4")
 
-                
-                
-                
               toIntro()
                 
                 
@@ -245,10 +227,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if isRegistered == true{
                 
                     //跳往註冊畫面
-                    
-                    
-                    
-                    
+           
+                    //維持原本initial Vc
                     
                 } else {
                     
@@ -267,7 +247,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           
         }
         
-        print("user:\(user)")
+        print("user:\(String(describing: user))")
 
         
         return true
@@ -316,9 +296,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
         Messaging.messaging().shouldEstablishDirectChannel = false
         
-        
-        
-        
+
         print("did enter background")
         
     }
@@ -409,24 +387,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if previousDate != dateString{
                 //換一天, 就給7分鐘, 並且改變時間
                 
-                
                 UserDefaults.standard.set(dateString, forKey: "previousDate")
                 UserDefaults.standard.set(420, forKey: "limitSeconds")
                 print("換一天給7分鐘")
                 
-                
-                
-                
             } else {
                     print("不加時間")
             }
-            
-
-            
+    
         }
 
-        
-        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -437,21 +407,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SKPaymentQueue.default().remove(self)
     }
 
-    
-    
-    
-    
-    
+
     @objc func refreshToken(notification: NSNotification){
-        
-        
+     
         let refreshToken = InstanceID.instanceID().token()!
         print("token:\(refreshToken)")
         
         FBHandler()
-        
-        
-        
+    
     }
     
     func FBHandler(){
@@ -459,10 +422,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().shouldEstablishDirectChannel = true
     }
 
-    
-    
-    
-    
+
 }
 
 extension AppDelegate: SKPaymentTransactionObserver {
@@ -482,7 +442,7 @@ extension AppDelegate: SKPaymentTransactionObserver {
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: purchasedKey), object: nil)
                 
-                
+
                 print("purchased")
             case .failed:
                 
@@ -491,9 +451,7 @@ extension AppDelegate: SKPaymentTransactionObserver {
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: failedToPurchaseKey), object: nil)
                 
-  
-                
-             
+
                 /*
             case .restored:
                 

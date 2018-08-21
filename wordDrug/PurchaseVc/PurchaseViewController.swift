@@ -46,10 +46,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     var dif = CGFloat()
     var newDif = CGFloat()
     
-    
-    
     var activityIndicator = UIActivityIndicatorView()
-    
     
     //所有alertView的變數
     var alertBg = UIImageView()
@@ -64,7 +61,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
 
     @IBOutlet weak var restoreBtn: UIButton!
-    
     
     var restoreTimer = Timer()
     
@@ -199,16 +195,19 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         self.view.bringSubview(toFront: practiceSenBtn)
         
         
-        
+      
         restoreBtn.frame = CGRect(x: width - 81 * 1.05, y: purchaseBtn.frame.minY - 31, width: 81 , height: 26 )
         
+           let restoreMsgLabel = UILabel(frame: CGRect(x: restoreBtn.frame.minX, y: restoreBtn.frame.minY - 25, width: 80, height: 26))
+        restoreMsgLabel.font = UIFont(name: "Helvetica", size: 12)
+        restoreMsgLabel.textColor = .white
+        restoreMsgLabel.text = "已購買過?"
+        restoreMsgLabel.textAlignment = .center
+        self.view.addSubview(restoreMsgLabel)
         
         removeBtns()
         
     }
-    
-    
-
     
     @IBAction func restoreBtnClicked(_ sender: Any) {
         
@@ -254,11 +253,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             self.dismiss(animated: false, completion: nil)
         }
-        
-
-        
-        
-        
         
     }
     
@@ -331,8 +325,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
             
-            let btnText = NSMutableAttributedString(string: "購買無限學習時間", attributes: attrs0)
-            let btnText2 = NSMutableAttributedString(string: "$ 90.00", attributes: attrs1)
+            let btnText = NSMutableAttributedString(string: "點此購買無限學習時間", attributes: attrs0)
+            let btnText2 = NSMutableAttributedString(string: "NT 90.00", attributes: attrs1)
             
             attrWords.append(btnText)
             attrWords.append(NSAttributedString(string: "\n"))
@@ -591,8 +585,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
         
-        let btnText = NSMutableAttributedString(string: "購買無限學習時間", attributes: attrs0)
-        let btnText2 = NSMutableAttributedString(string: "$ 90.00", attributes: attrs1)
+        let btnText = NSMutableAttributedString(string: "點此購買無限學習時間", attributes: attrs0)
+        let btnText2 = NSMutableAttributedString(string: "NT 90.00", attributes: attrs1)
         
         attrWords.append(btnText)
         attrWords.append(NSAttributedString(string: "\n"))
