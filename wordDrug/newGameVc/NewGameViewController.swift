@@ -852,10 +852,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             print("really start to count down")
             limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
 
+            print("newGameVc mapNmer:\(mapNumber)")
             
-        //這裡的mapNum 已經加過increaseNum
-        let sentenceName = "s" + String(mapNumber + 1) + "-" + String(spotNumber + 1)
+        //這裡的mapNum 已經加過increaseNum --->修正成要加increaseNum
+        let sentenceName = "s" + String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
         
+            print(sentenceName)
         if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
             do {
                 sentenceFile = try String(contentsOfFile: filepath)
@@ -863,7 +865,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 //把字讀取到wordSets裡
                 sentenceSets = sentences!
-                //print(contents)
+                print("done")
             } catch {
                 // contents could not be loaded
                 print("catch error")
@@ -883,14 +885,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //這裡的maxMapNum + 1 是因為設定問題, 為了判斷剛玩的關卡是不是最後一關
             if mapPassedInt == (maxMapNum + 1) {
                 
+                //最後一關
                 tempGamePassedDic = [maxSpotNum:9]
                 mapPassedInt -= 1
+            
             } else if mapNumber < mapPassedInt{
                 
+                //代表進入的關已過完
                 tempGamePassedDic = [maxSpotNum:9]
                 
                 
             } else{
+                //代表關還沒過完
                 tempGamePassedDic = gamePassedDic
             }
             
@@ -963,9 +969,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
             
             //加數字才能讀到正確數字
-            mapPassedInt += increaseNum
-            
-            
+            //mapPassedInt += increaseNum //這個應該不需要
             //Part 2. 讀取所有句子
             
             for (s,_) in tempGamePassedDic!{
@@ -976,7 +980,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     var wordFile:String?
                     //前面的1代表第一張地圖
-                    let name = "s" + String(describing: mapPassedInt + 1) + "-" + String(i + 1)
+                    let name = "s" + String(describing: mapNumber + increaseNum + 1) + "-" + String(i + 1)
                     
                     //抓字
                     if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -1002,8 +1006,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         }
             
-        //print(allSentenceSets)
-            
+        //print("how many: :\(allSentenceSets[0])")
         
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
@@ -1819,7 +1822,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
                             //如果玩之前的關卡就不改變---- 現在應該沒有這條件
                    
-                        mapNumber -= increaseNum
+                        //mapNumber -= increaseNum
                     
                         print("increase:\(increaseNum)")
                         
@@ -1899,8 +1902,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         mapPassed2! += 1
                                                         gamePassed2 = [0:0]
                                                         
-                                                        
-                                                        
+
                                                         //設定給全部值供上傳後端
                                                         mapPassedInt = mapPassed2!
                                                         gamePassedDic = gamePassed2
@@ -1920,8 +1922,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         mapPassed3! += 1
                                                         gamePassed3 = [0:0]
                                                         
-                                                        
-                                                        
+
                                                         //設定給全部值供上傳後端
                                                         mapPassedInt = mapPassed3!
                                                         gamePassedDic = gamePassed3
@@ -3259,11 +3260,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //設定所有案件的中文內文
             for i in 0 ..< allBtns.count {
          
-                
- 
-                
-                
-                
+
                 allBtns[i].contentHorizontalAlignment = .left
                 
                 allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
@@ -4254,7 +4251,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let count = user?["senReviewCount"] as! String
                         let otherCount = user?["senReviewCount2"] as! String
                         let otherCount2 = user?["senReviewCount3"] as! String
-                        let otherCount3 = user?["senReviewCount3"] as! String
+                        let otherCount3 = user?["senReviewCount4"] as! String
                         
                         totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)!
                         

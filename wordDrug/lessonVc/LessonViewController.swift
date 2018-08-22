@@ -560,7 +560,7 @@ class LessonViewController: UIViewController{
         
         //再把數字減回來
         mapNumToReceive -= increaseNum
-        
+            print("mapNumToReceive:\(mapNumToReceive)")
         if mapNumToReceive == mapPassedInt {
             //抓目前的元素
             
@@ -573,17 +573,22 @@ class LessonViewController: UIViewController{
                 syllablesWithoutDigit = syllableChosenArray[0]
                 syllableLabel.text = syllablesWithoutDigit
          
+                //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
                 mapNum = mapPassedInt
+                
                 spotNum = s
                 unitNum = u
                 progressFloat = CGFloat(u + 1)
                 
             }
-            
+            print("############got mapnum:\(mapNum)")
         } else {
             
   
+            //這裡是進不來的地方
+            
             //跳轉到該地圖的第一個元素
+            
             mapNum = mapNumToReceive
             spotNum = 0
             unitNum = 0
@@ -597,7 +602,7 @@ class LessonViewController: UIViewController{
             
             syllableLabel.text = syllablesWithoutDigit
             
-        }
+            }
         
  
         //第幾課
@@ -632,6 +637,8 @@ class LessonViewController: UIViewController{
         } else {
             // example.txt not found!
         }
+            
+            mapNum -= increaseNum
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
@@ -791,11 +798,18 @@ class LessonViewController: UIViewController{
         //synPronounce()
         
         } else {
+            
+            //複習模式
+            
+            
             //進度條
             
             titleLabel.text = ""
             
             
+        
+            //如果是複習模式在此指定傳送數值, 在此不要加increaseNum因為在gameVc裡沒有再減了, 直接拿來比較
+            mapNum = mapNumToReceive
             
             let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 36), NSAttributedStringKey.foregroundColor : UIColor.white]
             let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 36), NSAttributedStringKey.foregroundColor : pinkColor]
@@ -823,7 +837,7 @@ class LessonViewController: UIViewController{
             syllableLabel.adjustsFontSizeToFitWidth = true
             syllableLabel.numberOfLines = 3
             syllableLabel.textAlignment = .center
-            
+
         }
     }
 

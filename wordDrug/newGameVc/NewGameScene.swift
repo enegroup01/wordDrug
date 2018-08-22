@@ -309,6 +309,47 @@ class NewGameScene: SKScene {
 
         //MARK: must update variables
         
+        //讀目前課程數字數量
+        switch courseReceived {
+            
+        case 0:
+            
+            gamePassedDic = gamePassed!
+            mapPassedInt = mapPassed!
+            increaseNum = 0
+            maxMapNum = 5
+            maxSpotNum = 14
+            
+        case 1:
+            
+            gamePassedDic = gamePassed2!
+            mapPassedInt = mapPassed2!
+            increaseNum = 5
+            maxMapNum = 6
+            maxSpotNum = 14
+            
+        case 2:
+            
+            gamePassedDic = gamePassed3!
+            mapPassedInt = mapPassed3!
+            increaseNum = 11
+            maxMapNum = 7
+            maxSpotNum = 14
+            
+        case 3:
+            
+            gamePassedDic = gamePassed4!
+            mapPassedInt = mapPassed4!
+            increaseNum = 18
+            maxMapNum = 9
+            maxSpotNum = 14
+            
+        default:
+            break
+            
+        }
+
+        
         if gameMode == 2 {
         
            
@@ -325,45 +366,6 @@ class NewGameScene: SKScene {
             
         } else if gameMode == 1 {
             
-            //讀目前課程數字數量
-            switch courseReceived {
-                
-            case 0:
-                
-                gamePassedDic = gamePassed!
-                mapPassedInt = mapPassed!
-                increaseNum = 0
-                maxMapNum = 5
-                maxSpotNum = 14
-                
-            case 1:
-                
-                gamePassedDic = gamePassed2!
-                mapPassedInt = mapPassed2!
-                increaseNum = 5
-                maxMapNum = 6
-                maxSpotNum = 14
-                
-            case 2:
-                
-                gamePassedDic = gamePassed3!
-                mapPassedInt = mapPassed3!
-                increaseNum = 11
-                maxMapNum = 7
-                maxSpotNum = 14
-                
-            case 3:
-                
-                gamePassedDic = gamePassed4!
-                mapPassedInt = mapPassed4!
-                increaseNum = 18
-                maxMapNum = 9
-                maxSpotNum = 14
-                
-            default:
-                break
-                
-            }
        
             //做所有亂數可能性的array
             
@@ -565,7 +567,7 @@ class NewGameScene: SKScene {
         
 
 
-        switch mapNumber {
+        switch mapNumber + increaseNum {
         case 0:
             syllableSets = map1SyllableSets
         case 1:
@@ -640,7 +642,7 @@ class NewGameScene: SKScene {
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
-        let name = String(mapNumber + 1) + "-" + String(spotNumber + 1)
+        let name = String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
         print("name:\(name)")
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {

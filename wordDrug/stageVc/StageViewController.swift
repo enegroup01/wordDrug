@@ -555,7 +555,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             destinationVC.courseReceived = courseReceived
              destinationVC.mapNumToReceive = mapNumToPass
             
-                destinationVC.isClassAllPassed = isClassAllPassed
+            
+            destinationVC.isClassAllPassed = isClassAllPassed
 
         }
     }
