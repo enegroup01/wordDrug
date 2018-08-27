@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -531,14 +532,14 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             //show已過關訊息
             
             isClassAllPassed = true
-            //openAlert(text: "此單元已全部學習完成，請選擇未完成的單元！")
             
              performSegue(withIdentifier: "toLessonVc", sender: self)
             
             
         } else if mapPassedInt < indexPath.row{
             
-            openAlert(text: "要先學完前面的單元喔，請加油！")
+            ProgressHUD.showError("要先學完前面的單元喔，請加油！")
+            //openAlert(text: "要先學完前面的單元喔，請加油！")
         }
     
         
@@ -561,6 +562,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
     }
     
+    
+    /* 這之後用不到了
     func openAlert(text:String){
         backBtn.isEnabled = false
         alertBg.isHidden = false
@@ -609,7 +612,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
         }
     }
-    
+    */
     
     
     /*

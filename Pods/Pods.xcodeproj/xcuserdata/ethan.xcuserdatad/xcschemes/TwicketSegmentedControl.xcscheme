@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DDE140B0DCC705031049CE5CB54136CF"
+               BlueprintIdentifier = "F75263E0B46CB4B38FA3A65A25C75012"
                BuildableName = "TwicketSegmentedControl.framework"
                BlueprintName = "TwicketSegmentedControl"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DDE140B0DCC705031049CE5CB54136CF"
+            BlueprintIdentifier = "F75263E0B46CB4B38FA3A65A25C75012"
             BuildableName = "TwicketSegmentedControl.framework"
             BlueprintName = "TwicketSegmentedControl"
             ReferencedContainer = "container:Pods.xcodeproj">

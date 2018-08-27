@@ -2917,6 +2917,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         skipPronounceBtn.isHidden = true
         
+        answerTime = 0
         
         let addScore:[String:Int] = ["addScore":0]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToSpell"), object: nil, userInfo: addScore)

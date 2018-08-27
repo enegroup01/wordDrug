@@ -10,5 +10,6 @@ pod 'NVActivityIndicatorView'
 pod 'FacebookLogin'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
+pod 'ProgressHUD'
 end
 

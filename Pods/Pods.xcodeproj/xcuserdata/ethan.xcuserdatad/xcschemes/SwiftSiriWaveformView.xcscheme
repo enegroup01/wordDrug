@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8D38DA53985A2FBC836387DC527489BE"
+               BlueprintIdentifier = "3A1197FB63B3263CF3D1AD357E556E3C"
                BuildableName = "SwiftSiriWaveformView.framework"
                BlueprintName = "SwiftSiriWaveformView"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D38DA53985A2FBC836387DC527489BE"
+            BlueprintIdentifier = "3A1197FB63B3263CF3D1AD357E556E3C"
             BuildableName = "SwiftSiriWaveformView.framework"
             BlueprintName = "SwiftSiriWaveformView"
             ReferencedContainer = "container:Pods.xcodeproj">
