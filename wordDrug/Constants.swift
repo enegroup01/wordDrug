@@ -18,7 +18,7 @@ public let userDefaults = UserDefaults.standard
 
 //第一張地圖 1-15探索點元素 已更新過
 public let map1SyllableSets:[[String]] =
-    [["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
+    [["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
      ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
      ["bit1","bl1","bo1","br1","bu1","by1","ce1","ch1","ci1","ble1"],
      ["ck1","cl1","co1","com1","con1","di1","cr1","ct1","de1","cian1"],
@@ -29,7 +29,7 @@ public let map1SyllableSets:[[String]] =
      ["ly1","mi1","nd1","no1","oa1","ob1","o_e1","of1","oi1","nt1"],
      ["old1","on1","ong1","oo1","op1","or1","ot1","ou1","ow1","oy1"],
      ["ph1","pi1","pl1","pr1","cop1","ro1","ry1","sh1","si1","re1"],
-     ["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
+     ["ge1","gi1","gl1","go1","gr1","he1","hi1","id1","ie1","igh1"],
      ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
      ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
      ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
@@ -345,10 +345,10 @@ public let map18SyllableSets:[[String]] =
 
 //雅斯第一張地圖19-1 到19-15探索點
 public let map19SyllableSets:[[String]] =
-    [["a_e98","ab7","ce70","i_e54","ment22","oa15","sh46","tion88","tive19","ty36"],
+    [["al95","ce78","ci14","dr10","e_e6","ment23","or72","pt2","qu17","tion98"],
      ["ab8","ac6","ge47","ly35","mic5","my3","nt7","tion96","u_e26","un19"],
      ["a_e99","ab9","ac7","ble42","ch54","com23","cr17","ing49","ou38","tion97"],
-     ["al95","ce78","ci14","dr10","e_e6","ment23","or72","pt2","qu17","tion98"],
+     ["a_e98","ab7","ce70","i_e54","ment22","oa15","sh46","tion88","tive19","ty36"],
      ["ad9","ce79","in65","ly36","qu18","sion21","sive9","tion99","tive20","ult4"],
      ["ad10","ce80","ct13","cy7","ir9","or73","ous26","ry31","tion100","ture15"],
      ["a_e100","ai30","ar47","ble43","en51","er127","gr11","ment24","ny4","um18"],

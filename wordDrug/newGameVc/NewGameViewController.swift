@@ -40,7 +40,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
     let recordingPinkColor = UIColor.init(red: 1, green: 0, blue: 149/255, alpha: 1)
     let yellowColor = UIColor.init(red: 239/255, green: 196/255, blue: 91/255, alpha: 1)
-     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
+    let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     //顯示辨識字的label
     @IBOutlet weak var recogTextLabel: UILabel!
@@ -60,7 +60,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var unitNumber = Int()
     var mapNumber = Int()
     var gameMode = Int()
-
+    
     
     //辨識聲音用的變數
     
@@ -69,11 +69,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let audioEngine = AVAudioEngine()
     var recognitionRequest:SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask:SFSpeechRecognitionTask?
- 
+    
     //暫時使用的句子
     var sentenceSets = [String]()
     
-     var allSentenceSets = [[String]]()
+    var allSentenceSets = [[String]]()
     
     //音波用的變數
     var timer:Timer?
@@ -105,10 +105,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //var tagsSelected = [String]()
     
     var attrTagsSelected = [NSMutableAttributedString]()
-
+    
     //製作tag
     @IBOutlet weak var tagView: TagListView!
-
+    
     //這兩個應該用不到
     var player: AVAudioPlayer?
     var mp3FileName = String()
@@ -141,11 +141,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBOutlet weak var bigOkBtn: UIButton!
     @IBOutlet weak var thirdChiWord: UILabel!
     
+    @IBOutlet weak var skipPronounceBtn: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
     var bonusScoreLabel = UILabel()
     
     var answerTime = 0
- 
+    
     //用來顯示正確與否
     var wordBtns = [UIButton]()
     
@@ -162,14 +163,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let word1Label = UILabel()
     let word2Label = UILabel()
     let word3Label = UILabel()
-
+    
     let inCircle = UIImageView()
     let midCircle = UIImageView()
     let outCircle = UIImageView()
     
     var isCelebratingMapPassed = false
     
-    //@IBOutlet weak var talkCircle: UIView!
     
     //用來顯示正確答案的變數, 保留標點符號大小寫
     var completeWordsToShow = String()
@@ -178,13 +178,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //錄音動畫
     var recordingIndicator:NVActivityIndicatorView?
     
-    
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
     var waitTimer = Timer()
     //紀錄錯誤發音字
-  
+    
     let wrongPronounceWords:[[String:[String]]] = [["烘焙":["烘陪"]], ["affect":["a fect"]], ["頭髮":["頭法"]], ["campaign":["cam pain"]], ["和":["汗"]], ["woman":["wo men"]], ["snowman":["snow man"]], ["fisherman":["fisher man"]], ["gentleman":["gentle man"]], ["supermarket":["super market"]], ["劣拙地":["列濁地"]], ["begin":["be ghing"]], ["巧克力":["巧顆粒"]], ["lead":["leed"]], ["tear":["tee er"]], ["度數":["度樹"]], ["年紀較長的":["年紀較漲的"]], ["告訴":["吿速"]], ["envelope":["anvelope"]], ["sensor":["sen sir"]], ["友誼":["有宜"]], ["kilometer":["killa meter"]], ["桶子":["統子"]], ["油炸":["油柵"]], ["外框":["外筐"]], ["高麗菜":["高力菜"]], ["油炸的":["油柵的"]], ["磨坊":["魔訪"]], ["螫":["遮"]], ["kneepad":["knee pad"]], ["iron":["eye ern"]], ["歌曲":["哥取"]], ["鵝":["蛾"]], ["forehead":["fore head"]], ["數":["鼠"]], ["April":["eigh pro"]], ["重播":["蟲剝"]], ["槳糊":["降胡"]], ["stupid":["stubid"]], ["錫":["習"]], ["曲線":["娶線"]], ["風箏":["風蒸"]], ["comb":["kome"]], ["wolf":["wallf"]], ["absurd":["a bsurd"]]]
     
     @IBOutlet weak var sen1Btn: UIButton!
@@ -245,7 +244,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var reviewAlertUnitLabel = UILabel()
     var reviewOkBtn = UIButton()
     var isReviewWrong = false
-
+    
     var isCountingTriggered = false
     var isCelebratingClassPassed = false
     
@@ -257,7 +256,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var gamePassedDic:[Int:Int]?
     var mapPassedInt = Int()
     var increaseNum = Int()
-    var maxSpotNum = Int()
     var maxMapNum = Int()
     
     
@@ -272,10 +270,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     var senCount = Int()
     
-
+    
     var firstTimeFavWords = [String]()
     
-
+    
     var limitSeconds = Int()
     
     
@@ -285,9 +283,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var originalPoints = Int()
     var wrongWordsToSend = [String]()
     var scoresToSend = Int()
-  
+    
     var newRels = [String]()
-
+    
     
     var sentenceCount = Int()
     @IBOutlet weak var hintLabel: UILabel!
@@ -296,8 +294,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-              print("G viewDidLoad")
+
+        skipPronounceBtn.isHidden = true
         
         var dif = CGFloat()
         var senLabelHeightDif = CGFloat()
@@ -310,6 +308,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var okBtnDif = CGFloat()
         var bigDif = CGFloat()
         var iPadSmall = CGFloat()
+        var skipBtnDif = CGFloat()
         
         switch height {
         case 812:
@@ -324,6 +323,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             playBtnY = 0.95
             okBtnDif = 15
             bigDif = 0
+            skipBtnDif = 0.9
             
             iPadSmall = 0
         case 736:
@@ -338,7 +338,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             playBtnY = 1
             okBtnDif = 10
             bigDif = 0
-            
+             skipBtnDif = 0.9
             iPadSmall = 0
         case 667:
             xDif = 1
@@ -352,6 +352,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             playBtnY = 1
             okBtnDif = 10
             bigDif = 0
+            skipBtnDif = 0.8
             
             iPadSmall = 0
         case 568:
@@ -366,6 +367,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             playBtnY = 0.95
             okBtnDif = -5
             bigDif = 0
+            skipBtnDif = 0.7
             
             iPadSmall = 0
         default:
@@ -381,6 +383,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             okBtnDif = 10
             bigDif = -350
             iPadSmall = 10
+             skipBtnDif = 0.6
             
         }
         
@@ -450,9 +453,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPlayEndMusic), name: NSNotification.Name("playEndingMusic"), object: nil)
         
         
-     
+        
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
-
+        
         
         //做reviewAlert
         reviewWordBg.frame = CGRect(x: width / 2 - 237 / 2, y: height / 3, width: 237 * dif, height: 214 * dif)
@@ -492,7 +495,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertCountLabel.textColor = darkColor
         //reviewAlertCountLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertCountLabel)
-
+        
         
         reviewAlertUnitLabel.frame = CGRect(x: reviewAlertCountLabel.frame.maxX - 10 * dif, y: reviewAlertCountLabel.frame.maxY - 17 * dif, width: 20 * dif, height: 17 * dif)
         reviewAlertUnitLabel.text = "字"
@@ -501,7 +504,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertUnitLabel.textColor = darkColor
         //reviewAlertCountLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertUnitLabel)
-
+        
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12), NSAttributedStringKey.foregroundColor : darkColor]
         
@@ -517,26 +520,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewOkBtn.setAttributedTitle(title, for: .normal)
         self.view.addSubview(reviewOkBtn)
         
-        
-        
-        limitTimerLabel.center = CGPoint(x: width / 2 - 25, y: 45)
+        limitTimerLabel.center = CGPoint(x: width / 2 - 25, y: 45 - iPadSmall)
         limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
         limitTimerLabel.textAlignment = .center
         
-        
-       
-        // Do any additional setup after loading the view.
-       
-        //暫時測試畫面使用
+
         
         //加入alertView
         let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         ghostBtn.backgroundColor = lightGray
-        //ghostBtn.addTarget(self, action: #selector(LessonViewController.removeBtns), for: .touchUpInside)
+
         self.view.addSubview(ghostBtn)
-        
-        //alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         
         
         alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: 237 * dif, height: 158 * dif)
@@ -556,7 +551,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
-
+        
         
         cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         cancelBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
@@ -564,17 +559,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         cancelBtn.setTitleColor(orangeColor, for: .normal)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(cancelBtn)
-        //purchaseAlert.addSubview(cancelBtn)
+
         
         noBuyBtn.frame = CGRect(x: purchaseAlert.frame.minX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
         noBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
-      
+        
         noBuyBtn.setTitleColor(orangeColor, for: .normal)
-       
+        
         self.view.addSubview(noBuyBtn)
         
-        
-        
+
         quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
         quitBtn.setTitle("離開", for: .normal)
@@ -585,14 +579,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         goToBuyBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
         goToBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
-       
+        
         goToBuyBtn.setTitleColor(orangeColor, for: .normal)
-   
+        
         self.view.addSubview(goToBuyBtn)
         
-        
-
-
         coverBg.image = UIImage(named:"coverBg.png")
         resultBg.image = UIImage(named:"resultBg.png")
         
@@ -608,41 +599,38 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
         
-        
-        
         sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: (height / 2 - 10) / iPadDif, width: 350 * btnDif2, height: 57 * btnDif2)
-        //sen1Btn.imageView?.contentMode = .scaleAspectFit
-        
+
         sen1Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen1Btn.titleLabel?.numberOfLines = 2
         sen1Btn.titleEdgeInsets.left = 8
-      
+        
         
         sen2Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * btnDif2, height: 57 * btnDif2)
         sen2Btn.titleLabel?.adjustsFontSizeToFitWidth = true
-
+        
         sen2Btn.titleLabel?.numberOfLines = 2
         sen2Btn.titleEdgeInsets.left = 8
-       
-
+        
+        
         
         sen3Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
         sen3Btn.titleLabel?.adjustsFontSizeToFitWidth = true
-
+        
         sen3Btn.titleLabel?.numberOfLines = 2
         sen3Btn.titleEdgeInsets.left = 8
-      
-
+        
+        
         
         sen4Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
         
         sen4Btn.titleLabel?.adjustsFontSizeToFitWidth = true
-     
+        
         sen4Btn.titleLabel?.numberOfLines = 2
         sen4Btn.titleEdgeInsets.left = 8
-      
-
-
+        
+        
+        
         allBtns.append(sen1Btn)
         allBtns.append(sen2Btn)
         allBtns.append(sen3Btn)
@@ -659,7 +647,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         resultBg.frame = CGRect(x: (width - 280 * dif) / 2, y: height / 8, width: 280 * dif, height: 488 * dif)
         firstWordBtn.frame = CGRect(x: resultBg.frame.origin.x + ((resultBg.frame.width - (519 / 2 * dif)) / 2), y: resultBg.frame.midY - resultBg.frame.height / 20, width: 519 / 2 * dif, height: 57 * dif)
-
+        
         
         secondWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: firstWordBtn.frame.maxY +  15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
         
@@ -682,7 +670,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         scoreLabel.frame = CGRect(x: resultBg.frame.maxX - 140 * dif, y: resultBg.frame.minY + 53 * dif, width: 106 * dif, height: 21 * dif)
         
         
-
+        
         bonusScoreLabel.frame = scoreLabel.frame
         bonusScoreLabel.frame.origin.x = bonusScoreLabel.frame.origin.x - bonusScoreLabel.frame.width / 2
         
@@ -691,9 +679,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         bonusScoreLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         bonusScoreLabel.text = "+bonus"
         bonusScoreLabel.alpha = 0
-        //bonusScoreLabel.isHidden = true
-        view.addSubview(bonusScoreLabel)
 
+        view.addSubview(bonusScoreLabel)
+        
         wordCountLabel.frame = CGRect(x: resultBg.frame.minX + 50 * dif, y: resultBg.frame.minY + 140 * dif, width: 157 * dif, height: 95 * dif)
         wordCountLabel.adjustsFontSizeToFitWidth = true
         
@@ -707,9 +695,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //改變高度
         recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5.5)
-    
-       //recogTextLabel.backgroundColor = .yellow
-
+        
+        //recogTextLabel.backgroundColor = .yellow
+        
         word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
         word1Label.textColor = .white
         word1Label.font = UIFont(name: "Helvetica Bold", size: 14)
@@ -717,7 +705,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         word1Label.textAlignment = .center
         word1Label.alpha = 0
         self.firstWordBtn.addSubview(word1Label)
-       
+        
         word2Label.frame = CGRect(x: secondWordBtn.frame.width / 3, y: 0, width: secondWordBtn.frame.width / 3, height: secondWordBtn.frame.height)
         word2Label.textColor = .white
         word2Label.font = UIFont(name: "Helvetica Bold", size: 14)
@@ -725,7 +713,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         word2Label.textAlignment = .center
         word2Label.alpha = 0
         self.secondWordBtn.addSubview(word2Label)
-
+        
         word3Label.frame = CGRect(x: thirdWordBtn.frame.width / 3, y: 0, width: thirdWordBtn.frame.width / 3, height: thirdWordBtn.frame.height)
         word3Label.textColor = .white
         word3Label.font = UIFont(name: "Helvetica Bold", size: 14)
@@ -738,7 +726,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //載入我的最愛單字
-
+        
         if let myWordsString = user?["myWords"] as! String?{
             myWords = myWordsString.components(separatedBy: ";")
             
@@ -755,7 +743,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         tagView.backgroundColor = .clear
         tagView.delegate = self
         tagView.isHidden = true
-
+        
         tagView.marginY = tagMarginY
         print(tagMarginY)
         
@@ -782,33 +770,31 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //設定發音鍵
         playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif + iPadSmall, width: 69 * dif * playBtnY / iPadDif, height: 32 * dif * playBtnY / iPadDif)
         
+        skipPronounceBtn.frame = CGRect(x: playSoundBtn.frame.minX, y: recogTextLabel.frame.maxY + 20, width: 82 * skipBtnDif, height: 29 * skipBtnDif)
         
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
-
+        
         recogTextLabel.isHidden = true
         
         
         //讀目前課程數字數量
-        //這裡的maxMapNum 跟 Lesson的maxMapNum差1....
+
         //MARK: must update variables
         switch courseReceived {
             
         case 0:
-
+            
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
             increaseNum = 0
-            maxSpotNum = 14
             maxMapNum = 4
-
             
         case 1:
             
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
             increaseNum = 5
-            maxSpotNum = 14
             maxMapNum = 5
             
         case 2:
@@ -816,7 +802,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             gamePassedDic = gamePassed3!
             mapPassedInt = mapPassed3!
             increaseNum = 11
-            maxSpotNum = 14
             maxMapNum = 6
             
         case 3:
@@ -824,10 +809,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed4!
             increaseNum = 18
             maxMapNum = 8
-            maxSpotNum = 14
-
-
-            
+       
         default:
             break
             
@@ -837,70 +819,53 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var sentenceFile:String?
         
         if gameMode == 0 {
-
+            
             
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
-         
-            //limitSeconds = UserDefaults.standard.integer(forKey: "limitSeconds")
-            
-                print("did load limitSeconds:\(limitSeconds)")
+        
             
             //測試用
             //limitSeconds = 2
             
             //不論如何都啟動, 但是有購買就會invalidate
-            print("really start to count down")
             limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
-
-            print("newGameVc mapNmer:\(mapNumber)")
             
-        //這裡的mapNum 已經加過increaseNum --->修正成要加increaseNum
-        let sentenceName = "s" + String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
-        
-            print(sentenceName)
-        if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
-            do {
-                sentenceFile = try String(contentsOfFile: filepath)
-                let sentences = sentenceFile?.components(separatedBy: "; ")
-                
-                //把字讀取到wordSets裡
-                sentenceSets = sentences!
-                print("done")
-            } catch {
-                // contents could not be loaded
-                print("catch error")
+            //修正成要加increaseNum, lessonVc傳過來之前有扣除increaseNum
+            let sentenceName = "s" + String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
+            
+            if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
+                do {
+                    sentenceFile = try String(contentsOfFile: filepath)
+                    let sentences = sentenceFile?.components(separatedBy: "; ")
+                    
+                    //把字讀取到wordSets裡
+                    sentenceSets = sentences!
+       
+                } catch {
+                    // contents could not be loaded
+                    print("catch error")
+                }
+            } else {
+                // example.txt not found!
+                print("txt can't be found")
             }
-        } else {
-            // example.txt not found!
-            print("txt can't be found")
-        }
             
         } else if gameMode == 2{
             
             //隨機單字
             //在此抓測驗單字的亂數順序
+            
             var tempGamePassedDic:[Int:Int]?
             
-            
-            //這裡的maxMapNum + 1 是因為設定問題, 為了判斷剛玩的關卡是不是最後一關
-            if mapPassedInt == (maxMapNum + 1) {
+            if mapNumber < mapPassedInt{
                 
-                //最後一關
-                tempGamePassedDic = [maxSpotNum:9]
-                mapPassedInt -= 1
-            
-            } else if mapNumber < mapPassedInt{
+                tempGamePassedDic = [14:9]
                 
-                //代表進入的關已過完
-                tempGamePassedDic = [maxSpotNum:9]
+            } else {
                 
-                
-            } else{
-                //代表關還沒過完
+                //相等的話
                 tempGamePassedDic = gamePassedDic
             }
-            
-            
             
             for (s,u) in tempGamePassedDic!{
                 
@@ -936,7 +901,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                     }
                     
-                //    print(allUnitSpotNums)
                     
                 } else {
                     
@@ -951,7 +915,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             allUnitSpotNums[0].append(i)
                             
                         }
-              
+                        
                         //超過一關就直接隨機所有學過句子
                     } else if u > 0 {
                         
@@ -968,8 +932,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
             
-            //加數字才能讀到正確數字
-            //mapPassedInt += increaseNum //這個應該不需要
+
             //Part 2. 讀取所有句子
             
             for (s,_) in tempGamePassedDic!{
@@ -1003,9 +966,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 
             }
-
-        }
             
+        }
+        
         //print("how many: :\(allSentenceSets[0])")
         
         
@@ -1013,7 +976,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         // including entities and graphs.
         if let scene = GKScene(fileNamed: "NewGameScene") {
             
-     
+            
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! NewGameScene? {
                 
@@ -1048,7 +1011,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //設定語言
         speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en"))!
-
+        
         //備註: 請求授權, 之後要做拒絕的機制
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
             
@@ -1077,9 +1040,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             })
             
-
+            
         }
-
+        
         
         //中文句子字顏色
         chiSentenceLabel.textColor = pinkColor
@@ -1094,7 +1057,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         self.view.addSubview(recordingIndicator!)
         self.view.bringSubview(toFront: recordBtn)
-  
+        
         //拉到最前方
         self.view.bringSubview(toFront: ghostBtn)
         self.view.bringSubview(toFront: alertBg)
@@ -1115,9 +1078,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: reviewAlertCountLabel)
         self.view.bringSubview(toFront: reviewAlertUnitLabel)
         self.view.bringSubview(toFront: reviewOkBtn)
-
+        
         self.view.bringSubview(toFront: limitTimerLabel)
- 
+        
         noBuyBtn.isHidden = true
         goToBuyBtn.isHidden = true
         ghostBtn.isHidden = true
@@ -1165,15 +1128,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         hintLabel.textColor = .white
         hintLabel.frame = CGRect(x: (width - 200) / 2, y: recordBtn.frame.minY - 40 + iPadSmall, width: 200, height: 30)
-
+        
         hintLabel.frame.size = CGSize(width: 200, height: 30)
         hintLabel.text = ""
         //hintLabel.backgroundColor = .blue
         hintLabel.adjustsFontSizeToFitWidth = true
         hintLabel.textAlignment = .center
         
-        print("relword counts:\(newRels.count)")
-
+        print("loaded relword counts:\(newRels.count)")
+        
     }
     
     deinit {
@@ -1184,7 +1147,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @objc func removePronounceBtn(){
         
-
+        
         
     }
     
@@ -1245,22 +1208,22 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @objc func reviewOkBtnClicked(){
         
-               print("button clicked")
-      
+        print("button clicked")
+        
         self.dismiss(animated: true, completion: nil)
     }
     
     //接收nc
     @objc func pauseGame(){
         
-
-                //1.0.7 把這兩條放到前面
+        
+        //1.0.7 把這兩條放到前面
         
         limitTimer.invalidate()
         
         UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
-
-
+        
+        
         
         alertText.text = "\n離開目前課程\n學習進度不會儲存!"
         quitBtn.setTitle("離開", for: .normal)
@@ -1271,14 +1234,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
         rightBtnClickedImg.isHidden = false
-
+        
         quitBtn.removeTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
-
+        
         cancelBtn.removeTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         
- 
+        
     }
     
     func timerPause(){
@@ -1301,14 +1264,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         noBuyBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
         rightBtnClickedImg.isHidden = false
-
-
-
+        
+        
+        
         goToBuyBtn.addTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
-
+        
         noBuyBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         
-  
+        
         
     }
     
@@ -1323,36 +1286,32 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
-
+    
     @IBAction func playSoundClicked(_ sender: Any) {
-        //bonusAnimation()
-        
+  
+ 
         //避免空字也發音
         if synWord != String(){
-        
-
+  
             synPronounce()
         }
     }
     
     
     @objc func leaveWithoutSaving(){
-        
-        
-        timer?.invalidate()
-        
-        
-        self.dismiss(animated: true, completion: nil)
-        
-     
-    }
 
+        timer?.invalidate()
+
+        self.dismiss(animated: true, completion: nil)
+
+    }
+    
     @objc func removeBtns(){
         
         //send Nc去continue
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartCounting"), object: nil, userInfo: nil)
-    
-
+        
+        
         
         purchaseAlert.isHidden = true
         ghostBtn.isHidden = true
@@ -1365,26 +1324,26 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         goToBuyBtn.isHidden = true
         
         
-         let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
         
         
         if gameMode == 0 {
-   
+            
             //沒有買的話
             if isPurchased == false {
-  
+                
                 limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
+            }
+            
         }
-     
-        }
-
+        
         
     }
     
     @objc func notifyRestartCounting(){
         
     }
-
+    
     //顯示tagView
     @objc func showTag(){
         
@@ -1394,7 +1353,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         tagView.isHidden = false
         recogTextLabel.text = ""
     }
-
+    
     @objc func notifyReadyToReadSentence(){
         
     }
@@ -1404,9 +1363,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //補足delegate裡沒有enable的功能
         
         if tagView.isHidden {
-        recordBtn.isEnabled = true
-        
-        recordBtn.isHidden = false
+            recordBtn.isEnabled = true
+            
+            recordBtn.isHidden = false
         }
         //playSoundBtn.isEnabled = true
         
@@ -1415,12 +1374,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-
+    
     @objc func notifyAddScore(){
         
     }
-
-
+    
+    
     //wave動畫
     @objc internal func refreshAudioView(_:Timer) {
         if self.audioView.amplitude <= self.audioView.idleAmplitude || self.audioView.amplitude > 1.0 {
@@ -1433,11 +1392,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillAppear(_ animated: Bool) {
         
-        print("G viewWillAppear")
-        
+
         
         NotificationCenter.default.removeObserver(self)
-       
+        
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
@@ -1502,7 +1460,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
         
-  
+        
         //1.0.7 bug fixed
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPlayEndMusic), name: NSNotification.Name("playEndingMusic"), object: nil)
         
@@ -1515,8 +1473,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             print("已購買, 不計時")
             //已購買, 不計時
             limitTimer.invalidate()
-            
-            
+ 
             limitTimerLabel.text = ""
             removeBtns()
             
@@ -1525,13 +1482,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             print("還沒買所以要計時")
             
             if gameMode == 0 {
-                
-                
+
                 limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
-                
-                  //limitSeconds = UserDefaults.standard.integer(forKey: "limitSeconds")
-                
-                print("will appear limitSeconds:\(limitSeconds)")
                 
                 //測試
                 //limitSeconds = 2
@@ -1568,9 +1520,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-    
+        
     }
- 
+    
     
     //造句子
     @objc func showSentence(_ notification: NSNotification){
@@ -1578,39 +1530,35 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //接收單字數字準備做句子
         
         if gameMode == 0 {
-        
-        if let sequenceToReceive = notification.userInfo?["currentWordSequence"] as? String{
             
-             //指定好數字
-             wordSequenceToReceive = sequenceToReceive
+            if let sequenceToReceive = notification.userInfo?["currentWordSequence"] as? String{
+                
+                //指定好數字
+                wordSequenceToReceive = sequenceToReceive
+                
+            }
+            if let speakTime = notification.userInfo?["pronounceTime"] as? Int{
+                
+                pronounceTime = speakTime
+            }
             
-        }
-        if let speakTime = notification.userInfo?["pronounceTime"] as? Int{
+            //回復錄音btn圖示
+            recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
             
-            pronounceTime = speakTime
-        }
-        
-        //回復錄音btn圖示
-        recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
-    
-        //製作句子
-        makeSentence()
-        
-        } else
- 
-        
-        //testing
-            if gameMode == 2 {
-            
+            //製作句子
             makeSentence()
             
+        } else if gameMode == 2 {
+                
+                makeSentence()
+                
         }
         
     }
     
     
     @objc func notifyPracticeNextWord(){
-
+        
         
         //移除tagView
         attrTagsSelected.removeAll(keepingCapacity: false)
@@ -1630,9 +1578,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 btn.removeTarget(nil, action: nil, for: .allEvents)
             }
             
-        
-        recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
-        //recordBtn.isHidden = true  這應該不用
+            recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
+      
         }
         
         //輸入重置
@@ -1647,12 +1594,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recogTextLabel.text = ""
         
         recogTextLabel.isHidden = true
-        
-        //變回錄音鍵
-        //recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
+
         
         recordBtn.isHidden = true
-      
+        
     }
     
     
@@ -1660,13 +1605,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @objc func leaveGame(_ notification: NSNotification){
         
         if gameMode == 0 {
-        limitTimer.invalidate()
-        UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
+            limitTimer.invalidate()
+            UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         }
         
         
         playSoundBtn.isEnabled = false
-
+        
         coverBtn.isHidden = false
         coverBg.isHidden = false
         resultBg.isHidden = false
@@ -1683,7 +1628,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         firstEngWord.adjustsFontSizeToFitWidth = true
         secondEngWord.adjustsFontSizeToFitWidth = true
         thirdEngWord.adjustsFontSizeToFitWidth = true
-
+        
         firstChiWord.adjustsFontSizeToFitWidth = true
         secondChiWord.adjustsFontSizeToFitWidth = true
         thirdChiWord.adjustsFontSizeToFitWidth = true
@@ -1697,422 +1642,223 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 if let score = notification.userInfo?["score"] as? [String] {
                     if let results = notification.userInfo?["correctResults"] as? [String]{
                         if let popQuizRight = notification.userInfo?["popQuizRight"] as? [String]{
-                        if let wrongChinese = notification.userInfo?["wrongChinese"] as? [String]{
-                    
-                            if let wrongWords = notification.userInfo?["wrongWords"] as? [String]{
-                            
-                                //指定好第一次玩家的數字
-                            wrongWordsToSend = wrongWords
-                                scoresToSend = Int(score[0])!
+                            if let wrongChinese = notification.userInfo?["wrongChinese"] as? [String]{
                                 
-                                
-                            
-                            for i in 0 ..< wrongChinese.count{
-                                
-                                if wrongChinese[i] == "1" {
+                                if let wrongWords = notification.userInfo?["wrongWords"] as? [String]{
                                     
-                                    wrongChineseCounts += 1
+                                    //指定好第一次玩家的數字
+                                    wrongWordsToSend = wrongWords
+                                    scoresToSend = Int(score[0])!
                                     
-                                }
-                            }
-                        
-                        for i in 0 ..< results.count{
-                            
-                            if results[i] == "1"{
-      
-                                wordBtns[i].setImage(UIImage(named:"wrongWordBtn.png"), for: .normal)
-                                
-                                wrongWordsCount += 1
-                                
-                            } else {
-                                
-                                wordBtns[i].setImage(UIImage(named:"rightWordBtn.png"), for: .normal)
-          
-                            }
-                        }
-                    
-                        //抓字
-                        firstEngWordText = engWords[0]
-                        secondEngWordText = engWords[1]
-                        thirdEngWordText = engWords[2]
-                        
-                    
-                        //做分數動畫+ 單字動畫
-                            
-                            if let originalScore = user?["score"] as? String{
-                                
-                                originalPoints = Int(originalScore)!
+                                    
+                                    
+                                    for i in 0 ..< wrongChinese.count{
+                                        
+                                        if wrongChinese[i] == "1" {
+                                            
+                                            wrongChineseCounts += 1
+                                            
+                                        }
+                                    }
+                                    
+                                    for i in 0 ..< results.count{
+                                        
+                                        if results[i] == "1"{
+                                            
+                                            wordBtns[i].setImage(UIImage(named:"wrongWordBtn.png"), for: .normal)
+                                            
+                                            wrongWordsCount += 1
+                                            
+                                        } else {
+                                            
+                                            wordBtns[i].setImage(UIImage(named:"rightWordBtn.png"), for: .normal)
+                                            
+                                        }
+                                    }
+                                    
+                                    //抓字
+                                    firstEngWordText = engWords[0]
+                                    secondEngWordText = engWords[1]
+                                    thirdEngWordText = engWords[2]
+                                    
+                                    
+                                    //做分數動畫+ 單字動畫
+                                    
+                                    if let originalScore = user?["score"] as? String{
+                                        
+                                        originalPoints = Int(originalScore)!
+                                        
+                                        scoreLabel.text = String(originalPoints)
+                                        
+                                    } else {
+                                        //第一次玩的人
 
-                                //let currentScore = originalPoints + Int(score[0])!
-                               
-                                scoreLabel.text = String(originalPoints)
-                                
-                            } else {
-                                //第一次玩的人
-                                
-                                //最初分數
-                                scoreLabel.text = "0"
-                                
-                                
-                                
-                            }
-                    
-                        //scoreLabel.text = score[0]
-                    
-              
-                            moveUpAnimation(label: firstEngWord, text: firstEngWordText)
-                    
-                            moveUpAnimation(label: secondEngWord, text: secondEngWordText)
-                    
-                            moveUpAnimation(label: thirdEngWord, text: thirdEngWordText)
-                    
-                  
-                            moveUpAnimation(label: firstChiWord, text: chiWords[0])
-                    
-                            moveUpAnimation(label: secondChiWord, text: chiWords[1])
-                    
-                            moveUpAnimation(label: thirdChiWord, text: chiWords[2])
-                        
-    
-                            //popQuiz bonus加分
-                            
+                                        scoreLabel.text = "0"
+
+                                    }
+                                    
+
+                                    moveUpAnimation(label: firstEngWord, text: firstEngWordText)
+                                    
+                                    moveUpAnimation(label: secondEngWord, text: secondEngWordText)
+                                    
+                                    moveUpAnimation(label: thirdEngWord, text: thirdEngWordText)
+                                    
+                                    
+                                    moveUpAnimation(label: firstChiWord, text: chiWords[0])
+                                    
+                                    moveUpAnimation(label: secondChiWord, text: chiWords[1])
+                                    
+                                    moveUpAnimation(label: thirdChiWord, text: chiWords[2])
+                                    
+                                    
+                                    //popQuiz bonus加分
+                                    
+                                    
+                                    switch popQuizRight[0]{
+                                        
+                                    case "-1":
+                      
+                                        bigOkBtn.isEnabled = true
+                                        countScore(score:Int(score[0])!)
+                                        
+                                    case "0":
                            
-                            switch popQuizRight[0]{
-                                
-                            case "-1":
-                                print("bonus 0")
-                                bigOkBtn.isEnabled = true
-                                countScore(score:Int(score[0])!)
-                                
-                            case "0":
-                                print("bonus 1")
+                                        bonusAnimation(repeatCount:1)
+                                        
+                                        countScore(score: Int(score[0])! + 500)
+                                        
+                                        
+                                        
+                                    case "1":
+            
+                                        bonusAnimation(repeatCount:2)
+                                        
+                                        countScore(score: Int(score[0])! + 1000)
+                                        
+                                        
+                                    case "2":
+                                        
+                                        bonusAnimation(repeatCount:3)
+                                        
+                                        countScore(score: Int(score[0])! + 1500)
+                                    default:
+                                        break
+                                    }
+                                    
+                                    
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "playEndingMusic"), object: nil, userInfo: nil)
+                                    
+                                    //如果有錯就不算過關的條件
+                                    // if wrongWordsCount == 0 {}
+                                    
+                                    //目前這裡就先寫成都可以過關
 
                                     
-                                bonusAnimation(repeatCount:1)
-                                
-                                countScore(score: Int(score[0])! + 500)
+                                    if user != nil {  // 要保留給第一次進入的玩家
 
-                                
-                                
-                            case "1":
-                                print("bonus 2")
-                                     bonusAnimation(repeatCount:2)
-                       
-                                countScore(score: Int(score[0])! + 1000)
-                                
-                                
-                            case "2":
-                                print("bonus 3")
-                                
-                                     bonusAnimation(repeatCount:3)
-           
-                                countScore(score: Int(score[0])! + 1500)
-                            default:
-                                break
-                            }
-                            
-                                
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "playEndingMusic"), object: nil, userInfo: nil)
-                            
-                        //如果有錯就不算過關的條件
-                        
-                        // if wrongWordsCount == 0 {}
-                        
-                        //目前這裡就先寫成都可以過關
-
-                            //如果玩之前的關卡就不改變---- 現在應該沒有這條件
-                   
-                        //mapNumber -= increaseNum
-                    
-                        print("increase:\(increaseNum)")
-                        
-                        print("mapNumer:\(mapNumber)")
-                        
-                            if user != nil {  // 要保留給第一次進入的玩家
-                            
-                       //     if mapPassedInt == (mapNumber){   //...
-                           //     for (s,u) in gamePassedDic! {      //...
-                             //       if s == spotNumber{     //...
-                               //         if u == unitNumber{     //...
+                                        
+                                        print("過關卡")
+                                        
+                                        //紀錄關卡
+                                        if unitNumber == 9{         //代表過一整個課程
                                             
-                                            print("過關卡")
-                                            
-                                            //紀錄關卡
-                                            if unitNumber == 9{         //代表過一整個課程
+                                            //此探索點已過完, 此探索點要做動態化  ----中級為 14
+                                            if spotNumber == 14 {
                                                 
-                                                //此探索點已過完, 此探索點要做動態化  ----中級為 14
-                                                if spotNumber == maxSpotNum {
+                                                //確認是否為最後一張地圖
+                                                if mapPassedInt == maxMapNum{
                                                     
-                                                 
-                                                    //備註: 目前map只做4張, 之後要抓正確數字, 以及做全部過關的通知
+                                                    // 破關訊息
                                                     
-                                                    
-                                                    //確認是否為最後一張地圖
-                                                    if mapPassedInt == maxMapNum{
-                                                        
-                                                        
-                                                        // 破關訊息
-                                                        
-                                                        print("破關")
-                                                        
-                                                        //做破關提示
-                                                        
-                                                        
-                                                        
-                                                    
-                                                    
-                                                        isCelebratingClassPassed = true
-                                                        bigOkBtn.setImage(UIImage(named:"classFinishedBtn.png"), for: .normal)
-                                                        
-                                                        
-                                                    } else {
-                                                    
-              
-                                                    
-                                                    isCelebratingMapPassed = true
-                                                    
-                                                    bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
-
-                                                    
-                                                    }
-                                                    
-                                                    switch courseReceived{
-                                                        
-                                                    case 0:
-                                                        mapPassed! += 1
-                                                        gamePassed = [0:0]
-                                                        
-                                                        
-                                                        //設定給全部值供上傳後端
-                                                        mapPassedInt = mapPassed!
-                                                        gamePassedDic = gamePassed
-                                                        
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                                        UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed")
-
-                                                        //有更新地圖才執行
-                                                        
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
-
-                                                    case 1:
-                                                        mapPassed2! += 1
-                                                        gamePassed2 = [0:0]
-                                                        
-
-                                                        //設定給全部值供上傳後端
-                                                        mapPassedInt = mapPassed2!
-                                                        gamePassedDic = gamePassed2
-                                                        
-                                                        
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                                                        UserDefaults.standard.set(mapPassed2!, forKey: "mapPassed2")
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed2")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
-                                                        
-                                                    case 2:
-                                                        mapPassed3! += 1
-                                                        gamePassed3 = [0:0]
-                                                        
-
-                                                        //設定給全部值供上傳後端
-                                                        mapPassedInt = mapPassed3!
-                                                        gamePassedDic = gamePassed3
-                                                        
-                                                        
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                                                        UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
-                                                        
-                                                    case 3:
-                                                        mapPassed4! += 1
-                                                        gamePassed4 = [0:0]
-                                                        
-                                                        
-                                                        
-                                                        //設定給全部值供上傳後端
-                                                        mapPassedInt = mapPassed4!
-                                                        gamePassedDic = gamePassed4
-                                                        
-                                                        
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                                                        UserDefaults.standard.set(mapPassed4!, forKey: "mapPassed4")
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
-                                                        
-
-                                                    default:
-                                                        break
-                                                        
-                                                    }
-                                            
-                                                    
-                                                    
+                                                    isCelebratingClassPassed = true
+                                                    bigOkBtn.setImage(UIImage(named:"classFinishedBtn.png"), for: .normal)
                                                     
                                                 } else {
                                                     
+                                                    isCelebratingMapPassed = true
+                                                    bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
                                                     
-                                                    switch courseReceived{
-                                                        
-                                                    case 0:
-                                           
-                                                        gamePassed = [spotNumber + 1:0]
-                                                        //設定給全部值供上傳後端
-                                                        gamePassedDic = gamePassed
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                       
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed")
-
-                                                        
-                                                        updateGamePassed(course:courseReceived)
-                           
-                                                    case 1:
-                                        
-                                                        gamePassed2 = [spotNumber + 1:0]
-                                                        //設定給全部值供上傳後端
-                                                        gamePassedDic = gamePassed2
-                                                        
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                                                   
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed2")
-                                                        
-                                                        
-                                                        //pending update to sql
-                                          
-                                                        updateGamePassed(course:courseReceived)
-                                                        
-                                                    case 2:
-                                                        
-                                                        gamePassed3 = [spotNumber + 1:0]
-                                                        //設定給全部值供上傳後端
-                                                        gamePassedDic = gamePassed3
-                                                        
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                                                       
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                       
-                                                        
-                                                        //pending update to sql
-                                                        
-                                                        updateGamePassed(course:courseReceived)
-                                                        
-                                                    case 3:
-                                                        
-                                                        gamePassed4 = [spotNumber + 1:0]
-                                                        //設定給全部值供上傳後端
-                                                        gamePassedDic = gamePassed4
-                                                        
-                                                        //然後儲存
-                                                        let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                                                        
-                                                        userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                        
-                                                        
-                                                        //pending update to sql
-                                                        
-                                                        updateGamePassed(course:courseReceived)
-
-                                                        
-                                                    default:
-                                                        break
-                                                        
-                                                    }
-                                                
                                                 }
-                                                
-                                   
-                                    
-                                           
-                                            }else {
-                                                
                                                 
                                                 switch courseReceived{
                                                     
                                                 case 0:
+                                                    mapPassed! += 1
+                                                    gamePassed = [0:0]
                                                     
-                                                    gamePassed = [spotNumber: unitNumber + 1]
+                                                    //設定給全部值供上傳後端
+                                                    mapPassedInt = mapPassed!
                                                     gamePassedDic = gamePassed
                                                     
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                    
+                                                    UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
                                                     userDefaults.set(encodedObject, forKey: "gamePassed")
                                                     
+                                                    //有更新地圖才執行
                                                     
+                                                    updateMapPassed(course:courseReceived)
                                                     updateGamePassed(course:courseReceived)
-
                                                     
                                                 case 1:
+                                                    mapPassed2! += 1
+                                                    gamePassed2 = [0:0]
                                                     
-                                                    print("更新新關卡")
-                                                    gamePassed2 = [spotNumber: unitNumber + 1]
+                                                    
+                                                    //設定給全部值供上傳後端
+                                                    mapPassedInt = mapPassed2!
                                                     gamePassedDic = gamePassed2
+                                                    
                                                     
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                                              
+                                                    UserDefaults.standard.set(mapPassed2!, forKey: "mapPassed2")
                                                     userDefaults.set(encodedObject, forKey: "gamePassed2")
                                                     
-                                                    //pending update to sql
+                                                    //pending做一個純粹更新中級的sql
+                                                    updateMapPassed(course:courseReceived)
                                                     updateGamePassed(course:courseReceived)
                                                     
                                                 case 2:
+                                                    mapPassed3! += 1
+                                                    gamePassed3 = [0:0]
                                                     
-                                                    print("更新新關卡")
-                                                    gamePassed3 = [spotNumber: unitNumber + 1]
+                                                    
+                                                    //設定給全部值供上傳後端
+                                                    mapPassedInt = mapPassed3!
                                                     gamePassedDic = gamePassed3
+                                                    
                                                     
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                                                   // mapPassed3 = 0
+                                                    UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
                                                     userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                   //  UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
-                                                    //pending update to sql
+                                                    
+                                                    //pending做一個純粹更新中級的sql
+                                                    updateMapPassed(course:courseReceived)
                                                     updateGamePassed(course:courseReceived)
                                                     
-                                                    
                                                 case 3:
+                                                    mapPassed4! += 1
+                                                    gamePassed4 = [0:0]
                                                     
-                                                    print("更新新關卡")
-                                                    gamePassed4 = [spotNumber: unitNumber + 1]
+                                                    //設定給全部值供上傳後端
+                                                    mapPassedInt = mapPassed4!
                                                     gamePassedDic = gamePassed4
+                                                    
                                                     
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                                                    // mapPassed3 = 0
+                                                    UserDefaults.standard.set(mapPassed4!, forKey: "mapPassed4")
                                                     userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                    //  UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
-                                                    //pending update to sql
+                                                    
+                                                    //pending做一個純粹更新中級的sql
+                                                    updateMapPassed(course:courseReceived)
                                                     updateGamePassed(course:courseReceived)
                                                     
                                                     
@@ -2120,43 +1866,156 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     break
                                                     
                                                 }
-                                         
+                                                
+                                            } else {
+                                                
+                                                
+                                                switch courseReceived{
+                                                    
+                                                case 0:
+                                                    
+                                                    gamePassed = [spotNumber + 1:0]
+                                                    //設定給全部值供上傳後端
+                                                    gamePassedDic = gamePassed
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                                    
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed")
+                                                    
+                                                    updateGamePassed(course:courseReceived)
+                                                    
+                                                case 1:
+                                                    
+                                                    gamePassed2 = [spotNumber + 1:0]
+                                                    //設定給全部值供上傳後端
+                                                    gamePassedDic = gamePassed2
+                                                    
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                                    
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                                    
+                                                    updateGamePassed(course:courseReceived)
+                                                    
+                                                case 2:
+                                                    
+                                                    gamePassed3 = [spotNumber + 1:0]
+                                                    //設定給全部值供上傳後端
+                                                    gamePassedDic = gamePassed3
+                                                    
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                                    
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed3")
+
+                                                    updateGamePassed(course:courseReceived)
+                                                    
+                                                case 3:
+                                                    
+                                                    gamePassed4 = [spotNumber + 1:0]
+                                                    //設定給全部值供上傳後端
+                                                    gamePassedDic = gamePassed4
+                                                    
+                                                    //然後儲存
+                                                    let userDefaults = UserDefaults.standard
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                                    
+                                                    userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                                    
+                                                    updateGamePassed(course:courseReceived)
+                                                    
+                                                    
+                                                default:
+                                                    break
+                                                    
+                                                }
+                                                
                                             }
                                             
+                                        }else {
                                             
-                                
                                             
+                                            switch courseReceived{
+                                                
+                                            case 0:
+                                                
+                                                gamePassed = [spotNumber: unitNumber + 1]
+                                                gamePassedDic = gamePassed
+                                                
+                                                //然後儲存
+                                                let userDefaults = UserDefaults.standard
+                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                                
+                                                userDefaults.set(encodedObject, forKey: "gamePassed")
+                                                
+                                                
+                                                updateGamePassed(course:courseReceived)
+                                                
+                                                
+                                            case 1:
+                                                
+                                                gamePassed2 = [spotNumber: unitNumber + 1]
+                                                gamePassedDic = gamePassed2
+                                                
+                                                //然後儲存
+                                                let userDefaults = UserDefaults.standard
+                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                                
+                                                userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                                
+                                                //pending update to sql
+                                                updateGamePassed(course:courseReceived)
+                                                
+                                            case 2:
+                                                
+                                                gamePassed3 = [spotNumber: unitNumber + 1]
+                                                gamePassedDic = gamePassed3
+                                                
+                                                //然後儲存
+                                                let userDefaults = UserDefaults.standard
+                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+       
+                                                userDefaults.set(encodedObject, forKey: "gamePassed3")
+                                                //pending update to sql
+                                                updateGamePassed(course:courseReceived)
+                                                
+                                                
+                                            case 3:
 
-                                     //   } else {
-                                   //         print("前元素")
-                                    
-                                 //       }
-                               //     } else {
+                                                gamePassed4 = [spotNumber: unitNumber + 1]
+                                                gamePassedDic = gamePassed4
+                                                
+                                                //然後儲存
+                                                let userDefaults = UserDefaults.standard
+                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+ 
+                                                userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                                //pending update to sql
+                                                updateGamePassed(course:courseReceived)
+
+                                            default:
+                                                break
+                                                
+                                            }
+                                            
+                                        }
                                         
-                             //           print("前探索點")
-                           //         }
-                         //       }
-         
-                         //   } else {
-                                
-                             //   print("前地圖")
-                                
-                           // }
-                        
-                        
-                                //計算所有字數
-                            countWords()
-                            } else {
-                                
-                                
-                                //顯示出來
-                                wordCountLabel.text = "3"
-
-                                
-                            }
+                                        countWords()
+                                        
+                                    } else {
+                                        
+                                        
+                                        //顯示出來
+                                        wordCountLabel.text = "3"
+                                        
+                                        
+                                    }
+                                }
                             }
                         }
-                }
                     }
                 }
             }
@@ -2164,14 +2023,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
-
+    
     func countScore(score:Int){
         
-        
-        //isDragAndPlayEnable = false
+
         
         let scoreToPass:[String:Int] = ["Score":score]
-        //print("score:\(score)")
+
         countScoreTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(NewGameViewController.startCounting), userInfo: scoreToPass, repeats: true)
         
         
@@ -2180,24 +2038,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @objc func startCounting(){
         
-        // print("1")
+
         if let userInfo = countScoreTimer.userInfo as? Dictionary<String, Int>{
-            //print("2")
+     
             if let scoreToAdd = userInfo["Score"]{
-                //   print("3")
-                
- 
-                
-                //let size = CGSize(width: 100, height: 100)
-                
-                //print("scoreAdded:\(scoreAdded) and score:\(scoreToAdd)")
+
                 if scoreAdded < scoreToAdd {
-                    // print("4")
-                    
+         
                     scoreAdded += 10
                     scoreLabel.text = String(Int(scoreLabel.text!)! + 10)
                 } else {
-                    //   print("5")
+      
                     scoreAdded = 0
                     countScoreTimer.invalidate()
                     
@@ -2211,12 +2062,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
     }
     
+    //MARK: must update
     func countWords(){
         //計算所有字數
         
         var wordsCounts = Int()
-
-
+        
+        
         switch courseReceived{
             
         case 0:
@@ -2231,7 +2083,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
             
-         
+            
             
         case 1:
             
@@ -2275,7 +2127,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             break
             
         }
-
+        
         //顯示出來
         wordCountLabel.text = String(wordsCounts)
         
@@ -2284,32 +2136,32 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBAction func firstWordClicked(_ sender: Any) {
         
         if user != nil {
-        
-        if isParseEnabled{
-               isParseEnabled = false
-            addWord(word: firstEngWordText)
-            moveUpAndGone(label: word1Label)
             
-        }
+            if isParseEnabled{
+                isParseEnabled = false
+                addWord(word: firstEngWordText)
+                moveUpAndGone(label: word1Label)
+                
+            }
         } else {
             
-                        moveUpAndGone(label: word1Label)
+            moveUpAndGone(label: word1Label)
         }
         
     }
     @IBAction func secondWordClicked(_ sender: Any) {
         
         if user != nil {
-        
-        if isParseEnabled{
-            isParseEnabled = false
-            addWord(word: secondEngWordText)
-            moveUpAndGone(label: word2Label)
             
-        }
+            if isParseEnabled{
+                isParseEnabled = false
+                addWord(word: secondEngWordText)
+                moveUpAndGone(label: word2Label)
+                
+            }
         } else {
             
-                        moveUpAndGone(label: word2Label)
+            moveUpAndGone(label: word2Label)
         }
     }
     
@@ -2317,15 +2169,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         if user != nil {
-        if isParseEnabled{
-            isParseEnabled = false
-            addWord(word: thirdEngWordText)
-            moveUpAndGone(label: word3Label)
-            
-        }
+            if isParseEnabled{
+                isParseEnabled = false
+                addWord(word: thirdEngWordText)
+                moveUpAndGone(label: word3Label)
+                
+            }
         } else {
             
-                        moveUpAndGone(label: word3Label)
+            moveUpAndGone(label: word3Label)
         }
     }
     
@@ -2333,7 +2185,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     override func viewDidDisappear(_ animated: Bool) {
-
+        
         NotificationCenter.default.removeObserver(self)
         timer?.invalidate()
         waitTimer.invalidate()
@@ -2351,7 +2203,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         UIView.animate(withDuration: 0.3) {
             labelToMove.alpha = 1
             labelToMove.frame.origin.y = originY
-  
+            
         }
     }
     
@@ -2363,49 +2215,49 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         bigOkBtn.isEnabled = false
         bigOkBtn.isHidden = true
-      
+        
         let originY = bonusScoreLabel.frame.origin.y
         //bonusScoreLabel.frame.origin.y = originY + 20
         
-
-            //UIView.animate(withDuration: 0.3, animations: {[weak self] in
-            UIView.animate(withDuration: 0.7, delay: 0.5, options: [.curveEaseIn], animations: {[weak self] in
-                
-                  // UIView.setAnimationRepeatCount(repeatCount)
-                
-                self!.bonusScoreLabel.alpha = 1
-                self!.bonusScoreLabel.frame.origin.y = originY - 15
-                
-                
-                
-            }) { (finished:Bool) in
-                UIView.animate(withDuration: 0, delay: 0.5, options: .curveEaseIn, animations: {[weak self] in
-                    
-                    self!.bonusScoreLabel.alpha = 0
-                    
-                    }, completion: {[weak self] (true) in
-                        
-                            self!.bonusScoreLabel.frame.origin.y = originY
-                        self!.bigOkBtn.isHidden = false
-
-                        self!.bigOkBtn.isEnabled = true
-               
-                })
-            }
-
+        
+        //UIView.animate(withDuration: 0.3, animations: {[weak self] in
+        UIView.animate(withDuration: 0.7, delay: 0.5, options: [.curveEaseIn], animations: {[weak self] in
             
+            // UIView.setAnimationRepeatCount(repeatCount)
+            
+            self!.bonusScoreLabel.alpha = 1
+            self!.bonusScoreLabel.frame.origin.y = originY - 15
+            
+            
+            
+        }) { (finished:Bool) in
+            UIView.animate(withDuration: 0, delay: 0.5, options: .curveEaseIn, animations: {[weak self] in
+                
+                self!.bonusScoreLabel.alpha = 0
+                
+                }, completion: {[weak self] (true) in
+                    
+                    self!.bonusScoreLabel.frame.origin.y = originY
+                    self!.bigOkBtn.isHidden = false
+                    
+                    self!.bigOkBtn.isEnabled = true
+                    
+            })
+        }
         
         
         
-     
-      
+        
+        
+        
+        
     }
     
     func moveUpAndGone(label:UILabel){
         
         let labelToMove = label
         labelToMove.alpha = 1
-
+        
         UIView.animate(withDuration: 0.7, animations: {
             labelToMove.alpha = 0
             labelToMove.frame.origin.y = -20
@@ -2414,13 +2266,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
     }
     
-
+    //MARK: recognize voice
+    
     //開始辨識聲音
     @objc func startToRecognize(){
-
+        
+        
+        
         //顯示按鈕, 顯示label
         recordBtn.isHidden = false
-
+        
+        skipPronounceBtn.isHidden = false
+        
         recogTextLabel.isHidden = false
         
         //回復錄音輸入的單字或句子
@@ -2431,7 +2288,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //指定答案的字
         wordToReceive = synWord
-
+        
         
         
         //移除標點符號
@@ -2442,12 +2299,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         hintLabel.text = "請按一下麥克風"
         
-       
+        
     }
     
     
     
     var pronounceTime = Int()
+    
     @objc func pronounceWord(_ notification: NSNotification){
         
         //一定要指定要說幾次
@@ -2479,13 +2337,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 }
                 
             }
-        
+            
         }
         //發音
-
+        
         synPronounce()
     }
-
+    
     @objc func notifyStartCountDown(){
         
         
@@ -2493,8 +2351,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //按鈕
     @IBAction func recordClicked(_ sender: Any) {
-
-    
+        
+        
+        skipPronounceBtn.isEnabled = false
+        
         //停止
         if audioEngine.isRunning {
             
@@ -2510,10 +2370,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //停止動畫
             recordingIndicator?.stopAnimating()
-  
+            
             
             //停止辨識
-
+            
             audioEngine.stop()
             recognitionRequest?.endAudio()
             recognitionTask?.cancel()
@@ -2525,19 +2385,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 //檢查
                 self.checkSentence()
-           
+                
                 //隱藏Btn, 以便顯示句子得分的img
                 recordBtn.isHidden = true
-           
+                
             } else {
                 self.checkWord()
                 
             }
-
+            
             
         }  else {
             
-
+            
             hintLabel.text = "請唸單字"
             
             
@@ -2548,7 +2408,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             audioView.isHidden = false
             timer?.invalidate()
             timer = Timer.scheduledTimer(timeInterval: 0.009, target: self, selector: #selector(NewGameViewController.refreshAudioView(_:)), userInfo: nil, repeats: true)
-
+            
             //錄音動畫開啟
             recordingIndicator?.startAnimating()
             
@@ -2557,7 +2417,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 recognitionTask?.cancel()
                 recognitionTask = nil
             }
-
+            
             //抓目前單字的相關字
             var relWordsFound = [String]()
             
@@ -2576,28 +2436,25 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         relWordsFound.append(r)
                     }
                 }
-                
-                
-                
-                
+
             }
             
             print(relWordsFound)
-
+            
             //開始辨識
-           
-
+            
+            
             do {
- 
+                
                 try audioSession.setCategory(AVAudioSessionCategoryRecord)
                 try audioSession.setMode(AVAudioSessionModeMeasurement)
                 try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
                 
-          
+                
                 if let inputNode = audioEngine.inputNode as AVAudioInputNode?{
                     
                     recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-
+                    
                     guard let recognitionRequest = recognitionRequest else {
                         fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
                     }
@@ -2608,7 +2465,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         
                         if let result = result {
-    
+                            
                             if let resultWord = result.bestTranscription.formattedString.lowercased() as String?{
                                 
                                 
@@ -2616,20 +2473,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 
                                 
                                 if relWordsFound.count != 0 {
-                                    print("not nil")
                                     if relWordsFound.contains(resultWord){
-                                        
-                                        
+      
                                         print(relWordsFound)
                                         self!.recogTextLabel.text = self!.wordToReceive
                                         
                                     } else {
                                         
-                                     self!.recogTextLabel.text = resultWord
+                                        self!.recogTextLabel.text = resultWord
                                     }
                                 } else {
                                     
-                                     self!.recogTextLabel.text = resultWord
+                                    self!.recogTextLabel.text = resultWord
                                     
                                 }
                                 
@@ -2637,8 +2492,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             
                             //對答案的部分要修掉標點符號
                             self!.wordRecorded = self!.recogTextLabel.text!.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
-                          
-    
+                            
+                            
                             if result.isFinal {
                                 
                                 self!.audioEngine.stop()
@@ -2648,9 +2503,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                 self!.recognitionRequest = nil
                                 self!.recognitionTask = nil
                                 
-                                //self!.recordBtn.setTitle("Start Recording", for: [])
-                                
-                                
+                 
                             }
                             
                         }
@@ -2658,34 +2511,34 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     })
                     
                     let recordingFormat = inputNode.outputFormat(forBus: 0)
-   
+                    
                     //先移除之前的
                     inputNode.removeTap(onBus: 0)
                     inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat, block: {[weak self] (buffer, when) in
                         
                         self!.recognitionRequest?.append(buffer)
-           
+                        
                     })
                     
                     audioEngine.prepare()
                     try audioEngine.start()
-                  
+                    
                     //開啟錄音
                     playSoundBtn.isEnabled = false
                 }
                 
-    
+                
             } catch {
                 
                 //Handle error
                 
             }
-    
+            
         }
         
     }
     
-
+    
     
     //假如沒有辦法錄音就要啟動認證
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
@@ -2703,46 +2556,46 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBAction func okBtnClicked(_ sender: Any) {
         
         //在此確認是否已過地圖的確認
-       
+        
         
         if user != nil {
-        
-        switch senRate{
             
-        case 0:
-            senRate = 0
-        case 1:
-            senRate = 33
-        case 2:
-            senRate = 66
-        case 3:
-            senRate = 100
-        default:
-            break
-        }
-        
-        switch proRate{
+            switch senRate{
+                
+            case 0:
+                senRate = 0
+            case 1:
+                senRate = 33
+            case 2:
+                senRate = 66
+            case 3:
+                senRate = 100
+            default:
+                break
+            }
             
-        case 0:
-            proRate = 0
-        case 1:
-            proRate = 33
-        case 2:
-            proRate = 66
-        case 3:
-            proRate = 100
-        default:
-            break
-        }
-        
-        
-        let updatePoints = Int(scoreLabel.text!)! - originalPoints
-        updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
-        
+            switch proRate{
+                
+            case 0:
+                proRate = 0
+            case 1:
+                proRate = 33
+            case 2:
+                proRate = 66
+            case 3:
+                proRate = 100
+            default:
+                break
+            }
+            
+            
+            let updatePoints = Int(scoreLabel.text!)! - originalPoints
+            updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
+            
             
             if isCelebratingClassPassed {
                 
-
+                
                 //dimiss掉兩個VCs
                 self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
                 
@@ -2769,12 +2622,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             performSegue(withIdentifier: "toRegisterVc", sender: self)
             
-
+            
             
         }
         
         
-
+        
         
         
     }
@@ -2783,7 +2636,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         
         
         if segue.identifier == "toRegisterVc" {
@@ -2809,9 +2662,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
     }
-
+    
     //檢查句子
-
+    
     //這裡的func 已經用不到了...
     
     func checkSentence(){
@@ -2915,7 +2768,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-
+        
         
         //計算分數
         var score = Int()
@@ -2923,14 +2776,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //卡一下顯示分數
         //之後可以改變分數高低不同的img顏色
- 
+        
         let pointImg = UIImageView()
         let pointLabel = UILabel()
-     
+        
         pointImg.frame = CGRect(x: recordBtn.frame.origin.x, y: recordBtn.frame.origin.y, width: recordBtn.frame.width, height: recordBtn.frame.height)
         pointImg.image = UIImage(named: "pointImg.png")
         self.view.addSubview(pointImg)
-       
+        
         pointLabel.frame = CGRect(x: 0, y: recordBtn.frame.height / 3.5, width: recordBtn.frame.width, height: 60)
         pointLabel.backgroundColor = .clear
         pointLabel.textColor = .white
@@ -2951,8 +2804,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
             
             pointImg.removeFromSuperview()
-
-//            self!.pointsIndicator?.stopAnimating()
+            
+            //            self!.pointsIndicator?.stopAnimating()
             
             //製作tags
             self!.sentenceTag = self!.sentence.components(separatedBy: " ")
@@ -2985,7 +2838,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 
             }
- 
+            
             
             //self!.tagView.addTags(self!.sentenceTag)
             
@@ -2999,7 +2852,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
             
             //給暫停使用的
-           // self!.isCountingTriggered = true
+            // self!.isCountingTriggered = true
             
             //隱藏輸入字
             self!.recogTextLabel.text = ""
@@ -3012,13 +2865,61 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //發音
             self!.pronounceTime = 1
-   
+            
             self!.synPronounce()
             
-
+            
         }
         
         
+    }
+    
+    
+    @IBAction func skipPronunceBtnClicked(_ sender: Any) {
+        
+        //停止
+        if audioEngine.isRunning {
+        
+        //避免再次快速按
+        recordBtn.isEnabled = false
+        
+        //wave 消失停止
+        audioView.isHidden = true
+        timer?.invalidate()
+        
+        //更改Btn圖示為待錄音
+        recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
+        
+        //停止動畫
+        recordingIndicator?.stopAnimating()
+        
+        
+        //停止辨識
+        
+        audioEngine.stop()
+        recognitionRequest?.endAudio()
+        recognitionTask?.cancel()
+        
+        playSoundBtn.isEnabled = true
+        }
+        
+        //辨識的字消失
+        recogTextLabel.text = ""
+        
+        //回復顏色
+        recogTextLabel.textColor = .white
+        
+        //隱藏Btn
+        recordBtn.isHidden = true
+        
+        
+        hintLabel.text = ""
+        
+        skipPronounceBtn.isHidden = true
+        
+        
+        let addScore:[String:Int] = ["addScore":0]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToSpell"), object: nil, userInfo: addScore)
     }
     
     
@@ -3035,11 +2936,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //正確暫時不改顏色
             proRate += 1
-
+            
         } else {
             
             hintLabel.text = "Oops！錯了喔!"
-       
+
+            
             //錯誤
             recordBtn.setImage(UIImage(named:"recordCross.png"), for: .normal)
             
@@ -3055,6 +2957,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
             
+            
             //辨識的字消失
             self!.recogTextLabel.text = ""
             
@@ -3062,18 +2965,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             self!.recogTextLabel.textColor = .white
             
             if self!.isRecogWordCorrect{
-                
-                
-                
+
                 //隱藏Btn
                 self!.recordBtn.isHidden = true
                 
                 //計分
                 var score = Int()
                 if self!.answerTime == 0 {
-                    
-                    
-                    
+
                     score = 200
                 } else if self!.answerTime == 1 {
                     
@@ -3082,7 +2981,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 }
                 
                 self!.hintLabel.text = ""
-            
+                
+                self!.skipPronounceBtn.isHidden = true
+                
                 let addScore:[String:Int] = ["addScore":score]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToSpell"), object: nil, userInfo: addScore)
                 
@@ -3094,17 +2995,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     //可以繼續練習
                     
                     self!.hintLabel.text = "再試一次"
-                
+                    
                     self!.answerTime += 1
                     
                     self!.recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
                     self!.recordBtn.isHidden = false
                     self!.recordBtn.isEnabled = true
-                
+                    
                 } else {
                     //失敗跳離畫面
                     self!.answerTime = 0
-                    
+                  
+                    self!.skipPronounceBtn.isHidden = true
                     
                     self!.hintLabel.text = ""
                     let addScore:[String:Int] = ["addScore":0]
@@ -3114,13 +3016,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 }
                 
             }
+            
+            
+            
+            self!.skipPronounceBtn.isEnabled = true
+
+            
         }
         
     }
     
     @objc func onlyPracticeSentence(_ notification: NSNotification){
-        print("接到nc")
-        
+
         //抓所有句子數量來做全部的亂數
         var totalNum = Int()
         
@@ -3131,7 +3038,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 totalNum += 1
             }
         }
-
+        
         
         //做亂數
         for _ in 0 ..< totalNum {
@@ -3156,22 +3063,22 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
             
         }
-
+        
         //print(randomSpots)
         //print(randomUnits)
         
         //抓到的順序為0
         if let wordSeq = notification.userInfo?["wordSequence"] as? Int {
-          
+            
             wordSequenceToReceive = String(wordSeq)
         }
         
         //做句子
         makeSentence()
-
+        
     }
     
-
+    
     //做句子, 傳送nc去發音
     func makeSentence(){
         
@@ -3181,18 +3088,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if gameMode == 2 {
             
             //只練習句子
-            print("1")
             
             //英文句子
             sentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!]]
             
             let halfCount = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]].count / 2
-              print("2")
-            
+
             //中文句子
             chiSentence = allSentenceSets[randomSpots[Int(wordSequenceToReceive)!]][randomUnits[Int(wordSequenceToReceive)!] + halfCount]
-              print("3")
-            
 
             
             //製作4個中文選項Btn
@@ -3200,21 +3103,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 btn.isHidden = false
             }
 
-              print("4")
             //抓好中英文句子答案
             sentenceLabel.text = sentence
             chiSentenceLabel.text = "請選出正確中文翻譯"
-            
-              print("5")
 
+            
             //準備做四個選項
             var senBtnTitles = ["","","",""]
-           
+            
             //抓一個正確的隨機置放位置, 放中文答案進去
             correctRandom = Int(arc4random_uniform(UInt32(4)))
             senBtnTitles[correctRandom] = chiSentence
-            
-              print("6")
+
             
             //填入數字
             allRandomSens = Array(repeating: [Int:Int](), count: 4)
@@ -3222,30 +3122,28 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //填入正確句子的數字
             allRandomSens[correctRandom] = [randomSpots[Int(wordSequenceToReceive)!]:randomUnits[Int(wordSequenceToReceive)!]]
             
-  print("7")
+
             //設定好正確的按鈕
             allBtns[correctRandom].addTarget(self, action: #selector(NewGameViewController.rightSenButtonClicked), for: .touchUpInside)
             allBtns[correctRandom].tag = correctRandom
-
-              print("8")
-
+            
+            
             //填滿其他的隨機數
             
             for i in 0 ..< 4 where i != correctRandom{
                 
                 //抓四個隨機數, 並且避開重複值
                 allRandomSens[i] = getRandom()
-                
-                
+
                 
                 for (s,u) in allRandomSens[i] {
-
+                    
                     //填入中文句子當作選項
                     senBtnTitles[i] = allSentenceSets[s][u + halfCount]
                     
-         
+                    
                 }
-
+                
                 //設定好其餘選項的tag
                 allBtns[i].tag = i
                 
@@ -3254,63 +3152,60 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
             
-              print("9")
             
- 
             //設定所有案件的中文內文
             for i in 0 ..< allBtns.count {
-         
-
+                
+                
                 allBtns[i].contentHorizontalAlignment = .left
                 
                 allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
                 
-              
-          
+                
+                
             }
-              print("10")
 
+            
             //避免再次產生hint
             isCheckingSentence = false
-            
-            //newMakeSentenceTest()
+
             
         } else{
             
             /*
-            //英文句子
-            sentence = sentenceSets[Int(wordSequenceToReceive)!]
-            let halfCount = sentenceSets.count / 2
-            chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
+             //英文句子
+             sentence = sentenceSets[Int(wordSequenceToReceive)!]
+             let halfCount = sentenceSets.count / 2
+             chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
+             
+             sentenceLabel.text = sentence
+             
+             //接著要辨認句子, 用此來讓delegate send NC給gameScene
+             
+             isCheckingSentence = true
+             chiSentenceLabel.text = chiSentence
+             
+             
+             //對答案用
+             wordToReceive = sentence
+             
+             //提供顯示用的答案, 包含標點符號及大小寫
+             completeWordsToShow = sentence
+             
+             //移除標點符號
+             wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
+             
+             //改成小寫
+             wordToReceive = wordToReceive.lowercased()
+             
+             //準備練習句子
+             //顯示按鈕, 顯示label
+             
+             //回復錄音輸入的單字或句子
+             wordRecorded = String()
+             */
             
-            sentenceLabel.text = sentence
-            
-            //接著要辨認句子, 用此來讓delegate send NC給gameScene
-            
-            isCheckingSentence = true
-            chiSentenceLabel.text = chiSentence
-            
-            
-            //對答案用
-            wordToReceive = sentence
-            
-            //提供顯示用的答案, 包含標點符號及大小寫
-            completeWordsToShow = sentence
-            
-            //移除標點符號
-            wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
-            
-            //改成小寫
-            wordToReceive = wordToReceive.lowercased()
-            
-            //準備練習句子
-            //顯示按鈕, 顯示label
-            
-            //回復錄音輸入的單字或句子
-            wordRecorded = String()
-            */
-            
-           // newMakeSentenceTest()
+            // newMakeSentenceTest()
             
             //只讀句子
             guidedSentence()
@@ -3318,8 +3213,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //句子發音
         synWord = sentence
-   
-
         synPronounce()
     }
     
@@ -3334,9 +3227,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //抓好中英文句子答案
         sentenceLabel.text = sentence
         chiSentenceLabel.text = chiSentence
-
+        
         isReadingGuidedSentence = true
-
+        
         
     }
     
@@ -3349,31 +3242,30 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     func newMakeSentenceTest(){
-       
+        
         circleOkBtn.isHidden = true
         
         synPronounce()
         
         print("正常製造句子的功能")
         //只練習句子
-
-        //英文句子
-        // sentence = sentenceSets[Int(wordSequenceToReceive)!]
-        let halfCount = sentenceSets.count / 2
-        //chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
         
+        //英文句子
 
+        let halfCount = sentenceSets.count / 2
+        
+        
         
         //製作4個中文選項Btn
         for btn in allBtns{
             btn.isHidden = false
         }
         
-
+        
         //抓好中英文句子答案
-    
-       chiSentenceLabel.text = "請選出正確中文翻譯"
-
+        
+        chiSentenceLabel.text = "請選出正確中文翻譯"
+        
         
         //準備做四個選項
         var senBtnTitles = ["","","",""]
@@ -3381,44 +3273,32 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //抓一個正確的隨機置放位置, 放中文答案進去
         correctRandom = Int(arc4random_uniform(UInt32(4)))
         senBtnTitles[correctRandom] = chiSentence
-
+        
         
         //填入數字
-   
-        //randomSens = Array(repeating: Int(), count: 4)
+        
         
         randomSens = [Int(),Int(),Int(),Int()]
         randomSens[correctRandom] = Int(wordSequenceToReceive)!
         print(randomSens)
         
-        /*
-        allRandomSens = Array(repeating: [Int:Int](), count: 4)
-        
-        //填入正確句子的數字
-        allRandomSens[correctRandom] = [randomSpots[Int(wordSequenceToReceive)!]:randomUnits[Int(wordSequenceToReceive)!]]
-        */
-        
-
-        
-        
+      
         //設定好正確的按鈕
         allBtns[correctRandom].addTarget(self, action: #selector(NewGameViewController.rightSenButtonClicked), for: .touchUpInside)
         allBtns[correctRandom].tag = correctRandom
         
-
+        
         
         //填滿其他的隨機數
         
-   
 
-        
         for i in 0 ..< 4 where i != correctRandom{
             
             randomSens[i] = getRan()
-           
+            
             senBtnTitles[i] = sentenceSets[randomSens[i] + halfCount]
             
-
+            
             
             //設定好其餘選項的tag
             allBtns[i].tag = i
@@ -3427,33 +3307,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             allBtns[i].addTarget(self, action: #selector(NewGameViewController.wrongSenButtonClicked), for: .touchUpInside)
             print(i)
         }
-        print("randomSens:\(randomSens)")
-        
-        /*
-        for i in 0 ..< 4 where i != correctRandom{
-            
-            //抓四個隨機數, 並且避開重複值
-            allRandomSens[i] = getRandom()
-            
-        
-            for (s,u) in allRandomSens[i] {
-                
-                //填入中文句子當作選項
-                senBtnTitles[i] = allSentenceSets[s][u + halfCount]
-                
-            }
 
-            
-            //設定好其餘選項的tag
-            allBtns[i].tag = i
-            
-            //加入到錯誤按鈕的button
-            allBtns[i].addTarget(self, action: #selector(NewGameViewController.wrongSenButtonClicked), for: .touchUpInside)
-            
-        }
-        */
-        print("9")
-        
         
         //設定所有案件的中文內文
         for i in 0 ..< allBtns.count {
@@ -3464,41 +3318,32 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
         }
-        
-        print("10")
+
         
         //避免再次產生hint
         isCheckingSentence = false
-
+        
         
         
     }
     
     @objc func rightSenButtonClicked(sender:UIButton){
-        print("correct")
-        
-        //做圈圈記號
-        /*
-        correctSign.frame = CGRect(x: allBtns[correctRandom].frame.midX - allBtns[correctRandom].frame.width / 10, y: allBtns[correctRandom].frame.minY - allBtns[correctRandom].frame.height * 0.1, width: allBtns[correctRandom].frame.height * 1.2, height: allBtns[correctRandom].frame.height * 1.2)
-        correctSign.image = UIImage(named:"rightCircle.png")
-        self.view.addSubview(correctSign)
-        self.view.bringSubview(toFront: correctSign)
-        */
 
+        
         //錯誤按鈕改圖片
         sender.setBackgroundImage(UIImage(named:"answerRightBtn.png"), for: .normal)
         
         //錯誤的隱藏
         for i in 0 ..< 4 where i != correctRandom{
-
-        allBtns[i].isHidden = true
+            
+            allBtns[i].isHidden = true
             
         }
         
         //所有按鍵都不要有反應
         for btn in allBtns{
             
-                btn.isUserInteractionEnabled = false
+            btn.isUserInteractionEnabled = false
             
         }
         
@@ -3507,14 +3352,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-
+    
     
     @objc func wrongSenButtonClicked(sender:UIButton) {
-        print("wrong")
-        
+
         
         if gameMode == 2 {
-        isReviewWrong = true
+            isReviewWrong = true
         }
         //錯誤按鈕改圖片
         sender.setBackgroundImage(UIImage(named:"wrongSenBlock.png"), for: .normal)
@@ -3557,7 +3401,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         switch type{
-         
+            
         case 0:
             bgImage = "reviewSenResultBg.png"
             title = "單字達成"
@@ -3568,24 +3412,24 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             unit = "句"
         default:
             break
-         
-
+            
+            
         }
         
         
         reviewWordBg.image = UIImage(named:bgImage)
         reviewAlertTitle2.text = title
         reviewAlertUnitLabel.text = unit
-
+        
         reviewAlertCountLabel.text = String(count)
-
+        
         wrongSign.isHidden = true
         reviewWordBg.isHidden = false
         reviewOkBtn.isHidden = false
-
+        
         ghostBtn.isHidden = false
         
-     
+        
     }
     
     
@@ -3596,22 +3440,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             timerCount += 1
         } else {
-            print("trigger jumpToTag")
+          
             btnTimer.invalidate()
             timerCount = 0
             
             //跳下一題
             
             if isReviewWrong{
-                
-        
-        
+
                 updateReviewSenCount(senCount: senCount, course: courseReceived)
                 
                 
             } else{
                 
-                  jumpToTagPractice()
+                jumpToTagPractice()
             }
             
         }
@@ -3619,7 +3461,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-
+    
     //進入選擇題
     func jumpToTagPractice(){
         
@@ -3627,7 +3469,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         wrongSign.removeFromSuperview()
         
         for btn in allBtns{
-           
+            
             btn.isUserInteractionEnabled = true
             btn.isHidden = true
             btn.setBackgroundImage(UIImage(named:"senBlock.png"), for: .normal)
@@ -3644,13 +3486,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //選擇題
     func makeTag(){
-        
-        
-        print("makeTag 製作句子")
-        
-
-        
-        
         //製作tags
         sentenceTag = sentence.components(separatedBy: " ")
         
@@ -3683,7 +3518,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             senFontSize -= 6
             
             
-            case 24...26:
+        case 24...26:
             print("字數24 - 26")
             
             senFontSize -= 8
@@ -3694,7 +3529,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         default:
             break
-   
+            
             
             
         }
@@ -3703,7 +3538,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         tagView.textFont = UIFont.boldSystemFont(ofSize: senFontSize)
-
+        
         
         
         for i in 0 ..< sentenceTag.count{
@@ -3712,12 +3547,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             tagView.addTag(sentenceTag[i] + " " + String(i))
             
         }
- 
-        
-        
-        
-        //tagView.addTags(sentenceTag)
-        
         
         
         //準備選擇題
@@ -3730,11 +3559,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
- 
+        
         
         //隱藏輸入字
-        
-        
+
         recogTextLabel.text = ""
         
         //做提示
@@ -3751,24 +3579,23 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //發音
         pronounceTime = 1
-
+        
         synPronounce()
         
     }
+    
+    
 
-    
-    
-    //取亂數不重複的func
     func getRandom() -> [Int:Int] {
         
         var selRan = [Int:Int]()
-      
+        
         let ranSpot = Int(arc4random_uniform(UInt32(randomSpots.count)))
-      
+        
         let ranUnit = Int(arc4random_uniform(UInt32(randomUnits.count)))
         selRan = [randomSpots[ranSpot]:randomUnits[ranUnit]]
         
-
+        
         //如果數字重複了就重來
         if allRandomSens.contains(selRan){
             
@@ -3777,15 +3604,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         return selRan
         
-        
-        
     }
-    
-    //新版的getRandom於下
+
     
     func getRan() ->Int{
-    
-    var selRan = Int()
+        
+        var selRan = Int()
         
         
         selRan = Int(arc4random_uniform(UInt32(sentenceSets.count / 2)))
@@ -3795,12 +3619,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             return getRan()
         }
-     
+        
         return selRan
     }
     
-
-
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -3812,8 +3636,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
         
         
-                 recogTextLabel.text = ""
-       
+        recogTextLabel.text = ""
+        
         tagView.isSelected = !tagView.isSelected
         
         //抓attrTitle
@@ -3835,10 +3659,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                 }
                 
-
+                
             } else {
                 
-                     attrTagsSelected.append(attr)
+                attrTagsSelected.append(attr)
             }
             
             
@@ -3855,7 +3679,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if attr != NSMutableAttributedString() {
                 
                 let attrWords = attr.mutableString.components(separatedBy: NSCharacterSet.decimalDigits)
-               
+                
                 sentenceShown += attrWords[0] + " "
                 
             }
@@ -3863,7 +3687,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
- 
+        
         //show出選擇的字
         recogTextLabel.text = sentenceShown
         
@@ -3872,13 +3696,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if answerEntered! == sentence{
             
-        //    isCountingTriggered = false
+            //    isCountingTriggered = false
             
             //跳轉下個字
             
             if gameMode == 0 {
-            //過關進入下個字
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
+                //過關進入下個字
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
                 
                 senRate += 1
                 
@@ -3907,7 +3731,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 }
                 
                 if Int(wordSequenceToReceive) == (randomSpotsCount - 1){
-                    print("結束練習")
+            
                     
                     //過關進入下個字, 在此功能在gameMode == 2為刪除倒數線
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
@@ -3921,40 +3745,29 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     
                 } else {
-                
-
+                    
+                    
                     //過關進入下個字, 在此功能在gameMode == 2為刪除倒數線
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
-                
-                //這裡包含了重新開始的所有功能, 另外建功能是要為了接收gameScene發出來的NC, 避免以上的再次send Nc到gameScene
-                
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
+                    
+                    //這裡包含了重新開始的所有功能, 另外建功能是要為了接收gameScene發出來的NC, 避免以上的再次send Nc到gameScene
+                    
                     game2RestartFunc()
-                
+                    
                 }
-         
+                
             }
             
-    
+            
         } else {
             
             print("not yet correct")
-    
+            
         }
-   
-    }
-
-    
-    //倒數結束立即停止快速複習
-    /*
-    @objc func stopReview(){
         
-        if gameMode == 1 {
-            reviewResult(type:0)
-        } else if gameMode == 2{
-        reviewResult(type:1)
-        }
     }
-    */
+    
+    
     
     @objc func stopReview(_ notification:NSNotification){
         
@@ -3966,8 +3779,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if let wordCount = notification.userInfo?["wordCount"] as? Int{
                 
                 //在此updateWordCount
-                
-                print(wordCount)
+        
                 updateReviewWordCount(wordCount: wordCount, course:courseReceived)
                 
                 
@@ -3979,22 +3791,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-            /* gameMode == 2 不會從NC過來, 直接在VC裡
-        else if gameMode == 2{
-            
-            if let senCount = notification.userInfo?["senCount"] as? Int{
-            
-            
-                print(senCount)
-            updateReviewSenCount(senCount: senCount, course:courseReceived)
+
         
-            
-            }
-            
-            
-        }
-        */
-  
     }
     
     
@@ -4045,7 +3843,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     var otherCountName2 = String()
                     var otherCountName3 = String()
                     var totalCount = Int()
-                
+                    
                     
                     switch course{
                         
@@ -4054,7 +3852,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         otherCountName = "wordReviewCount2"
                         otherCountName2 = "wordReviewCount3"
                         otherCountName3 = "wordReviewCount4"
-
+                        
                     case 1:
                         tempJsonName = "wordReviewCount2"
                         otherCountName = "wordReviewCount"
@@ -4092,11 +3890,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let otherCount = user?[otherCountName] as! String
                         let otherCount2 = user?[otherCountName2] as! String
                         let otherCount3 = user?[otherCountName3] as! String
-                    
+                        
                         totalCount = tempCount + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)!
-                        
-                        
-                        
+
                         
                     } else {
                         
@@ -4108,26 +3904,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let otherCount = user?["wordReviewCount2"] as! String
                         let otherCount2 = user?["wordReviewCount3"] as! String
                         let otherCount3 = user?["wordReviewCount4"] as! String
-
+                        
                         totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)!
-
+                        
                     }
                     
-         
+                    
                     DispatchQueue.main.async(execute: {
                         self!.reviewResult(type:0, count:totalCount)
                     })
                     
+                    
 
-                    
-                    
-                    //抓名次
-                    
-                    //             if let parseJsonDic = parseJSON as [NSDictionary]?{
-                    
-                    
-                    //       }
-                    
                 } catch{
                     
                     print("catch error")
@@ -4263,15 +4051,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     })
                     
                     
-                    
-                    
-                    //抓名次
-                    
-                    //             if let parseJsonDic = parseJSON as [NSDictionary]?{
-                    
-                    
-                    //       }
-                    
+
                 } catch{
                     
                     print("catch error")
@@ -4286,12 +4066,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-
+    
     
     //快速複習答對繼續
-   func game2RestartFunc(){
+    func game2RestartFunc(){
         let seq = Int(wordSequenceToReceive)
-    
+        
         //順序 + 1
         wordSequenceToReceive = String(seq! + 1)
         
@@ -4301,7 +4081,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             btn.removeTarget(nil, action: nil, for: .allEvents)
         }
         
-
+        
         
         allRandomSens.removeAll(keepingCapacity: false)
         
@@ -4316,7 +4096,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //製作句子
         makeSentence()
- 
+        
     }
     
     @objc func removeAll(){
@@ -4335,7 +4115,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
     }
-
+    
     //syn發音
     func synPronounce(){
         
@@ -4352,7 +4132,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             print("error")
         }
         
-
+        
         let string = synWord
         
         var rateFloat = Float()
@@ -4363,15 +4143,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if string.contains(" "){
             
             rateFloat = 0.4
-          //  print("唸句子")
-          //  print(synWord)
             
             //delay要做0, delegate才會發音結束準時告知
             utterance.postUtteranceDelay = 0
             
         } else {
-        //    print("唸單字")
-        //    print(synWord)
             rateFloat = 0.45
             utterance.postUtteranceDelay = 0
         }
@@ -4386,50 +4162,24 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         stopSpeech()
         synth.speak(utterance)
         
-        
-        /* 下方功能為兩次發音先不需要
-        //發音等待時間
-        let when = DispatchTime.now() + 2.7
-        
-        DispatchQueue.main.async {[weak self] in
-            
-            guard let strongSelf = self else{
-                return
-            }
-            //strongSelf.synth.stopSpeaking(at: .immediate)
-            strongSelf.synth.speak(utterance)
-
-            
-            if strongSelf.pronounceTime == 2 {
-                
-                DispatchQueue.main.asyncAfter(deadline: when, execute: {
-                    strongSelf.synth.speak(utterance2)
-
-                })
-                
-            }
-        }
-        
-        */
     }
-
     
-
+    
+    
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
-       
-        //print("**start")
+
         recordBtn.isEnabled = false
         
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
+        
 
-        print("**Finish")
-       
+        
         if isCheckingSentence{
-
+            
             
             print("trigger readyToReadSentence")
             //檢查句子前先發hint
@@ -4447,10 +4197,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if !synth.isSpeaking{
             recordBtn.isEnabled = true
-            print("really pause")
-       
+
+            
         } else {
-        
+            
             //避免delegate不成功...此function可能不需要暫時留著需要注意timer有沒有invalidate..
             print("not yet Paused")
             waitTimer.invalidate()
@@ -4482,17 +4232,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance){
-          print("**continue")
-          recordBtn.isEnabled = false
+        print("**continue")
+        recordBtn.isEnabled = false
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance){
-          print("**cancel")
+        print("**cancel")
         recordBtn.isEnabled = true
         
     }
-
+    
     //更新mapPassed
     
     func updateMapPassed(course:Int){
@@ -4518,9 +4268,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
             // no error
             
-
-            if error == nil {
             
+            if error == nil {
+                
                 
                 do {
                     let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
@@ -4528,19 +4278,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     guard let parseJSON = json else {
                         print("Error while parsing")
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-      
+                        
                         return
                     }
                     
                     //再次儲存使用者資訊
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-
+                    
                     print(user!)
                     print("mapPassed updated")
                     
                 } catch{
-              
+                    
                     print("catch error")
                     
                     
@@ -4550,7 +4300,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
         }).resume()
-
+        
         
         
     }
@@ -4622,11 +4372,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
         }).resume()
         
-
+        
         
     }
     
-
+    
     
     
     //新增最愛單字
@@ -4662,7 +4412,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         guard let parseJSON = json else {
                             print("Error while parsing")
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                                self?.isParseEnabled = true
+                            self?.isParseEnabled = true
                             return
                         }
                         
@@ -4675,15 +4425,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             
                         }
                         self?.isParseEnabled = true
-
+                        
                     } catch{
-                            self?.isParseEnabled = true
+                        self?.isParseEnabled = true
                         print("catch error")
                         
                         
                     }
                 } else {
-                        self?.isParseEnabled = true
+                    self?.isParseEnabled = true
                     print("urlsession has error")
                     
                 }
@@ -4726,7 +4476,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         guard let parseJSON = json else {
                             print("Error while parsing")
-                                self?.isParseEnabled = true
+                            self?.isParseEnabled = true
                             //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                             return
                         }
@@ -4740,17 +4490,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             self!.myWords = myWordsString.components(separatedBy: ";")
                             
                         }
-
-                            self?.isParseEnabled = true
+                        
+                        self?.isParseEnabled = true
                         
                     } catch{
                         
-                            self?.isParseEnabled = true
+                        self?.isParseEnabled = true
                         print("catch error")
                         
                     }
                 } else {
-                        self?.isParseEnabled = true
+                    self?.isParseEnabled = true
                     print("urlsession has error")
                     
                 }
@@ -4760,95 +4510,61 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     func updateScore(score:Int, wrongWordsCount:Int, proRate:Int, senRate:Int){
         
-  
-            let id = user?["id"] as! String
-            
-            // url to access our php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
-            
-            // request url
-            var request = URLRequest(url: url)
-            
-            // method to pass data POST - cause it is secured
-            request.httpMethod = "POST"
-            
-            // body gonna be appended to url
-            let body = "userID=\(id)&score=\(score)&wrongWordsCount=\(wrongWordsCount)&proRate=\(proRate)&senRate=\(senRate)"
-            
-            // append body to our request that gonna be sent
-            request.httpBody = body.data(using: .utf8)
-            
-            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-                // no error
-                if error == nil {
-                    
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        
-                        guard let parseJSON = json else {
-                            print("Error while parsing")
-                     
-                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                            return
-                        }
-                        
-                        print("updateScore")
-                        //再次儲存使用者資訊
-                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                        print(user!)
         
-                        
-                   
-                        
-                    } catch{
-              
-                        print("catch error")
-                        
-                    }
-                } else {
+        let id = user?["id"] as! String
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        // body gonna be appended to url
+        let body = "userID=\(id)&score=\(score)&wrongWordsCount=\(wrongWordsCount)&proRate=\(proRate)&senRate=\(senRate)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
                 
-                    print("urlsession has error")
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    print("updateScore")
+                    //再次儲存使用者資訊
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    print(user!)
+                    
+                    
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
                     
                 }
-            }).resume()
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
         
     }
     
-    /*
-    func playSound() {
-        guard let url = Bundle.main.url(forResource: sentenceToPronounce, withExtension: "mp3") else { return }
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-            
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            
-            /* iOS 10 and earlier require the following line:
-             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-            
-            guard let player = player else { return }
-            
-            player.play()
-            
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-*/
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 

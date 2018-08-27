@@ -89,14 +89,16 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             newDif = 1.35
             dif = 8
-     cellDif = 1.2
+  
+            cellDif = 1.2
                  xDif = 50
             iPadSmall = 0
             
         case 736:
             newDif = 1.1
             dif = 0
-  cellDif = 1.1
+  
+            cellDif = 1.1
                  xDif = 0
             iPadSmall = 0
             
@@ -104,7 +106,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             newDif = 1
             dif = 0
-    cellDif = 1
+   
+            cellDif = 1
                  xDif = 0
             iPadSmall = 0
             
@@ -118,7 +121,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
        
         default:
             dif = 0
-  cellDif = 0.9
+  
+            cellDif = 0.9
                  xDif = 0
             iPadSmall = 7
             newDif = 0.9

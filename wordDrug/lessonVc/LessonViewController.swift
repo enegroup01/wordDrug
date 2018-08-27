@@ -363,20 +363,17 @@ class LessonViewController: UIViewController{
         print(self!.gamePassedDic)
         */
         
-        if gamePassedDic == [0:0] && mapNumToReceive >= mapPassedInt{
+        //這裡沒有大於的可能性
+        if gamePassedDic == [0:0] && mapNumToReceive == mapPassedInt{
             
             print("不能練習句子")
             cannotPracticeAlert()
-            
             
         } else {
             
             performSegue(withIdentifier: "toGameVc", sender: self)
         }
-        
-        
-      
-        
+
     }
     
     @objc func practiceWord(){
@@ -397,8 +394,8 @@ class LessonViewController: UIViewController{
                 self?.practiceSenBtn.isEnabled = false
                 self?.practiceWordBtn.isEnabled = false
                 
-                
-                if self!.gamePassedDic == [0:0] && self!.mapNumToReceive >= self!.mapPassedInt{
+                //這裡沒有大於的可能性
+                if self!.gamePassedDic == [0:0] && self!.mapNumToReceive == self!.mapPassedInt{
                     
                     print("不能練習單字")
                     self!.cannotPracticeAlert()

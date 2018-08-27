@@ -10,10 +10,7 @@ import UIKit
 import TwicketSegmentedControl
 import Speech
 
-
-
 class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, AVSpeechSynthesizerDelegate{
-    
     
     //所有音節
     var syllableSets = [String]()

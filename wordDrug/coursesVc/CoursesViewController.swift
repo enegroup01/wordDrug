@@ -9,9 +9,6 @@
 import UIKit
 
 class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate{
-
-    
-
     @IBOutlet weak var block0LBtn: UIButton!
     
     @IBOutlet weak var block0RBtn: UIButton!
@@ -72,6 +69,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBOutlet weak var courseTableView: UITableView!
     
     @IBOutlet weak var toLoginVcBtn: UIButton!
+    var dynamicCellHeight:CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +96,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             iPadDif = 1
           
             btnDif = 1
+            dynamicCellHeight = 120
 
             
         case 736:
@@ -109,6 +108,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             iPadDif = 1
        
             btnDif = 1
+            dynamicCellHeight = 120
 
             
         case 667:
@@ -119,6 +119,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dif = 1
             iPadDif = 1
             btnDif = 0.95
+            dynamicCellHeight = 110
           
             
         case 568:
@@ -129,6 +130,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
           
             btnDif = 0.8
          
+            dynamicCellHeight = 90
             
         default:
             iPadFix = 0.8
@@ -138,7 +140,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
 
             btnDif = 1
    
-            
+            dynamicCellHeight = 110
         }
         
      
@@ -202,30 +204,27 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         hiddenShopBtn.frame = toShopLabel.frame
         hiddenShopBtn.addTarget(self, action: #selector(CoursesViewController.toShopVcBtnClicked(_:)), for: .touchUpInside)
         self.view.addSubview(hiddenShopBtn)
-        
-        
-        
-        logOutBtn.frame = CGRect(x: width / 18, y: height / 24, width: 30 * dif * iPadDif, height: 21 * dif * iPadDif)
-        
+
+        logOutBtn.frame = CGRect(x: (width / 18) * 15, y: height / 24, width: 50 * dif * iPadDif, height: 22 * dif * iPadDif)
+        logOutBtn.layer.cornerRadius = logOutBtn.frame.width / 15
+        logOutBtn.backgroundColor = #colorLiteral(red: 0.9389395118, green: 0.3498239517, blue: 0.1933075488, alpha: 1)
       
-        toLoginVcBtn.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.minY, width: 63 * dif * iPadDif, height: 24 * dif * iPadDif)
+        toLoginVcBtn.frame = CGRect(x: width / 18, y: logOutBtn.frame.minY, width: 63 * dif * iPadDif, height: 24 * dif * iPadDif)
 
         
         
         // Do any additional setup after loading the view.
         
-        bigNameLabel.frame = CGRect(x: logOutBtn.frame.minX, y: logOutBtn.frame.maxY * 1.5 * titleDif * titleDif, width:  190 * iPadFix, height: 42 * iPadFix)
+        bigNameLabel.frame = CGRect(x: width / 18, y: logOutBtn.frame.maxY * 1.5 * titleDif * titleDif, width:  190 * iPadFix, height: 42 * iPadFix)
 
 
         bigNameLabel.adjustsFontSizeToFitWidth = true
         userStatusLabel.frame = CGRect(x: bigNameLabel.frame.minX, y: bigNameLabel.frame.maxY, width: 190 * iPadFix, height: 55 * iPadFix)
      
-        dayTitleLabel.frame = CGRect(x: 240, y: bigNameLabel.frame.midY - 3, width: 160 * iPadFix, height: 25 * iPadFix)
-     
-        daysLabel.frame = CGRect(x: 245, y: dayTitleLabel.frame.maxY, width: 160 * iPadFix, height: 55 * iPadFix)
-    
-        daysLabel.adjustsFontSizeToFitWidth = true
+        dayTitleLabel.frame = CGRect(x: bigNameLabel.frame.maxX + 3, y: bigNameLabel.frame.midY - 3, width: width - bigNameLabel.frame.width - 30, height: 25 * iPadFix)
         
+        daysLabel.frame = CGRect(x: bigNameLabel.frame.maxX + 3, y: dayTitleLabel.frame.maxY, width: width - bigNameLabel.frame.width - 30, height: 55 * iPadFix)
+
         //設定tableview高度
         courseTableView.backgroundColor = .clear
         courseTableView.frame = CGRect(x: 0, y: daysLabel.frame.maxY + 2, width: width, height: height - daysLabel.frame.maxY - 2 - bottomBg.frame.height)
@@ -245,7 +244,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         
         dayTitleLabel.text = "學習天數"
         daysLabel.text = ""
-        
+        daysLabel.adjustsFontSizeToFitWidth = true
         //稍稍靠右邊
         logoImg.center = CGPoint(x: width / 2 + 5, y: height / 8)
         logoImg.frame.size = CGSize(width: 135 * dif * iPadFix, height: 131 * dif * iPadFix)
@@ -384,6 +383,12 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        
+        
+        return dynamicCellHeight
+    }
     
     func didTapEnterClass(indexPath: IndexPath) {
         print("enter class: \(indexPath.row)")

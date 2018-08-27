@@ -25,6 +25,11 @@ class CourseTableViewCell: UITableViewCell {
     @IBOutlet weak var courseTitleImg: UIImageView!
     @IBOutlet weak var wordCountOutlet: UILabel!
     @IBOutlet weak var enterBookBtnOutlet: UIButton!
+
+    
+    //layOut
+    let height = UIScreen.main.bounds.height
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,8 +40,45 @@ class CourseTableViewCell: UITableViewCell {
         enterBookBtnOutlet.layer.cornerRadius = enterBookBtnOutlet.frame.width / 20
         enterClassBtnOutlet.layer.cornerRadius = enterClassBtnOutlet.frame.width / 20
         
+        var fontSize: CGFloat!
+        var frameSize: CGFloat!
+        var dynamicHeight: CGFloat!
         
+        switch height {
+            
+        case 812:
+dynamicHeight = 120
+            fontSize = 55
+            frameSize = 80
+            
+        case 736:
+dynamicHeight = 120
+              fontSize = 55
+            
+            frameSize = 80
+        case 667:
+            
+  dynamicHeight = 110
+            fontSize = 50
+            frameSize = 75
+            
+        case 568:
+dynamicHeight = 90
+              fontSize = 36
+            frameSize = 60
+        default:
+ 
+            dynamicHeight = 110
+            fontSize = 55
+            frameSize = 60
+            
+
+        }
+        courseTitleImg.frame = CGRect(x: 15, y: (dynamicHeight - frameSize) / 2, width: frameSize, height: frameSize)
+        wordCountOutlet.font = wordCountOutlet.font.withSize(fontSize)
+
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

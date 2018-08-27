@@ -226,7 +226,6 @@
 		AA98CE3F212C4F1C006F325F /* 14-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCAA212C4EA6006F325F /* 14-8.txt */; };
 		AA98CE40212C4F1C006F325F /* 21-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCAB212C4EA7006F325F /* 21-14.txt */; };
 		AA98CE41212C4F1C006F325F /* 3-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCAC212C4EA7006F325F /* 3-10.txt */; };
-		AA98CE42212C4F1C006F325F /* 22-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCAD212C4EA7006F325F /* 22-14.txt */; };
 		AA98CE43212C4F1C006F325F /* 14-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCAE212C4EA7006F325F /* 14-9.txt */; };
 		AA98CE44212C4F1C006F325F /* 17-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCAF212C4EA8006F325F /* 17-12.txt */; };
 		AA98CE45212C4F1C006F325F /* 9-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCB0212C4EA8006F325F /* 9-10.txt */; };
@@ -305,12 +304,11 @@
 		AA98CE8E212C4F1C006F325F /* 27-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCF9212C4EC0006F325F /* 27-1.txt */; };
 		AA98CE8F212C4F1C006F325F /* 6-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCFA212C4EC1006F325F /* 6-8.txt */; };
 		AA98CE90212C4F1C006F325F /* 19-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCFB212C4EC1006F325F /* 19-15.txt */; };
-		AA98CE91212C4F1C006F325F /* 19-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCFC212C4EC2006F325F /* 19-1.txt */; };
+		AA98CE91212C4F1C006F325F /* 19-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCFC212C4EC2006F325F /* 19-4.txt */; };
 		AA98CE92212C4F1C006F325F /* 22-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCFD212C4EC2006F325F /* 22-1.txt */; };
 		AA98CE93212C4F1C006F325F /* 12-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCFE212C4EC3006F325F /* 12-3.txt */; };
 		AA98CE94212C4F1C006F325F /* 27-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CCFF212C4EC4006F325F /* 27-2.txt */; };
 		AA98CE95212C4F1C006F325F /* 17-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD00212C4EC4006F325F /* 17-14.txt */; };
-		AA98CE96212C4F1C006F325F /* 20-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD01212C4EC5006F325F /* 20-6.txt */; };
 		AA98CE97212C4F1C006F325F /* 11-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD02212C4EC5006F325F /* 11-8.txt */; };
 		AA98CE98212C4F1C006F325F /* 17-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD03212C4EC6006F325F /* 17-8.txt */; };
 		AA98CE99212C4F1C006F325F /* 24-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD04212C4EC6006F325F /* 24-3.txt */; };
@@ -344,7 +342,6 @@
 		AA98CEB5212C4F1C006F325F /* 1-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD20212C4ED0006F325F /* 1-12.txt */; };
 		AA98CEB6212C4F1C006F325F /* 21-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD21212C4ED0006F325F /* 21-9.txt */; };
 		AA98CEB7212C4F1C006F325F /* 10-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD22212C4ED0006F325F /* 10-7.txt */; };
-		AA98CEB8212C4F1C006F325F /* 21-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD23212C4ED1006F325F /* 21-2.txt */; };
 		AA98CEB9212C4F1C006F325F /* 15-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD24212C4ED1006F325F /* 15-7.txt */; };
 		AA98CEBA212C4F1C006F325F /* 13-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD25212C4ED1006F325F /* 13-7.txt */; };
 		AA98CEBB212C4F1C006F325F /* 25-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CD26212C4ED1006F325F /* 25-4.txt */; };
@@ -551,7 +548,7 @@
 		AA98CF84212C4F1C006F325F /* 7-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDEF212C4F1A006F325F /* 7-11.txt */; };
 		AA98CF85212C4F1C006F325F /* 13-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDF0212C4F1A006F325F /* 13-15.txt */; };
 		AA98CF86212C4F1C006F325F /* 18-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDF1212C4F1A006F325F /* 18-1.txt */; };
-		AA98CF87212C4F1C006F325F /* 19-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDF2212C4F1B006F325F /* 19-4.txt */; };
+		AA98CF87212C4F1C006F325F /* 19-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDF2212C4F1B006F325F /* 19-1.txt */; };
 		AA98CF88212C4F1C006F325F /* 10-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDF3212C4F1B006F325F /* 10-12.txt */; };
 		AA98CF89212C4F1C006F325F /* 27-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDF4212C4F1B006F325F /* 27-6.txt */; };
 		AA98CF8A212C4F1C006F325F /* 14-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CDF5212C4F1B006F325F /* 14-1.txt */; };
@@ -563,7 +560,7 @@
 		AA98D125212C4FE0006F325F /* s8-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF90212C4F55006F325F /* s8-14.txt */; };
 		AA98D126212C4FE0006F325F /* s3-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF91212C4F55006F325F /* s3-4.txt */; };
 		AA98D127212C4FE0006F325F /* s4-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF92212C4F55006F325F /* s4-5.txt */; };
-		AA98D128212C4FE0006F325F /* s19-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF93212C4F56006F325F /* s19-4.txt */; };
+		AA98D128212C4FE0006F325F /* s19-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF93212C4F56006F325F /* s19-1.txt */; };
 		AA98D129212C4FE0006F325F /* s3-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF94212C4F56006F325F /* s3-1.txt */; };
 		AA98D12A212C4FE0006F325F /* s24-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF95212C4F56006F325F /* s24-13.txt */; };
 		AA98D12B212C4FE0006F325F /* s20-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CF96212C4F56006F325F /* s20-15.txt */; };
@@ -613,7 +610,6 @@
 		AA98D157212C4FE0006F325F /* s2-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFC2212C4F63006F325F /* s2-3.txt */; };
 		AA98D158212C4FE0006F325F /* s7-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFC3212C4F63006F325F /* s7-11.txt */; };
 		AA98D159212C4FE0006F325F /* s14-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFC4212C4F63006F325F /* s14-3.txt */; };
-		AA98D15A212C4FE0006F325F /* s25-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFC5212C4F63006F325F /* s25-6.txt */; };
 		AA98D15B212C4FE0006F325F /* s12-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFC6212C4F64006F325F /* s12-6.txt */; };
 		AA98D15C212C4FE0006F325F /* s23-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFC7212C4F64006F325F /* s23-10.txt */; };
 		AA98D15D212C4FE0006F325F /* s11-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFC8212C4F64006F325F /* s11-10.txt */; };
@@ -665,7 +661,6 @@
 		AA98D18B212C4FE0006F325F /* s8-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFF6212C4F71006F325F /* s8-6.txt */; };
 		AA98D18C212C4FE0006F325F /* s18-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFF7212C4F71006F325F /* s18-3.txt */; };
 		AA98D18D212C4FE0006F325F /* s5-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFF8212C4F72006F325F /* s5-2.txt */; };
-		AA98D18E212C4FE0006F325F /* s26-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFF9212C4F72006F325F /* s26-7.txt */; };
 		AA98D18F212C4FE0006F325F /* s2-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFFA212C4F72006F325F /* s2-11.txt */; };
 		AA98D190212C4FE0006F325F /* s10-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFFB212C4F73006F325F /* s10-7.txt */; };
 		AA98D191212C4FE0006F325F /* s2-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CFFC212C4F73006F325F /* s2-7.txt */; };
@@ -687,7 +682,7 @@
 		AA98D1A1212C4FE0006F325F /* s21-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D00C212C4F78006F325F /* s21-6.txt */; };
 		AA98D1A2212C4FE0006F325F /* s2-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D00D212C4F78006F325F /* s2-13.txt */; };
 		AA98D1A3212C4FE0006F325F /* s14-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D00E212C4F78006F325F /* s14-1.txt */; };
-		AA98D1A4212C4FE0006F325F /* s19-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D00F212C4F78006F325F /* s19-1.txt */; };
+		AA98D1A4212C4FE0006F325F /* s19-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D00F212C4F78006F325F /* s19-4.txt */; };
 		AA98D1A5212C4FE0006F325F /* s13-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D010212C4F79006F325F /* s13-7.txt */; };
 		AA98D1A6212C4FE0006F325F /* s20-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D011212C4F79006F325F /* s20-1.txt */; };
 		AA98D1A7212C4FE0006F325F /* s22-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D012212C4F79006F325F /* s22-3.txt */; };
@@ -789,12 +784,10 @@
 		AA98D207212C4FE1006F325F /* s27-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D072212C4F99006F325F /* s27-9.txt */; };
 		AA98D208212C4FE1006F325F /* s12-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D073212C4F9A006F325F /* s12-9.txt */; };
 		AA98D209212C4FE1006F325F /* s10-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D074212C4F9A006F325F /* s10-11.txt */; };
-		AA98D20A212C4FE1006F325F /* s22-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D075212C4F9A006F325F /* s22-14.txt */; };
 		AA98D20B212C4FE1006F325F /* s22-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D076212C4F9B006F325F /* s22-4.txt */; };
 		AA98D20C212C4FE1006F325F /* s24-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D077212C4F9C006F325F /* s24-10.txt */; };
 		AA98D20D212C4FE1006F325F /* s8-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D078212C4F9C006F325F /* s8-2.txt */; };
 		AA98D20E212C4FE1006F325F /* s3-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D079212C4F9D006F325F /* s3-5.txt */; };
-		AA98D20F212C4FE1006F325F /* s17-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D07A212C4F9E006F325F /* s17-4.txt */; };
 		AA98D210212C4FE1006F325F /* s1-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D07B212C4F9F006F325F /* s1-15.txt */; };
 		AA98D211212C4FE1006F325F /* s27-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D07C212C4FA1006F325F /* s27-4.txt */; };
 		AA98D212212C4FE1006F325F /* s15-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D07D212C4FA2006F325F /* s15-1.txt */; };
@@ -804,7 +797,6 @@
 		AA98D216212C4FE1006F325F /* s16-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D081212C4FA6006F325F /* s16-14.txt */; };
 		AA98D217212C4FE1006F325F /* s2-15.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D082212C4FA7006F325F /* s2-15.txt */; };
 		AA98D218212C4FE1006F325F /* s15-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D083212C4FA7006F325F /* s15-3.txt */; };
-		AA98D219212C4FE1006F325F /* s25-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D084212C4FA8006F325F /* s25-11.txt */; };
 		AA98D21A212C4FE1006F325F /* s21-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D085212C4FA8006F325F /* s21-7.txt */; };
 		AA98D21B212C4FE1006F325F /* s15-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D086212C4FA9006F325F /* s15-6.txt */; };
 		AA98D21C212C4FE1006F325F /* s4-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D087212C4FAA006F325F /* s4-11.txt */; };
@@ -842,7 +834,6 @@
 		AA98D23C212C4FE1006F325F /* s4-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D0A7212C4FB6006F325F /* s4-7.txt */; };
 		AA98D23D212C4FE1006F325F /* s3-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D0A8212C4FB6006F325F /* s3-10.txt */; };
 		AA98D23E212C4FE1006F325F /* s13-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D0A9212C4FB7006F325F /* s13-1.txt */; };
-		AA98D23F212C4FE1006F325F /* s2-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D0AA212C4FB7006F325F /* s2-1.txt */; };
 		AA98D240212C4FE1006F325F /* s15-12.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D0AB212C4FB7006F325F /* s15-12.txt */; };
 		AA98D241212C4FE1006F325F /* s17-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D0AC212C4FB8006F325F /* s17-10.txt */; };
 		AA98D242212C4FE1006F325F /* s16-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D0AD212C4FB8006F325F /* s16-8.txt */; };
@@ -954,7 +945,6 @@
 		AA98D2AC212C4FE1006F325F /* s8-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D117212C4FDA006F325F /* s8-8.txt */; };
 		AA98D2AD212C4FE1006F325F /* s6-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D118212C4FDB006F325F /* s6-13.txt */; };
 		AA98D2AE212C4FE1006F325F /* s12-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D119212C4FDC006F325F /* s12-1.txt */; };
-		AA98D2AF212C4FE1006F325F /* s10-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D11A212C4FDC006F325F /* s10-2.txt */; };
 		AA98D2B0212C4FE1006F325F /* s6-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D11B212C4FDD006F325F /* s6-8.txt */; };
 		AA98D2B1212C4FE1006F325F /* s19-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D11C212C4FDD006F325F /* s19-11.txt */; };
 		AA98D2B2212C4FE1006F325F /* s4-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98D11D212C4FDE006F325F /* s4-2.txt */; };
@@ -968,12 +958,23 @@
 		AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC122088FB4F003A61E9 /* lessonProgress.png */; };
 		AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC142088FB58003A61E9 /* lessonFullLength.png */; };
 		AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA0E10420987FF5007148EB /* wrongSenBlock.png */; };
+		AAA742C1212D94F800963937 /* s26-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA742BA212D94F400963937 /* s26-7.txt */; };
+		AAA742C2212D94F800963937 /* s25-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA742BB212D94F500963937 /* s25-11.txt */; };
+		AAA742C3212D94F800963937 /* 21-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA742BC212D94F500963937 /* 21-2.txt */; };
+		AAA742C4212D94F800963937 /* 20-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA742BD212D94F600963937 /* 20-6.txt */; };
+		AAA742C5212D94F800963937 /* s22-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA742BE212D94F700963937 /* s22-14.txt */; };
+		AAA742C7212D94F800963937 /* 22-14.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA742C0212D94F800963937 /* 22-14.txt */; };
 		AAAE4EA3207C942A00C4A8EB /* recordingBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA1207C942900C4A8EB /* recordingBtn.png */; };
 		AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */; };
 		AAB30D2D20E20A3700D4EE4A /* toLoginVcBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */; };
 		AAB30D3120E2138600D4EE4A /* registerLaterBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */; };
 		AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */; };
 		AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */; };
+		AAC6A6AD21339EC3005EAC9D /* s10-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC6A6AC21339EC3005EAC9D /* s10-2.txt */; };
+		AAC6A6AF21339ECF005EAC9D /* s25-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC6A6AE21339ECF005EAC9D /* s25-6.txt */; };
+		AAC6A6B121339F18005EAC9D /* s2-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC6A6B021339F18005EAC9D /* s2-1.txt */; };
+		AAC6A6B72133CB60005EAC9D /* skipTagTest.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC6A6B62133CB5F005EAC9D /* skipTagTest.png */; };
+		AAC6A6B92133CE45005EAC9D /* s17-4.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC6A6B82133CE45005EAC9D /* s17-4.txt */; };
 		AAD62F3520BFC678001D6275 /* gradeChiBtnRight.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3320BFC677001D6275 /* gradeChiBtnRight.png */; };
 		AAD62F3620BFC678001D6275 /* gradeChiBtnLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3420BFC678001D6275 /* gradeChiBtnLeft.png */; };
 		AAD62F3C20C02425001D6275 /* testResult.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD62F3B20C02424001D6275 /* testResult.png */; };
@@ -1217,7 +1218,6 @@
 		AA98CCAA212C4EA6006F325F /* 14-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "14-8.txt"; sourceTree = "<group>"; };
 		AA98CCAB212C4EA7006F325F /* 21-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "21-14.txt"; sourceTree = "<group>"; };
 		AA98CCAC212C4EA7006F325F /* 3-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "3-10.txt"; sourceTree = "<group>"; };
-		AA98CCAD212C4EA7006F325F /* 22-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "22-14.txt"; sourceTree = "<group>"; };
 		AA98CCAE212C4EA7006F325F /* 14-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "14-9.txt"; sourceTree = "<group>"; };
 		AA98CCAF212C4EA8006F325F /* 17-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "17-12.txt"; sourceTree = "<group>"; };
 		AA98CCB0212C4EA8006F325F /* 9-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "9-10.txt"; sourceTree = "<group>"; };
@@ -1296,12 +1296,11 @@
 		AA98CCF9212C4EC0006F325F /* 27-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "27-1.txt"; sourceTree = "<group>"; };
 		AA98CCFA212C4EC1006F325F /* 6-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "6-8.txt"; sourceTree = "<group>"; };
 		AA98CCFB212C4EC1006F325F /* 19-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "19-15.txt"; sourceTree = "<group>"; };
-		AA98CCFC212C4EC2006F325F /* 19-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "19-1.txt"; sourceTree = "<group>"; };
+		AA98CCFC212C4EC2006F325F /* 19-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "19-4.txt"; sourceTree = "<group>"; };
 		AA98CCFD212C4EC2006F325F /* 22-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "22-1.txt"; sourceTree = "<group>"; };
 		AA98CCFE212C4EC3006F325F /* 12-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "12-3.txt"; sourceTree = "<group>"; };
 		AA98CCFF212C4EC4006F325F /* 27-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "27-2.txt"; sourceTree = "<group>"; };
 		AA98CD00212C4EC4006F325F /* 17-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "17-14.txt"; sourceTree = "<group>"; };
-		AA98CD01212C4EC5006F325F /* 20-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "20-6.txt"; sourceTree = "<group>"; };
 		AA98CD02212C4EC5006F325F /* 11-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "11-8.txt"; sourceTree = "<group>"; };
 		AA98CD03212C4EC6006F325F /* 17-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "17-8.txt"; sourceTree = "<group>"; };
 		AA98CD04212C4EC6006F325F /* 24-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "24-3.txt"; sourceTree = "<group>"; };
@@ -1335,7 +1334,6 @@
 		AA98CD20212C4ED0006F325F /* 1-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "1-12.txt"; sourceTree = "<group>"; };
 		AA98CD21212C4ED0006F325F /* 21-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "21-9.txt"; sourceTree = "<group>"; };
 		AA98CD22212C4ED0006F325F /* 10-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-7.txt"; sourceTree = "<group>"; };
-		AA98CD23212C4ED1006F325F /* 21-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "21-2.txt"; sourceTree = "<group>"; };
 		AA98CD24212C4ED1006F325F /* 15-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "15-7.txt"; sourceTree = "<group>"; };
 		AA98CD25212C4ED1006F325F /* 13-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "13-7.txt"; sourceTree = "<group>"; };
 		AA98CD26212C4ED1006F325F /* 25-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "25-4.txt"; sourceTree = "<group>"; };
@@ -1542,7 +1540,7 @@
 		AA98CDEF212C4F1A006F325F /* 7-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "7-11.txt"; sourceTree = "<group>"; };
 		AA98CDF0212C4F1A006F325F /* 13-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "13-15.txt"; sourceTree = "<group>"; };
 		AA98CDF1212C4F1A006F325F /* 18-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "18-1.txt"; sourceTree = "<group>"; };
-		AA98CDF2212C4F1B006F325F /* 19-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "19-4.txt"; sourceTree = "<group>"; };
+		AA98CDF2212C4F1B006F325F /* 19-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "19-1.txt"; sourceTree = "<group>"; };
 		AA98CDF3212C4F1B006F325F /* 10-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "10-12.txt"; sourceTree = "<group>"; };
 		AA98CDF4212C4F1B006F325F /* 27-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "27-6.txt"; sourceTree = "<group>"; };
 		AA98CDF5212C4F1B006F325F /* 14-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "14-1.txt"; sourceTree = "<group>"; };
@@ -1554,7 +1552,7 @@
 		AA98CF90212C4F55006F325F /* s8-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s8-14.txt"; sourceTree = "<group>"; };
 		AA98CF91212C4F55006F325F /* s3-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s3-4.txt"; sourceTree = "<group>"; };
 		AA98CF92212C4F55006F325F /* s4-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s4-5.txt"; sourceTree = "<group>"; };
-		AA98CF93212C4F56006F325F /* s19-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s19-4.txt"; sourceTree = "<group>"; };
+		AA98CF93212C4F56006F325F /* s19-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s19-1.txt"; sourceTree = "<group>"; };
 		AA98CF94212C4F56006F325F /* s3-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s3-1.txt"; sourceTree = "<group>"; };
 		AA98CF95212C4F56006F325F /* s24-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s24-13.txt"; sourceTree = "<group>"; };
 		AA98CF96212C4F56006F325F /* s20-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s20-15.txt"; sourceTree = "<group>"; };
@@ -1604,7 +1602,6 @@
 		AA98CFC2212C4F63006F325F /* s2-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-3.txt"; sourceTree = "<group>"; };
 		AA98CFC3212C4F63006F325F /* s7-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s7-11.txt"; sourceTree = "<group>"; };
 		AA98CFC4212C4F63006F325F /* s14-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s14-3.txt"; sourceTree = "<group>"; };
-		AA98CFC5212C4F63006F325F /* s25-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s25-6.txt"; sourceTree = "<group>"; };
 		AA98CFC6212C4F64006F325F /* s12-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-6.txt"; sourceTree = "<group>"; };
 		AA98CFC7212C4F64006F325F /* s23-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s23-10.txt"; sourceTree = "<group>"; };
 		AA98CFC8212C4F64006F325F /* s11-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s11-10.txt"; sourceTree = "<group>"; };
@@ -1656,7 +1653,6 @@
 		AA98CFF6212C4F71006F325F /* s8-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s8-6.txt"; sourceTree = "<group>"; };
 		AA98CFF7212C4F71006F325F /* s18-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s18-3.txt"; sourceTree = "<group>"; };
 		AA98CFF8212C4F72006F325F /* s5-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-2.txt"; sourceTree = "<group>"; };
-		AA98CFF9212C4F72006F325F /* s26-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s26-7.txt"; sourceTree = "<group>"; };
 		AA98CFFA212C4F72006F325F /* s2-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-11.txt"; sourceTree = "<group>"; };
 		AA98CFFB212C4F73006F325F /* s10-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-7.txt"; sourceTree = "<group>"; };
 		AA98CFFC212C4F73006F325F /* s2-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-7.txt"; sourceTree = "<group>"; };
@@ -1678,7 +1674,7 @@
 		AA98D00C212C4F78006F325F /* s21-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s21-6.txt"; sourceTree = "<group>"; };
 		AA98D00D212C4F78006F325F /* s2-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-13.txt"; sourceTree = "<group>"; };
 		AA98D00E212C4F78006F325F /* s14-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s14-1.txt"; sourceTree = "<group>"; };
-		AA98D00F212C4F78006F325F /* s19-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s19-1.txt"; sourceTree = "<group>"; };
+		AA98D00F212C4F78006F325F /* s19-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s19-4.txt"; sourceTree = "<group>"; };
 		AA98D010212C4F79006F325F /* s13-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s13-7.txt"; sourceTree = "<group>"; };
 		AA98D011212C4F79006F325F /* s20-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s20-1.txt"; sourceTree = "<group>"; };
 		AA98D012212C4F79006F325F /* s22-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s22-3.txt"; sourceTree = "<group>"; };
@@ -1780,12 +1776,10 @@
 		AA98D072212C4F99006F325F /* s27-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s27-9.txt"; sourceTree = "<group>"; };
 		AA98D073212C4F9A006F325F /* s12-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-9.txt"; sourceTree = "<group>"; };
 		AA98D074212C4F9A006F325F /* s10-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-11.txt"; sourceTree = "<group>"; };
-		AA98D075212C4F9A006F325F /* s22-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s22-14.txt"; sourceTree = "<group>"; };
 		AA98D076212C4F9B006F325F /* s22-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s22-4.txt"; sourceTree = "<group>"; };
 		AA98D077212C4F9C006F325F /* s24-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s24-10.txt"; sourceTree = "<group>"; };
 		AA98D078212C4F9C006F325F /* s8-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s8-2.txt"; sourceTree = "<group>"; };
 		AA98D079212C4F9D006F325F /* s3-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s3-5.txt"; sourceTree = "<group>"; };
-		AA98D07A212C4F9E006F325F /* s17-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s17-4.txt"; sourceTree = "<group>"; };
 		AA98D07B212C4F9F006F325F /* s1-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s1-15.txt"; sourceTree = "<group>"; };
 		AA98D07C212C4FA1006F325F /* s27-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s27-4.txt"; sourceTree = "<group>"; };
 		AA98D07D212C4FA2006F325F /* s15-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s15-1.txt"; sourceTree = "<group>"; };
@@ -1795,7 +1789,6 @@
 		AA98D081212C4FA6006F325F /* s16-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s16-14.txt"; sourceTree = "<group>"; };
 		AA98D082212C4FA7006F325F /* s2-15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-15.txt"; sourceTree = "<group>"; };
 		AA98D083212C4FA7006F325F /* s15-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s15-3.txt"; sourceTree = "<group>"; };
-		AA98D084212C4FA8006F325F /* s25-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s25-11.txt"; sourceTree = "<group>"; };
 		AA98D085212C4FA8006F325F /* s21-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s21-7.txt"; sourceTree = "<group>"; };
 		AA98D086212C4FA9006F325F /* s15-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s15-6.txt"; sourceTree = "<group>"; };
 		AA98D087212C4FAA006F325F /* s4-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s4-11.txt"; sourceTree = "<group>"; };
@@ -1833,7 +1826,6 @@
 		AA98D0A7212C4FB6006F325F /* s4-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s4-7.txt"; sourceTree = "<group>"; };
 		AA98D0A8212C4FB6006F325F /* s3-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s3-10.txt"; sourceTree = "<group>"; };
 		AA98D0A9212C4FB7006F325F /* s13-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s13-1.txt"; sourceTree = "<group>"; };
-		AA98D0AA212C4FB7006F325F /* s2-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-1.txt"; sourceTree = "<group>"; };
 		AA98D0AB212C4FB7006F325F /* s15-12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s15-12.txt"; sourceTree = "<group>"; };
 		AA98D0AC212C4FB8006F325F /* s17-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s17-10.txt"; sourceTree = "<group>"; };
 		AA98D0AD212C4FB8006F325F /* s16-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s16-8.txt"; sourceTree = "<group>"; };
@@ -1945,7 +1937,6 @@
 		AA98D117212C4FDA006F325F /* s8-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s8-8.txt"; sourceTree = "<group>"; };
 		AA98D118212C4FDB006F325F /* s6-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s6-13.txt"; sourceTree = "<group>"; };
 		AA98D119212C4FDC006F325F /* s12-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s12-1.txt"; sourceTree = "<group>"; };
-		AA98D11A212C4FDC006F325F /* s10-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-2.txt"; sourceTree = "<group>"; };
 		AA98D11B212C4FDD006F325F /* s6-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s6-8.txt"; sourceTree = "<group>"; };
 		AA98D11C212C4FDD006F325F /* s19-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s19-11.txt"; sourceTree = "<group>"; };
 		AA98D11D212C4FDE006F325F /* s4-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s4-2.txt"; sourceTree = "<group>"; };
@@ -1959,12 +1950,23 @@
 		AA9AFC122088FB4F003A61E9 /* lessonProgress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonProgress.png; sourceTree = "<group>"; };
 		AA9AFC142088FB58003A61E9 /* lessonFullLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonFullLength.png; sourceTree = "<group>"; };
 		AAA0E10420987FF5007148EB /* wrongSenBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongSenBlock.png; sourceTree = "<group>"; };
+		AAA742BA212D94F400963937 /* s26-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s26-7.txt"; sourceTree = "<group>"; };
+		AAA742BB212D94F500963937 /* s25-11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s25-11.txt"; sourceTree = "<group>"; };
+		AAA742BC212D94F500963937 /* 21-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "21-2.txt"; sourceTree = "<group>"; };
+		AAA742BD212D94F600963937 /* 20-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "20-6.txt"; sourceTree = "<group>"; };
+		AAA742BE212D94F700963937 /* s22-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s22-14.txt"; sourceTree = "<group>"; };
+		AAA742C0212D94F800963937 /* 22-14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "22-14.txt"; sourceTree = "<group>"; };
 		AAAE4EA1207C942900C4A8EB /* recordingBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordingBtn.png; sourceTree = "<group>"; };
 		AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordBtn.png; sourceTree = "<group>"; };
 		AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toLoginVcBtn.png; sourceTree = "<group>"; };
 		AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerLaterBtn.png; sourceTree = "<group>"; };
 		AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
+		AAC6A6AC21339EC3005EAC9D /* s10-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s10-2.txt"; sourceTree = "<group>"; };
+		AAC6A6AE21339ECF005EAC9D /* s25-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s25-6.txt"; sourceTree = "<group>"; };
+		AAC6A6B021339F18005EAC9D /* s2-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s2-1.txt"; sourceTree = "<group>"; };
+		AAC6A6B62133CB5F005EAC9D /* skipTagTest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skipTagTest.png; sourceTree = "<group>"; };
+		AAC6A6B82133CE45005EAC9D /* s17-4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s17-4.txt"; sourceTree = "<group>"; };
 		AAD62F3320BFC677001D6275 /* gradeChiBtnRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradeChiBtnRight.png; sourceTree = "<group>"; };
 		AAD62F3420BFC678001D6275 /* gradeChiBtnLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradeChiBtnLeft.png; sourceTree = "<group>"; };
 		AAD62F3B20C02424001D6275 /* testResult.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testResult.png; sourceTree = "<group>"; };
@@ -2183,6 +2185,7 @@
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
 				AA6D83FA20DD385C00A6025C /* purchaseAlert.png */,
+				AAC6A6B62133CB5F005EAC9D /* skipTagTest.png */,
 				AA95661C20DB880D005BD5E8 /* abortPng.png */,
 				AAEB791F20D92A7700B171D5 /* reviewSelectBg3.png */,
 				AA6C95DD20AAAA8F001158E7 /* fire.sks */,
@@ -2510,10 +2513,10 @@
 				AA98CC63212C4E90006F325F /* 18-13.txt */,
 				AA98CCC9212C4EB0006F325F /* 18-14.txt */,
 				AA98CDEA212C4F18006F325F /* 18-15.txt */,
-				AA98CCFC212C4EC2006F325F /* 19-1.txt */,
+				AA98CDF2212C4F1B006F325F /* 19-1.txt */,
 				AA98CD10212C4ECA006F325F /* 19-2.txt */,
 				AA98CD87212C4EF4006F325F /* 19-3.txt */,
-				AA98CDF2212C4F1B006F325F /* 19-4.txt */,
+				AA98CCFC212C4EC2006F325F /* 19-4.txt */,
 				AA98CCA3212C4EA4006F325F /* 19-5.txt */,
 				AA98CC7E212C4E99006F325F /* 19-6.txt */,
 				AA98CD6E212C4EEB006F325F /* 19-7.txt */,
@@ -2530,7 +2533,7 @@
 				AA98CD9E212C4EFC006F325F /* 20-3.txt */,
 				AA98CDE0212C4F15006F325F /* 20-4.txt */,
 				AA98CD3C212C4ED8006F325F /* 20-5.txt */,
-				AA98CD01212C4EC5006F325F /* 20-6.txt */,
+				AAA742BD212D94F600963937 /* 20-6.txt */,
 				AA98CD60212C4EE5006F325F /* 20-7.txt */,
 				AA98CD66212C4EE9006F325F /* 20-8.txt */,
 				AA98CCD4212C4EB3006F325F /* 20-9.txt */,
@@ -2541,7 +2544,7 @@
 				AA98CDDA212C4F13006F325F /* 20-14.txt */,
 				AA98CDC4212C4F0C006F325F /* 20-15.txt */,
 				AA98CDD3212C4F10006F325F /* 21-1.txt */,
-				AA98CD23212C4ED1006F325F /* 21-2.txt */,
+				AAA742BC212D94F500963937 /* 21-2.txt */,
 				AA98CCF2212C4EBE006F325F /* 21-3.txt */,
 				AA98CCEC212C4EBC006F325F /* 21-4.txt */,
 				AA98CD4C212C4EDD006F325F /* 21-5.txt */,
@@ -2568,7 +2571,7 @@
 				AA98CCCF212C4EB2006F325F /* 22-11.txt */,
 				AA98CD97212C4EF8006F325F /* 22-12.txt */,
 				AA98CCC4212C4EAE006F325F /* 22-13.txt */,
-				AA98CCAD212C4EA7006F325F /* 22-14.txt */,
+				AAA742C0212D94F800963937 /* 22-14.txt */,
 				AA98CD9C212C4EFB006F325F /* 22-15.txt */,
 				AA98CDB8212C4F06006F325F /* 23-1.txt */,
 				AA98CDEB212C4F18006F325F /* 23-2.txt */,
@@ -2661,7 +2664,7 @@
 				AA98D0EC212C4FCB006F325F /* s1-13.txt */,
 				AA98CFEA212C4F6E006F325F /* s1-14.txt */,
 				AA98D07B212C4F9F006F325F /* s1-15.txt */,
-				AA98D0AA212C4FB7006F325F /* s2-1.txt */,
+				AAC6A6B021339F18005EAC9D /* s2-1.txt */,
 				AA98D062212C4F90006F325F /* s2-2.txt */,
 				AA98CFC2212C4F63006F325F /* s2-3.txt */,
 				AA98CFB6212C4F5F006F325F /* s2-4.txt */,
@@ -2782,7 +2785,7 @@
 				AA98CFDA212C4F69006F325F /* s9-14.txt */,
 				AA98CFE3212C4F6C006F325F /* s9-15.txt */,
 				AA98D0B5212C4FBB006F325F /* s10-1.txt */,
-				AA98D11A212C4FDC006F325F /* s10-2.txt */,
+				AAC6A6AC21339EC3005EAC9D /* s10-2.txt */,
 				AA98D050212C4F8A006F325F /* s10-3.txt */,
 				AA98D0B6212C4FBB006F325F /* s10-4.txt */,
 				AA98D0A0212C4FB3006F325F /* s10-5.txt */,
@@ -2790,6 +2793,7 @@
 				AA98CFFB212C4F73006F325F /* s10-7.txt */,
 				AA98D02D212C4F81006F325F /* s10-8.txt */,
 				AA98D029212C4F80006F325F /* s10-9.txt */,
+				AAC6A6AE21339ECF005EAC9D /* s25-6.txt */,
 				AA98CF97212C4F57006F325F /* s10-10.txt */,
 				AA98D074212C4F9A006F325F /* s10-11.txt */,
 				AA98D093212C4FAE006F325F /* s10-12.txt */,
@@ -2889,7 +2893,7 @@
 				AA98D0DD212C4FC7006F325F /* s17-1.txt */,
 				AA98D067212C4F93006F325F /* s17-2.txt */,
 				AA98D0E9212C4FCA006F325F /* s17-3.txt */,
-				AA98D07A212C4F9E006F325F /* s17-4.txt */,
+				AAC6A6B82133CE45005EAC9D /* s17-4.txt */,
 				AA98D042212C4F86006F325F /* s17-5.txt */,
 				AA98D0F5212C4FCE006F325F /* s17-6.txt */,
 				AA98CFA9212C4F5C006F325F /* s17-7.txt */,
@@ -2916,10 +2920,10 @@
 				AA98D054212C4F8B006F325F /* s18-13.txt */,
 				AA98D08C212C4FAC006F325F /* s18-14.txt */,
 				AA98D090212C4FAD006F325F /* s18-15.txt */,
-				AA98D00F212C4F78006F325F /* s19-1.txt */,
+				AA98CF93212C4F56006F325F /* s19-1.txt */,
 				AA98D0EE212C4FCC006F325F /* s19-2.txt */,
 				AA98D094212C4FAF006F325F /* s19-3.txt */,
-				AA98CF93212C4F56006F325F /* s19-4.txt */,
+				AA98D00F212C4F78006F325F /* s19-4.txt */,
 				AA98D0F6212C4FCE006F325F /* s19-5.txt */,
 				AA98CFA7212C4F5B006F325F /* s19-6.txt */,
 				AA98D0FA212C4FD0006F325F /* s19-7.txt */,
@@ -2974,7 +2978,7 @@
 				AA98D121212C4FDF006F325F /* s22-11.txt */,
 				AA98D066212C4F92006F325F /* s22-12.txt */,
 				AA98D100212C4FD2006F325F /* s22-13.txt */,
-				AA98D075212C4F9A006F325F /* s22-14.txt */,
+				AAA742BE212D94F700963937 /* s22-14.txt */,
 				AA98D0F3212C4FCE006F325F /* s22-15.txt */,
 				AA98CFEC212C4F6E006F325F /* s23-1.txt */,
 				AA98CFBA212C4F60006F325F /* s23-2.txt */,
@@ -3011,12 +3015,11 @@
 				AA98CFB4212C4F5F006F325F /* s25-3.txt */,
 				AA98D0CD212C4FC2006F325F /* s25-4.txt */,
 				AA98CFDF212C4F6B006F325F /* s25-5.txt */,
-				AA98CFC5212C4F63006F325F /* s25-6.txt */,
 				AA98D080212C4FA4006F325F /* s25-7.txt */,
 				AA98D0C3212C4FBF006F325F /* s25-8.txt */,
 				AA98D0C1212C4FBE006F325F /* s25-9.txt */,
 				AA98CFF3212C4F70006F325F /* s25-10.txt */,
-				AA98D084212C4FA8006F325F /* s25-11.txt */,
+				AAA742BB212D94F500963937 /* s25-11.txt */,
 				AA98D0DE212C4FC7006F325F /* s25-12.txt */,
 				AA98D000212C4F74006F325F /* s25-13.txt */,
 				AA98D097212C4FB0006F325F /* s25-14.txt */,
@@ -3027,7 +3030,7 @@
 				AA98D108212C4FD6006F325F /* s26-4.txt */,
 				AA98D01A212C4F7B006F325F /* s26-5.txt */,
 				AA98D00A212C4F77006F325F /* s26-6.txt */,
-				AA98CFF9212C4F72006F325F /* s26-7.txt */,
+				AAA742BA212D94F400963937 /* s26-7.txt */,
 				AA98D0D1212C4FC3006F325F /* s26-8.txt */,
 				AA98D0D3212C4FC4006F325F /* s26-9.txt */,
 				AA98D052212C4F8B006F325F /* s26-10.txt */,
@@ -3223,7 +3226,6 @@
 				AA98D187212C4FE0006F325F /* s16-4.txt in Resources */,
 				AA98CE3A212C4F1C006F325F /* 20-11.txt in Resources */,
 				AA98D253212C4FE1006F325F /* s4-15.txt in Resources */,
-				AA98CE96212C4F1C006F325F /* 20-6.txt in Resources */,
 				AA98D202212C4FE1006F325F /* s17-11.txt in Resources */,
 				AA98CE93212C4F1C006F325F /* 12-3.txt in Resources */,
 				AA98CF88212C4F1C006F325F /* 10-12.txt in Resources */,
@@ -3278,6 +3280,7 @@
 				AA98CF3D212C4F1C006F325F /* 8-14.txt in Resources */,
 				AA98CE7C212C4F1C006F325F /* 18-10.txt in Resources */,
 				AA98CF0D212C4F1C006F325F /* 23-10.txt in Resources */,
+				AAA742C2212D94F800963937 /* s25-11.txt in Resources */,
 				AA98CE98212C4F1C006F325F /* 17-8.txt in Resources */,
 				AA98CF4B212C4F1C006F325F /* 11-5.txt in Resources */,
 				AA98D1E0212C4FE0006F325F /* s12-12.txt in Resources */,
@@ -3297,7 +3300,6 @@
 				AA98CED5212C4F1C006F325F /* 13-10.txt in Resources */,
 				AA98D26E212C4FE1006F325F /* s7-5.txt in Resources */,
 				AA98D28B212C4FE1006F325F /* s19-5.txt in Resources */,
-				AA98D18E212C4FE0006F325F /* s26-7.txt in Resources */,
 				AA98D27C212C4FE1006F325F /* s3-14.txt in Resources */,
 				AA98D250212C4FE1006F325F /* s18-2.txt in Resources */,
 				AA98CEE1212C4F1C006F325F /* 21-5.txt in Resources */,
@@ -3310,6 +3312,7 @@
 				AA98CE1D212C4F1C006F325F /* 16-10.txt in Resources */,
 				AA6D83E720DCFF0900A6025C /* bookSenOff.png in Resources */,
 				AA98D162212C4FE0006F325F /* s21-1.txt in Resources */,
+				AAC6A6B72133CB60005EAC9D /* skipTagTest.png in Resources */,
 				AA39854B20D28D19004E9CE3 /* stageTopCover.png in Resources */,
 				AA98CE6A212C4F1C006F325F /* 23-8.txt in Resources */,
 				AA98CE0D212C4F1C006F325F /* 12-1.txt in Resources */,
@@ -3326,11 +3329,9 @@
 				AA98CED4212C4F1C006F325F /* 4-12.txt in Resources */,
 				AA98CE48212C4F1C006F325F /* 18-9.txt in Resources */,
 				AA98CF6A212C4F1C006F325F /* 8-5.txt in Resources */,
-				AA98D219212C4FE1006F325F /* s25-11.txt in Resources */,
 				AA126A5F20D3D0AC00419AD5 /* chartUpBg2.png in Resources */,
 				AA98D179212C4FE0006F325F /* s4-12.txt in Resources */,
 				AA98CF1A212C4F1C006F325F /* 1-3.txt in Resources */,
-				AA98D20F212C4FE1006F325F /* s17-4.txt in Resources */,
 				AA98D196212C4FE0006F325F /* s11-2.txt in Resources */,
 				AA98D2A3212C4FE1006F325F /* s24-14.txt in Resources */,
 				AA98CF30212C4F1C006F325F /* 25-6.txt in Resources */,
@@ -3339,6 +3340,7 @@
 				AA98D276212C4FE1006F325F /* s24-6.txt in Resources */,
 				AA98CE7D212C4F1C006F325F /* 21-10.txt in Resources */,
 				AA98CE4E212C4F1C006F325F /* 16-4.txt in Resources */,
+				AAA742C7212D94F800963937 /* 22-14.txt in Resources */,
 				AA98D1B1212C4FE0006F325F /* s21-12.txt in Resources */,
 				AA98CE06212C4F1C006F325F /* 19-8.txt in Resources */,
 				AA98CF52212C4F1C006F325F /* 11-4.txt in Resources */,
@@ -3349,7 +3351,6 @@
 				AA98D2A1212C4FE1006F325F /* s13-9.txt in Resources */,
 				AA39855320D294A0004E9CE3 /* logoText.png in Resources */,
 				AA98D1A0212C4FE0006F325F /* s5-8.txt in Resources */,
-				AA98CE42212C4F1C006F325F /* 22-14.txt in Resources */,
 				AA98D1A2212C4FE0006F325F /* s2-13.txt in Resources */,
 				AA98CF26212C4F1C006F325F /* 10-13.txt in Resources */,
 				AA98D168212C4FE0006F325F /* s5-10.txt in Resources */,
@@ -3377,6 +3378,7 @@
 				AA98D20B212C4FE1006F325F /* s22-4.txt in Resources */,
 				AA98D254212C4FE1006F325F /* s23-5.txt in Resources */,
 				AA6FB74520AEE3DF0001EFED /* alphaLayer.png in Resources */,
+				AAC6A6AD21339EC3005EAC9D /* s10-2.txt in Resources */,
 				AA98CF70212C4F1C006F325F /* 10-3.txt in Resources */,
 				AA98D17B212C4FE0006F325F /* s5-6.txt in Resources */,
 				AA98CF64212C4F1C006F325F /* 5-11.txt in Resources */,
@@ -3422,7 +3424,7 @@
 				AA98CED8212C4F1C006F325F /* 27-8.txt in Resources */,
 				AA98D16C212C4FE0006F325F /* s5-13.txt in Resources */,
 				AA98CF5E212C4F1C006F325F /* 9-14.txt in Resources */,
-				AA98D1A4212C4FE0006F325F /* s19-1.txt in Resources */,
+				AA98D1A4212C4FE0006F325F /* s19-4.txt in Resources */,
 				AA9655652090A048003E5AB7 /* rightBtnClickedImg.png in Resources */,
 				AA98CE3B212C4F1C006F325F /* 17-11.txt in Resources */,
 				AA7BB4F320C93CBC001A1F66 /* longFbBtn.png in Resources */,
@@ -3481,7 +3483,6 @@
 				AA98D151212C4FE0006F325F /* s8-3.txt in Resources */,
 				AA98E6052085CBC3001100BA /* rightRoundedSqr.png in Resources */,
 				AAEB792020D92A7800B171D5 /* reviewSelectBg3.png in Resources */,
-				AA98D2AF212C4FE1006F325F /* s10-2.txt in Resources */,
 				AA98CF6D212C4F1C006F325F /* 18-2.txt in Resources */,
 				AA98CE09212C4F1C006F325F /* 6-15.txt in Resources */,
 				AA98D1B4212C4FE0006F325F /* s21-8.txt in Resources */,
@@ -3496,6 +3497,7 @@
 				AA98D157212C4FE0006F325F /* s2-3.txt in Resources */,
 				AA98CE8A212C4F1C006F325F /* 22-3.txt in Resources */,
 				AA98CF48212C4F1C006F325F /* 5-14.txt in Resources */,
+				AAA742C1212D94F800963937 /* s26-7.txt in Resources */,
 				AA98CE84212C4F1C006F325F /* 8-13.txt in Resources */,
 				AA36414120D39E7700237B9F /* senBlock.png in Resources */,
 				AA98CE2F212C4F1C006F325F /* 6-10.txt in Resources */,
@@ -3576,7 +3578,7 @@
 				AA6D83E120DCE76300A6025C /* rightWordBtn.png in Resources */,
 				AA98D1E5212C4FE0006F325F /* s10-3.txt in Resources */,
 				AA98CEE0212C4F1C006F325F /* 1-5.txt in Resources */,
-				AA98CE91212C4F1C006F325F /* 19-1.txt in Resources */,
+				AA98CE91212C4F1C006F325F /* 19-4.txt in Resources */,
 				AA98CE36212C4F1C006F325F /* 4-5.txt in Resources */,
 				AA98CF51212C4F1C006F325F /* 19-10.txt in Resources */,
 				AA98CF16212C4F1C006F325F /* 19-9.txt in Resources */,
@@ -3634,6 +3636,7 @@
 				AA98CE4D212C4F1C006F325F /* 4-2.txt in Resources */,
 				AA6D83FE20DD390C00A6025C /* newAccountPng.png in Resources */,
 				AA98D14A212C4FE0006F325F /* s14-14.txt in Resources */,
+				AAA742C4212D94F800963937 /* 20-6.txt in Resources */,
 				AA98CEB7212C4F1C006F325F /* 10-7.txt in Resources */,
 				AA98D217212C4FE1006F325F /* s2-15.txt in Resources */,
 				AA98CEDA212C4F1C006F325F /* 27-13.txt in Resources */,
@@ -3682,6 +3685,7 @@
 				AA98CF66212C4F1C006F325F /* 13-5.txt in Resources */,
 				AA98CF7E212C4F1C006F325F /* 6-7.txt in Resources */,
 				AA98D2A5212C4FE1006F325F /* s5-1.txt in Resources */,
+				AAC6A6B121339F18005EAC9D /* s2-1.txt in Resources */,
 				AA98D17D212C4FE0006F325F /* s14-11.txt in Resources */,
 				AA98CE6B212C4F1C006F325F /* 24-15.txt in Resources */,
 				AA98CEC5212C4F1C006F325F /* 4-3.txt in Resources */,
@@ -3722,11 +3726,10 @@
 				AA98CF72212C4F1C006F325F /* 27-9.txt in Resources */,
 				AA98CF6C212C4F1C006F325F /* 14-10.txt in Resources */,
 				AA98D20E212C4FE1006F325F /* s3-5.txt in Resources */,
-				AA98D15A212C4FE0006F325F /* s25-6.txt in Resources */,
 				AA15E7A720D0F4D600A1AB82 /* blueArrow.png in Resources */,
 				AA98D18F212C4FE0006F325F /* s2-11.txt in Resources */,
 				AA98CE16212C4F1C006F325F /* 16-5.txt in Resources */,
-				AA98D128212C4FE0006F325F /* s19-4.txt in Resources */,
+				AA98D128212C4FE0006F325F /* s19-1.txt in Resources */,
 				AA98CE14212C4F1C006F325F /* 24-1.txt in Resources */,
 				AA2CFA8120BD8E42009DBBB6 /* grayBall.png in Resources */,
 				AA98CF17212C4F1C006F325F /* 17-9.txt in Resources */,
@@ -3811,7 +3814,6 @@
 				AA98CF1D212C4F1C006F325F /* 22-7.txt in Resources */,
 				AA98D1FB212C4FE1006F325F /* s22-12.txt in Resources */,
 				AAD62F3E20C02566001D6275 /* resultOkBtn.png in Resources */,
-				AA98D20A212C4FE1006F325F /* s22-14.txt in Resources */,
 				AA98CDFC212C4F1C006F325F /* 20-12.txt in Resources */,
 				AA98CF3E212C4F1C006F325F /* 23-15.txt in Resources */,
 				AA98CECC212C4F1C006F325F /* 6-14.txt in Resources */,
@@ -3833,7 +3835,6 @@
 				AA98D12F212C4FE0006F325F /* s27-1.txt in Resources */,
 				AA98D155212C4FE0006F325F /* s21-11.txt in Resources */,
 				AA98CEBC212C4F1C006F325F /* 11-11.txt in Resources */,
-				AA98D23F212C4FE1006F325F /* s2-1.txt in Resources */,
 				AA98D1DA212C4FE0006F325F /* s13-2.txt in Resources */,
 				AA98D19B212C4FE0006F325F /* s22-2.txt in Resources */,
 				AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */,
@@ -3895,6 +3896,7 @@
 				AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */,
 				AA98D21B212C4FE1006F325F /* s15-6.txt in Resources */,
 				AA98CECF212C4F1C006F325F /* 23-6.txt in Resources */,
+				AAC6A6AF21339ECF005EAC9D /* s25-6.txt in Resources */,
 				AA7BB4C920C79070001A1F66 /* purchaseBtnBg.png in Resources */,
 				AA98D1E6212C4FE0006F325F /* s18-5.txt in Resources */,
 				AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */,
@@ -3918,7 +3920,6 @@
 				AA98D14D212C4FE0006F325F /* s13-10.txt in Resources */,
 				AA98D1ED212C4FE0006F325F /* s1-2.txt in Resources */,
 				AA95661120DA5644005BD5E8 /* pronounceBtn4.png in Resources */,
-				AA98CEB8212C4F1C006F325F /* 21-2.txt in Resources */,
 				AA98D1B6212C4FE0006F325F /* s11-6.txt in Resources */,
 				AA36412320D38B9800237B9F /* courseBtmAlpha.png in Resources */,
 				AA98D215212C4FE1006F325F /* s25-7.txt in Resources */,
@@ -4023,6 +4024,7 @@
 				AA98D298212C4FE1006F325F /* s27-5.txt in Resources */,
 				AA98CE59212C4F1C006F325F /* 22-13.txt in Resources */,
 				AA98D129212C4FE0006F325F /* s3-1.txt in Resources */,
+				AAA742C5212D94F800963937 /* s22-14.txt in Resources */,
 				AA98D1CB212C4FE0006F325F /* s15-9.txt in Resources */,
 				AA98CEA1212C4F1C006F325F /* 5-4.txt in Resources */,
 				AA98CF03212C4F1C006F325F /* 19-7.txt in Resources */,
@@ -4037,7 +4039,7 @@
 				AA98D283212C4FE1006F325F /* s19-2.txt in Resources */,
 				AA98D140212C4FE0006F325F /* s27-2.txt in Resources */,
 				AA98D24C212C4FE1006F325F /* s14-5.txt in Resources */,
-				AA98CF87212C4F1C006F325F /* 19-4.txt in Resources */,
+				AA98CF87212C4F1C006F325F /* 19-1.txt in Resources */,
 				AA0752ED20CD0AAA006FCCAB /* circleOkBtn.png in Resources */,
 				AA98CEF2212C4F1C006F325F /* 13-8.txt in Resources */,
 				AA6D83EF20DD007300A6025C /* bookPlayOn.png in Resources */,
@@ -4074,6 +4076,7 @@
 				AA98D1D5212C4FE0006F325F /* s12-13.txt in Resources */,
 				AA98CF13212C4F1C006F325F /* 9-12.txt in Resources */,
 				AAEB791E20D923E900B171D5 /* reviewQuitBg3.png in Resources */,
+				AAC6A6B92133CE45005EAC9D /* s17-4.txt in Resources */,
 				AA98CF41212C4F1C006F325F /* 8-15.txt in Resources */,
 				AA36413420D395F400237B9F /* rightRoundedSqr2.png in Resources */,
 				AA98CE7F212C4F1C006F325F /* 13-11.txt in Resources */,
@@ -4101,6 +4104,7 @@
 				AA98D281212C4FE1006F325F /* s1-13.txt in Resources */,
 				AA98CEAB212C4F1C006F325F /* 7-12.txt in Resources */,
 				AA98D25A212C4FE1006F325F /* s17-13.txt in Resources */,
+				AAA742C3212D94F800963937 /* 21-2.txt in Resources */,
 				AA98CF82212C4F1C006F325F /* 2-11.txt in Resources */,
 				AA98CF33212C4F1C006F325F /* 20-3.txt in Resources */,
 				AA15E78020D0DDE400A1AB82 /* step2Png.png in Resources */,
