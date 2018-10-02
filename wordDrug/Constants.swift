@@ -12,11 +12,159 @@ import Foundation
 public let userDefaults = UserDefaults.standard
 
 
+//托福第一張地圖28-1 到28-15探索點
+public let map1SyllableSets:[[String]] =
+[["ab10","an56","bl11","ee53","i_e109","ly63","ment53","ou52","ru2","tion178"],
+["ac9","ce125","cian6","cr29","ct23","fl12","ing83","ly62","tic35","ty73"],
+["ac8","ad12","ce124","ct22","i_e91","ing82","ness14","or113","tive43","ty72"],
+["a_e161","al158","am17","an57","ble82","ft5","in95","my4","ous64","u_e45"],
+["ai42","ar74","as8","ch83","ing81","ly61","oa24","oy5","pr30","qu30"],
+["an58","ar73","as9","au29","dr16","ea92","er155","ment45","ness13","oi17"],
+["au28","be8","ck45","ful16","igh22","ing80","less14","oo43","que7","sh80"],
+["au27","aw17","be7","br25","bu13","ca16","ism9","less13","tion177","ur26"],
+["al157","ce123","dr15","gr23","i_e90","ous63","ry57","stle3","tic34","ur25"],
+["al156","ble81","ch82","ci24","cl23","ex12","gi13","gy16","ph28","tive42"],
+["ce122","ch81","ci23","com39","con84","cy15","ph27","ry56","sion41","tr33"],
+["al155","ce121","com38","con83","cr28","ge81","ing79","or112","ow42","ture25"],
+["a_e160","al154","cle9","com37","con82","cr27","fr9","ge80","or102","um29"],
+["al153","ble80","con81","cr26","de16","el29","en69","or101","tion176","ty71"],
+["con80","de15","dis39","er154","gr22","ly60","oa26","ous62","sion40","tive41"]]
 
+//托福第二張地圖29-1 到29-15探索點
+public let map2SyllableSets:[[String]] =
+[["a_e159","al152","ci22","con79","dis38","ful15","gi12","ness12","ry55","th57"],
+["ce120","con78","do3","em15","en72","ge79","less12","ment44","ong7","sh79"],
+["ble79","en68","gle6","ic9","ing78","mis7","nic9","o_e45","tle9","tr32"],
+["ar72","ch80","ee52","ex11","i_e89","ic8","ism8","st63","tic33","tion175"],
+["al151","ay28","ex10","fa1","fl11","igh21","ing77","o_e44","on11","th56"],
+["fl10","fr8","ful14","fy11","gi11","ing76","ous61","sh78","u_e44","un28"],
+["al150","fo1","ga6","gl8","ir11","lar8","nd12","old7","ous60","tic32"],
+["ch79","er153","ga5","ing75","ly59","or111","ty70","ue14","um28","us8"],
+["ce109","fl9","gu3","im21","in94","ment43","ous59","sive17","tive46","ty69"],
+["a_e158","ble78","con77","i_e88","im20","in93","ing74","nt18","sh77","tive40"],
+["an59","el28","ew10","il5","in92","ly58","ous58","tic31","tive39","u_e43"],
+["al149","ar71","ce118","ch78","ea91","in91","th55","ty68","ul5","va4"],
+["al148","au26","ic7","in90","ism7","or100","ou51","sion39","st62","tic30"],
+["a_e157","al147","ck44","gi10","less11","ou50","ph26","ry54","tion174","ur24"],
+["al146","ge78","ic6","ly57","nt17","or110","ous57","pl10","tive38","ty67"]]
+
+//托福第三張地圖30-1 到30-15探索點
+public let map3SyllableSets:[[String]] =
+[["ce117","er152","ie3","ly56","oo42","pl9","qu29","sis11","tion173","war3"],
+["a_e156","ble77","br24","ce116","cle8","en71","ing73","or109","ous56","re40"],
+["al145","dle6","i_e87","mic8","ness11","re39","ry53","sc15","st61","tr31"],
+["cr25","ea90","gy15","ism6","oe3","ple13","re38","sc14","sh76","ty66"],
+["ea89","ge77","lar7","oi16","re37","sh75","sl7","sm3","sp20","ture24"],
+["a_e155","ai41","ct21","fy10","in89","ple12","sion38","sp19","ue17","um27"],
+["ab11","aw16","ble76","i_e86","ing72","o_e43","sh74","sub10","sym8","ui8"],
+["al144","an60","ble75","ch77","oi15","ous55","th54","tr30","un27","ur23"],
+["al143","ble74","ge76","im19","ing71","ness10","sive16","tion172","ty65","un26"],
+["ble73","i_e85","ic5","in88","nt16","oo41","ous54","tive37","un25","wa1"],
+["a_e151","al137","ame3","an61","ar68","ble69","br26","ce114","ci21","ck42"],
+["a_e152","ar69","ble70","ce115","ci30","ck43","con75","cy14","dy10","e_e11"],
+["a_e153","al138","ar70","ble71","con76","e_e12","ea88","em14","en66","er174"],
+["a_e154","al139","ble72","en67","er175","fy15","ge75","gy14","i_e81","ic4"],
+["al140","ble98","co27","en70","i_e82","il6","in87","ing66","ir13","ism4"]]
+
+//托福第四張地圖31-1 到31-15探索點
+
+public let map4SyllableSets:[[String]] =
+[["al141","en81","i_e83","ing67","ism5","lar6","ly53","ma7","ment42","nt23"],
+["al142","i_e84","ing68","ly54","o_e42","old8","on12","or106","ou49","ous49"],
+["ing69","ject6","ly55","or107","ou58","ous51","ow41","ph25","pr29","pt4"],
+["ing70","or108","ous50","po7","qu38","ry50","sa3","set4","sion37","sis10"],
+["or98","ous52","ry51","sh73","sk7","sn3","st57","th52","tic29","tion169"],
+["or99","ous53","ry52","st58","sw3","th53","tion170","tive35","tr26","ture23"],
+["ous76","pa4","st59","str18","tian1","tion171","tive36","tr27","ty63","ue16"],
+["a_e162","ac10","ai46","al159","st60","tr28","ty64","um23","us11","va5"],
+["a_e163","ac11","ai43","al160","am18","an62","ar75","tr29","un24","us7"],
+["a_e164","ai44","al161","am19","an63","ar76","au30","aw18","ay29","bl12"],
+["a_e165","ai45","al162","an64","ar77","au31","aw19","ay30","bl13","ble83"],
+["a_e166","ai47","al163","an65","ar78","au32","aw20","ay31","ble84","bu14"],
+["a_e167","ai48","al164","an66","ar79","au33","aw21","ay32","ble85","ce126"],
+["a_e168","ai49","al165","an67","ar80","au34","ay33","ble86","ce127","ch84"],
+["a_e169","al166","ar81","ble87","ce128","ch85","ci25","ck46","cl24","com40"]]
+
+//托福第五張地圖32-1 到32-15探索點
+public let map5SyllableSets:[[String]] =
+
+[["a_e170","al167","ar82","ble88","ce129","ch86","ci26","ck47","com41","con100"],
+["a_e171","al168","ar83","ble89","ce130","ch87","ci27","ck48","com42","con101"],
+["a_e172","al169","ar84","ble90","ce131","ch88","ci28","ck49","com43","com102"],
+["a_e173","al170","ar85","ble91","ce132","ch89","ci29","com44","con85","cos1"],
+["a_e174","al171","ar86","ble92","ce133","ch90","com45","con86","cr30","ct24"],
+["a_e175","al172","ar87","ble93","ce134","ch91","com46","con87","cr31","ct25"],
+["a_e176","al173","ar88","ble94","ce135","ch92","com47","ct26","cy16","de17"],
+["a_e177","al174","ble95","ce136","ch93","con88","ct27","cy17","di6","dis40"],
+["a_e178","al175","ble96","ce137","con89","cy18","dic3","dis41","dle7","dr17"],
+["a_e179","al176","ble97","ce138","con90","cy19","dis42","dr18","e_e13","ea100"],
+["a_e180","al177","ce139","con92","dis43","e_e14","ea101","el130","en73","er156"],
+["a_e181","al178","ce140","con91","dis44","e_e15","ea102","ee54","en74","er157"],
+["a_e182","al179","ce141","con93","dis45","ea103","ee55","en75","er158","ew11"],
+["a_e183","al180","ce142","con94","dis46","ea104","ee56","en76","er159","ex13"],
+["a_e184","al181","ce143","con95","dis47","ea93","ee57","en77","er161","ex14"]]
+
+//托福第六張地圖33-1 到33-15探索點
+
+public let map6SyllableSets:[[String]] =
+[["a_e185","al182","ce144","con96","ea94","ee58","en78","er160","ex15","fl13"],
+["a_e186","al183","ce145","con97","ea95","ee59","en79","er162","fix1","fr10"],
+["a_e187","al184","ce146","con98","ea96","ee60","er163","fr11","ful17","fy12"],
+["a_e188","al185","ce147","con99","ea97","en80","er164","fr12","ful18","fy13"],
+["a_e189","al186","ce148","ea98","er165","ful19","fy14","ge82","gi14","gl9"],
+["al187","ce149","ea99","er166","ge83","gr24","gue5","gy17","i_e100","ic10"],
+["al188","ce150","er167","ge84","gr25","gy18","i_e101","ic11","igh23","im22"],
+["al189","ce151","er168","ge85","gr26","i_e102","ic12","igh24","im23","in100"],
+["er169","ge86","gr28","i_e103","im24","in101","ing84","ir12","ism10","it10"],
+["er170","ge87","gr27","i_e104","in102","ing85","it11","lar10","less15","ly64"],
+["er171","ge88","i_e105","in103","ing86","it9","lar11","less16","ly65","me7"],
+["er172","ge89","i_e106","in104","ing87","lar9","ly66","ment46","mic10","ness15"],
+["er173","ge90","i_e107","in105","ing88","ly67","ment47","mic9","nt19","o_e46"],
+["ge91","i_e108","in106","ing89","ly68","ment48","mid3","nt20","o_e47","oa25"],
+["ge92","i_e110","in107","ing90","ly69","ment49","nt21","o_e48","oa27","oi18"]]
+
+//托福第七張地圖34-1 到34-15探索點
+
+public let map7SyllableSets:[[String]] =
+[["ge93","i_e111","in108","ing91","ment50","nt22","o_e49","oa28","oc3","oi19"],
+["ge94","i_e112","in96","ing92","ment51","o_e50","oi21","oo44","or103","ou53"],
+["i_e113","in97","ing93","ment52","o_e51","oi20","oo45","or104","ou54","ous65"],
+["i_e114","in98","ing94","o_e52","oi22","oo46","or105","ou55","ous66","ow43"],
+["i_e92","in99","o_e53","oo47","or114","ou57","ous67","ow44","oy6","pe4"],
+["i_e93","oo48","or115","ou56","ous68","ow45","oy7","ph29","pl11","ple14"],
+["i_e94","or116","ous69","ow46","ph30","ple15","pr31","pt5","qu31","que8"],
+["i_e95","or117","ous70","ow47","ph31","ple16","pr32","qu32","re41","ry58"],
+["i_e96","or118","ous71","ow48","ph32","pr33","qu33","re42","ry59","set5"],
+["i_e97","or119","ous72","pr34","qu34","re43","ry60","sh81","sion42","sis12"],
+["i_e98","or120","ous73","pr35","qu35","re44","ry61","sh82","sion43","sis13"],
+["i_e99","or121","ous74","pr36","qu36","re45","ry62","sh83","sion44","sis14"],
+["or122","ous75","qu37","ry63","sh84","sion45","sis15","sive18","sp21","st64"],
+["or123","ry64","sh85","sion46","sis16","sive19","sp22","st65","str19","sym10"],
+["or124","ry65","sh86","sion47","sive20","sp23","st66","str20","sym9","th58"]]
+
+//托福第八張地圖35-1 到35-15探索點
+
+public let map8SyllableSets:[[String]] =
+[["or125","ry66","sh87","sion48","sive21","st67","ta7","th59","tic36","tion179"],
+["or126","ry67","sh88","sion49","sive22","st68","th60","tic37","tion180","tive44"],
+["or127","sh89","sion50","sive23","st69","th61","ti3","tic38","tion181","tive45"],
+["sh90","sion51","st70","th62","tic39","tion182","tive47","tle10","tr34","ture26"],
+["sh91","sive24","st71","th63","tic40","tion183","tive48","tr35","ture27","ty74"],
+["sh92","st72","tic41","tion184","tive49","tr36","ture28","ty75","u_e46","ue15"],
+["sh93","st73","tic42","tion185","tive50","tr37","ture29","ty76","u_e47","ul6"],
+["sh94","st74","tic43","tion186","tive51","tr38","ture30","ty77","u_e48","ul7"],
+["tic44","tion187","tive52","tr39","ty78","u_e49","um30","un29","ur27","us9"],
+["tic45","tion188","tive53","tr40","u_e50","um31","un30","ur28","us10","ve5"],
+["tic46","tion189","ty79","ty80","u_e51","um32","un31","ur29","vo2","wh15"],
+["tion190","tion191","tion192","tive54","ty81","u_e52","um33","ur30","wr4","zle3"],
+["tion193","tion194","tion195","ty82","ty83","ty84","u_e53","um34","ur31","ur32"],
+["tion196","tion197","tion198","tion199","ty85","ty86","ty87","u_e54","u_e55","ur33"],
+["tion200","tion201","tion202","tion203","tion204","ty88","ty89","ty90","u_e56","u_e57"]]
 
 
 
 //第一張地圖 1-15探索點元素 已更新過
+/*
 public let map1SyllableSets:[[String]] =
     [["sk1","so1","st1","sion1","th1","ti1","tion1","tive1","tle1","sp1"],
      ["ap1","ar1","as1","at1","au1","aw1","ay1","ba1","be1","bi1"],
@@ -51,7 +199,11 @@ public let map2SyllableSets:[[String]] =
      ["on3","ong3","oo3","op3","or3","ot3","ou3","ow3","pr3","gar1"],
      ["re3","sh3","st3","th3","tion3","tr3","ty3","u_e3","ui3","ry3"],
      ["er37","er38","er39","er40","er41","er42","er43","er44","er45","er46"]]
+ 
+ */
 //第三張地圖1-15探索點 已更新過
+
+/*
 public let map3SyllableSets:[[String]] =
     [["un3","ur3","wh3","a_e4","ad4","ai4","al4","am4","an4","um3"],
      ["ar4","au4","ay4","ce4","ch4","ck4","ea4","ee4","el4","em4"],
@@ -159,6 +311,9 @@ public let map8SyllableSets:[[String]] =
      ["a_e30","al34","el15","er65","in22","ja1","je1","ment6","tem1","tion21"],
      ["a_e42","al53","ar31","ea53","ee31","el17","ge22","tion41","un11","vic1"]]
 
+ */
+ 
+ 
 //第九張地圖1-15探索點
 public let map9SyllableSets:[[String]] =
     [["a_e31","al35","ce20","ew3","ful5","gle1","in23","jo1","tion22","ui5"],

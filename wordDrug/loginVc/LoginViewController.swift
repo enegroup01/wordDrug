@@ -47,21 +47,94 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     var isFromCourse = false
     
     var orLabel = UILabel()
+    var attrs: [NSAttributedStringKey: NSObject]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var dif: CGFloat!
+        var fontSize: CGFloat!
+        var cornerRadiusValue: CGFloat!
+        
+        switch height {
+            
+        case 1366, 1336, 1112:
+            print("big iPad")
+            
+            
+            dif = 2
+
+            fontSize = 28
+            cornerRadiusValue = 12
+            
+            
+        case 1024:
+            
+            print("small iPad")
+            
+            dif = 1.5
+
+            fontSize = 22
+            cornerRadiusValue = 12
+            
+        case 812:
+            
+            
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
+
+            
+            
+        case 736:
+            
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
+            
+
+            
+            
+        case 667:
+            
+            
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
+ 
+            
+            
+        case 568:
+            
+            dif = 0.9
+            fontSize = 14
+            cornerRadiusValue = 6
+
+            
+        default:
+            
+            break
+        }
+        
 
         //指定delegate才能return
         usernameTxt.delegate = self
         passwordTxt.delegate = self
         
         //placeholder顏色
+        /*
         usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        */
         
+       
         // Do any additional setup after loading the view.
         
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        
+        //設定好attrs給其他error使用
+        attrs = [NSAttributedStringKey.foregroundColor: UIColor.red,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)]
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100 * dif, height: 100 * dif))
         activityIndicator.layer.zPosition = 15
         let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
         activityIndicator.center = self.view.center
@@ -71,131 +144,261 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
         
+        //bgView是必要的
+        bgView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        bgImg.frame = CGRect(x: 0, y: 0, width: width * 1.1, height: height * 1.1)
+        bgImg.contentMode = .scaleToFill
+        
+        
+        let logoImg = UIImageView()
+        self.view.addSubview(logoImg)
+        
+        
+        logoImg.image = UIImage(named: "launchLogo.png")
+        
+        logoImg.translatesAutoresizingMaskIntoConstraints = false
+        logoImg.widthAnchor.constraint(equalToConstant: 98 * dif).isActive = true
+        logoImg.heightAnchor.constraint(equalToConstant: 130 * dif).isActive = true
+        logoImg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImg.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * dif).isActive = true
+
+        
        
         
-        
+        /* 之後整個outLet 要刪掉
         logoLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
         logoLabel.font = UIFont(name: "Helvetica Bold", size: 30)
         logoLabel.textColor = .clear
         logoLabel.text = "MissWord\n我的單字老師"
         logoLabel.textAlignment = .center
         logoLabel.numberOfLines = 0
- 
+ */
         
         
-        doubleLine.frame = CGRect(x: (width - 290) / 2, y: logoLabel.frame.maxY, width: 290, height: 6)
+        
+        
+        
+        //doubleLine.frame = CGRect(x: (width - 290) / 2, y: logoLabel.frame.maxY, width: 290, height: 6)
         doubleLine.image = UIImage(named: "doubleLine.png")
         doubleLine.contentMode = .scaleAspectFit
         
+        
+        
+        doubleLine.translatesAutoresizingMaskIntoConstraints = false
+        doubleLine.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        doubleLine.heightAnchor.constraint(equalToConstant: 6 * dif).isActive = true
+        doubleLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        doubleLine.topAnchor.constraint(equalTo: logoImg.bottomAnchor, constant: 20 * dif).isActive = true
+        
+        
+        
         subTitleLabel.text = "立即註冊新帳號\n每日免費7分鐘學習新單字！"
-        subTitleLabel.frame = CGRect(x: 0, y: doubleLine.frame.maxY + 10, width: width, height: 50)
-        subTitleLabel.font = UIFont(name: "Helvetica Bold", size: 18)
+        //subTitleLabel.frame = CGRect(x: 0, y: doubleLine.frame.maxY + 10, width: width, height: 50)
+        subTitleLabel.font = UIFont(name: "Helvetica Bold", size: fontSize * 1.2)
         subTitleLabel.textAlignment = .center
         subTitleLabel.numberOfLines = 0
+        
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subTitleLabel.widthAnchor.constraint(equalToConstant: 300 * dif).isActive = true
+        subTitleLabel.heightAnchor.constraint(equalToConstant: 50 * dif).isActive = true
+        subTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        subTitleLabel.topAnchor.constraint(equalTo: doubleLine.bottomAnchor, constant: 5 * dif).isActive = true
 
 
         
         
-        accountPng.frame = CGRect(x: (width - 302) / 2, y: subTitleLabel.frame.maxY + 10, width: 302, height: 42)
+        //accountPng.frame = CGRect(x: (width - 302) / 2, y: subTitleLabel.frame.maxY + 10, width: 302, height: 42)
         
         accountPng.image = UIImage(named: "newAccountPng.png")
         
-        passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
+        accountPng.translatesAutoresizingMaskIntoConstraints = false
+        accountPng.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        accountPng.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        accountPng.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        accountPng.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 5 * dif).isActive = true
+        
+       // usernameTxt.frame = CGRect(x: accountPng.frame.minX + accountPng.frame.width / 7, y: accountPng.frame.minY, width: accountPng.frame.width * 4 / 5, height: accountPng.frame.height)
+        
+        
+     
+        
+        
+        usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        usernameTxt.font = usernameTxt.font?.withSize(fontSize)
+        usernameTxt.translatesAutoresizingMaskIntoConstraints = false
+        usernameTxt.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        usernameTxt.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        usernameTxt.centerXAnchor.constraint(equalTo: accountPng.centerXAnchor).isActive = true
+        usernameTxt.centerYAnchor.constraint(equalTo: accountPng.centerYAnchor).isActive = true
+        //usernameTxt.backgroundColor = .red
+        usernameTxt.adjustsFontSizeToFitWidth = true
+        
+        
+        //passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
         passwordPng.image = UIImage(named: "newPasswordPng.png")
  
+        passwordPng.translatesAutoresizingMaskIntoConstraints = false
+        passwordPng.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        passwordPng.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        passwordPng.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        passwordPng.topAnchor.constraint(equalTo: accountPng.bottomAnchor, constant: 5 * dif).isActive = true
         
         
+     
         /*
-       var iphoneWidth = CGFloat()
-       var fontSize = CGFloat()
-        var dif = CGFloat()
-     
-        switch  height {
-        case 812:
-            iphoneWidth = height * 375/667
-            fontSize = 20
-            dif = 1.15
-      
-        case 736:
-            iphoneWidth = width
-            fontSize = 18
-            dif = 1.1
-        case 667:
-            iphoneWidth = width
-            fontSize = 18
-     
-dif = 1
-        case 568:
-            iphoneWidth = width
-            fontSize = 16
- dif = 0.9
-
-        default:
-            iphoneWidth = width
-            fontSize = 16
-            dif = 0.9
-
-            
-        }
-        
+        passwordTxt.frame = CGRect(x: usernameTxt.frame.minX, y: passwordPng.frame.minY, width:
+            usernameTxt.frame.width, height: passwordPng.frame.height)
+        passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
         */
+        
+        
+        passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        passwordTxt.font = passwordTxt.font?.withSize(fontSize)
+        passwordTxt.translatesAutoresizingMaskIntoConstraints = false
+        passwordTxt.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        passwordTxt.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        passwordTxt.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        passwordTxt.centerYAnchor.constraint(equalTo: passwordPng.centerYAnchor).isActive = true
+        //passwordTxt.backgroundColor = .red
+        passwordTxt.adjustsFontSizeToFitWidth = true
 
         
-        bgView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        bgImg.frame = CGRect(x: 0, y: 0, width: width, height: height)
-    
         
-        loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
-        loginBtn.layer.cornerRadius = loginBtn.frame.width / 40
+        
+        //loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
+
         loginBtn.clipsToBounds = true
         loginBtn.titleLabel?.textAlignment = .center
         loginBtn.setTitle("登入", for: .normal)
+        loginBtn.titleLabel?.font = loginBtn.titleLabel?.font.withSize(fontSize)
+        
+        loginBtn.translatesAutoresizingMaskIntoConstraints = false
+        loginBtn.widthAnchor.constraint(equalToConstant: 138 * dif).isActive = true
+        loginBtn.heightAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        loginBtn.leadingAnchor.constraint(equalTo: passwordPng.leadingAnchor).isActive = true
+        loginBtn.topAnchor.constraint(equalTo: passwordPng.bottomAnchor, constant: 8 * dif).isActive = true
+        loginBtn.layer.cornerRadius = cornerRadiusValue
         
         
         
-        registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
+        //registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
         
-        registerBtn.layer.cornerRadius = registerBtn.frame.width / 40
+        //registerBtn.layer.cornerRadius = registerBtn.frame.width / 40
         registerBtn.clipsToBounds = true
         registerBtn.titleLabel?.textAlignment = .center
         registerBtn.setTitle("註冊", for: .normal)
         
-        fbLoginBtn.frame = CGRect(x: passwordPng.frame.minX, y: registerBtn.frame.maxY * 1.02, width: passwordPng.frame.width, height: 35)
+        registerBtn.titleLabel?.font = registerBtn.titleLabel?.font.withSize(fontSize)
+        
+        registerBtn.translatesAutoresizingMaskIntoConstraints = false
+        registerBtn.widthAnchor.constraint(equalToConstant: 138 * dif).isActive = true
+        registerBtn.heightAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        registerBtn.trailingAnchor.constraint(equalTo: passwordPng.trailingAnchor).isActive = true
+        registerBtn.topAnchor.constraint(equalTo: passwordPng.bottomAnchor, constant: 8 * dif).isActive = true
+        registerBtn.layer.cornerRadius = cornerRadiusValue
         
         
-        fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
+        
+        //fbLoginBtn.frame = CGRect(x: passwordPng.frame.minX, y: registerBtn.frame.maxY * 1.02, width: passwordPng.frame.width, height: 35)
+        
+        
+        //fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
         fbLoginBtn.clipsToBounds = true
         fbLoginBtn.titleLabel?.textAlignment = .center
         fbLoginBtn.setTitle("使用facebook登入", for: .normal)
+        fbLoginBtn.titleLabel?.font = fbLoginBtn.titleLabel?.font.withSize(fontSize)
+        
+        
+        fbLoginBtn.translatesAutoresizingMaskIntoConstraints = false
+        fbLoginBtn.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        fbLoginBtn.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        fbLoginBtn.topAnchor.constraint(equalTo: registerBtn.bottomAnchor, constant: 5 * dif).isActive = true
+        fbLoginBtn.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        fbLoginBtn.layer.cornerRadius = cornerRadiusValue
 
-        usernameTxt.frame = CGRect(x: accountPng.frame.minX + accountPng.frame.width / 7, y: accountPng.frame.minY, width: accountPng.frame.width * 4 / 5, height: accountPng.frame.height)
+      
         
-        
-        usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
-        
-        passwordTxt.frame = CGRect(x: usernameTxt.frame.minX, y: passwordPng.frame.minY, width:
-            usernameTxt.frame.width, height: passwordPng.frame.height)
-          passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
-        
-        
-        doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: fbLoginBtn.frame.maxY + 10, width: doubleLine.frame.width, height: doubleLine.frame.height)
+        //doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: fbLoginBtn.frame.maxY + 10, width: doubleLine.frame.width, height: doubleLine.frame.height)
         doubleLine2.image = UIImage(named: "doubleLine.png")
         doubleLine2.contentMode = .scaleAspectFit
+        doubleLine2.translatesAutoresizingMaskIntoConstraints = false
+        doubleLine2.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        doubleLine2.heightAnchor.constraint(equalToConstant: 6 * dif).isActive = true
+        doubleLine2.topAnchor.constraint(equalTo: fbLoginBtn.bottomAnchor, constant: 5 * dif).isActive = true
+        doubleLine2.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+
+        
         
 
-        orLabel.frame = CGRect(x: doubleLine2.frame.minX, y: doubleLine2.frame.maxY + 10, width: doubleLine2.frame.width, height: 10)
+        //orLabel.frame = CGRect(x: doubleLine2.frame.minX, y: doubleLine2.frame.maxY + 10, width: doubleLine2.frame.width, height: 10)
  
         orLabel.textColor = .white
-        orLabel.font = orLabel.font.withSize(14)
+        orLabel.font = orLabel.font.withSize(fontSize)
         orLabel.textAlignment = .center
         orLabel.text = "或"
         self.view.addSubview(orLabel)
+        //orLabel.backgroundColor = .green
+        orLabel.translatesAutoresizingMaskIntoConstraints = false
+        orLabel.widthAnchor.constraint(equalToConstant: 60 * dif).isActive = true
+        orLabel.heightAnchor.constraint(equalToConstant: 20 * dif).isActive = true
+        orLabel.topAnchor.constraint(equalTo: doubleLine2.bottomAnchor, constant: 5 * dif).isActive = true
+        orLabel.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
         
         
         
-        registerLaterBtn.center = CGPoint(x: width / 2, y: orLabel.frame.maxY + 23)
-        registerLaterBtn.frame.size = CGSize(width: 183 , height: 33)
+        
+        //registerLaterBtn.center = CGPoint(x: width / 2, y: orLabel.frame.maxY + 23)
+        //registerLaterBtn.frame.size = CGSize(width: 183 , height: 33)
         registerLaterBtn.setTitle("先試用，晚點再註冊", for: .normal)
+        registerLaterBtn.titleLabel?.font = registerLaterBtn.titleLabel?.font.withSize(fontSize)
+
+        registerLaterBtn.translatesAutoresizingMaskIntoConstraints = false
+        registerLaterBtn.widthAnchor.constraint(equalToConstant: 183 * dif).isActive = true
+        registerLaterBtn.heightAnchor.constraint(equalToConstant: 33 * dif).isActive = true
+        registerLaterBtn.topAnchor.constraint(equalTo: orLabel.bottomAnchor, constant: 5 * dif).isActive = true
+        registerLaterBtn.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        
+        
+        
+        /*
+         var iphoneWidth = CGFloat()
+         var fontSize = CGFloat()
+         var dif = CGFloat()
+         
+         switch  height {
+         case 812:
+         iphoneWidth = height * 375/667
+         fontSize = 20
+         dif = 1.15
+         
+         case 736:
+         iphoneWidth = width
+         fontSize = 18
+         dif = 1.1
+         case 667:
+         iphoneWidth = width
+         fontSize = 18
+         
+         dif = 1
+         case 568:
+         iphoneWidth = width
+         fontSize = 16
+         dif = 0.9
+         
+         default:
+         iphoneWidth = width
+         fontSize = 16
+         dif = 0.9
+         
+         
+         }
+         
+         */
+        
+        
+   
+        
         
         
     }
@@ -224,13 +427,13 @@ dif = 1
             
 
             usernameTxt.text = ""
-            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
             
             if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
                 
                 passwordTxt.text = ""
                 
-                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
 
                 
             }
@@ -239,14 +442,14 @@ dif = 1
             
             passwordTxt.text = ""
             
-            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
             
             if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
                 
                 
                 
                 usernameTxt.text = ""
-                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
                 
                 
             }
@@ -405,8 +608,8 @@ dif = 1
                                 
                                 self?.usernameTxt.text = ""
                                 self?.passwordTxt.text = ""
-                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: self!.attrs)
+                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                 
                             })
                             return
@@ -425,8 +628,8 @@ dif = 1
                                      print("2")
                             self?.usernameTxt.text = ""
                             self?.passwordTxt.text = ""
-                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                         })
                         return
                         
@@ -448,8 +651,8 @@ dif = 1
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                 })
                 return
                 
@@ -475,13 +678,13 @@ dif = 1
             
             
             usernameTxt.text = ""
-            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
             
             if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
                 
                 passwordTxt.text = ""
                 
-                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
 
             }
             
@@ -489,14 +692,14 @@ dif = 1
             
             passwordTxt.text = ""
             
-            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
             
             if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
                 
                 
                 
                 usernameTxt.text = ""
-                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
                 
                 
             }
@@ -711,16 +914,16 @@ dif = 1
                                     
                                     self?.usernameTxt.text = ""
                                     self?.passwordTxt.text = ""
-                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: self!.attrs)
+                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                     
                                     
                                 } else if errorStatus == "401"{
                                     
                                     self?.usernameTxt.text = ""
                                     self?.passwordTxt.text = ""
-                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: self!.attrs)
+                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                     
                                     
                                 }
@@ -743,8 +946,8 @@ dif = 1
                         
                         self?.usernameTxt.text = ""
                         self?.passwordTxt.text = ""
-                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
+                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                         
                         
                     })
@@ -764,8 +967,8 @@ dif = 1
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                 })
                 return
                 
@@ -1040,8 +1243,8 @@ dif = 1
                                 print("1")
                                 self?.usernameTxt.text = ""
                                 self?.passwordTxt.text = ""
-                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: self!.attrs)
+                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                 
                             })
                             return
@@ -1060,8 +1263,8 @@ dif = 1
                             print("2")
                             self?.usernameTxt.text = ""
                             self?.passwordTxt.text = ""
-                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                         })
                         return
                         
@@ -1083,8 +1286,8 @@ dif = 1
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                 })
                 return
                 

@@ -27,62 +27,108 @@ class BookTableViewCell: UITableViewCell {
         // Initialization code
         
         var dif = CGFloat()
-        
+        var fontDif:CGFloat!
+        var widthDif:CGFloat!
+        var iPhoneXHeightDif:CGFloat!
+        var hintLabelWidthDif: CGFloat!
         switch height {
+            
+            
+        case 1366, 1336, 1112:
+
+            dif = 2
+            fontDif = 2
+            widthDif = 1.5
+            iPhoneXHeightDif = 1
+            hintLabelWidthDif = 1
+            
+        case 1024:
+            
+            dif = 1.5
+            fontDif = 1.5
+            widthDif = 1.5
+            iPhoneXHeightDif = 1
+            hintLabelWidthDif = 1
         case 812:
             
 
-            dif = 1.2
+            dif = 0.7
+            fontDif = 1
+            widthDif = 1.5
+            iPhoneXHeightDif = 1.5
+            hintLabelWidthDif = 1.3
      
             
         case 736:
 
-            dif = 1.2
+            dif = 0.7
+            fontDif = 1
+            widthDif = 1.7
+            iPhoneXHeightDif = 1.5
+            hintLabelWidthDif = 1.3
         
             
         case 667:
             
-           dif = 1.1
+         
+            dif = 0.7
+            fontDif = 1
+            widthDif = 1.5
+            iPhoneXHeightDif = 1.5
+            hintLabelWidthDif = 1.3
             
         case 568:
 
 
       
-            dif = 1
+            dif = 0.6
+            fontDif = 1
+            widthDif = 1.4
+            iPhoneXHeightDif = 1.5
+            hintLabelWidthDif = 1.3
         default:
-            dif = 1
+            break
             
         }
 
-       
-        engWordLabel.frame = CGRect(x: 52 , y: 3, width: 250 * dif, height: 35)
+        syllableLabel.translatesAutoresizingMaskIntoConstraints = false
+        syllableLabel.widthAnchor.constraint(equalToConstant: 60 * dif).isActive = true
+        syllableLabel.heightAnchor.constraint(equalToConstant: 20 * dif * iPhoneXHeightDif).isActive = true
+        syllableLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        syllableLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        syllableLabel.font = syllableLabel.font.withSize(15 * fontDif)
+        syllableLabel.textAlignment = .center
+        syllableLabel.adjustsFontSizeToFitWidth = true
         
         
-        
-   
+        engWordLabel.frame = CGRect(x: 75 * dif, y: 3, width: 250 * dif * widthDif, height: 35 * dif * iPhoneXHeightDif)
 
-        partOfSpeechLabel.frame = CGRect(x: engWordLabel.frame.minX, y: engWordLabel.frame.maxY, width: 30 * dif, height: 20)
-        engSenLabel.frame = CGRect(x: engWordLabel.frame.minX, y: partOfSpeechLabel.frame.maxY, width: 250 * dif, height: 35)
-        chiSenLabel.frame = CGRect(x: engWordLabel.frame.minX, y: engSenLabel.frame.maxY, width: 200 * dif, height: 30)
+        partOfSpeechLabel.frame = CGRect(x: engWordLabel.frame.minX, y: engWordLabel.frame.maxY, width: 30 * dif * widthDif, height: 20 * dif * iPhoneXHeightDif)
+        engSenLabel.frame = CGRect(x: engWordLabel.frame.minX, y: partOfSpeechLabel.frame.maxY, width: 250 * dif * widthDif, height: 35 * dif * iPhoneXHeightDif)
+        chiSenLabel.frame = CGRect(x: engWordLabel.frame.minX, y: engSenLabel.frame.maxY, width: 200 * dif * widthDif, height: 30 * dif * iPhoneXHeightDif)
+        chiSenLabel.numberOfLines = 0
         
-        chiWordLabel.frame = CGRect(x: partOfSpeechLabel.frame.maxX, y: engWordLabel.frame.maxY, width: 200 * dif, height: 20)
+        chiWordLabel.frame = CGRect(x: partOfSpeechLabel.frame.maxX, y: engWordLabel.frame.maxY, width: 200 * dif * widthDif, height: 20 * dif * iPhoneXHeightDif)
         //partOfSpeechLabel.backgroundColor = .red
         partOfSpeechLabel.adjustsFontSizeToFitWidth = true
         
-        //syllableLabel.backgroundColor = .red
-        syllableLabel.adjustsFontSizeToFitWidth = true
+
         
-        hintLabel.frame = CGRect(x: width - 80, y: engWordLabel.frame.minY, width: 70, height: 21)
+        hintLabel.frame = CGRect(x: width - (80 * dif * hintLabelWidthDif), y: engWordLabel.frame.minY, width: 70 * dif * hintLabelWidthDif, height: 21 * dif * iPhoneXHeightDif)
  
         
+        hintLabel.adjustsFontSizeToFitWidth = true
+        
+
         /*
         engWordLabel.backgroundColor = .red
         chiWordLabel.backgroundColor = .green
         partOfSpeechLabel.backgroundColor = .purple
         engSenLabel.backgroundColor = .blue
         chiSenLabel.backgroundColor = .yellow
-        syllableLabel.backgroundColor = .white
-        */
+        syllableLabel.backgroundColor = .green
+        hintLabel.backgroundColor = .green
+ */
     
         
     }

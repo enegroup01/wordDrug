@@ -46,7 +46,7 @@ class LessonViewController: UIViewController{
     var alertBg = UIImageView()
     var alertText = UILabel()
     var ghostBtn = UIButton()
-    var ghost2Btn = UIButton()
+    //var ghost2Btn = UIButton()
     var practiceWordBtn = UIButton()
     var practiceSenBtn = UIButton()
     var leftBtnClickedImg = UIImageView()
@@ -79,7 +79,11 @@ class LessonViewController: UIViewController{
     
     var hiddenBtn = UIButton()
     
-    var iPadSmall = CGFloat()
+    var lessonTitleFontSize: CGFloat!
+    var lessonBigFontSize: CGFloat!
+    var lessonSmallFontSize: CGFloat!
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,130 +91,211 @@ class LessonViewController: UIViewController{
 
         // Do any additional setup after loading the view.
         var dif = CGFloat()
-        var xDif = CGFloat()
+ 
+        var iPadSizeDif: CGFloat!
+        var btnFontSize:CGFloat!
+        var hintLabelFontSize:CGFloat!
         
         switch height {
+            
+        case 1366, 1336, 1112:
+            print("big iPad")
+   
+
+            dif = 0.9
+            iPadSizeDif = 2.3
+            
+            sylFontSize = 170
+            wordFontSize = 70
+            titleFontSize = 45
+            lessonTitleFontSize = 25
+            lessonBigFontSize = 60
+            lessonSmallFontSize = 20
+            btnFontSize = 40
+            hintLabelFontSize = 30
+        
+            
+        case 1024:
+            
+            print("small iPad")
+  
+            dif = 0.9
+            iPadSizeDif = 2
+            
+            sylFontSize = 160
+            wordFontSize = 60
+            titleFontSize = 45
+            lessonTitleFontSize = 25
+            lessonBigFontSize = 60
+            lessonSmallFontSize = 20
+            btnFontSize = 40
+            hintLabelFontSize = 30
+        
+            
         case 812:
-            xDif = 1.2
+            
+       
             dif = 1
+            iPadSizeDif = 1
+            
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
-            iPadSmall = 0
-            
+            lessonTitleFontSize = 14
+            lessonBigFontSize = 30
+            lessonSmallFontSize = 15
+            btnFontSize = 22
+            hintLabelFontSize = 16
+ 
 
         case 736:
-            xDif = 1
+  
             dif = 1.1
+            iPadSizeDif = 1
+            
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
-            iPadSmall = 0
-
+            lessonTitleFontSize = 12
+            lessonBigFontSize = 30
+            lessonSmallFontSize = 15
+            btnFontSize = 22
+            hintLabelFontSize = 16
+          
             
         case 667:
-            xDif = 1
+            
+   
             dif = 1
+            iPadSizeDif = 1
+            
             sylFontSize = 120
             wordFontSize = 35
-            titleFontSize = 26
-            iPadSmall = 0
-
+            titleFontSize = 24
+            lessonTitleFontSize = 12
+            lessonBigFontSize = 30
+            lessonSmallFontSize = 15
+            btnFontSize = 20
+            hintLabelFontSize = 16
+      
             
         case 568:
-            xDif = 1
+     
             dif = 0.9
+            iPadSizeDif = 1
+
+
             sylFontSize = 100
             wordFontSize = 30
-            titleFontSize = 24
-            iPadSmall = 0
-
-
-            
+            titleFontSize = 20
+            lessonTitleFontSize = 12
+            lessonBigFontSize = 30
+            lessonSmallFontSize = 15
+            btnFontSize = 20
+            hintLabelFontSize = 16
+      
+       
         default:
-            xDif = 1
-            dif = 0.9
-            sylFontSize = 80
-            wordFontSize = 30
-            titleFontSize = 18
-            iPadSmall = 10
 
-
-            
+            break
         }
 
+
+
+        
         
         //加入alertView
         let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
-        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         ghostBtn.backgroundColor = lightGray
         ghostBtn.addTarget(self, action: #selector(LessonViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
+        ghostBtn.fillSupervivew()
         
-        
-        
-        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+    
+
+        alertBg.translatesAutoresizingMaskIntoConstraints = false
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
+        alertBg.widthAnchor.constraint(equalToConstant: 237 * iPadSizeDif).isActive = true
+        alertBg.heightAnchor.constraint(equalToConstant: 140 * iPadSizeDif).isActive = true
+        alertBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertBg.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
         
-        ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
-        self.view.addSubview(ghost2Btn)
-        
-        alertText.frame = CGRect(x: 5 * dif , y: 20 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
+    
+
+        alertText.translatesAutoresizingMaskIntoConstraints = false
+        //alertText.backgroundColor = .blue
+        alertText.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         alertText.textColor = .white
         alertText.text = "請選擇挑戰模式"
-        alertText.numberOfLines = 4
+        alertText.numberOfLines = 3
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
+        alertText.widthAnchor.constraint(equalToConstant: 200 * iPadSizeDif).isActive = true
+        alertText.heightAnchor.constraint(equalToConstant: 80 * iPadSizeDif).isActive = true
+        alertText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertText.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10).isActive = true
+
         
-        
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif + iPadSmall, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        
-        practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+    
+        practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         practiceWordBtn.setTitle("拼字王挑戰", for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
+        //practiceWordBtn.backgroundColor = .green
+        //practiceWordBtn.alpha = 0.5
+        //practiceWordBtn.layer.zPosition = 10
         self.view.addSubview(practiceWordBtn)
+       
+        practiceWordBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: nil, size: .init(width: 119 * iPadSizeDif, height: alertBg.frame.height / 3))
         
-        practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif + iPadSmall, width: alertBg.frame.width / 2, height: height * 44 / 667)
         
-        practiceSenBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+
+        //practiceSenBtn.backgroundColor = .brown
+        //practiceSenBtn.alpha = 0.5
+        practiceSenBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         practiceSenBtn.setTitle("句型冠軍榜", for: .normal)
         practiceSenBtn.setTitleColor(orangeColor, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
+        practiceSenBtn.anchor(top: alertText.bottomAnchor, leading: practiceWordBtn.trailingAnchor, bottom: alertBg.bottomAnchor, trailing: nil)
+        practiceSenBtn.anchorSize(to: practiceWordBtn)
         
         bigQuitBtn = UIButton(type: .system)
-        bigQuitBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
+       
  
-        bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+        bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         bigQuitBtn.setTitle("我知道了", for: .normal)
         bigQuitBtn.setTitleColor(orangeColor, for: .normal)
-        
+        //bigQuitBtn.backgroundColor = .blue
         bigQuitBtn.addTarget(self, action:#selector(LessonViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(bigQuitBtn)
+        bigQuitBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: alertBg.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         
+ 
 
         
-        backBtn.frame = CGRect(x: width / 10, y: width / 8, width: 19, height: 31)
-        lessonTitleLabel.frame = CGRect(x: width * 5.5 / 7, y: backBtn.frame.minY - 10 * dif, width: 66 , height: 22)
+        backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 10, bottom: 0, right: 0), size: .init(width: 19 * iPadSizeDif, height: 31 * iPadSizeDif))
         
-        lessonLabel.frame = CGRect(x: width * 3 / 4, y: lessonTitleLabel.frame.maxY, width: width / 4, height: 60 * dif)
-        lessonLabel.backgroundColor = .clear
+        
+        //backBtn.backgroundColor = .blue
 
         
-        syllableLabel.frame = CGRect(x: 0, y: height / 5 * dif, width: width, height: height / 3.5 * dif)
+        lessonTitleLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 30, left: 0, bottom: 0, right: -20), size: .init(width: 66 * iPadSizeDif, height: 22 * iPadSizeDif))
     
-        syllableLabel.adjustsFontSizeToFitWidth = true
-        syllableLabel.font = syllableLabel.font.withSize(sylFontSize)
+        lessonTitleLabel.textAlignment = .right
+        lessonTitleLabel.font = lessonTitleLabel.font.withSize(lessonTitleFontSize)
+        
+        
 
-        syllableLabel.textAlignment = .center
-        //syllableLabel.backgroundColor = .blue
+        lessonLabel.anchor(top: lessonTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -20), size: .zero)
+
+        lessonLabel.anchorSize(to: lessonTitleLabel)
         
+        titleLabel.anchor(top: lessonTitleLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: 72 * dif * iPadSizeDif))
         
-        titleLabel.frame = CGRect(x: 0, y: syllableLabel.frame.minY - 72 * dif, width: width, height: 72 * dif)
         //titleLabel.backgroundColor = .red
 
         titleLabel.numberOfLines = 2
@@ -220,54 +305,87 @@ class LessonViewController: UIViewController{
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.font = titleLabel.font.withSize(titleFontSize)
         
+     
         
-        firstLabel.frame = CGRect(x: 0, y: syllableLabel.frame.maxY + 10 * dif, width: width, height: 44 * dif)
+        syllableLabel.anchor(top: titleLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: height / 3.5 * dif))
+        syllableLabel.adjustsFontSizeToFitWidth = true
+        syllableLabel.font = syllableLabel.font.withSize(sylFontSize)
+        
+        syllableLabel.textAlignment = .center
+      
+        
+        
+   
+        
+        firstLabel.anchor(top: syllableLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: 44 * dif * iPadSizeDif))
         firstLabel.adjustsFontSizeToFitWidth = true
         firstLabel.font = firstLabel.font.withSize(wordFontSize)
         
-        //firstLabel.backgroundColor = .red
-        secondLabel.frame = CGRect(x: 0, y: firstLabel.frame.maxY, width: width, height: 44 * dif)
+        
+     
+         secondLabel.anchor(top: firstLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .zero)
+        
+        secondLabel.anchorSize(to: firstLabel)
+        
         secondLabel.adjustsFontSizeToFitWidth = true
         secondLabel.font = secondLabel.font.withSize(wordFontSize)
-
         
-        //secondLabel.backgroundColor = .green
-              thirdLabel.frame = CGRect(x: 0, y: secondLabel.frame.maxY, width: width, height: 44 * dif)
+        
+
+        thirdLabel.anchor(top: secondLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor)
+        
+        thirdLabel.anchorSize(to: secondLabel)
         
         thirdLabel.adjustsFontSizeToFitWidth = true
         thirdLabel.font = thirdLabel.font.withSize(wordFontSize)
 
         
- 
-        //thirdLabel.backgroundColor = .yellow
+        enterBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, size: .init(width: width / 2, height: 50 * iPadSizeDif))
         
+        reviewBtn.anchor(top: nil, leading: view.safeLeftAnchor, bottom: view.safeBottomAnchor, trailing: nil)
+        reviewBtn.anchorSize(to: enterBtn)
+
+
+        enterBtn.titleLabel?.font = enterBtn.titleLabel?.font.withSize(btnFontSize)
+        reviewBtn.titleLabel?.font = reviewBtn.titleLabel?.font.withSize(btnFontSize)
         
-        enterBtn.frame = CGRect(x: width / 2, y: height - 66 * dif, width: width / 2, height: 66 * dif)
+
+        fullLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: view.safeRightAnchor, size: .init(width: width, height: 3))
+
         
-        reviewBtn.frame = CGRect(x: 0, y: height - 66 * dif, width: width / 2, height: 66 * dif)
+
+        hintLabel.anchor(top: nil, leading: view.safeLeftAnchor, bottom: fullLength.topAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -5, right: 0) ,size: .init(width: width, height: 21 * dif * iPadSizeDif))
         
-        fullLength.frame = CGRect(x: 0, y: enterBtn.frame.minY, width: width, height: 3)
-        
-        hintLabel.frame = CGRect(x: (width - 136 * dif) / 2, y: enterBtn.frame.minY - 36, width: 136 * dif, height: 21 * dif)
-        
+         hintLabel.font = hintLabel.font.withSize(hintLabelFontSize)
         
         //拉到最前方
         self.view.bringSubview(toFront: ghostBtn)
-        self.view.bringSubview(toFront: alertBg)
-        self.view.bringSubview(toFront: ghost2Btn)
+         self.view.bringSubview(toFront: alertBg)
+        
         self.view.bringSubview(toFront: practiceWordBtn)
         self.view.bringSubview(toFront: practiceSenBtn)
         self.view.bringSubview(toFront: leftBtnClickedImg)
         self.view.bringSubview(toFront: rightBtnClickedImg)
         self.view.bringSubview(toFront: bigQuitBtn)
+  
+        
+        
+        /*
+        firstLabel.backgroundColor = .red
+        lessonTitleLabel.backgroundColor = .yellow
+        secondLabel.backgroundColor = .green
+        thirdLabel.backgroundColor = .yellow
+        hintLabel.backgroundColor = .green
+        lessonLabel.backgroundColor = .red
+        syllableLabel.backgroundColor = .blue
+        */
+        
         
         removeBtns()
 
-
-        
     }
     
-    //syn發音
+    //syn發音, 用不到
     func synPronounce(){
         print("pronounce")
         print(synWord)
@@ -328,7 +446,7 @@ class LessonViewController: UIViewController{
         alertText.text = "請選擇挑戰模式"
         ghostBtn.isHidden = true
         alertBg.isHidden = true
-        ghost2Btn.isHidden = true
+        //ghost2Btn.isHidden = true
         practiceWordBtn.isHidden = true
         practiceSenBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
@@ -350,6 +468,8 @@ class LessonViewController: UIViewController{
         print("practice Sen")
         
         gameMode = 2
+    
+
         
         
         
@@ -378,6 +498,7 @@ class LessonViewController: UIViewController{
     
     @objc func practiceWord(){
         print("practice word")
+    
         
         gameMode = 1
         
@@ -414,6 +535,7 @@ class LessonViewController: UIViewController{
     
     
     override func viewWillDisappear(_ animated: Bool) {
+
         practiceSenBtn.isEnabled = true
         practiceWordBtn.isEnabled = true
         removeBtns()
@@ -481,8 +603,8 @@ class LessonViewController: UIViewController{
 */
             
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 45), NSAttributedStringKey.foregroundColor : pinkColor]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedStringKey.foregroundColor : pinkColor]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
         let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         
@@ -558,6 +680,7 @@ class LessonViewController: UIViewController{
         //再把數字減回來
         mapNumToReceive -= increaseNum
             print("mapNumToReceive:\(mapNumToReceive)")
+            
         if mapNumToReceive == mapPassedInt {
             //抓目前的元素
             
@@ -608,8 +731,13 @@ class LessonViewController: UIViewController{
         lessonLabel.attributedText = lessonText
         
         //進度條
-        progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
-        
+            print("讀取進度條")
+        //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
+        progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
+
+            
+            
+        //MARK: 讀取文字檔
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
@@ -618,7 +746,7 @@ class LessonViewController: UIViewController{
         
         let name = String(mapNum + 1) + "-" + String(spotNum + 1)
         
-        print(name)
+        //print(name)
         
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {
@@ -664,6 +792,7 @@ class LessonViewController: UIViewController{
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
         
         
+            //MARK: 音節變色
         if syllablesWithoutDigit.contains("_"){
             //specialE的作法
             
@@ -803,8 +932,6 @@ class LessonViewController: UIViewController{
             
             titleLabel.text = ""
             
-            
-        
             //如果是複習模式在此指定傳送數值, 在此不要加increaseNum因為在gameVc裡沒有再減了, 直接拿來比較
             mapNum = mapNumToReceive
             
@@ -825,7 +952,9 @@ class LessonViewController: UIViewController{
             attrWords.append(NSMutableAttributedString(string: "\n"))
             attrWords.append(text4)
             
-            progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: fullLength.frame.width, height: 3)
+            //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: fullLength.frame.width, height: 3)
+            progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: view.safeRightAnchor, size: .init(width: fullLength.frame.width, height: 3))
+            
             enterBtn.isEnabled = false
             enterBtn.setTitle("課程結束", for: .normal)
             //syllableLabel.text = "此單元結束\n請選擇下方快速複習\n挑戰模式"
@@ -849,7 +978,7 @@ class LessonViewController: UIViewController{
         
         ghostBtn.isHidden = false
         alertBg.isHidden = false
-        ghost2Btn.isHidden = false
+        //ghost2Btn.isHidden = false
         practiceWordBtn.isHidden = false
         practiceSenBtn.isHidden = false
         leftBtnClickedImg.isHidden = false
@@ -859,6 +988,8 @@ class LessonViewController: UIViewController{
     
     func cannotPracticeAlert(){
         
+
+        
         alertText.text = "\n此課程尚未學習，無法挑戰\n至少需要學習一個單元才能挑戰"
         ghostBtn.isHidden = false
         
@@ -866,7 +997,7 @@ class LessonViewController: UIViewController{
         alertBg.image = UIImage(named: "reviewQuitBg3.png")
         alertBg.isHidden = false
         bigQuitBtn.isHidden = false
-        ghost2Btn.isHidden = false
+        //ghost2Btn.isHidden = false
         practiceWordBtn.isHidden = true
         practiceSenBtn.isHidden = true
         //leftBtnClickedImg.isHidden = false
@@ -895,8 +1026,7 @@ class LessonViewController: UIViewController{
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    
+
     /*
     // MARK: - Navigation
 
@@ -907,4 +1037,94 @@ class LessonViewController: UIViewController{
     }
     */
 
+}
+
+extension UIView{
+    
+    func fillSupervivew(){
+        anchor(top: superview?.topAnchor, leading: superview?.leadingAnchor, bottom: superview?.bottomAnchor, trailing: superview?.trailingAnchor)
+    }
+    
+    
+    func anchorSize(to view: UIView){
+        
+        widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+
+    }
+    
+    func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero){
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let top = top {
+            
+            topAnchor.constraint(equalTo: top, constant: padding.top).isActive = true
+            
+        }
+        
+        if let leading = leading {
+            
+            leadingAnchor.constraint(equalTo: leading, constant: padding.left).isActive = true
+            
+        }
+        
+        if let bottom = bottom {
+            
+            bottomAnchor.constraint(equalTo: bottom, constant: padding.bottom).isActive = true
+            
+        }
+        if let trailing = trailing {
+            
+            trailingAnchor.constraint(equalTo: trailing, constant: padding.right).isActive = true
+            
+        }
+
+        if size.width != 0 {
+            
+            widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        }
+        if size.height != 0 {
+            
+            heightAnchor.constraint(equalToConstant: size.height).isActive = true
+            
+        }
+        
+        
+    }
+    
+    var safeTopAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.topAnchor
+        } else {
+            return self.topAnchor
+        
+        }
+    }
+    
+    var safeLeftAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *){
+            return self.safeAreaLayoutGuide.leadingAnchor
+        }else {
+            return self.leadingAnchor
+        }
+    }
+    
+    var safeRightAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *){
+            return self.safeAreaLayoutGuide.trailingAnchor
+        }else {
+            return self.trailingAnchor
+        }
+    }
+    
+    var safeBottomAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            return self.bottomAnchor
+        }
+    }
+    
+    
 }

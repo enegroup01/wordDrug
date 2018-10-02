@@ -32,8 +32,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBOutlet weak var toInfoVcBtn: UIButton!
 
     var recommendedClass:String?
-    
-    @IBOutlet weak var bottomBg: UIImageView!
 
     @IBOutlet weak var toChartVcBtn: UIButton!
     
@@ -57,7 +55,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBOutlet weak var daysLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
     
-    
     @IBOutlet weak var finger: UIImageView!
     
     @IBOutlet weak var point: UIImageView!
@@ -76,78 +73,102 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
  
-        
-        // Do any additional setup after loading the view.
-        //print("coursesVC:\(user!)")
-        
-        
-        var iPadFix = CGFloat()
-        var titleDif = CGFloat()
         var dif = CGFloat()
         var iPadDif = CGFloat()
-
-        var btnDif = CGFloat()
+        var bigNameFontSize: CGFloat!
+        var logOutBtnLabelFontSize:CGFloat!
+        var dayFontSize:CGFloat!
+        var dayTitleFontSize:CGFloat!
+        var statusFontSize: CGFloat!
         
         switch height {
             
-        case 812:
-            iPadFix = 1
+        case 1366, 1336, 1112:
+            print("iPad pro 2nd generation")
+    
+            dif = 1
+            iPadDif = 2
+    
+            bigNameFontSize = 60
+            dynamicCellHeight = 250
+            logOutBtnLabelFontSize = 30
+            dayFontSize = 100
+            dayTitleFontSize = 24
+            statusFontSize = 24
  
-            titleDif = 1
-            dif = 1.15
-            iPadDif = 1
+        case 1024:
+            print("9.7 iPad or 7.9 iPad mini, iPad(5th), iPad air, iPad air 2")
+        
+            dif = 1
+            iPadDif = 1.5
+            
+            bigNameFontSize = 40
+            dynamicCellHeight = 180
+            logOutBtnLabelFontSize = 20
+            dayFontSize = 70
+            dayTitleFontSize = 20
+            statusFontSize = 20
           
-            btnDif = 1
-            dynamicCellHeight = 120
 
-            
-        case 736:
-            
-            iPadFix = 1
-
-            titleDif = 1
+        case 812:
+           //iPhoneX
             dif = 1.1
             iPadDif = 1
-       
-            btnDif = 1
             dynamicCellHeight = 120
+            
+            bigNameFontSize = 30
+            logOutBtnLabelFontSize = 12
+            dayFontSize = 50
+            dayTitleFontSize = 12
+            statusFontSize = 12
+   
+        case 736:
+            //plus
+            dif = 1
+            iPadDif = 1
+            dynamicCellHeight = 120
+            
+            bigNameFontSize = 30
+            logOutBtnLabelFontSize = 12
+            dayFontSize = 46
+            dayTitleFontSize = 12
+            statusFontSize = 12
 
             
         case 667:
-            
-            iPadFix = 1
-          
-            titleDif = 0.9
+            //iphone 7
             dif = 1
             iPadDif = 1
-            btnDif = 0.95
             dynamicCellHeight = 110
-          
             
+            bigNameFontSize = 30
+            logOutBtnLabelFontSize = 12
+            dayFontSize = 44
+            dayTitleFontSize = 12
+            statusFontSize = 12
+   
         case 568:
-            iPadFix = 1
-            titleDif = 0.8
+    
+            //Se
             dif = 0.9
             iPadDif = 1
-          
-            btnDif = 0.8
-         
             dynamicCellHeight = 90
             
+            bigNameFontSize = 24
+            logOutBtnLabelFontSize = 12
+            dayFontSize = 36
+            dayTitleFontSize = 12
+            statusFontSize = 12
+         
         default:
-            iPadFix = 0.8
-            titleDif = 0.8
-            dif = 0.9
-            iPadDif = 0.9
+            
+            break
 
-            btnDif = 1
-   
-            dynamicCellHeight = 110
         }
         
      
         
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100 * iPadDif, height: 100 * iPadDif))
         activityIndicator.layer.zPosition = 15
         let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
         activityIndicator.center = self.view.center
@@ -157,35 +178,82 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
         
-        //這部分的顯示還沒安排位置
-        var nickname = String()
-        //測試用
-        
-        if user != nil {
-            nickname = user?["username"] as! String
-        } else {
-            nickname = "新學生"
-        }
-        
-        
+  
       
-        //新位置
+        //MARK: UI Setting
         
-        bottomBg.frame = CGRect(x: 0, y: height - 80 * dif * btnDif, width: width, height: 80 * dif)
+        //登出鍵 & 登入按鍵
+  
+        
+        logoImg.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 10, left: width / 2 - (135 * dif * iPadDif) / 2, bottom: 0, right: 0), size: .init(width: 135 * dif * iPadDif, height: 131 * dif * iPadDif))
+        
+        
+        logOutBtn.backgroundColor = #colorLiteral(red: 0.9389395118, green: 0.3498239517, blue: 0.1933075488, alpha: 1)
+        logOutBtn.titleLabel?.font = logOutBtn.titleLabel?.font.withSize(logOutBtnLabelFontSize)
+        logOutBtn.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: -10), size: .init(width: 50 * iPadDif * dif, height: 22 * iPadDif * dif))
+        logOutBtn.layer.cornerRadius = 50 * iPadDif * dif / 15
+        
+        
+        toLoginVcBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 0, right: 0), size: .init(width: 63 * iPadDif * dif, height: 24 * iPadDif * dif))
+    
+        bigNameLabel.font = bigNameLabel.font.withSize(bigNameFontSize)
+        
+        bigNameLabel.adjustsFontSizeToFitWidth = true
+
+        bigNameLabel.anchor(top: toLoginVcBtn.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0), size: .init(width: 200 * iPadDif * dif, height: 35 * iPadDif * dif))
+       //bigNameLabel.backgroundColor = .green
+        
+  
+        userStatusLabel.font = userStatusLabel.font.withSize(statusFontSize)
+        
+        userStatusLabel.anchor(top: bigNameLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0), size: .init(width: 200 * iPadDif * dif, height: 55 * iPadDif * dif))
+
+        
+  
+        dayTitleLabel.font = dayTitleLabel.font.withSize(dayTitleFontSize)
+        dayTitleLabel.anchor(top: logOutBtn.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: -10), size: .init(width: 60 * iPadDif * dif, height: 25 * iPadDif * dif))
+    
+        daysLabel.font = daysLabel.font.withSize(dayFontSize)
+        daysLabel.anchor(top: dayTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -10), size: .init(width: 200 * iPadDif * dif, height: 65 * iPadDif * dif))
+        daysLabel.adjustsFontSizeToFitWidth = true
+        //daysLabel.backgroundColor = .red
+        
+    
+        //設定tableview高度
+        courseTableView.backgroundColor = .clear
+        
+        courseTableView.separatorColor = .lightGray
+        courseTableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+
+        courseTableView.anchor(top: userStatusLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: 490 * iPadDif * dif))
+        
+        
+        let borderLine = UIView()
+        borderLine.backgroundColor = .lightGray
+        self.view.addSubview(borderLine)
+        
+        borderLine.anchor(top: nil, leading: view.safeLeftAnchor, bottom: courseTableView.topAnchor, trailing: view.safeRightAnchor, size: .init(width: width, height: 0.5))
+
+        
+        //底部選項的背景
+        
+        let bottomView = UIView()
+        bottomView.backgroundColor = #colorLiteral(red: 0.1972360313, green: 0.1450089514, blue: 0.1361441612, alpha: 1)
+        self.view.addSubview(bottomView)
+        bottomView.anchor(top: courseTableView.bottomAnchor, leading: view.safeLeftAnchor, bottom: view.bottomAnchor, trailing: view.safeRightAnchor)
+
+        
+
+        toInfoVcBtn.frame = CGRect(x: width / 6 - (27 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 27 * dif * iPadDif, height: 36 * dif * iPadDif)
        
         
-        toInfoVcBtn.frame = CGRect(x: width / 7 , y: bottomBg.frame.minY + 5, width: 37 * dif, height: 48 * dif)
+        toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 36 * dif * iPadDif)
+    
         
-        toInfoVcBtn.center = CGPoint(x: width / 6, y: bottomBg.frame.midY - 4)
-     
         
-        toChartVcBtn.frame = CGRect(x: width * 3 / 7, y: bottomBg.frame.minY + 3, width: 43 * dif, height: 49 * dif)
-        toChartVcBtn.center = CGPoint(x: width / 2, y: bottomBg.frame.midY - 5)
-     
-        
-        toShopVcBtn.frame = CGRect(x: width * 5 / 7, y: bottomBg.frame.minY + 5, width: 43 * dif, height: 43 * dif)
+        toShopVcBtn.frame = CGRect(x: width * 5 / 6 - (32 * dif * iPadDif) / 2, y: height - 40 * dif * iPadDif, width: 32 * dif * iPadDif, height: 32 * dif * iPadDif)
 
-        toShopVcBtn.center = CGPoint(x: width * 5 / 6, y: bottomBg.frame.midY - 4)
+ 
         
         toInfoLabel.center = CGPoint(x: toInfoVcBtn.frame.midX, y: toInfoVcBtn.frame.maxY + 15)
         toChartLabel.center = CGPoint(x: toChartVcBtn.frame.midX, y: toInfoLabel.frame.midY)
@@ -195,51 +263,43 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         toChartLabel.isHidden = true
         toShopLabel.isHidden = true
         
-        hiddenInfoBtn.frame = toInfoLabel.frame
+        let btnColumn = UIView()
+        btnColumn.backgroundColor = .darkGray
+        self.view.addSubview(btnColumn)
+        btnColumn.anchor(top: courseTableView.bottomAnchor, leading: view.safeLeftAnchor, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: width / 3, bottom: 0, right: 0), size: .init(width: 1, height: 50 * iPadDif * dif))
+        
+        let btnColumn1 = UIView()
+        btnColumn1.backgroundColor = .darkGray
+        self.view.addSubview(btnColumn1)
+        btnColumn1.anchor(top: courseTableView.bottomAnchor, leading: view.safeLeftAnchor, bottom: view.bottomAnchor, trailing: nil, padding: .init(top: 0, left: width / 3 * 2, bottom: 0, right: 0))
+        btnColumn1.anchorSize(to: btnColumn)
+        
+   
         hiddenInfoBtn.addTarget(self, action: #selector(CoursesViewController.toInfoVcClicked(_:)), for: .touchUpInside)
         self.view.addSubview(hiddenInfoBtn)
         
-        hiddenChartBtn.frame = toChartLabel.frame
+        hiddenInfoBtn.anchor(top: courseTableView.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing:nil, size: .init(width: width / 3, height: 50 * iPadDif * dif))
+        
+   
         hiddenChartBtn.addTarget(self, action: #selector(CoursesViewController.toChartVcBtnClicked(_:)), for: .touchUpInside)
         self.view.addSubview(hiddenChartBtn)
+        hiddenChartBtn.anchor(top: courseTableView.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: width / 3, bottom: 0, right: 0))
+        hiddenChartBtn.anchorSize(to: hiddenInfoBtn)
         
-        hiddenShopBtn.frame = toShopLabel.frame
+        
+   
         hiddenShopBtn.addTarget(self, action: #selector(CoursesViewController.toShopVcBtnClicked(_:)), for: .touchUpInside)
         self.view.addSubview(hiddenShopBtn)
-
-        logOutBtn.frame = CGRect(x: (width / 18) * 15, y: height / 24, width: 50 * dif * iPadDif, height: 22 * dif * iPadDif)
-        logOutBtn.layer.cornerRadius = logOutBtn.frame.width / 15
-        logOutBtn.backgroundColor = #colorLiteral(red: 0.9389395118, green: 0.3498239517, blue: 0.1933075488, alpha: 1)
-      
-        toLoginVcBtn.frame = CGRect(x: width / 18, y: logOutBtn.frame.minY, width: 63 * dif * iPadDif, height: 24 * dif * iPadDif)
+        hiddenShopBtn.anchor(top: courseTableView.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: width / 3 * 2, bottom: 0, right: 0))
+        hiddenShopBtn.anchorSize(to: hiddenInfoBtn)
 
         
         
-        // Do any additional setup after loading the view.
         
-        bigNameLabel.frame = CGRect(x: width / 18, y: logOutBtn.frame.maxY * 1.5 * titleDif * titleDif, width:  190 * iPadFix, height: 42 * iPadFix)
+        self.view.bringSubview(toFront: toInfoVcBtn)
+        self.view.bringSubview(toFront: toShopVcBtn)
+        self.view.bringSubview(toFront: toChartVcBtn)
 
-
-        bigNameLabel.adjustsFontSizeToFitWidth = true
-        userStatusLabel.frame = CGRect(x: bigNameLabel.frame.minX, y: bigNameLabel.frame.maxY, width: 190 * iPadFix, height: 55 * iPadFix)
-     
-        dayTitleLabel.frame = CGRect(x: bigNameLabel.frame.maxX + 3, y: bigNameLabel.frame.midY - 3, width: width - bigNameLabel.frame.width - 30, height: 25 * iPadFix)
-        
-        daysLabel.frame = CGRect(x: bigNameLabel.frame.maxX + 3, y: dayTitleLabel.frame.maxY, width: width - bigNameLabel.frame.width - 30, height: 55 * iPadFix)
-
-        //設定tableview高度
-        courseTableView.backgroundColor = .clear
-        courseTableView.frame = CGRect(x: 0, y: daysLabel.frame.maxY + 2, width: width, height: height - daysLabel.frame.maxY - 2 - bottomBg.frame.height)
-        
-        courseTableView.separatorColor = .lightGray
-        courseTableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-        
-        
-        
-        let borderLine = UIView(frame: CGRect(x: 0, y: courseTableView.frame.minY - 2, width: width, height: 0.5))
-        borderLine.backgroundColor = .lightGray
-        self.view.addSubview(borderLine)
-        
         bigNameLabel.text = ""
         userStatusLabel.text = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
         userStatusLabel.adjustsFontSizeToFitWidth = true
@@ -247,11 +307,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         dayTitleLabel.text = "學習天數"
         daysLabel.text = ""
         daysLabel.adjustsFontSizeToFitWidth = true
-        //稍稍靠右邊
-        logoImg.center = CGPoint(x: width / 2 + 5, y: height / 8)
-        logoImg.frame.size = CGSize(width: 135 * dif * iPadFix, height: 131 * dif * iPadFix)
+    
 
-        
         /*
         
         if recommendedClass != nil {
@@ -260,8 +317,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             
             var posX = CGFloat()
             var posY = CGFloat()
-            
-            
+         
             // recommendedClass = "英檢初級"
             
             switch recommendedClass{
@@ -270,27 +326,23 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
                 print("初級")
                 posX = block0LBtn.frame.minX
                 posY = block0LBtn.frame.midY
-                
-                
+         
             case "英檢中級":
                 print("中級")
                 posX = block1LBtn.frame.minX
                 posY = block1LBtn.frame.midY
-                
-                
+         
             case "多益滿分":
                 print("多益")
                 posX = block2LBtn.frame.minX
                 posY = block2LBtn.frame.midY
-                
-                
+         
             case "雅思IELTS":
                 print("多益")
                 posX = block2LBtn.frame.minX
                 posY = block2LBtn.frame.midY
             
-                
-                
+   
             default:
                 break
                 
@@ -311,6 +363,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     }
     
     
+    //用不到
     func fingerAnimation(){
         
         UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear, animations: {[weak self] in
@@ -351,24 +404,13 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
                              self!.fingerAnimation()
                             }
                             
-                            
-                            
+                    
                     })
-                    
-                    
-                    
-                    
+               
                 })
-                
-                
-                
-                
+       
             }
-            
-            
-            
-            
-            
+
             
         }
         
@@ -461,10 +503,14 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     }
     
     @IBAction func toChartVcBtnClicked(_ sender: Any) {
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         performSegue(withIdentifier: "toChartVc", sender: self)
 
     }
     @IBAction func toShopVcBtnClicked(_ sender: Any) {
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         performSegue(withIdentifier: "toShopVc", sender: self)
     }
     
@@ -520,6 +566,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             }
             */
             
+            //計算天數
             let startDateString = user?["date"] as! String
             let startDate = startDateString.components(separatedBy: " ")
             let start = dateFormatter.date(from: startDate[0])
@@ -677,7 +724,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     }
     
     @IBAction func toInfoVcClicked(_ sender: Any) {
-        
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         performSegue(withIdentifier: "toInfoVc", sender: self)
     }
     

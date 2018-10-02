@@ -142,11 +142,11 @@ open class TwicketSegmentedControl: UIControl {
         addDragGesture()
     }
 
-    open func setSegmentItems(_ segments: [String]) {
+    open func setSegmentItems(segments: [String], height: CGFloat) {
         guard !segments.isEmpty else { fatalError("Segments array cannot be empty") }
 
         self.segments = segments
-        configureViews()
+        configureViews(height:height)
 
         clearLabels()
 
@@ -160,11 +160,11 @@ open class TwicketSegmentedControl: UIControl {
         setupAutoresizingMasks()
     }
 
-    private func configureViews() {
+    private func configureViews(height: CGFloat) {
         containerView.frame = CGRect(x: Constants.leadingTrailingMargin,
                                      y: Constants.topBottomMargin,
                                      width: bounds.width - Constants.leadingTrailingMargin * 2,
-                                     height: Constants.height)
+                                     height: height)
         let frame = containerView.bounds
         backgroundView.frame = frame
         selectedContainerView.frame = frame

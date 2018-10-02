@@ -30,7 +30,6 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var scores = [String]()
     var avas = [String]()
 
-    
     var wordCounts = [Int]()
     var wordReviewCounts = [Int]()
     var senReviewCounts = [Int]()
@@ -49,22 +48,68 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         // Do any additional setup after loading the view.
         
+        
+        
+        var bgY:CGFloat!
+        var btnFontSize:CGFloat!
+        var tableViewYDif:CGFloat!
+        var yDif:CGFloat!
+        var btnYDif:CGFloat!
         switch height {
-        case 812:
             
+            
+        case 1366, 1336, 1112:
+            
+            dif = 1
+            photoDif = 0
+            difX = 0
+            iPadDif = 1.8
+            iPadSmall = 10
+            bgY = 220
+            btnFontSize = 30
+            tableViewYDif = 35
+            yDif = 1
+            btnYDif = 0
+            
+            
+        case 1024:
+            dif = 1
+            photoDif = 0
+            difX = 0
+            iPadDif = 1.4
+            iPadSmall = 10
+            bgY = 170
+            btnFontSize = 24
+            tableViewYDif = 35
+            yDif = 1
+            btnYDif = 0
+            
+            
+        case 812:
+            //iPhoneX
             dif = 1.1
             photoDif = 4
             difX = 6
-            iPadDif = 1
+            iPadDif = 0.8
             iPadSmall = 0
-            
+            bgY = 0
+            btnFontSize = 16
+            tableViewYDif = 0
+            yDif = 0.1
+            btnYDif = 20
         case 736:
             
+            //plus
             dif = 1
             photoDif = 0
             difX = 0
             iPadDif = 1
             iPadSmall = 0
+            bgY = 0
+            btnFontSize = 16
+            tableViewYDif = 0
+            yDif = 0.2
+            btnYDif = 15
         case 667:
             
             dif = 1
@@ -72,21 +117,29 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             difX = 0
             iPadDif = 1
             iPadSmall = 0
+            bgY = 0
+            btnFontSize = 14
+            tableViewYDif = 0
+            
+            yDif = 0.1
+            btnYDif = 20
             
         case 568:
             
-
             dif = 1
             photoDif = -8
             difX = 8
-            iPadDif = 1
+            iPadDif = 0.8
             iPadSmall = 0
+            bgY = 0
+            btnFontSize = 12
+            tableViewYDif = 0
+            yDif = 0.1
+            btnYDif = 15
+            
         default:
-            dif = 1
-            photoDif = 0
-            difX = 0
-            iPadDif = 0.9
-            iPadSmall = 10
+     
+            break
             
         }
         
@@ -99,39 +152,60 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
         
-        chartBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        chartBg.frame = CGRect(x: 0, y: bgY, width: width, height: height)
         chartBg.contentMode = .scaleAspectFill
         
-        chartTableView.frame = CGRect(x: 0, y: height / 10 / iPadDif, width: width, height: height * 9 / 10)
+        //chartBg.fillSupervivew()
+        
+        chartTableView.frame = CGRect(x: 0, y: height / 10 + tableViewYDif, width: width, height: height * 9 / 10)
         
         chartTableView.backgroundColor = .clear
+        //chartTableView.alpha = 0.3
         
         /*
         chartTitle.frame = CGRect(x: width / 2 - 50, y: chartTableView.frame.minY / 3, width: 100, height: 33)
         //chartTitle.backgroundColor = .red
         chartTitle.textAlignment = .center
         */
-        backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
+        //backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
         
+        backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 25 * iPadDif * yDif, left: 10 * iPadDif, bottom: 0, right: 0), size: CGSize(width: 19 * iPadDif, height: 31 * iPadDif))
         
-        chart0Btn.frame = CGRect(x: width / 3 - 75, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
+        //chart0Btn.frame = CGRect(x: width / 3 - 75, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
         chart0Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart0Btn.titleLabel?.textAlignment = .center
         chart0Btn.setTitle("總分\n排行榜", for:.normal)
         //chart0Btn.backgroundColor = .red
         
-        chart1Btn.frame = CGRect(x: width / 2 - 30, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
+        chart0Btn.anchor(top: view.safeTopAnchor, leading: backBtn.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15 * iPadDif - btnYDif, left: (width / 3 - 75 * iPadDif) / 2 , bottom: 0, right: 0), size: CGSize(width: 75 * iPadDif, height: 50 * iPadDif))
+        
+        chart0Btn.titleLabel?.font = chart0Btn.titleLabel?.font.withSize(btnFontSize)
+        
+        //chart1Btn.frame = CGRect(x: width / 2 - 30, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
+          chart1Btn.translatesAutoresizingMaskIntoConstraints = false
         chart1Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart1Btn.titleLabel?.textAlignment = .center
         chart1Btn.setTitle("英文\n拼字王", for:.normal)
         //chart1Btn.backgroundColor = .red
+
+        chart1Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10).isActive = true
+       // chart1Btn.centerYAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50).isActive = true
+        chart1Btn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 15 * iPadDif - btnYDif).isActive = true
+        chart1Btn.anchorSize(to: chart0Btn)
+
+        chart1Btn.titleLabel?.font = chart1Btn.titleLabel?.font.withSize(btnFontSize)
         
         
-        chart2Btn.frame = CGRect(x: width - 75 * 1.5 + difX, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
+        //chart2Btn.frame = CGRect(x: width - 75 * 1.5 + difX, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
         chart2Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart2Btn.titleLabel?.textAlignment = .center
         chart2Btn.setTitle("句型\n冠軍榜", for:.normal)
         //chart2Btn.backgroundColor = .red
+        
+        chart2Btn.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * iPadDif - btnYDif, left: 0 , bottom: 0, right: -(width / 3 - 75 * iPadDif) / 2), size: CGSize(width: 75 * iPadDif, height: 50 * iPadDif))
+         chart2Btn.anchorSize(to: chart0Btn)
+        
+        chart2Btn.titleLabel?.font = chart2Btn.titleLabel?.font.withSize(btnFontSize)
         
     }
     

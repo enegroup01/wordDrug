@@ -291,100 +291,191 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBOutlet weak var hintLabel: UILabel!
     
     @IBOutlet weak var purchaseAlert: UIImageView!
+    
+    
+    var chiSentenceFontSize:CGFloat!
+
+            var dif = CGFloat()
+            var iPadDif = CGFloat()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
         skipPronounceBtn.isHidden = true
         
-        var dif = CGFloat()
-        var senLabelHeightDif = CGFloat()
-        var iPadDif = CGFloat()
-        var btnDif = CGFloat()
-        var xDif = CGFloat()
+
+
         var tagMarginY = CGFloat()
-        var btnDif2 = CGFloat()
-        var playBtnY = CGFloat()
+
         var okBtnDif = CGFloat()
-        var bigDif = CGFloat()
-        var iPadSmall = CGFloat()
-        var skipBtnDif = CGFloat()
+
+        var hintLabelFontSize:CGFloat!
+        var engSentenceFontSize:CGFloat!
+        var cornerRadiusNumber:CGFloat!
+        var resultElementDif:CGFloat!
+        var wordCountLabelSize:CGFloat!
+        var iPhoneXHeightDif:CGFloat!
+        var iPhoneXHeightDif2:CGFloat!
+        var iPhonePlusHeightDif:CGFloat!
+        var iPhone7YDif:CGFloat!
+        var iPhoneSeYDif:CGFloat!
+    
+        
         
         switch height {
+            
+            
+        case 1366, 1336, 1112:
+            print("big iPad")
+            
+            
+            dif = 1
+          
+            iPadDif = 2
+            engSentenceFontSize = 70
+            chiSentenceFontSize = 40
+            wordCountLabelSize = 130
+
+            hintLabelFontSize = 30
+            senFontSize = 60
+            tagMarginY = 13
+     
+            okBtnDif = 10
+          
+            cornerRadiusNumber = 4
+            resultElementDif = 1
+            iPhoneXHeightDif = 1
+            iPhoneXHeightDif2 = 1
+            iPhonePlusHeightDif = 1
+            iPhone7YDif = 0
+            iPhoneSeYDif = 10
+            
+        case 1024:
+            
+            print("small iPad")
+            
+            dif = 1
+            iPadDif = 1.6
+            engSentenceFontSize = 55
+            chiSentenceFontSize = 30
+            wordCountLabelSize = 115
+            hintLabelFontSize = 30
+            senFontSize = 50
+            tagMarginY = 13
+            
+   
+            okBtnDif = 10
+            cornerRadiusNumber = 6
+            resultElementDif = 1.05
+            iPhoneXHeightDif = 1
+            iPhoneXHeightDif2 = 1
+            iPhonePlusHeightDif = 1
+            iPhone7YDif = 0
+            iPhoneSeYDif = 0
+
+     
         case 812:
-            xDif = 1.05
-            btnDif = 0
-            dif = 1.15
-            senLabelHeightDif = 0.7
+            
+            //iphoneX
+            
+            dif = 1
             iPadDif = 1
+            engSentenceFontSize = 30
+            chiSentenceFontSize = 18
+            wordCountLabelSize = 80
+            
+            hintLabelFontSize = 16
+     
             senFontSize = 26
             tagMarginY = 13
-            btnDif2 = 1
-            playBtnY = 0.95
+        
             okBtnDif = 15
-            bigDif = 0
-            skipBtnDif = 0.9
             
-            iPadSmall = 0
+            cornerRadiusNumber = 6
+            resultElementDif = 1
+            iPhoneXHeightDif = 1.5
+            iPhoneXHeightDif2 = 1.1
+            iPhonePlusHeightDif = 1
+            iPhone7YDif = 0
+            iPhoneSeYDif = 0
+
+     
         case 736:
-            xDif = 1
-            btnDif = 0
+            
+            //plus
+            
             dif = 1.1
-            senLabelHeightDif = 0.78
             iPadDif = 1
+            engSentenceFontSize = 30
+            chiSentenceFontSize = 18
+            wordCountLabelSize = 80
+         
+            hintLabelFontSize = 16
+
             senFontSize = 28
             tagMarginY = 13
-            btnDif2 = 1.1
-            playBtnY = 1
+      
             okBtnDif = 10
-            bigDif = 0
-             skipBtnDif = 0.9
-            iPadSmall = 0
+            cornerRadiusNumber = 6
+            resultElementDif = 1
+            iPhoneXHeightDif = 1
+            iPhoneXHeightDif2 = 1
+            iPhonePlusHeightDif = 0.8
+            iPhone7YDif = 0
+            iPhoneSeYDif = 0
+
+     
         case 667:
-            xDif = 1
-            btnDif = 0
+            
+            //iPhone 7 & 8
             dif = 1
-            senLabelHeightDif = 0.9
             iPadDif = 1
+            engSentenceFontSize = 26
+            chiSentenceFontSize = 18
+            wordCountLabelSize = 70
+        
+            hintLabelFontSize = 16
+   
             senFontSize = 24
             tagMarginY = 10
-            btnDif2 = 1
-            playBtnY = 1
-            okBtnDif = 10
-            bigDif = 0
-            skipBtnDif = 0.8
             
-            iPadSmall = 0
+            okBtnDif = 10
+         
+            cornerRadiusNumber = 8
+            resultElementDif = 1
+            iPhoneXHeightDif = 1
+            iPhoneXHeightDif2 = 1
+            iPhonePlusHeightDif = 1
+            iPhone7YDif = 30
+            iPhoneSeYDif = 0
+
         case 568:
-            xDif = 1
-            btnDif = 5
+            
             dif = 0.9
-            senLabelHeightDif = 1
+           
             iPadDif = 1
+            engSentenceFontSize = 24
+            chiSentenceFontSize = 16
+            wordCountLabelSize = 60
+           
+            hintLabelFontSize = 16
             senFontSize = 22
             tagMarginY = 8
-            btnDif2 = 0.9
-            playBtnY = 0.95
-            okBtnDif = -5
-            bigDif = 0
-            skipBtnDif = 0.7
-            
-            iPadSmall = 0
+       
+            okBtnDif = -10
+            cornerRadiusNumber = 8
+            resultElementDif = 1.1
+            iPhoneXHeightDif = 1
+            iPhoneXHeightDif2 = 1
+            iPhonePlusHeightDif = 1
+
+            iPhone7YDif = 0
+            iPhoneSeYDif = 20
+           
         default:
-            xDif = 1
-            btnDif = 0
-            dif = 0.9
-            senLabelHeightDif = 1
-            iPadDif = 1.2
-            senFontSize = 18
-            tagMarginY = 13
-            btnDif2 = 0.9
-            playBtnY = 1
-            okBtnDif = 10
-            bigDif = -350
-            iPadSmall = 10
-             skipBtnDif = 0.6
-            
+
+            break
         }
         
         
@@ -457,11 +548,62 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
         
         
+        //MARK: UI Setting
+        
+        
+       
+        //scoreLabel.frame = CGRect(x: resultBg.frame.maxX - 140 * dif, y: resultBg.frame.minY + 53 * dif, width: 106 * dif, height: 21 * dif)
+       
+        
+        //這是最後resultBg上面的scoreLabel
+        //scoreLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * dif * iPadDif, left: 0, bottom: 0, right: -10 * dif * iPadDif), size: .init(width: 150 * dif * iPadDif, height: 50 * dif * iPadDif))
+        
+        //scoreLabel.backgroundColor = .brown
+        
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        scoreLabel.widthAnchor.constraint(equalToConstant: 150 * dif * iPadDif).isActive = true
+        scoreLabel.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
+        scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 35 * dif * iPadDif).isActive = true
+        scoreLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 140 * iPadDif * dif * iPhoneXHeightDif).isActive = true
+        
+        scoreLabel.font = scoreLabel.font.withSize(chiSentenceFontSize + CGFloat(10))
+
+        scoreLabel.text = ""
+        
+    
+        self.view.bringSubview(toFront: limitTimerLabel)
+        limitTimerLabel.translatesAutoresizingMaskIntoConstraints = false
+        //limitTimerLabel.center = CGPoint(x: width / 2 - 25, y: 45 - iPadSmall)
+        limitTimerLabel.font = limitTimerLabel.font.withSize(hintLabelFontSize)
+        //limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
+        limitTimerLabel.textAlignment = .center
+
+        limitTimerLabel.widthAnchor.constraint(equalToConstant: 50 * iPadDif * dif).isActive = true
+        limitTimerLabel.heightAnchor.constraint(equalToConstant: 20 * iPadDif * dif).isActive = true
+        limitTimerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        limitTimerLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 15 * dif * iPadDif).isActive = true
+        
+        
+        
+        //ghost View
+        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        ghostBtn.backgroundColor = lightGray
+        self.view.addSubview(ghostBtn)
+        self.view.bringSubview(toFront: ghostBtn)
+        
+
+        
+        
         //做reviewAlert
         reviewWordBg.frame = CGRect(x: width / 2 - 237 / 2, y: height / 3, width: 237 * dif, height: 214 * dif)
         reviewWordBg.image = UIImage(named:"reviewWordResultBg.png")
         self.view.addSubview(reviewWordBg)
+        self.view.bringSubview(toFront: reviewWordBg)
         
+        
+        
+
         reviewAlertTitle1.frame = CGRect(x: reviewWordBg.frame.width / 22, y: reviewWordBg.frame.height / 20, width: 92 * dif, height: 25 * dif)
         //reviewAlertTitle1.backgroundColor = .gray
         reviewAlertTitle1.text = "快速複習"
@@ -469,6 +611,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertTitle1.textColor = .white
         reviewAlertTitle1.textAlignment = .right
         reviewWordBg.addSubview(reviewAlertTitle1)
+        self.view.bringSubview(toFront: reviewAlertTitle1)
+     
         
         reviewAlertTitle2.frame = CGRect(x: reviewAlertTitle1.frame.minX, y: reviewAlertTitle1.frame.maxY - 5 * dif, width: 92 * dif, height: 25 * dif)
         //reviewAlertTitle2.backgroundColor = .red
@@ -478,6 +622,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertTitle2.textAlignment = .right
         
         reviewWordBg.addSubview(reviewAlertTitle2)
+           self.view.bringSubview(toFront: reviewAlertTitle2)
+        
         
         reviewAlertTotalLabel.frame = CGRect(x: reviewAlertTitle1.frame.midX - 10 * dif, y: reviewAlertTitle2.frame.maxY * 1.3, width: 30 * dif, height: 17 * dif)
         reviewAlertTotalLabel.text = "總計"
@@ -486,6 +632,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertTotalLabel.textColor = darkColor
         //reviewAlertTotalLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertTotalLabel)
+                self.view.bringSubview(toFront: reviewAlertTotalLabel)
         
         
         reviewAlertCountLabel.frame = CGRect(x: (reviewWordBg.frame.width - 170) / 2, y: reviewAlertTotalLabel.frame.midY, width: 170 * dif, height: 80 * dif)
@@ -495,6 +642,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertCountLabel.textColor = darkColor
         //reviewAlertCountLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertCountLabel)
+                self.view.bringSubview(toFront: reviewAlertCountLabel)
         
         
         reviewAlertUnitLabel.frame = CGRect(x: reviewAlertCountLabel.frame.maxX - 10 * dif, y: reviewAlertCountLabel.frame.maxY - 17 * dif, width: 20 * dif, height: 17 * dif)
@@ -504,7 +652,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertUnitLabel.textColor = darkColor
         //reviewAlertCountLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertUnitLabel)
-        
+        self.view.bringSubview(toFront: reviewAlertUnitLabel)
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12), NSAttributedStringKey.foregroundColor : darkColor]
         
@@ -519,73 +667,96 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewOkBtn.setBackgroundImage(UIImage(named:"reviewOkBtnPng.png"), for: .normal)
         reviewOkBtn.setAttributedTitle(title, for: .normal)
         self.view.addSubview(reviewOkBtn)
-        
-        limitTimerLabel.center = CGPoint(x: width / 2 - 25, y: 45 - iPadSmall)
-        limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
-        limitTimerLabel.textAlignment = .center
+        self.view.bringSubview(toFront: reviewOkBtn)
         
 
         
         //加入alertView
-        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
-        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        ghostBtn.backgroundColor = lightGray
-
-        self.view.addSubview(ghostBtn)
         
-        
-        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: 237 * dif, height: 158 * dif)
+        self.view.bringSubview(toFront: alertBg)
+        alertBg.translatesAutoresizingMaskIntoConstraints = false
+        //alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: 237 * dif, height: 158 * dif)
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
+        alertBg.widthAnchor.constraint(equalToConstant: 237 * iPadDif * dif).isActive = true
+        alertBg.heightAnchor.constraint(equalToConstant: 140 * iPadDif * dif).isActive = true
+        alertBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertBg.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         
+        self.view.bringSubview(toFront: purchaseAlert)
         purchaseAlert.isHidden = true
-        purchaseAlert.frame = CGRect(x: (width - 237 * dif) / 2, y: height / 6 - iPadSmall * 3
-            , width: 237 * dif, height: 462 * dif)
+        purchaseAlert.translatesAutoresizingMaskIntoConstraints = false
         
-        alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
+        purchaseAlert.widthAnchor.constraint(equalToConstant: 237 * iPadDif * dif).isActive = true
+        purchaseAlert.heightAnchor.constraint(equalToConstant: 462 * iPadDif * dif).isActive = true
+        purchaseAlert.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        purchaseAlert.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        
+         alertText.translatesAutoresizingMaskIntoConstraints = false
+        //alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        //alertText.backgroundColor = .green
+        alertText.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         alertText.textColor = .white
         alertText.text = "\n離開目前課程\n學習進度不會儲存!"
         alertText.numberOfLines = 0
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
+        alertText.widthAnchor.constraint(equalToConstant: 200 * iPadDif * dif).isActive = true
+        alertText.heightAnchor.constraint(equalToConstant: 80 * iPadDif * dif).isActive = true
+        alertText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertText.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20).isActive = true
         
         
-        cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        cancelBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+        //cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        cancelBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         cancelBtn.setTitle("取消", for: .normal)
         cancelBtn.setTitleColor(orangeColor, for: .normal)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(cancelBtn)
+        self.view.bringSubview(toFront: cancelBtn)
+        
+         cancelBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: nil, size: .init(width: 119 * iPadDif * dif, height: alertBg.frame.height / 3))
+        
 
         
-        noBuyBtn.frame = CGRect(x: purchaseAlert.frame.minX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
-        noBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
-        
+        //noBuyBtn.frame = CGRect(x: purchaseAlert.frame.minX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
+        noBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
+        //noBuyBtn.backgroundColor = .red
         noBuyBtn.setTitleColor(orangeColor, for: .normal)
+        noBuyBtn.setTitle("先不購買", for: .normal)
         
         self.view.addSubview(noBuyBtn)
-        
+          self.view.bringSubview(toFront: noBuyBtn)
+        noBuyBtn.anchor(top: nil, leading: purchaseAlert.leadingAnchor, bottom: purchaseAlert.bottomAnchor, trailing: nil, size: .init(width: 119 * iPadDif * dif, height: 462 * iPadDif * dif / 10))
 
-        quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
-        quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+        //quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+        quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         quitBtn.setTitle("離開", for: .normal)
         quitBtn.setTitleColor(orangeColor, for: .normal)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         self.view.addSubview(quitBtn)
+                self.view.bringSubview(toFront: quitBtn)
+           quitBtn.anchor(top: alertText.bottomAnchor, leading: cancelBtn.trailingAnchor, bottom: alertBg.bottomAnchor, trailing: nil)
+        quitBtn.anchorSize(to: cancelBtn)
         
         
-        goToBuyBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
-        goToBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+        //goToBuyBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
+        goToBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         
         goToBuyBtn.setTitleColor(orangeColor, for: .normal)
-        
+        goToBuyBtn.setTitle("前往商城", for: .normal)
         self.view.addSubview(goToBuyBtn)
+        self.view.bringSubview(toFront: goToBuyBtn)
+        
+        goToBuyBtn.anchor(top: nil, leading: noBuyBtn.trailingAnchor, bottom: purchaseAlert.bottomAnchor, trailing: nil)
+        goToBuyBtn.anchorSize(to: noBuyBtn)
         
         coverBg.image = UIImage(named:"coverBg.png")
         resultBg.image = UIImage(named:"resultBg.png")
+        
         
         coverBtn.isHidden = true
         coverBg.isHidden = true
@@ -599,36 +770,57 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isEnabled = false
         thirdWordBtn.isEnabled = false
         
-        sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: (height / 2 - 10) / iPadDif, width: 350 * btnDif2, height: 57 * btnDif2)
-
+        
+        //sentenceBtn layout
+        //sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: (height / 2 - 10) / iPadDif, width: 350 * btnDif2, height: 57 * btnDif2)
         sen1Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen1Btn.titleLabel?.numberOfLines = 2
         sen1Btn.titleEdgeInsets.left = 8
         
+        sen1Btn.translatesAutoresizingMaskIntoConstraints = false
+        sen1Btn.widthAnchor.constraint(equalToConstant: width * 0.9).isActive = true
+        sen1Btn.heightAnchor.constraint(equalToConstant: 70 * iPadDif * dif).isActive = true
+        sen1Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        sen1Btn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -23 * iPadDif * dif / iPhoneXHeightDif / iPhoneXHeightDif).isActive = true
         
-        sen2Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * btnDif2, height: 57 * btnDif2)
+   
+        
+        //sen2Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * btnDif2, height: 57 * btnDif2)
         sen2Btn.titleLabel?.adjustsFontSizeToFitWidth = true
-        
         sen2Btn.titleLabel?.numberOfLines = 2
         sen2Btn.titleEdgeInsets.left = 8
         
+        sen2Btn.translatesAutoresizingMaskIntoConstraints = false
+        sen2Btn.widthAnchor.constraint(equalToConstant: width * 0.9).isActive = true
+        sen2Btn.heightAnchor.constraint(equalToConstant: 70 * iPadDif * dif).isActive = true
+        sen2Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        sen2Btn.topAnchor.constraint(equalTo: sen1Btn.bottomAnchor, constant: 10 * iPadDif * dif).isActive = true
         
         
-        sen3Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
+        
+        //sen3Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
         sen3Btn.titleLabel?.adjustsFontSizeToFitWidth = true
-        
         sen3Btn.titleLabel?.numberOfLines = 2
         sen3Btn.titleEdgeInsets.left = 8
+        sen3Btn.translatesAutoresizingMaskIntoConstraints = false
+        sen3Btn.widthAnchor.constraint(equalToConstant: width * 0.9).isActive = true
+        sen3Btn.heightAnchor.constraint(equalToConstant: 70 * iPadDif * dif).isActive = true
+        sen3Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        sen3Btn.topAnchor.constraint(equalTo: sen2Btn.bottomAnchor, constant: 10 * iPadDif * dif).isActive = true
         
         
         
-        sen4Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
-        
+        //sen4Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
         sen4Btn.titleLabel?.adjustsFontSizeToFitWidth = true
-        
         sen4Btn.titleLabel?.numberOfLines = 2
         sen4Btn.titleEdgeInsets.left = 8
+        sen4Btn.translatesAutoresizingMaskIntoConstraints = false
         
+        
+        sen4Btn.widthAnchor.constraint(equalToConstant: width * 0.9).isActive = true
+        sen4Btn.heightAnchor.constraint(equalToConstant: 70 * iPadDif * dif).isActive = true
+        sen4Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        sen4Btn.topAnchor.constraint(equalTo: sen3Btn.bottomAnchor, constant: 10 * iPadDif * dif).isActive = true
         
         
         allBtns.append(sen1Btn)
@@ -637,7 +829,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         allBtns.append(sen4Btn)
         
         for btn in allBtns{
-            
+            btn.titleLabel?.font = btn.titleLabel?.font.withSize(chiSentenceFontSize)
+            btn.layer.cornerRadius = btn.frame.width / cornerRadiusNumber
             btn.isHidden = true
         }
         
@@ -645,84 +838,289 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //layOut
         
         
-        resultBg.frame = CGRect(x: (width - 280 * dif) / 2, y: height / 8, width: 280 * dif, height: 488 * dif)
-        firstWordBtn.frame = CGRect(x: resultBg.frame.origin.x + ((resultBg.frame.width - (519 / 2 * dif)) / 2), y: resultBg.frame.midY - resultBg.frame.height / 20, width: 519 / 2 * dif, height: 57 * dif)
+        //resultBg.frame = CGRect(x: (width - 280 * dif) / 2, y: height / 8, width: 280 * dif, height: 488 * dif)
+        
+        resultBg.translatesAutoresizingMaskIntoConstraints = false
+        resultBg.widthAnchor.constraint(equalToConstant: 280 * dif * iPadDif).isActive = true
+        resultBg.heightAnchor.constraint(equalToConstant: 488 * dif * iPadDif).isActive = true
+        resultBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //568的位置過低
+        resultBg.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (100 * iPadDif * dif / resultElementDif) * iPhoneXHeightDif * iPhoneXHeightDif2).isActive = true
         
         
-        secondWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: firstWordBtn.frame.maxY +  15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
+        //firstWordBtn.frame = CGRect(x: resultBg.frame.origin.x + ((resultBg.frame.width - (519 / 2 * dif)) / 2), y: resultBg.frame.midY - resultBg.frame.height / 20, width: 519 / 2 * dif, height: 57 * dif)
         
-        thirdWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: secondWordBtn.frame.maxY + 15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
-        
-        
-        firstEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: firstWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
-        firstChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: firstWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
-        
-        secondEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: secondWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
-        secondChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: secondWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
-        
-        thirdEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: thirdWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
-        thirdChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: thirdWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
+        //0913做到這裡要調iphoneX的三個字Y網上
         
         
-        bigOkBtn.frame = CGRect(x: resultBg.frame.minX + ((resultBg.frame.width - (210 * dif)) / 2), y: resultBg.frame.maxY - 40 * dif * iPadDif, width: 210 * dif, height: 29 * dif)
+        firstWordBtn.translatesAutoresizingMaskIntoConstraints = false
+        firstWordBtn.widthAnchor.constraint(equalToConstant: 260 * dif * iPadDif).isActive = true
+        firstWordBtn.heightAnchor.constraint(equalToConstant: 60 * dif * iPadDif).isActive = true
+        firstWordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        firstWordBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: ((height / 2 - (15 * iPadDif * dif)) * resultElementDif)).isActive = true
         
         
-        scoreLabel.frame = CGRect(x: resultBg.frame.maxX - 140 * dif, y: resultBg.frame.minY + 53 * dif, width: 106 * dif, height: 21 * dif)
+        //secondWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: firstWordBtn.frame.maxY +  15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
+        
+        secondWordBtn.translatesAutoresizingMaskIntoConstraints = false
+        secondWordBtn.widthAnchor.constraint(equalToConstant: 260 * dif * iPadDif).isActive = true
+        secondWordBtn.heightAnchor.constraint(equalToConstant: 60 * dif * iPadDif).isActive = true
+        secondWordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+       secondWordBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: ((height / 2 + (50 * iPadDif * dif)) * resultElementDif)).isActive = true
+        
+        
+        //thirdWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: secondWordBtn.frame.maxY + 15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
+        thirdWordBtn.translatesAutoresizingMaskIntoConstraints = false
+        thirdWordBtn.widthAnchor.constraint(equalToConstant: 260 * dif * iPadDif).isActive = true
+        thirdWordBtn.heightAnchor.constraint(equalToConstant: 60 * dif * iPadDif).isActive = true
+        thirdWordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        thirdWordBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: ((height / 2 + (115 * iPadDif * dif)) * resultElementDif)).isActive = true
+        
+        //firstEngWord.backgroundColor = .red
+        //firstChiWord.backgroundColor = .orange
+        //firstEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: firstWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
+        
+        //firstEngWord.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: height / 2, left: (width - 420) / 2 , bottom: 0, right: 0) , size: .init(width:180 * iPadDif * dif,height:40 * iPadDif * dif))
+        
+        firstEngWord.translatesAutoresizingMaskIntoConstraints = false
+        firstEngWord.widthAnchor.constraint(equalToConstant: 160 * dif * iPadDif).isActive = true
+        firstEngWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
+        firstEngWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40 * iPadDif * dif).isActive = true
+        firstEngWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 - (5 * iPadDif * dif)) * resultElementDif).isActive = true
+     
+        firstEngWord.text = ""
+
+
+        
+        //firstChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: firstWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
+        
+        
+        firstChiWord.translatesAutoresizingMaskIntoConstraints = false
+        firstChiWord.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
+        firstChiWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
+        firstChiWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 80 * iPadDif * dif).isActive = true
+        firstChiWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 - (5 * iPadDif * dif)) * resultElementDif).isActive = true
+
+        firstChiWord.text = ""
+        
+        //secondEngWord.backgroundColor = .yellow
+        //secondChiWord.backgroundColor = .green
+        //secondEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: secondWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
+        
+        
+        secondEngWord.translatesAutoresizingMaskIntoConstraints = false
+        secondEngWord.widthAnchor.constraint(equalToConstant: 160 * dif * iPadDif).isActive = true
+        secondEngWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
+        secondEngWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40 * iPadDif * dif).isActive = true
+        secondEngWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (60 * iPadDif * dif)) * resultElementDif).isActive = true
+        
+        
+        //secondChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: secondWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
+        secondChiWord.translatesAutoresizingMaskIntoConstraints = false
+        secondChiWord.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
+        secondChiWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
+        secondChiWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 80 * iPadDif * dif).isActive = true
+        secondChiWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (60 * iPadDif * dif)) * resultElementDif).isActive = true
         
         
         
-        bonusScoreLabel.frame = scoreLabel.frame
-        bonusScoreLabel.frame.origin.x = bonusScoreLabel.frame.origin.x - bonusScoreLabel.frame.width / 2
+        //thirdEngWord.backgroundColor = .blue
+        //thirdEngWord.alpha = 0.3
+        //thirdChiWord.backgroundColor = .purple
+        //thirdEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: thirdWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
+        
+        thirdEngWord.translatesAutoresizingMaskIntoConstraints = false
+        thirdEngWord.widthAnchor.constraint(equalToConstant: 160 * dif * iPadDif).isActive = true
+        thirdEngWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
+        thirdEngWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40 * iPadDif * dif).isActive = true
+        thirdEngWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (125 * iPadDif * dif)) * resultElementDif).isActive = true
+        
+        
+        //thirdChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: thirdWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
+        
+        thirdChiWord.translatesAutoresizingMaskIntoConstraints = false
+        thirdChiWord.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
+        thirdChiWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
+        thirdChiWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 80 * iPadDif * dif).isActive = true
+        thirdChiWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (125 * iPadDif * dif)) * resultElementDif).isActive = true
+        
+        
+        //三個字label的共同屬性
+        firstEngWord.adjustsFontSizeToFitWidth = true
+        secondEngWord.adjustsFontSizeToFitWidth = true
+        thirdEngWord.adjustsFontSizeToFitWidth = true
+       
+        firstEngWord.font = firstEngWord.font.withSize(chiSentenceFontSize)
+        secondEngWord.font = firstEngWord.font.withSize(chiSentenceFontSize)
+        thirdEngWord.font = firstEngWord.font.withSize(chiSentenceFontSize)
+        
+        
+        firstChiWord.adjustsFontSizeToFitWidth = true
+        secondChiWord.adjustsFontSizeToFitWidth = true
+        thirdChiWord.adjustsFontSizeToFitWidth = true
+       
+        firstChiWord.font = firstEngWord.font.withSize(hintLabelFontSize)
+        secondChiWord.font = firstEngWord.font.withSize(hintLabelFontSize)
+        thirdChiWord.font = firstEngWord.font.withSize(hintLabelFontSize)
+        
+        firstChiWord.textAlignment = .center
+        secondChiWord.textAlignment = .center
+        thirdChiWord.textAlignment = .center
+        
+        //bigOkBtn.frame = CGRect(x: resultBg.frame.minX + ((resultBg.frame.width - (210 * dif)) / 2), y: resultBg.frame.maxY - 40 * dif * iPadDif, width: 210 * dif, height: 29 * dif)
+        
+        bigOkBtn.translatesAutoresizingMaskIntoConstraints = false
+        bigOkBtn.widthAnchor.constraint(equalToConstant: 210 * dif * iPadDif).isActive = true
+        bigOkBtn.heightAnchor.constraint(equalToConstant: 29 * dif * iPadDif).isActive = true
+        bigOkBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        bigOkBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (190 * iPadDif * dif)) * resultElementDif + okBtnDif).isActive = true
+        
+       
+        self.view.bringSubview(toFront: bonusScoreLabel)
+      
+        //針對iPhoneX的高度部分特別調整, 也針對iPhonePlusY做調整
+        bonusScoreLabel.frame = CGRect(x: (width - 100 * iPadDif * dif) / 2, y: (140 * iPadDif * dif) * resultElementDif * iPhoneXHeightDif * iPhoneXHeightDif2 * iPhoneXHeightDif2 / iPhonePlusHeightDif, width: 100 * iPadDif * dif, height: 39 * iPadDif * dif)
+        
         
         bonusScoreLabel.textColor = .red
         bonusScoreLabel.textAlignment = .right
-        bonusScoreLabel.font = UIFont(name: "Helvetica Bold", size: 18)
+        bonusScoreLabel.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         bonusScoreLabel.text = "+bonus"
         bonusScoreLabel.alpha = 0
+        //bonusScoreLabel.backgroundColor = .white
 
         view.addSubview(bonusScoreLabel)
         
-        wordCountLabel.frame = CGRect(x: resultBg.frame.minX + 50 * dif, y: resultBg.frame.minY + 140 * dif, width: 157 * dif, height: 95 * dif)
-        wordCountLabel.adjustsFontSizeToFitWidth = true
+        /*
+        bonusScoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        bonusScoreLabel.widthAnchor.constraint(equalToConstant: 100 * dif * iPadDif).isActive = true
+        bonusScoreLabel.heightAnchor.constraint(equalToConstant: 39 * dif * iPadDif).isActive = true
+        bonusScoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        bonusScoreLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: height / 2 - (190 * iPadDif * dif)).isActive = true
+        */
         
-        sentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: height / 10, width: width - 50 * dif, height: height / 4.6 * dif * senLabelHeightDif)
-        chiSentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: sentenceLabel.frame.maxY + 10 * dif, width: sentenceLabel.frame.width, height: height / 10 * dif)
+        
+        
+        
+        
+        //wordCountLabel.frame = CGRect(x: resultBg.frame.minX + 50 * dif, y: resultBg.frame.minY + 140 * dif, width: 157 * dif, height: 95 * dif)
+        
+        wordCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        wordCountLabel.widthAnchor.constraint(equalToConstant: 170 * dif * iPadDif).isActive = true
+        wordCountLabel.heightAnchor.constraint(equalToConstant: 70 * dif * iPadDif).isActive = true
+        wordCountLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -20 * dif * iPadDif).isActive = true
+        wordCountLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 - (90 * iPadDif * dif)) * resultElementDif).isActive = true
+        
+    
+        //wordCountLabel.backgroundColor = .yellow
+        wordCountLabel.font = wordCountLabel.font.withSize(wordCountLabelSize)
+        wordCountLabel.textAlignment = .right
+        wordCountLabel.adjustsFontSizeToFitWidth = true
+        wordCountLabel.text = ""
+        
+        //0911
+        
+        //sentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: height / 10, width: width - 50 * dif, height: height / 4.6 * dif * senLabelHeightDif)
+        sentenceLabel.font = sentenceLabel.font.withSize(engSentenceFontSize)
         sentenceLabel.adjustsFontSizeToFitWidth = true
+        sentenceLabel.translatesAutoresizingMaskIntoConstraints = false
+        sentenceLabel.widthAnchor.constraint(equalToConstant: width - 80 * iPadDif * dif).isActive = true
+        sentenceLabel.heightAnchor.constraint(equalToConstant: 150 * iPadDif * dif - iPhoneSeYDif).isActive = true
+        sentenceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        sentenceLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * iPadDif * dif).isActive = true
+        
+        //sentenceLabel.backgroundColor = .red
+
+        
+        //chiSentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: sentenceLabel.frame.maxY + 10 * dif, width: sentenceLabel.frame.width, height: height / 10 * dif)
+
+        chiSentenceLabel.numberOfLines = 2
+        chiSentenceLabel.font = chiSentenceLabel.font.withSize(chiSentenceFontSize)
         chiSentenceLabel.adjustsFontSizeToFitWidth = true
+        chiSentenceLabel.textColor = pinkColor
+        
+        chiSentenceLabel.translatesAutoresizingMaskIntoConstraints = false
+        chiSentenceLabel.widthAnchor.constraint(equalToConstant: width - 50 * iPadDif * dif).isActive = true
+        chiSentenceLabel.heightAnchor.constraint(equalToConstant: 70 * iPadDif * dif - iPhoneSeYDif).isActive = true
+        chiSentenceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        chiSentenceLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 200 * iPadDif * dif - iPhoneSeYDif).isActive = true
+        
+        //chiSentenceLabel.backgroundColor = .green
+  
+        //circleOkBtn.frame = recordBtn.frame
+        
+        circleOkBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        circleOkBtn.widthAnchor.constraint(equalToConstant: 128 * iPadDif * dif).isActive = true
+        circleOkBtn.heightAnchor.constraint(equalToConstant: 128 * iPadDif * dif).isActive = true
+        circleOkBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        circleOkBtn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 160 * dif * iPadDif * iPhoneXHeightDif).isActive = true
+
+        
+        
+        
         coverBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         coverBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
-        
-        //改變高度
         recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5.5)
         
-        //recogTextLabel.backgroundColor = .yellow
         
-        word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
+        
+        //recogTextLabel.text = "test every word recorded"
+        
+        //recogTextLabel.backgroundColor = .yellow
+       
+        //recogTextLabel.alpha = 0.3
+        
+        //word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
         word1Label.textColor = .white
-        word1Label.font = UIFont(name: "Helvetica Bold", size: 14)
+        word1Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         word1Label.text = "加入最愛"
         word1Label.textAlignment = .center
         word1Label.alpha = 0
         self.firstWordBtn.addSubview(word1Label)
         
-        word2Label.frame = CGRect(x: secondWordBtn.frame.width / 3, y: 0, width: secondWordBtn.frame.width / 3, height: secondWordBtn.frame.height)
+        word1Label.translatesAutoresizingMaskIntoConstraints = false
+        
+        word1Label.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
+        word1Label.heightAnchor.constraint(equalToConstant: 60 * iPadDif * dif).isActive = true
+        word1Label.centerXAnchor.constraint(equalTo: firstWordBtn.centerXAnchor).isActive = true
+        word1Label.centerYAnchor.constraint(equalTo:firstWordBtn.centerYAnchor).isActive = true
+        
+        
+        
+        
+        
+        //word2Label.frame = CGRect(x: secondWordBtn.frame.width / 3, y: 0, width: secondWordBtn.frame.width / 3, height: secondWordBtn.frame.height)
         word2Label.textColor = .white
-        word2Label.font = UIFont(name: "Helvetica Bold", size: 14)
+        word2Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         word2Label.text = "加入最愛"
         word2Label.textAlignment = .center
         word2Label.alpha = 0
         self.secondWordBtn.addSubview(word2Label)
+        word2Label.translatesAutoresizingMaskIntoConstraints = false
         
-        word3Label.frame = CGRect(x: thirdWordBtn.frame.width / 3, y: 0, width: thirdWordBtn.frame.width / 3, height: thirdWordBtn.frame.height)
+        word2Label.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
+        word2Label.heightAnchor.constraint(equalToConstant: 60 * iPadDif * dif).isActive = true
+        word2Label.centerXAnchor.constraint(equalTo: secondWordBtn.centerXAnchor).isActive = true
+        word2Label.centerYAnchor.constraint(equalTo:secondWordBtn.centerYAnchor).isActive = true
+        
+        
+        
+        
+        //word3Label.frame = CGRect(x: thirdWordBtn.frame.width / 3, y: 0, width: thirdWordBtn.frame.width / 3, height: thirdWordBtn.frame.height)
         word3Label.textColor = .white
-        word3Label.font = UIFont(name: "Helvetica Bold", size: 14)
+        word3Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         word3Label.text = "加入最愛"
         word3Label.textAlignment = .center
         word3Label.alpha = 0
         self.thirdWordBtn.addSubview(word3Label)
+        word3Label.translatesAutoresizingMaskIntoConstraints = false
         
-        recordBtn.frame = CGRect(x: (width - 128 * dif) / 2, y: height - 180 * dif, width: 128 * dif, height: 128 * dif)
+        word3Label.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
+        word3Label.heightAnchor.constraint(equalToConstant: 60 * iPadDif * dif).isActive = true
+        word3Label.centerXAnchor.constraint(equalTo: thirdWordBtn.centerXAnchor).isActive = true
+        word3Label.centerYAnchor.constraint(equalTo:thirdWordBtn.centerYAnchor).isActive = true
         
         
         //載入我的最愛單字
@@ -741,13 +1139,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //設定好tagView
         tagView.backgroundColor = .clear
+        
         tagView.delegate = self
-        tagView.isHidden = true
+        //tagView.isHidden = true
         
         tagView.marginY = tagMarginY
-        print(tagMarginY)
+
+        //tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height * 2 / 5)
         
-        tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height * 2 / 5)
+        
+        tagView.anchor(top: recogTextLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: 30 * dif * iPadDif, left: 10 * dif * iPadDif, bottom: -30 * dif * iPadDif, right: -10 * dif * iPadDif))
         
         //tagView.backgroundColor = .red
         
@@ -756,21 +1157,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //recogTextLabel.backgroundColor = .green
         
         
-        //wave畫面設定
-        audioView.isHidden = true
-        audioView.backgroundColor = .clear
-        audioView.density = 1
-        audioView.numberOfWaves = 5
-        audioView.secondaryLineWidth = 1
-        audioView.amplitude = 0.1
-        audioView.alpha = 0.7
-        audioView.waveColor = recordingPinkColor
-        audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
-        
         //設定發音鍵
-        playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif + iPadSmall, width: 69 * dif * playBtnY / iPadDif, height: 32 * dif * playBtnY / iPadDif)
+        //playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif + iPadSmall, width: 69 * dif * playBtnY / iPadDif, height: 32 * dif * playBtnY / iPadDif)
         
-        skipPronounceBtn.frame = CGRect(x: playSoundBtn.frame.minX, y: recogTextLabel.frame.maxY + 20, width: 82 * skipBtnDif, height: 29 * skipBtnDif)
+        playSoundBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -5 * iPadDif * dif, right: -5 * iPadDif * dif), size: .init(width: 60 * iPadDif * dif, height: 27 * iPadDif * dif))
+        
+        //skipPronounceBtn.frame = CGRect(x: playSoundBtn.frame.minX, y: recogTextLabel.frame.maxY + 20, width: 82 * skipBtnDif, height: 29 * skipBtnDif)
+        skipPronounceBtn.anchor(top: recogTextLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 30 * iPadDif * dif, left: 0, bottom: 0, right: -5 * iPadDif * dif), size: .init(width: 82 * iPadDif * dif, height: 29 * iPadDif * dif))
+        
         
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
@@ -1043,44 +1437,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-        
-        //中文句子字顏色
-        chiSentenceLabel.textColor = pinkColor
-        
-        
-        //做錄音動畫
-        let frame = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:145 * dif, height: 145 * dif)
-        recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
-        
-        circleOkBtn.frame = recordBtn.frame
+
+
         circleOkBtn.isHidden = true
-        
-        self.view.addSubview(recordingIndicator!)
-        self.view.bringSubview(toFront: recordBtn)
-        
-        //拉到最前方
-        self.view.bringSubview(toFront: ghostBtn)
-        self.view.bringSubview(toFront: alertBg)
-        self.view.bringSubview(toFront: purchaseAlert)
-        
-        self.view.bringSubview(toFront: cancelBtn)
-        self.view.bringSubview(toFront: quitBtn)
-        
-        self.view.bringSubview(toFront: noBuyBtn)
-        self.view.bringSubview(toFront: goToBuyBtn)
-        
-        self.view.bringSubview(toFront: bonusScoreLabel)
-        
-        self.view.bringSubview(toFront: reviewWordBg)
-        self.view.bringSubview(toFront: reviewAlertTitle1)
-        self.view.bringSubview(toFront: reviewAlertTitle2)
-        self.view.bringSubview(toFront: reviewAlertTotalLabel)
-        self.view.bringSubview(toFront: reviewAlertCountLabel)
-        self.view.bringSubview(toFront: reviewAlertUnitLabel)
-        self.view.bringSubview(toFront: reviewOkBtn)
-        
-        self.view.bringSubview(toFront: limitTimerLabel)
-        
         noBuyBtn.isHidden = true
         goToBuyBtn.isHidden = true
         ghostBtn.isHidden = true
@@ -1089,7 +1448,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.isHidden = true
         leftBtnClickedImg.isHidden = true
         rightBtnClickedImg.isHidden = true
-        
         reviewWordBg.isHidden = true
         reviewOkBtn.isHidden = true
         
@@ -1112,8 +1470,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             // example.txt not found!
         }
         
-        
-        
         //MARK: relevant word Rules
         var newRel = String()
         for rel in relArray {
@@ -1125,17 +1481,80 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             newRels.append(newRel)
             
         }
+
         
         hintLabel.textColor = .white
-        hintLabel.frame = CGRect(x: (width - 200) / 2, y: recordBtn.frame.minY - 40 + iPadSmall, width: 200, height: 30)
         
-        hintLabel.frame.size = CGSize(width: 200, height: 30)
+        self.view.bringSubview(toFront: hintLabel)
+        hintLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        //hintLabel.frame = CGRect(x: (width - 200) / 2, y: recordBtn.frame.minY - 40 + iPadSmall, width: 200, height: 30)
+        
+        //hintLabel.frame.size = CGSize(width: 200, height: 30)
+        
+        //hintLabel.backgroundColor = .blue
+        hintLabel.widthAnchor.constraint(equalToConstant: 250 * iPadDif * dif).isActive = true
+        hintLabel.heightAnchor.constraint(equalToConstant: 50 * iPadDif * dif).isActive = true
+        hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //hintLabel.topAnchor.constraint(equalTo: recogTextLabel.bottomAnchor, constant: 30 / dif * iPadDif * iPhoneXHeightDif * iPhoneXHeightDif).isActive = true
+        
+        hintLabel.topAnchor.constraint(equalTo: recordBtn.topAnchor, constant: -50 / dif * iPadDif / iPhonePlusHeightDif).isActive = true
+        
+        hintLabel.font = hintLabel.font.withSize(hintLabelFontSize)
         hintLabel.text = ""
         //hintLabel.backgroundColor = .blue
         hintLabel.adjustsFontSizeToFitWidth = true
         hintLabel.textAlignment = .center
         
+        
+        
+       
+        recordBtn.translatesAutoresizingMaskIntoConstraints = false
+        //recordBtn.frame = CGRect(x: (width - 128 * dif) / 2, y: height - 180 * dif, width: 128 * dif, height: 128 * dif)
+        
+        
+        recordBtn.widthAnchor.constraint(equalToConstant: 128 * iPadDif * dif).isActive = true
+        recordBtn.heightAnchor.constraint(equalToConstant: 128 * iPadDif * dif).isActive = true
+        recordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        recordBtn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 160 * dif * iPadDif * iPhoneXHeightDif).isActive = true
+
+        //做錄音動畫
+        //let frame = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:145 * dif, height: 145 * dif)
+        let frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
+   
+        self.view.addSubview(recordingIndicator!)
+        self.view.bringSubview(toFront: recordBtn)
+        recordingIndicator?.translatesAutoresizingMaskIntoConstraints = false
+        recordingIndicator?.widthAnchor.constraint(equalToConstant: 150 * iPadDif * dif).isActive = true
+        recordingIndicator?.heightAnchor.constraint(equalToConstant: 150 * iPadDif * dif).isActive = true
+        recordingIndicator?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        recordingIndicator?.centerYAnchor.constraint(equalTo: recordBtn.centerYAnchor).isActive = true
+
+        
+        
+        //wave畫面設定
+        audioView.isHidden = true
+        audioView.backgroundColor = .clear
+        audioView.density = 1
+        audioView.numberOfWaves = 5
+        audioView.secondaryLineWidth = 1
+        audioView.amplitude = 0.1
+        audioView.alpha = 0.7
+        audioView.waveColor = recordingPinkColor
+        audioView.translatesAutoresizingMaskIntoConstraints = false
+        //audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
+        
+        audioView.widthAnchor.constraint(equalToConstant: width).isActive = true
+        audioView.heightAnchor.constraint(equalToConstant: height / 6.5).isActive = true
+        audioView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        audioView.centerYAnchor.constraint(equalTo: recordBtn.centerYAnchor).isActive = true
+        
         print("loaded relword counts:\(newRels.count)")
+        
+        
+       
+
         
     }
     
@@ -1256,7 +1675,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //alertText.text = ""
         goToBuyBtn.setTitle("前往商城", for: .normal)
-        noBuyBtn.setTitle("先不買", for: .normal)
+        noBuyBtn.setTitle("先不購買", for: .normal)
         ghostBtn.isHidden = false
         //alertBg.isHidden = false
         purchaseAlert.isHidden = false
@@ -1324,7 +1743,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         goToBuyBtn.isHidden = true
         
         
-        let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        //暫時測試使用 let 改成 var
+        var isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        
+        isPurchased = true
         
         
         if gameMode == 0 {
@@ -1466,7 +1888,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //先確認有沒有購買
         
+        //暫時測試使用let 改成var
         let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        
+        //test
+        //isPurchased = true
         
         if isPurchased{
             
@@ -1625,13 +2051,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.isEnabled = true
         thirdWordBtn.isEnabled = true
         
-        firstEngWord.adjustsFontSizeToFitWidth = true
-        secondEngWord.adjustsFontSizeToFitWidth = true
-        thirdEngWord.adjustsFontSizeToFitWidth = true
-        
-        firstChiWord.adjustsFontSizeToFitWidth = true
-        secondChiWord.adjustsFontSizeToFitWidth = true
-        thirdChiWord.adjustsFontSizeToFitWidth = true
+ 
         
         //接收單字數字準備做句子
         
@@ -2223,12 +2643,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //UIView.animate(withDuration: 0.3, animations: {[weak self] in
         UIView.animate(withDuration: 0.7, delay: 0.5, options: [.curveEaseIn], animations: {[weak self] in
             
-            // UIView.setAnimationRepeatCount(repeatCount)
+            //UIView.setAnimationRepeatCount(repeatCount)
             
             self!.bonusScoreLabel.alpha = 1
-            self!.bonusScoreLabel.frame.origin.y = originY - 15
+            self!.bonusScoreLabel.frame.origin.y = originY - 30
             
-            
+            //self!.bonusScoreLabel.topAnchor.constraint(equalTo: self!.view.safeTopAnchor, constant: self!.height / 2 - (160 * self!.iPadDif * self!.dif)).isActive = true
             
         }) { (finished:Bool) in
             UIView.animate(withDuration: 0, delay: 0.5, options: .curveEaseIn, animations: {[weak self] in
@@ -2237,7 +2657,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 }, completion: {[weak self] (true) in
                     
-                    self!.bonusScoreLabel.frame.origin.y = originY
+                 self!.bonusScoreLabel.frame.origin.y = originY
+                    
+               //self!.bonusScoreLabel.topAnchor.constraint(equalTo: self!.view.safeTopAnchor, constant: self!.height / 2 - (190 * self!.iPadDif * self!.dif)).isActive = true
+              
                     self!.bigOkBtn.isHidden = false
                     
                     self!.bigOkBtn.isEnabled = true
@@ -2401,6 +2824,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             hintLabel.text = "請唸單字"
             
             
+            
             //btn圖案更改成錄音
             recordBtn.setImage(UIImage(named:"recordingBtn.png"), for: .normal)
             
@@ -2468,7 +2892,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             
                             if let resultWord = result.bestTranscription.formattedString.lowercased() as String?{
                                 
-                                
+                                self!.recogTextLabel.font = self!.recogTextLabel.font.withSize(self!.chiSentenceFontSize * 2)
                                 self!.hintLabel.text = "再按一下麥克風結束"
                                 
                                 
@@ -3160,9 +3584,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 allBtns[i].contentHorizontalAlignment = .left
                 
-                allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
+                //allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
                 
-                
+                allBtns[i].setTitle(" " + senBtnTitles[i], for: .normal)
                 
             }
 
@@ -3281,8 +3705,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         randomSens = [Int(),Int(),Int(),Int()]
         randomSens[correctRandom] = Int(wordSequenceToReceive)!
-        print(randomSens)
-        
+   
       
         //設定好正確的按鈕
         allBtns[correctRandom].addTarget(self, action: #selector(NewGameViewController.rightSenButtonClicked), for: .touchUpInside)
@@ -3306,7 +3729,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //加入到錯誤按鈕的button
             allBtns[i].addTarget(self, action: #selector(NewGameViewController.wrongSenButtonClicked), for: .touchUpInside)
-            print(i)
+      
         }
 
         
@@ -3315,8 +3738,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             allBtns[i].contentHorizontalAlignment = .left
             
-            allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
-            
+            //allBtns[i].setTitle("   \(i + 1). " + senBtnTitles[i], for: .normal)
+            allBtns[i].setTitle(" " + senBtnTitles[i], for: .normal)
             
         }
 
@@ -3332,7 +3755,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         
         //錯誤按鈕改圖片
-        sender.setBackgroundImage(UIImage(named:"answerRightBtn.png"), for: .normal)
+        //sender.setBackgroundImage(UIImage(named:"answerRightBtn.png"), for: .normal)
+        
+        sender.backgroundColor = #colorLiteral(red: 0.937810123, green: 0.768859446, blue: 0.3554584682, alpha: 1)
+        
         
         //錯誤的隱藏
         for i in 0 ..< 4 where i != correctRandom{
@@ -3362,7 +3788,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             isReviewWrong = true
         }
         //錯誤按鈕改圖片
-        sender.setBackgroundImage(UIImage(named:"wrongSenBlock.png"), for: .normal)
+        //sender.setBackgroundImage(UIImage(named:"wrongSenBlock.png"), for: .normal)
+        
+        sender.backgroundColor = #colorLiteral(red: 0.792498529, green: 0.2271894217, blue: 0.4495441318, alpha: 1)
         
         
         //留下對錯兩按鈕, 其餘隱藏
@@ -3473,7 +3901,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             btn.isUserInteractionEnabled = true
             btn.isHidden = true
-            btn.setBackgroundImage(UIImage(named:"senBlock.png"), for: .normal)
+            //btn.setBackgroundImage(UIImage(named:"senBlock.png"), for: .normal)
+            btn.backgroundColor = #colorLiteral(red: 0.2851897478, green: 0.6569955945, blue: 0.5925286412, alpha: 1)
         }
         
         sentenceLabel.text = ""
@@ -3493,11 +3922,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //亂數
         sentenceTag.shuffled()
         
+        //tagView.backgroundColor = .red
+        
         //加入tag裡
         
-        
         sentenceCounts = sentenceTag.count
-        
         
         switch sentenceCounts{
             
@@ -3530,17 +3959,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         default:
             break
-            
-            
-            
+
         }
         
         
-        
-        
         tagView.textFont = UIFont.boldSystemFont(ofSize: senFontSize)
-        
-        
         
         for i in 0 ..< sentenceTag.count{
             
@@ -3568,9 +3991,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //做提示
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor : UIColor.white]
+        //在此Crash, 無法讀dynamic字型大小.....
         
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: chiSentenceFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+        
+     
         recogTextLabel.attributedText = NSAttributedString(string: "點擊下列單字來排列句型", attributes: attrs0)
+        
+        //recogTextLabel.font = UIFont(name: "Helvetica Bold", size: chiSentenceFontSize)
         
         //顯示出tag
         tagView.isHidden = false
@@ -3690,6 +4118,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //show出選擇的字
+        recogTextLabel.font = recogTextLabel.font.withSize(senFontSize)
         recogTextLabel.text = sentenceShown
         
         //抓輸入答案來對

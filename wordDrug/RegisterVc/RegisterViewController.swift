@@ -47,8 +47,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var facebookBtn: UIButton!
     
-    @IBOutlet weak var orLabel: UILabel!
-    
     @IBOutlet weak var doubleLine2: UIImageView!
     
     @IBOutlet weak var alarmClock: UIImageView!
@@ -72,7 +70,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     var proRateToAdd = Int()
     var senRateToAdd = Int()
     var wrongChineseCount = Int()
-    var text = String()
     
     var myWrongWords = [String]()
     
@@ -81,41 +78,75 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     var activityIndicator = UIActivityIndicatorView()
     
+    var attrs: [NSAttributedStringKey: NSObject]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         
+        var dif: CGFloat!
+        var fontSize: CGFloat!
+        var cornerRadiusValue: CGFloat!
+        
         switch height {
+            
+        case 1366, 1336, 1112:
+            print("big iPad")
+
+            dif = 2
+            
+            fontSize = 28
+            cornerRadiusValue = 12
+            
+        case 1024:
+            
+   
+            dif = 1.5
+            
+            fontSize = 22
+            cornerRadiusValue = 12
+            
         case 812:
             
-            
-            text = "複習挑戰模式。"
+ 
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
             
             
         case 736:
-            
-            text = "複習挑戰模式。"
+          
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
            
             
         case 667:
-            
-            text = "複習挑戰模式。"
+          
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
    
             
         case 568:
             
-            
-            text = "單字本及複習挑戰模式。"
+          
+            dif = 0.8
+            fontSize = 12
+            cornerRadiusValue = 6
         
         default:
-            text = "複習挑戰模式。"
+           
+            break
           
         }
         
+        //設定好attrs給其他error使用
+        attrs = [NSAttributedStringKey.foregroundColor: UIColor.red,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)]
         
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100 * dif, height: 100 * dif))
         activityIndicator.layer.zPosition = 15
         let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
         activityIndicator.center = self.view.center
@@ -125,19 +156,46 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
         
-        registerBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        registerBg.image = UIImage(named: "newRegisterBg.png")
-        registerBg.contentMode = .scaleToFill
+
+        registerBg.image = UIImage(named: "launchBg.png")
+
         
-        titleLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
-        titleLabel.font = UIFont(name: "Helvetica Bold", size: 30)
+        
+        registerBg.frame = CGRect(x: 0, y: 0, width: width * 1.1, height: height * 1.1)
+        registerBg.contentMode = .scaleToFill
+
+        
+        
+        let logoImg = UIImageView()
+        self.view.addSubview(logoImg)
+        
+        
+        logoImg.image = UIImage(named: "logoAlpha.png")
+        
+        logoImg.translatesAutoresizingMaskIntoConstraints = false
+        logoImg.widthAnchor.constraint(equalToConstant: 135 * dif).isActive = true
+        logoImg.heightAnchor.constraint(equalToConstant: 131 * dif).isActive = true
+        logoImg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImg.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * dif).isActive = true
+        
+        //titleLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
+        titleLabel.font = UIFont(name: "Helvetica Bold", size: fontSize * 2.5)
         titleLabel.textColor = .white
         titleLabel.text = "註冊帳號\n繼續免費學習"
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
+        titleLabel.layer.zPosition = 5
+        //titleLabel.backgroundColor = .green
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 98 * dif).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * dif).isActive = true
         
         
          let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        
         
         if isDirectedHere{
             
@@ -161,81 +219,192 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         star.image = UIImage(named: "starPng.png")
         star.contentMode = .scaleAspectFit
         */
+        
+        
+        /*
         doubleLine.frame = CGRect(x: (width - 290) / 2, y: titleLabel.frame.maxY, width: 290, height: 6)
         doubleLine.image = UIImage(named: "doubleLine.png")
         doubleLine.contentMode = .scaleAspectFit
+        */
+        doubleLine.image = UIImage(named: "doubleLine.png")
+        doubleLine.contentMode = .scaleAspectFit
         
+        
+        
+        doubleLine.translatesAutoresizingMaskIntoConstraints = false
+        doubleLine.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        doubleLine.heightAnchor.constraint(equalToConstant: 6 * dif).isActive = true
+        doubleLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        doubleLine.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20 * dif).isActive = true
+
+        /*
         subTitleLabel.text = "英檢初級，中級，多益滿分等\n所有單字任你學習！"
         subTitleLabel.frame = CGRect(x: 0, y: doubleLine.frame.maxY + 10, width: width, height: 50)
         subTitleLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         subTitleLabel.textAlignment = .center
         subTitleLabel.numberOfLines = 0
+        */
         
-        accountPng.frame = CGRect(x: (width - 302) / 2, y: subTitleLabel.frame.maxY + 10, width: 302, height: 42)
+          subTitleLabel.text = "開始你的學習計畫吧！"
+        
+        subTitleLabel.font = UIFont(name: "Helvetica Bold", size: fontSize * 1.2)
+        subTitleLabel.textAlignment = .center
+        subTitleLabel.numberOfLines = 0
+        
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subTitleLabel.widthAnchor.constraint(equalToConstant: 300 * dif).isActive = true
+        subTitleLabel.heightAnchor.constraint(equalToConstant: 50 * dif).isActive = true
+        subTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        subTitleLabel.topAnchor.constraint(equalTo: doubleLine.bottomAnchor, constant: 5 * dif).isActive = true
+        
         
         accountPng.image = UIImage(named: "newAccountPng.png")
         
-        passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
+        accountPng.translatesAutoresizingMaskIntoConstraints = false
+        accountPng.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        accountPng.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        accountPng.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        accountPng.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 5 * dif).isActive = true
+
+        
+        accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        accountTextField.font = accountTextField.font?.withSize(fontSize)
+        accountTextField.translatesAutoresizingMaskIntoConstraints = false
+        accountTextField.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        accountTextField.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        accountTextField.centerXAnchor.constraint(equalTo: accountPng.centerXAnchor).isActive = true
+        accountTextField.centerYAnchor.constraint(equalTo: accountPng.centerYAnchor).isActive = true
+        //usernameTxt.backgroundColor = .red
+        accountTextField.adjustsFontSizeToFitWidth = true
+        
+        
+        //passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
         passwordPng.image = UIImage(named: "newPasswordPng.png")
         
-        accountTextField.frame = CGRect(x: accountPng.frame.minX + accountPng.frame.width / 7, y: accountPng.frame.minY, width: accountPng.frame.width * 4 / 5, height: accountPng.frame.height)
-        
-        
-        accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
-        
-        
-        passwordTextField.frame = CGRect(x: accountTextField.frame.minX, y: passwordPng.frame.minY, width:
-            accountTextField.frame.width, height: passwordPng.frame.height)
+        passwordPng.translatesAutoresizingMaskIntoConstraints = false
+        passwordPng.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        passwordPng.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        passwordPng.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        passwordPng.topAnchor.constraint(equalTo: accountPng.bottomAnchor, constant: 5 * dif).isActive = true
         
         
         
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
-        
-        accountTextField.delegate = self
-        passwordTextField.delegate = self
-        
-        registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
-        
-        
-        loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
-        
-        facebookBtn.frame = CGRect(x: passwordPng.frame.minX, y: registerBtn.frame.maxY * 1.02, width: passwordPng.frame.width, height: 35)
+        /*
+         passwordTxt.frame = CGRect(x: usernameTxt.frame.minX, y: passwordPng.frame.minY, width:
+         usernameTxt.frame.width, height: passwordPng.frame.height)
+         passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
+         */
         
         
-        //orLabel.frame = CGRect(x: width / 2 - 13, y: registerBtn.frame.minY + 11, width: 26, height: 22)
-        orLabel.center = CGPoint(x: width / 2, y: registerBtn.frame.midY - 2)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        passwordTextField.font = passwordTextField.font?.withSize(fontSize)
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+        passwordTextField.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        passwordTextField.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        passwordTextField.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        passwordTextField.centerYAnchor.constraint(equalTo: passwordPng.centerYAnchor).isActive = true
+        //passwordTxt.backgroundColor = .red
+        passwordTextField.adjustsFontSizeToFitWidth = true
         
-        orLabel.frame.size = CGSize(width: 26, height: 22)
-        
-        //orLabel.backgroundColor = .gray
         
         
-        doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: facebookBtn.frame.maxY + 5, width: doubleLine.frame.width, height: doubleLine.frame.height)
+        
+        //loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
+        
+        loginBtn.clipsToBounds = true
+        loginBtn.titleLabel?.textAlignment = .center
+        loginBtn.setTitle("登入", for: .normal)
+        loginBtn.titleLabel?.font = loginBtn.titleLabel?.font.withSize(fontSize)
+        
+        loginBtn.translatesAutoresizingMaskIntoConstraints = false
+        loginBtn.widthAnchor.constraint(equalToConstant: 138 * dif).isActive = true
+        loginBtn.heightAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        loginBtn.leadingAnchor.constraint(equalTo: passwordPng.leadingAnchor).isActive = true
+        loginBtn.topAnchor.constraint(equalTo: passwordPng.bottomAnchor, constant: 8 * dif).isActive = true
+        loginBtn.layer.cornerRadius = cornerRadiusValue
+        
+        
+        
+        //registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
+        
+        //registerBtn.layer.cornerRadius = registerBtn.frame.width / 40
+        registerBtn.clipsToBounds = true
+        registerBtn.titleLabel?.textAlignment = .center
+        registerBtn.setTitle("註冊", for: .normal)
+        
+        registerBtn.titleLabel?.font = registerBtn.titleLabel?.font.withSize(fontSize)
+        
+        registerBtn.translatesAutoresizingMaskIntoConstraints = false
+        registerBtn.widthAnchor.constraint(equalToConstant: 138 * dif).isActive = true
+        registerBtn.heightAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        registerBtn.trailingAnchor.constraint(equalTo: passwordPng.trailingAnchor).isActive = true
+        registerBtn.topAnchor.constraint(equalTo: passwordPng.bottomAnchor, constant: 8 * dif).isActive = true
+        registerBtn.layer.cornerRadius = cornerRadiusValue
+        
+        
+        
+        //fbLoginBtn.frame = CGRect(x: passwordPng.frame.minX, y: registerBtn.frame.maxY * 1.02, width: passwordPng.frame.width, height: 35)
+        
+        
+        //fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
+        facebookBtn.clipsToBounds = true
+        facebookBtn.titleLabel?.textAlignment = .center
+        facebookBtn.setTitle("使用facebook登入", for: .normal)
+        facebookBtn.titleLabel?.font = facebookBtn.titleLabel?.font.withSize(fontSize)
+        
+        
+        facebookBtn.translatesAutoresizingMaskIntoConstraints = false
+        facebookBtn.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        facebookBtn.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
+        facebookBtn.topAnchor.constraint(equalTo: registerBtn.bottomAnchor, constant: 5 * dif).isActive = true
+        facebookBtn.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        facebookBtn.layer.cornerRadius = cornerRadiusValue
+        
+        
+        
+        //doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: fbLoginBtn.frame.maxY + 10, width: doubleLine.frame.width, height: doubleLine.frame.height)
         doubleLine2.image = UIImage(named: "doubleLine.png")
+        doubleLine2.contentMode = .scaleAspectFit
+        doubleLine2.translatesAutoresizingMaskIntoConstraints = false
+        doubleLine2.widthAnchor.constraint(equalToConstant: 302 * dif).isActive = true
+        doubleLine2.heightAnchor.constraint(equalToConstant: 6 * dif).isActive = true
+        doubleLine2.topAnchor.constraint(equalTo: facebookBtn.bottomAnchor, constant: 5 * dif).isActive = true
+        doubleLine2.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+
+        
+        //字型顏色
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: fontSize * 1.2), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: fontSize * 1.2), NSAttributedStringKey.foregroundColor : grassGreen]
+        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: fontSize), NSAttributedStringKey.foregroundColor : grassGreen]
+        
+        
+       // doubleLine2.frame = CGRect(x: doubleLine.frame.minX, y: facebookBtn.frame.maxY + 5, width: doubleLine.frame.width, height: doubleLine.frame.height)
+        //doubleLine2.image = UIImage(named: "doubleLine.png")
                doubleLine2.contentMode = .scaleAspectFit
         
-        alarmClock.frame = CGRect(x: doubleLine2.frame.minX, y: doubleLine2.frame.maxY + (height - (doubleLine2.frame.maxY)) / 7, width: 30, height: 30)
+        //alarmClock.frame = CGRect(x: doubleLine2.frame.minX, y: doubleLine2.frame.maxY + (height - (doubleLine2.frame.maxY)) / 7, width: 30, height: 30)
+        
+        //textLabel.frame = CGRect(x: alarmClock.frame.maxX + 10, y: alarmClock.frame.minY - 15, width: 256, height: 84)
+        
+        
+        //textLabel.anchor(top: doubleLine2.bottomAnchor, leading: alarmClock.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5 * dif, left: 5 * dif, bottom: 0, right: 0), size: .init(width: 256 * dif, height: 84 * dif))
+        
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.widthAnchor.constraint(equalToConstant: 256 * dif).isActive = true
+        textLabel.heightAnchor.constraint(equalToConstant: 84 * dif).isActive = true
+        textLabel.topAnchor.constraint(equalTo: doubleLine2.bottomAnchor, constant: 5 * dif).isActive = true
+        textLabel.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor, constant: 10 * dif).isActive = true
+        
         
         alarmClock.contentMode = .scaleAspectFit
         
-        freePng.frame = CGRect(x: alarmClock.frame.minX, y: alarmClock.frame.maxY + alarmClock.frame.height * 2, width: 35, height: 35)
+        alarmClock.translatesAutoresizingMaskIntoConstraints = false
+        alarmClock.widthAnchor.constraint(equalToConstant: 30 * dif).isActive = true
+        alarmClock.heightAnchor.constraint(equalToConstant: 30 * dif).isActive = true
+        alarmClock.trailingAnchor.constraint(equalTo: textLabel.leadingAnchor, constant: -5 * dif).isActive = true
+        alarmClock.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor).isActive = true
 
-        freePng.contentMode = .scaleAspectFit
-        
-        
-        freePng2.frame = CGRect(x: alarmClock.frame.minX, y: freePng.frame.maxY + alarmClock.frame.height * 1.5, width: 35, height: 35)
-        
-        freePng2.contentMode = .scaleAspectFit
-        
-        
-        //字型顏色
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor : grassGreen]
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12), NSAttributedStringKey.foregroundColor : grassGreen]
-        
-        
-        textLabel.frame = CGRect(x: alarmClock.frame.maxX + 10, y: alarmClock.frame.minY - 15, width: 256, height: 84)
-        
+
         //textLabel.backgroundColor = .red
         textLabel.textAlignment = .left
         textLabel.numberOfLines = 3
@@ -245,8 +414,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let textLabelText2 = NSMutableAttributedString(string: "聽說拼讀一把罩！", attributes: attrs0)
         let textLabelText3 = NSMutableAttributedString(string: "*可至購物商城購買無限學習時間", attributes: attrs2)
         
-
-
         textLabel.adjustsFontSizeToFitWidth = true
         textContent.append(textLabeltext1)
         textContent.append(NSAttributedString(string: "\n"))
@@ -254,23 +421,55 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         textContent.append(NSAttributedString(string: "\n"))
         textContent.append(textLabelText3)
         
-        
         textLabel.attributedText = textContent
+
         
-        textLabel2.frame = CGRect(x: textLabel.frame.minX, y: textLabel.frame.maxY + 13, width: textLabel.frame.width, height: 53)
+        
+        
+        //textLabel2.frame = CGRect(x: textLabel.frame.minX, y: textLabel.frame.maxY + 13, width: textLabel.frame.width, height: 53)
+        
+        
+        textLabel2.translatesAutoresizingMaskIntoConstraints = false
+        textLabel2.widthAnchor.constraint(equalToConstant: 256 * dif).isActive = true
+        textLabel2.heightAnchor.constraint(equalToConstant: 50 * dif).isActive = true
+        textLabel2.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 5 * dif).isActive = true
+        textLabel2.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor, constant: 10 * dif).isActive = true
+       
+        
+        
         //textLabel2.backgroundColor = .blue
         textLabel2.textAlignment = .left
         textLabel2.adjustsFontSizeToFitWidth = true
         let textContent2 = NSMutableAttributedString()
         let textLabel2Text = NSMutableAttributedString(string: "無限時間", attributes: attrs1)
-        let textLabel2Text2 = NSMutableAttributedString(string: text, attributes: attrs0)
+        let textLabel2Text2 = NSMutableAttributedString(string:  "複習挑戰模式。", attributes: attrs0)
         textContent2.append(textLabel2Text)
         textContent2.append(textLabel2Text2)
         textLabel2.attributedText = textContent2
 
-        textLabel3.frame = CGRect(x: textLabel.frame.minX, y: textLabel2.frame.maxY + 20, width: textLabel.frame.width, height: 53)
+        
+        //freePng.frame = CGRect(x: alarmClock.frame.minX, y: alarmClock.frame.maxY + alarmClock.frame.height * 2, width: 35, height: 35)
+
+        freePng.contentMode = .scaleAspectFit
+        
+        freePng.translatesAutoresizingMaskIntoConstraints = false
+        freePng.widthAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        freePng.heightAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        freePng.trailingAnchor.constraint(equalTo: textLabel2.leadingAnchor, constant: -5 * dif).isActive = true
+        freePng.centerYAnchor.constraint(equalTo: textLabel2.centerYAnchor).isActive = true
+    
+        
+        
+        //textLabel3.frame = CGRect(x: textLabel.frame.minX, y: textLabel2.frame.maxY + 20, width: textLabel.frame.width, height: 53)
         //textLabel3.backgroundColor = .green
         textLabel3.textAlignment = .left
+        textLabel3.translatesAutoresizingMaskIntoConstraints = false
+        textLabel3.widthAnchor.constraint(equalToConstant: 256 * dif).isActive = true
+        textLabel3.heightAnchor.constraint(equalToConstant: 50 * dif).isActive = true
+        textLabel3.topAnchor.constraint(equalTo: textLabel2.bottomAnchor, constant: 5 * dif).isActive = true
+        textLabel3.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor, constant: 10 * dif).isActive = true
+        textLabel3.adjustsFontSizeToFitWidth = true
+        
         
         
         let textContent3 = NSMutableAttributedString()
@@ -279,8 +478,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         textContent3.append(textLabel3Text)
         textContent3.append(textLabel3Text2)
         textLabel3.attributedText = textContent3
-
         
+        
+        
+        
+        
+        //freePng2.frame = CGRect(x: alarmClock.frame.minX, y: freePng.frame.maxY + alarmClock.frame.height * 1.5, width: 35, height: 35)
+        
+        freePng2.contentMode = .scaleAspectFit
+        
+        freePng2.translatesAutoresizingMaskIntoConstraints = false
+        freePng2.widthAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        freePng2.heightAnchor.constraint(equalToConstant: 35 * dif).isActive = true
+        freePng2.trailingAnchor.constraint(equalTo: textLabel3.leadingAnchor, constant: -5 * dif).isActive = true
+        freePng2.centerYAnchor.constraint(equalTo: textLabel3.centerYAnchor).isActive = true
+
         
         print("user:\(user)")
         
@@ -320,6 +532,42 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             break
         }
         
+        
+        
+        
+        /*  登入按鈕
+         accountPng.frame = CGRect(x: (width - 302) / 2, y: subTitleLabel.frame.maxY + 10, width: 302, height: 42)
+         
+         accountPng.image = UIImage(named: "newAccountPng.png")
+         
+         passwordPng.frame = CGRect(x: accountPng.frame.minX, y: accountPng.frame.maxY + 10, width: 302, height: 42)
+         passwordPng.image = UIImage(named: "newPasswordPng.png")
+         
+         accountTextField.frame = CGRect(x: accountPng.frame.minX + accountPng.frame.width / 7, y: accountPng.frame.minY, width: accountPng.frame.width * 4 / 5, height: accountPng.frame.height)
+         
+         
+         accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
+         
+         
+         passwordTextField.frame = CGRect(x: accountTextField.frame.minX, y: passwordPng.frame.minY, width:
+         accountTextField.frame.width, height: passwordPng.frame.height)
+         
+         
+         
+         passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor])
+         
+         accountTextField.delegate = self
+         passwordTextField.delegate = self
+         
+         registerBtn.frame = CGRect(x: passwordPng.frame.minX, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
+         
+         
+         loginBtn.frame = CGRect(x: passwordPng.frame.maxX - 142, y: passwordPng.frame.maxY + 10, width: 138, height: 35)
+         
+         facebookBtn.frame = CGRect(x: passwordPng.frame.minX, y: registerBtn.frame.maxY * 1.02, width: passwordPng.frame.width, height: 35)
+         
+         */
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -348,13 +596,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
             
             accountTextField.text = ""
-            accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
             
             if  passwordTextField.text!.isEmpty  || passwordTextField.text!.count < 5{
                 
                 passwordTextField.text = ""
                 
-                passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
 
                 
             }
@@ -363,13 +611,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             passwordTextField.text = ""
             
-            passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
             
             if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
                 
 
                 accountTextField.text = ""
-                accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
                 
             }
             
@@ -682,8 +930,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     print("1")
                                     self?.accountTextField.text = ""
                                     self?.passwordTextField.text = ""
-                                    self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                    self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                    self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: self!.attrs)
+                                    self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                     
                                 })
                                 return
@@ -702,8 +950,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 print("2")
                                 self?.accountTextField.text = ""
                                 self?.passwordTextField.text = ""
-                                self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                                self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                             })
                             return
                             
@@ -725,8 +973,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         print(message)
                         self?.accountTextField.text = ""
                         self?.passwordTextField.text = ""
-                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                     })
                     return
                     
@@ -1123,8 +1371,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 print("1")
                                 self?.accountTextField.text = ""
                                 self?.passwordTextField.text = ""
-                                self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: self!.attrs)
+                                self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                 
                             })
                             return
@@ -1143,8 +1391,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             print("2")
                             self?.accountTextField.text = ""
                             self?.passwordTextField.text = ""
-                            self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                            self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                            self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                         })
                         return
                         
@@ -1166,8 +1414,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     print(message)
                     self?.accountTextField.text = ""
                     self?.passwordTextField.text = ""
-                    self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                    self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                    self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
+                    self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
                 })
                 return
                 
@@ -1186,13 +1434,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
 
             accountTextField.text = ""
-            accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
             
             if  passwordTextField.text!.isEmpty  || passwordTextField.text!.count < 5{
                 
                 passwordTextField.text = ""
                 
-                passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
     
             }
             
@@ -1200,14 +1448,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             passwordTextField.text = ""
             
-            passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes:attrs)
             
             if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
                 
                 
                 
                 accountTextField.text = ""
-                accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
                 
                 
             }
@@ -1584,16 +1832,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                         
                                         self?.accountTextField.text = ""
                                         self?.passwordTextField.text = ""
-                                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: self!.attrs)
+                                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                         
                                         
                                     } else if errorStatus == "401"{
                                         
                                         self?.accountTextField.text = ""
                                         self?.passwordTextField.text = ""
-                                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: self!.attrs)
+                                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                                         
                                         
                                     }
@@ -1614,8 +1862,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             UIApplication.shared.endIgnoringInteractionEvents()
                             self?.accountTextField.text = ""
                             self?.passwordTextField.text = ""
-                            self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                            self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                            self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
+                            self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                             
                             
                         })
@@ -1634,8 +1882,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         print(message)
                         self?.accountTextField.text = ""
                         self?.passwordTextField.text = ""
-                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
-                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: [NSAttributedStringKey.foregroundColor: UIColor.red])
+                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
+                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
                     })
                     return
                     

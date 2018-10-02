@@ -49,18 +49,15 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     //錄音動畫
     var recordingIndicator:NVActivityIndicatorView?
     
-   
-    
+  
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
-    
     
     var audioSession = AVAudioSession.sharedInstance()
     
     var hintLabel = UILabel()
     
     var recogTextLabel = UILabel()
-    
     
     var restultTimer = Timer()
     
@@ -76,27 +73,50 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
 
         
         var dif = CGFloat()
-
+        var hintLabelFontSize: CGFloat!
+        
+        
         switch height {
+            
+        case 1366, 1336, 1112:
+
+            dif = 2
+   
+            hintLabelFontSize = 36
+            
+            
+        case 1024:
+            
+            dif = 1.6
+            hintLabelFontSize = 30
+            
         case 812:
       
             dif = 1.15
+ 
+            hintLabelFontSize = 20
 
         case 736:
 
             dif = 1.1
+
+            hintLabelFontSize = 20
             
         case 667:
 
             dif = 1
+
+            hintLabelFontSize = 18
             
         case 568:
             
             dif = 0.9
+
+            hintLabelFontSize = 14
             
         default:
  
-            dif = 0.9
+            break
        
             
         }
@@ -112,10 +132,27 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         //口試正確
         NotificationCenter.default.addObserver(self, selector: #selector(IntroViewController.toCourse), name: NSNotification.Name("toCourse"), object: nil)
         
-        recordBtn.frame = CGRect(x: (width - 128 * dif) / 2, y: height - 180 * dif, width: 128 * dif, height: 128 * dif)
-        
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
+        recordBtn.translatesAutoresizingMaskIntoConstraints = false
+        recordBtn.widthAnchor.constraint(equalToConstant: 128 * dif).isActive = true
+        recordBtn.heightAnchor.constraint(equalToConstant: 128 * dif).isActive = true
+        recordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        recordBtn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 160 * dif).isActive = true
+        
+        //做錄音動畫
+ 
+        let frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
+        
+        self.view.addSubview(recordingIndicator!)
+        self.view.bringSubview(toFront: recordBtn)
+        recordingIndicator?.translatesAutoresizingMaskIntoConstraints = false
+        recordingIndicator?.widthAnchor.constraint(equalToConstant: 150  * dif).isActive = true
+        recordingIndicator?.heightAnchor.constraint(equalToConstant: 150 * dif).isActive = true
+        recordingIndicator?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        recordingIndicator?.centerYAnchor.constraint(equalTo: recordBtn.centerYAnchor).isActive = true
+        
         
         //wave畫面設定
         audioView.isHidden = true
@@ -126,27 +163,31 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         audioView.amplitude = 0.1
         audioView.alpha = 0.7
         audioView.waveColor = recordingPinkColor
-        audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
-        
-        //做錄音動畫
-        let frame = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:145 * dif, height: 145 * dif)
-        recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
-        
-        
-        hintLabel.frame = CGRect(x: width / 6, y: recordBtn.frame.minY - 70, width: width * 2 / 3, height: 50)
+        audioView.translatesAutoresizingMaskIntoConstraints = false
+        audioView.widthAnchor.constraint(equalToConstant: width).isActive = true
+        audioView.heightAnchor.constraint(equalToConstant: height / 6.5).isActive = true
+        audioView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        audioView.centerYAnchor.constraint(equalTo: recordBtn.centerYAnchor).isActive = true
+
         //hintLabel.backgroundColor = .red
         
         hintLabel.textAlignment = .center
-        hintLabel.font = UIFont(name: "Helvetica Bold", size: 24)
+        hintLabel.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         hintLabel.textColor = .cyan
         hintLabel.text = ""
         self.view.addSubview(hintLabel)
+        hintLabel.translatesAutoresizingMaskIntoConstraints = false
+        //hintLabel.backgroundColor = .blue
+        hintLabel.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
+        hintLabel.heightAnchor.constraint(equalToConstant: 50 * dif).isActive = true
+        hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        hintLabel.bottomAnchor.constraint(equalTo: recordBtn.topAnchor, constant: -20 * dif).isActive = true
         
         
         recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5)
         recogTextLabel.textAlignment = .center
         recogTextLabel.textColor = .orange
-        recogTextLabel.font = UIFont(name: "Helvetica Bold", size: 36)
+        recogTextLabel.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize * 2)
         recogTextLabel.text = ""
         recogTextLabel.adjustsFontSizeToFitWidth = true
         self.view.addSubview(recogTextLabel)
@@ -184,7 +225,6 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
         //辨識語音的delegate
         speechRecognizer.delegate = self
-        
         
         
         //先設定為false之後做開啟

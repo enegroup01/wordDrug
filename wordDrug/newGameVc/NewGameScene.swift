@@ -222,15 +222,13 @@ class NewGameScene: SKScene {
 
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
-    
     var hintSec = Int()
     
     var tempGamePassedDic:[Int:Int]?
 
-
-    
     override func didMove(to view: SKView) {
         
+        //提示字
          makeLabelNode(x: 0, y: -290, alignMent: .center, fontColor: .white, fontSize: 40, text: "", zPosition: 3, name: "showHint", fontName: "Helvetica Bold", isHidden: true, alpha: 1)
         
         
@@ -334,7 +332,6 @@ class NewGameScene: SKScene {
             mapPassedInt = mapPassed4!
             increaseNum = 18
             maxMapNum = 9
-           
             
         default:
             break
@@ -514,11 +511,7 @@ class NewGameScene: SKScene {
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
         
-        makeImageNode(name: "popUpBlock", image: "popUpBlock2", x: 0, y: -1334 / 2 + 228 * 1.5, width: 750, height: 228, z: 7, alpha: 0, isAnchoring: false)
-        makeLabelNode(x: 0, y: -1380 / 2 + 228 * 1.5, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 8, name: "popUpLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-        makeImageNode(name: "popDownBlock", image: "popDownBlock2", x: 0, y: -1334 / 2 + 114, width: 750, height: 228, z: 7, alpha: 0, isAnchoring: false)
-        makeLabelNode(x: 0, y: -1380 / 2 + 114, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 8, name: "popDownLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
-   
+    
     
     }
     
@@ -556,7 +549,6 @@ class NewGameScene: SKScene {
                 
             }
 
-        
     }
     
     //MARK: load all kinds of words
@@ -667,22 +659,27 @@ class NewGameScene: SKScene {
         
         switch  height {
         case 812:
-            chiBtnDif = 0.8
-            iPadDif = 1
-   
-        case 736:
-            chiBtnDif = 1
+            chiBtnDif = 1.4
             iPadDif = 1
 
+   
+        case 736:
+            chiBtnDif = 1.55
+            iPadDif = 1
+   
+
         case 667:
-            chiBtnDif = 0.95
+            chiBtnDif = 1.5
             iPadDif = 1
+     
         case 568:
-            chiBtnDif = 0.9
+            chiBtnDif = 1.45
             iPadDif = 1
+     
         default:
-            chiBtnDif = 0.9
+            chiBtnDif = 1
             iPadDif = 1.2
+       
         }
         
         //背景
@@ -694,17 +691,16 @@ class NewGameScene: SKScene {
         
         
       
-        makeImageNode(name: "pause", image: "pauseBtn", x: -330 * chiBtnDif, y: 550 / iPadDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "pause", image: "pauseBtn", x: -280 * iPadDif, y: 350 * iPadDif * chiBtnDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
 
         //單字量Label, 這部分是新的
-        makeLabelNode(x: 350 * chiBtnDif, y: 550 / iPadDif, alignMent: .right, fontColor: .clear, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+       // makeLabelNode(x: 350 * chiBtnDif, y: 550 / iPadDif, alignMent: .right, fontColor: .clear, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
     
         //提示字
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
-        
-        
+
         //send Nc
         
          let wordSequence:[String:Int] = ["wordSequence":currentWordSequence]
@@ -716,56 +712,181 @@ class NewGameScene: SKScene {
     //載入畫面
     
     var engFontSize = CGFloat()
-     var starYDif = CGFloat()
+    var starYDif = CGFloat()
+    
+    var iPadDif = CGFloat()
+    var dif:CGFloat!
+    var ballDif:CGFloat!
+
+    var yDif:CGFloat!
+    var xDif:CGFloat!
+    var iPhoneXHeightDif:CGFloat!
  
     func setUpScreen(){
         
         findLabelNode(name: "showHint").text = "請連線拼字"
         
         var chiBtnDif = CGFloat()
-        var dif = CGFloat()
         var starX = CGFloat()
-       
+        var chiFontSize:CGFloat!
+        var iPhonePlusHeightDif:CGFloat!
+        var iPhonePlusHeightDif2:CGFloat!
+        var iPhone7YDif:CGFloat!
+        var iPadXDif:CGFloat!
+        var popQuizIPadDif:CGFloat!
+        var sceneHeight:CGFloat!
+        var sceneHeight2:CGFloat!
+        var popQuizSeTitleY:CGFloat!
+        var iPhoneSeEngWordWidthDif:CGFloat!
 
-    
-        
         switch  height {
+            
+        case 1366, 1336, 1112:
+            print("big iPad")
+            
+            dif = 1
+            chiFontSize = 60
+            chiBtnDif = 0.9
+            iPadDif = 1.5
+            engFontSize = 150
+            starX = 1
+            starYDif = 140
+            ballDif = 1.2
+            yDif = 1
+            xDif = 1
+            iPhoneXHeightDif = 1
+            iPhonePlusHeightDif  = 1
+            iPhonePlusHeightDif2 = 1
+            iPhone7YDif = 80
+            iPadXDif = 0.8
+            popQuizIPadDif = 50
+            sceneHeight = -500
+            sceneHeight2 = -523
+            popQuizSeTitleY = -650
+            iPhoneSeEngWordWidthDif = 1
+            
+        case 1024:
+            
+            print("small iPad")
+            dif = 1
+            chiFontSize = 40
+            chiBtnDif = 0.9
+            iPadDif = 1.2
+            engFontSize = 100
+            starX = 1
+            starYDif = 140
+            ballDif = 1.2
+            yDif = 1
+            xDif = 1
+            iPhoneXHeightDif = 1
+            iPhonePlusHeightDif  = 1
+            iPhonePlusHeightDif2 = 1
+            iPhone7YDif = 0
+            iPadXDif = 1
+            popQuizIPadDif = 28
+            sceneHeight = -500
+            sceneHeight2 = -523
+            popQuizSeTitleY = -470
+            iPhoneSeEngWordWidthDif = 1
+            
         case 812:
-            chiBtnDif = 0.8
-            dif = 0.9
+            
+            //iPhoneX
+            
+            dif = 1
+            chiFontSize = 30
+            chiBtnDif = 1.2
             iPadDif = 1
             engFontSize = 65
-            starX = 1
+            starX = 0.6
             starYDif = 0
+            ballDif = 1
+            yDif = 1.6
+            xDif = 0.9
+            iPhoneXHeightDif = 1.4
+            iPhonePlusHeightDif  = 1
+            iPhonePlusHeightDif2 = 1
+            iPhone7YDif = 0
+            iPadXDif = 1
+            popQuizIPadDif = 10
+            sceneHeight = -667
+            sceneHeight2 = -690
+            popQuizSeTitleY = 0
+            iPhoneSeEngWordWidthDif = 0.6
             
         case 736:
+            
+            //plus
+            dif = 1.2
+            chiFontSize = 30
             chiBtnDif = 1
-            dif = 0.9
             iPadDif = 1
             engFontSize = 65
-            starX = 1
+            starX = 0.9
             starYDif = 0
+            ballDif = 1
+            yDif = 1.65
+            xDif = 1.1
+            iPhoneXHeightDif = 1
+            iPhonePlusHeightDif  = 0.8
+            iPhonePlusHeightDif2 = 0.9
+            iPhone7YDif = 0
+            iPadXDif = 1
+            popQuizIPadDif = 18
+            sceneHeight = -667
+            sceneHeight2 = -690
+            popQuizSeTitleY = 0
+            iPhoneSeEngWordWidthDif = 0.6
         case 667:
-            chiBtnDif = 0.95
-            dif = 1
-            iPadDif = 1
-            engFontSize = 60
-            starX = 1
-            starYDif = 0
-        case 568:
-            chiBtnDif = 0.9
-            dif = 0.9
+            
+            //iPhone 7 & 8
+            dif = 0.85
+            chiFontSize = 26
+            chiBtnDif = 1.2
             iPadDif = 1
             engFontSize = 50
-            starX = 1
+            starX = 0.7
             starYDif = 0
+            ballDif = 1
+            yDif = 1.8
+            xDif = 1.3
+            iPhoneXHeightDif = 1
+            iPhonePlusHeightDif  = 1
+            iPhonePlusHeightDif2 = 0.95
+            iPhone7YDif = -30
+            iPadXDif = 1
+            popQuizIPadDif = 0
+            sceneHeight = -667
+            sceneHeight2 = -690
+            popQuizSeTitleY = 0
+            iPhoneSeEngWordWidthDif = 0.7
+            
+        case 568:
+            
+            dif = 0.7
+            chiFontSize = 25
+            chiBtnDif = 1.3
+            iPadDif = 1
+            engFontSize = 40
+            starX = 0.7
+            starYDif = 0
+            ballDif = 1
+            yDif = 2.3
+            xDif = 1.6
+            iPhoneXHeightDif = 1
+            iPhonePlusHeightDif  = 1
+            iPhonePlusHeightDif2 = 1
+            iPhone7YDif = 0
+            iPadXDif = 1
+            popQuizIPadDif = -20
+            sceneHeight = -667
+            sceneHeight2 = -690
+            popQuizSeTitleY = 90
+            iPhoneSeEngWordWidthDif = 0.8
+            
         default:
-            chiBtnDif = 0.9
-            dif = 0.9
-            iPadDif = 1.2
-            engFontSize = 65
-            starX = -1
-            starYDif = 30
+
+            break
         }
         
         //背景
@@ -775,7 +896,6 @@ class NewGameScene: SKScene {
         
         var lightImg = "lightSel"
         var darkImg = "darkSel"
-        var pauseImg = String()
         
         var textColor = UIColor()
 
@@ -785,7 +905,7 @@ class NewGameScene: SKScene {
             bgImgString = "newGameBg"
             lightImg = "lightSel"
             darkImg = "darkSel"
-            pauseImg  = "pauseBtn"
+          
             textColor = pinkColor
             
             
@@ -793,7 +913,7 @@ class NewGameScene: SKScene {
             bgImgString = "newGameBg2"
             lightImg = "lightSel2"
             darkImg = "darkSel2"
-            pauseImg  = "pauseBtn2"
+           
             textColor = UIColor.clear
             
         default:
@@ -808,32 +928,42 @@ class NewGameScene: SKScene {
         //makeImageNode(name: "gameBg", image: "popQuizBg", x: 0, y: 0, width: 754, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
         
-        makeImageNode(name: "pause", image: pauseImg, x: -330 * chiBtnDif, y: 550 / iPadDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
+        //makeImageNode(name: "pause", image: pauseImg, x: -330 * chiBtnDif, y: 550 / iPadDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
+        
+        
+        makeImageNode(name: "pause", image: "pauseBtn", x: -280 * ballDif * dif * xDif * iPhonePlusHeightDif, y: 350 * ballDif * dif * yDif * iPhonePlusHeightDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
+        
+        
+        makeLabelNode(x: 280 * ballDif * dif * xDif * iPhonePlusHeightDif, y: 340 * ballDif * dif * yDif * iPhonePlusHeightDif, alignMent: .right, fontColor: textColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+
+        
         
         // 製作TimerBg & timer label
         
-        makeLabelNode(x: 0, y: height * 3 / 5 * dif, alignMent: .center, fontColor: specialYellow, fontSize: 50, text: "限時挑戰", zPosition: 2, name: "quizTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: height * 3 / 5 * dif + popQuizSeTitleY, alignMent: .center, fontColor: specialYellow, fontSize: 50, text: "限時挑戰", zPosition: 2, name: "quizTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
-        makeImageNode(name: "timerBg", image: "timerBg", x: 0, y: height * 2 / 5 * dif, width: 277 * dif, height: 185 * dif, z: 1, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "timerBg", image: "timerBg", x: 0, y: height * 2 / 5 * dif - popQuizIPadDif * 3.5, width: 277 * dif, height: 185 * dif, z: 1, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: -65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "0", zPosition: 2, name: "bigNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 0)
+        makeLabelNode(x: -65 * dif, y: height * 1.4 / 5 * dif - popQuizIPadDif * 1.7, alignMent: .center, fontColor: .white, fontSize: 130, text: "0", zPosition: 2, name: "bigNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: 65 * dif, y: height * 1.4 / 5 * dif, alignMent: .center, fontColor: .white, fontSize: 130, text: "3", zPosition: 2, name: "smallNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 0)
+        makeLabelNode(x: 65 * dif, y: height * 1.4 / 5 * dif - popQuizIPadDif * 1.7, alignMent: .center, fontColor: .white, fontSize: 130, text: "3", zPosition: 2, name: "smallNumber", fontName: "Helvetica Neue", isHidden: false, alpha: 0)
 
-        makeLabelNode(x: 0, y: -50 * dif, alignMent: .center, fontColor: .white, fontSize: 110, text: "", zPosition: 1, name: "bigChineseLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: -50 * dif - popQuizIPadDif, alignMent: .center, fontColor: .white, fontSize: 110, text: "這是一個測試", zPosition: 1, name: "bigChineseLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
+        //即時練習的方塊
+        makeImageNode(name: "popUpBlock", image: "popUpBlock2", x: 0, y: sceneHeight + (228 - popQuizIPadDif) * 1.5, width: 750, height: 228 - popQuizIPadDif, z: 7, alpha: 0, isAnchoring: false)
+        makeLabelNode(x: 0, y: sceneHeight2 + (228 - popQuizIPadDif) * 1.5, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 8, name: "popUpLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+     
+        makeImageNode(name: "popDownBlock", image: "popDownBlock2", x: 0, y: sceneHeight + (228 - popQuizIPadDif) / 2 , width: 750, height: 228 - popQuizIPadDif, z: 7, alpha: 0, isAnchoring: false)
+        
+        makeLabelNode(x: 0, y:  sceneHeight2 + (228 - popQuizIPadDif) / 2, alignMent: .center, fontColor: .white, fontSize: 70, text: "", zPosition: 8, name: "popDownLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
         
         makeImageNode(name: "countDownLine", image: "countDownLine", x: -375, y: -114, width: 750, height: 5, z: 11, alpha: 0, isAnchoring: true)
         
-
-        //分數Label, 這部分是新的
-         makeLabelNode(x: 350 * chiBtnDif, y: 550 / iPadDif, alignMent: .right, fontColor: textColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
-        
-        
-        
+    
         //測試用看星星的位置
         makeImageNode(name: "star0", image: "emptyStar", x: 210 * chiBtnDif * starX, y: 520 - starYDif, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
          makeImageNode(name: "star1", image: "emptyStar", x: 280 * chiBtnDif * starX, y: 520 - starYDif, width: 50, height: 48, z: 2, alpha: 0, isAnchoring: false)
@@ -878,9 +1008,7 @@ class NewGameScene: SKScene {
         
         self.addChild(sparkle2!)
 
-
-        
-        
+     
         //提示字
         makeLabelNode(x: -425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintLeftLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         makeLabelNode(x: 425, y: 0, alignMent: .center, fontColor: .white, fontSize: 50, text: "", zPosition: 1, name: "hintRightLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
@@ -895,27 +1023,27 @@ class NewGameScene: SKScene {
         
         //選項按鈕
         
-        makeNode(name: "se0", color: .clear, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se1", color: .clear, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se2", color: .clear, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se3", color: .clear, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
-        makeNode(name: "se4", color: .clear, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se0", color: .clear, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / ballDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se1", color: .clear, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]) / ballDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se2", color: .clear, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / ballDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se3", color: .clear, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / ballDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
+        makeNode(name: "se4", color: .clear, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / ballDif, width: darkWidth, height: darkHeight, z: 6, isAnchoring: false, alpha: 1)
         
         //填滿按鈕
         
-        makeImageNode(name: "0filledButton", image: lightImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1filledButton", image: lightImg, x:CGFloat(positions[1][0]), y: CGFloat(positions[1][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2filledButton", image: lightImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3filledButton", image: lightImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "4filledButton", image: lightImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / iPadDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0filledButton", image: lightImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / ballDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1filledButton", image: lightImg, x:CGFloat(positions[1][0]), y: CGFloat(positions[1][1]) / ballDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2filledButton", image: lightImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / ballDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3filledButton", image: lightImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / ballDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "4filledButton", image: lightImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / ballDif, width: lightWidth, height: lightHeight, z: 4, alpha: 0, isAnchoring: false)
         
         
         //空的按鈕
-        makeImageNode(name: "0emptyButton", image: darkImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "1emptyButton", image: darkImg, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "2emptyButton", image: darkImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "3emptyButton", image: darkImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "4emptyButton", image: darkImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / iPadDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "0emptyButton", image: darkImg, x:CGFloat(positions[0][0]) , y: CGFloat(positions[0][1]) / ballDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "1emptyButton", image: darkImg, x:CGFloat(positions[1][0]) , y: CGFloat(positions[1][1]) / ballDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "2emptyButton", image: darkImg, x:CGFloat(positions[2][0]) , y: CGFloat(positions[2][1]) / ballDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "3emptyButton", image: darkImg, x:CGFloat(positions[3][0]) , y: CGFloat(positions[3][1]) / ballDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "4emptyButton", image: darkImg, x:CGFloat(positions[4][0]) , y: CGFloat(positions[4][1]) / ballDif, width: darkWidth, height: darkHeight, z: 3, alpha: 0, isAnchoring: false)
         
 
         //製作中文選項
@@ -944,14 +1072,14 @@ class NewGameScene: SKScene {
         }
         
         
-        makeImageNode(name: "leftChiBtn", image: leftSqr, x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
-        makeImageNode(name: "rightChiBtn", image: rightSqr, x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "leftChiBtn", image: leftSqr, x: -140 * ballDif * dif * xDif, y: -365 + iPhone7YDif, width: 200 * ballDif * dif * xDif * chiBtnDif, height: 200 * ballDif * dif * xDif * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "rightChiBtn", image: rightSqr, x: 140 * ballDif * dif * xDif, y: -365 + iPhone7YDif, width: 200 * ballDif * dif * xDif * chiBtnDif, height: 200 * ballDif * dif * xDif * chiBtnDif, z: 7, alpha: 0, isAnchoring: false)
         
         //makeImageNode(name: "leftChiBtn", image: "popQuizBlock", x: -187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
         //makeImageNode(name: "rightChiBtn", image: "popQuizBlock", x: 187 * chiBtnDif, y: -365, width: 320 * chiBtnDif, height: 320 * chiBtnDif, z: 7, alpha: 1, isAnchoring: false)
         
         //加入中文字選項的node
-        leftChiNode.position = CGPoint(x: -187 * chiBtnDif, y: -375 / iPadDif)
+        leftChiNode.position = CGPoint(x: -140 * iPadDif * dif, y: -375 / iPadDif)
         leftChiNode.horizontalAlignmentMode = .center
         leftChiNode.fontSize = 60
         leftChiNode.fontColor = .white
@@ -964,7 +1092,7 @@ class NewGameScene: SKScene {
 
         addChild(leftChiNode)
         
-        rightChiNode.position = CGPoint(x: 187 * chiBtnDif, y: -375 / iPadDif)
+        rightChiNode.position = CGPoint(x: 145 * iPadDif * dif, y: -375 / iPadDif)
         rightChiNode.horizontalAlignmentMode = .center
       
         rightChiNode.fontSize = 60
@@ -979,35 +1107,56 @@ class NewGameScene: SKScene {
         
         //建立三個單字
         
-        //firstEngWordLabel.frame = CGRect(x: 187.5 + 375, y: 110, width: 200, height: 80)
-        firstEngWordLabel.frame = CGRect(x: (width - 200 * dif) / 2 + width, y: 110 * dif / iPadDif, width: 260 * dif, height: 80 * dif)
+     
+        //firstEngWordLabel.frame = CGRect(x: (width - 200 * dif) / 2 + width, y: 110 * dif / iPadDif, width: 260 * dif, height: 80 * dif)
         
         //firstEngWordLabel.backgroundColor = .cyan
-        firstEngWordLabel.textColor = darkWordColor
+        firstEngWordLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        //firstEngWordLabel.textColor = darkWordColor
         firstEngWordLabel.textAlignment = .center
         firstEngWordLabel.adjustsFontSizeToFitWidth = true
         firstEngWordLabel.font = UIFont(name: "Helvetica Bold", size: engFontSize)
         firstEngWordLabel.text = ""
         self.view?.addSubview(firstEngWordLabel)
         
+        firstEngWordLabel.widthAnchor.constraint(equalToConstant: 480 * iPadDif * dif * iPhoneSeEngWordWidthDif).isActive = true
+        firstEngWordLabel.heightAnchor.constraint(equalToConstant: 140 * iPadDif * dif * iPhonePlusHeightDif).isActive = true
+        firstEngWordLabel.centerXAnchor.constraint(equalTo: (view?.centerXAnchor)!).isActive = true
+        firstEngWordLabel.topAnchor.constraint(equalTo: (view?.safeTopAnchor)!, constant: 110 * dif * iPadDif / yDif * iPhonePlusHeightDif).isActive = true
+        
+        
+        
         //英文單字的Node
         //firstChiWordLabel.frame = CGRect(x: 187.5 + 375, y: 205, width: 90, height: 40)
-        firstChiWordLabel.frame = CGRect(x: (width - 90 * dif) / 2 + width, y: 205 * dif / iPadDif, width: 260 * dif, height: 40 * dif)
+        
+        firstChiWordLabel.translatesAutoresizingMaskIntoConstraints = false
+        //firstChiWordLabel.frame = CGRect(x: (width - 90 * dif) / 2 + width, y: 205 * dif / iPadDif, width: 260 * dif, height: 40 * dif)
         //firstChiWordLabel.backgroundColor = .green
         firstChiWordLabel.textColor = pinkColor
         firstChiWordLabel.textAlignment = .center
         firstChiWordLabel.adjustsFontSizeToFitWidth = true
-        firstChiWordLabel.font = UIFont(name: "Helvetica Bold", size: 30)
+        firstChiWordLabel.font = UIFont(name: "Helvetica Bold", size: chiFontSize)
         firstChiWordLabel.text = ""
         self.view?.addSubview(firstChiWordLabel)
         
+        firstChiWordLabel.widthAnchor.constraint(equalToConstant: 480 * iPadDif * dif).isActive = true
+        firstChiWordLabel.heightAnchor.constraint(equalToConstant: 70 * iPadDif * dif).isActive = true
+        firstChiWordLabel.centerXAnchor.constraint(equalTo: (view?.centerXAnchor)!).isActive = true
+       firstChiWordLabel.topAnchor.constraint(equalTo: firstEngWordLabel.bottomAnchor, constant: 5 * dif * iPadDif).isActive = true
+       
         //popQuizTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameScene.popQuizCountDown), userInfo: nil, repeats: true)
         
         //建立好畫面後開始動畫
         
-        makeImageNode(name: "abort", image: "skipTagTest", x: 300 * chiBtnDif, y: 500 / iPadDif, width: 131, height: 46, z: 3, alpha: 0, isAnchoring: false)
+       
+        //iPhone 7 & 8 Y不夠高
+        makeImageNode(name: "abort", image: "skipTagTest", x: 260 * iPadDif * dif * xDif * iPhonePlusHeightDif * iPadXDif, y: 340 * iPadDif * dif * xDif * chiBtnDif * iPhoneXHeightDif / iPhonePlusHeightDif2 * iPadXDif, width: 90 * iPadDif * dif * yDif * iPadXDif, height: 32 * dif * iPadDif * yDif * iPadXDif, z: 3, alpha: 0, isAnchoring: false)
         
         introAnimation()
+        
+        
+        
         
     }
     
@@ -1579,9 +1728,6 @@ class NewGameScene: SKScene {
     
     @objc func backToSpell(_ notification:NSNotification){
         
-        
-        
-        
         //抓分數
         if let addScore = notification.userInfo?["addScore"] as? Int{
             if addScore != 0 {
@@ -1623,7 +1769,7 @@ class NewGameScene: SKScene {
         findImageNode(name: "recogWordsBg").alpha = 0
         
         //建立說話圖示
-        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380 / iPadDif, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
         
         
         //宣告此為第二次練習
@@ -1675,7 +1821,7 @@ class NewGameScene: SKScene {
     
     
     //練習模式
-    var iPadDif = CGFloat()
+   
     
     func practice(){
         
@@ -1684,26 +1830,29 @@ class NewGameScene: SKScene {
         hintSec = 0
         findLabelNode(name: "showHint").text = "請連線拼字"
         }
+        /*
+        var ballDif:CGFloat!
         
-
         switch  height {
         case 812:
 
-            iPadDif = 1
+            ballDif = 1
         case 736:
 
-            iPadDif = 1
+            ballDif = 1
         case 667:
      
-            iPadDif = 1
+            ballDif = 1
         case 568:
      
-            iPadDif = 1
+            ballDif = 1
         default:
     
-            iPadDif = 1.2
+            //all iPad
+            ballDif = 1.2
         }
-        
+  
+        */
         hintSlideIn(leftText: "連線", rightText: "拼字",waitTime: 1) {[weak self] in
             
             //是否要發音, 判斷是不是第一個字
@@ -1976,7 +2125,7 @@ class NewGameScene: SKScene {
           
             for i in 0 ..< self!.shownWords.count{
                 
-               self!.makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1])  / self!.iPadDif, alignMent: .center, fontColor: .white, fontSize: 50, text: self!.shownWords[i], zPosition: 5, name: self!.shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
+               self!.makeLabelNode(x: CGFloat(positions[i][0]), y: CGFloat(positions[i][1])  / self!.ballDif, alignMent: .center, fontColor: .white, fontSize: 50, text: self!.shownWords[i], zPosition: 5, name: self!.shownWords[i] + String(i) + "Sel", fontName: "Helvetica", isHidden: false, alpha: 1)
                 
                 
                 //把建立的選項名稱放入array裡
@@ -2139,15 +2288,30 @@ class NewGameScene: SKScene {
                     
                     if isPopQuiz{
                         
-
-                        makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 228 * 1.5, width: 220 * chiBtnDif, height: 220 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                  //      makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 228 * 1.5, width: 220 * chiBtnDif, height: 220 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                  
+                     
+                        makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
-                        makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 114, width: 220 * chiBtnDif, height: 230 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
+     
+                    //    makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 114, width: 220 * chiBtnDif, height: 230 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                 
+             
                     } else {
                     
-                    makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                    //makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+                        
+                    //makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
                     }
                     
                     let when = DispatchTime.now() + 0.3
@@ -2166,14 +2330,31 @@ class NewGameScene: SKScene {
                     
                     if isPopQuiz{
                         
-                        makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 228 * 1.5, width: 220 * chiBtnDif, height: 220 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        //makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 228 * 1.5, width: 220 * chiBtnDif, height: 220 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
-                        makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 114, width: 220 * chiBtnDif, height: 230 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+                        
+                        //makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 114, width: 220 * chiBtnDif, height: 230 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+                        
+                        
                         
                     } else {
-                    makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                    //makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     
-                    makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+
+                        makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                   // makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                  
+                        makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                 }
                     /*
                      findLabelNode(name: "tempWord").text = "答錯"
@@ -2210,14 +2391,35 @@ class NewGameScene: SKScene {
                     
                     if isPopQuiz{
                         
-                        makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 228 * 1.5, width: 228 * chiBtnDif, height: 228 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        //makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 228 * 1.5, width: 228 * chiBtnDif, height: 228 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
-                        makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 114, width: 228 * chiBtnDif, height: 238 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+               
+
+                        
+                        //makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 114, width: 228 * chiBtnDif, height: 238 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+
                         
                         
                     } else {
-                    makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                  //  makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                   
+                        
+                
+                        makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+              //          makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+
                     }
                     
                     let when = DispatchTime.now() + 0.3
@@ -2237,14 +2439,31 @@ class NewGameScene: SKScene {
                     if isPopQuiz{
                         
                         
-                        makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 228 * 1.5, width: 228 * chiBtnDif, height: 228 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        //makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 228 * 1.5, width: 228 * chiBtnDif, height: 228 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
-                        makeImageNode(name: "mark", image: "wrongX", x: 0, y:-1334 / 2 + 114, width: 228 * chiBtnDif, height: 238 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+                        makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        //makeImageNode(name: "mark", image: "wrongX", x: 0, y:-1334 / 2 + 114, width: 228 * chiBtnDif, height: 238 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                      
+                        makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
                     } else {
-                    makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                   // makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
 
-                    makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                    
+                        makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                        
+                        
+                        
+                //    makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                   
+                      
+                        makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                    
                     }
                         /*
                      findLabelNode(name: "tempWord").text = "答錯"
@@ -3030,6 +3249,7 @@ class NewGameScene: SKScene {
         }
         if gameMode == 0 {
         
+            
         if currentWordSequence < (unitNumber + 1) * 3 - 1{
             
             
@@ -3535,6 +3755,7 @@ class NewGameScene: SKScene {
             node.zPosition = z
             node.alpha = alpha
             
+            
             if isAnchoring{
                 
                 node.anchorPoint = CGPoint(x: 0, y: 0)
@@ -3547,6 +3768,34 @@ class NewGameScene: SKScene {
         
     }
     
+    
+    func makeCenterImageNode(centerRef:SKSpriteNode, name:String, image:String, width:CGFloat, height:CGFloat, z:CGFloat, alpha:CGFloat, isAnchoring:Bool){
+        
+        if let bundlePath = Bundle.main.path(forResource: image, ofType: "png"){
+            let imageFile = UIImage(contentsOfFile: bundlePath)
+            let texture = SKTexture(image: imageFile!)
+            let node = SKSpriteNode()
+            
+            node.size = CGSize(width: width, height: height)
+            node.name = name
+            node.texture = texture
+            node.position = CGPoint(x: centerRef.frame.midX, y: centerRef.frame.midY)
+            node.zPosition = z
+            node.alpha = alpha
+            
+            
+            if isAnchoring{
+                
+                node.anchorPoint = CGPoint(x: 0, y: 0)
+            }
+            
+            addChild(node)
+            
+        }
+        
+        
+    }
+
     
     
     

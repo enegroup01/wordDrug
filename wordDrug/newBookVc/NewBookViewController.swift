@@ -10,7 +10,11 @@ import UIKit
 import TwicketSegmentedControl
 import Speech
 
-class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, AVSpeechSynthesizerDelegate{
+
+//TwicketSegment有在內部修改slider的高度
+
+
+class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, AVSpeechSynthesizerDelegate, UICollectionViewDelegateFlowLayout{
     
     //所有音節
     var syllableSets = [String]()
@@ -195,31 +199,89 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var isAllEmpty = true
     
     var xDif = CGFloat()
-    
-    
-    
+    var iPadDif: CGFloat!
+    var collectionViewCellSize:CGFloat!
+    var sylFontSize: CGFloat!
     var wordsToAddToFav = [String]()
     var wordsToDeleteInFav = [String]()
     var wordsToDeleteInWrong = [String]()
-
+    var engWordSizeDif: CGFloat!
+    var chiWordSizeDif: CGFloat!
     
     var favAddedLabel = UILabel()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
+        var sliderHeight: CGFloat!
         var iPadSmall = CGFloat()
- 
+        var btnDif: CGFloat!
+        var btnTextFontSize: CGFloat!
+        var playTimeBtnYDif: CGFloat!
+        var alertXDif:CGFloat!
+
+        
         switch height {
+            
+        case 1366, 1336, 1112:
+            seperatorDif = 2.5
+            dif = 0.9
+            cellDif = 1.2
+            fontDif = 5
+            xDif = 0
+            iPadSmall = 10
+            iPadDif = 1.8
+            collectionViewCellSize = 100
+            sylFontSize = 30
+            sliderHeight = 60
+            btnDif = 2.5
+            btnTextFontSize = 20
+
+            engWordSizeDif = 18
+            chiWordSizeDif = 30
+            playTimeBtnYDif = 0
+            alertXDif = 1
+            
+        case 1024:
+            seperatorDif = 1.9
+            dif = 0.9
+            cellDif = 1.1
+            fontDif = 5
+            xDif = 0
+            iPadSmall = 10
+            iPadDif = 1.4
+            collectionViewCellSize = 80
+            sylFontSize = 24
+            sliderHeight = 50
+            btnDif = 1.8
+            btnTextFontSize = 18
+   
+            engWordSizeDif = 18
+            chiWordSizeDif = 26
+            playTimeBtnYDif = 0
+            alertXDif = 1
+            
         case 812:
             
-            seperatorDif = 1.1
+            seperatorDif = 0.9
             dif = 1.35
             cellDif = 1.2
             fontDif = 0
             xDif = 50
             iPadSmall = 0
+            iPadDif = 1
+            collectionViewCellSize = 50
+            sylFontSize = 15
+            sliderHeight = 30
+            btnDif = 1
+            btnTextFontSize = 14
+     
+            engWordSizeDif = 14
+            chiWordSizeDif = 24
+            playTimeBtnYDif = 2
+            alertXDif = 0.8
+
             
         case 736:
             seperatorDif = 1.1
@@ -228,6 +290,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             fontDif = 3
             xDif = 0
             iPadSmall = 0
+            iPadDif = 1.1
+            collectionViewCellSize = 50
+            sylFontSize = 15
+            sliderHeight = 30
+            btnDif = 1
+            btnTextFontSize = 14
+
+            engWordSizeDif = 14
+            chiWordSizeDif = 26
+             playTimeBtnYDif = 5
+            alertXDif = 1
+
+            
         case 667:
             
             seperatorDif = 1
@@ -236,6 +311,18 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             fontDif = 4
             xDif = 0
             iPadSmall = 0
+            iPadDif = 1.1
+            collectionViewCellSize = 50
+            sylFontSize = 15
+            sliderHeight = 30
+            btnDif = 1
+            btnTextFontSize = 14
+            engWordSizeDif = 12
+            chiWordSizeDif = 24
+            playTimeBtnYDif = 5
+            alertXDif = 1
+
+            
         case 568:
             seperatorDif = 0.9
             dif = 0.9
@@ -243,14 +330,21 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             fontDif = 5
             xDif = 0
             iPadSmall = 0
+            iPadDif = 1.1
+            collectionViewCellSize = 50
+            sylFontSize = 12
+            sliderHeight = 30
+            btnDif = 1
+            btnTextFontSize = 14
+      
+            engWordSizeDif = 14
+            chiWordSizeDif = 24
+            playTimeBtnYDif = 6
+            alertXDif = 1
+
         default:
-            seperatorDif = 0.9
-            dif = 0.9
-            cellDif = 0.9
-            fontDif = 5
-            xDif = 0
-            iPadSmall = 10
-            
+
+            break
             
         }
         
@@ -288,8 +382,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             increaseNum = 5
             maxMapNum = 6
             maxSpotNum = 14
-            
-            
+           
             
         case 2:
             syllableGroup.append(map12SyllableSets)
@@ -339,15 +432,24 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //ghostBtn.addTarget(self, action: #selector(NewBookViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
         
-        alertBg.frame = CGRect(x: (width - 237 * dif) / 2 + xDif, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
+        //alertBg.frame = CGRect(x: (width - 237 * dif) / 2 + xDif, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         alertBg.image = UIImage(named: "reviewQuitBg3.png")
         self.view.addSubview(alertBg)
+
+        
+        alertBg.translatesAutoresizingMaskIntoConstraints = false
+        alertBg.widthAnchor.constraint(equalToConstant: 237 * dif * btnDif * alertXDif).isActive = true
+        alertBg.heightAnchor.constraint(equalToConstant: 140 * dif * btnDif * alertXDif).isActive = true
+        alertBg.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        alertBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        
         
         ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         self.view.addSubview(ghost2Btn)
         
-        alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
+        //alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+        alertText.font = UIFont(name: "Helvetica Bold", size: sylFontSize)
         alertText.textColor = .white
         alertText.text = "選擇練習模式"
         alertText.numberOfLines = 0
@@ -355,14 +457,30 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alertText.adjustsFontSizeToFitWidth = true
         alertBg.addSubview(alertText)
         
+        //alertText.backgroundColor = .green
+        alertText.translatesAutoresizingMaskIntoConstraints = false
+        alertText.widthAnchor.constraint(equalToConstant: 237 * dif * btnDif * 0.7 * alertXDif).isActive = true
+        alertText.heightAnchor.constraint(equalToConstant: 140 * dif * btnDif * 0.4 * alertXDif).isActive = true
+        alertText.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10 * iPadDif).isActive = true
+        alertText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
+        
+        
+        //practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
    
-        practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+        practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: sylFontSize)
         practiceWordBtn.setTitle("我知道了", for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
+        
+        //practiceWordBtn.backgroundColor = .yellow
+        practiceWordBtn.translatesAutoresizingMaskIntoConstraints = false
+        practiceWordBtn.widthAnchor.constraint(equalToConstant: 237 * dif * btnDif * alertXDif).isActive = true
+        practiceWordBtn.heightAnchor.constraint(equalToConstant: 140 * dif * btnDif * 0.3 * alertXDif).isActive = true
+        practiceWordBtn.topAnchor.constraint(equalTo: alertText.bottomAnchor, constant: 15 * iPadDif).isActive = true
+        practiceWordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         
         /*
         practiceSenBtn.frame = CGRect(x: practiceWordBtn.frame.maxX, y: alertBg.frame.maxY - 44 * dif, width: alertBg.frame.width / 2, height: height * 44 / 667)
@@ -389,71 +507,138 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //layOut
         newBookBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
-         backBtn.frame = CGRect(x: width / 14, y: width / 10, width: 19, height: 31)
+        backBtn.frame = CGRect(x: width / 14 / iPadDif , y: width / 10 / iPadDif / iPadDif, width: 19 * iPadDif, height: 31 * iPadDif)
+        
+        //backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 10 * iPadDif, left: 15 * iPadDif, bottom: 0, right: 0), size: .init(width: 19 * iPadDif, height: 31 * iPadDif))
         
         //設定好segMent
-        segControl.frame = CGRect(x: backBtn.frame.maxX, y: backBtn.frame.minY,width: width - backBtn.frame.width * 4, height: 30 * dif)
+        segControl.frame = CGRect(x: backBtn.frame.maxX, y: backBtn.frame.minY,width: width - backBtn.frame.width * 4, height: sliderHeight )
         self.view.addSubview(segControl)
         
+        
         collectionView.frame = CGRect(x: backBtn.frame.minX, y: segControl.frame.maxY + 5 * dif, width: width - (backBtn.frame.minX * 2), height: height / 3.2)
-        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: width, height: height - collectionView.frame.maxY - 66 * dif)
+       //collectionView.backgroundColor = .red
         
-        bookViewBottomBg.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width, height: 66 * dif)
+        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: width, height: height - collectionView.frame.maxY - 66 * dif * iPadDif)
         
-        playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        bookViewBottomBg.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width, height: 66 * dif * iPadDif)
+        
+        playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
         //playBtn.backgroundColor = .red
         
         //autoPlayImg.frame = CGRect(x: (width / 5 - 23 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 23 * dif, height: 23 * dif)
         
-        autoPlayImg.center = CGPoint(x: playBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif)
-        autoPlayImg.frame.size = CGSize(width: 23 * dif, height: 23 * dif)
+        //autoPlayImg.center = CGPoint(x: playBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif * btnDif)
+        //autoPlayImg.frame.size = CGSize(width: 23 * dif * btnDif, height: 23 * dif * btnDif)
+        autoPlayImg.translatesAutoresizingMaskIntoConstraints = false
+        autoPlayImg.widthAnchor.constraint(equalToConstant: 23 * dif * btnDif).isActive = true
+        autoPlayImg.heightAnchor.constraint(equalToConstant: 23 * dif * btnDif).isActive = true
+        autoPlayImg.centerYAnchor.constraint(equalTo: bookViewBottomBg.centerYAnchor, constant: -autoPlayImg.frame.height / 2).isActive = true
+        //autoPlayImg.leadingAnchor.constraint(equalTo: view.safeLeftAnchor, constant: width / 8 - autoPlayImg.frame.width).isActive = true
+        
+          autoPlayImg.centerXAnchor.constraint(equalTo: playBtn.centerXAnchor).isActive = true
+
         
         //autoPlayText.frame = CGRect(x:(width / 5 - 72 * dif) / 2, y: height - 21 * 1.2 * dif, width: 72 * dif , height: 21 * dif)
-       autoPlayText.frame.size = CGSize(width: 72 * dif , height: 21 * dif)
-        autoPlayText.center = CGPoint(x: playBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        //autoPlayText.backgroundColor = .green
+      // autoPlayText.frame.size = CGSize(width: 72 * dif , height: 21 * dif)
+        //autoPlayText.center = CGPoint(x: playBtn.frame.midX, y: height - 11 * 1.2 * dif)
         
-        sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        autoPlayText.anchor(top: autoPlayImg.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil,padding: .init(top: 5 * iPadDif, left: 0, bottom: 0, right: 0), size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
+        
+        autoPlayText.font = autoPlayText.font.withSize(btnTextFontSize)
+        
+        sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
        
         //sentenceBtn.backgroundColor = .green
         
         //playSenImg.frame = CGRect(x: width / 5 + (width / 5 - 27 * dif) / 2 ,y: bookViewBottomBg.frame.minY + 12 * dif, width: 27 * dif, height: 23 * dif)
         
-        playSenImg.center = CGPoint(x: sentenceBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif)
-        playSenImg.frame.size = CGSize(width: 27 * dif, height: 23 * dif)
+        //playSenImg.center = CGPoint(x: sentenceBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif)
+        //playSenImg.frame.size = CGSize(width: 27 * dif, height: 23 * dif)
+        
+        
+        playSenImg.translatesAutoresizingMaskIntoConstraints = false
+        playSenImg.widthAnchor.constraint(equalToConstant: 27 * dif * btnDif).isActive = true
+        playSenImg.heightAnchor.constraint(equalToConstant: 23 * dif * btnDif).isActive = true
+        playSenImg.centerYAnchor.constraint(equalTo: bookViewBottomBg.centerYAnchor, constant: -playSenImg.frame.height / 2).isActive = true
+        //playSenImg.leadingAnchor.constraint(equalTo: playBtn.trailingAnchor ,constant: width / 8 - playSenImg.frame.width).isActive = true
+
+        playSenImg.centerXAnchor.constraint(equalTo: sentenceBtn.centerXAnchor).isActive = true
+        
        
         //playSenText.frame = CGRect(x: width / 5 + (width / 5 - 79 * dif) / 2, y: height - 21 * 1.2 * dif, width: 79 * dif , height: 21 * dif)
-        playSenText.frame.size = CGSize(width: 79 * dif , height: 21 * dif)
-        playSenText.center = CGPoint(x: sentenceBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        //playSenText.frame.size = CGSize(width: 79 * dif , height: 21 * dif)
+        //playSenText.center = CGPoint(x: sentenceBtn.frame.midX, y: height - 11 * 1.2 * dif)
         
-        playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        //playSenText.anchor(top: playSenImg.bottomAnchor, leading: playBtn.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 5 * iPadDif, left: 0, bottom: 0, right: 0), size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
+        
+        playSenText.anchor(top: autoPlayText.topAnchor, leading: playBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
+        
+        playSenText.font = playSenText.font.withSize(btnTextFontSize)
+        
+        playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
        
+        
         //playTimesBtn.backgroundColor = .yellow
         
         //playTimesImg.frame = CGRect(x: width * 2 / 5 + (width / 5 - 46 * dif) / 2, y: bookViewBottomBg.frame.minY + 18 * dif, width: 46 * dif, height: 8 * dif)
         
-        playTimesImg.center = CGPoint(x: playTimesBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
-        playTimesImg.frame.size = CGSize(width: 46 * dif, height: 8 * dif)
+        //playTimesImg.center = CGPoint(x: playTimesBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
+        //playTimesImg.frame.size = CGSize(width: 46 * dif, height: 8 * dif)
+        
+        
+        playTimesImg.translatesAutoresizingMaskIntoConstraints = false
+        playTimesImg.widthAnchor.constraint(equalToConstant: 46 * dif * btnDif).isActive = true
+        playTimesImg.heightAnchor.constraint(equalToConstant: 8 * dif * btnDif).isActive = true
+        playTimesImg.centerYAnchor.constraint(equalTo: bookViewBottomBg.centerYAnchor, constant: -playTimesImg.frame.height / 2).isActive = true
+
+        playTimesImg.centerXAnchor.constraint(equalTo: playTimesBtn.centerXAnchor).isActive = true
+        
         
         
         //playTimesText.frame = CGRect(x: width * 2 / 5 + (width / 5 - 76 * dif) / 2, y: height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
-        playTimesText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
-        playTimesText.center = CGPoint(x: playTimesBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        //playTimesText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
+        //playTimesText.center = CGPoint(x: playTimesBtn.frame.midX, y: height - 11 * 1.2 * dif)
         
-        playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif)
+        
+        //playTimesText.anchor(top: playTimesImg.bottomAnchor, leading: sentenceBtn.trailingAnchor, bottom: nil, trailing: nil,padding:.init(top: 10 * iPadDif - playTimeBtnYDif, left: 0, bottom: 0, right: 0) , size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
+        
+        playTimesText.anchor(top: playSenText.topAnchor, leading: sentenceBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
+        
+        playTimesText.font = playTimesText.font.withSize(btnTextFontSize)
+        
+        playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
         
         //playSpeedBtn.backgroundColor = .purple
         
-        playSpeedImg.frame = CGRect(x: width * 3 / 5 + (width / 5 - 44 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 44 * dif, height: 28 * dif)
+       // playSpeedImg.frame = CGRect(x: width * 3 / 5 + (width / 5 - 44 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 44 * dif, height: 28 * dif)
         
         
-        playSpeedImg.center = CGPoint(x: playSpeedBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
-        playSpeedImg.frame.size = CGSize(width: 44 * dif, height: 28 * dif)
+       // playSpeedImg.center = CGPoint(x: playSpeedBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
+      //  playSpeedImg.frame.size = CGSize(width: 44 * dif, height: 28 * dif)
+        
+        
+        playSpeedImg.translatesAutoresizingMaskIntoConstraints = false
+        playSpeedImg.widthAnchor.constraint(equalToConstant: 40 * dif * btnDif).isActive = true
+        playSpeedImg.heightAnchor.constraint(equalToConstant: 26 * dif * btnDif).isActive = true
+        playSpeedImg.centerYAnchor.constraint(equalTo: bookViewBottomBg.centerYAnchor, constant: -playSpeedImg.frame.height / 2).isActive = true
+     
+        playSpeedImg.centerXAnchor.constraint(equalTo: playSpeedBtn.centerXAnchor).isActive = true
         
         
         
-        playSpeedText.frame = CGRect(x: width * 3 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
-        playSpeedText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
-        playSpeedText.center = CGPoint(x: playSpeedBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        
+        //playSpeedText.frame = CGRect(x: width * 3 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
+        //playSpeedText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
+        //playSpeedText.center = CGPoint(x: playSpeedBtn.frame.midX, y: height - 11 * 1.2 * dif)
+        
+        //playSpeedText.anchor(top: playSpeedImg.bottomAnchor, leading: playTimesBtn.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 5 * iPadDif, left: 0, bottom: 0, right: 0), size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
+        
+        playSpeedText.anchor(top: playTimesText.topAnchor, leading: playTimesBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
+        
+        playSpeedText.font = playSpeedText.font.withSize(btnTextFontSize)
+        
         
         /*
         practiceBtn.frame = CGRect(x: playSpeedBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
@@ -479,13 +664,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         synth.delegate = self
         
         let titles = ["正確單字", "錯誤單字", "最愛單字"]
-        segControl.setSegmentItems(titles)
+        segControl.setSegmentItems(segments:titles, height:sliderHeight)
+        //segControl.set
         segControl.backgroundColor = .clear
         segControl.sliderBackgroundColor = segSliderBgColor
         segControl.segmentsBackgroundColor = .clear
         segControl.defaultTextColor = darkPurpleColor
         segControl.highlightTextColor = .white
         segControl.isSliderShadowHidden = true
+        segControl.font = segControl.font.withSize(sylFontSize)
         
         //所有的delegate
         segControl.delegate = self
@@ -512,13 +699,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playSenImg.image = UIImage(named:"bookSenOn.png")
         
         
-        favAddedLabel.frame = CGRect(x: (width - width * 0.8) / 2 , y: height / 2, width: width * 0.8, height: 50)
+        favAddedLabel.frame = CGRect(x: (width - width * 0.8) / 2 , y: height / 2, width: width * 0.8, height: 50 * btnDif)
         favAddedLabel.adjustsFontSizeToFitWidth = true
         favAddedLabel.textColor = .white
         favAddedLabel.backgroundColor = .black
         favAddedLabel.clipsToBounds = true
         favAddedLabel.layer.cornerRadius = favAddedLabel.frame.width / 15
-        favAddedLabel.font = UIFont(name: "Helvetica Bold", size: 20)
+        favAddedLabel.font = UIFont(name: "Helvetica Bold", size: 20 * btnDif)
         favAddedLabel.textAlignment = .center
         favAddedLabel.numberOfLines = 2
         favAddedLabel.alpha = 0
@@ -1003,6 +1190,21 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+    //MARK: CollectionViewLayOut
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        let cellSize = CGSize(width: collectionViewCellSize, height: collectionViewCellSize)
+        return cellSize
+        
+        
+        
+    }
+    
+    
+
+    
+    
     
     deinit {
         print("book deinit")
@@ -1071,9 +1273,23 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     //addToFav animation
     
-    func addToFavAnimation(word:String){
+  
+    
+    func addToFavAnimation(word:String, state:Int){
+
+        switch state{
+            
+        case 0:
+               favAddedLabel.text = "\(word)\n已新增至最愛"
+        case 1:
+            
+            favAddedLabel.text = "沒有學習過的單字喔！"
+        default:
+            break
+        }
         
-        favAddedLabel.text = "\(word)\n已新增至最愛"
+        
+     
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {[weak self] in
             self!.favAddedLabel.alpha = 1
@@ -1088,7 +1304,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 self!.favAddedLabel.frame.origin.y += 20
                 
-                
+
                 
             })
             
@@ -1964,8 +2180,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         
-        let engWordSize = width / 14
-        let chiWordSize = width / 30
+        let engWordSize = width / engWordSizeDif
+        let chiWordSize = width / chiWordSizeDif
         let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath) as! BookTableViewCell
     
         let syllableLabel = cell.viewWithTag(1) as! UILabel
@@ -1975,14 +2191,26 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let engSenLabel = cell.viewWithTag(5) as! UILabel
         let chiSenLabel = cell.viewWithTag(6) as! UILabel
 
+        cell.hintLabel.font = cell.hintLabel.font.withSize(chiWordSize)
         
         
-        cell.accessoryType = .disclosureIndicator
+        let accessoryImg = UIImageView()
         
+        cell.accessoryType = .none
+        cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: cell.frame.height, height: cell.frame.height))
+
+
+        cell.accessoryView?.addSubview(accessoryImg)
+        accessoryImg.translatesAutoresizingMaskIntoConstraints = false
+        accessoryImg.centerYAnchor.constraint(equalTo: (cell.accessoryView?.centerYAnchor)!).isActive = true
+        
+        accessoryImg.trailingAnchor.constraint(equalTo: (cell.accessoryView?.trailingAnchor)!, constant: -5 * iPadDif).isActive = true
+        accessoryImg.widthAnchor.constraint(equalToConstant: 19 * iPadDif ).isActive = true
+        accessoryImg.heightAnchor.constraint(equalToConstant: 31 * iPadDif).isActive = true
+        accessoryImg.image = UIImage(named: "indicatorPng.png")
+        
+
         if indexPath.row == 0 {
-            
-            
-            
             
             cell.hintLabel.isHidden = false
             
@@ -2155,11 +2383,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //chiWordLabel.text = "(" + partOfSpeech + ")" + " " +  chiWord
         chiWordLabel.text = chiWord
         
-        chiWordLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
-        engSenLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
-        chiSenLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
+        //chiWordLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
+        chiWordLabel.font = chiWordLabel.font.withSize(chiWordSize)
+        //engSenLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
+        engSenLabel.font = engSenLabel.font.withSize(chiWordSize)
+        //chiSenLabel.font = UIFont(name: "System Semibold", size: chiWordSize)
+        chiSenLabel.font = chiSenLabel.font.withSize(chiWordSize)
         
-        partOfSpeechLabel.font = UIFont(name: "Helvetica Neue Medium", size: chiWordSize)
+        //partOfSpeechLabel.font = UIFont(name: "Helvetica Neue Medium", size: chiWordSize)
+        partOfSpeechLabel.font = partOfSpeechLabel.font.withSize(chiWordSize)
+        
         partOfSpeechLabel.adjustsFontSizeToFitWidth = true
         partOfSpeechLabel.text = partOfSpeech
         syllableLabel.adjustsFontSizeToFitWidth = true
@@ -2196,6 +2429,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
         
+        
         switch segControl.selectedSegmentIndex{
             
         case 0:
@@ -2217,8 +2451,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 self!.tempMyFav.append(wordToAdd)
                 
                 }
-                
-                self!.addToFavAnimation(word: wordToAdd)
+         
+                self!.addToFavAnimation(word: wordToAdd, state: 0)
                 
                 
                 /*
@@ -2239,18 +2473,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             */
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
             }
          
             print("add:\(tempMyFav)")
@@ -2264,6 +2486,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             
             let addToFavAction = UITableViewRowAction(style: .default, title: "加入最愛") {[weak self] (action, indexPath) in
+                
+                
                 
                 //抓單字
                 
@@ -2281,8 +2505,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     
                 }
                 
-               
-                           self!.addToFavAnimation(word: wordToAdd)
+        
+                           self!.addToFavAnimation(word: wordToAdd, state: 0)
 
                 /*
                 if self!.tempFavWordsToDelete.count > 0 {
@@ -2330,6 +2554,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
              print("toDelete:\(tempFavWordsToDelete)")
              print("wrongToDelete:\(tempWrongWordsToDelete)")
 
+       
+            
             return [addToFavAction,deleteAction]
 
             
@@ -2342,11 +2568,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 let wordToDelete = wordToCheck.replacingOccurrences(of: " ", with: "")
                 
                 
+                
+                
                 //之後給後端儲存使用
                 if !self!.tempFavWordsToDelete.contains(wordToDelete) {
                 self!.tempFavWordsToDelete.append(wordToDelete)
                 
                 }
+                
+                
                 
                 
             /*
@@ -2372,12 +2602,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     }
                     
                 }
-                
-                
-        
-                
- 
-                
+
                 
                 //for前端顯示only
                 self!.engWordsSelected.remove(at: indexPath.row)
@@ -2392,6 +2617,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             })
 
+            
+            
              print("toDelete:\(tempFavWordsToDelete)")
              print("toAdd:\(tempMyFav)")
             
@@ -2408,6 +2635,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
     }
+    
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -2578,6 +2807,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if isCollectionViewSelectabel{
+            
+            
             //設定選項顏色
             for i in 0 ..< collectionTouched.count{
                 collectionTouched[i] = 0
@@ -2590,7 +2821,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             isScrolling = false
             
-            collectionView.reloadData()
+            if syllablesSelected.contains(sortedSylArray[collectionSelectedIndex!]) {
+                
+   
+                           print("可以show")
+                             collectionView.reloadData()
+       
+            } else {
+                print("沒有單字可以show")
+                addToFavAnimation(word: "", state: 1)
+            }
         }
     }
     
@@ -2604,14 +2844,29 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         let blueBall = cell.viewWithTag(2) as! UIImageView
+        
+        blueBall.frame.size = CGSize(width: collectionViewCellSize, height: collectionViewCellSize)
+        
+        
         let sylText = cell.viewWithTag(1) as!UILabel
         let sylToDisplay = sortedSylArray[indexPath.row]
         
         sylText.text = sylToDisplay
         sylText.textColor = btnOffColor
+        sylText.font = sylText.font.withSize(sylFontSize)
+        //sylText.backgroundColor = .green
+        sylText.translatesAutoresizingMaskIntoConstraints = false
+        sylText.widthAnchor.constraint(equalToConstant: collectionViewCellSize * 0.9).isActive = true
+        sylText.heightAnchor.constraint(equalToConstant: collectionViewCellSize * 0.9).isActive = true
+        sylText.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+        sylText.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+
+        
+        
         
         sylSelected = sortedSylArray[collectionSelectedIndex!]
         
+
         if !isScrolling{
             jumpToRow(sylSelected: sylSelected!)
         }
@@ -2629,6 +2884,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         return cell
         
     }
+    
+    
+    
+    
     
 //var isAlertPoppedOut = false
     func jumpToRow(sylSelected:String){
@@ -2666,7 +2925,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 }
     
             } else {
-                
+                //沒有字
+                print("還是沒有字")
+    
                 
                     }
                     

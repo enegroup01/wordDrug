@@ -29,10 +29,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     //上方單字總計label
     @IBOutlet weak var topWordsNumberLabel: UILabel!
     
-    @IBOutlet weak var stageTopImg: UIImageView!
     
     @IBOutlet weak var backBtn: UIButton!
-    
+
     @IBOutlet weak var collectionView: UICollectionView!
     
     let width = UIScreen.main.bounds.width
@@ -43,66 +42,80 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var alertBg = UIImageView()
     var alertText = UILabel()
     var iknowBtn = UIButton()
-    var ghostBtn = UIButton()
-    var ghost2Btn = UIButton()
-    
     var isClassAllPassed = false
-    @IBOutlet weak var alreadyLearnedLabel: UILabel!
     
+    @IBOutlet weak var alreadyLearnedLabel: UILabel!
     @IBOutlet weak var wordCountsLabel: UILabel!
     @IBOutlet weak var classTitle: UIImageView!
-    var dif = CGFloat()
-    var yDif = CGFloat()
-    var xDif = CGFloat()
-    var alertY = CGFloat()
-    var iknowY = CGFloat()
-    var iPadSmall = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-   
+        var iPadDif:CGFloat!
+        var wordCountTitleLabelFontSize: CGFloat!
+        var wordCountLabelFontSize: CGFloat!
+        var dif = CGFloat()
+
         
+   
         switch height {
+            
+        case 1366, 1336, 1112:
+            print("big iPad")
+
+            dif = 1
+            iPadDif = 2
+            
+
+        
+            wordCountTitleLabelFontSize = 30
+            wordCountLabelFontSize = 80
+   
+        case 1024:
+            
+            print("small iPad")
+
+            dif = 1
+            iPadDif = 1.5
+
+      
+            wordCountTitleLabelFontSize = 25
+            wordCountLabelFontSize = 60
+           
         case 812:
             
-            dif = 1.15
-            yDif = 10
-            xDif = 0
-            alertY = 560
-            iknowY  = 5
-            iPadSmall = 0
+            dif = 1.1
+            iPadDif = 1
+         
+            wordCountTitleLabelFontSize = 20
+            wordCountLabelFontSize = 45
+            
         case 736:
             
             dif = 1.1
-            yDif = 0
-            xDif = 0
-            alertY = 580
-            iknowY  = 0
-            iPadSmall = 0
+            iPadDif = 1
+            
+            wordCountTitleLabelFontSize = 20
+            wordCountLabelFontSize = 45
+  
         case 667:
             
             dif = 1
-            yDif = 0
-            xDif = 0
-            alertY = 562
-            iknowY  = 0
-            iPadSmall = 0
+            iPadDif = 1
+            
+            wordCountTitleLabelFontSize = 20
+            wordCountLabelFontSize = 45
+       
         case 568:
             
             dif = 0.9
-            yDif = 0
-            xDif = 10
-            alertY = 480
-            iknowY  = -5
-            iPadSmall = 0
+            iPadDif = 1
             
+            wordCountTitleLabelFontSize = 20
+            wordCountLabelFontSize = 45
+      
         default:
-            dif = 0.9
-            yDif = 0
-            xDif = 0
-            alertY = 480
-            iknowY  = 0
-            iPadSmall = 20
+            break
+            
         }
 
         // Do any additional setup after loading the view.
@@ -132,59 +145,50 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
         }
         
-        
-        
-        
+  
         collectionView.backgroundColor = bgColor
         collectionView.delegate = self
        
-        //layOut
+        //MARK: layOut
+        
+        backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 35 * iPadDif * dif, left: 25 * iPadDif * dif, bottom: 0, right: 0), size: .init(width: 19 * iPadDif * dif, height: 31 * iPadDif * dif))
+        
 
-        stageTopImg.frame = CGRect(x: 0, y: 0, width: width, height: height * 3.8 / 19)
+        
+        let topView = UIView()
+        topView.backgroundColor = #colorLiteral(red: 0.1260408759, green: 0.101865299, blue: 0.1016356722, alpha: 1)
+        
+        self.view.addSubview(topView)
+        topView.anchor(top: view.topAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: height / 5))
+        
+        
 
-        collectionView.frame = CGRect(x: 0, y: stageTopImg.frame.maxY, width: width, height: height - stageTopImg.frame.height)
+        collectionView.anchor(top: view.topAnchor, leading: view.safeLeftAnchor, bottom: view.bottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: height / 5, left: 0, bottom: 0, right: 0))
         
         
-        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
-        ghost2Btn.frame = CGRect(x: 0, y: 0, width: width, height: stageTopImg.frame.height)
-        ghost2Btn.backgroundColor = lightGray
-        stageTopImg.addSubview(ghost2Btn)
-        
-        
-        ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height * 1.5)
-        ghostBtn.backgroundColor = lightGray
-        alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 1 / 5, width: 237 * dif, height: 156 * dif)
-        alertBg.image = UIImage(named: "reviewQuitBg3.png")
-
-        alertText.frame = CGRect(x: 5 * dif , y: 25 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
-        alertText.font = UIFont(name: "Helvetica Bold", size: 16)
-        alertText.textColor = .white
-        alertText.text = ""
-        alertText.numberOfLines = 0
-        alertText.textAlignment = .center
-        alertText.adjustsFontSizeToFitWidth = true
-        
-        alertBg.addSubview(alertText)
-        iknowBtn.frame = CGRect(x: (width - 210 * dif) / 2, y: height * 1.88 / 5 + iPadSmall, width: 210 * dif, height: 40 * dif)
-        
-        iknowBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
-        iknowBtn.setTitle("我知道了", for: .normal)
-        iknowBtn.setTitleColor(orangeColor, for: .normal)
-        iknowBtn.addTarget(self, action: #selector(StageViewController.iKnowClicked), for: .touchUpInside)
-        collectionView.addSubview(ghostBtn)
-        collectionView.addSubview(iknowBtn)
-        collectionView.addSubview(alertBg)
-        collectionView.bringSubview(toFront: iknowBtn)
-        
-        backBtn.frame = CGRect(x: width / 20, y: height / 13 + yDif, width: 19, height: 31)
-        classTitle.frame = CGRect(x: width / 5, y: height / 20 + yDif, width: 73 * dif, height: 78 * dif)
         classTitle.image = UIImage(named: titleImg)
         classTitle.contentMode = .scaleAspectFill
+    
+        classTitle.anchor(top: view.safeTopAnchor, leading: backBtn.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15 * dif * iPadDif, left: 50 * dif * iPadDif, bottom: 0, right: 0), size: .init(width: 73 * dif * iPadDif, height: 78 * dif * iPadDif))
  
-        alreadyLearnedLabel.frame = CGRect(x: width / 2 - xDif - iPadSmall, y: classTitle.frame.minY, width: 169, height: 28)
-        wordCountsLabel.frame = CGRect(x: width / 2 - xDif - iPadSmall, y: alreadyLearnedLabel.frame.maxY + 5 - iPadSmall, width: 169, height: 55)
         
-        removeBtns()
+        alreadyLearnedLabel.font = alreadyLearnedLabel.font.withSize(wordCountTitleLabelFontSize)
+        
+        alreadyLearnedLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * dif * iPadDif, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 100 * dif * iPadDif, height: 28 * dif * iPadDif))
+        
+        
+        
+
+        //wordCountsLabel.backgroundColor = .red
+        wordCountsLabel.font = wordCountsLabel.font.withSize(wordCountLabelFontSize)
+        wordCountsLabel.anchor(top: alreadyLearnedLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 150 * dif * iPadDif, height: 55 * dif * iPadDif))
+        wordCountsLabel.adjustsFontSizeToFitWidth = true
+        
+        self.view.bringSubview(toFront: alreadyLearnedLabel)
+        self.view.bringSubview(toFront: wordCountsLabel)
+        self.view.bringSubview(toFront: backBtn)
+        self.view.bringSubview(toFront: classTitle)
+     
 
     }
     
@@ -192,25 +196,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
-    @objc func iKnowClicked(){
-        
-        print("clicked")
-        removeBtns()
-    }
-    
-    func removeBtns(){
-        backBtn.isEnabled = true
-        ghost2Btn.isHidden = true
-        alertBg.isHidden = true
-        iknowBtn.isHidden = true
-        ghostBtn.isHidden = true
-        alertText.text = ""
-        iknowBtn.isEnabled = false
-        
-        alertBg.frame.origin.y = height * 1 / 5
-        iknowBtn.frame.origin.y = height * 1.88 / 5 - iknowY + iPadSmall
-    }
     
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -380,6 +367,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
         }
         }
+        
         for c in eachCellMyWordsCount{
             totalWordsLearned += c
         }
@@ -400,8 +388,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         let cell =
             collectionView.dequeueReusableCell(
-                withReuseIdentifier: "stageCell", for: indexPath as IndexPath)
-        
+                withReuseIdentifier: "stageCell", for: indexPath as IndexPath) as! StageCollectionViewCell
 
         let lockImg = cell.viewWithTag(3) as! UIImageView
         if locks[indexPath.row] == 0 {
@@ -413,17 +400,16 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
 
 
-        let stageLabel = cell.viewWithTag(1) as! UILabel
-        stageLabel.text = String(indexPath.row + 1)
+
+        cell.stageLabel.text = String(indexPath.row + 1)
+
+        //cell.wordCountLabel.adjustsFontSizeToFitWidth = true
         
-        let wordCountLabel = cell.viewWithTag(2) as! UILabel
-        wordCountLabel.adjustsFontSizeToFitWidth = true
-        
-        
-        //stageLabel.frame = CGRect(x: cell.frame.midX, y: cell.frame.midY, width: cell.frame.width / 4, height: cell.frame.height / 3)
+
         
         let wordCounts = eachCellMyWordsCount[indexPath.row]
-        wordCountLabel.text = "\(wordCounts) / \(elemWordsMax[indexPath.row])"
+        
+        cell.wordCountLabel.text = "\(wordCounts) / \(elemWordsMax[indexPath.row])"
         
        
         var p1Color = UIColor()
@@ -477,13 +463,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             p1Color = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
             p2Color = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
-                p3Color = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+            p3Color = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
             p4Color = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
             p5Color = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
             p6Color = #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)
             p7Color = #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1)
             p8Color = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
-                p9Color = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
+            p9Color = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
             p10Color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             colors = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color, p7Color, p8Color, p9Color, p10Color]
         default:
@@ -537,9 +523,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             
         } else if mapPassedInt < indexPath.row{
-            
-            ProgressHUD.showError("要先學完前面的單元喔，請加油！")
-            //openAlert(text: "要先學完前面的單元喔，請加油！")
+     
+             ProgressHUD.showError("要先學完前面的單元喔，請加油！")
+    
+          
         }
     
         
@@ -563,66 +550,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     
-    /* 這之後用不到了
-    func openAlert(text:String){
-        backBtn.isEnabled = false
-        alertBg.isHidden = false
-        ghost2Btn.isHidden = false
-        iknowBtn.isHidden = false
-        ghostBtn.isHidden = false
-        alertText.text = text
-        iknowBtn.isEnabled = true
-        
-
-        
-        let visibleCells = collectionView.visibleCells
-        print(visibleCells)
-        
-    
-        
-        for cell in visibleCells {
-            
-            
-            let yPos = cell.frame.origin.y
-            
-            
-            if yPos >= CGFloat(alertY) {
-                
-
-                print(visibleCells.count)
-
-                
-                if visibleCells.count == 5 {
-                    
-      
-                    alertBg.frame.origin.y  += CGFloat(200)
-                    iknowBtn.frame.origin.y += CGFloat(200)
-                    
-                } else {
-                    
-           
-                    alertBg.frame.origin.y  += CGFloat(100)
-                    iknowBtn.frame.origin.y += CGFloat(100)
-                }
-                
-                
-            }
-            
-            
-            
-        }
-    }
-    */
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }

@@ -39,33 +39,109 @@ class InfoTableViewCell: UITableViewCell {
         // Initialization code
         
         var iPadDif = CGFloat()
+        var cellBgHeight: CGFloat!
+        var infoTitleFontSize:CGFloat!
+        var subTitleFontSize:CGFloat!
+        var subValueFontSize:CGFloat!
+        var ringSizeDif:CGFloat!
+        var bigCountLabelFontSize:CGFloat!
+        var wordCountUnitFontSize:CGFloat!
+        var infoHeightDif:CGFloat!
+        var iPhoneXInfoTitleYDif:CGFloat!
         
         switch height {
+            
+        case 1366, 1336, 1112:
+     
+            iPadDif = 1.5
+            cellBgHeight = 300
+            infoTitleFontSize = 35
+            subTitleFontSize = 30
+            subValueFontSize = 25
+            ringSizeDif = 2
+            bigCountLabelFontSize = 80
+            wordCountUnitFontSize = 40
+            infoHeightDif = 3.5
+            iPhoneXInfoTitleYDif = 1
+            
+            
+        case 1024:
+            
+              iPadDif = 1
+            cellBgHeight = 220
+            infoTitleFontSize = 25
+              subTitleFontSize = 20
+              subValueFontSize = 18
+            ringSizeDif = 1.5
+              bigCountLabelFontSize = 70
+              wordCountUnitFontSize = 30
+            infoHeightDif = 4.5
+            iPhoneXInfoTitleYDif = 1
         case 812:
             
-   iPadDif = 1
+            //iPhoneX
+ 
+            iPadDif = 1
+            cellBgHeight = 180
+            infoTitleFontSize = 18
+            subTitleFontSize = 14
+            subValueFontSize = 12
+            ringSizeDif = 0.9
+            bigCountLabelFontSize = 60
+            wordCountUnitFontSize = 20
+            infoHeightDif = 8
+            iPhoneXInfoTitleYDif = 1.6
             
         case 736:
+            //plus
              iPadDif = 1
+             cellBgHeight = 150
+            infoTitleFontSize = 18
+             subTitleFontSize = 14
+             subValueFontSize = 12
+            ringSizeDif = 1
+             bigCountLabelFontSize = 50
+             wordCountUnitFontSize = 18
+            infoHeightDif = 8
+            iPhoneXInfoTitleYDif = 0.8
             
         case 667:
             
             iPadDif = 1
+            cellBgHeight = 150
+            infoTitleFontSize = 18
+            subTitleFontSize = 14
+            subValueFontSize = 12
+            ringSizeDif = 1
+            bigCountLabelFontSize = 50
+            wordCountUnitFontSize = 16
+            infoHeightDif = 8
+            iPhoneXInfoTitleYDif = 1
             
         case 568:
             
           iPadDif = 1
+            cellBgHeight = 120
+            infoTitleFontSize = 14
+          subTitleFontSize = 12
+          subValueFontSize = 12
+            ringSizeDif = 0.75
+          bigCountLabelFontSize = 40
+          wordCountUnitFontSize = 16
+            infoHeightDif = 8
+            iPhoneXInfoTitleYDif = 1
             
         default:
-          
-             iPadDif =  0.9
+          break
+    
         }
         
         
         self.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.height)
         
-        infoCellBg.backgroundColor = .white
-        infoCellBg.frame = CGRect(x: self.frame.width * 1 / 12, y: self.frame.height * 1 / 12, width: self.frame.width * 5 / 6, height: self.frame.height * 7 / 8)
+        //infoCellBg.backgroundColor = .red
+        infoCellBg.frame = CGRect(x: self.frame.width * 1 / 12, y: self.frame.height * 1 / 12, width: self.frame.width * 5 / 6, height: cellBgHeight)
+        
         
         //infoCellBg.frame = CGRect(x: width * 1 / 12, y: height * 1 / 20, width: width * 5 / 6, height: height * 1 / 3.7)
         infoCellBg.layer.cornerRadius = infoCellBg.frame.width / 35
@@ -86,73 +162,106 @@ class InfoTableViewCell: UITableViewCell {
         //rankBtn.setTitleColor(yellowColor, for: .normal)
         
         
-        //infoTitle.backgroundColor = .blue
-        infoTitle.frame = CGRect(x: self.frame.width / 25, y: self.frame.height / 10, width: self.frame.width / 3.5, height: self.frame.height / 8)
-        infoTitle.font = UIFont(name: "Helvetica Bold", size: 20)
-        infoTitle.textAlignment = .left
+      
+        //infoTitle.frame = CGRect(x: self.frame.width / 25, y: self.frame.height / 10, width: self.frame.width / 3.5, height: self.frame.height / 8)
+        infoTitle.font = UIFont(name: "Helvetica Bold", size: infoTitleFontSize)
+        infoTitle.textAlignment = .center
         infoTitle.adjustsFontSizeToFitWidth = true
+        infoTitle.anchor(top: infoCellBg.topAnchor, leading: infoCellBg.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 10 * iPhoneXInfoTitleYDif, left: 0, bottom: 0, right: 0), size: CGSize(width: infoCellBg.frame.width / 3, height: self.frame.height / infoHeightDif))
         
-        //sub1Title.backgroundColor = .red
-        sub1Title.frame = CGRect(x: 0, y: infoTitle.frame.maxY * 1.2, width: self.frame.width / 3.5, height: self.frame.height / 9)
+     
+        //sub1Title.frame = CGRect(x: 0, y: infoTitle.frame.maxY * 1.2, width: self.frame.width / 3.5, height: self.frame.height / 9)
+        
+        sub1Title.anchor(top: infoTitle.bottomAnchor, leading: infoCellBg.leadingAnchor, bottom: nil, trailing: nil)
+        sub1Title.anchorSize(to: infoTitle)
+        
         sub1Title.textAlignment = .center
-                sub1Title.font = UIFont(name: "Helvetica Neue", size: 12)
+                sub1Title.font = UIFont(name: "Helvetica Neue", size: subTitleFontSize)
         
-        //sub1Rate.backgroundColor = .blue
-        sub1Rate.frame = CGRect(x: 0, y: sub1Title.frame.maxY, width: self.frame.width / 3.5, height: self.frame.height / 9)
+       
+        //sub1Rate.frame = CGRect(x: 0, y: sub1Title.frame.maxY, width: self.frame.width / 3.5, height: self.frame.height / 9)
+        
+        sub1Rate.anchor(top: sub1Title.bottomAnchor, leading: infoCellBg.leadingAnchor, bottom: nil, trailing: nil)
+        sub1Rate.anchorSize(to: sub1Title)
+        sub1Rate.adjustsFontSizeToFitWidth = true
         sub1Rate.textAlignment = .center
-        sub1Rate.font = UIFont(name: "Helvetica Neue", size: 12)
-        //sub1Rate.backgroundColor = .blue
+        sub1Rate.font = UIFont(name: "Helvetica Neue", size: subValueFontSize)
         
         
-        //sub2Title.backgroundColor = .red
-        sub2Title.frame = CGRect(x: 0, y: sub1Rate.frame.maxY, width: self.frame.width / 3.5, height: self.frame.height / 9)
+   
+        //sub2Title.frame = CGRect(x: 0, y: sub1Rate.frame.maxY, width: self.frame.width / 3.5, height: self.frame.height / 9)
+        sub2Title.anchor(top: sub1Rate.bottomAnchor, leading: infoCellBg.leadingAnchor, bottom: nil, trailing: nil)
+        sub2Title.anchorSize(to: sub1Rate)
+        
+        
         sub2Title.textAlignment = .center
-        sub2Title.font = UIFont(name: "Helvetica Neue", size: 12)
+        sub2Title.font = UIFont(name: "Helvetica Neue", size: subTitleFontSize)
         
-        //sub2Rate.backgroundColor = .blue
-        sub2Rate.frame = CGRect(x: 0, y: sub2Title.frame.maxY, width: self.frame.width / 3.5, height: self.frame.height / 9)
+        //sub2Rate.frame = CGRect(x: 0, y: sub2Title.frame.maxY, width: self.frame.width / 3.5, height: self.frame.height / 9)
+        
+        sub2Rate.anchor(top: sub2Title.bottomAnchor, leading: infoCellBg.leadingAnchor, bottom: nil, trailing: nil)
+        sub2Rate.anchorSize(to: sub2Title)
+        sub2Rate.adjustsFontSizeToFitWidth = true
         sub2Rate.textAlignment = .center
-        sub2Rate.font = UIFont(name: "Helvetica Neue", size: 12)
+        sub2Rate.font = UIFont(name: "Helvetica Neue", size: subValueFontSize)
 
         
 
-        ringView.frame = CGRect(x: self.frame.width / 3.3, y: self.frame.height / 8, width: self.frame.width / 3.3 * iPadDif * iPadDif, height: self.frame.width / 3.3 * iPadDif * iPadDif)
+        //ringView.frame = CGRect(x: self.frame.width / 3.3, y: self.frame.height / 8, width: self.frame.width / 3.3 * iPadDif * iPadDif, height: self.frame.width / 3.3 * iPadDif * iPadDif)
+        
+        ringView.translatesAutoresizingMaskIntoConstraints = false
+        ringView.widthAnchor.constraint(equalToConstant: 120 * ringSizeDif).isActive = true
+        ringView.heightAnchor.constraint(equalToConstant: 120 * ringSizeDif).isActive = true
+        ringView.centerXAnchor.constraint(equalTo: infoCellBg.centerXAnchor).isActive = true
+        ringView.centerYAnchor.constraint(equalTo: infoCellBg.centerYAnchor).isActive = true
         
         
-        /*
-        //rankTitle.backgroundColor = .green
-        rankTitle.textAlignment = .center
-        rankTitle.frame = CGRect(x: ringView.frame.maxX * 1.05, y: infoTitle.frame.minY, width: self.frame.width / 7, height: self.frame.height / 8)
-
-        rankTitle.font = UIFont(name: "Helvetica Bold", size: 20)
-        
-        
-        //rankLabel.backgroundColor = .purple
-        rankLabel.textAlignment = .center
-
-        rankLabel.font = UIFont(name: "Helvetica Bold", size: 48)
-                rankLabel.adjustsFontSizeToFitWidth = true
-        rankLabel.frame = CGRect(x: rankTitle.frame.minX, y: rankTitle.frame.maxY * 1.3, width: rankTitle.frame.width, height: rankTitle.frame.width)
-        
-        rankBtn.frame = CGRect(x: rankTitle.frame.minX, y: rankLabel.frame.maxY * 1.1, width: rankTitle.frame.width, height: rankTitle.frame.height)
-        */
-        
-        //totalRate.backgroundColor = .purple
+  
         totalRate.textAlignment = .center
-        totalRate.font = UIFont(name: "Helvetica Bold", size: 20)
+        totalRate.font = UIFont(name: "Helvetica Bold", size: infoTitleFontSize)
         totalRate.textColor = darkColor
-        totalRate.frame = CGRect(x: 0, y: ringView.frame.height / 2.8, width: ringView.frame.width, height: ringView.frame.height / 4)
+        //totalRate.frame = CGRect(x: 0, y: ringView.frame.height / 2.8, width: ringView.frame.width, height: ringView.frame.height / 4)
+        
+        totalRate.translatesAutoresizingMaskIntoConstraints = false
+        totalRate.widthAnchor.constraint(equalToConstant: 80 * ringSizeDif).isActive = true
+        totalRate.heightAnchor.constraint(equalToConstant: 30 * ringSizeDif).isActive = true
+        totalRate.centerXAnchor.constraint(equalTo: infoCellBg.centerXAnchor).isActive = true
+        totalRate.centerYAnchor.constraint(equalTo: infoCellBg.centerYAnchor).isActive = true
+        
         
         bigCountLabel.textAlignment = .center
-        bigCountLabel.frame = CGRect(x: ringView.frame.minX, y: ringView.frame.minY, width: ringView.frame.width, height: ringView.frame.height)
+        //bigCountLabel.frame = CGRect(x: ringView.frame.minX, y: ringView.frame.minY, width: ringView.frame.width, height: ringView.frame.height)
         bigCountLabel.adjustsFontSizeToFitWidth = true
         bigCountLabel.textColor = yellowColor
-        //bigCountLabel.backgroundColor = .blue
         
-        countUnitLabel.frame = CGRect(x: bigCountLabel.frame.maxX, y: bigCountLabel.frame.maxY - 28 * 1.5, width: 38 , height:28)
+        
+        bigCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        bigCountLabel.widthAnchor.constraint(equalToConstant: 100 * ringSizeDif).isActive = true
+        bigCountLabel.heightAnchor.constraint(equalToConstant: 50 * ringSizeDif).isActive = true
+        bigCountLabel.centerXAnchor.constraint(equalTo: infoCellBg.centerXAnchor).isActive = true
+        bigCountLabel.centerYAnchor.constraint(equalTo: infoCellBg.centerYAnchor).isActive = true
+        bigCountLabel.font = bigCountLabel.font.withSize(bigCountLabelFontSize)
+        
+        
+        
+        //countUnitLabel.frame = CGRect(x: bigCountLabel.frame.maxX, y: bigCountLabel.frame.maxY - 28 * 1.5, width: 38 , height:28)
         countUnitLabel.textColor = darkColor
-        //countUnitLabel.backgroundColor = .red
+
+        countUnitLabel.anchor(top: nil, leading: bigCountLabel.trailingAnchor, bottom: bigCountLabel.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 10 * iPadDif, right: 0), size: CGSize(width: 38 * iPadDif, height: 28 * iPadDif))
+        countUnitLabel.font = countUnitLabel.font.withSize(wordCountUnitFontSize)
+
         
+        /*
+         countUnitLabel.backgroundColor = .red
+         bigCountLabel.backgroundColor = .blue
+         totalRate.backgroundColor = .purple
+         sub2Rate.backgroundColor = .blue
+         sub2Title.backgroundColor = .red
+         sub1Rate.backgroundColor = .blue
+         sub1Title.backgroundColor = .red
+         infoTitle.backgroundColor = .yellow
+        */
+ 
         
     }
 

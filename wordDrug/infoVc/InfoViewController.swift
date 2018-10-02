@@ -38,8 +38,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var dif = CGFloat()
     var photoDif = CGFloat()
     
+    
     var sub1Rates:[Int] = [0,0,0,0,0]
     var sub2Rates:[Int] = [0,Int(),Int(),Int(),Int()]
+    var subTitleFontSize:CGFloat!
+    var subValueFontSize:CGFloat!
     
     @IBOutlet weak var alphaLayer: UIImageView!
     
@@ -47,36 +50,87 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
        
         var iPadSmall = CGFloat()
+        var titleFontSize: CGFloat!
+        var infoFontSize: CGFloat!
+        var usernameFontSize: CGFloat!
+        var avaYDif:CGFloat!
         
         switch height {
+            
+        
+        case 1366, 1336, 1112:
+                dif = 1.5
+                photoDif = 2
+                iPadSmall = 0
+                titleFontSize = 40
+                infoFontSize = 30
+                subTitleFontSize = 35
+                subValueFontSize = 35
+            usernameFontSize = 60
+            avaYDif = 1
+
+        case 1024:
+                dif = 1.1
+                photoDif = 1.5
+                iPadSmall = 0
+                titleFontSize = 35
+                infoFontSize = 20
+                subTitleFontSize = 28
+                subValueFontSize = 22
+             usernameFontSize = 40
+             avaYDif = 1
         case 812:
             
-            dif = 1.1
+            //iPhoneX
+            dif = 0.8
             photoDif = 1
             iPadSmall = 0
+            titleFontSize = 20
+            infoFontSize = 16
+            subTitleFontSize = 20
+            subValueFontSize = 15
+            usernameFontSize = 25
+             avaYDif = 1
             
         case 736:
             
-            dif = 1
+            //plus
+            dif = 0.8
             photoDif = 1
             iPadSmall = 0
+            titleFontSize = 24
+            infoFontSize = 16
+            subTitleFontSize = 20
+            subValueFontSize = 16
+            usernameFontSize = 26
+             avaYDif = 1
             
         case 667:
             
-            dif = 1
-            photoDif = 0.8
+            dif = 0.7
+            photoDif = 1
             iPadSmall = 0
-            
+            titleFontSize = 20
+            infoFontSize = 16
+            subTitleFontSize = 18
+            subValueFontSize = 14
+            usernameFontSize = 22
+             avaYDif = 1
         case 568:
             
-            dif = 1
+            dif = 0.8
             photoDif = 0.7
             iPadSmall = 0
+            titleFontSize = 16
+            infoFontSize = 16
+            subTitleFontSize = 16
+            subValueFontSize = 14
+            usernameFontSize = 18
+             avaYDif = 0.6
             
         default:
-            dif = 1
-            photoDif = 0.5
-            iPadSmall = 10
+    
+            break
             
         }
         
@@ -84,14 +138,36 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         // Do any additional setup after loading the view.
         chartUpBg.frame = CGRect(x: 0, y: 0, width: width, height: height / 2.2)
-        infoTableView.frame = CGRect(x: 0, y: chartUpBg.frame.maxY, width: width, height: height - chartUpBg.frame.height)
         
-        backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
-        titleLabel.frame = CGRect(x: backBtn.frame.maxX , y: backBtn.frame.maxY / 2, width: width - backBtn.frame.maxX * 2, height: 28 * dif)
+        //backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
+
+        
+        backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 30 * dif * avaYDif, left: 20 * dif, bottom: 0, right: 0), size: .init(width: 19 * dif, height: 31 * dif))
+
+        
+        //titleLabel.frame = CGRect(x: backBtn.frame.maxX , y: backBtn.frame.maxY / 2, width: width - backBtn.frame.maxX * 2, height: 28 * dif)
         titleLabel.textAlignment = .center
         //titleLabel.backgroundColor = .red
+
+        titleLabel.font = titleLabel.font.withSize(titleFontSize)
+      
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.widthAnchor.constraint(equalToConstant: 200 * dif).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 40 * dif).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * dif * avaYDif).isActive = true
         
-        avaImg.frame = CGRect(x: width / 2 - (120 * dif * photoDif) / 2, y: titleLabel.frame.maxY * 1.7 * photoDif + iPadSmall, width: 120 * dif * photoDif, height: 120 * dif * photoDif)
+        
+        
+        //avaImg.frame = CGRect(x: width / 2 - (120 * dif * photoDif) / 2, y: titleLabel.frame.maxY * 1.7 * photoDif + iPadSmall, width: 120 * dif * photoDif, height: 120 * dif * photoDif)
+        
+        avaImg.translatesAutoresizingMaskIntoConstraints = false
+        avaImg.widthAnchor.constraint(equalToConstant: 120 * photoDif).isActive = true
+        avaImg.heightAnchor.constraint(equalToConstant: 120 * photoDif).isActive = true
+        avaImg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        avaImg.centerYAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 110 * dif * avaYDif).isActive = true
+        
+        avaImg.frame.size = CGSize(width: 120 * photoDif, height: 120 * photoDif)
         
         avaImg.contentMode = .scaleAspectFill
         avaImg.layer.cornerRadius = avaImg.frame.width / 2
@@ -102,36 +178,64 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         avaImg.layer.borderColor = cgWhite
         avaImg.layer.borderWidth = 3
         
-        changePhotoBtn.frame = CGRect(x: avaImg.frame.maxX - 28 * dif, y: avaImg.frame.maxY - 28 * dif, width: 28 * dif, height: 28 * dif)
         
-        usernameLabel.frame = CGRect(x: 50, y: avaImg.frame.maxY + 25 * dif / 2 - iPadSmall, width: width - 100, height: 40 * dif)
+        //usernameLabel.frame = CGRect(x: 50, y: avaImg.frame.maxY + 25 * dif / 2 - iPadSmall, width: width - 100, height: 40 * dif)
         //usernameLabel.backgroundColor = .red
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        usernameLabel.widthAnchor.constraint(equalToConstant: 300 * photoDif).isActive = true
+        usernameLabel.heightAnchor.constraint(equalToConstant: 50 * photoDif).isActive = true
+        usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        usernameLabel.centerYAnchor.constraint(equalTo: avaImg.bottomAnchor, constant: 35 * dif).isActive = true
+
+        usernameLabel.adjustsFontSizeToFitWidth = true
+        usernameLabel.font = usernameLabel.font.withSize(usernameFontSize)
+        
+        
+        //changePhotoBtn.frame = CGRect(x: avaImg.frame.maxX - 28 * dif, y: avaImg.frame.maxY - 28 * dif, width: 28 * dif, height: 28 * dif)
+        
+        
+        changePhotoBtn.anchor(top: nil, leading: nil, bottom: avaImg.bottomAnchor, trailing: avaImg.trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -8 * dif) ,size: CGSize(width: 28 * dif, height: 28 * dif))
+        
+        
         
         alphaLayer.frame = CGRect(x: 0, y: chartUpBg.frame.maxY - 60 * dif, width: width, height: 60 * dif)
         
+        //alphaLayer.anchor(top: nil, leading: chartUpBg.leadingAnchor, bottom: chartUpBg.bottomAnchor, trailing: chartUpBg.trailingAnchor, size: CGSize(width: width, height: 70 * dif))
+        
+        
+        
+        infoTableView.frame = CGRect(x: 0, y: chartUpBg.frame.maxY, width: width, height: height - chartUpBg.frame.height)
+        
+
         wordCountLabel.frame = CGRect(x: backBtn.frame.minX + 10 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
         //wordCountLabel.backgroundColor = .green
         wordCountLabel.textAlignment = .center
         wordCountLabel.adjustsFontSizeToFitWidth = true
+        wordCountLabel.font = wordCountLabel.font.withSize(infoFontSize)
         
         wordLabel.frame = CGRect(x: wordCountLabel.frame.minX, y: wordCountLabel.frame.maxY + 5 * dif, width: 90 * dif, height: 23 * dif)
+         wordLabel.font = wordLabel.font.withSize(infoFontSize)
+        
         
         //wordLabel.backgroundColor = .green
         wordLabel.textAlignment = .center
         wordLabel.adjustsFontSizeToFitWidth = true
         
-        scoreCountLabel.frame = CGRect(x: width / 2 - 45 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
+        scoreCountLabel.frame = CGRect(x: width / 2 - 75 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 150 * dif, height: 23 * dif)
         
         //scoreCountLabel.backgroundColor = .red
         scoreCountLabel.textAlignment = .center
         scoreCountLabel.adjustsFontSizeToFitWidth = true
+        scoreCountLabel.font = scoreCountLabel.font.withSize(infoFontSize)
         
-        scoreLabel.frame = CGRect(x: scoreCountLabel.frame.minX, y: wordCountLabel.frame.maxY + 5 * dif, width: 90 * dif, height: 23 * dif)
+        
+        scoreLabel.frame = CGRect(x: scoreCountLabel.frame.midX - (90 * dif / 2), y: wordCountLabel.frame.maxY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
         //scoreLabel.backgroundColor = .green
         scoreLabel.textAlignment = .center
         scoreLabel.adjustsFontSizeToFitWidth = true
+        scoreLabel.font = scoreLabel.font.withSize(infoFontSize)
         
         
         rankCountLabel.frame = CGRect(x: scoreCountLabel.frame.maxX + scoreCountLabel.frame.minX - wordCountLabel.frame.maxX, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
@@ -139,19 +243,21 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //rankCountLabel.backgroundColor = .green
         rankCountLabel.textAlignment = .center
         rankCountLabel.adjustsFontSizeToFitWidth = true
+        rankCountLabel.font = rankCountLabel.font.withSize(infoFontSize)
         
         rankLabel.frame = CGRect(x: rankCountLabel.frame.minX, y: wordCountLabel.frame.maxY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
         //rankLabel.backgroundColor = .green
         rankLabel.textAlignment = .center
         rankLabel.adjustsFontSizeToFitWidth = true
+        rankLabel.font = rankLabel.font.withSize(infoFontSize)
         
         
 
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let heightForRow = height / 4 / dif
+        let heightForRow = height / 4
         
         return heightForRow
         
@@ -192,10 +298,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
        
        // let attrs0 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Neue", size: 12), NSAttributedStringKey.foregroundColor : lightColor]
       
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor : yellowColor]
+        let attrs1: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subValueFontSize), NSAttributedStringKey.foregroundColor : yellowColor]
         
 
-        let attrs2 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: 20), NSAttributedStringKey.foregroundColor : darkColor]
+        let attrs2: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: subTitleFontSize)!, NSAttributedStringKey.foregroundColor : darkColor]
 
         
         cell.backgroundColor = .clear
@@ -214,10 +320,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.infoTitle.text = infoTitles[indexPath.row]
            
             cell.sub1Rate.text = String(sub1Rates[indexPath.row]) + "%"
+          
             
             cell.sub1Title.text = sub1Titles[indexPath.row]
+ 
 
             cell.bigCountLabel.text = ""
+
             
             cell.countUnitLabel.text = ""
         } else {

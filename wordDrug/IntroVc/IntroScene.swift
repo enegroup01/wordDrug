@@ -90,29 +90,66 @@ class IntroScene: SKScene {
         
         rightSound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
 
+        var openingWarningText: String!
+        var speakerAlpha: CGFloat!
+        var chiBtnSize: CGFloat!
         
         switch height {
+            
+        case 1366, 1336, 1112:
+            print("big iPad")
+            xDif = 1.2
+            iPadDif = 60
+            chiBtnSize = 256
+
+            openingWarningText = "歡迎iPad用戶來到快速導覽\n請打開音量及關閉靜音模式"
+            speakerAlpha = 0
+            
+            
+        case 1024:
+            xDif = 1.2
+            iPadDif = 50
+            chiBtnSize = 240
+            
+            openingWarningText = "歡迎iPad用戶來到快速導覽\n請打開音量及關閉靜音模式"
+            speakerAlpha = 0
+            
         case 812:
+            
             xDif = 1.2
             iPadDif = 0
+            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            speakerAlpha = 1
+            chiBtnSize = 256
 
         case 736:
             xDif = 1
 
             iPadDif = 0
+            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            speakerAlpha = 1
+            chiBtnSize = 256
+
             
         case 667:
             xDif = 1
 
             iPadDif = 0
+            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            speakerAlpha = 1
+            chiBtnSize = 256
+
         case 568:
             xDif = 1
-iPadDif = 0
+
+            iPadDif = 0
+            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            speakerAlpha = 1
+            chiBtnSize = 256
+
             
         default:
-            xDif = 1
-            
-            iPadDif = 20
+            break
 
         }
 
@@ -132,17 +169,17 @@ iPadDif = 0
         
         makeImageNode(name: "introBg", image: "introBg", x: 0, y: 0, width: 750, height: 1334, z: 0, alpha: 1, isAnchoring: false)
         
-        makeImageNode(name: "speaker", image: "speaker", x: -270, y: 500 - iPadDif, width: 63, height: 72, z: 1, alpha: 1, isAnchoring: false)
-        makeImageNode(name: "volume", image: "volume", x: -200, y: 500 - iPadDif, width: 45, height: 68, z: 1, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "speaker", image: "speaker", x: -270, y: 500 - iPadDif, width: 63, height: 72, z: 1, alpha: speakerAlpha, isAnchoring: false)
+        makeImageNode(name: "volume", image: "volume", x: -200, y: 500 - iPadDif, width: 45, height: 68, z: 1, alpha: speakerAlpha, isAnchoring: false)
     
         makeImageNode(name: "volumeBlock", image: "volumeBlock", x: -210, y: 500 - iPadDif, width: 101, height: 108, z: 2, alpha: 1, isAnchoring: false)
         
-        makeLabelNode(x: 0, y: 0, alignMent: .center, fontColor: .cyan, fontSize: 40, text: "歡迎來到快速導覽\n請先打開音量按鈕", zPosition: 1, name: "tutorialLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
+        makeLabelNode(x: 0, y: 0, alignMent: .center, fontColor: .cyan, fontSize: 40, text: openingWarningText, zPosition: 1, name: "tutorialLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 1)
         
         
-        makeImageNode(name: "okBtnFrame", image: "okBtnFrame", x: 0, y: -400, width: 253, height: 75, z: 1, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "okBtnFrame", image: "okBtnFrame", x: 0, y: -400 + iPadDif, width: 253, height: 75, z: 1, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: 0, y: -425, alignMent: .center, fontColor: .cyan, fontSize: 36, text: "下一步", zPosition: 2, name: "okBtnLabel", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: -425 + iPadDif, alignMent: .center, fontColor: .cyan, fontSize: 36, text: "下一步", zPosition: 2, name: "okBtnLabel", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
         
         makeImageNode(name: "world", image: "world", x: 0, y: 0, width: 256, height: 256, z: 1, alpha: 0, isAnchoring: false)
         
@@ -172,19 +209,19 @@ iPadDif = 0
         makeImageNode(name: "recogWordsBg", image: "recogWordsBg", x: 0, y: 0, width: 750, height: 228, z: 10, alpha: 0, isAnchoring: false)
         
         
-        makeImageNode(name: "leftChiBtn", image: "gradeChiBtnLeft", x: -160, y: -450 + iPadDif * 1.5, width: 256, height: 256, z: 1, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "leftChiBtn", image: "gradeChiBtnLeft", x: -160, y: -450 + iPadDif * 1.6, width: chiBtnSize, height: chiBtnSize, z: 1, alpha: 0, isAnchoring: false)
         
-         makeImageNode(name: "rightChiBtn", image: "gradeChiBtnRight", x: 160, y: -450 + iPadDif * 1.5, width: 256, height: 256, z: 1, alpha: 0, isAnchoring: false)
-        
-        
-        makeLabelNode(x: -160, y: -490 + iPadDif * 1.5, alignMent: .center, fontColor: .white, fontSize: 60, text: "政治", zPosition: 2, name: "leftChi", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeImageNode(name: "rightChiBtn", image: "gradeChiBtnRight", x: 160, y: -450 + iPadDif * 1.6, width: chiBtnSize, height: chiBtnSize, z: 1, alpha: 0, isAnchoring: false)
         
         
-        makeLabelNode(x: 160, y: -490 + iPadDif * 1.5, alignMent: .center, fontColor: .white, fontSize: 60, text: "政府", zPosition: 2, name: "rightChi", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: -160, y: -490 + iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 60, text: "政治", zPosition: 2, name: "leftChi", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: 0, y: 500 + iPadDif, alignMent: .center, fontColor: .white, fontSize: 48, text: "分級測驗", zPosition: 1, name: "testTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: 0, y: 450, alignMent: .center, fontColor: .white, fontSize: 40, text: "1/15", zPosition: 1, name: "testNumber", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
+        makeLabelNode(x: 160, y: -490 + iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 60, text: "政府", zPosition: 2, name: "rightChi", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        makeLabelNode(x: 0, y: 500 - iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 48, text: "分級測驗", zPosition: 1, name: "testTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        
+        makeLabelNode(x: 0, y: 450 - iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 40, text: "1/15", zPosition: 1, name: "testNumber", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
        
         makeLabelNode(x: 0, y: 0, alignMent: .center, fontColor: .white, fontSize: 90, text: "government", zPosition: 1, name: "bigEnglishLabel", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
@@ -400,7 +437,7 @@ iPadDif = 0
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                 
                     
-                    makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450 + iPadDif * 1.5, width: 275 , height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450 + iPadDif * 1.5, width: 250 , height: 250, z: 9, alpha: 1, isAnchoring: false)
                     makeImageNode(name: "mark", image: "wrongX", x: 160 , y: -450 + iPadDif * 1.5, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
                     
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
@@ -412,7 +449,7 @@ iPadDif = 0
                     
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
            
-                    makeImageNode(name: "mark", image: "rightCircle", x: 160, y: -450 + iPadDif * 1.5, width: 275, height: 275 , z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: 160, y: -450 + iPadDif * 1.5, width: 250, height: 250 , z: 9, alpha: 1, isAnchoring: false)
                     
                     makeImageNode(name: "mark", image: "wrongX", x: -160, y: -450 + iPadDif * 1.5, width: 202 , height: 214, z: 9, alpha: 1, isAnchoring: false)
                     
@@ -431,7 +468,7 @@ iPadDif = 0
                     changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
                     
                     makeImageNode(name: "mark", image: "wrongX", x: -160, y: -450 + iPadDif * 1.5, width: 202, height: 214 , z: 9, alpha: 1, isAnchoring: false)
-                    makeImageNode(name: "mark", image: "rightCircle", x: 160, y: -450 + iPadDif * 1.5, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: 160, y: -450 + iPadDif * 1.5, width: 250, height: 250, z: 9, alpha: 1, isAnchoring: false)
                     
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {[weak self] in
                         self!.chooseChineseResult(isCorrect: true)
@@ -441,7 +478,7 @@ iPadDif = 0
                     //答錯
                     
                     changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
-                    makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450 + iPadDif * 1.5, width: 275, height: 275, z: 9, alpha: 1, isAnchoring: false)
+                    makeImageNode(name: "mark", image: "rightCircle", x: -160, y: -450 + iPadDif * 1.5, width: 250, height: 250, z: 9, alpha: 1, isAnchoring: false)
                     
                     
                     makeImageNode(name: "mark", image: "wrongX", x: 160, y: -450 + iPadDif * 1.5, width: 202, height: 214, z: 9, alpha: 1, isAnchoring: false)
@@ -786,6 +823,8 @@ iPadDif = 0
             if node.name == "ss" || node.name == "ssLabel" || node.name == "ss2" ||  findLabelNode(name: "bigWordLabel").text == "Miss"{
                 
                 self.run(rightSound)
+                
+                
                 
        
                 //passed

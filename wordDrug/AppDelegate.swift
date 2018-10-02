@@ -154,6 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                //gamePassed3 = [0:0]
 
               toCourse()
+              //toIntro()
                 
                 //測試用
                 /*
