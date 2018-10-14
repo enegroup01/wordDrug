@@ -464,8 +464,9 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         self!.activityIndicator.stopAnimating()
                         UIApplication.shared.endIgnoringInteractionEvents()
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
- */
- return
+                         */
+ 
+                        return
                     }
                     
                     print("rank")
@@ -644,10 +645,13 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                        
                         //print(self!.avas)
                       
+                    
+                        //MARK: must update
                         var mapWord = Int()
                         var mapWord2 = Int()
                         var mapWord3 = Int()
                         var mapWord4 = Int()
+                        var mapWord5 = Int()
                         
                         
                         if let mapPassed = parseJSON[i]["mapPassed"] as? String{
@@ -669,6 +673,11 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             
                             mapWord4 = Int(mapPassed4)! * 450
                         }
+                        if let mapPassed5 = parseJSON[i]["mapPassed5"] as? String{
+                            
+                            
+                            mapWord5 = Int(mapPassed5)! * 450
+                        }
                         
                         
                         
@@ -676,6 +685,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         var gameWord2 = Int()
                         var gameWord3 = Int()
                         var gameWord4 = Int()
+                        var gameWord5 = Int()
                       
                         if let gamePassed = parseJSON[i]["gamePassed"] as? String{
                             
@@ -704,9 +714,15 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             gameWord4 = Int(sep[0])! * 30 + Int(sep[1])! * 3
                             
                         }
+                        if let gamePassed5 = parseJSON[i]["gamePassed5"] as? String{
+                            
+                            let sep = gamePassed5.components(separatedBy: ":")
+                            gameWord5 = Int(sep[0])! * 30 + Int(sep[1])! * 3
+                            
+                        }
                         
                         
-                        let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2 + mapWord3 + gameWord3 + mapWord4 + gameWord4
+                        let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2 + mapWord3 + gameWord3 + mapWord4 + gameWord4 + mapWord5 + gameWord5
                         
                         self!.wordCounts.append(totalWordCount)
 

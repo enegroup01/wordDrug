@@ -55,6 +55,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         var dif: CGFloat!
         var fontSize: CGFloat!
         var cornerRadiusValue: CGFloat!
+        print("enter login view")
         
         switch height {
             
@@ -227,9 +228,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         usernameTxt.font = usernameTxt.font?.withSize(fontSize)
         usernameTxt.translatesAutoresizingMaskIntoConstraints = false
-        usernameTxt.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        usernameTxt.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
         usernameTxt.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
-        usernameTxt.centerXAnchor.constraint(equalTo: accountPng.centerXAnchor).isActive = true
+       // usernameTxt.centerXAnchor.constraint(equalTo: accountPng.centerXAnchor).isActive = true
+       
+        usernameTxt.leadingAnchor.constraint(equalTo: loginBtn.centerXAnchor, constant: -30 * dif).isActive = true
         usernameTxt.centerYAnchor.constraint(equalTo: accountPng.centerYAnchor).isActive = true
         //usernameTxt.backgroundColor = .red
         usernameTxt.adjustsFontSizeToFitWidth = true
@@ -256,9 +259,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         passwordTxt.font = passwordTxt.font?.withSize(fontSize)
         passwordTxt.translatesAutoresizingMaskIntoConstraints = false
-        passwordTxt.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        passwordTxt.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
         passwordTxt.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
-        passwordTxt.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        //passwordTxt.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        passwordTxt.leadingAnchor.constraint(equalTo: loginBtn.centerXAnchor, constant: -30 * dif).isActive = true
         passwordTxt.centerYAnchor.constraint(equalTo: passwordPng.centerYAnchor).isActive = true
         //passwordTxt.backgroundColor = .red
         passwordTxt.adjustsFontSizeToFitWidth = true
@@ -514,8 +518,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         
                         
+                        
+                        //MARK: must update
+                        
                         //第一次玩
                         //儲存mapPassed & gamePassed的初始值
+                        
     
                         mapPassed = 0
                        
@@ -558,6 +566,17 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         
                         let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                         userDefaults.set(encodedObject4, forKey: "gamePassed4")
+                        
+                        
+                        mapPassed5 = 0
+                        
+                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                        
+                        gamePassed5 = [0:0]
+                        
+                        let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                        userDefaults.set(encodedObject5, forKey: "gamePassed5")
+                        
 
                         
                         //全新註冊者重新算秒數
@@ -760,6 +779,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     
              
+                    //MARK: must update
                     
                     //抓mapPassed & gamePassed
                     
@@ -804,6 +824,17 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         print("retrieve mapPassed:\(mapPassed4!)")
                         
                     }
+                    
+                    if let mapPassed5String = user?["mapPassed5"] as! String?{
+                        
+                        mapPassed5 = Int(mapPassed5String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                        
+                        print("retrieve mapPassed:\(mapPassed5!)")
+                        
+                    }
+                    
                     
                     
                     if let gamePassedString = user?["gamePassed"] as! String?{
@@ -870,6 +901,22 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
+                    if let gamePassed5String = user?["gamePassed5"] as! String?{
+                        
+                        let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                        
+                        let s = gamePassed5StringArray[0]
+                        let u = gamePassed5StringArray[1]
+                        gamePassed5 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                        
+                        print("retrieve gamePassed:\(gamePassed5!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed5")
+                        
+                    }
+                    
                     
                     
            
@@ -1129,6 +1176,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         //第一次玩
                         //儲存mapPassed & gamePassed的初始值
                         
+                        //MARK: must update
+                        
 
                         let mapPassedInt = user?["mapPassed"] as? String
                         let gamePassedInt = user?["gamePassed"] as? String
@@ -1160,6 +1209,16 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         gp4 = [Int((gamePassedInt4?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt4?.components(separatedBy: ":")[1])!)!]
                         
                         
+                        
+                        let mapPassedInt5 = user?["mapPassed5"] as? String
+                        let gamePassedInt5 = user?["gamePassed5"] as? String
+                        
+                        var gp5:[Int:Int]?
+                        gp5 = [Int((gamePassedInt5?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt5?.components(separatedBy: ":")[1])!)!]
+                        
+                        
+                        
+                        
                         let userDefaults = UserDefaults.standard
                         
                         userDefaults.set(Int(mapPassedInt!), forKey: "mapPassed")
@@ -1188,6 +1247,17 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         
                         let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gp4!)
                         userDefaults.set(encodedObject4, forKey: "gamePassed4")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt5!), forKey: "mapPassed5")
+                        
+                        
+                        let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gp5!)
+                        userDefaults.set(encodedObject5, forKey: "gamePassed5")
+                        
+                        
+                        
+                        
                         
                         isRegistered = true
                         

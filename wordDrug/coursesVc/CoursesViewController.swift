@@ -178,15 +178,12 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
         
-  
-      
+        
         //MARK: UI Setting
         
         //登出鍵 & 登入按鍵
   
-        
         logoImg.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 10, left: width / 2 - (135 * dif * iPadDif) / 2, bottom: 0, right: 0), size: .init(width: 135 * dif * iPadDif, height: 131 * dif * iPadDif))
-        
         
         logOutBtn.backgroundColor = #colorLiteral(red: 0.9389395118, green: 0.3498239517, blue: 0.1933075488, alpha: 1)
         logOutBtn.titleLabel?.font = logOutBtn.titleLabel?.font.withSize(logOutBtnLabelFontSize)
@@ -423,7 +420,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-        return 4
+        //MARK: must update
+        return 5
         
     }
     
@@ -463,9 +461,9 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoursesCell", for: indexPath) as! CourseTableViewCell
         
-        
-        let titleImg = ["block0Title","block1Title","block2Title","block3Title"]
-        let wordCounts = [2250,2700, 3150, 4050]
+        //MARK: must update
+        let titleImg = ["block0Title","block1Title","block2Title","block3Title", "block4Title"]
+        let wordCounts = [2250,2700, 3150, 4050, 3600]
 
         cell.wordCountOutlet.text = "\(wordCounts[indexPath.row])"
         cell.courseTitleImg.image = UIImage(named: titleImg[indexPath.row] + ".png")
@@ -535,8 +533,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
          var purchaseStatus = String()
          //測試用
         
-        
-        
+    
         let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
         
         if isPurchased{
@@ -605,6 +602,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
               toLoginVcBtn.isHidden = true
         }
        
+        //MARK: must update
         
         //抓gamePassed
         let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
@@ -646,6 +644,17 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         
         //抓mapPassed4
         mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
+        
+        
+        //抓gamePassed5
+        let decodedObject5 = UserDefaults.standard.object(forKey: "gamePassed5") as? NSData
+        
+        if let decoded = decodedObject5 {
+            gamePassed5 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed5
+        mapPassed5 = UserDefaults.standard.object(forKey: "mapPassed5") as? Int
 
         
         

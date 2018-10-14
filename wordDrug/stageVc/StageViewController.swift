@@ -15,13 +15,14 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     //此兩數字要做動態
+    //MARK: must update
     var stageCount = 5
     var elemWordsMax:[Int] = [450,450,450,450,450,450,450,450,450]
     
     var courseReceived = Int()
     
     var mapNumToPass = Int()
-  
+  //MARK: must update
     var eachCellMyWordsCount:[Int] = [0,0,0,0,0,0,0,0,0]
 
     var wordCounts = Int()
@@ -36,7 +37,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
-    
+    //MARK: must update
     var locks:[Int] = [1,1,1,1,1,1,1,1,1]
     
     var alertBg = UIImageView()
@@ -123,6 +124,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         var bgColor = UIColor()
         var titleImg = String()
         
+        
+        //MARK: must update
         switch courseReceived{
         case 0:
           
@@ -138,6 +141,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             //color literal
             bgColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             titleImg = "block3Title.png"
+        case 4:
+            bgColor = #colorLiteral(red: 0.07085690866, green: 0.1181558561, blue: 0.03652065598, alpha: 1)
+            titleImg = "block4Title.png"
             
         default:
             break
@@ -219,6 +225,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         //抓所有學習單字字數
 
+        //MARK: must update
+        //就算user == nil, gamePassed & mapPasse都已經設定初始值了
         switch courseReceived {
         case 0:
             stageCount = 5
@@ -252,16 +260,22 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             gamePassedDic = gamePassed4!
             mapPassedInt = mapPassed4!
             
+        case 4:
+            
+            
+            stageCount = 8
+            elemWordsMax = [450,450,450,450,450,450,450,450]
+            gamePassedDic = gamePassed5!
+            mapPassedInt = mapPassed5!
+            
  
         default:
             break
         }
         
  
-        
         for (s,u) in gamePassedDic!{
           
-            
             wordCounts = s * 30 + u * 3
             
         }
@@ -426,6 +440,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         //設定cell的顏色
         
+        
+        //MARK: must update
         switch courseReceived{
             
         case 0:
@@ -472,6 +488,18 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             p9Color = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
             p10Color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             colors = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color, p7Color, p8Color, p9Color, p10Color]
+            
+        case 4:
+            
+            p1Color = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+            p2Color = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+            p3Color = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            p4Color = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+            p5Color = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+            p6Color = #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)
+            p7Color = #colorLiteral(red: 0.1044694025, green: 0.1742056197, blue: 0.05384501217, alpha: 1)
+            p8Color = #colorLiteral(red: 0.05588630746, green: 0.09319196429, blue: 0.02880459573, alpha: 1)
+            colors = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color, p7Color, p8Color]
         default:
             break
         }

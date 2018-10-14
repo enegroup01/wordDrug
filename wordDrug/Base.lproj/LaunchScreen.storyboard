@@ -19,13 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Dh-99-g2r">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="900" id="Vzi-z9-4vS"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="qHe-A3-CSX">
-                                <rect key="frame" x="43" y="164" width="288" height="169"/>
+                                <rect key="frame" x="43.5" y="164" width="288" height="169"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="288" id="G25-FH-upf"/>
                                     <constraint firstAttribute="height" constant="169" id="oDm-un-e8X"/>
@@ -34,11 +31,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.15331313014030457" green="0.13260507583618164" blue="0.1656433641910553" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="0Dh-99-g2r" secondAttribute="bottom" id="DvD-uj-c3N"/>
                             <constraint firstItem="0Dh-99-g2r" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="HHv-Pk-srV"/>
                             <constraint firstItem="qHe-A3-CSX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="144" id="ND2-6h-d9j"/>
                             <constraint firstItem="0Dh-99-g2r" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="QSg-dP-bvr"/>
-                            <constraint firstItem="0Dh-99-g2r" firstAttribute="centerX" secondItem="qHe-A3-CSX" secondAttribute="centerX" id="XBD-NG-kkS"/>
+                            <constraint firstItem="0Dh-99-g2r" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bgc-b0-HIX"/>
                             <constraint firstItem="qHe-A3-CSX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gHS-X9-QbF"/>
+                            <constraint firstItem="0Dh-99-g2r" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kOW-hY-snZ"/>
+                            <constraint firstItem="0Dh-99-g2r" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="rIx-JZ-wkj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -50,6 +50,6 @@
     </scenes>
     <resources>
         <image name="launchBg.png" width="750" height="1334"/>
-        <image name="launchLogo.png" width="261" height="381"/>
+        <image name="launchLogo.png" width="524" height="696"/>
     </resources>
 </document>

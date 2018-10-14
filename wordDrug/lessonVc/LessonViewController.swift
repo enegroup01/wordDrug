@@ -199,10 +199,7 @@ class LessonViewController: UIViewController{
 
             break
         }
-
-
-
-        
+   
         
         //加入alertView
         let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
@@ -250,8 +247,6 @@ class LessonViewController: UIViewController{
         self.view.addSubview(practiceWordBtn)
        
         practiceWordBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: nil, size: .init(width: 119 * iPadSizeDif, height: alertBg.frame.height / 3))
-        
-        
 
         //practiceSenBtn.backgroundColor = .brown
         //practiceSenBtn.alpha = 0.5
@@ -313,10 +308,7 @@ class LessonViewController: UIViewController{
         
         syllableLabel.textAlignment = .center
       
-        
-        
-   
-        
+    
         firstLabel.anchor(top: syllableLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: 44 * dif * iPadSizeDif))
         firstLabel.adjustsFontSizeToFitWidth = true
         firstLabel.font = firstLabel.font.withSize(wordFontSize)
@@ -468,10 +460,7 @@ class LessonViewController: UIViewController{
         print("practice Sen")
         
         gameMode = 2
-    
-
-        
-        
+   
         
         practiceWordBtn.isEnabled = false
         practiceSenBtn.isEnabled = false
@@ -549,9 +538,8 @@ class LessonViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         
         
-        
-        //確認進入的地圖是否為當下地圖, 是的話跳轉到目前的元素, 不是的話代表以全過關, 跳轉到第一個重來
-        
+        //MARK: must update
+        //就算user == nil, gamePassed & mapPassed都已經設定初始值了
         //測試用
         
         //mapNumToReceive = 0
@@ -583,6 +571,13 @@ class LessonViewController: UIViewController{
             mapPassedInt = mapPassed4!
             increaseNum = 18
             maxMapNum = 9
+            
+        case 4:
+            gamePassedDic = gamePassed5!
+            mapPassedInt = mapPassed5!
+            increaseNum = 27
+            maxMapNum = 8
+
 
         default:
             break
@@ -592,16 +587,7 @@ class LessonViewController: UIViewController{
     
         
         if isClassAllPassed == false{
-            
-            
-            //加入可以按的按鍵
-            /*
-            hiddenBtn.frame = CGRect(x: 0, y: titleLabel.frame.minY, width: width, height: thirdLabel.frame.maxY - titleLabel.frame.minY)
-            hiddenBtn.addTarget(self, action: #selector(LessonViewController.enterGameClicked(_:)), for: .touchUpInside)
-            self.view.addSubview(hiddenBtn)
-            self.view.bringSubview(toFront: hiddenBtn)
-*/
-            
+
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedStringKey.foregroundColor : pinkColor]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -610,6 +596,8 @@ class LessonViewController: UIViewController{
         
         //增加數字來抓正確的值
         mapNumToReceive += increaseNum
+            
+            //MARK: must update
         
         switch mapNumToReceive {
         case 0:
@@ -669,6 +657,22 @@ class LessonViewController: UIViewController{
         case 26:
             syllableSets = map27SyllableSets
             
+        case 27:
+            syllableSets = map28SyllableSets
+        case 28:
+            syllableSets = map29SyllableSets
+        case 29:
+            syllableSets = map30SyllableSets
+        case 30:
+            syllableSets = map31SyllableSets
+        case 31:
+            syllableSets = map32SyllableSets
+        case 32:
+            syllableSets = map33SyllableSets
+        case 33:
+            syllableSets = map34SyllableSets
+        case 34:
+            syllableSets = map35SyllableSets
         default:
             break
         }

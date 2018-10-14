@@ -416,7 +416,17 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
        
+        if user != nil {
+            
         selectUser()
+            
+        } else {
+          
+            //沒有user的時候
+            getUserInfo()
+            
+        }
+  
     }
 
   
@@ -464,6 +474,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     
+                    
+                    //MARK: must update
+                    
                     if let mapPassedString = user?["mapPassed"] as! String?{
                         
                         mapPassed = Int(mapPassedString)!
@@ -503,6 +516,16 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                         
                         print("retrieve mapPassed:\(mapPassed4!)")
+                        
+                    }
+                    
+                    if let mapPassed5String = user?["mapPassed5"] as! String?{
+                        
+                        mapPassed5 = Int(mapPassed5String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                        
+                        print("retrieve mapPassed:\(mapPassed5!)")
                         
                     }
                     
@@ -571,6 +594,23 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
+                    
+                    if let gamePassed5String = user?["gamePassed5"] as! String?{
+                        
+                        let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                        
+                        let s = gamePassed5StringArray[0]
+                        let u = gamePassed5StringArray[1]
+                        gamePassed5 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                        
+                        print("retrieve gamePassed:\(gamePassed5!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed5")
+                        
+                    }
+                    
 
                     DispatchQueue.main.async {
                        
@@ -678,6 +718,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func getUserInfo(){
         
+
+        
         print("perform get user")
         //指定個人大頭照
         if let avaImgUrl = user?["ava"] as? String{
@@ -686,7 +728,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             DispatchQueue.main.async(execute: {[weak self] in
                 
                 if avaImgUrl != "" {
-            
                     
                     let newAvaUrl = avaImgUrl.replacingOccurrences(of: "__", with: "&")
                     
@@ -726,12 +767,20 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         
+        //MARK: must update
         //算字數
-        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 450 + mapPassed3! * 450 + mapPassed4! * 450
+        //在此有可能遇到user == nil的狀況, 不過在appDelegate已經給值, 稍後應該要修成if user == nil {} else {}
+        
+        if user != nil {
+        
+        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 450 + mapPassed3! * 450 + mapPassed4! * 450 + mapPassed5! * 450
+        
         var gamePassedCount = Int()
         var gamePassed2Count = Int()
         var gamePassed3Count = Int()
         var gamePassed4Count = Int()
+        var gamePassed5Count = Int()
+        
         var allWordsCount = Int()
         var wrongWordsCount = Int()
         
@@ -750,59 +799,79 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         for (s,u) in gamePassed4!{
             gamePassed4Count = s * 30 + u * 3
         }
+        
+        for (s,u) in gamePassed5!{
+            gamePassed5Count = s * 30 + u * 3
+        }
+        
+    
  
-        allWordsCount = allMapPassedCount + gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count
+        allWordsCount = allMapPassedCount + gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count + gamePassed5Count
         
         wordCountLabel.text = String(allWordsCount)
+            
+            //算拼字正確率
+            if let wrongWords = user?["wrongWords"] as? String{
+                
+                let wrongWordArray = wrongWords.components(separatedBy: ";")
+                
+                wrongWordsCount = wrongWordArray.count - 1
+                
+            }
+            
+            
+            if allWordsCount == 0 {
+                //這樣的話比例也是0
+                
+                sub1Rates[0] = 0
+                
+            } else {
+                
+                sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
+                
+            }
+            
+            //中文正確率
+            
+            //目前中文正確率若設定為0的時候, cellForRow裡面不會顯示0%..雖然不影響但是怪怪的
+            
+            if let wrongChinese = user?["wrongChinese"] as? String{
+                
+                if allWordsCount == 0 {
+                    //這樣的話比例也是0
+                    
+                    sub2Rates[0] = 0
+                    
+                } else {
+                    
+                    sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
+                    
+                }
+            }
+            
+            
+            
+            
+        } else {
+            
+            
+            wordCountLabel.text = "0"
+            print("user is nil 所產生的值")
+        }
         
         //抓分數
          if let score = user?["score"] as? String{
             
             scoreCountLabel.text = score
             
+         } else {
+            
+            scoreCountLabel.text = "尚未得分"
+            rankCountLabel.text = "尚未排名"
         }
         
         
-        //算拼字正確率
-        if let wrongWords = user?["wrongWords"] as? String{
-            
-            let wrongWordArray = wrongWords.components(separatedBy: ";")
-            
-            wrongWordsCount = wrongWordArray.count - 1
-           
-        }
-        
-        
-        if allWordsCount == 0 {
-            //這樣的話比例也是0
-            
-            sub1Rates[0] = 0
-        
-        } else {
-        
-            sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
-            
-        }
-        
-        //中文正確率
-        
-        //目前中文正確率若設定為0的時候, cellForRow裡面不會顯示0%..雖然不影響但是怪怪的
-        
-        if let wrongChinese = user?["wrongChinese"] as? String{
-            
-
-
-            if allWordsCount == 0 {
-                //這樣的話比例也是0
-         
-                sub2Rates[0] = 0
-                
-            } else {
-
-            sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
-            
-            }
-        }
+      
         
         //發音正確率
         
@@ -837,15 +906,21 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
         
+        
+        //MARK: must update
+        
        //快速複習單字數
         if let wordCount = user?["wordReviewCount"] as? String{
             if let wordCount2 = user?["wordReviewCount2"] as? String{
                 if let wordCount3 = user?["wordReviewCount3"] as? String{
                     if let wordCount4 = user?["wordReviewCount4"] as? String{
+                        if let wordCount5 = user?["wordReviewCount5"] as? String {
 
-                        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)!
+                        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)! + Int(wordCount5)!
         
-                        sub1Rates[3] = totalWordCount
+                       
+                            sub1Rates[3] = totalWordCount
+                        }
                     }
                 }
             }
@@ -856,10 +931,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let senCount2 = user?["senReviewCount2"] as? String{
                 if let senCount3 = user?["senReviewCount3"] as? String{
                     if let senCount4 = user?["senReviewCount4"] as? String {
+                         if let senCount5 = user?["senReviewCount5"] as? String {
+                        
         
-                        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)!
+                        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)! + Int(senCount5)!
         
                         sub1Rates[4] = totalSenCount
+                        }
                     }
                 }
             }

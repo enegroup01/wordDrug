@@ -158,13 +158,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
 
         registerBg.image = UIImage(named: "launchBg.png")
-
-        
+ 
         
         registerBg.frame = CGRect(x: 0, y: 0, width: width * 1.1, height: height * 1.1)
         registerBg.contentMode = .scaleToFill
 
-        
         
         let logoImg = UIImageView()
         self.view.addSubview(logoImg)
@@ -270,9 +268,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         accountTextField.font = accountTextField.font?.withSize(fontSize)
         accountTextField.translatesAutoresizingMaskIntoConstraints = false
-        accountTextField.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        accountTextField.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
         accountTextField.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
-        accountTextField.centerXAnchor.constraint(equalTo: accountPng.centerXAnchor).isActive = true
+        //accountTextField.centerXAnchor.constraint(equalTo: accountPng.centerXAnchor).isActive = true
+        
+        accountTextField.leadingAnchor.constraint(equalTo: loginBtn.centerXAnchor, constant: -30 * dif).isActive = true
         accountTextField.centerYAnchor.constraint(equalTo: accountPng.centerYAnchor).isActive = true
         //usernameTxt.backgroundColor = .red
         accountTextField.adjustsFontSizeToFitWidth = true
@@ -299,9 +299,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         passwordTextField.font = passwordTextField.font?.withSize(fontSize)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.widthAnchor.constraint(equalToConstant: 220 * dif).isActive = true
+        passwordTextField.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 42 * dif).isActive = true
-        passwordTextField.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+        //passwordTextField.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
+       
+        passwordTextField.leadingAnchor.constraint(equalTo: loginBtn.centerXAnchor, constant: -30 * dif).isActive = true
         passwordTextField.centerYAnchor.constraint(equalTo: passwordPng.centerYAnchor).isActive = true
         //passwordTxt.backgroundColor = .red
         passwordTextField.adjustsFontSizeToFitWidth = true
@@ -758,6 +760,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             //全新註冊者重新設定秒數
                             UserDefaults.standard.set(420, forKey: "limitSeconds")
+                            
+                            
+                            //MARK: must update
 
 
                             // Part 1. 登入者抓所有數值, 在此這些數字應該都為0
@@ -800,6 +805,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                                 
                                 print("retrieve mapPassed:\(mapPassed4!)")
+                                
+                            }
+                            if let mapPassed5String = user?["mapPassed5"] as! String?{
+                                
+                                mapPassed5 = Int(mapPassed5String)!
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                                
+                                print("retrieve mapPassed:\(mapPassed5!)")
                                 
                             }
 
@@ -869,6 +884,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 print("retrieve gamePassed:\(gamePassed4!)")
                                 userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                
+                            }
+                            
+                            if let gamePassed5String = user?["gamePassed5"] as! String?{
+                                
+                                let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                                
+                                let s = gamePassed5StringArray[0]
+                                let u = gamePassed5StringArray[1]
+                                gamePassed5 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                                
+                                print("retrieve gamePassed:\(gamePassed5!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed5")
                                 
                             }
 
@@ -1119,8 +1150,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                         
-                        isRegistered = true
-                        UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
+                        //isRegistered = true
+                        //UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                         
                         //全新註冊者重新設定秒數
                         UserDefaults.standard.set(420, forKey: "limitSeconds")
@@ -1136,6 +1167,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             //設定有註冊
                             isRegistered = true
                             UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
+                            
+                            
+                            //MARK: must update
                             
                             
                             // Part 1. 登入者抓所有數值, 這裡不一定是0因為fb login有可能有玩過
@@ -1179,6 +1213,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                                 
                                 print("retrieve mapPassed:\(mapPassed4!)")
+                                
+                            }
+                            
+                            if let mapPassed5String = user?["mapPassed5"] as! String?{
+                                
+                                mapPassed5 = Int(mapPassed5String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                                
+                                print("retrieve mapPassed:\(mapPassed5!)")
                                 
                             }
 
@@ -1248,6 +1292,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 print("retrieve gamePassed:\(gamePassed4!)")
                                 userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                
+                            }
+                            
+                            if let gamePassed5String = user?["gamePassed5"] as! String?{
+                                
+                                let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                                
+                                let s = gamePassed5StringArray[0]
+                                let u = gamePassed5StringArray[1]
+                                gamePassed5 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                                
+                                print("retrieve gamePassed:\(gamePassed5!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed5")
                                 
                             }
 
@@ -1524,6 +1584,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             isRegistered = true
                             UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                             
+                            //MARK: must update
 
                         
                         // Part 1. 登入者抓所有數值
@@ -1566,6 +1627,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 print("retrieve mapPassed:\(mapPassed4!)")
                                 
                             }
+                            if let mapPassed5String = user?["mapPassed5"] as! String?{
+                                
+                                mapPassed5 = Int(mapPassed5String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                                
+                                print("retrieve mapPassed:\(mapPassed5!)")
+                                
+                            }
+                            
+                            
                         
                         
                         if let gamePassedString = user?["gamePassed"] as! String?{
@@ -1632,6 +1704,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(encodedObject, forKey: "gamePassed4")
                                 
                             }
+                            
+                            if let gamePassed5String = user?["gamePassed5"] as! String?{
+                                
+                                let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                                
+                                let s = gamePassed5StringArray[0]
+                                let u = gamePassed5StringArray[1]
+                                gamePassed5 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                                
+                                print("retrieve gamePassed:\(gamePassed5!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed5")
+                                
+                            }
 
                         
                         
@@ -1662,6 +1750,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             let scoreSaved = user?["score"] as? String
                             
                             
+                            //MARK: must update
                             
                             //沒玩過的話, 要更新所有數字 updateGamePassed/ updateScore / addWrongWords
                             if scoreSaved == "0" {
@@ -1675,11 +1764,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed2 = [0:0]
                                     gamePassed3 = [0:0]
                                     gamePassed4 = [0:0]
+                                    gamePassed5 = [0:0]
+                                    
+                                    
                                 case 1:
                                     gamePassed2 = [0:1]
                                     gamePassed = [0:0]
                                     gamePassed3 = [0:0]
                                     gamePassed4 = [0:0]
+                                    gamePassed5 = [0:0]
                                     
                                     
                                 case 2:
@@ -1687,6 +1780,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed = [0:0]
                                     gamePassed2 = [0:0]
                                     gamePassed4 = [0:0]
+                                    gamePassed5 = [0:0]
                                     
                                     
                                 case 3:
@@ -1694,6 +1788,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed = [0:0]
                                     gamePassed2 = [0:0]
                                     gamePassed4 = [0:1]
+                                    gamePassed5 = [0:0]
+                                    
+                                case 4:
+                                    gamePassed3 = [0:0]
+                                    gamePassed = [0:0]
+                                    gamePassed2 = [0:0]
+                                    gamePassed4 = [0:0]
+                                    gamePassed5 = [0:1]
+                                    
 
                                     
                                 default:
@@ -1718,6 +1821,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                                 userDefaults.set(encodedObject4, forKey: "gamePassed4")
+                                
+                                let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                                userDefaults.set(encodedObject5, forKey: "gamePassed5")
 
                                 
                                 

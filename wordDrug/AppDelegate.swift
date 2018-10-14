@@ -14,7 +14,7 @@ import FirebaseInstanceID
 import UserNotifications
 import StoreKit
 
-
+//MARK: must update
 var user : NSDictionary?
 var mapPassed:Int?
 var gamePassed:[Int:Int]?
@@ -24,6 +24,9 @@ var mapPassed3:Int?
 var gamePassed3:[Int:Int]?
 var mapPassed4:Int?
 var gamePassed4:[Int:Int]?
+var mapPassed5:Int?
+var gamePassed5:[Int:Int]?
+
 var introWatched:Bool?
 var isRegistered:Bool?
 var seconds:Int?
@@ -35,19 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        print("appDelegate called")
        
       
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPurchased), name: NSNotification.Name("purchased"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToPurchase), name: NSNotification.Name("failedToPurchase"), object: nil)
        
-        
-        /*
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyRestored), name: NSNotification.Name("restored"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyStartToRestore), name: NSNotification.Name("startToRestore"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToRestore), name: NSNotification.Name("failedToRestore"), object: nil)
-        */
-        
+
         SKPaymentQueue.default().add(self)
         
         FirebaseApp.configure()
@@ -78,9 +77,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
+        //MARK: must update
         //抓使用者檔案
         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary 
         
+        
+        
+        
+        /*
         //抓gamePassed
         let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
         
@@ -121,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("give value for nil value")
             // give value for nil
             
-            if user != nil {
+           // if user != nil {
             mapPassed4 = 0
             
             userDefaults.set(mapPassed4!, forKey: "mapPassed4")
@@ -131,13 +135,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
             userDefaults.set(encodedObject4, forKey: "gamePassed4")
 
-            }
+         //   }
         }
         
         //抓mapPassed4
         mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
 
         
+        
+        //抓gamePassed5, 在此對原本玩家來說抓不到值 就賦予值
+        let decodedObject5 = UserDefaults.standard.object(forKey: "gamePassed5") as? NSData
+        
+        if let decoded = decodedObject5 {
+            gamePassed5 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        } else {
+            print("give value for nil value")
+            // give value for nil
+            
+            //if user != nil {
+                mapPassed5 = 0
+                
+                userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                
+                gamePassed5 = [0:0]
+                
+                let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                userDefaults.set(encodedObject5, forKey: "gamePassed5")
+                
+          //  }
+        }
+        
+        //抓mapPassed5
+        mapPassed5 = UserDefaults.standard.object(forKey: "mapPassed5") as? Int
+        */
+        
+        //確認有沒有看過介紹
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
         isRegistered = UserDefaults.standard.object(forKey: "isRegistered") as? Bool
         
@@ -149,18 +181,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id != nil {
 
                 //跳轉到角色畫面
-                
-               //mapPassed3 = 0
-               //gamePassed3 = [0:0]
-
-              toCourse()
-              //toIntro()
-                
                 //測試用
-                /*
-                mapPassed2 = 0
-                gamePassed2 = [0:0]
-                */
+                //mapPassed3 = 0
+                //gamePassed3 = [0:0]
+                //mapPassed5 = 8
+                //gamePassed5 = [0:0]
+ 
+                toCourse()
+                //toIntro()
+
             }
             
         } else {
@@ -169,6 +198,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           
             if introWatched == nil {
                 
+                //沒看過的話
+                
                 introWatched = false
                 userDefaults.set(introWatched, forKey: "introWatched")
                 
@@ -176,6 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 userDefaults.set(isRegistered, forKey: "isRegistered")
                 
                 //第一次玩
+                //MARK: must update
                 //儲存mapPassed & gamePassed的初始值
                 
                 mapPassed = 0
@@ -197,7 +229,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                 userDefaults.set(encodedObject2, forKey: "gamePassed2")
                 
-                
                 mapPassed3 = 0
                 
                 userDefaults.set(mapPassed3!, forKey: "mapPassed3")
@@ -215,16 +246,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                 userDefaults.set(encodedObject4, forKey: "gamePassed4")
+                
 
-              toIntro()
+                mapPassed5 = 0
+                
+                userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                
+                gamePassed5 = [0:0]
+                
+                let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                userDefaults.set(encodedObject5, forKey: "gamePassed5")
+
+                toIntro()
                 
                 
             } else if introWatched == true{
                 
                 
                 //假如沒有測過
-                
-    
+
                 if isRegistered == true{
                 
                     //跳往註冊畫面
@@ -237,14 +277,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 toCourse()
                 
                 }
-          
-                
-                
-            } else {
-                
-               toIntro()
-                
-            }
+      
+            } 
           
         }
         
@@ -397,9 +431,221 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
     
         }
+        
+        
+        
+        //如果有user就抓user狀態
+        
+        
+        if user != nil{
+            
+            //沒網路測試comment掉
+            selectUser()
+            
+        } else {
+            
+            print("沒有user不需要refresh")
+        }
+ 
 
     }
 
+    func selectUser(){
+        
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        
+        let id = user?["id"] as! String
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        
+        // body gonna be appended to url
+        let body = "id=\(id)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    
+                    
+                    print("selectUser:\(parseJSON)")
+                    print("become active refresh user status")
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    
+                    //MARK: must update
+                    
+                    if let mapPassedString = user?["mapPassed"] as! String?{
+                        
+                        mapPassed = Int(mapPassedString)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed!, forKey: "mapPassed")
+                        
+                        print("retrieve mapPassed:\(mapPassed!)")
+                        
+                    }
+                    
+                    if let mapPassed2String = user?["mapPassed2"] as! String?{
+                        
+                        mapPassed2 = Int(mapPassed2String)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                        
+                        print("retrieve mapPassed:\(mapPassed2!)")
+                        
+                    }
+                    
+                    if let mapPassed3String = user?["mapPassed3"] as! String?{
+                        
+                        mapPassed3 = Int(mapPassed3String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                        
+                        print("retrieve mapPassed:\(mapPassed3!)")
+                        
+                    }
+                    
+                    if let mapPassed4String = user?["mapPassed4"] as! String?{
+                        
+                        mapPassed4 = Int(mapPassed4String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                        
+                        print("retrieve mapPassed:\(mapPassed4!)")
+                        
+                    }
+                    
+                    if let mapPassed5String = user?["mapPassed5"] as! String?{
+                        
+                        mapPassed5 = Int(mapPassed5String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                        
+                        print("retrieve mapPassed:\(mapPassed5!)")
+                        
+                    }
+                    
+                    
+                    if let gamePassedString = user?["gamePassed"] as! String?{
+                        
+                        let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+                        
+                        let s = gamePassedStringArray[0]
+                        let u = gamePassedStringArray[1]
+                        gamePassed = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                        
+                        print("retrieve gamePassed:\(gamePassed!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                    }
+                    
+                    if let gamePassed2String = user?["gamePassed2"] as! String?{
+                        
+                        let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+                        
+                        let s = gamePassed2StringArray[0]
+                        let u = gamePassed2StringArray[1]
+                        gamePassed2 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                        
+                        print("retrieve gamePassed:\(gamePassed2!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                        
+                    }
+                    
+                    if let gamePassed3String = user?["gamePassed3"] as! String?{
+                        
+                        let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
+                        
+                        let s = gamePassed3StringArray[0]
+                        let u = gamePassed3StringArray[1]
+                        gamePassed3 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                        
+                        print("retrieve gamePassed:\(gamePassed3!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                        
+                    }
+                    
+                    
+                    if let gamePassed4String = user?["gamePassed4"] as! String?{
+                        
+                        let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                        
+                        let s = gamePassed4StringArray[0]
+                        let u = gamePassed4StringArray[1]
+                        gamePassed4 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                        
+                        print("retrieve gamePassed:\(gamePassed4!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                        
+                    }
+                    
+                    if let gamePassed5String = user?["gamePassed5"] as! String?{
+                        
+                        let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                        
+                        let s = gamePassed5StringArray[0]
+                        let u = gamePassed5StringArray[1]
+                        gamePassed5 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                        
+                        print("retrieve gamePassed:\(gamePassed5!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed5")
+                        
+                    }
+                    
+                    
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         

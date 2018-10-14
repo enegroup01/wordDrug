@@ -352,7 +352,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         print("courseReceived\(courseReceived)")
         
         
-        //MARK: must update courseReceived
+        //MARK: must update
+        //在此就算user == nil, gamePasse & mapPasse也都設定好初始值了
         
         switch courseReceived{
             
@@ -393,7 +394,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             syllableGroup.append(map17SyllableSets)
             syllableGroup.append(map18SyllableSets)
 
-            
             mapPassedInt = mapPassed3
             gamePassedDic = gamePassed3
             increaseNum = 11
@@ -412,12 +412,28 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             syllableGroup.append(map26SyllableSets)
             syllableGroup.append(map27SyllableSets)
             
-            
             mapPassedInt = mapPassed4
             gamePassedDic = gamePassed4
             increaseNum = 18
             maxMapNum = 9
             maxSpotNum = 14
+
+        case 4:
+            syllableGroup.append(map28SyllableSets)
+            syllableGroup.append(map29SyllableSets)
+            syllableGroup.append(map30SyllableSets)
+            syllableGroup.append(map31SyllableSets)
+            syllableGroup.append(map32SyllableSets)
+            syllableGroup.append(map33SyllableSets)
+            syllableGroup.append(map34SyllableSets)
+            syllableGroup.append(map35SyllableSets)
+          
+            mapPassedInt = mapPassed5
+            gamePassedDic = gamePassed5
+            increaseNum = 27
+            maxMapNum = 8
+            maxSpotNum = 14
+            
 
         default:
             break
@@ -465,7 +481,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alertText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         
-        
         //practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
    
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: sylFontSize)
@@ -488,7 +503,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         practiceSenBtn.setTitleColor(darkRed, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(NewBookViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
-*/
+         */
         
         
         leftBtnClickedImg.frame = practiceWordBtn.frame
@@ -625,8 +640,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playSpeedImg.centerYAnchor.constraint(equalTo: bookViewBottomBg.centerYAnchor, constant: -playSpeedImg.frame.height / 2).isActive = true
      
         playSpeedImg.centerXAnchor.constraint(equalTo: playSpeedBtn.centerXAnchor).isActive = true
-        
-        
         
         
         //playSpeedText.frame = CGRect(x: width * 3 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
@@ -1190,29 +1203,37 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //沒有網路的測試要comment掉
+        
+        if user != nil {
+            
+            selectUser()
+        }
+        
+    }
+    
+    
     //MARK: CollectionViewLayOut
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         
         let cellSize = CGSize(width: collectionViewCellSize, height: collectionViewCellSize)
         return cellSize
         
-        
-        
     }
     
-    
 
-    
-    
-    
     deinit {
         print("book deinit")
     }
     
+    
+    
+    
     @objc func removeBtns(){
         
-  
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         ghost2Btn.isHidden = true
@@ -1222,6 +1243,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         rightBtnClickedImg.isHidden = true
   
     }
+    
+    
     
     @objc func practiceWord(){
         print("practice word")
@@ -1266,14 +1289,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
         }
         
-        
     }
     
     
     
     //addToFav animation
     
-  
     
     func addToFavAnimation(word:String, state:Int){
 
@@ -1640,16 +1661,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             //loadAllWordFavs()
             //切換到可以修改最愛的模式
             likeMode = true
-      
-         
-            
+          
             engWordsSelected = sortedEngWordsToShow
             chiWordsSelected = sortedChiWordsToShow
             partOfSpeechSelected = sortedPartOfSpeechToShow
             syllablesSelected = sortedSyllablesToShow
             engSenSelected = sortedEngSenToShow
             chiSenSelected = sortedChiSenToShow
-            
             
             //移除三個多增加的數量
              if (mapPassedInt! + 1) != maxMapNum{
@@ -1673,9 +1691,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             //內包含findMatch
             loadMyWrongWords()
-        
-
-            
+         
             
         case 2:
             
@@ -1688,8 +1704,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         default:
             break
         }
-        
-        
+
         
     }
     
@@ -2271,8 +2286,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 for i in engWordArray[i]{
 
-                    
-
                     characters.append(i)
                     
                 }
@@ -2754,9 +2767,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             } else if cells.count > 0{
                 sylTextLabel = cells[cells.count - 1].viewWithTag(1) as! UILabel
             }
-            
-            
-
+ 
          
                 for i in 0 ..< sortedSylArray.count{
                     
@@ -3394,6 +3405,206 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }).resume()
         }
     }
+    
+    
+    
+    func selectUser(){
+        
+        
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        
+        let id = user?["id"] as! String
+        
+        // request url
+        var request = URLRequest(url: url)
+        
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
+        
+        
+        // body gonna be appended to url
+        let body = "id=\(id)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+                    
+                    
+                    
+                    print("selectUser:\(parseJSON)")
+                    print("become active refresh user status")
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    
+                    //MARK: must update
+                    
+                    if let mapPassedString = user?["mapPassed"] as! String?{
+                        
+                        mapPassed = Int(mapPassedString)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed!, forKey: "mapPassed")
+                        
+                        print("retrieve mapPassed:\(mapPassed!)")
+                        
+                    }
+                    
+                    if let mapPassed2String = user?["mapPassed2"] as! String?{
+                        
+                        mapPassed2 = Int(mapPassed2String)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                        
+                        print("retrieve mapPassed:\(mapPassed2!)")
+                        
+                    }
+                    
+                    if let mapPassed3String = user?["mapPassed3"] as! String?{
+                        
+                        mapPassed3 = Int(mapPassed3String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                        
+                        print("retrieve mapPassed:\(mapPassed3!)")
+                        
+                    }
+                    
+                    if let mapPassed4String = user?["mapPassed4"] as! String?{
+                        
+                        mapPassed4 = Int(mapPassed4String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                        
+                        print("retrieve mapPassed:\(mapPassed4!)")
+                        
+                    }
+                    
+                    if let mapPassed5String = user?["mapPassed5"] as! String?{
+                        
+                        mapPassed5 = Int(mapPassed5String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                        
+                        print("retrieve mapPassed:\(mapPassed5!)")
+                        
+                    }
+                    
+                    
+                    if let gamePassedString = user?["gamePassed"] as! String?{
+                        
+                        let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+                        
+                        let s = gamePassedStringArray[0]
+                        let u = gamePassedStringArray[1]
+                        gamePassed = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                        
+                        print("retrieve gamePassed:\(gamePassed!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                    }
+                    
+                    if let gamePassed2String = user?["gamePassed2"] as! String?{
+                        
+                        let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+                        
+                        let s = gamePassed2StringArray[0]
+                        let u = gamePassed2StringArray[1]
+                        gamePassed2 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                        
+                        print("retrieve gamePassed:\(gamePassed2!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                        
+                    }
+                    
+                    if let gamePassed3String = user?["gamePassed3"] as! String?{
+                        
+                        let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
+                        
+                        let s = gamePassed3StringArray[0]
+                        let u = gamePassed3StringArray[1]
+                        gamePassed3 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                        
+                        print("retrieve gamePassed:\(gamePassed3!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                        
+                    }
+                    
+                    
+                    if let gamePassed4String = user?["gamePassed4"] as! String?{
+                        
+                        let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                        
+                        let s = gamePassed4StringArray[0]
+                        let u = gamePassed4StringArray[1]
+                        gamePassed4 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                        
+                        print("retrieve gamePassed:\(gamePassed4!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                        
+                    }
+                    
+                    if let gamePassed5String = user?["gamePassed5"] as! String?{
+                        
+                        let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                        
+                        let s = gamePassed5StringArray[0]
+                        let u = gamePassed5StringArray[1]
+                        gamePassed5 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                        
+                        print("retrieve gamePassed:\(gamePassed5!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed5")
+                        
+                    }
+                    
+                    
+                    
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+
+    
     
     /*
      // MARK: - Navigation
