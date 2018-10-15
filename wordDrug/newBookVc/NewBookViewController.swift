@@ -2257,7 +2257,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
 
         
-        
         //抓字
         let engWords = engWordsSelected[indexPath.row]
 
@@ -2911,6 +2910,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 if isJump == false {
                 
             //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
+                    
+                    print("allsylSelected:\(syllablesSelected)")
+                    print("sylSelected:\(sylSelected)")
+                    
             if syllablesSelected[i] == sylSelected{
    
                 if i < tableView.numberOfRows(inSection: 0){
@@ -2925,11 +2928,18 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                     } else {
                         
-                        let index = IndexPath(row: i + 1, section: 0)
+                        var index = IndexPath(row: i + 1, section: 0)
+                        
+                        if segControl.selectedSegmentIndex == 2 {
+                            
+                            index = IndexPath(row: i, section: 0)
+                        }
                         
                         tableView.scrollToRow(at: index, at: .bottom, animated: true)
                         
                         isJump = true
+                        
+                        
                         
                     }
                     

@@ -274,7 +274,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     
                     
+                    
+                      //如果有沒有帳號資訊者給0
+                    
+                    //抓gamePassed4, 在此對原本玩家來說抓不到值 就賦予值
+                    
+                    
+                    let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
+                    
+                    if let decoded = decodedObject4 {
+                        gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+                    } else {
+                        print("give value for nil value")
+                        // give value for nil
+                        
+                        // if user != nil {
+                        mapPassed4 = 0
+                        
+                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                        
+                        gamePassed4 = [0:0]
+                        
+                        let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                        userDefaults.set(encodedObject4, forKey: "gamePassed4")
+                        
+                        //   }
+                    }
+                    
+                    //抓mapPassed4
+                    mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
+                    
+                    
+                    
+                    //抓gamePassed5, 在此對原本玩家來說抓不到值 就賦予值
+                    let decodedObject5 = UserDefaults.standard.object(forKey: "gamePassed5") as? NSData
+                    
+                    if let decoded = decodedObject5 {
+                        gamePassed5 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+                    } else {
+                        print("give value for nil value")
+                        // give value for nil
+                        
+                        //if user != nil {
+                        mapPassed5 = 0
+                        
+                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                        
+                        gamePassed5 = [0:0]
+                        
+                        let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                        userDefaults.set(encodedObject5, forKey: "gamePassed5")
+                        
+                        //  }
+                    }
+                    
+                    //抓mapPassed5
+                    mapPassed5 = UserDefaults.standard.object(forKey: "mapPassed5") as? Int
+                    
+                    
+                    
+                    
+                    
+                    
                 toCourse()
+                  
                 
                 }
       
