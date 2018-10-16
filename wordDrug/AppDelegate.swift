@@ -46,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPurchased), name: NSNotification.Name("purchased"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToPurchase), name: NSNotification.Name("failedToPurchase"), object: nil)
        
+        
+           NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyTurnOffRedLight), name: NSNotification.Name("turnOffRedLight"), object: nil)
 
         SKPaymentQueue.default().add(self)
         
@@ -394,6 +396,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
         Messaging.messaging().shouldEstablishDirectChannel = false
         
+       
+        //確認BookVc Cell裡的紅燈會關起來
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "turnOffRedLight"), object: nil)
+        
 
         print("did enter background")
         
@@ -410,6 +416,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func notifyPurchased(){
          print("appDelegate purchased successfully")
         
+    }
+    @objc func notifyTurnOffRedLight(){
+        print("appDelegate turn off red light")
     }
     
     
@@ -441,13 +450,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         UIApplication.shared.applicationIconBadgeNumber = 0
         
+          //確認BookVc Cell裡的紅燈會關起來
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "turnOffRedLight"), object: nil)
+        
+        
         //let date = Date().description(with: .current)
         //let formatter = DateFormatter()
 
         //formatter.dateFormat = "dd.MM.yyyy"
         //let result = formatter.string(from: date)
-
-        
+ 
         
         //1.0.7 BUG fixed
         
@@ -550,7 +562,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     
                     
-                    print("selectUser:\(parseJSON)")
+                    //print("selectUser:\(parseJSON)")
                     print("become active refresh user status")
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
@@ -731,6 +743,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Messaging.messaging().shouldEstablishDirectChannel = true
     }
+
 
 
 }

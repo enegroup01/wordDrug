@@ -27,6 +27,7 @@ let restartGame2Key = "stopReview"
 let restartCountingKey = "restartCounting"
 let globalPause = "globalPause"
 let globalStart = "globalStart"
+let turnOffRedLight = "turnOffRedLight"
 
 var limitTimer = Timer()
 

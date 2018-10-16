@@ -221,6 +221,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         var playTimeBtnYDif: CGFloat!
         var alertXDif:CGFloat!
 
+        //準備口試句子
+        NotificationCenter.default.addObserver(self, selector: #selector(NewBookViewController.turnOffRedLight), name: NSNotification.Name("turnOffRedLight"), object: nil)
         
         switch height {
             
@@ -1212,6 +1214,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             selectUser()
         }
+    
+        
         
     }
     
@@ -2711,7 +2715,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
+    //避免閃紅燈
+    
+    @objc func turnOffRedLight(){
+        
+
+            print("turn off red light")
+        
+        for cell in tableView.visibleCells{
+            
+            cell.backgroundColor = .clear
+        }
+    }
+    
+    
+    
+    
     //用以下兩個方法來檢測scroll暫停時間
+    
+    
     
     @objc func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
