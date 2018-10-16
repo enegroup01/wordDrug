@@ -2950,7 +2950,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                     } else {
                         
+                        //這裡可以加1的原因是因為3個字為一組
                         var index = IndexPath(row: i + 1, section: 0)
+
                         
                         if segControl.selectedSegmentIndex == 2 {
                             
