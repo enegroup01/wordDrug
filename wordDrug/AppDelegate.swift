@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FacebookCore
+import FBSDKCoreKit
 import Firebase
 import FirebaseMessaging
 import FirebaseInstanceID
@@ -40,14 +40,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         print("appDelegate called")
-       
+       FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
       
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPurchased), name: NSNotification.Name("purchased"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToPurchase), name: NSNotification.Name("failedToPurchase"), object: nil)
        
-        
-           NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyTurnOffRedLight), name: NSNotification.Name("turnOffRedLight"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyTurnOffRedLight), name: NSNotification.Name("turnOffRedLight"), object: nil)
 
         SKPaymentQueue.default().add(self)
         
@@ -83,93 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //抓使用者檔案
         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary 
         
-        
-        
-        
-        /*
-        //抓gamePassed
-        let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
-        
-        if let decoded = decodedObject {
-            gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
-        }
-        //抓mapPassed
-        mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
-     
-        //抓gamePassed2
-        let decodedObject2 = UserDefaults.standard.object(forKey: "gamePassed2") as? NSData
-        
-        if let decoded = decodedObject2 {
-            gamePassed2 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
-        }
-        
-        //抓mapPassed2
-        mapPassed2 = UserDefaults.standard.object(forKey: "mapPassed2") as? Int
-        
-        //抓gamePassed3
-        let decodedObject3 = UserDefaults.standard.object(forKey: "gamePassed3") as? NSData
-        
-        if let decoded = decodedObject3 {
-            gamePassed3 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
-        }
-        
-        //抓mapPassed3
-        mapPassed3 = UserDefaults.standard.object(forKey: "mapPassed3") as? Int
-        
-        
-        
-        //抓gamePassed4, 在此對原本玩家來說抓不到值 就賦予值
-        let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
-        
-        if let decoded = decodedObject4 {
-            gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
-        } else {
-            print("give value for nil value")
-            // give value for nil
-            
-           // if user != nil {
-            mapPassed4 = 0
-            
-            userDefaults.set(mapPassed4!, forKey: "mapPassed4")
-            
-            gamePassed4 = [0:0]
-            
-            let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-            userDefaults.set(encodedObject4, forKey: "gamePassed4")
-
-         //   }
-        }
-        
-        //抓mapPassed4
-        mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
-
-        
-        
-        //抓gamePassed5, 在此對原本玩家來說抓不到值 就賦予值
-        let decodedObject5 = UserDefaults.standard.object(forKey: "gamePassed5") as? NSData
-        
-        if let decoded = decodedObject5 {
-            gamePassed5 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
-        } else {
-            print("give value for nil value")
-            // give value for nil
-            
-            //if user != nil {
-                mapPassed5 = 0
-                
-                userDefaults.set(mapPassed5!, forKey: "mapPassed5")
-                
-                gamePassed5 = [0:0]
-                
-                let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
-                userDefaults.set(encodedObject5, forKey: "gamePassed5")
-                
-          //  }
-        }
-        
-        //抓mapPassed5
-        mapPassed5 = UserDefaults.standard.object(forKey: "mapPassed5") as? Int
-        */
+ 
         
         //確認有沒有看過介紹
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
@@ -180,23 +93,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if user != nil {
             
             let id = user!["id"] as? String
+            
             if id != nil {
 
                 //跳轉到角色畫面
                 //測試用
                 //mapPassed3 = 0
                 //gamePassed3 = [0:0]
-                //mapPassed5 = 8
-                //gamePassed5 = [0:0]
  
                 toCourse()
-                //toIntro()
+         
 
             }
             
         } else {
             
-            //首次登入
+            //首次登入, 沒有user的話
           
             if introWatched == nil {
                 
@@ -259,6 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                 userDefaults.set(encodedObject5, forKey: "gamePassed5")
 
+                //到介紹畫面
                 toIntro()
                 
                 
@@ -276,10 +189,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     
                     
-                    
-                      //如果有沒有帳號資訊者給0
-                    
+                    //如果有沒有帳號資訊者給0
                     //抓gamePassed4, 在此對原本玩家來說抓不到值 就賦予值
+                    
                     
                     
                     let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
@@ -332,11 +244,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     //抓mapPassed5
                     mapPassed5 = UserDefaults.standard.object(forKey: "mapPassed5") as? Int
-                    
-                    
-                    
-                    
-                    
+
                     
                 toCourse()
                   
@@ -347,17 +255,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           
         }
         
-        print("user:\(String(describing: user))")
+        //print("user:\(String(describing: user))")
 
         
         return true
     }
     
     
+    /*
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return SDKApplicationDelegate.shared.application(app, open: url,options:options)
+        return UIApplicationDelegate.shared.application(app, open: url,options:options)
         
     }
+ */
+    
+    
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+    
     
     @objc func notifyPauseGame(){
         
@@ -422,21 +340,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    /*
-    @objc func notifyRestored(){
-        print("appDelegate restored successfully")
-        
-    }
-    
-    @objc func notifyStartToRestore(){
-         print("appDelegate start to restore")
-        
-    }
-    @objc func notifyFailedToRestore(){
-        
-         print("appDelegate failed to restore")
-    }
- */
+
  
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -445,7 +349,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("did become active")
         
         FBHandler()
-        AppEventsLogger.activate()
+        //AppEventsLogger.activate()
+        FBSDKAppEvents.activateApp()
         
       
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -454,31 +359,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "turnOffRedLight"), object: nil)
         
         
-        //let date = Date().description(with: .current)
-        //let formatter = DateFormatter()
-
-        //formatter.dateFormat = "dd.MM.yyyy"
-        //let result = formatter.string(from: date)
- 
-        
         //1.0.7 BUG fixed
         
         let dateFetch = Date()
         
-        print(dateFetch)
+        //print(dateFetch)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: dateFetch)
         
         print(dateString)
-        
-        
-        //print("date:\(date)")
-        //let result = date.components(separatedBy: " at")
-
-        //print("result:\(result)")
-        
 
         let previousDate = UserDefaults.standard.object(forKey: "previousDate") as? String
         
@@ -775,17 +666,6 @@ extension AppDelegate: SKPaymentTransactionObserver {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: failedToPurchaseKey), object: nil)
                 
 
-                /*
-            case .restored:
-                
-                print("restored")
-                
-                //SKPaymentQueue.default().finishTransaction(transaction)
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: restoredKey), object: nil)
-                
-                */
-
                 
             default:
                 break
@@ -799,27 +679,7 @@ extension AppDelegate: SKPaymentTransactionObserver {
         
     }
     
-    
 
-    
-    
-
-    /*
-    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: startToRestoreKey), object: nil)
-        print("start To restore")
-        
-    }
-    
-    
-    
-    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: failedToRestoreKey), object: nil)
-        
-    }
- */
 }
 
 

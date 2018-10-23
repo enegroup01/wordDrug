@@ -108,8 +108,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //我的最愛圖片是否要顯示的array
     var myFavImgs = [Int]()
     
-    //之後判斷加入最愛的時刻
-    var likeMode = true
+
     
     //collection選到的index
     var collectionSelectedIndex:Int?
@@ -215,10 +214,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         super.viewDidLoad()
 
         var sliderHeight: CGFloat!
-        var iPadSmall = CGFloat()
         var btnDif: CGFloat!
         var btnTextFontSize: CGFloat!
-        var playTimeBtnYDif: CGFloat!
+
         var alertXDif:CGFloat!
 
         //準備口試句子
@@ -232,7 +230,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1.2
             fontDif = 5
             xDif = 0
-            iPadSmall = 10
+     
             iPadDif = 1.8
             collectionViewCellSize = 100
             sylFontSize = 30
@@ -242,7 +240,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 
             engWordSizeDif = 18
             chiWordSizeDif = 30
-            playTimeBtnYDif = 0
+        
             alertXDif = 1
             
         case 1024:
@@ -251,7 +249,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1.1
             fontDif = 5
             xDif = 0
-            iPadSmall = 10
+        
             iPadDif = 1.4
             collectionViewCellSize = 80
             sylFontSize = 24
@@ -261,7 +259,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
    
             engWordSizeDif = 18
             chiWordSizeDif = 26
-            playTimeBtnYDif = 0
+    
             alertXDif = 1
             
         case 812:
@@ -271,7 +269,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1.2
             fontDif = 0
             xDif = 50
-            iPadSmall = 0
+   
             iPadDif = 1
             collectionViewCellSize = 50
             sylFontSize = 15
@@ -281,7 +279,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
      
             engWordSizeDif = 14
             chiWordSizeDif = 24
-            playTimeBtnYDif = 2
+       
             alertXDif = 0.8
 
             
@@ -291,7 +289,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1.1
             fontDif = 3
             xDif = 0
-            iPadSmall = 0
+
             iPadDif = 1.1
             collectionViewCellSize = 50
             sylFontSize = 15
@@ -301,7 +299,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 
             engWordSizeDif = 14
             chiWordSizeDif = 26
-             playTimeBtnYDif = 5
+    
             alertXDif = 1
 
             
@@ -312,7 +310,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 1
             fontDif = 4
             xDif = 0
-            iPadSmall = 0
+   
             iPadDif = 1.1
             collectionViewCellSize = 50
             sylFontSize = 15
@@ -321,7 +319,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             btnTextFontSize = 14
             engWordSizeDif = 12
             chiWordSizeDif = 24
-            playTimeBtnYDif = 5
+        
             alertXDif = 1
 
             
@@ -331,7 +329,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cellDif = 0.9
             fontDif = 5
             xDif = 0
-            iPadSmall = 0
+     
             iPadDif = 1.1
             collectionViewCellSize = 50
             sylFontSize = 12
@@ -341,7 +339,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
       
             engWordSizeDif = 14
             chiWordSizeDif = 24
-            playTimeBtnYDif = 6
+      
             alertXDif = 1
 
         default:
@@ -1341,50 +1339,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
     }
     
-    //再次載入所有單字裡我的最愛要反紅的字, 使用時機: 在我的最愛裡修改過後跳回所有單字
-    //顯示是否有加入最愛先不要做
-    func loadAllWordFavs(){
-        
-        
-        
-        
-        alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
-        
-        //載入我的最愛單字
-        if let myWordsString = user?["myWords"] as! String?{
-            myFavWords = myWordsString.components(separatedBy: ";")
-        }
-        
-        
-        /*
-        myFavImgs.removeAll(keepingCapacity: false)
-        
-        //填入所有字的數量, 等等準備抓我的最愛的部分
-        for _ in 0 ..< engWordsToShow.count - 3{
-            myFavImgs.append(0)
-            
-        }
-        */
-        //去對有沒有符合我的最愛然後將其反紅
-        /*
-        for i in 0 ..< engWordsToShow.count{
-            
-            let word = engWordsToShow[i].replacingOccurrences(of: " ", with: "")
-            
-            for myWord in myFavWords{
-                
-                if myWord == word {
-                    
-                    //抓全部單字要反紅的部分
-                    //myFavImgs[i] = 1
-                    
-                }
-                
-            }
-            
-        }
-        */
-    }
+
     
     
     
@@ -1661,11 +1616,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         case 0:
             
             isAllEmpty = true
-            //再次讀我的最愛反紅部分, 這件事情暫時不用作
-            //loadAllWordFavs()
-            //切換到可以修改最愛的模式
-            likeMode = true
-          
+
+
             engWordsSelected = sortedEngWordsToShow
             chiWordsSelected = sortedChiWordsToShow
             partOfSpeechSelected = sortedPartOfSpeechToShow
@@ -1690,7 +1642,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         case 1:
             
             isAllEmpty = false
-            likeMode = false
+          
             //讀取錯字
             
             //內包含findMatch
@@ -1700,7 +1652,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         case 2:
             
             isAllEmpty = false
-            likeMode = true
+         
             //內包含findMatch
             loadMyFavWords()
 
@@ -1775,6 +1727,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 let currentEngWordLabel = selectedCell.viewWithTag(2) as! UILabel
                 
                 //比對單字
+                
+                
                     for i in 0 ..< engWordsSelected.count{
                         
                         let engWord = engWordsSelected[i].replacingOccurrences(of: " ", with: "")
@@ -2790,13 +2744,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
  
          
+            /*
                 for i in 0 ..< sortedSylArray.count{
                     
                     if sortedSylArray[i] == sylTextLabel.text! {
                         indexToChange = i
                     }
                 }
+ */
+             //#新寫法
             
+            indexToChange = sortedSylArray.firstIndex(of: sylTextLabel.text!)!
+            
+ 
             //假如找到的話就做collecitonView更新
                 //設定選項顏色
                 for c in 0 ..< collectionTouched.count{
@@ -2924,8 +2884,42 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 //var isAlertPoppedOut = false
     func jumpToRow(sylSelected:String){
         
-        var isJump = false
+    
         //找對應的row, 並跳過去
+        //#新寫法
+      
+        if let indexToJump = syllablesSelected.firstIndex(of: sylSelected) {
+        if indexToJump < tableView.numberOfRows(inSection: 0){
+            
+            if indexToJump == 0 {
+                
+                let indexPathRow = IndexPath(row: 0, section: 0)
+                tableView.scrollToRow(at: indexPathRow, at: .top, animated: true)
+               
+            } else {
+                
+                //這裡可以加1的原因是因為3個字為一組
+                var indexPathRow = IndexPath(row: indexToJump + 1, section: 0)
+                
+                
+                if segControl.selectedSegmentIndex == 2 {
+                    
+                    indexPathRow = IndexPath(row: indexToJump, section: 0)
+                }
+                
+                tableView.scrollToRow(at: indexPathRow, at: .bottom, animated: true)
+                
+
+                
+            }
+        }
+        } else {
+            
+            print("沒有找到字")
+        }
+        
+        
+        /*
         
             for i in 0 ..< syllablesSelected.count{
             
@@ -2933,8 +2927,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
                     
-                    print("allsylSelected:\(syllablesSelected)")
-                    print("sylSelected:\(sylSelected)")
+                  //  print("allsylSelected:\(syllablesSelected)")
+                  //  print("sylSelected:\(sylSelected)")
                     
             if syllablesSelected[i] == sylSelected{
    
@@ -2978,6 +2972,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     
                 }
         }
+        */
     
         
     }
@@ -3031,7 +3026,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alreadyPlayTimes += 1
         step = 1
         let engWord = AVSpeechUtterance(string: synEngWord)
-        engWord.voice = AVSpeechSynthesisVoice(language: "en-US")
+        //engWord.voice = AVSpeechSynthesisVoice(language: "en-US")
+        engWord.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
+
         engWord.rate = Float(speakRate)
         synth.speak(engWord)
         print("already:\(alreadyPlayTimes)")
@@ -3043,6 +3040,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         step = 2
         let chiWord = AVSpeechUtterance(string:synChiWord)
         chiWord.voice = AVSpeechSynthesisVoice(language: "zh-TW")
+        
         chiWord.rate = 0.48
         synth.speak(chiWord)
         
@@ -3056,7 +3054,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         step = 3
         let engSen = AVSpeechUtterance(string:synEngSen)
-        engSen.voice = AVSpeechSynthesisVoice(language: "en-US")
+        //engSen.voice = AVSpeechSynthesisVoice(language: "en-US")
+        engSen.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
         engSen.rate = Float(speakRate)
         synth.speak(engSen)
         

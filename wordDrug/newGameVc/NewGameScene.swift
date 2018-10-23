@@ -989,7 +989,12 @@ class NewGameScene: SKScene {
         makeImageNode(name: "pause", image: "pauseBtn", x: -280 * ballDif * dif * xDif * iPhonePlusHeightDif, y: 350 * ballDif * dif * yDif * iPhonePlusHeightDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
         
         
-        makeLabelNode(x: 280 * ballDif * dif * xDif * iPhonePlusHeightDif, y: 340 * ballDif * dif * yDif * iPhonePlusHeightDif + iPhone8YDif, alignMent: .right, fontColor: textColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        let xFactor = ballDif * dif * xDif * iPhonePlusHeightDif
+        let yFactor = ballDif * dif * yDif * iPhonePlusHeightDif
+    
+        
+        
+        makeLabelNode(x: 280 * xFactor, y: 340 * yFactor + iPhone8YDif, alignMent: .right, fontColor: textColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
 
         // 製作TimerBg & timer label
         
@@ -1200,8 +1205,14 @@ class NewGameScene: SKScene {
         //建立好畫面後開始動畫
         
        
+        let xFactor2 = iPadDif * dif * xDif * iPhonePlusHeightDif * iPadXDif
+        let yFactor2 = iPadDif * dif * xDif * chiBtnDif * iPhoneXHeightDif / iPhonePlusHeightDif2 * iPadXDif
+        let widthFactor = iPadDif * dif * yDif * iPadXDif
+        let heightFactor = dif * iPadDif * yDif * iPadXDif
+        
+        
         //iPhone 7 & 8 Y不夠高
-        makeImageNode(name: "abort", image: "skipTagTest", x: 260 * iPadDif * dif * xDif * iPhonePlusHeightDif * iPadXDif, y: 340 * iPadDif * dif * xDif * chiBtnDif * iPhoneXHeightDif / iPhonePlusHeightDif2 * iPadXDif, width: 90 * iPadDif * dif * yDif * iPadXDif, height: 32 * dif * iPadDif * yDif * iPadXDif, z: 3, alpha: 0, isAnchoring: false)
+        makeImageNode(name: "abort", image: "skipTagTest", x: 260 * xFactor2, y: 340 * yFactor2 , width: 90 * widthFactor, height: 32 * heightFactor, z: 3, alpha: 0, isAnchoring: false)
         
         introAnimation()
         
@@ -4349,9 +4360,7 @@ class NewGameScene: SKScene {
                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "onlyPracticeSentence"), object: nil, userInfo: wordSequence)
                  */
                 
-                
-                
-                
+
                 //真正紀錄錯誤的字進去準備給後端儲存
                 var wrongWord = String()
                 

@@ -8,8 +8,12 @@
 
 import UIKit
 import SSBouncyButton
-import FacebookLogin
-import FacebookCore
+//import FacebookLogin
+//import FacebookCore
+import FBSDKLoginKit
+import FBSDKCoreKit
+
+
 
 class LoginViewController: UIViewController,UITextFieldDelegate {
 
@@ -1047,43 +1051,188 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     @IBAction func fbLoginClicked(_ sender: Any) {
         
         
-        let loginManager = LoginManager()
-        
-        
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        loginManager.logIn(readPermissions: [.publicProfile,.email], viewController: self) { [weak self](loginResult) in
+        FBSDKLoginManager().logIn(withReadPermissions: ["public_profile", "email"], from: self) {[weak self] (result, error) in
             
-            switch loginResult{
-            case .failed(let error):
-                print(error)
-                self!.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            //失敗的時候回傳
-            case .cancelled:
-                print("the user cancels login")
-                self!.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            //取消時回傳內容
-            case .success(grantedPermissions: _, declinedPermissions: _, token: _):
-                self!.getDetails()
-                print("user log in")
-                //成功時print("user log in")
+            if error != nil{
                 
+                print("longinerror =\(error)")
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                
+                return
             }
-        }
-
+            
+            if (result?.isCancelled)!{
+                
+                print("user canceled")
+                user = nil
+                UserDefaults.standard.removeObject(forKey: "parseJSON")
+                
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                
+                
+            } else {
+            
+            self!.getDetails()
+            print("user log in")
+            }
+            //成功時print("user log in")
         
+            //self.fetchProfile()
+            
+        }
+        
+        
+        /*
+         let loginManager = FBSDKLoginManager()
+         
+         activityIndicator.startAnimating()
+         UIApplication.shared.beginIgnoringInteractionEvents()
+         
+         
+         loginManager.logIn(readPermissions: [.publicProfile,.email], viewController: self) {[weak self] (loginResult) in
+         
+         switch loginResult{
+         case .failed(let error):
+         self!.activityIndicator.stopAnimating()
+         UIApplication.shared.endIgnoringInteractionEvents()
+         print(error)
+         //失敗的時候回傳
+         case .cancelled:
+         self!.activityIndicator.stopAnimating()
+         UIApplication.shared.endIgnoringInteractionEvents()
+         print("the user cancels login")
+         //取消時回傳內容
+         case .success(grantedPermissions: _, declinedPermissions: _, token: _):
+         self!.getDetails()
+         print("user log in")
+         //成功時print("user log in")
+         
+         }
+         }
+         */
     }
     
     
+    
     func getDetails(){
-        guard let _ = AccessToken.current else{return}
-        let param = ["fields":"name, email , picture.width(200).height(200)"]
-        let graphRequest = GraphRequest(graphPath: "me",parameters: param)
         
-        graphRequest.start { [weak self](urlResponse, requestResult) in
+        
+        let parameters = ["fields": "name, email , picture.width(200).height(200)"]
+        
+        FBSDKGraphRequest(graphPath: "me", parameters: parameters).start(completionHandler: {[weak self]
+            connection, result, error -> Void in
+            
+            if error != nil {
+                print("登入失敗")
+          //      print("longinerror =\(error)")
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                
+            } else {
+      
+                if let resultNew = result as? [String:Any]{
+                  //  print(resultNew)
+                    let name = resultNew["name"] as? String
+                    let id = resultNew["id"] as? String
+                    
+                    var picURL = String()
+                    if let photo = resultNew["picture"] as? NSDictionary{
+                        let data = photo["data"] as! NSDictionary
+                        picURL = data["url"] as! String
+                 //       print(name , picURL)
+                    }
+                    
+                    
+                    //register
+                    
+                    let newURL = picURL.replacingOccurrences(of: "&", with: "__")
+                    
+                    self!.fbRegister(fbid: id!, nickname: name!, ava:newURL)
+                    
+                    
+                }
+                
+                
+                
+                /*
+                 if let resultNew = result as? [String:Any]{
+                 
+                 print("成功登入")
+                 
+                 let email = resultNew["email"]  as! String
+                 print(email)
+                 
+                 let firstName = resultNew["first_name"] as! String
+                 print(firstName)
+                 
+                 let lastName = resultNew["last_name"] as! String
+                 print(lastName)
+                 
+                 if let picture = resultNew["picture"] as? NSDictionary,
+                 let data = picture["data"] as? NSDictionary,
+                 let url = data["url"] as? String {
+                 print(url) //臉書大頭貼的url, 再放入imageView內秀出來
+                 }
+                 }
+                 */
+            }
+        })
+        
+        
+        
+        
+        
+        
+        /*
+         guard let _ = FBSDKAccessToken.current else{return}
+         let param = ["fields":"name, email , picture.width(200).height(200)"]
+         let graphRequest = FBSDKGraphRequest(graphPath: "me",parameters: param)
+         
+         graphRequest?.start { [weak self];(urlResponse, requestResult),<#arg#>  in
+         switch requestResult{
+         case .failed(let error):
+         self!.activityIndicator.stopAnimating()
+         UIApplication.shared.endIgnoringInteractionEvents()
+         print(error)
+         case .success(response: let graphResponse):
+         if let responseDictionary = graphResponse.dictionaryValue{
+         print(responseDictionary)
+         let name = responseDictionary["name"] as? String
+         let id = responseDictionary["id"] as? String
+         
+         var picURL = String()
+         if let photo = responseDictionary["picture"] as? NSDictionary{
+         let data = photo["data"] as! NSDictionary
+         picURL = data["url"] as! String
+         print(name , picURL)
+         }
+         
+         
+         //register
+         
+         let newURL = picURL.replacingOccurrences(of: "&", with: "__")
+         
+         self!.fbRegister(fbid: id!, nickname: name!, ava:newURL)
+         
+         
+         }
+         }
+         }
+         */
+    }
+    
+    /*
+    func getDetails(){
+        guard let _ = FBSDKAccessToken.current else{return}
+        let param = ["fields":"name, email , picture.width(200).height(200)"]
+        let graphRequest = FBSDKGraphRequest(graphPath: "me",parameters: param)
+        
+        graphRequest?.start { [weak self](urlResponse, requestResult) in
             switch requestResult{
             case .failed(let error):
                 self!.activityIndicator.stopAnimating()
@@ -1115,7 +1264,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         }
     }
     
-    
+    */
     
     @IBAction func registerLaterBtnClicked(_ sender: Any) {
         

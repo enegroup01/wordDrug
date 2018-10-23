@@ -1,5 +1,6 @@
 # Magnetic
 
+[![Build Status](https://travis-ci.org/efremidze/Magnetic.svg?branch=master)](https://travis-ci.org/efremidze/Magnetic)
 [![Language](https://img.shields.io/badge/Swift-4-orange.svg?style=flat)](https://swift.org)
 [![Version](https://img.shields.io/cocoapods/v/Magnetic.svg?style=flat)](http://cocoapods.org/pods/Magnetic)
 [![License](https://img.shields.io/cocoapods/l/Magnetic.svg?style=flat)](http://cocoapods.org/pods/Magnetic)
@@ -21,6 +22,7 @@ $ pod try Magnetic
 - [x] Multiple Selection
 - [x] Images
 - [x] Multiline Label
+- [x] [Documentation](https://efremidze.github.io/Magnetic)
 
 ## Requirements
 
@@ -145,6 +147,10 @@ To install with [Carthage](https://github.com/Carthage/Carthage), simply add thi
 ```ruby
 github "efremidze/Magnetic"
 ```
+
+## Mentions
+
+- [Natasha The Robot's Newsleter 126](https://swiftnews.curated.co/issues/126#start)
 
 ## Communication
 

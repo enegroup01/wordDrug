@@ -742,6 +742,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     
     @IBAction func logOutClicked(_ sender: Any) {
         
+        user = nil
         UserDefaults.standard.removeObject(forKey: "parseJSON")
         
         /*

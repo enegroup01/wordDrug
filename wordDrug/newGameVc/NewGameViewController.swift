@@ -586,11 +586,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: ghostBtn)
         
 
-        
-        
         //做reviewAlert
         reviewWordBg.frame = CGRect(x: width / 2 - 237 * dif * iPadDif / 2, y: height / 3, width: 237 * dif * iPadDif, height: 214 * dif * iPadDif)
-        
         
         
         reviewWordBg.image = UIImage(named:"reviewWordResultBg.png")
@@ -3170,6 +3167,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
             let updatePoints = Int(scoreLabel.text!)! - originalPoints
+            
+            
             updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
             
             
@@ -4765,15 +4764,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
         
-        utterance2.voice = AVSpeechSynthesisVoice(language: "en-US")
+        //utterance2.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance2.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
         utterance2.rate = rateFloat
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = rateFloat
+        //utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         
+        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
+    
+        utterance.rate = rateFloat
         
         stopSpeech()
         synth.speak(utterance)
         
+        //print(AVSpeechSynthesisVoice.speechVoices())
     }
     
     

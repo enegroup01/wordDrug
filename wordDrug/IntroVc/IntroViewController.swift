@@ -625,7 +625,11 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             utterance.postUtteranceDelay = 0
         
         
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+       // utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
+
+        
+        
         utterance.rate = Float(rateFloat)
         synth.speak(utterance)
         

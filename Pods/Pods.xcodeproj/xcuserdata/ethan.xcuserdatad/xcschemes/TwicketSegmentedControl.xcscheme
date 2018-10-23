@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0940"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F75263E0B46CB4B38FA3A65A25C75012"
+               BlueprintIdentifier = "EB6A275D8F791F76DAC1CC3E292D0F88"
                BuildableName = "TwicketSegmentedControl.framework"
                BlueprintName = "TwicketSegmentedControl"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F75263E0B46CB4B38FA3A65A25C75012"
+            BlueprintIdentifier = "EB6A275D8F791F76DAC1CC3E292D0F88"
             BuildableName = "TwicketSegmentedControl.framework"
             BlueprintName = "TwicketSegmentedControl"
             ReferencedContainer = "container:Pods.xcodeproj">

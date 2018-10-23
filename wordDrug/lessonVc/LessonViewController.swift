@@ -68,8 +68,6 @@ class LessonViewController: UIViewController{
     
     //收到的課程數字
     var courseReceived = Int()
-    
-    
     var isClassAllPassed = false
     
     var maxMapNum = Int()
@@ -84,7 +82,6 @@ class LessonViewController: UIViewController{
     var lessonSmallFontSize: CGFloat!
     
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

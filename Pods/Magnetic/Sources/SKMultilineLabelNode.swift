@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-open class SKMultilineLabelNode: SKNode {
+@objcMembers open class SKMultilineLabelNode: SKNode {
     
     open var text: String? { didSet { update() } }
     
@@ -33,9 +33,9 @@ open class SKMultilineLabelNode: SKNode {
         var stack = Stack<String>()
         var sizingLabel = makeSizingLabel()
         let words = separator.map { text.components(separatedBy: $0) } ?? text.map { String($0) }
-        for word in words {
+        for (index, word) in words.enumerated() {
             sizingLabel.text += word
-            if sizingLabel.frame.width > width {
+            if sizingLabel.frame.width > width, index > 0 {
                 stack.add(toStack: word)
                 sizingLabel = makeSizingLabel()
             } else {

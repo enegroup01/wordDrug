@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0940"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3A1197FB63B3263CF3D1AD357E556E3C"
+               BlueprintIdentifier = "73E433C6DCFBB12C3EB589DA3BB149ED"
                BuildableName = "SwiftSiriWaveformView.framework"
                BlueprintName = "SwiftSiriWaveformView"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3A1197FB63B3263CF3D1AD357E556E3C"
+            BlueprintIdentifier = "73E433C6DCFBB12C3EB589DA3BB149ED"
             BuildableName = "SwiftSiriWaveformView.framework"
             BlueprintName = "SwiftSiriWaveformView"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -12,11 +12,7 @@ import StoreKit
 
 let purchasedKey = "purchased"
 let failedToPurchaseKey = "failedToPurchase"
-/*
-let restoredKey = "restored"
-let startToRestoreKey = "startToRestore"
-let failedToRestoreKey = "failedToRestore"
-*/
+
 class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     @IBOutlet weak var upBg: UIImageView!
     
@@ -76,17 +72,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         NotificationCenter.default.addObserver(self, selector: #selector(PurchaseViewController.purchasedFunc), name: NSNotification.Name("purchased"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PurchaseViewController.failedFunc), name: NSNotification.Name("failedToPurchase"), object: nil)
         
-        
-        /*
-                NotificationCenter.default.addObserver(self, selector: #selector(PurchaseViewController.restoredFunc), name: NSNotification.Name("restore"), object: nil)
-                    NotificationCenter.default.addObserver(self, selector: #selector(PurchaseViewController.startToRestore), name: NSNotification.Name("startToRestore"), object: nil)
-                    NotificationCenter.default.addObserver(self, selector: #selector(PurchaseViewController.failedToRestore), name: NSNotification.Name("failedToRestore"), object: nil)
-        */
-        
-        
-        var iPadSmall = CGFloat()
-            var xDif = CGFloat()
-         var cellDif = CGFloat()
+      
+   
+        var xDif = CGFloat()
+   
 
         var btnDif:CGFloat!
 
@@ -97,23 +86,20 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             newDif = 1.35
             dif = 8
             
-            cellDif = 1.2
             xDif = 0
-            iPadSmall = 0
+         
             iPadDif = 2.5
             titleFontSize = 56
             subTitleFontSize = 32
             btnDif = 1.5
             
-
-            
+    
         case 1024:
             newDif = 1.35
             dif = 8
-            
-            cellDif = 1.2
+          
             xDif = 0
-            iPadSmall = 0
+   
             iPadDif = 1.8
             titleFontSize = 45
             subTitleFontSize = 24
@@ -124,10 +110,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             //iPhoneX
             newDif = 1.35
             dif = 8
-  
-            cellDif = 1.2
-                 xDif = 25
-            iPadSmall = 0
+
+            xDif = 25
+
             iPadDif = 1.2
             titleFontSize = 26
             subTitleFontSize = 18
@@ -138,9 +123,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             newDif = 1.1
             dif = 0
   
-            cellDif = 1.1
-                 xDif = 10
-            iPadSmall = 0
+            xDif = 10
+     
             iPadDif = 1.2
             titleFontSize = 28
             subTitleFontSize = 18
@@ -151,9 +135,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             newDif = 1
             dif = 0
    
-            cellDif = 1
-                 xDif = 10
-            iPadSmall = 0
+            xDif = 10
             iPadDif = 1
             titleFontSize = 26
             subTitleFontSize = 16
@@ -162,10 +144,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         case 568:
             
             newDif = 0.9
-            cellDif = 0.9
-                 xDif = 10
+      
+            xDif = 10
             dif = 0
-            iPadSmall = 0
+
             iPadDif = 0.9
             titleFontSize = 24
             subTitleFontSize = 14
@@ -181,14 +163,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         upBg.contentMode = .scaleAspectFill
         
         upBg.anchor(top: nil, leading: view.safeLeftAnchor, bottom: view.centerYAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -height / 10, right: 0))
-
-
-        
         
         //purchaseBtn.frame = CGRect(x: 0, y: upBg.frame.maxY, width: width, height: 72)
-     
-        
-        
+
         //downBg.frame = CGRect(x: 0, y: purchaseBtn.frame.maxY, width: width, height: height - upBg.frame.height - purchaseBtn.frame.height)
         
 
@@ -196,9 +173,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         purchaseBtn.anchor(top: upBg.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: height / 10))
        // purchaseBtn.titleLabel?.font = purchaseBtn.titleLabel?.font.withSize(titleFontSize)
         
-        
-        
-        
+ 
         
         downBg.anchor(top: purchaseBtn.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor)
         
@@ -336,8 +311,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
  
         self.view.bringSubview(toFront: practiceWordBtn)
         //self.view.bringSubview(toFront: practiceSenBtn)
-        
-        
+  
       
        // restoreBtn.frame = CGRect(x: width - 81 * 1.05, y: purchaseBtn.frame.minY - 31, width: 81 , height: 26 )
         
@@ -353,12 +327,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         restoreMsgLabel.textAlignment = .center
         restoreMsgLabel.adjustsFontSizeToFitWidth = true
         
-        
-        
+       
         restoreBtn.anchor(top: restoreMsgLabel.bottomAnchor, leading: restoreMsgLabel.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 81 * btnDif, height: 26 * btnDif))
         restoreBtn.titleLabel?.font = restoreBtn.titleLabel?.font.withSize(subTitleFontSize * 0.7)
-        
-
         
         removeBtns()
         
@@ -403,8 +374,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         practiceWordBtn.isHidden = true
         practiceSenBtn.isHidden = true
 
-        
-        
         //show error msgs
         if isDirectedFromGame{
             
@@ -428,22 +397,20 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         activityIndicator.backgroundColor = alphaGray
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
+      
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        
-        
+
         isDirectToRegister = false
         purchaseBtn.isEnabled = false
         restoreBtn.isEnabled = false
         
-        
         let productIdentifiers: Set<String> = ["unlockTimeLimit"]
+       
         let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
         productRequest.delegate = self
         productRequest.start()
-
-        
+    
         
         //確認是否有購買
         
@@ -496,91 +463,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
         }
         
-        /*
-        if user != nil {
 
-        
-        if let isPurchased = user?["isPurchased"] as? String{
-            
-            if isPurchased == "0" {
-                
-           
-                
-                print("not yet purchased")
-                
-                SKPaymentQueue.default().add(self)
-                
-                let productIdentifiers: Set<String> = ["unlockTimeLimit"]
-                let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
-                productRequest.delegate = self
-                
-                productRequest.start()
-
-                let attrWords = NSMutableAttributedString()
-                
-                let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)]
-                
-                let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
-                
-                let btnText = NSMutableAttributedString(string: "購買無限學習時間", attributes: attrs0)
-                let btnText2 = NSMutableAttributedString(string: "$ 90.00", attributes: attrs1)
-                
-                attrWords.append(btnText)
-                attrWords.append(NSAttributedString(string: "\n"))
-                attrWords.append(btnText2)
-                
-                purchaseBtn.titleLabel?.numberOfLines = 2
-                purchaseBtn.titleLabel?.textAlignment = .center
-                purchaseBtn.setAttributedTitle(attrWords, for: .normal)
-                
-            
-            } else if isPurchased == "1" {
-                
-                
-                //已購買
-                print("purchased!")
-                
-                activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-           
-                purchasedBtnText()
-                
-            }
-            
-        }
-        } else {
-            
-            SKPaymentQueue.default().add(self)
-            
-            let productIdentifiers: Set<String> = ["unlockTimeLimit"]
-            let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
-            productRequest.delegate = self
-            
-            productRequest.start()
-            
-            let attrWords = NSMutableAttributedString()
-            
-            let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)]
-            
-            let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 24)]
-            
-            let btnText = NSMutableAttributedString(string: "購買無限學習時間", attributes: attrs0)
-            let btnText2 = NSMutableAttributedString(string: "$ 90.00", attributes: attrs1)
-            
-            attrWords.append(btnText)
-            attrWords.append(NSAttributedString(string: "\n"))
-            attrWords.append(btnText2)
-            purchaseBtn.titleLabel?.numberOfLines = 2
-            purchaseBtn.titleLabel?.textAlignment = .center
-            purchaseBtn.setAttributedTitle(attrWords, for: .normal)
-           // purchaseBtn.isUserInteractionEnabled = false
-            
-            
-            purchaseBtn.isEnabled = true
-            isDirectToRegister = true
-        }
-        
-        */
         
         
     }
@@ -601,7 +484,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         //暫時先使用在這裡
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
-        // updatePurchased()
         
         purchasedBtnText()
         
@@ -630,73 +512,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     }
     
+   
     
-    /*
-    @objc func restoredFunc(){
-        
-        
-        
-        //SKPaymentQueue.default().finishTransaction(transaction)
-        print("restored")
-        isRestore = true
-        
-        activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-        
-        
-        restoreTimer.invalidate()
-        second = 0
-        
-        ghostBtn.isHidden = false
-        alertBg.isHidden = false
-        alertText.text = "\n您已成功恢復之前的購買紀錄!"
-        practiceWordBtn.isHidden = false
-        practiceSenBtn.isHidden = false
-        
-        
-        UserDefaults.standard.set(true, forKey: "isPurchased")
-        purchasedBtnText()
- 
-    }
-    
-    
-    @objc func startToRestore(){
-        
-        
-        print("start to restore counting")
-        
-        restoreTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PurchaseViewController.countTime), userInfo: nil, repeats: true)
-
-        
-    }
-    
-    
-    
-    @objc func failedToRestore(){
-        
-        
-        print("failed to restore")
-        
-        //此處應該要印出error訊息, 才不會誤導使用者
-        
-        activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-        
-        
-        ghostBtn.isHidden = false
-        alertBg.isHidden = false
-        alertText.text = "\n恢復購買失敗，請聯絡蘋果客服!"
-        
-        //目前會顯示錯誤訊息
-        //alertText.text = "\n\(error.localizedDescription)"
-        
-        practiceWordBtn.isHidden = false
-        practiceSenBtn.isHidden = false
-
- 
-        
-    }
- */
     func purchasedBtnText(){
         
         print("2")
@@ -730,6 +547,35 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     }
     
     
+    func errorLoadingProductBtnText(){
+        
+        
+        let attrWords = NSMutableAttributedString()
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
+        
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
+        
+        let btnText = NSMutableAttributedString(string: "請檢查網路連線後再試一次", attributes: attrs0)
+        let btnText2 = NSMutableAttributedString(string: "Sorry!", attributes: attrs1)
+        
+        attrWords.append(btnText)
+        attrWords.append(NSAttributedString(string: "\n"))
+        attrWords.append(btnText2)
+        
+        
+        purchaseBtn.titleLabel?.numberOfLines = 2
+        purchaseBtn.titleLabel?.textAlignment = .center
+        purchaseBtn.setAttributedTitle(attrWords, for: .normal)
+        
+        
+        purchaseBtn.isUserInteractionEnabled = false
+        
+        
+        purchaseBtn.isEnabled = false
+        
+        
+    }
     
     
     
@@ -767,9 +613,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         NotificationCenter.default.removeObserver(self)
         
-        
         restoreTimer.invalidate()
-        
         
         //這應該不用在這裡remove
         //SKPaymentQueue.default().remove(self)
@@ -785,24 +629,51 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         print("loaded product")
         
+         if response.products.count > 0 {
+            
+            print("products found")
+        
         for product in response.products{
             
             
             print("product:\(product.productIdentifier), \(product.localizedTitle), \(product.price.floatValue )")
-            
             
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
             
             activeProduct = product
             
-            
             purchaseBtn.isEnabled = true
             restoreBtn.isEnabled = true
             
+            }
+    
+         } else {
+            
+            print("no products found")
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+            purchaseBtn.isEnabled = false
+            restoreBtn.isEnabled = false
+            
+            //寫一個網路太慢讀不到的反應
+            errorLoadingProductBtnText()
             
         }
         
+    }
+    
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        
+        print(error)
+        
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+        purchaseBtn.isEnabled = false
+        restoreBtn.isEnabled = false
+        
+        //寫一個網路太慢讀不到的反應
+        errorLoadingProductBtnText()
     }
     
     
@@ -810,7 +681,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         if let activeProduct = activeProduct {
             
-                    print("buying")
+            print("buying")
             
             activityIndicator.startAnimating()
             UIApplication.shared.beginIgnoringInteractionEvents()
@@ -818,23 +689,17 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             let payment = SKPayment(product: activeProduct)
             SKPaymentQueue.default().add(payment)
             
-
-            
         }
-
-        
-        
+    
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        
         if segue.identifier == "fromPurchaseToRegisterVc"{
             
             let destineVc = segue.destination as! RegisterViewController
             destineVc.isDirectedHere = true
-            
             
         }
     }
@@ -875,6 +740,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 UserDefaults.standard.set(true, forKey: "isPurchased")
                 purchasedBtnText()
                 
+                
             default:
                 break
             }
@@ -883,103 +749,14 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
     }
     
-    /*
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        
-        for transaction in transactions{
-            
-            
-            switch (transaction.transactionState){
-                
-                
-            case .restored:
-                
-               
-                SKPaymentQueue.default().finishTransaction(transaction)
-                print("restored")
-                isRestore = true
-                
-                activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-                
-                
-                restoreTimer.invalidate()
-                second = 0
-                
-                ghostBtn.isHidden = false
-                alertBg.isHidden = false
-                alertText.text = "\n您已成功恢復之前的購買紀錄!"
-                practiceWordBtn.isHidden = false
-                practiceSenBtn.isHidden = false
-                
-                
-                UserDefaults.standard.set(true, forKey: "isPurchased")
-                purchasedBtnText()
-                
-                
-            case .purchased:
-                
-                SKPaymentQueue.default().finishTransaction(transaction)
-                print("purchased")
-                //Apply purchase here, store info in userDefaults....
-                
-                //紀錄已購買
-                UserDefaults.standard.set(true, forKey: "isPurchased")
-
-                
-                //暫時先使用在這裡
-                activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-               // updatePurchased()
-                
-                purchasedBtnText()
-                
-                
-            case .failed:
-                
-                SKPaymentQueue.default().finishTransaction(transaction)
-                print("failed")
-                
-                activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-
-
-                ghostBtn.isHidden = false
-                alertBg.isHidden = false
-                alertText.text = "\n您還沒有購買無限時間喔!"
-                practiceWordBtn.isHidden = false
-                practiceSenBtn.isHidden = false
-
-
-                /*
-                //show error msgs
-                if isDirectedFromGame{
-                    
-                    self.dismiss(animated: false, completion: nil)
-                } else {
-                    
-                }
-                */
-     
-   
-            default:
-           break
-                
-            }
-   
-        }
-        
-
-    }
-*/
-    
-    
+  
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         
         //啟動倒數timer
         
         restoreTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PurchaseViewController.countTime), userInfo: nil, repeats: true)
+        
         
     }
     
@@ -1001,6 +778,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             if !isRestore{
                 
                 print("沒有東西restored")
+           
+
                 
                 activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
@@ -1059,84 +838,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
     }
     
-    
-    
-    //這部分應該暫時用不到
-    func updatePurchased(){
-        
-        
-        let id = user?["id"] as! String
-        
-        // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updatePurchased.php")!
-        
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "POST"
-        
-        // body gonna be appended to url
-        let body = "id=\(id)"
-        
-        // append body to our request that gonna be sent
-        request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-            // no error
-            
-            
-            if error == nil {
-                
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        
-                        return
-                    }
-                    
-                    //再次儲存使用者資訊
-                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    
-                    UserDefaults.standard.set(1, forKey: "isPurchased")
-                    
-                    DispatchQueue.main.async(execute: {
-                    
-                        self!.purchasedBtnText()
-                        
-                        self!.activityIndicator.stopAnimating()
-                        UIApplication.shared.endIgnoringInteractionEvents()
-                        
-                        
-                    })
-          
-                    
-                    print(user!)
-                    print("purchased updated")
-                    
-                } catch{
-                    
-                    print("catch error")
-                    
-                    
-                }
-            } else {
-                print("urlsession has error")
-                
-            }
-        }).resume()
-        
-        
-        
-    }
-    
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -1146,14 +848,5 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         self.dismiss(animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
