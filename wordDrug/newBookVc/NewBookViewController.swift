@@ -108,8 +108,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //我的最愛圖片是否要顯示的array
     var myFavImgs = [Int]()
     
-
-    
     //collection選到的index
     var collectionSelectedIndex:Int?
     
