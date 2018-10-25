@@ -2752,7 +2752,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
  */
              //#新寫法
             
-            indexToChange = sortedSylArray.firstIndex(of: sylTextLabel.text!)!
+            indexToChange = sortedSylArray.index(of: sylTextLabel.text!)!
+          //  indexToChange = sortedSylArray.firstIndex(of: sylTextLabel.text!)!
             
  
             //假如找到的話就做collecitonView更新
@@ -2886,7 +2887,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //找對應的row, 並跳過去
         //#新寫法
       
-        if let indexToJump = syllablesSelected.firstIndex(of: sylSelected) {
+
+        if let indexToJump = syllablesSelected.index(of: sylSelected) {
+        
+      //  if let indexToJump = syllablesSelected.firstIndex(of: sylSelected) {
         if indexToJump < tableView.numberOfRows(inSection: 0){
             
             if indexToJump == 0 {
