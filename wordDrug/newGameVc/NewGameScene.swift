@@ -225,6 +225,8 @@ class NewGameScene: SKScene {
     var hintSec = Int()
     
     var tempGamePassedDic:[Int:Int]?
+    
+    var isReplay = false
 
     override func didMove(to view: SKView) {
         
@@ -992,9 +994,15 @@ class NewGameScene: SKScene {
         let xFactor = ballDif * dif * xDif * iPhonePlusHeightDif
         let yFactor = ballDif * dif * yDif * iPhonePlusHeightDif
     
+        var scoreAlpha:CGFloat!
         
+        if isReplay{
+           scoreAlpha = 0
+        } else {
+            scoreAlpha = 1
+        }
         
-        makeLabelNode(x: 280 * xFactor, y: 340 * yFactor + iPhone8YDif, alignMent: .right, fontColor: textColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: 1)
+        makeLabelNode(x: 280 * xFactor, y: 340 * yFactor + iPhone8YDif, alignMent: .right, fontColor: textColor, fontSize: 35, text: "0", zPosition: 1, name: "scoreLabel", fontName: "Helvetica Neue", isHidden: false, alpha: scoreAlpha)
 
         // 製作TimerBg & timer label
         
@@ -3356,7 +3364,29 @@ class NewGameScene: SKScene {
             
             //在此確認是否為雙數結束
             
+            
             if (unitNumber + 1) % 2 == 0{
+                
+                
+                if isReplay {
+                    
+                    //複習模式就不做popQuiz
+                    
+                    
+                    if user != nil {
+                        //這是連接後端的func
+                        addWrongWords()
+                    }
+                    
+                    
+                    let threeWords:[String:[String]] = ["engWords":allThreeEngWords,"chiWords":allThreeChiWords,"wrongWords":wrongWords,"score":["0"],"correctResults":correctResults,"popQuizRight":[String(popQuizRight)],"wrongChinese":wrongChinese]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveGame"), object: nil, userInfo: threeWords)
+
+                    
+                    
+                } else {
+                
+                
                 
                 //雙數結尾
                 
@@ -3381,7 +3411,7 @@ class NewGameScene: SKScene {
                     self!.setupPopQuizScreen()
                     self!.popQuiz()
                 }
-                
+                }
                 
             } else {
                 
@@ -3757,7 +3787,7 @@ class NewGameScene: SKScene {
                                 //再次儲存使用者資訊
                                 UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                                 user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                                print(user!)
+                                //print(user!)
                                 
                             } catch{
                                 

@@ -27,7 +27,9 @@ class LessonViewController: UIViewController{
     let pinkColor = UIColor.init(red: 247/255, green: 127/255, blue: 124/255, alpha: 1)
     var mapNumToReceive = Int()
    
+    @IBOutlet weak var previousBtn: UIButton!
     
+    @IBOutlet weak var nextBtn: UIButton!
     //被選擇到的音節
     var syllableSets = [[String]()]
     
@@ -80,6 +82,11 @@ class LessonViewController: UIViewController{
     var lessonTitleFontSize: CGFloat!
     var lessonBigFontSize: CGFloat!
     var lessonSmallFontSize: CGFloat!
+    
+    
+    var tempS:Int!
+    var tempU:Int!
+    
     
 
     override func viewDidLoad() {
@@ -543,6 +550,12 @@ class LessonViewController: UIViewController{
         //gamePassed = [4:3]
         //mapPassed = 0
         
+        //重置
+        enterBtn.setTitle("學習新字", for: .normal)
+        titleLabel.text = "即將學習\n下列三個新單字"
+        titleLabel.textColor = .white
+        
+        
         switch courseReceived {
         case 0:
             gamePassedDic = gamePassed!
@@ -583,7 +596,7 @@ class LessonViewController: UIViewController{
         
     
         
-        if isClassAllPassed == false{
+     //   if isClassAllPassed == false{
 
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedStringKey.foregroundColor : pinkColor]
@@ -680,51 +693,47 @@ class LessonViewController: UIViewController{
         
         //再把數字減回來
         mapNumToReceive -= increaseNum
-            print("mapNumToReceive:\(mapNumToReceive)")
-            
-        if mapNumToReceive == mapPassedInt {
+        
+  //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
             //抓目前的元素
             
+        
             for (s,u) in gamePassedDic! {
                 
-                let syllableChosen = syllableSets[s][u]
+                if isClassAllPassed {
+                 
+                    mapNum = mapNumToReceive
+                    tempS = 14
+                    tempU = 9
+                    
+                    enterBtn.setTitle("開始複習", for: .normal)
+                    titleLabel.text = "複習下列\n三個學過的單字"
+                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                    
+                    
+                } else {
+                    //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
+                    mapNum = mapPassedInt
+
+                
+                tempS = s
+                tempU = u
+                }
+                let syllableChosen = syllableSets[tempS][tempU]
                 
                 let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
                 
                 syllablesWithoutDigit = syllableChosenArray[0]
                 syllableLabel.text = syllablesWithoutDigit
          
-                //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
-                mapNum = mapPassedInt
                 
-                spotNum = s
-                unitNum = u
-                progressFloat = CGFloat(u + 1)
+                spotNum = tempS
+                unitNum = tempU
+                progressFloat = CGFloat(tempU + 1)
                 
             }
             print("############got mapnum:\(mapNum)")
-        } else {
-            
-  
-            //這裡是進不來的地方
-            
-            //跳轉到該地圖的第一個元素
-            
-            mapNum = mapNumToReceive
-            spotNum = 0
-            unitNum = 0
-            progressFloat = 10
-            
-            let syllableChosen = syllableSets[spotNum][unitNum]
-            
-            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-            
-            syllablesWithoutDigit = syllableChosenArray[0]
-            
-            syllableLabel.text = syllablesWithoutDigit
-            
-            }
-        
+        //}
  
         //第幾課
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
@@ -924,7 +933,11 @@ class LessonViewController: UIViewController{
         //音節發音
         //synPronounce()
         
-        } else {
+        //}
+        
+        
+        /*
+        else {
             
             //複習模式
             
@@ -966,6 +979,333 @@ class LessonViewController: UIViewController{
             syllableLabel.textAlignment = .center
 
         }
+        
+      */
+    }
+    
+    //寫一個獨立的讀取單字功能
+    func loadWords(seq:Int){
+        
+        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedStringKey.foregroundColor : pinkColor]
+        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
+        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+
+        
+        var syllablesWithoutDigit = String()
+        
+        var progressFloat = CGFloat()
+        
+        //首先抓音節
+  
+
+            
+            if seq > 0 {
+
+                //下一課
+                
+                if tempU < 9 {
+                    //直接加一
+                    tempU += 1
+                    
+        
+                    
+                } else {
+                    //假如u == 9, 要加ｓ
+                
+                    if tempS < 14 {
+                        //直接 +1
+                        
+                        
+                        tempS += 1
+                        tempU = 0
+                        
+                        
+                    } else {
+                        //全部練完
+                        print("全部練完")
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+
+                
+                for (s,u) in gamePassedDic!{
+                    
+                    if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
+                        
+                        
+                        enterBtn.setTitle("學習新字", for: .normal)
+                        titleLabel.text = "即將學習\n下列三個新單字"
+                        titleLabel.textColor = .white
+                        
+                    }
+                }
+                
+                
+                
+                
+            } else {
+                
+                //上一課
+                
+                if tempU > 0 {
+                    //直接減一
+                    tempU -= 1
+                    
+                    
+                    
+                    
+                } else {
+                    //假入u == 0,  要扣 s
+                    
+                    if tempS > 0 {
+                        //直接 -1
+                        
+                        tempS -= 1
+                        tempU = 9
+                        
+                        
+                    } else {
+                        
+                        print("全部練完")
+                    }
+ 
+                    
+                }
+  
+                
+            }
+            
+            let syllableChosen = syllableSets[tempS][tempU]
+            
+            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+            
+            syllablesWithoutDigit = syllableChosenArray[0]
+            syllableLabel.text = syllablesWithoutDigit
+            
+            //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
+        if isClassAllPassed {
+         
+            mapNum = mapNumToReceive
+        } else {
+            mapNum = mapPassedInt
+        }
+            spotNum = tempS
+            unitNum = tempU
+            progressFloat = CGFloat(tempU + 1)
+    
+        
+           print("progressFloat\(progressFloat)")
+            
+        
+
+        //第幾課
+        let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
+        lessonText.append(NSMutableAttributedString(string: " / 15", attributes: attrs1))
+        lessonLabel.attributedText = lessonText
+        
+        //進度條
+        print("讀取進度條")
+        //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
+       // progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
+        
+        //print("widthChange:\(width * progressFloat / 10)")
+
+        //MARK: 讀取文字檔
+        //讀取Bundle裡的文字檔
+        var wordFile:String?
+        
+        //供抓字用 & pass給 gameVc
+        mapNum += increaseNum
+        
+        let name = String(mapNum + 1) + "-" + String(spotNum + 1)
+        
+        //print(name)
+        
+        if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+            do {
+                wordFile = try String(contentsOfFile: filepath)
+                let words = wordFile?.components(separatedBy: "; ")
+                
+                //把字讀取到wordSets裡
+                wordSets = words!
+                //print(contents)
+            } catch {
+                // contents could not be loaded
+            }
+        } else {
+            // example.txt not found!
+        }
+        
+        mapNum -= increaseNum
+        
+        //這個engWords是尚未attr的, attr完的是
+        var allThreeEngWordsArray = [[String]]()
+        var allThreeEngWords = [String]()
+        
+        let engWord0 = wordSets[unitNum * 3].components(separatedBy: " ")
+        let engWord1 = wordSets[unitNum * 3 + 1].components(separatedBy: " ")
+        let engWord2 = wordSets[unitNum * 3 + 2].components(separatedBy: " ")
+        
+        allThreeEngWordsArray.append(engWord0)
+        allThreeEngWordsArray.append(engWord1)
+        allThreeEngWordsArray.append(engWord2)
+        
+        
+        for i in 0 ..< allThreeEngWordsArray.count{
+            var word = String()
+            
+            for syl in allThreeEngWordsArray[i]{
+                
+                word = word + syl
+            }
+            
+            allThreeEngWords.append(word)
+        }
+        
+        var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
+        
+        
+        //MARK: 音節變色
+        if syllablesWithoutDigit.contains("_"){
+            //specialE的作法
+            
+            var characters = [Character]()
+            let vowels = ["a","e","i","o","u"]
+            
+            //每一個英文字節拆字母
+            for w in 0 ..< allThreeEngWordsArray.count{
+                
+                for i in 0 ..< allThreeEngWordsArray[w].count{
+                    
+                    characters.removeAll(keepingCapacity: false)
+                    
+                    for c in allThreeEngWordsArray[w][i]{
+                        
+                        characters.append(c)
+                    }
+                    
+                    if characters.count == 3{
+                        if characters[2] == "e"{
+                            
+                            if vowels.contains(String(characters[0])){
+                                
+                                
+                                //剛好是_e部首
+                                let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs2)
+                                attrWords[w].append(word)
+                                let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs3)
+                                attrWords[w].append(word1)
+                                let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs2)
+                                attrWords[w].append(word2)
+                                
+                                
+                            } else {
+                                
+                                for c in 0 ..< characters.count {
+                                    
+                                    let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
+                                    attrWords[w].append(word)
+                                }
+                                
+                            }
+                            
+                        } else {
+                            
+                            for c in 0 ..< characters.count {
+                                
+                                let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
+                                attrWords[w].append(word)
+                            }
+                            
+                        }
+                        
+                    } else {
+                        
+                        for c in 0 ..< characters.count {
+                            
+                            let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
+                            attrWords[w].append(word)
+                        }
+                        
+                    }
+                    
+                }
+            }
+            
+        } else {
+            //非specialE的作法
+            
+            //抓三個字的array
+            for w in 0 ..< allThreeEngWordsArray.count{
+                
+                //抓array的音節,  只抓一個字
+                for i in 0 ..< allThreeEngWordsArray[w].count{
+                    
+                    if let engWord = allThreeEngWordsArray[w][i] as String?{
+                        
+                        if engWord == syllablesWithoutDigit{
+                            //符合部首字
+                            
+                            let word = NSMutableAttributedString(string: engWord, attributes: attrs2)
+                            attrWords[w].append(word)
+                            
+                            
+                        } else{
+                            //一般字元
+                            
+                            let word = NSMutableAttributedString(string: engWord, attributes: attrs3)
+                            
+                            attrWords[w].append(word)
+                            
+                        }
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+        //*** 以下為共同的造字func, 把字造到words裡
+        
+        for w in 0 ..< attrWords.count {
+            
+            for i in 0 ..< attrWords[w].count { //[w]
+                
+                if i == 0 {
+                    words[w] = attrWords[w][i] //[w]
+                    
+                } else {
+                    words[w].append(attrWords[w][i]) //[w]
+                }
+            }
+        }
+        
+        
+        //造完字後顯示出英文部分
+        firstLabel.attributedText = words[0]
+        secondLabel.attributedText = words[1]
+        thirdLabel.attributedText = words[2]
+        
+        enterBtn.isEnabled = true
+        
+        //指定音節
+        synWord = syllablesWithoutDigit
+        
+        //音節發音
+        //synPronounce()
+        
+    
+        
+        
     }
 
     @IBAction func enterGameClicked(_ sender: Any) {
@@ -1010,8 +1350,28 @@ class LessonViewController: UIViewController{
         
         if segue.identifier == "toGameVc"{
             let destinationVC = segue.destination as! NewGameViewController
-            destinationVC.spotNumber = spotNum
-            destinationVC.unitNumber = unitNum
+            //destinationVC.spotNumber = spotNum
+            //destinationVC.unitNumber = unitNum
+            
+            //#test: 試試看複習模式
+            destinationVC.spotNumber = tempS
+            destinationVC.unitNumber = tempU
+            
+            for (s,u) in gamePassedDic!{
+                
+                if tempU != u || tempS != s{
+                    //不是當下關卡
+                    
+
+                    destinationVC.isReplay = true
+                } else {
+                    
+                    destinationVC.isReplay = false
+                }
+                
+            }
+
+
             destinationVC.mapNumber = mapNum
             destinationVC.gameMode = gameMode
             destinationVC.courseReceived = courseReceived
@@ -1037,8 +1397,73 @@ class LessonViewController: UIViewController{
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    //MARK: button actions
+    
+    @IBAction func preBtnClicked(_ sender: Any) {
+        loadWords(seq: -1)
+        enterBtn.setTitle("開始複習", for: .normal)
+        titleLabel.text = "複習下列\n三個學過的單字"
+        titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+    }
+    
+    
+    @IBAction func nextBtnClicked(_ sender: Any) {
+        
+        //假如等於當下關卡就不能加１
+        
+        for (s,u) in gamePassedDic!{
+            
+            if tempU != u || tempS != s || mapNumToReceive != mapPassedInt{
+                //不是當下關卡
+                
+                loadWords(seq: 1)
+                
+            } else if !isClassAllPassed{
+                
+                print("是當下關卡")
+                enterBtn.setTitle("學習新字", for: .normal)
+                titleLabel.text = "即將學習\n下列三個新單字"
+                titleLabel.textColor = .white
+                
+            }
+            
+        }
+        
+        
+        
+    }
+    
+
 
 }
+
+
+/*
+else {
+ 
+ 
+    //這裡是進不來的地方
+ 
+    //跳轉到該地圖的第一個元素
+ 
+    mapNum = mapNumToReceive
+    spotNum = 0
+    unitNum = 0
+    progressFloat = 10
+ 
+    let syllableChosen = syllableSets[spotNum][unitNum]
+ 
+    let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+ 
+    syllablesWithoutDigit = syllableChosenArray[0]
+ 
+    syllableLabel.text = syllablesWithoutDigit
+ 
+}
+
+*/
 
 extension UIView{
     

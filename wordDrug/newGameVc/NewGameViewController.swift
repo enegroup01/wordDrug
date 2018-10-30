@@ -61,6 +61,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var unitNumber = Int()
     var mapNumber = Int()
     var gameMode = Int()
+    var isReplay = false
     
     
     //辨識聲音用的變數
@@ -122,7 +123,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var synth = AVSpeechSynthesizer()
     
     @IBOutlet weak var resultBg: UIImageView!
-          let resultTitleImg = UIImageView()
+    
+    let resultTitleImg = UIImageView()
     
     @IBOutlet weak var coverBg: UIImageView!
     @IBOutlet weak var firstWordBtn: UIButton!
@@ -553,6 +555,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //scoreLabel.backgroundColor = .brown
         
+        scoreLabel.adjustsFontSizeToFitWidth = true
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.widthAnchor.constraint(equalToConstant: 150 * dif * iPadDif).isActive = true
         scoreLabel.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
@@ -571,6 +574,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
         limitTimerLabel.textAlignment = .center
 
+        limitTimerLabel.adjustsFontSizeToFitWidth = true
         limitTimerLabel.widthAnchor.constraint(equalToConstant: 50 * iPadDif * dif).isActive = true
         limitTimerLabel.heightAnchor.constraint(equalToConstant: 20 * iPadDif * dif).isActive = true
         limitTimerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -1293,6 +1297,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if gameMode == 0 {
             
             
+            
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
         
             print("剩餘時間幾秒:\(limitSeconds)")
@@ -1300,8 +1305,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //limitSeconds = 2
             
             //不論如何都啟動, 但是有購買就會invalidate
-            limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
             
+            if !isReplay{
+            
+            limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
+            }
             //修正成要加increaseNum, lessonVc傳過來之前有扣除increaseNum
             let sentenceName = "s" + String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
             
@@ -1459,6 +1467,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 sceneNode.mapNumber =  mapNumber
                 sceneNode.gameMode = gameMode
                 sceneNode.courseReceived = courseReceived
+                sceneNode.isReplay = isReplay
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -1818,8 +1827,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //檢查這個有沒有問題
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "restartCounting"), object: nil, userInfo: nil)
         
-        
-        
+
         purchaseAlert.isHidden = true
         ghostBtn.isHidden = true
         alertBg.isHidden = true
@@ -1839,8 +1847,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if gameMode == 0 {
             
+            
             //沒有買的話
-            if isPurchased == false {
+            if isPurchased == false && !isReplay{
                 
                 limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
             }
@@ -1902,8 +1911,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("是否為重複玩:\(isReplay)")
 
-        
+  
         NotificationCenter.default.removeObserver(self)
         
         //離開遊戲
@@ -2034,6 +2044,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
+        if isReplay{
+            limitTimerLabel.textColor = pinkColor
+            limitTimerLabel.text = "[複習]"
+        }
         
     }
     
@@ -2205,8 +2219,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                         //第一次玩的人
 
                                         scoreLabel.text = "0"
+                                  
 
                                     }
+                                    
+                      
                                     
 
                                     moveUpAnimation(label: firstEngWord, text: firstEngWordText)
@@ -2224,8 +2241,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                     
                                     
                                     //popQuiz bonus加分
-                                    
-                                    
+                                    if isReplay{
+                                        
+                                        scoreLabel.text = "複習不計分"
+                                        wordCountLabel.text = "3"
+                                        bigOkBtn.isEnabled = true
+                                    } else {
                                     switch popQuizRight[0]{
                                         
                                     case "-1":
@@ -2256,172 +2277,252 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                     default:
                                         break
                                     }
-                                    
-                                    
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "playEndingMusic"), object: nil, userInfo: nil)
-                                    
-                                    //如果有錯就不算過關的條件
-                                    // if wrongWordsCount == 0 {}
-                                    
-                                    //目前這裡就先寫成都可以過關
-
-                                    
-                                    if user != nil {  // 要保留給第一次進入的玩家
-
                                         
-                                        print("過關卡")
+                                        //如果有錯就不算過關的條件
+                                        // if wrongWordsCount == 0 {}
                                         
-                                        //紀錄關卡
-                                        if unitNumber == 9{         //代表過一整個課程
+                                        //目前這裡就先寫成都可以過關
+                                        
+                                        
+                                        if user != nil {  // 要保留給第一次進入的玩家
                                             
-                                            //此探索點已過完, 此探索點要做動態化  ----中級為 14
-                                            if spotNumber == 14 {
+                                            
+                                            print("過關卡")
+                                            
+                                            //紀錄關卡
+                                            if unitNumber == 9{         //代表過一整個課程
                                                 
-                                                //確認是否為最後一張地圖
-                                                if mapPassedInt == maxMapNum{
+                                                //此探索點已過完, 此探索點要做動態化  ----中級為 14
+                                                if spotNumber == 14 {
                                                     
-                                                    // 破關訊息
+                                                    //確認是否為最後一張地圖
+                                                    if mapPassedInt == maxMapNum{
+                                                        
+                                                        // 破關訊息
+                                                        
+                                                        isCelebratingClassPassed = true
+                                                        bigOkBtn.setImage(UIImage(named:"classFinishedBtn.png"), for: .normal)
+                                                        
+                                                    } else {
+                                                        
+                                                        isCelebratingMapPassed = true
+                                                        bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
+                                                        
+                                                    }
                                                     
-                                                    isCelebratingClassPassed = true
-                                                    bigOkBtn.setImage(UIImage(named:"classFinishedBtn.png"), for: .normal)
+                                                    //MARK: must update
+                                                    switch courseReceived{
+                                                        
+                                                    case 0:
+                                                        mapPassed! += 1
+                                                        gamePassed = [0:0]
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed!
+                                                        gamePassedDic = gamePassed
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                                        UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                                                        
+                                                        //有更新地圖才執行
+                                                        
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 1:
+                                                        mapPassed2! += 1
+                                                        gamePassed2 = [0:0]
+                                                        
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed2!
+                                                        gamePassedDic = gamePassed2
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                                        UserDefaults.standard.set(mapPassed2!, forKey: "mapPassed2")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                                        
+                                                        //pending做一個純粹更新中級的sql
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 2:
+                                                        mapPassed3! += 1
+                                                        gamePassed3 = [0:0]
+                                                        
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed3!
+                                                        gamePassedDic = gamePassed3
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                                        UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                                                        
+                                                        //pending做一個純粹更新中級的sql
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 3:
+                                                        mapPassed4! += 1
+                                                        gamePassed4 = [0:0]
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed4!
+                                                        gamePassedDic = gamePassed4
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                                        UserDefaults.standard.set(mapPassed4!, forKey: "mapPassed4")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                                        
+                                                        //pending做一個純粹更新中級的sql
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                        
+                                                    case 4:
+                                                        mapPassed5! += 1
+                                                        gamePassed5 = [0:0]
+                                                        
+                                                        //設定給全部值供上傳後端
+                                                        mapPassedInt = mapPassed5!
+                                                        gamePassedDic = gamePassed5
+                                                        
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                                                        UserDefaults.standard.set(mapPassed5!, forKey: "mapPassed5")
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed5")
+                                                        
+                                                        //pending做一個純粹更新中級的sql
+                                                        updateMapPassed(course:courseReceived)
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                        
+                                                        
+                                                    default:
+                                                        break
+                                                        
+                                                    }
                                                     
                                                 } else {
                                                     
-                                                    isCelebratingMapPassed = true
-                                                    bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
+                                                    
+                                                    switch courseReceived{
+                                                        
+                                                    case 0:
+                                                        
+                                                        gamePassed = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                                        
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                                                        
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 1:
+                                                        
+                                                        gamePassed2 = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed2
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                                                        
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                                                        
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 2:
+                                                        
+                                                        gamePassed3 = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed3
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                                                        
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                                                        
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 3:
+                                                        
+                                                        gamePassed4 = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed4
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                                                        
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                                                        
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                    case 4:
+                                                        
+                                                        gamePassed5 = [spotNumber + 1:0]
+                                                        //設定給全部值供上傳後端
+                                                        gamePassedDic = gamePassed5
+                                                        
+                                                        //然後儲存
+                                                        let userDefaults = UserDefaults.standard
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                                                        
+                                                        userDefaults.set(encodedObject, forKey: "gamePassed5")
+                                                        
+                                                        updateGamePassed(course:courseReceived)
+                                                        
+                                                        
+                                                    default:
+                                                        break
+                                                        
+                                                    }
                                                     
                                                 }
                                                 
-                                                //MARK: must update
-                                                switch courseReceived{
-                                                    
-                                                case 0:
-                                                    mapPassed! += 1
-                                                    gamePassed = [0:0]
-                                                    
-                                                    //設定給全部值供上傳後端
-                                                    mapPassedInt = mapPassed!
-                                                    gamePassedDic = gamePassed
-                                                    
-                                                    //然後儲存
-                                                    let userDefaults = UserDefaults.standard
-                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                                    UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
-                                                    userDefaults.set(encodedObject, forKey: "gamePassed")
-                                                    
-                                                    //有更新地圖才執行
-                                                    
-                                                    updateMapPassed(course:courseReceived)
-                                                    updateGamePassed(course:courseReceived)
-                                                    
-                                                case 1:
-                                                    mapPassed2! += 1
-                                                    gamePassed2 = [0:0]
-                                                    
-                                                    
-                                                    //設定給全部值供上傳後端
-                                                    mapPassedInt = mapPassed2!
-                                                    gamePassedDic = gamePassed2
-                                                    
-                                                    
-                                                    //然後儲存
-                                                    let userDefaults = UserDefaults.standard
-                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                                                    UserDefaults.standard.set(mapPassed2!, forKey: "mapPassed2")
-                                                    userDefaults.set(encodedObject, forKey: "gamePassed2")
-                                                    
-                                                    //pending做一個純粹更新中級的sql
-                                                    updateMapPassed(course:courseReceived)
-                                                    updateGamePassed(course:courseReceived)
-                                                    
-                                                case 2:
-                                                    mapPassed3! += 1
-                                                    gamePassed3 = [0:0]
-                                                    
-                                                    
-                                                    //設定給全部值供上傳後端
-                                                    mapPassedInt = mapPassed3!
-                                                    gamePassedDic = gamePassed3
-                                                    
-                                                    
-                                                    //然後儲存
-                                                    let userDefaults = UserDefaults.standard
-                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                                                    UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
-                                                    userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                    
-                                                    //pending做一個純粹更新中級的sql
-                                                    updateMapPassed(course:courseReceived)
-                                                    updateGamePassed(course:courseReceived)
-                                                    
-                                                case 3:
-                                                    mapPassed4! += 1
-                                                    gamePassed4 = [0:0]
-                                                    
-                                                    //設定給全部值供上傳後端
-                                                    mapPassedInt = mapPassed4!
-                                                    gamePassedDic = gamePassed4
-                                                    
-                                                    
-                                                    //然後儲存
-                                                    let userDefaults = UserDefaults.standard
-                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                                                    UserDefaults.standard.set(mapPassed4!, forKey: "mapPassed4")
-                                                    userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                    
-                                                    //pending做一個純粹更新中級的sql
-                                                    updateMapPassed(course:courseReceived)
-                                                    updateGamePassed(course:courseReceived)
-                                                    
-                                                    
-                                                case 4:
-                                                    mapPassed5! += 1
-                                                    gamePassed5 = [0:0]
-                                                    
-                                                    //設定給全部值供上傳後端
-                                                    mapPassedInt = mapPassed5!
-                                                    gamePassedDic = gamePassed5
-                                                    
-                                                    
-                                                    //然後儲存
-                                                    let userDefaults = UserDefaults.standard
-                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
-                                                    UserDefaults.standard.set(mapPassed5!, forKey: "mapPassed5")
-                                                    userDefaults.set(encodedObject, forKey: "gamePassed5")
-                                                    
-                                                    //pending做一個純粹更新中級的sql
-                                                    updateMapPassed(course:courseReceived)
-                                                    updateGamePassed(course:courseReceived)
-                                                    
-                                                    
-                                                    
-                                                default:
-                                                    break
-                                                    
-                                                }
-                                                
-                                            } else {
+                                            }else {
                                                 
                                                 
                                                 switch courseReceived{
                                                     
                                                 case 0:
                                                     
-                                                    gamePassed = [spotNumber + 1:0]
-                                                    //設定給全部值供上傳後端
+                                                    gamePassed = [spotNumber: unitNumber + 1]
                                                     gamePassedDic = gamePassed
+                                                    
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed")
                                                     
+                                                    
                                                     updateGamePassed(course:courseReceived)
+                                                    
                                                     
                                                 case 1:
                                                     
-                                                    gamePassed2 = [spotNumber + 1:0]
-                                                    //設定給全部值供上傳後端
+                                                    gamePassed2 = [spotNumber: unitNumber + 1]
                                                     gamePassedDic = gamePassed2
                                                     
                                                     //然後儲存
@@ -2430,12 +2531,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed2")
                                                     
+                                                    //pending update to sql
                                                     updateGamePassed(course:courseReceived)
                                                     
                                                 case 2:
                                                     
-                                                    gamePassed3 = [spotNumber + 1:0]
-                                                    //設定給全部值供上傳後端
+                                                    gamePassed3 = [spotNumber: unitNumber + 1]
                                                     gamePassedDic = gamePassed3
                                                     
                                                     //然後儲存
@@ -2443,13 +2544,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed3")
-
+                                                    //pending update to sql
                                                     updateGamePassed(course:courseReceived)
+                                                    
                                                     
                                                 case 3:
                                                     
-                                                    gamePassed4 = [spotNumber + 1:0]
-                                                    //設定給全部值供上傳後端
+                                                    gamePassed4 = [spotNumber: unitNumber + 1]
                                                     gamePassedDic = gamePassed4
                                                     
                                                     //然後儲存
@@ -2457,13 +2558,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                    
+                                                    //pending update to sql
                                                     updateGamePassed(course:courseReceived)
                                                     
                                                 case 4:
                                                     
-                                                    gamePassed5 = [spotNumber + 1:0]
-                                                    //設定給全部值供上傳後端
+                                                    gamePassed5 = [spotNumber: unitNumber + 1]
                                                     gamePassedDic = gamePassed5
                                                     
                                                     //然後儲存
@@ -2471,9 +2571,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed5")
-                                                    
+                                                    //pending update to sql
                                                     updateGamePassed(course:courseReceived)
-                                                    
                                                     
                                                 default:
                                                     break
@@ -2482,97 +2581,22 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                 
                                             }
                                             
-                                        }else {
+                                            countWords()
+                                            
+                                        } else {
                                             
                                             
-                                            switch courseReceived{
-                                                
-                                            case 0:
-                                                
-                                                gamePassed = [spotNumber: unitNumber + 1]
-                                                gamePassedDic = gamePassed
-                                                
-                                                //然後儲存
-                                                let userDefaults = UserDefaults.standard
-                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                                                
-                                                userDefaults.set(encodedObject, forKey: "gamePassed")
-                                                
-                                                
-                                                updateGamePassed(course:courseReceived)
-                                                
-                                                
-                                            case 1:
-                                                
-                                                gamePassed2 = [spotNumber: unitNumber + 1]
-                                                gamePassedDic = gamePassed2
-                                                
-                                                //然後儲存
-                                                let userDefaults = UserDefaults.standard
-                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                                                
-                                                userDefaults.set(encodedObject, forKey: "gamePassed2")
-                                                
-                                                //pending update to sql
-                                                updateGamePassed(course:courseReceived)
-                                                
-                                            case 2:
-                                                
-                                                gamePassed3 = [spotNumber: unitNumber + 1]
-                                                gamePassedDic = gamePassed3
-                                                
-                                                //然後儲存
-                                                let userDefaults = UserDefaults.standard
-                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-       
-                                                userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                //pending update to sql
-                                                updateGamePassed(course:courseReceived)
-                                                
-                                                
-                                            case 3:
-
-                                                gamePassed4 = [spotNumber: unitNumber + 1]
-                                                gamePassedDic = gamePassed4
-                                                
-                                                //然後儲存
-                                                let userDefaults = UserDefaults.standard
-                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
- 
-                                                userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                //pending update to sql
-                                                updateGamePassed(course:courseReceived)
-                                                
-                                            case 4:
-                                                
-                                                gamePassed5 = [spotNumber: unitNumber + 1]
-                                                gamePassedDic = gamePassed5
-                                                
-                                                //然後儲存
-                                                let userDefaults = UserDefaults.standard
-                                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
-                                                
-                                                userDefaults.set(encodedObject, forKey: "gamePassed5")
-                                                //pending update to sql
-                                                updateGamePassed(course:courseReceived)
-
-                                            default:
-                                                break
-                                                
-                                            }
+                                            //顯示出來
+                                            wordCountLabel.text = "3"
+                                            
                                             
                                         }
-                                        
-                                        countWords()
-                                        
-                                    } else {
-                                        
-                                        
-                                        //顯示出來
-                                        wordCountLabel.text = "3"
-                                        
+
                                         
                                     }
+                                    
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "playEndingMusic"), object: nil, userInfo: nil)
+                                    
                                 }
                             }
                         }
@@ -3135,6 +3159,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //在此確認是否已過地圖的確認
         
         
+        if isReplay{
+            
+            self.dismiss(animated: true, completion: nil)
+            
+        } else {
+        
+        
         if user != nil {
             
             switch senRate{
@@ -3201,13 +3232,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             performSegue(withIdentifier: "toRegisterVc", sender: self)
             
-            
-            
         }
         
         
         
-        
+        }
         
     }
     

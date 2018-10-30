@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MDq-zg-zeG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MDq-zg-zeG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.19.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -980,6 +980,22 @@
                                 <color key="textColor" red="0.96924716234207153" green="0.49911433458328247" blue="0.4846041202545166" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfj-XV-5Or">
+                                <rect key="frame" x="110" y="461" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="上一頁"/>
+                                <connections>
+                                    <action selector="preBtnClicked:" destination="j5T-Gi-rw6" eventType="touchUpInside" id="0Ss-Lv-62Q"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cb-f5-bfb">
+                                <rect key="frame" x="210" y="461" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="下一頁"/>
+                                <connections>
+                                    <action selector="nextBtnClicked:" destination="j5T-Gi-rw6" eventType="touchUpInside" id="FrQ-z0-HDb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.12604087591171265" green="0.10186529904603958" blue="0.10163567215204239" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -991,6 +1007,8 @@
                         <outlet property="hintLabel" destination="XNz-kY-sPC" id="aTv-qQ-mQm"/>
                         <outlet property="lessonLabel" destination="YTi-eb-Vcw" id="W6x-j2-1UG"/>
                         <outlet property="lessonTitleLabel" destination="UBD-lg-gJM" id="tEV-wC-ZIZ"/>
+                        <outlet property="nextBtn" destination="4Cb-f5-bfb" id="qOU-pi-1nU"/>
+                        <outlet property="previousBtn" destination="Gfj-XV-5Or" id="tsZ-0w-754"/>
                         <outlet property="progressLength" destination="K3E-2V-8PM" id="TFo-08-RYB"/>
                         <outlet property="reviewBtn" destination="VXY-KJ-lEh" id="rim-7a-PZF"/>
                         <outlet property="secondLabel" destination="9Pj-5n-3Oh" id="o8S-bO-Z5H"/>
@@ -1002,7 +1020,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61d-qX-ar7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1870" y="1449"/>
+            <point key="canvasLocation" x="-1850" y="1298"/>
         </scene>
         <!--Courses View Controller-->
         <scene sceneID="nXP-LS-awD">
@@ -1917,6 +1935,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="rwi-hC-Ovx"/>
         <segue reference="Qsn-eF-t3O"/>
-        <segue reference="08a-wE-CO2"/>
+        <segue reference="QVk-5k-4AB"/>
     </inferredMetricsTieBreakers>
 </document>
