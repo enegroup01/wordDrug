@@ -1450,7 +1450,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
                 if tempU < 9 {
                     //直接加一
-                    tempU += 1
+                    tempU = tempU + 1
                     
                 } else {
                     //假如u == 9, 要加ｓ
@@ -1459,7 +1459,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                         //直接 +1
                         
                         
-                        tempS += 1
+                        tempS = tempS + 1
                         tempU = 0
                         
                         
@@ -1496,7 +1496,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
                 if tempU > 0 {
                     //直接減一
-                    tempU -= 1
+                    tempU = tempU - 1
                     
                     
                     
@@ -1507,7 +1507,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     if tempS > 0 {
                         //直接 -1
                         
-                        tempS -= 1
+                        tempS = tempS - 1
                         tempU = 9
                         
                         
