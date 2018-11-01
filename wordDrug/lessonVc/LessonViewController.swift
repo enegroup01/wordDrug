@@ -804,6 +804,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
 
           //  }
             
+        } else {
+            
+            ProgressHUD.showError("尚未學習過!")
         }
         
         /*
