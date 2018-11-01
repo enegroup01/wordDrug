@@ -8,8 +8,10 @@
 
 import UIKit
 import AVFoundation
+import ProgressHUD
 
-class LessonViewController: UIViewController{
+
+class LessonViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     
     @IBOutlet weak var thirdLabel: UILabel!
@@ -87,8 +89,27 @@ class LessonViewController: UIViewController{
     var tempS:Int!
     var tempU:Int!
     
+   
+    var collectionViewCellSize:CGFloat!
+    var smallSylFontSize:CGFloat!
     
-
+    @IBOutlet weak var lessonSylView: UICollectionView!
+    
+    @IBOutlet weak var allSylBtn: UIButton!
+    
+  
+    
+    //選擇到的音節
+    var collectionTouched = [Int]()
+    
+    var secRowTouched = [[Int]]()
+    
+       var maxIndex:Int!
+    var maxSpot:Int!
+    var maxUnit:Int!
+      var iPadSizeDif: CGFloat!
+    var collectionViewDif:CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,9 +117,10 @@ class LessonViewController: UIViewController{
         // Do any additional setup after loading the view.
         var dif = CGFloat()
  
-        var iPadSizeDif: CGFloat!
+      
         var btnFontSize:CGFloat!
         var hintLabelFontSize:CGFloat!
+        var iPadHeight: CGFloat!
         
         switch height {
             
@@ -108,6 +130,8 @@ class LessonViewController: UIViewController{
 
             dif = 0.9
             iPadSizeDif = 2.3
+            collectionViewDif = 2.3
+            iPadHeight = 30
             
             sylFontSize = 170
             wordFontSize = 70
@@ -115,9 +139,11 @@ class LessonViewController: UIViewController{
             lessonTitleFontSize = 25
             lessonBigFontSize = 60
             lessonSmallFontSize = 20
-            btnFontSize = 40
+            btnFontSize = 34
             hintLabelFontSize = 30
         
+            collectionViewCellSize = 100
+            smallSylFontSize = 30
             
         case 1024:
             
@@ -125,6 +151,8 @@ class LessonViewController: UIViewController{
   
             dif = 0.9
             iPadSizeDif = 2
+            collectionViewDif = 2
+            iPadHeight = 15
             
             sylFontSize = 160
             wordFontSize = 60
@@ -132,8 +160,11 @@ class LessonViewController: UIViewController{
             lessonTitleFontSize = 25
             lessonBigFontSize = 60
             lessonSmallFontSize = 20
-            btnFontSize = 40
+            btnFontSize = 30
             hintLabelFontSize = 30
+            collectionViewCellSize = 80
+            
+            smallSylFontSize = 30
         
             
         case 812:
@@ -141,6 +172,8 @@ class LessonViewController: UIViewController{
        
             dif = 1
             iPadSizeDif = 1
+            collectionViewDif = 1
+            iPadHeight = 0
             
             sylFontSize = 130
             wordFontSize = 40
@@ -148,14 +181,20 @@ class LessonViewController: UIViewController{
             lessonTitleFontSize = 14
             lessonBigFontSize = 30
             lessonSmallFontSize = 15
-            btnFontSize = 22
+            btnFontSize = 15
             hintLabelFontSize = 16
+            
+            collectionViewCellSize = 50
+            
+            smallSylFontSize = 15
  
 
         case 736:
   
             dif = 1.1
             iPadSizeDif = 1
+            collectionViewDif = 1
+            iPadHeight = 0
             
             sylFontSize = 130
             wordFontSize = 40
@@ -163,15 +202,19 @@ class LessonViewController: UIViewController{
             lessonTitleFontSize = 12
             lessonBigFontSize = 30
             lessonSmallFontSize = 15
-            btnFontSize = 22
+            btnFontSize = 15
             hintLabelFontSize = 16
           
+            collectionViewCellSize = 50
+            smallSylFontSize = 15
             
         case 667:
             
    
             dif = 1
             iPadSizeDif = 1
+            collectionViewDif = 1
+            iPadHeight = 0
             
             sylFontSize = 120
             wordFontSize = 35
@@ -179,14 +222,20 @@ class LessonViewController: UIViewController{
             lessonTitleFontSize = 12
             lessonBigFontSize = 30
             lessonSmallFontSize = 15
-            btnFontSize = 20
+            btnFontSize = 14
             hintLabelFontSize = 16
+            
+            collectionViewCellSize = 50
+            
+            smallSylFontSize = 15
       
             
         case 568:
      
             dif = 0.9
             iPadSizeDif = 1
+            collectionViewDif = 0.8
+            iPadHeight = 0
 
 
             sylFontSize = 100
@@ -195,8 +244,11 @@ class LessonViewController: UIViewController{
             lessonTitleFontSize = 12
             lessonBigFontSize = 30
             lessonSmallFontSize = 15
-            btnFontSize = 20
+            btnFontSize = 12
             hintLabelFontSize = 16
+            
+            collectionViewCellSize = 50
+            smallSylFontSize = 12
       
        
         default:
@@ -205,12 +257,42 @@ class LessonViewController: UIViewController{
         }
    
         
+        lessonSylView.delegate = self
+        lessonSylView.translatesAutoresizingMaskIntoConstraints = false
+        lessonSylView.widthAnchor.constraint(equalToConstant: 320 * collectionViewDif).isActive = true
+        lessonSylView.heightAnchor.constraint(equalToConstant: 320 * collectionViewDif).isActive = true
+        lessonSylView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        lessonSylView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        lessonSylView.layer.cornerRadius = lessonSylView.frame.width / 20
+        lessonSylView.backgroundColor = #colorLiteral(red: 0.04737804671, green: 0.1470921287, blue: 0.2021566439, alpha: 1)
+        lessonSylView.isHidden = true
+        lessonSylView.layer.zPosition = 11
+        
+        // 建立 UICollectionViewFlowLayout
+        let layout = UICollectionViewFlowLayout()
+        
+        // 設置 section 的間距 四個數值分別代表 上、左、下、右 的間距
+        //layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+        
+        // 設置每一行的間距
+        //layout.minimumLineSpacing = 5
+        
+        // 設置每個 cell 的尺寸
+      //  layout.itemSize = CGSize(width:CGFloat(width)/3 - 10.0,height:CGFloat(width)/3 - 10.0)
+        
+        // 設置 header 及 footer 的尺寸
+        layout.headerReferenceSize = CGSize(width: 320 * collectionViewDif, height: 140 * collectionViewDif)
+
+        
         //加入alertView
         let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
         ghostBtn.backgroundColor = lightGray
         ghostBtn.addTarget(self, action: #selector(LessonViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
         ghostBtn.fillSupervivew()
+        
+        //ghostBtn.layer.zPosition = 10
         
     
 
@@ -222,8 +304,6 @@ class LessonViewController: UIViewController{
         alertBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         alertBg.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
-        
-    
 
         alertText.translatesAutoresizingMaskIntoConstraints = false
         //alertText.backgroundColor = .blue
@@ -336,13 +416,28 @@ class LessonViewController: UIViewController{
         thirdLabel.font = thirdLabel.font.withSize(wordFontSize)
 
         
-        enterBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, size: .init(width: width / 2, height: 50 * iPadSizeDif))
+        enterBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, size: .init(width: width / 5, height: 50 * iPadSizeDif))
+        
+        nextBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: enterBtn.leadingAnchor)
+        
+        allSylBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: nextBtn.leadingAnchor)
+        
+        previousBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: allSylBtn.leadingAnchor)
+        
+        
         
         reviewBtn.anchor(top: nil, leading: view.safeLeftAnchor, bottom: view.safeBottomAnchor, trailing: nil)
+        nextBtn.anchorSize(to: enterBtn)
+        allSylBtn.anchorSize(to: enterBtn)
+        previousBtn.anchorSize(to: enterBtn)
         reviewBtn.anchorSize(to: enterBtn)
 
 
         enterBtn.titleLabel?.font = enterBtn.titleLabel?.font.withSize(btnFontSize)
+        nextBtn.titleLabel?.font = nextBtn.titleLabel?.font.withSize(btnFontSize)
+        allSylBtn.titleLabel?.font = allSylBtn.titleLabel?.font.withSize(btnFontSize)
+        
+        previousBtn.titleLabel?.font = previousBtn.titleLabel?.font.withSize(btnFontSize)
         reviewBtn.titleLabel?.font = reviewBtn.titleLabel?.font.withSize(btnFontSize)
         
 
@@ -355,6 +450,7 @@ class LessonViewController: UIViewController{
          hintLabel.font = hintLabel.font.withSize(hintLabelFontSize)
         
         //拉到最前方
+        
         self.view.bringSubview(toFront: ghostBtn)
          self.view.bringSubview(toFront: alertBg)
         
@@ -364,7 +460,7 @@ class LessonViewController: UIViewController{
         self.view.bringSubview(toFront: rightBtnClickedImg)
         self.view.bringSubview(toFront: bigQuitBtn)
   
-        
+        self.view.bringSubview(toFront: lessonSylView)
         
         /*
         firstLabel.backgroundColor = .red
@@ -377,9 +473,21 @@ class LessonViewController: UIViewController{
         */
         
         
+        
+        
+        
+        //
+        
+        
+        
+        
         removeBtns()
 
     }
+
+    
+    
+    
     
     //syn發音, 用不到
     func synPronounce(){
@@ -405,9 +513,8 @@ class LessonViewController: UIViewController{
         let utterance = AVSpeechUtterance(string: synWord)
         let utterance2 = AVSpeechUtterance(string: synWord)
         
-        
-            rateFloat = 0.45
-            utterance.postUtteranceDelay = 0
+        rateFloat = 0.45
+        utterance.postUtteranceDelay = 0
     
         utterance2.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance2.rate = rateFloat
@@ -432,10 +539,302 @@ class LessonViewController: UIViewController{
          
          })
          }
-         
+        
+    }
+    
+    //MARK: CollectionViewLayOut
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellSize = CGSize(width: collectionViewCellSize, height: collectionViewCellSize)
+        return cellSize
         
     }
 
+    
+    @available(iOS 6.0, *)
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        
+        return 10
+
+    }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 15
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
+        return CGSize(width: 320 * collectionViewDif, height: 40 * collectionViewDif)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        // 建立 UICollectionReusableView
+        var reusableView = UICollectionReusableView()
+        
+        // header
+        if kind == UICollectionElementKindSectionHeader {
+            // 依據前面註冊設置的識別名稱 "Header" 取得目前使用的 header
+            reusableView =
+                collectionView.dequeueReusableSupplementaryView(
+                    ofKind: UICollectionElementKindSectionHeader,
+                    withReuseIdentifier: "Header",
+                    for: indexPath)
+            
+            
+            //reusableView.frame = CGRect(x: 0, y: 0, width: 320 * collectionViewDif, height: 40 * collectionViewDif)
+            
+            // 設置 header 的內容
+            let label = reusableView.viewWithTag(3) as! UILabel
+            // 顯示文字
+            label.frame = CGRect(x: 0, y: 0,width: 320 * collectionViewDif, height: 40 * collectionViewDif)
+            label.textAlignment = .center
+
+            label.font = label.font.withSize(smallSylFontSize)
+            let labelText = indexPath.section + 1
+            reusableView.backgroundColor = .darkGray
+            label.text = "第\(labelText)課";
+            label.textColor = UIColor.white
+            
+        }
+        
+        //reusableView.addSubview(label)
+        return reusableView
+    }
+
+
+    
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    @available(iOS 6.0, *)
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+        
+        let cell = lessonSylView.dequeueReusableCell(withReuseIdentifier: "lessonSylCell", for: indexPath)
+        
+        
+        let blueBall = cell.viewWithTag(2) as! UIImageView
+        
+        //blueBall.frame.size = CGSize(width: collectionViewCellSize * 0.9, height: collectionViewCellSize * 0.9)
+        
+        blueBall.translatesAutoresizingMaskIntoConstraints = false
+        blueBall.widthAnchor.constraint(equalToConstant: collectionViewCellSize * 0.9).isActive = true
+        blueBall.heightAnchor.constraint(equalToConstant: collectionViewCellSize * 0.9).isActive = true
+        blueBall.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+        blueBall.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        
+        let sylText = cell.viewWithTag(1) as!UILabel
+        sylText.adjustsFontSizeToFitWidth = true
+        //let sylToDisplay = sortedSylArray[indexPath.row]
+        
+        //sylText.text = sylToDisplay
+        //sylText.textColor = btnOffColor
+        sylText.font = sylText.font.withSize(smallSylFontSize)
+        //sylText.backgroundColor = .green
+        sylText.translatesAutoresizingMaskIntoConstraints = false
+        sylText.widthAnchor.constraint(equalToConstant: collectionViewCellSize * 0.8).isActive = true
+        sylText.heightAnchor.constraint(equalToConstant: collectionViewCellSize * 0.8).isActive = true
+        sylText.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+        sylText.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        
+        //let sylToShow = allSyls[indexPath.row]
+        let sylToShow = syllableSets[indexPath.section][indexPath.row]
+        sylText.text = sylToShow
+        
+       
+        
+        
+        if !lessonSylView.isHidden{
+        
+        
+        
+        //if collectionTouched[indexPath.row] == 1 {
+            
+            if secRowTouched[indexPath.section][indexPath.row] == 1 {
+            
+            sylText.textColor = .white
+            blueBall.isHidden = false
+                
+                
+                
+        } else {
+            blueBall.isHidden = true
+                
+                var isSelectable = false
+                if indexPath.section < maxSpot {
+                    isSelectable = true
+                } else if indexPath.section < maxSpot + 1 && indexPath.row < maxUnit + 1{
+                    isSelectable = true
+                } else {
+                    isSelectable = false
+                }
+                
+            
+                
+                if isSelectable{
+                        sylText.textColor = .lightGray
+                } else {
+                     sylText.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+                }
+                
+           
+
+        }
+            
+
+            if isScrollable{
+            
+            isScrollable = false
+            let indexToScroll = IndexPath(item: tempU, section: tempS)
+            lessonSylView.scrollToItem(at: indexToScroll, at: .centeredVertically, animated: false)
+            }
+            
+        }
+        
+        
+
+        return cell
+        
+    }
+
+    var loadingTimer:Timer!
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+        //選到後 1. 發亮 2. 隱藏畫面 3. load正確字
+        
+        
+        var isSelectable = false
+        if indexPath.section < maxSpot {
+            isSelectable = true
+        } else if indexPath.section < maxSpot + 1 && indexPath.row < maxUnit + 1{
+            isSelectable = true
+        } else {
+            isSelectable = false
+        }
+        
+        
+        if isSelectable{
+            
+            
+     
+            
+      //  }
+        
+        
+        
+    //    if indexPath.section < maxSpot + 1 {
+         
+     //       if indexPath.row < maxUnit + 1 {
+                
+                ProgressHUD.spinnerColor(.white)
+                
+                ProgressHUD.show("讀取課程")
+                
+                
+                loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(LessonViewController.loading), userInfo: nil, repeats: true)
+                
+                
+                /*
+                for i in 0 ..< collectionTouched.count {
+                    
+                    collectionTouched[i] = 0
+                    
+                }
+                */
+                
+                secRowTouched.removeAll(keepingCapacity: false)
+                var smallDic = [Int]()
+                
+                for _ in  0 ..< 10 {
+                    
+                    smallDic.append(0)
+                }
+                
+                for _ in 0 ..< 15 {
+                    
+                    secRowTouched.append(smallDic)
+                    
+                }
+                
+                
+                /*
+                let indexToShine = tempS * 10 + tempU
+                
+                collectionTouched[indexToShine] = 1
+                */
+                
+                lessonSylView.reloadData()
+                
+                //換算tempS & tempU
+                //tempU = indexPath.row % 10
+                //tempS = indexPath.row / 10
+                
+                tempS = indexPath.section
+                tempU = indexPath.row
+                
+                secRowTouched[tempS][tempU] = 1
+                
+                if mapNumToReceive == mapPassedInt{
+                    
+                    for (s,u) in gamePassedDic!{
+                        
+                        if s == tempS && u == tempU{
+                            //學習新字
+                            enterBtn.setTitle("學習新字", for: .normal)
+                            titleLabel.text = "即將學習\n下列三個新單字"
+                            titleLabel.textColor = .white
+                            
+                        } else {
+                            
+                            //複習機制
+                            enterBtn.setTitle("開始複習", for: .normal)
+                            titleLabel.text = "複習下列\n三個學過的單字"
+                            titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                        }
+                        
+                    }
+                    
+                } else {
+                    
+                    //複習機制
+                    enterBtn.setTitle("開始複習", for: .normal)
+                    titleLabel.text = "複習下列\n三個學過的單字"
+                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                    
+                }
+                
+
+          //  }
+            
+        }
+        
+        /*
+        if indexPath.row < maxIndex + 1{
+        }
+        */
+    }
+    
+    var secondCount = 0
+    
+    @objc func loading(){
+     
+        if secondCount < 3 {
+            
+  
+            secondCount += 1
+         
+            
+        } else {
+         
+            ProgressHUD.dismiss()
+            secondCount = 0
+            loadingTimer.invalidate()
+            loadWords(seq: 0)
+            lessonSylView.isHidden = true
+            ghostBtn.isHidden = true
+
+        }
+
+        
+    }
     
     @objc func removeBtns(){
         
@@ -451,6 +850,13 @@ class LessonViewController: UIViewController{
         practiceSenBtn.isEnabled = true
         practiceWordBtn.isEnabled = true
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
+        lessonSylView.isHidden = true
+
+        for i in 0 ..< collectionTouched.count {
+            
+         collectionTouched[i] = 0
+        }
+        
     }
     
     
@@ -538,6 +944,7 @@ class LessonViewController: UIViewController{
     var gamePassedDic:[Int:Int]?
     var mapPassedInt = Int()
     var increaseNum = Int()
+    var allSyls = [String]()
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -691,6 +1098,34 @@ class LessonViewController: UIViewController{
         
         var progressFloat = CGFloat()
         
+        /*
+        for s in syllableSets{
+            
+            for syl in s {
+             
+                allSyls.append(syl)
+                  collectionTouched.append(0)
+                
+            }
+        }
+        */
+        
+        var smallDic = [Int]()
+        
+        for _ in  0 ..< 10 {
+         
+            smallDic.append(0)
+        }
+
+            for _ in 0 ..< 15 {
+                
+             secRowTouched.append(smallDic)
+                
+            }
+            
+        
+
+        
         //再把數字減回來
         mapNumToReceive -= increaseNum
         
@@ -734,6 +1169,12 @@ class LessonViewController: UIViewController{
             }
             print("############got mapnum:\(mapNum)")
         //}
+        
+        maxIndex = tempS * 10 + tempU
+        
+
+        maxSpot = tempS
+        maxUnit = tempU
  
         //第幾課
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
@@ -745,7 +1186,8 @@ class LessonViewController: UIViewController{
         //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
         progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
 
-            
+        
+        
             
         //MARK: 讀取文字檔
         //讀取Bundle裡的文字檔
@@ -999,7 +1441,6 @@ class LessonViewController: UIViewController{
         //首先抓音節
   
 
-            
             if seq > 0 {
 
                 //下一課
@@ -1007,8 +1448,6 @@ class LessonViewController: UIViewController{
                 if tempU < 9 {
                     //直接加一
                     tempU += 1
-                    
-        
                     
                 } else {
                     //假如u == 9, 要加ｓ
@@ -1025,20 +1464,18 @@ class LessonViewController: UIViewController{
                         //全部練完
                         print("全部練完")
                         
-                        
+                        ProgressHUD.showError("這是最後一頁喔！")
                         
                         
                     }
                     
-                    
-                    
+
                 }
 
                 
                 for (s,u) in gamePassedDic!{
                     
                     if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
-                        
                         
                         enterBtn.setTitle("學習新字", for: .normal)
                         titleLabel.text = "即將學習\n下列三個新單字"
@@ -1047,10 +1484,10 @@ class LessonViewController: UIViewController{
                     }
                 }
                 
-                
-                
-                
-            } else {
+        
+            } else if seq == 0 {
+                print("畫面跳轉")
+        } else {
                 
                 //上一課
                 
@@ -1073,6 +1510,7 @@ class LessonViewController: UIViewController{
                         
                     } else {
                         
+                        ProgressHUD.showError("這是第一頁喔！")
                         print("全部練完")
                     }
  
@@ -1399,13 +1837,69 @@ class LessonViewController: UIViewController{
     */
     
     
+    var indexToJump:Int!
+    var isScrollable = false
     //MARK: button actions
     
+    
+    @IBAction func allSylBtnClicked(_ sender: Any) {
+        
+        isScrollable = true
+        ghostBtn.isHidden = false
+        
+        indexToJump = tempS * 10 + tempU
+      
+        
+        //指定好發亮的球
+        /*
+        for i in 0 ..< collectionTouched.count {
+            
+            collectionTouched[i] = 0
+            
+        }
+
+        collectionTouched[indexToJump] = 1
+        */
+        
+        secRowTouched.removeAll(keepingCapacity: false)
+        var smallDic = [Int]()
+        
+        for _ in  0 ..< 10 {
+            
+            smallDic.append(0)
+        }
+        
+        for _ in 0 ..< 15 {
+            
+            secRowTouched.append(smallDic)
+            
+        }
+        
+        secRowTouched[tempS][tempU] = 1
+     
+        
+        lessonSylView.reloadData()
+        lessonSylView.isHidden = false
+        
+    }
+    
     @IBAction func preBtnClicked(_ sender: Any) {
+        
+        //需要排除第一次玩的狀態
+        
+         for (s,u) in gamePassedDic!{
+            
+            if s != 0 || u != 0 || mapPassedInt != mapNumToReceive {
+        
         loadWords(seq: -1)
         enterBtn.setTitle("開始複習", for: .normal)
         titleLabel.text = "複習下列\n三個學過的單字"
         titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+            } else {
+                print("這是第一關")
+                ProgressHUD.showError("沒有上一頁喔！")
+            }
+        }
     }
     
     
@@ -1423,6 +1917,7 @@ class LessonViewController: UIViewController{
             } else if !isClassAllPassed{
                 
                 print("是當下關卡")
+                ProgressHUD.showError("沒有下一頁喔！")
                 enterBtn.setTitle("學習新字", for: .normal)
                 titleLabel.text = "即將學習\n下列三個新單字"
                 titleLabel.textColor = .white

@@ -2044,7 +2044,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         }
         
-        if isReplay{
+        if isReplay && gameMode == 0{
             limitTimerLabel.textColor = pinkColor
             limitTimerLabel.text = "[複習]"
         }
