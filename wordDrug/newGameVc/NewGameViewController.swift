@@ -469,6 +469,24 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             iPhoneSeYDif = 20
            
         default:
+            dif = 1
+            iPadDif = 1
+            engSentenceFontSize = 30
+            chiSentenceFontSize = 18
+            wordCountLabelSize = 80
+            hintLabelFontSize = 16
+            senFontSize = 26
+            tagMarginY = 13
+            
+            okBtnDif = 15
+            
+            cornerRadiusNumber = 6
+            resultElementDif = 1
+            iPhoneXHeightDif = 1.5
+            iPhoneXHeightDif2 = 1.1
+            iPhonePlusHeightDif = 1
+            
+            iPhoneSeYDif = 0
 
             break
         }

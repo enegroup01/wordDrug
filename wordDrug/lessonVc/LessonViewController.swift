@@ -120,7 +120,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
       
         var btnFontSize:CGFloat!
         var hintLabelFontSize:CGFloat!
-        var iPadHeight: CGFloat!
+       
         
         switch height {
             
@@ -131,7 +131,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             dif = 0.9
             iPadSizeDif = 2.3
             collectionViewDif = 2.3
-            iPadHeight = 30
             
             sylFontSize = 170
             wordFontSize = 70
@@ -152,7 +151,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             dif = 0.9
             iPadSizeDif = 2
             collectionViewDif = 2
-            iPadHeight = 15
+         
             
             sylFontSize = 160
             wordFontSize = 60
@@ -173,8 +172,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             dif = 1
             iPadSizeDif = 1
             collectionViewDif = 1
-            iPadHeight = 0
-            
+          
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
@@ -194,8 +192,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             dif = 1.1
             iPadSizeDif = 1
             collectionViewDif = 1
-            iPadHeight = 0
-            
+          
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
@@ -214,8 +211,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             dif = 1
             iPadSizeDif = 1
             collectionViewDif = 1
-            iPadHeight = 0
-            
+         
             sylFontSize = 120
             wordFontSize = 35
             titleFontSize = 24
@@ -235,8 +231,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             dif = 0.9
             iPadSizeDif = 1
             collectionViewDif = 0.8
-            iPadHeight = 0
-
+       
 
             sylFontSize = 100
             wordFontSize = 30
@@ -252,6 +247,23 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
       
        
         default:
+            dif = 1
+            iPadSizeDif = 1
+            collectionViewDif = 1
+      
+            
+            sylFontSize = 130
+            wordFontSize = 40
+            titleFontSize = 28
+            lessonTitleFontSize = 14
+            lessonBigFontSize = 30
+            lessonSmallFontSize = 15
+            btnFontSize = 15
+            hintLabelFontSize = 16
+            
+            collectionViewCellSize = 50
+            
+            smallSylFontSize = 15
 
             break
         }

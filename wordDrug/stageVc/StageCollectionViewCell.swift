@@ -98,6 +98,14 @@ class StageCollectionViewCell: UICollectionViewCell {
        
             
         default:
+            
+            
+            stageFontSize = 80
+            wordCountFontSize = 20
+            lockWidth = 113
+            lockHeight = 144
+            iPadDif = 1
+            dif = 1
             break
             
         }

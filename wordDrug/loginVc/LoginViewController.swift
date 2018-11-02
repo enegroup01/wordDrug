@@ -117,6 +117,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
             
         default:
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
             
             break
         }

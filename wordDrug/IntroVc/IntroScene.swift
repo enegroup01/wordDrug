@@ -149,6 +149,11 @@ class IntroScene: SKScene {
 
             
         default:
+            xDif = 1.2
+            iPadDif = 0
+            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            speakerAlpha = 1
+            chiBtnSize = 256
             break
 
         }

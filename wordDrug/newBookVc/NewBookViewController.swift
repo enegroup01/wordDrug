@@ -341,6 +341,23 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             alertXDif = 1
 
         default:
+            seperatorDif = 0.9
+            dif = 1.35
+            cellDif = 1.2
+            fontDif = 0
+            xDif = 50
+            
+            iPadDif = 1
+            collectionViewCellSize = 50
+            sylFontSize = 15
+            sliderHeight = 30
+            btnDif = 1
+            btnTextFontSize = 14
+            
+            engWordSizeDif = 14
+            chiWordSizeDif = 24
+            
+            alertXDif = 0.8
 
             break
             

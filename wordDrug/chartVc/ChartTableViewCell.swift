@@ -105,7 +105,15 @@ class ChartTableViewCell: UITableViewCell {
             wordCountFontSize = 15
             iPhoneXDif = 1.4
         default:
-         
+            dif = 1.1
+            iPadDif = 0.4
+            rankFontSize = 25
+            nameFontSize = 25
+            scoreFontSize = 20
+            wordCountTitleFontSize = 15
+            wordCountFontSize = 20
+            iPhoneXDif = 1.5
+            
             break
            
             

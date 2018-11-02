@@ -115,6 +115,12 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             wordCountLabelFontSize = 45
       
         default:
+            
+            dif = 1.1
+            iPadDif = 1
+            
+            wordCountTitleLabelFontSize = 20
+            wordCountLabelFontSize = 45
             break
             
         }

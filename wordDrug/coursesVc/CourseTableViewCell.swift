@@ -118,6 +118,13 @@ class CourseTableViewCell: UITableViewCell {
         
             
         default:
+            dif = 1
+            iPadDif = 1
+            dynamicHeight = 120
+            fontSize = 55
+            cornerRadiusValue = 20
+            btnFontSize = 15
+            wordUnitFontSize = 15
             break
          
         }

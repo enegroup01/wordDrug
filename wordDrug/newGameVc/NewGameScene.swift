@@ -942,6 +942,32 @@ class NewGameScene: SKScene {
             iPhone8YDif = 0
             
         default:
+            
+            
+            dif = 1
+            chiFontSize = 30
+            chiBtnDif = 1.2
+            iPadDif = 1
+            engFontSize = 65
+            starX = 0.6
+            starYDif = 0
+            ballDif = 1
+            yDif = 1.6
+            xDif = 0.9
+            iPhoneXHeightDif = 1.4
+            iPhonePlusHeightDif  = 1
+            iPhonePlusHeightDif2 = 1
+            iPhone7YDif = -20
+            iPadXDif = 1
+            popQuizIPadDif = 10
+            sceneHeight = -667
+            sceneHeight2 = -690
+            popQuizSeTitleY = -30
+            iPhoneSeEngWordWidthDif = 0.6
+            timerBgSizeDif = 1
+            chiBtnDif2 = 1
+            chiBtnSizeDif = 1.2
+            iPhone8YDif = 0
 
             break
         }

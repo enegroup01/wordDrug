@@ -129,6 +129,15 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
              avaYDif = 0.6
             
         default:
+            dif = 0.8
+            photoDif = 1
+            iPadSmall = 0
+            titleFontSize = 20
+            infoFontSize = 16
+            subTitleFontSize = 20
+            subValueFontSize = 15
+            usernameFontSize = 25
+            avaYDif = 1
     
             break
             

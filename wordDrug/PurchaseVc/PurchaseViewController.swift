@@ -154,6 +154,15 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             btnDif = 0.9
        
         default:
+            newDif = 1.35
+            dif = 8
+            
+            xDif = 25
+            
+            iPadDif = 1.2
+            titleFontSize = 26
+            subTitleFontSize = 18
+            btnDif = 1
 
             break
         }

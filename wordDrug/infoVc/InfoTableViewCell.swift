@@ -132,6 +132,17 @@ class InfoTableViewCell: UITableViewCell {
             iPhoneXInfoTitleYDif = 1
             
         default:
+            
+            iPadDif = 1
+            cellBgHeight = 180
+            infoTitleFontSize = 18
+            subTitleFontSize = 14
+            subValueFontSize = 12
+            ringSizeDif = 0.9
+            bigCountLabelFontSize = 60
+            wordCountUnitFontSize = 20
+            infoHeightDif = 8
+            iPhoneXInfoTitleYDif = 1.6
           break
     
         }

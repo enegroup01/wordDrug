@@ -138,6 +138,16 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             btnYDif = 15
             
         default:
+            dif = 1.1
+            photoDif = 4
+            difX = 6
+            iPadDif = 0.8
+            iPadSmall = 0
+            bgY = 0
+            btnFontSize = 16
+            tableViewYDif = 0
+            yDif = 0.1
+            btnYDif = 20
      
             break
             

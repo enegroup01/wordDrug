@@ -115,6 +115,11 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             hintLabelFontSize = 14
             
         default:
+            
+            dif = 1.15
+            
+            hintLabelFontSize = 20
+
  
             break
        

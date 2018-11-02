@@ -141,6 +141,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             cornerRadiusValue = 6
         
         default:
+            dif = 1
+            fontSize = 14
+            cornerRadiusValue = 6
            
             break
           

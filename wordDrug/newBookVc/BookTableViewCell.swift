@@ -87,6 +87,12 @@ class BookTableViewCell: UITableViewCell {
             iPhoneXHeightDif = 1.5
             hintLabelWidthDif = 1.3
         default:
+            
+            dif = 0.7
+            fontDif = 1
+            widthDif = 1.5
+            iPhoneXHeightDif = 1.5
+            hintLabelWidthDif = 1.3
             break
             
         }

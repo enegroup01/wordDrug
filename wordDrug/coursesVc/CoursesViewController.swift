@@ -161,6 +161,15 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             statusFontSize = 12
          
         default:
+            dif = 1.1
+            iPadDif = 1
+            dynamicCellHeight = 120
+            
+            bigNameFontSize = 30
+            logOutBtnLabelFontSize = 12
+            dayFontSize = 50
+            dayTitleFontSize = 12
+            statusFontSize = 12
             
             break
 
