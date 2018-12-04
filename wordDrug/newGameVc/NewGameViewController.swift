@@ -1351,6 +1351,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         } else if gameMode == 2{
             
             //隨機單字
+            
             //在此抓測驗單字的亂數順序
             
             var tempGamePassedDic:[Int:Int]?
@@ -1363,6 +1364,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 //相等的話
                 tempGamePassedDic = gamePassedDic
+                
             }
             
             for (s,u) in tempGamePassedDic!{
@@ -1372,8 +1374,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //填入全部
                 if s > 0 {
                     
+                    //做出幾個30
                     allUnitSpotNums = [Array<Any>](repeating: [Int](), count: s + 1) as! [[Int]]
                     
+                    //把所有的30空格填滿 [0:0] [0:1].....
                     for i in 0 ..< (s) {
                         
                         for n in 0 ..< 30{
@@ -1387,6 +1391,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     //填入殘值
                     if u > 0 {
                         
+                        //再最後一位數填入每三個的殘值
                         for i in 0 ..< u * 3 {
                             
                             allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
@@ -1395,6 +1400,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     } else {
                         
                         
+                        //若u為0, 就移除掉一整排空值
                         allUnitSpotNums.remove(at: allUnitSpotNums.count - 1)
                         
                     }

@@ -1125,6 +1125,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         */
         
+        //建立目錄數字
         var smallDic = [Int]()
         
         for _ in  0 ..< 10 {

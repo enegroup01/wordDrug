@@ -2086,6 +2086,7 @@ class NewGameScene: SKScene {
             for s in sepWordArray{
                 
                 if !currentWordArray.contains(s) {
+                    
                     otherWords.append(s)
                     
                 }
@@ -3256,7 +3257,6 @@ class NewGameScene: SKScene {
             randomR = 0
             leftOrRight = 1
         }
-        
         
        
         leftChiNode.text = selChiWords[randomL]

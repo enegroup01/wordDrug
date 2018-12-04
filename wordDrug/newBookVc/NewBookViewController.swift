@@ -1676,7 +1676,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             break
         }
 
-        
     }
     
     
@@ -1972,14 +1971,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-        
     }
     
     func autoPlayFunc(){
         
         //繼續往下Play
         if isAutoPlay{
-            
             
             if currentWordIndex < engWordsSelected.count - 1{
                 currentWordIndex += 1
@@ -2001,8 +1998,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     }
                     
                 }
-                
-                
                 
                 synChiWord = chiWordsSelected[currentWordIndex]
                 synEngSen = engSenSelected[currentWordIndex]
@@ -2731,7 +2726,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                   findMatchCollectionCell()
         }
   
-        print("end scrolling")
+        //print("end scrolling")
         
     }
     
@@ -2740,8 +2735,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     //決定collectionView 那個cell被選擇
     func findMatchCollectionCell(){
-        
-      
         
         if engWordsSelected.count > 0 {
         
@@ -3028,15 +3021,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
-            
         } catch  {
-            
         }
-       
-        
         pronounceEng()
-        
-        
     }
     
     
