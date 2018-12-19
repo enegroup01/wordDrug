@@ -227,6 +227,8 @@ class NewGameScene: SKScene {
     var tempGamePassedDic:[Int:Int]?
     
     var isReplay = false
+    
+    var lan:String!
 
     override func didMove(to view: SKView) {
         
@@ -304,6 +306,11 @@ class NewGameScene: SKScene {
 
         //MARK: must update
         
+        //MARK: simVer這裏位最大值要改動態
+        let array = Bundle.main.preferredLocalizations
+        lan = array.first
+    
+        
         //讀目前課程數字數量
         switch courseReceived {
             
@@ -311,8 +318,24 @@ class NewGameScene: SKScene {
             
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
-            increaseNum = 0
-            maxMapNum = 5
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                
+                //print("檢體中文關卡數")
+                //之後還要用courseReceived來改數值, 因為每個course值不同
+                
+                increaseNum = 35
+                maxMapNum = 3
+
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                increaseNum = 0
+                maxMapNum = 5
+                
+            }
       
         case 1:
             
@@ -422,6 +445,15 @@ class NewGameScene: SKScene {
             syllableSets = map34SyllableSets
         case 34:
             syllableSets = map35SyllableSets
+        case 35:
+            syllableSets = map36SyllableSets
+
+        case 36:
+            syllableSets = map37SyllableSets
+
+        case 37:
+            syllableSets = map38SyllableSets
+
             
         default:
             break
@@ -514,6 +546,8 @@ class NewGameScene: SKScene {
                     }
                     
                 }
+            
+            print("************allUnitSpotNum:\(allUnitSpotNums)")
  
             //抓亂數字
             selectRandomWord()
@@ -1477,20 +1511,48 @@ class NewGameScene: SKScene {
         var firstSyllablesToCheck = String()
         var secondSyllablesToCheck = String()
         var thirdSyllablesToCheck = String()
+   
         
         //三個音節供去掉數字
         var threeSyllables = ["","",""]
         
         if gameMode == 0 {
-        
-            syllablesToCheck = syllables[unitNumber]
-            threeSyllables = [syllablesToCheck,syllablesToCheck,syllablesToCheck]
-       
+     
+            //MARK: simVer  做三個音節
+            if lan == "zh-Hans"{
+                //檢體中文
+                
+                //print("檢體中文關卡數")
+   
+                firstSyllablesToCheck = syllables[unitNumber * 3 + 0]
+                secondSyllablesToCheck = syllables[unitNumber * 3 + 1]
+                thirdSyllablesToCheck = syllables[unitNumber * 3 + 2]
+                threeSyllables = [firstSyllablesToCheck,secondSyllablesToCheck,thirdSyllablesToCheck]
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                
+                syllablesToCheck = syllables[unitNumber]
+                threeSyllables = [syllablesToCheck,syllablesToCheck,syllablesToCheck]
+                
+                
+            }
+            
       
         } else if gameMode == 1 {
-            firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0] / 3]
-            secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1] / 3]
-            thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2] / 3]
+            
+            
+            //MARK: simVer 這裡有不一樣...這裡要再次確認應該沒有不一樣, 挑戰模式都是亂數
+            
+//            firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0] / 3]
+//            secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1] / 3]
+//            thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2] / 3]
+            
+            firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0]]
+            secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1]]
+            thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2]]
+
           
             threeSyllables = [firstSyllablesToCheck,secondSyllablesToCheck,thirdSyllablesToCheck]
             
@@ -1595,11 +1657,12 @@ class NewGameScene: SKScene {
                     
                     if let engWord = allThreeEngWordsArray[sg][i] as String?{
                         
-                        if engWord == syllablesGroup[sg]{
+                        if engWord.lowercased() == syllablesGroup[sg]{
                             //符合部首字
                             
                             let word = NSMutableAttributedString(string: engWord, attributes: attrs1)
                             attrWords[sg].append(word)
+                            
                             
                             
                         } else{
@@ -1759,6 +1822,7 @@ class NewGameScene: SKScene {
         
         
         //MARK: must update
+        //MARK: simVer must update 這裡如果有新增關卡要增加
         switch courseReceived{
           
         case 0:
@@ -2374,7 +2438,8 @@ class NewGameScene: SKScene {
                 
                 if leftOrRight == 0 {
                     //答對
-                          self.run(rightSound)
+                   
+                    self.run(rightSound)
                     
                     changeImageAlfa(name: "leftChiBtn", toAlpha: 0, time: 0.1)
                     changeImageAlfa(name: "popUpBlock", toAlpha: 0, time: 0.1)
@@ -2652,7 +2717,6 @@ class NewGameScene: SKScene {
             for touch in touches{
                 
                 
-                
                 //重置hintSec
                 hintSec = 0
                 
@@ -2897,6 +2961,7 @@ class NewGameScene: SKScene {
                             countScore(score: score)
                             } else {
                                 isUserInteractionEnabled = true
+                                
                             }
                             //跳到中文練習
                             isDragAndPlayEnable = false
@@ -2985,7 +3050,7 @@ class NewGameScene: SKScene {
                     
                     //答案錯誤的機制
                     
-                    print("wrong answer")
+                  //  print("wrong answer")
                     
            
                         self.run(wrongSound)
@@ -3121,7 +3186,7 @@ class NewGameScene: SKScene {
                     }else {
                     
                     
-                      print("wrong Answer action")
+                     // print("wrong Answer action")
                         
                         //不能按畫面
                         self.isUserInteractionEnabled = false
@@ -3442,7 +3507,7 @@ class NewGameScene: SKScene {
                 
             } else {
                 
-                print("單數結尾")
+               // print("單數結尾")
                 
                 
                 //抓三個單字的狀態 + 分數
@@ -3489,15 +3554,15 @@ class NewGameScene: SKScene {
                 if currentPracticeSequence == 2 {
                     
                     //之後要接續練完的畫面
-                        print("練完了")
+                      //  print("練完了")
                     let wordCount:[String:Int] = ["wordCount":wordReviewCount]
                     
-                    print(wordCount)
+                    //print(wordCount)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopReview"), object: nil, userInfo: wordCount)
                     
                 } else {
                     
-                    print("檢查點繼續練")
+                   // print("檢查點繼續練")
                     
                     
                     if currentPracticeSequence == 2 {
@@ -3607,7 +3672,7 @@ class NewGameScene: SKScene {
             
         } else if gameMode == 2 {
 
-                print("practice next sentence")
+            //    print("practice next sentence")
             
             
         }
@@ -3677,8 +3742,9 @@ class NewGameScene: SKScene {
             
             var scoreToPass = scoreLabel.text!
             
+    
             if isFinalPopCorrect{
-                
+
                 scoreToPass = String(Int(scoreLabel.text!)! + 300)
             }
             
@@ -4298,7 +4364,8 @@ class NewGameScene: SKScene {
         if isCorrect{
 
             if gameMode == 0 {
-            countScore(score: 300)
+         
+                countScore(score: 300)
                 
                 findLabelNode(name: "showHint").text = ""
                 

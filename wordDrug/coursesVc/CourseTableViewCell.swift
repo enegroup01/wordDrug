@@ -50,7 +50,7 @@ class CourseTableViewCell: UITableViewCell {
         
         switch height {
         case 1366, 1336, 1112:
-            print("iPad pro 2nd generation")
+           // print("iPad pro 2nd generation")
             
             dif = 1
             iPadDif = 2
@@ -62,7 +62,7 @@ class CourseTableViewCell: UITableViewCell {
 
             
          case 1024:
-            print("ipad pro 12.9")
+          //  print("ipad pro 12.9")
 
             dif = 1
             iPadDif = 1.5
@@ -73,7 +73,7 @@ class CourseTableViewCell: UITableViewCell {
             wordUnitFontSize = 20
 
         case 812:
-            print("iPhone X")
+          //  print("iPhone X")
             
             
             dif = 1

@@ -1,0 +1,47 @@
+/* 
+  Localizable.strings
+  wordDrug
+
+  Created by Ethan on 2018/12/12.
+  Copyright © 2018年 playplay. All rights reserved.
+*/
+
+courseVC_purchasedState = "付費用戶\n新課程：不限時間\n單字集/挑戰模式：不限時間";
+courseVC_freeState = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間";
+courseVC_learningDays = "學習天數";
+courseVC_newStudent = "新學生";
+courseVC_logOutBtnText = "登出";
+courseVC_toLoginVCBtnText = "註冊/登入";
+
+
+
+
+
+
+registerVc.regOrPlay = "註冊帳號\n繼續免費學習";
+registerVc.isPurchasedTitleLabel = "註冊帳號\n開始紀錄你的學習";
+registerVC.startYourLearningPlan = "開始你的學習計畫吧！";
+registerVC.accountPlaceholder = "請輸入5位數以上帳號";
+registerVC.passwordPlaceholder = "請輸入5位數以上密碼";
+registerVC.registerBtnLabelText = "註冊";
+registerVC.fbWechatLoginBtnText = "使用facebook登入";
+registerVC.commercialLine1 =  "每日免費7分鐘，學習9個新單字";
+registerVC.commercialLine2 =  "聽說拼讀一把罩！";
+registerVC.commercialLine3 =  "*可至購物商城購買無限學習時間";
+registerVC.commercialLine4 =  "無限時間";
+registerVC.commercialLine5 =  "複習挑戰模式。";
+registerVC.commercialLine6 =  "無限時間";
+registerVC.commercialLine7 =  "單字本聽力複習。";
+registerVC.errorAccountExist = "此帳號已存在，請重新輸入";
+registerVC.errorText = "錯誤";
+registerVC.errorWrongAccount = "帳號輸入有誤，請再試一次";
+registerVC.errorWrongPassword =  "密碼輸入有誤，請再試一次";
+
+
+
+
+
+
+
+
+

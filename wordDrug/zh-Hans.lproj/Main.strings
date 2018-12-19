@@ -1,0 +1,195 @@
+
+/* Class = "UIButton"; normalTitle = "進入課程"; ObjectID = "0FY-tI-EGT"; */
+"0FY-tI-EGT.normalTitle" = "進入課程";
+
+/* Class = "UILabel"; text = "發音次數"; ObjectID = "1Nw-SV-TBr"; */
+"1Nw-SV-TBr.text" = "發音次數";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "20O-0q-JMR"; */
+"20O-0q-JMR.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "字"; ObjectID = "2jq-Lp-xLJ"; */
+"2jq-Lp-xLJ.text" = "字";
+
+/* Class = "UILabel"; text = "ab"; ObjectID = "3TI-bh-w5L"; */
+"3TI-bh-w5L.text" = "ab";
+
+/* Class = "UIButton"; normalTitle = "下一頁"; ObjectID = "4Cb-f5-bfb"; */
+"4Cb-f5-bfb.normalTitle" = "下一頁";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "621-bt-I9O"; */
+"621-bt-I9O.text" = "Label";
+
+/* Class = "UILabel"; text = "總分"; ObjectID = "788-1h-UbL"; */
+"788-1h-UbL.text" = "總分";
+
+/* Class = "UILabel"; text = "<< 向左滑動"; ObjectID = "7ZM-dh-vtN"; */
+"7ZM-dh-vtN.text" = "<< 向左滑動";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "83E-Zc-3Po"; */
+"83E-Zc-3Po.text" = "Label";
+
+/* Class = "UILabel"; text = "1765"; ObjectID = "8ld-2A-1me"; */
+"8ld-2A-1me.text" = "1765";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9Nj-2A-8xp"; */
+"9Nj-2A-8xp.text" = "Label";
+
+/* Class = "UILabel"; text = "單字量"; ObjectID = "9aj-Uo-C4m"; */
+"9aj-Uo-C4m.text" = "單字量";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "A1q-ip-iCG"; */
+"A1q-ip-iCG.text" = "Label";
+
+/* Class = "UILabel"; text = "Please act your age."; ObjectID = "CsF-uf-Ct2"; */
+"CsF-uf-Ct2.text" = "Please act your age.";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "DGy-FH-6aL"; */
+"DGy-FH-6aL.text" = "1";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Dmp-dA-3zO"; */
+"Dmp-dA-3zO.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "句型冠軍榜"; ObjectID = "ECf-yE-Wbt"; */
+"ECf-yE-Wbt.normalTitle" = "句型冠軍榜";
+
+/* Class = "UILabel"; text = "自動播放"; ObjectID = "FaX-F0-hzF"; */
+"FaX-F0-hzF.text" = "自動播放";
+
+/* Class = "UITextField"; placeholder = "輸入5個字母以上帳號"; ObjectID = "FxH-A1-fBF"; */
+"FxH-A1-fBF.placeholder" = "輸入5個字母以上帳號";
+
+/* Class = "UILabel"; text = "放慢速度"; ObjectID = "GXL-br-U8K"; */
+"GXL-br-U8K.text" = "放慢速度";
+
+/* Class = "UIButton"; normalTitle = "註冊"; ObjectID = "GXs-Ct-RY7"; */
+"GXs-Ct-RY7.normalTitle" = "註冊";
+
+/* Class = "UIButton"; normalTitle = "上一頁"; ObjectID = "Gfj-XV-5Or"; */
+"Gfj-XV-5Or.normalTitle" = "上一頁";
+
+/* Class = "UILabel"; text = "v."; ObjectID = "ICZ-2d-zZC"; */
+"ICZ-2d-zZC.text" = "v.";
+
+/* Class = "UIButton"; normalTitle = "登入"; ObjectID = "IaG-1e-Z8g"; */
+"IaG-1e-Z8g.normalTitle" = "登入";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KHc-CQ-sxO"; */
+"KHc-CQ-sxO.text" = "Label";
+
+/* Class = "UILabel"; text = "已學習"; ObjectID = "LCO-Tt-fOl"; */
+"LCO-Tt-fOl.text" = "已學習";
+
+/* Class = "UILabel"; text = "扮演"; ObjectID = "MTS-rg-wy4"; */
+"MTS-rg-wy4.text" = "扮演";
+
+/* Class = "UILabel"; text = "播放句子"; ObjectID = "Mu2-i2-CNV"; */
+"Mu2-i2-CNV.text" = "播放句子";
+
+/* Class = "UIButton"; normalTitle = "恢復鍵"; ObjectID = "NR9-1e-Wuv"; */
+"NR9-1e-Wuv.normalTitle" = "恢復鍵";
+
+/* Class = "UILabel"; text = "我的學習成就"; ObjectID = "PSr-kn-1po"; */
+"PSr-kn-1po.text" = "我的學習成就";
+
+/* Class = "UILabel"; text = "單字量"; ObjectID = "RQ7-ee-gES"; */
+"RQ7-ee-gES.text" = "單字量";
+
+/* Class = "UIButton"; normalTitle = "英文拼字王"; ObjectID = "SBu-jz-0Is"; */
+"SBu-jz-0Is.normalTitle" = "英文拼字王";
+
+/* Class = "UILabel"; text = "目前課程"; ObjectID = "UBD-lg-gJM"; */
+"UBD-lg-gJM.text" = "目前課程";
+
+/* Class = "UIButton"; normalTitle = "挑戰模式"; ObjectID = "VXY-KJ-lEh"; */
+"VXY-KJ-lEh.normalTitle" = "挑戰模式";
+
+/* Class = "UILabel"; text = "act"; ObjectID = "Wx6-VG-VDo"; */
+"Wx6-VG-VDo.text" = "act";
+
+/* Class = "UILabel"; text = "選擇下方學習功能"; ObjectID = "XNz-kY-sPC"; */
+"XNz-kY-sPC.text" = "選擇下方學習功能";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Yas-Ja-Heu"; */
+"Yas-Ja-Heu.text" = "Label";
+
+/* Class = "UILabel"; text = "Amberlina"; ObjectID = "Zfb-jr-gOp"; */
+"Zfb-jr-gOp.text" = "Amberlina";
+
+/* Class = "UILabel"; text = "請表現你該有的年齡。"; ObjectID = "a1Z-Ny-meo"; */
+"a1Z-Ny-meo.text" = "請表現你該有的年齡。";
+
+/* Class = "UIButton"; normalTitle = "登出"; ObjectID = "a1e-Ia-agD"; */
+"a1e-Ia-agD.normalTitle" = "登出";
+
+/* Class = "UIButton"; normalTitle = "總分排行榜"; ObjectID = "aM4-Qr-uNL"; */
+"aM4-Qr-uNL.normalTitle" = "總分排行榜";
+
+/* Class = "UILabel"; text = "排行榜"; ObjectID = "ao4-dz-W8A"; */
+"ao4-dz-W8A.text" = "排行榜";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bSJ-9J-HD7"; */
+"bSJ-9J-HD7.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "使用facebook登入"; ObjectID = "d2k-HI-2Cr"; */
+"d2k-HI-2Cr.normalTitle" = "使用facebook登入";
+
+/* Class = "UIButton"; normalTitle = "總課表"; ObjectID = "h0G-eq-GSs"; */
+"h0G-eq-GSs.normalTitle" = "總課表";
+
+/* Class = "UITextField"; placeholder = "輸入5個字母以上密碼"; ObjectID = "iFr-QA-i5T"; */
+"iFr-QA-i5T.placeholder" = "輸入5個字母以上密碼";
+
+/* Class = "UILabel"; text = "總排名"; ObjectID = "kkQ-Z2-WoH"; */
+"kkQ-Z2-WoH.text" = "總排名";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nuO-7r-VA4"; */
+"nuO-7r-VA4.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ohj-Ne-WFq"; */
+"ohj-Ne-WFq.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pSo-Gt-U6x"; */
+"pSo-Gt-U6x.text" = "Label";
+
+/* Class = "UILabel"; text = "購物商城"; ObjectID = "pq9-K6-5JH"; */
+"pq9-K6-5JH.text" = "購物商城";
+
+/* Class = "UIButton"; normalTitle = "單字集"; ObjectID = "qxC-NS-CqQ"; */
+"qxC-NS-CqQ.normalTitle" = "單字集";
+
+/* Class = "UILabel"; text = "134"; ObjectID = "rSr-Sz-WPk"; */
+"rSr-Sz-WPk.text" = "134";
+
+/* Class = "UILabel"; text = "3756920"; ObjectID = "rk6-eH-nQi"; */
+"rk6-eH-nQi.text" = "3756920";
+
+/* Class = "UILabel"; text = "2250"; ObjectID = "sYt-o0-4HR"; */
+"sYt-o0-4HR.text" = "2250";
+
+/* Class = "UILabel"; text = "即將學習"; ObjectID = "tCk-r9-PDn"; */
+"tCk-r9-PDn.text" = "即將學習";
+
+/* Class = "UILabel"; text = "進入複習"; ObjectID = "tRe-UJ-tdu"; */
+"tRe-UJ-tdu.text" = "進入複習";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "v25-4x-sBL"; */
+"v25-4x-sBL.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "學習新字"; ObjectID = "wVJ-I3-3pi"; */
+"wVJ-I3-3pi.normalTitle" = "學習新字";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xk6-m0-BrD"; */
+"xk6-m0-BrD.text" = "Label";
+
+/* Class = "UILabel"; text = "學習成就"; ObjectID = "xll-v6-3Ij"; */
+"xll-v6-3Ij.text" = "學習成就";
+
+/* Class = "UILabel"; text = "ab"; ObjectID = "zAE-Vs-l9V"; */
+"zAE-Vs-l9V.text" = "ab";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zIq-Fe-1PO"; */
+"zIq-Fe-1PO.text" = "Label";
+
+/* Class = "UILabel"; text = "字"; ObjectID = "ztZ-s1-ltd"; */
+"ztZ-s1-ltd.text" = "字";

@@ -298,13 +298,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     var chiSentenceFontSize:CGFloat!
 
-            var dif = CGFloat()
-            var iPadDif = CGFloat()
+    var dif = CGFloat()
+    var iPadDif = CGFloat()
 
+    
+    var lan:String!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let array = Bundle.main.preferredLocalizations
+        lan = array.first
 
         skipPronounceBtn.isHidden = true
         
@@ -917,13 +922,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         resultBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         //568的位置過低
         resultBg.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (100 * iPadDif * dif / resultElementDif) * iPhoneXHeightDif * iPhoneXHeightDif2).isActive = true
-        
-        
-        
-        
-        
-        
-        
+
         
         //firstWordBtn.frame = CGRect(x: resultBg.frame.origin.x + ((resultBg.frame.width - (519 / 2 * dif)) / 2), y: resultBg.frame.midY - resultBg.frame.height / 20, width: 519 / 2 * dif, height: 57 * dif)
         
@@ -1249,16 +1248,41 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var titleWidth:CGFloat!
 
         //MARK: must update
+        //MARK: simVer 這裏課程最大值要動態化
+
+
+        
         switch courseReceived {
             
         case 0:
             
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
-            increaseNum = 0
-            maxMapNum = 4
+            
+   
             titleImg = "block0Title.png"
             titleWidth = 70
+            //print("------------------\(lan)")
+            if lan == "zh-Hans"{
+                //檢體中文
+                //之後還要用courseReceived來改數值, 因為每個course值不同
+                print("檢體中文關卡數")
+                
+                
+                maxMapNum = 2
+                increaseNum = 35
+
+                
+            } else {
+                //其餘語言
+                print("繁體中文關卡數")
+          
+                
+                maxMapNum = 4
+                increaseNum = 0
+            }
+            
+            
             
         case 1:
             
@@ -1305,10 +1329,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         resultTitleImg.anchor(top: resultBg.topAnchor, leading: resultBg.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20 * dif * iPadDif, left: 20 * dif * iPadDif, bottom: 0, right: 0), size: .init(width: titleWidth * dif * iPadDif, height: 70 * dif * iPadDif))
         
         
-
-        
-        
-        
         //讀取Bundle裡的句子
         var sentenceFile:String?
         
@@ -1318,7 +1338,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
         
-            print("剩餘時間幾秒:\(limitSeconds)")
+            //print("剩餘時間幾秒:\(limitSeconds)")
             //測試用
             //limitSeconds = 2
             
@@ -1347,18 +1367,36 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 // example.txt not found!
                 print("txt can't be found")
             }
-            
+            //print(sentenceName)
         } else if gameMode == 2{
             
             //隨機單字
             
             //在此抓測驗單字的亂數順序
             
+            //MARK: simVer 這裏tempGamePassedDic要做動態化
             var tempGamePassedDic:[Int:Int]?
             
             if mapNumber < mapPassedInt{
                 
-                tempGamePassedDic = [14:9]
+                if lan == "zh-Hans"{
+                    //檢體中文
+                    
+                    //print("檢體中文關卡數")
+                    //之後還要用courseReceived來改數值, 因為每個course值不同
+                    
+                    tempGamePassedDic = [10:9]
+
+                    
+                } else {
+                    //其餘語言
+                    //print("繁體中文關卡數")
+                    tempGamePassedDic = [14:9]
+
+                    
+                }
+
+                
                 
             } else {
                 
@@ -1935,6 +1973,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillAppear(_ animated: Bool) {
         
+       
+        
         print("是否為重複玩:\(isReplay)")
 
   
@@ -2317,7 +2357,28 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                             if unitNumber == 9{         //代表過一整個課程
                                                 
                                                 //此探索點已過完, 此探索點要做動態化  ----中級為 14
-                                                if spotNumber == 14 {
+                                                //MARK: simVer 要動態話SpotNum
+                                                
+                                             
+                                                var maxSpotNum = Int()
+                                                
+                                                if lan == "zh-Hans"{
+                                                    //檢體中文
+                                                    
+                                                    //print("檢體中文關卡數")
+                                                    //之後還要用courseReceived來改數值, 因為每個course值不同
+                                                    
+                                                    maxSpotNum = 10
+                                                    
+                                                } else {
+                                                    //其餘語言
+                                                    //print("繁體中文關卡數")
+                                                    maxSpotNum = 14
+                                                    
+                                                }
+                                                
+                                                
+                                                if spotNumber == maxSpotNum {
                                                     
                                                     //確認是否為最後一張地圖
                                                     if mapPassedInt == maxMapNum{
@@ -2334,6 +2395,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         
                                                     }
                                                     
+                                                    //MARK: simVer 這裡如果有超過的話要加
                                                     //MARK: must update
                                                     switch courseReceived{
                                                         
@@ -2634,12 +2696,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     func countScore(score:Int){
         
-
-        
         let scoreToPass:[String:Int] = ["Score":score]
 
         countScoreTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(NewGameViewController.startCounting), userInfo: scoreToPass, repeats: true)
-        
         
     }
     
@@ -2653,8 +2712,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
                 if scoreAdded < scoreToAdd {
          
-                    scoreAdded += 10
-                    scoreLabel.text = String(Int(scoreLabel.text!)! + 10)
+                    scoreAdded += 50
+                    scoreLabel.text = String(Int(scoreLabel.text!)! + 50)
                 } else {
       
                     scoreAdded = 0
@@ -2674,15 +2733,37 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     func countWords(){
         //計算所有字數
         
+
+
+        var unitMaxWordCount = Int()
+        
+        
         var wordsCounts = Int()
         
+        //MARK: simVer 這裡的450要做成動態化
         
         switch courseReceived{
             
         case 0:
             
             
-            wordsCounts += mapPassed! * 450
+            if lan == "zh-Hans"{
+                //檢體中文
+                
+                print("檢體中文關卡數")
+                //之後還要用courseReceived來改數值, 因為每個course值不同
+                
+                unitMaxWordCount = 330
+                
+            } else {
+                //其餘語言
+                print("繁體中文關卡數")
+                unitMaxWordCount = 450
+                
+            }
+  
+            
+            wordsCounts += mapPassed! * unitMaxWordCount
             
             
             for (s,u) in gamePassed!{
@@ -3007,8 +3088,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //檢查答案, 句子/單字
             if isCheckingSentence{
                 
-                //檢查
-                self.checkSentence()
+                //檢查 以下的func已經不用了
+                //self.checkSentence()
                 
                 //隱藏Btn, 以便顯示句子得分的img
                 recordBtn.isHidden = true
@@ -3064,7 +3145,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
             }
             
-            print(relWordsFound)
+            //print(relWordsFound)
             
             //開始辨識
             
@@ -3250,7 +3331,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         } else {
             //第一次嘗試玩
             
-            print("first time play")
+            //print("first time play")
             
             //註冊畫面
             
@@ -3298,213 +3379,213 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //檢查句子
     
     //這裡的func 已經用不到了...
-    
-    func checkSentence(){
-        print("trigger check sentence")
-        var attrSentence = NSMutableAttributedString()
-        
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.magenta]
-        
-        var recorded = [String]()
-        var received = [String]()
-        var completeWords = [String]()
-        
-        recorded = wordRecorded.components(separatedBy: " ")
-        received = wordToReceive.components(separatedBy: " ")
-        completeWords = completeWordsToShow.components(separatedBy: " ")
-        
-        
-        //寫一個對答案比例的func
-        var finalPoints = Int()
-        let unitPoint = 100 / received.count
-        var pointGet = Int()
-        var pointMinus = Int()
-        
-        //計分算法, 基本上還是要按照順序來計算
-        if recorded == received{
-            
-            finalPoints = 100
-            
-        } else {
-            
-            for i in 0 ..< received.count{
-                
-                
-                if i < recorded.count{
-                    if recorded[i] == received[i]{
-                        if i == 0 {
-                            
-                            attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs0)
-                        } else {
-                            
-                            attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs0))
-                        }
-                        
-                    } else {
-                        
-                        if i == 0 {
-                            
-                            attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1)
-                        } else {
-                            
-                            attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1))
-                        }
-                    }
-                } else {
-                    
-                    
-                    if i == 0 {
-                        
-                        attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1)
-                    } else {
-                        
-                        attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1))
-                    }
-                }
-                
-                for r in 0 ..< recorded.count{
-                    
-                    if recorded[r] == received[i]{
-                        
-                        //假如有字對到
-                        
-                        pointGet += 1
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            //顯示label字的正確與否 用顏色分辨
-            recogTextLabel.attributedText = attrSentence
-            
-            //避免分數超過
-            if pointGet > received.count{
-                pointGet = received.count
-            }
-            
-            finalPoints = pointGet * unitPoint
-        }
-        
-        //如果輸入的字更多要扣分
-        if recorded.count > received.count{
-            
-            pointMinus = recorded.count  - received.count
-            finalPoints = finalPoints - pointMinus * unitPoint / 2
-            
-            if finalPoints < 0 {
-                finalPoints = 0
-            }
-            
-        }
-        
-        
-        
-        //計算分數
-        var score = Int()
-        score = 500 * finalPoints / 100
-        
-        //卡一下顯示分數
-        //之後可以改變分數高低不同的img顏色
-        
-        let pointImg = UIImageView()
-        let pointLabel = UILabel()
-        
-        pointImg.frame = CGRect(x: recordBtn.frame.origin.x, y: recordBtn.frame.origin.y, width: recordBtn.frame.width, height: recordBtn.frame.height)
-        pointImg.image = UIImage(named: "pointImg.png")
-        self.view.addSubview(pointImg)
-        
-        pointLabel.frame = CGRect(x: 0, y: recordBtn.frame.height / 3.5, width: recordBtn.frame.width, height: 60)
-        pointLabel.backgroundColor = .clear
-        pointLabel.textColor = .white
-        pointLabel.font = UIFont(name: "Helvetica Bold", size: 40)
-        pointLabel.textAlignment = .center
-        pointLabel.text = "\(finalPoints)%"
-        pointImg.addSubview(pointLabel)
-        
-        //pointsIndicator?.startAnimating()
-        
-        //隱藏recordBtn
-        //recordBtn.isHidden = true
-        
-        //讓分數停留一下後再消失
-        let when = DispatchTime.now() + 1.5
-        
-        //接著做選擇題, 所有顯示的func都包在下方
-        DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
-            
-            pointImg.removeFromSuperview()
-            
-            //            self!.pointsIndicator?.stopAnimating()
-            
-            //製作tags
-            self!.sentenceTag = self!.sentence.components(separatedBy: " ")
-            
-            
-            self!.sentenceTag.shuffled()
-            
-            
-            //在此可以決定句子有多少個字
-            
-            if self!.sentenceTag.count > 10 {
-                //10個字以上
-                
-                
-                
-            } else {
-                
-                
-            }
-            
-            
-            print("製作句子 check sentence")
-            
-            
-            
-            for i in 0 ..< self!.sentenceTag.count{
-                
-                self!.tagView.addTag(self!.sentenceTag[i] + " " + String(i))
-                
-                
-                
-            }
-            
-            
-            //self!.tagView.addTags(self!.sentenceTag)
-            
-            
-            //準備選擇題
-            self!.sentenceLabel.text = ""
-            
-            //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數）
-            let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
-            
-            //給暫停使用的
-            // self!.isCountingTriggered = true
-            
-            //隱藏輸入字
-            self!.recogTextLabel.text = ""
-            
-            //顯示出tag
-            self!.tagView.isHidden = false
-            
-            //避免再次產生hint
-            self!.isCheckingSentence = false
-            
-            //發音
-            self!.pronounceTime = 1
-            
-            self!.synPronounce()
-            
-            
-        }
-        
-        
-    }
+//
+//    func checkSentence(){
+//        print("trigger check sentence")
+//        var attrSentence = NSMutableAttributedString()
+//
+//        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.white]
+//        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor : UIColor.magenta]
+//
+//        var recorded = [String]()
+//        var received = [String]()
+//        var completeWords = [String]()
+//
+//        recorded = wordRecorded.components(separatedBy: " ")
+//        received = wordToReceive.components(separatedBy: " ")
+//        completeWords = completeWordsToShow.components(separatedBy: " ")
+//
+//
+//        //寫一個對答案比例的func
+//        var finalPoints = Int()
+//        let unitPoint = 100 / received.count
+//        var pointGet = Int()
+//        var pointMinus = Int()
+//
+//        //計分算法, 基本上還是要按照順序來計算
+//        if recorded == received{
+//
+//            finalPoints = 100
+//
+//        } else {
+//
+//            for i in 0 ..< received.count{
+//
+//
+//                if i < recorded.count{
+//                    if recorded[i] == received[i]{
+//                        if i == 0 {
+//
+//                            attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs0)
+//                        } else {
+//
+//                            attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs0))
+//                        }
+//
+//                    } else {
+//
+//                        if i == 0 {
+//
+//                            attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1)
+//                        } else {
+//
+//                            attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1))
+//                        }
+//                    }
+//                } else {
+//
+//
+//                    if i == 0 {
+//
+//                        attrSentence = NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1)
+//                    } else {
+//
+//                        attrSentence.append(NSMutableAttributedString(string: completeWords[i] + " ", attributes: attrs1))
+//                    }
+//                }
+//
+//                for r in 0 ..< recorded.count{
+//
+//                    if recorded[r] == received[i]{
+//
+//                        //假如有字對到
+//
+//                        pointGet += 1
+//
+//                    }
+//
+//                }
+//
+//            }
+//
+//            //顯示label字的正確與否 用顏色分辨
+//            recogTextLabel.attributedText = attrSentence
+//
+//            //避免分數超過
+//            if pointGet > received.count{
+//                pointGet = received.count
+//            }
+//
+//            finalPoints = pointGet * unitPoint
+//        }
+//
+//        //如果輸入的字更多要扣分
+//        if recorded.count > received.count{
+//
+//            pointMinus = recorded.count  - received.count
+//            finalPoints = finalPoints - pointMinus * unitPoint / 2
+//
+//            if finalPoints < 0 {
+//                finalPoints = 0
+//            }
+//
+//        }
+//
+//
+//
+//        //計算分數
+//        var score = Int()
+//        score = 500 * finalPoints / 100
+//
+//        //卡一下顯示分數
+//        //之後可以改變分數高低不同的img顏色
+//
+//        let pointImg = UIImageView()
+//        let pointLabel = UILabel()
+//
+//        pointImg.frame = CGRect(x: recordBtn.frame.origin.x, y: recordBtn.frame.origin.y, width: recordBtn.frame.width, height: recordBtn.frame.height)
+//        pointImg.image = UIImage(named: "pointImg.png")
+//        self.view.addSubview(pointImg)
+//
+//        pointLabel.frame = CGRect(x: 0, y: recordBtn.frame.height / 3.5, width: recordBtn.frame.width, height: 60)
+//        pointLabel.backgroundColor = .clear
+//        pointLabel.textColor = .white
+//        pointLabel.font = UIFont(name: "Helvetica Bold", size: 40)
+//        pointLabel.textAlignment = .center
+//        pointLabel.text = "\(finalPoints)%"
+//        pointImg.addSubview(pointLabel)
+//
+//        //pointsIndicator?.startAnimating()
+//
+//        //隱藏recordBtn
+//        //recordBtn.isHidden = true
+//
+//        //讓分數停留一下後再消失
+//        let when = DispatchTime.now() + 1.5
+//
+//        //接著做選擇題, 所有顯示的func都包在下方
+//        DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
+//
+//            pointImg.removeFromSuperview()
+//
+//            //            self!.pointsIndicator?.stopAnimating()
+//
+//            //製作tags
+//            self!.sentenceTag = self!.sentence.components(separatedBy: " ")
+//
+//
+//            self!.sentenceTag.shuffled()
+//
+//
+//            //在此可以決定句子有多少個字
+//
+//            if self!.sentenceTag.count > 10 {
+//                //10個字以上
+//
+//
+//
+//            } else {
+//
+//
+//            }
+//
+//
+//            print("製作句子 check sentence")
+//
+//
+//
+//            for i in 0 ..< self!.sentenceTag.count{
+//
+//                self!.tagView.addTag(self!.sentenceTag[i] + " " + String(i))
+//
+//
+//
+//            }
+//
+//
+//            //self!.tagView.addTags(self!.sentenceTag)
+//
+//
+//            //準備選擇題
+//            self!.sentenceLabel.text = ""
+//
+//            //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數）
+//            let addScore:[String:Int] = ["addScore":score,"finalPoints":finalPoints]
+//
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addScore"), object: nil, userInfo: addScore)
+//
+//            //給暫停使用的
+//            // self!.isCountingTriggered = true
+//
+//            //隱藏輸入字
+//            self!.recogTextLabel.text = ""
+//
+//            //顯示出tag
+//            self!.tagView.isHidden = false
+//
+//            //避免再次產生hint
+//            self!.isCheckingSentence = false
+//
+//            //發音
+//            self!.pronounceTime = 1
+//
+//            self!.synPronounce()
+//
+//
+//        }
+//
+//
+//    }
     
     
     @IBAction func skipPronunceBtnClicked(_ sender: Any) {
@@ -3685,8 +3766,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             let unitIndex = Int(arc4random_uniform(UInt32(unitCount)))
             randomUnits.append(allUnitSpotNums[spotIndex][unitIndex])
             
-            
-            //移除
+            //移除已指定給他的亂數
             
             allUnitSpotNums[spotIndex].remove(at: unitIndex)
             

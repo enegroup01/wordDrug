@@ -11,6 +11,18 @@ import UIKit
 
 
 class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate{
+    
+
+    let courseVC_purchasedState = NSLocalizedString("courseVC_purchasedState", comment: "")
+    
+    let courseVC_freeState = NSLocalizedString("courseVC_freeState", comment: "")
+    let courseVC_learningDays = NSLocalizedString("courseVC_learningDays", comment: "")
+    let courseVC_newStudent = NSLocalizedString("courseVC_newStudent", comment: "")
+    let courseVC_logOutBtnText = NSLocalizedString("courseVC_logOutBtnText", comment: "")
+    let courseVC_toLoginVCBtnText = NSLocalizedString("courseVC_toLoginVCBtnText", comment: "")
+    
+    
+    
     @IBOutlet weak var block0LBtn: UIButton!
     
     @IBOutlet weak var block0RBtn: UIButton!
@@ -84,7 +96,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         switch height {
             
         case 1366, 1336, 1112:
-            print("iPad pro 2nd generation")
+            //print("iPad pro 2nd generation")
     
             dif = 1
             iPadDif = 2
@@ -97,7 +109,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             statusFontSize = 24
  
         case 1024:
-            print("9.7 iPad or 7.9 iPad mini, iPad(5th), iPad air, iPad air 2")
+            //print("9.7 iPad or 7.9 iPad mini, iPad(5th), iPad air, iPad air 2")
         
             dif = 1
             iPadDif = 1.5
@@ -198,7 +210,10 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         logOutBtn.titleLabel?.font = logOutBtn.titleLabel?.font.withSize(logOutBtnLabelFontSize)
         logOutBtn.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: -10), size: .init(width: 50 * iPadDif * dif, height: 22 * iPadDif * dif))
         logOutBtn.layer.cornerRadius = 50 * iPadDif * dif / 15
+        logOutBtn.setTitle(courseVC_logOutBtnText, for: .normal)
         
+        
+        toLoginVcBtn.setTitle(courseVC_toLoginVCBtnText, for: .normal)
         
         toLoginVcBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 0, right: 0), size: .init(width: 63 * iPadDif * dif, height: 24 * iPadDif * dif))
     
@@ -307,10 +322,10 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         self.view.bringSubview(toFront: toChartVcBtn)
 
         bigNameLabel.text = ""
-        userStatusLabel.text = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
+        userStatusLabel.text = courseVC_freeState
         userStatusLabel.adjustsFontSizeToFitWidth = true
         
-        dayTitleLabel.text = "學習天數"
+        dayTitleLabel.text = courseVC_learningDays
         daysLabel.text = ""
         daysLabel.adjustsFontSizeToFitWidth = true
     
@@ -547,10 +562,12 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         
         if isPurchased{
             //買了
-            purchaseStatus = "付費用戶\n新課程：不限時間\n單字集/挑戰模式：不限時間"
+            //purchaseStatus = "付費用戶\n新課程：不限時間\n單字集/挑戰模式：不限時間"
+            
+            purchaseStatus = courseVC_purchasedState
         } else {
             //還沒買
-            purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
+            purchaseStatus = courseVC_freeState
             
         }
         
@@ -590,7 +607,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             
          } else {
             
-         nickname = "新學生"
+            nickname = courseVC_newStudent
             //purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
             daysLabel.text = "0"
             
@@ -665,12 +682,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         //抓mapPassed5
         mapPassed5 = UserDefaults.standard.object(forKey: "mapPassed5") as? Int
 
-        
-        
     }
-
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -19,6 +19,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var stageCount = 5
     var elemWordsMax:[Int] = [450,450,450,450,450,450,450,450,450]
     
+
+    
+    
     var courseReceived = Int()
     
     var mapNumToPass = Int()
@@ -38,6 +41,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     //MARK: must update
+    //MARK: simVer 這裡要看最多有多少map
     var locks:[Int] = [1,1,1,1,1,1,1,1,1]
     
     var alertBg = UIImageView()
@@ -48,8 +52,12 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var alreadyLearnedLabel: UILabel!
     @IBOutlet weak var wordCountsLabel: UILabel!
     @IBOutlet weak var classTitle: UIImageView!
+    var lan:String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let array = Bundle.main.preferredLocalizations
+        lan = array.first
 
         var iPadDif:CGFloat!
         var wordCountTitleLabelFontSize: CGFloat!
@@ -231,14 +239,35 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         //抓所有學習單字字數
 
+
+        
         //MARK: must update
         //就算user == nil, gamePassed & mapPasse都已經設定初始值了
         switch courseReceived {
         case 0:
-            stageCount = 5
-            elemWordsMax = [450,450,450,450,450]
+            
+            //MARK: simVersion 共有幾個關卡
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                  stageCount = 3
+                 elemWordsMax = [330,330,330]
+                print("檢體中文關卡數")
+                
+            } else {
+                //其餘語言
+                print("繁體中文關卡數")
+                
+                stageCount = 5
+                elemWordsMax = [450,450,450,450,450]
+
+            }
+      
+            
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
+            
+        
             
         case 1:
      
@@ -371,6 +400,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         
         //test: 所有關卡的最大值, 這裡要修成 9 ..
+        //MARK: simVer這裡要看簡體版最大值是什麼要做動態修改
+        
         if mapPassedInt == 9 {
             
             for i in 0 ..< mapPassedInt{
@@ -431,7 +462,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         cell.wordCountLabel.text = "\(wordCounts) / \(elemWordsMax[indexPath.row])"
         
-       
+        //MARK: simVer 這裡要看課程最大值
+        
         var p1Color = UIColor()
         var p2Color = UIColor()
         var p3Color = UIColor()

@@ -46,10 +46,14 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var alphaLayer: UIImageView!
     
+    var lan:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        var iPadSmall = CGFloat()
+        let array = Bundle.main.preferredLocalizations
+        lan = array.first
+      
         var titleFontSize: CGFloat!
         var infoFontSize: CGFloat!
         var usernameFontSize: CGFloat!
@@ -61,7 +65,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case 1366, 1336, 1112:
                 dif = 1.5
                 photoDif = 2
-                iPadSmall = 0
+          
                 titleFontSize = 40
                 infoFontSize = 30
                 subTitleFontSize = 35
@@ -72,7 +76,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case 1024:
                 dif = 1.1
                 photoDif = 1.5
-                iPadSmall = 0
+       
                 titleFontSize = 35
                 infoFontSize = 20
                 subTitleFontSize = 28
@@ -84,7 +88,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //iPhoneX
             dif = 0.8
             photoDif = 1
-            iPadSmall = 0
+     
             titleFontSize = 20
             infoFontSize = 16
             subTitleFontSize = 20
@@ -97,7 +101,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //plus
             dif = 0.8
             photoDif = 1
-            iPadSmall = 0
+     
             titleFontSize = 24
             infoFontSize = 16
             subTitleFontSize = 20
@@ -109,7 +113,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             dif = 0.7
             photoDif = 1
-            iPadSmall = 0
+        
             titleFontSize = 20
             infoFontSize = 16
             subTitleFontSize = 18
@@ -120,7 +124,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             dif = 0.8
             photoDif = 0.7
-            iPadSmall = 0
+      
             titleFontSize = 16
             infoFontSize = 16
             subTitleFontSize = 16
@@ -131,7 +135,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         default:
             dif = 0.8
             photoDif = 1
-            iPadSmall = 0
+         
             titleFontSize = 20
             infoFontSize = 16
             subTitleFontSize = 20
@@ -424,6 +428,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     
     override func viewWillAppear(_ animated: Bool) {
+        
+
        
         if user != nil {
             
@@ -780,9 +786,27 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //算字數
         //在此有可能遇到user == nil的狀況, 不過在appDelegate已經給值, 稍後應該要修成if user == nil {} else {}
         
+        //MARK: simVer
+        
+        var maxWordCount = Int()
+        if lan == "zh-Hans"{
+            //檢體中文
+            
+            //print("檢體中文關卡數")
+            //之後還要用courseReceived來改數值, 因為每個course值不同
+            
+            maxWordCount = 330
+            
+        } else {
+            //其餘語言
+            //print("繁體中文關卡數")
+            maxWordCount = 450
+            
+        }
+        
         if user != nil {
         
-        let allMapPassedCount = mapPassed! * 450 + mapPassed2! * 450 + mapPassed3! * 450 + mapPassed4! * 450 + mapPassed5! * 450
+        let allMapPassedCount = mapPassed! * maxWordCount + mapPassed2! * maxWordCount + mapPassed3! * maxWordCount + mapPassed4! * maxWordCount + mapPassed5! * maxWordCount
         
         var gamePassedCount = Int()
         var gamePassed2Count = Int()
@@ -828,6 +852,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
             }
             
+            print("wrongWordsCount:\(wrongWordsCount)")
             
             if allWordsCount == 0 {
                 //這樣的話比例也是0
@@ -858,14 +883,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
             
-            
-            
-            
         } else {
             
-            
             wordCountLabel.text = "0"
-            print("user is nil 所產生的值")
+           // print("user is nil 所產生的值")
         }
         
         //抓分數

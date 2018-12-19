@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  wordDrug
+
+  Created by Ethan on 2018/12/12.
+  Copyright © 2018年 playplay. All rights reserved.
+*/
+
+courseVC_purchasedState = "付费用户\n新课程：不限时间\n单字集/挑战模式：不限时间";
+courseVC_freeState = "免费用户\n新课程：每天7分钟\n单字集/挑战模式：不限时间";
+courseVC_learningDays = "学习天数";
+courseVC_newStudent = "新学生";
+courseVC_logOutBtnText = "登出";
+
+registerVC.regOrPlay = "注册帐号\n继续免费学习";
+registerVC.isPurchasedTitleLabel = "注册帐号\n开始纪录你的学习";
+registerVC.startYourLearningPlan = "开始你的学习计画吧！";
+registerVC.accountPlaceholder = "请输入5位数以上帐号";
+registerVC.passwordPlaceholder = "请输入5位数以上密码";
+registerVC.registerBtnLabelText = "注册";
+registerVC.fbWechatLoginBtnText = "使用微信登入";
+registerVC.commercialLine1 = "每日免费7分钟，学习9个新单字";
+registerVC.commercialLine2 = "听说拼读一把罩！";
+registerVC.commercialLine3 = "*可至购物商城购买无限学习时间";
+registerVC.commercialLine4 =  "无限时间";
+registerVC.commercialLine5 =  "复习挑战模式。";
+registerVC.commercialLine6 =  "无限时间";
+registerVC.commercialLine7 =  "单字本听力复习。";
+registerVC.errorAccountExist = "此帐号已存在，请重新输入";
+registerVC.errorText = "错误";
+registerVC.errorWrongAccount = "帐号输入有误，请再试一次";
+registerVC.errorWrongPassword =  "密码输入有误，请再试一次";

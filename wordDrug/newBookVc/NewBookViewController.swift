@@ -19,7 +19,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //所有音節
     var syllableSets = [String]()
     
- 
     //刪掉數字的音節
     var sylArray = [String]()
     
@@ -73,11 +72,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var chiSenToShow = [String]()
 
     var sortedEngWordsToShow = [String]()
-      var sortedChiWordsToShow = [String]()
-      var sortedPartOfSpeechToShow = [String]()
-      var sortedSyllablesToShow = [String]()
-      var sortedEngSenToShow = [String]()
-      var sortedChiSenToShow = [String]()
+    var sortedChiWordsToShow = [String]()
+    var sortedPartOfSpeechToShow = [String]()
+    var sortedSyllablesToShow = [String]()
+    var sortedEngSenToShow = [String]()
+    var sortedChiSenToShow = [String]()
     
     //使用者的字群
     var myFavWords = [String]()
@@ -162,12 +161,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var newBookBg: UIImageView!
     
-    
     var dif = CGFloat()
     var cellDif = CGFloat()
     var seperatorDif = CGFloat()
     var fontDif = Int()
-    
     
     //所有alertView的變數
     var alertBg = UIImageView()
@@ -206,7 +203,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var chiWordSizeDif: CGFloat!
     
     var favAddedLabel = UILabel()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -363,26 +359,50 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-        
         print("courseReceived\(courseReceived)")
-        
         
         //MARK: must update
         //在此就算user == nil, gamePasse & mapPasse也都設定好初始值了
         
+        //MARK: simVer這裏最大值要動態 & 要append的音節檔案數量也不同
+        let array = Bundle.main.preferredLocalizations
+        let lan = array.first
+   
         switch courseReceived{
             
         case 0:
-            syllableGroup.append(map1SyllableSets)
-            syllableGroup.append(map2SyllableSets)
-            syllableGroup.append(map3SyllableSets)
-            syllableGroup.append(map4SyllableSets)
-            syllableGroup.append(map5SyllableSets)
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                
+                //print("檢體中文關卡數")
+              
+                syllableGroup.append(map36SyllableSets)
+                syllableGroup.append(map37SyllableSets)
+                syllableGroup.append(map38SyllableSets)
+                
+                increaseNum = 35
+                maxMapNum = 3
+                maxSpotNum = 11
+
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                syllableGroup.append(map1SyllableSets)
+                syllableGroup.append(map2SyllableSets)
+                syllableGroup.append(map3SyllableSets)
+                syllableGroup.append(map4SyllableSets)
+                syllableGroup.append(map5SyllableSets)
+                increaseNum = 0
+                maxMapNum = 5
+                maxSpotNum = 14
+              
+            }
+            
             mapPassedInt = mapPassed
             gamePassedDic = gamePassed
-            increaseNum = 0
-            maxMapNum = 5
-            maxSpotNum = 14
+
             
         
         case 1:
@@ -781,6 +801,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         
         
+//        print("sylArray:\(sylArray)")
+//        print("sortedSylArray\(sortedSylArray)")
+        
         
         //建立collectionView按鈕數量
         for _ in 0 ..< sortedSylArray.count{
@@ -828,7 +851,29 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             //在此要加上increaseNum才能抓到正確的檔案
             
-            for i in 0 ..< 15{
+            //MARK: simVer這裏的最大值要改成動態
+            
+            var maxSpotNum = Int()
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                
+                //print("檢體中文關卡數")
+                //之後還要用courseReceived來改數值, 因為每個course值不同
+                
+                maxSpotNum = 11
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                maxSpotNum = 15
+                
+            }
+            
+            
+            //for i in 0 ..< 15{
+                for i in 0 ..< maxSpotNum{
+
                 
                 var wordFile:String?
                 //前面的1代表第一張地圖
@@ -991,7 +1036,24 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 engWordsToShow.append(wordSets[i][w])
                 
                 //抓出正確的順序
-                let syllableSequence = Int(i * 10) +  Int(w / 3)
+                //MARK: simVer 這裡的syllables 要更改
+                
+                var syllableSequence = Int()
+                
+                if lan == "zh-Hans"{
+                    //檢體中文
+                    
+                    //print("檢體中文關卡數")
+                    syllableSequence = Int(i * 30) +  Int(w)
+                
+                    
+                } else {
+                    //其餘語言
+                    //print("繁體中文關卡數")
+                    syllableSequence = Int(i * 10) +  Int(w / 3)
+                    
+                }
+
                 syllablesToShow.append(sylArray[syllableSequence]) //[i]
                 
             }
@@ -1030,24 +1092,53 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //Part 2. 抓殘值 ＆ 抓可能出現錯字的最新三個
         
         
+        //MARK: simVer 這裡應該不用除3
         //* * * 抓已append完的音節數量, 之後殘值以此數量append
-        let sequence = Int(syllablesToShow.count / 3)
         
-        for (_,g) in gamePassedDic!{
+        
+        var sequence = Int()
+        if lan == "zh-Hans"{
+            //檢體中文
             
+            //print("檢體中文關卡數")
+            //之後還要用courseReceived來改數值, 因為每個course值不同
 
+            sequence = syllablesToShow.count
+            
+        } else {
+            //其餘語言
+            //print("繁體中文關卡數")
+            sequence = Int(syllablesToShow.count / 3)
+            
+        }
+
+        for (_,g) in gamePassedDic!{
             
             for w in 0 ..< ((g + 1) * 3){
                 
-                
                 engWordsToShow.append(tempWordSets[0][w])
     
-                let syllableSequence = sequence + Int(w / 3)
+                //MARK: simVer 應該不用除以3
+                
+                
+                var syllableSequence = Int()
+                
+                if lan == "zh-Hans"{
+                    //檢體中文
+                    
+                    //print("檢體中文關卡數")
+                    syllableSequence = sequence + w
+                    
+                } else {
+                    //其餘語言
+                    //print("繁體中文關卡數")
+                    syllableSequence = sequence + Int(w / 3)
+                    
+                }
 
                 syllablesToShow.append(sylArray[syllableSequence]) //[s]
                 
                 engSenToShow.append(tempSentenceSets[0][w])
-                
                 
             }
             
@@ -1069,7 +1160,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-        
+        print("sylArray:\(sylArray.count)")
+        print("syllableToshow: \(syllablesToShow.count)")
+        print("sortedSyl:\(sortedSylArray.count)")
         //這部分之後要分course類了
         //載入我的最愛單字
         if let myWordsString = user?["myWords"] as! String?{
@@ -1097,31 +1190,59 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 if sortedSylArray[s] == sylArray[i]{
                     
+                    //MARK: simVer 這裏不抓三個字... 原始寫法保留在下方
                     
-                    for n in 0 ..< 3 {
-
+                    
+                    if lan == "zh-Hans"{
+                        //檢體中文
                         
-                        //音節過多, 單字不夠多所以要確認數量
-                        if engWordsToShow.count > ((i * 3) + n){
-                        
-                        sortedEngWordsToShow.append(engWordsToShow[(i * 3) + n])
-                        sortedChiWordsToShow.append(chiWordsToShow[(i * 3) + n])
-                        sortedPartOfSpeechToShow.append(partOfSpeechToShow[(i * 3) + n])
-                        sortedSyllablesToShow.append(syllablesToShow[(i * 3) + n])
-                        sortedEngSenToShow.append(engSenToShow[(i * 3) + n])
-                        sortedChiSenToShow.append(chiSenToShow[(i * 3) + n])
-                      
+                        //print("檢體中文關卡數")
+                        if engWordsToShow.count > i {
+                            
+                            
+                            //print("engWord:\(engWordsToShow[i])")
+                            sortedEngWordsToShow.append(engWordsToShow[i])
+                            sortedChiWordsToShow.append(chiWordsToShow[i])
+                            sortedPartOfSpeechToShow.append(partOfSpeechToShow[i])
+                            sortedSyllablesToShow.append(syllablesToShow[i])
+                            sortedEngSenToShow.append(engSenToShow[i])
+                            sortedChiSenToShow.append(chiSenToShow[i])
+                            
                         }
+                  
                         
+                    } else {
+                        //其餘語言
+                        //print("繁體中文關卡數")
+                                            for n in 0 ..< 3 {
+                        
+                        
+                        
+                                                //音節過多, 單字不夠多所以要確認數量
+                                                if engWordsToShow.count > ((i * 3) + n){
+                        
+                                                             print("engWord:\(engWordsToShow[(i * 3) + n])")
+                                                sortedEngWordsToShow.append(engWordsToShow[(i * 3) + n])
+                                                sortedChiWordsToShow.append(chiWordsToShow[(i * 3) + n])
+                                                sortedPartOfSpeechToShow.append(partOfSpeechToShow[(i * 3) + n])
+                                                sortedSyllablesToShow.append(syllablesToShow[(i * 3) + n])
+                                                sortedEngSenToShow.append(engSenToShow[(i * 3) + n])
+                                                sortedChiSenToShow.append(chiSenToShow[(i * 3) + n])
+                        
+                                                }
+                           
+                        }
+                      
                     }
+                    
                     
                 }
                 
             }
             
         }
-        print("sorted:\(sortedEngWordsToShow.count)")
-        print("notSorted:\(engWordsToShow.count)")
+        //print("sorted:\(sortedEngWordsToShow.count)")
+        //print("notSorted:\(engWordsToShow.count)")
        
         //從所有的單字裡去找match到的我的最愛單字
         for i in 0 ..< sortedEngWordsToShow.count{
@@ -1392,7 +1513,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         */
         
         //把臨時的加入myFavWord裡
-        print("sortedEngWord:\(sortedEngWordsToShow)")
+        //print("sortedEngWord:\(sortedEngWordsToShow)")
  
         //假如沒有全破關的話全部可顯示字要扣掉三個
         var tempCount = sortedEngSenToShow.count
@@ -2145,6 +2266,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
+        print("how many words loaded:\(engWordsSelected.count)")
         return engWordsSelected.count
         
         //return 5
@@ -2691,10 +2813,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             cell.backgroundColor = .clear
         }
     }
-    
-    
-    
-    
     //用以下兩個方法來檢測scroll暫停時間
     
     
@@ -2809,7 +2927,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         if isCollectionViewSelectabel{
             
-            
             //設定選項顏色
             for i in 0 ..< collectionTouched.count{
                 collectionTouched[i] = 0
@@ -2894,9 +3011,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     func jumpToRow(sylSelected:String){
         
     
+        let array = Bundle.main.preferredLocalizations
+        let lan = array.first
+       
+        
+ 
+        
         //找對應的row, 並跳過去
         //#新寫法
       
+        
 
         if let indexToJump = syllablesSelected.index(of: sylSelected) {
         
@@ -2911,8 +3035,26 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             } else {
                 
                 //這裡可以加1的原因是因為3個字為一組
-                var indexPathRow = IndexPath(row: indexToJump + 1, section: 0)
+                //MARK: simVer 這裡可能要避開三個字一組...試試看
                 
+                
+                   var indexPathRow = IndexPath()
+                
+                if lan == "zh-Hans"{
+                    //檢體中文
+                    
+                    print("檢體中文關卡數")
+                    //之後還要用courseReceived來改數值, 因為每個course值不同
+                   indexPathRow = IndexPath(row: indexToJump, section: 0)
+                    
+                    
+                } else {
+                    //其餘語言
+                    print("繁體中文關卡數")
+                    indexPathRow = IndexPath(row: indexToJump + 1, section: 0)
+                    
+                }
+
                 
                 if segControl.selectedSegmentIndex == 2 {
                     
@@ -2921,7 +3063,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 tableView.scrollToRow(at: indexPathRow, at: .bottom, animated: true)
                 
-
                 
             }
         }

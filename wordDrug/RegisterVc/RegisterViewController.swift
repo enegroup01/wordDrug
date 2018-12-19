@@ -83,6 +83,31 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     var attrs: [NSAttributedStringKey: NSObject]!
     
+    let regOrPlay = NSLocalizedString("registerVC.regOrPlay", comment: "")
+    let isPurchasedTitleLabel = NSLocalizedString("registerVC.isPurchasedTitleLabel", comment: "")
+      let startYourLearningPlan = NSLocalizedString("registerVC.startYourLearningPlan", comment: "")
+    let accountPlaceholder = NSLocalizedString("registerVC.accountPlaceholder", comment: "")
+    let passwordPlaceholder = NSLocalizedString("registerVC.passwordPlaceholder", comment: "")
+    let registerBtnLabelText = NSLocalizedString("registerVC.registerBtnLabelText", comment: "")
+    
+    let fbWechatLoginBtnText = NSLocalizedString("registerVC.fbWechatLoginBtnText", comment: "")
+
+    let commercialLine1 = NSLocalizedString("registerVC.commercialLine1", comment: "")
+    let commercialLine2 = NSLocalizedString("registerVC.commercialLine2", comment: "")
+    let commercialLine3 = NSLocalizedString("registerVC.commercialLine3", comment: "")
+    let commercialLine4 = NSLocalizedString("registerVC.commercialLine4", comment: "")
+    let commercialLine5 = NSLocalizedString("registerVC.commercialLine5", comment: "")
+    let commercialLine6 = NSLocalizedString("registerVC.commercialLine6", comment: "")
+    let commercialLine7 = NSLocalizedString("registerVC.commercialLine7", comment: "")
+    
+    let errorAccountExist = NSLocalizedString("registerVC.errorAccountExist", comment: "")
+    
+    let errorText = NSLocalizedString("registerVC.errorText", comment: "")
+    
+    let errorWrongAccount = NSLocalizedString("registerVC.errorWrongAccount", comment: "")
+    
+    let errorWrongPassword = NSLocalizedString("registerVC.errorWrongPassword", comment: "")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -96,7 +121,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         switch height {
             
         case 1366, 1336, 1112:
-            print("big iPad")
+            //print("big iPad")
 
             dif = 2
             
@@ -113,7 +138,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
         case 812:
             
- 
             dif = 1
             fontSize = 14
             cornerRadiusValue = 6
@@ -185,7 +209,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         //titleLabel.frame = CGRect(x: 0, y: height / 11, width: width, height: 98)
         titleLabel.font = UIFont(name: "Helvetica Bold", size: fontSize * 2.5)
         titleLabel.textColor = .white
-        titleLabel.text = "註冊帳號\n繼續免費學習"
+        titleLabel.text = regOrPlay
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         titleLabel.layer.zPosition = 5
@@ -201,6 +225,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
          let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
         
         
+        //這個購買前要先註冊的code應該也已經用不到了
         if isDirectedHere{
             
             titleLabel.text = "註冊帳號完後\n即可購買無限學習時間"
@@ -209,8 +234,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if isPurchased{
             //有買了
             
-            titleLabel.text = "註冊帳號\n開始紀錄你的學習"
-            
+            titleLabel.text = isPurchasedTitleLabel
         }
         
         /*
@@ -249,7 +273,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         subTitleLabel.numberOfLines = 0
         */
         
-          subTitleLabel.text = "開始你的學習計畫吧！"
+        subTitleLabel.text = startYourLearningPlan
         
         subTitleLabel.font = UIFont(name: "Helvetica Bold", size: fontSize * 1.2)
         subTitleLabel.textAlignment = .center
@@ -271,7 +295,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         accountPng.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 5 * dif).isActive = true
 
         
-        accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        accountTextField.attributedPlaceholder = NSAttributedString(string:accountPlaceholder, attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         accountTextField.font = accountTextField.font?.withSize(fontSize)
         accountTextField.translatesAutoresizingMaskIntoConstraints = false
         accountTextField.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
@@ -302,7 +326,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
          */
         
         
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string:passwordPlaceholder, attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         passwordTextField.font = passwordTextField.font?.withSize(fontSize)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
@@ -338,7 +362,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         //registerBtn.layer.cornerRadius = registerBtn.frame.width / 40
         registerBtn.clipsToBounds = true
         registerBtn.titleLabel?.textAlignment = .center
-        registerBtn.setTitle("註冊", for: .normal)
+        registerBtn.setTitle(registerBtnLabelText, for: .normal)
         
         registerBtn.titleLabel?.font = registerBtn.titleLabel?.font.withSize(fontSize)
         
@@ -357,7 +381,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         //fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
         facebookBtn.clipsToBounds = true
         facebookBtn.titleLabel?.textAlignment = .center
-        facebookBtn.setTitle("使用facebook登入", for: .normal)
+        facebookBtn.setTitle(fbWechatLoginBtnText, for: .normal)
         facebookBtn.titleLabel?.font = facebookBtn.titleLabel?.font.withSize(fontSize)
         
         
@@ -418,9 +442,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         textLabel.numberOfLines = 3
         let textContent = NSMutableAttributedString()
         
-        let textLabeltext1 = NSMutableAttributedString(string: "每日免費7分鐘，學習9個新單字", attributes: attrs1)
-        let textLabelText2 = NSMutableAttributedString(string: "聽說拼讀一把罩！", attributes: attrs0)
-        let textLabelText3 = NSMutableAttributedString(string: "*可至購物商城購買無限學習時間", attributes: attrs2)
+        let textLabeltext1 = NSMutableAttributedString(string: commercialLine1, attributes: attrs1)
+        let textLabelText2 = NSMutableAttributedString(string: commercialLine2, attributes: attrs0)
+        let textLabelText3 = NSMutableAttributedString(string: commercialLine3, attributes: attrs2)
         
         textLabel.adjustsFontSizeToFitWidth = true
         textContent.append(textLabeltext1)
@@ -449,8 +473,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         textLabel2.textAlignment = .left
         textLabel2.adjustsFontSizeToFitWidth = true
         let textContent2 = NSMutableAttributedString()
-        let textLabel2Text = NSMutableAttributedString(string: "無限時間", attributes: attrs1)
-        let textLabel2Text2 = NSMutableAttributedString(string:  "複習挑戰模式。", attributes: attrs0)
+        let textLabel2Text = NSMutableAttributedString(string: commercialLine4, attributes: attrs1)
+        let textLabel2Text2 = NSMutableAttributedString(string: commercialLine5, attributes: attrs0)
         textContent2.append(textLabel2Text)
         textContent2.append(textLabel2Text2)
         textLabel2.attributedText = textContent2
@@ -481,8 +505,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         
         let textContent3 = NSMutableAttributedString()
-        let textLabel3Text = NSMutableAttributedString(string: "無限時間", attributes: attrs1)
-        let textLabel3Text2 = NSMutableAttributedString(string: "單字本聽力複習。", attributes: attrs0)
+        let textLabel3Text = NSMutableAttributedString(string: commercialLine6, attributes: attrs1)
+        let textLabel3Text2 = NSMutableAttributedString(string: commercialLine7, attributes: attrs0)
         textContent3.append(textLabel3Text)
         textContent3.append(textLabel3Text2)
         textLabel3.attributedText = textContent3
@@ -502,7 +526,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         freePng2.centerYAnchor.constraint(equalTo: textLabel3.centerYAnchor).isActive = true
 
         
-        print("user:\(user)")
+        //print("user:\(user)")
         
         
         if let myWrongWordsString = user?["wrongWords"] as! String?{
@@ -604,13 +628,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
             
             accountTextField.text = ""
-            accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+            accountTextField.attributedPlaceholder = NSAttributedString(string: accountPlaceholder, attributes: attrs)
             
             if  passwordTextField.text!.isEmpty  || passwordTextField.text!.count < 5{
                 
                 passwordTextField.text = ""
                 
-                passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+                passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceholder, attributes: attrs)
 
                 
             }
@@ -619,13 +643,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             passwordTextField.text = ""
             
-            passwordTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceholder, attributes: attrs)
             
             if accountTextField.text!.isEmpty || accountTextField.text!.count < 5 {
                 
 
                 accountTextField.text = ""
-                accountTextField.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+                accountTextField.attributedPlaceholder = NSAttributedString(string: accountPlaceholder, attributes: attrs)
                 
             }
             
@@ -635,7 +659,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             activityIndicator.startAnimating()
             UIApplication.shared.beginIgnoringInteractionEvents()
             
-            print("register")
+            //print("register")
             // shortcuts
             let username = accountTextField.text!.lowercased()
             let password = passwordTextField.text!
@@ -964,11 +988,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     self!.activityIndicator.stopAnimating()
                                     UIApplication.shared.endIgnoringInteractionEvents()
                                     
-                                    print("1")
+                                    //print("1")
                                     self?.accountTextField.text = ""
                                     self?.passwordTextField.text = ""
-                                    self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: self!.attrs)
-                                    self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+                                    self?.accountTextField.attributedPlaceholder = NSAttributedString(string: self!.errorAccountExist, attributes: self!.attrs)
+                                    self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: self!.errorText, attributes: self!.attrs)
                                     
                                 })
                                 return
@@ -984,11 +1008,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 self!.activityIndicator.stopAnimating()
                                 UIApplication.shared.endIgnoringInteractionEvents()
                                 
-                                print("2")
+                                //print("2")
                                 self?.accountTextField.text = ""
                                 self?.passwordTextField.text = ""
-                                self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
-                                self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
+                                self?.accountTextField.attributedPlaceholder = NSAttributedString(string: self!.errorWrongAccount, attributes: self!.attrs)
+                                self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: self!.errorWrongPassword, attributes: self!.attrs)
                             })
                             return
                             
@@ -1005,13 +1029,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         self!.activityIndicator.stopAnimating()
                         UIApplication.shared.endIgnoringInteractionEvents()
                         
-                        print("3")
+                        //print("3")
                         let message = error!.localizedDescription
                         print(message)
                         self?.accountTextField.text = ""
                         self?.passwordTextField.text = ""
-                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
-                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
+                        self?.accountTextField.attributedPlaceholder = NSAttributedString(string: self!.errorWrongAccount, attributes: self!.attrs)
+                        self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: self!.errorWrongPassword, attributes: self!.attrs)
                     })
                     return
                     
@@ -2182,6 +2206,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                             
                                             self!.activityIndicator.stopAnimating()
                                             UIApplication.shared.endIgnoringInteractionEvents()
+
                                             self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
                                        
                                      
@@ -2288,23 +2313,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 UIApplication.shared.endIgnoringInteractionEvents()
                                 
                                 self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
-                                
-                                
-                                
-                                
-                            }
 
-                            
-                            
+                            }
                             
                         })
                         
-                        
-                        
                     }
-                    
-                    
-                    
+               
                 } catch{
                     
                     DispatchQueue.main.async(execute: {

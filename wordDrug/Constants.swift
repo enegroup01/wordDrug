@@ -30,6 +30,9 @@ public let map1SyllableSets:[[String]] =
 ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
 ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
 
+
+
+
 //第二張地圖1-15探索點 已更新過
 public let map2SyllableSets:[[String]] =
 [["al2","am2","an2","ar2","as2","at2","au2","aw2","ay2","be2"],
@@ -47,6 +50,8 @@ public let map2SyllableSets:[[String]] =
 ["on3","ong3","oo3","op3","or3","ot3","ou3","ow3","pr3","gar1"],
 ["re3","sh3","st3","th3","tion3","tr3","ty3","u_e3","ui3","ry3"],
 ["er37","er38","er39","er40","er41","er42","er43","er44","er45","er46"]]
+
+
 
 //第三張地圖1-15探索點 已更新過
 public let map3SyllableSets:[[String]] =
@@ -642,3 +647,45 @@ public let map35SyllableSets:[[String]] =
 ["tion193","tion194","tion195","ty82","ty83","ty84","u_e53","um34","ur31","ur32"],
 ["tion196","tion197","tion198","tion199","ty85","ty86","ty87","u_e54","u_e55","ur33"],
 ["tion200","tion201","tion202","tion203","tion204","ty88","ty89","ty90","u_e56","u_e57"]]
+
+
+
+//MARK: simVer
+public let map36SyllableSets:[[String]] =
+    [["I", "a", "a", "ble", "ou", "ab", "ai", "er", "oo", "ai", "go", "ee", "ai", "a_e", "or", "al", "al", "ong", "al", "al", "al", "am", "ame", "ame", "an", "an", "an", "an", "al", "er"],
+     ["an", "any", "any", "any", "ing", "ment", "ea", "ple", "pr", "ar", "ar", "ou", "i_e", "ar", "as", "as", "at", "au", "nt", "au", "ay", "ba", "ck", "ba", "in", "ry", "al", "na", "an", "an"],
+     ["ue", "al", "as", "as", "as", "at", "th", "th", "be", "ch", "ea", "ful", "au", "be", "bed", "oo", "ee", "ee", "or", "be", "be", "be", "el", "ong", "ow", "i_e", "ee", "cle", "bi", "i_e"],
+     ["ir", "ay", "i_e", "oa", "bl", "ck", "ow", "oa", "dy", "oo", "or", "or", "or", "ow", "bo", "th", "tle", "bo", "ow", "bo", "oy", "ea", "ea", "br", "ge", "igh", "ing", "th", "sh", "ui"],
+     ["ur", "us", "ness", "ness", "sy", "bu", "er", "by", "a_e", "al", "am", "an", "an", "ar", "ar", "a_e", "ful", "ry", "a_e", "at", "ch", "ce", "er", "ch", "ch", "ch", "ge", "ea", "ck", "ee"],
+     ["ee", "ck", "ch", "ch", "ch", "ch", "ch", "ch", "ur", "cle", "ci", "cl", "a_e", "cl", "cl", "cl", "cl", "cl", "ou", "cl", "ee", "o_e", "old", "ct", "come", "ble", "mic", "com", "er", "oo"],
+     ["oo", "oo", "co", "ct", "u_e", "ch", "ou", "ou", "ou", "in", "er", "ow", "ay", "cr", "cr", "cr", "up", "ut", "u_e", "ad", "ce", "ous", "a_e", "au", "ay", "ea", "ea", "er", "i_e", "ous"],
+     ["sk", "nd", "dic", "ie", "en", "ult", "ig", "er", "do", "ct", "ge", "do", "og", "do", "or", "ow", "en", "aw", "ea", "in", "er", "dr", "um", "dr", "ck", "ing", "ea", "ea", "ly", "th"],
+     ["ea", "ea", "ea", "eg", "gh", "ee", "th", "ty", "er", "ry", "ph", "en", "el", "el", "ai", "en", "sh", "oy", "gh", "en", "er", "e_e", "en", "en", "er", "ry", "ry", "ing", "ple", "ce"],
+     ["ex", "ex", "ing", "u_e", "er", "ce", "eye", "ct", "ry", "al", "ly", "ous", "an", "ar", "ar", "at", "th", "or", "ry", "ee", "al", "ew", "ee", "th", "ty", "il", "al", "i_e", "er", "sh"],
+     ["i_e", "i_e", "i_e", "ir", "sh", "sh", "i_e", "fi", "or", "ow", "fl", "ow", "oo", "oo", "or", "or", "er", "or", "or", "or", "ur", "ee", "th", "ee", "sh", "ay", "ge", "en", "en", "fr"]]
+
+public let map37SyllableSets:[[String]] =
+[["fr", "ui", "ful", "un", "un", "ture", "a_e", "ge", "ar", "as", "et", "st", "ft", "ir", "gi", "gl", "gl", "ue", "go", "oa", "oo", "oo", "oo", "gr", "th", "gr", "th", "gr", "gr", "gr"],
+["ea", "ou", "gr", "ow", "va", "gu", "bit", "ai", "ha", "ee", "am", "ur", "an", "an", "en", "ap", "ar", "a_e", "ha", "as", "he", "ea", "ea", "ea", "ea", "ea", "ar", "ea", "ea", "lo"],
+["el", "ful", "en", "he", "i_e", "igh", "il", "ry", "it", "by", "old", "ay", "o_e", "o_e", "st", "o_e", "or", "al", "ot", "el", "ou", "ou", "ow", "er", "dr", "un", "ur", "ur", "us", "ce"],
+["ea", "ea", "if", "im", "in", "in", "in", "in", "in", "in", "in", "is", "nd", "it", "ry", "ob", "og", "in", "oy", "ce", "ly", "um", "u_e", "or", "st", "oo", "ee", "ck", "id", "il"],
+["am", "nd", "ing", "is", "ch", "i_e", "ki", "ee", "kn", "kn", "ow", "ge", "la", "a_e", "am", "an", "ge", "ar", "st", "a_e", "er", "gh", "la", "ea", "ea", "rn", "ea", "ea", "ft", "eg"],
+["le", "en", "le", "le", "et", "er", "ry", "ie", "i_e", "igh", "i_e", "i_e", "on", "st", "en", "tle", "li", "o_e", "ong", "oo", "se", "ou", "lo", "ow", "ck", "un", "in", "gi", "ai", "an"],
+["a_e", "an", "an", "an", "ch", "ar", "ar", "ma", "sk", "th", "er", "ay", "ay", "ay", "ea", "ea", "ea", "ci", "um", "ee", "ee", "me", "igh", "il", "il", "nd", "mi", "is", "is", "st"],
+["mo", "ment", "ay", "ey", "th", "oo", "or", "ing", "st", "th", "cle", "ou", "ou", "ou", "mo", "mo", "M", "M", "M", "ch", "um", "sic", "st", "a_e", "al", "ea", "ck", "ee", "er", "ew"],
+["ew", "ex", "ce", "igh", "i_e", "ee", "ty", "th", "no", "no", "od", "oi", "dle", "oo", "or", "o_e", "ot", "oo", "ing", "ce", "em", "ow", "er", "ur", "ck", "er", "of", "of", "ce", "er"],
+["en", "oi", "old", "on", "ce", "one", "ly", "en", "or", "ge", "or", "er", "ou", "i_e", "er", "ow", "p", "ck", "ge", "ai", "ai", "an", "pa", "er", "nt", "ar", "ar", "ar", "as", "st"],
+["ea", "en", "en", "ple", "er", "er", "et", "no", "ck", "nic", "ture", "ie", "ce", "ig", "ple", "pi", "ce", "an", "pl", "ay", "ay", "ay", "ea", "oi", "ce", "i_e", "po", "oo", "or", "lar"]]
+
+public let map38SyllableSets:[[String]] =
+[["or", "ble", "ar", "ou", "pr", "pre", "sent", "pr", "bl", "am", "ou", "ic", "pu", "um", "sh", "pu", "ee", "tion", "ck", "qu", "qu", "bit", "di", "ay", "ai", "ow", "ai", "ea", "ea", "ea"],
+["ea", "gle", "ge", "ee", "re", "ea", "st", "au", "oo", "ce", "ch", "igh", "er", "oa", "oo", "o_e", "ou", "ow", "u_e", "er", "un", "ad", "a_e", "sa", "a_e", "a_e", "al", "a_e", "ch", "ay"],
+["a_e", "ay", "oo", "or", "oo", "ea", "ea", "ea", "nd", "ee", "el", "en", "or", "ce", "em", "ous", "en", "ee", "th", "ty", "al", "sh", "sh", "sh", "sh", "sh", "sh", "sh", "ee", "or"],
+["sh", "sh", "ow", "sh", "ck", "i_e", "i_e", "ple", "in", "ing", "ing", "ir", "sis", "it", "si", "ee", "th", "ty", "i_e", "a_e", "sk", "sk", "ee", "sl", "ow", "al", "ar", "el", "i_e", "o_e"],
+["ck", "a_e", "sn", "sn", "so", "er", "so", "er", "some", "some", "some", "ing", "some", "er", "on", "ong", "oo", "or", "ou", "ou", "ou", "sp", "ea", "al", "el", "oo", "or", "ing", "a_e", "st"],
+["ar", "ar", "tion", "ay", "st", "st", "ing", "ch", "st", "or", "ry", "ge", "str", "aw", "ee", "str", "st", "st", "st", "ful", "gar", "er", "un", "ay", "un", "ar", "u_e", "i_e", "ur", "ee"],
+["im", "ble", "a_e", "al", "al", "a_e", "st", "ta", "ea", "ea", "ch", "ea", "ee", "ph", "sion", "el", "en", "en", "en", "st", "th", "th", "th", "th", "ea", "en", "th", "th", "th", "in"],
+["ing", "in", "ir", "ir", "ir", "ir", "th", "th", "ough", "ou", "ee", "th", "ck", "er", "i_e", "i_e", "to", "ay", "er", "to", "ow", "igh", "oo", "oo", "ch", "ow", "ow", "oy", "tr", "tr"],
+["ee", "gle", "tr", "ble", "tr", "tr", "ay", "ur", "tle", "T", "el", "en", "tw", "ph", "um", "cle", "er", "st", "un", "un", "up", "U", "u_e", "ly", "tion", "ge", "ry", "de", "is", "oi"],
+["ey", "ai", "ai", "ai", "a_e", "al", "al", "nt", "ar", "ch", "er", "el", "ay", "we", "ea", "th", "ay", "ee", "ee", "el", "el", "st", "et", "wh", "en", "wh", "er", "ch", "wh", "wh"],
+["wh", "i_e", "il", "in", "in", "in", "in", "er", "i_e", "sh", "ch", "th", "ou", "an", "ful", "or", "oo", "er", "or", "ou", "i_e", "wr", "wr", "ea", "es", "ay", "et", "ng", "oo", "ue"]]
