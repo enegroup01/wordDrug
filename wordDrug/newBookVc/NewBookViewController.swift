@@ -383,7 +383,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 increaseNum = 35
                 maxMapNum = 3
-                maxSpotNum = 11
+                maxSpotNum = 10
 
                 
             } else {
