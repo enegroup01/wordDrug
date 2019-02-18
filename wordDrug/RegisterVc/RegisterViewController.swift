@@ -74,6 +74,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     var senRateToAdd = Int()
     var wrongChineseCount = Int()
     
+    //MARK: simVer K12 新增變數供註冊紀錄使用
+    var k12MapNumber = Int()
+    
     var myWrongWords = [String]()
     
     //用來計算錯誤字是否已加入
@@ -793,6 +796,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             
                             //MARK: must update
+                            //MARK: simVer 增加值
 
 
                             // Part 1. 登入者抓所有數值, 在此這些數字應該都為0
@@ -845,6 +849,72 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(mapPassed5!, forKey: "mapPassed5")
                                 
                                 print("retrieve mapPassed:\(mapPassed5!)")
+                                
+                            }
+                            
+                            
+                            //MARK: simVer K12 特別作法
+                            if let mapPassed6String = user?["mapPassed6"] as! String?{
+                                var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
+                                
+                                for i in 0 ..< mapPassedStringArray.count {
+                                    
+                                    //避免最後一位空值
+                                    if mapPassedStringArray[i] != "" {
+                                        
+                                        k12MapPassed[i] = Int(mapPassedStringArray[i])!
+                                    }
+                                    
+                                }
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(k12MapPassed, forKey: "mapPassed6")
+                                
+                                print("retrieve mapPassed:\(k12MapPassed!)")
+                                
+                            }
+                            
+//                            if let mapPassed6String = user?["mapPassed6"] as! String?{
+//
+//                                mapPassed6 = Int(mapPassed6String)!
+//
+//                                let userDefaults = UserDefaults.standard
+//                                userDefaults.set(mapPassed6!, forKey: "mapPassed6")
+//
+//                                print("retrieve mapPassed:\(mapPassed6!)")
+//
+//                            }
+                            
+                            if let mapPassed7String = user?["mapPassed7"] as! String?{
+                                
+                                mapPassed7 = Int(mapPassed7String)!
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed7!, forKey: "mapPassed7")
+                                
+                                print("retrieve mapPassed:\(mapPassed7!)")
+                                
+                            }
+                            
+                            if let mapPassed8String = user?["mapPassed8"] as! String?{
+                                
+                                mapPassed8 = Int(mapPassed8String)!
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed8!, forKey: "mapPassed8")
+                                
+                                print("retrieve mapPassed:\(mapPassed8!)")
+                                
+                            }
+                            
+                            if let mapPassed9String = user?["mapPassed9"] as! String?{
+                                
+                                mapPassed9 = Int(mapPassed9String)!
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed9!, forKey: "mapPassed9")
+                                
+                                print("retrieve mapPassed:\(mapPassed9!)")
                                 
                             }
 
@@ -934,6 +1004,104 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             }
 
                             
+                            //MARK: simVer K12 特別作法
+                            
+                            if let gamePassed6String = user?["gamePassed6"] as! String?{
+                                
+                                
+                                
+                                let k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+                                
+                                var gamePassed6StringArray = [String]()
+                                
+                                for i in 0 ..< k12GamePassedStringArray.count {
+                                    
+                                    //避免最後一位空值
+                                    if k12GamePassedStringArray[i] != "" {
+                                        
+                                        gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
+                                        
+                                        let s = gamePassed6StringArray[0]
+                                        let u = gamePassed6StringArray[1]
+                                        k12GamePassed[i] = [Int(s)!:Int(u)!]
+                                    }
+                                    
+                                }
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+                                
+                                print("retrieve gamePassed:\(k12GamePassed!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed6")
+                                
+                            }
+                            
+                            
+                            
+//                            if let gamePassed6String = user?["gamePassed6"] as! String?{
+//
+//                                let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
+//
+//                                let s = gamePassed6StringArray[0]
+//                                let u = gamePassed6StringArray[1]
+//                                gamePassed6 = [Int(s)!:Int(u)!]
+//
+//                                let userDefaults = UserDefaults.standard
+//                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
+//
+//                                print("retrieve gamePassed:\(gamePassed6!)")
+//                                userDefaults.set(encodedObject, forKey: "gamePassed6")
+//
+//                            }
+                            
+                            if let gamePassed7String = user?["gamePassed7"] as! String?{
+                                
+                                let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
+                                
+                                let s = gamePassed7StringArray[0]
+                                let u = gamePassed7StringArray[1]
+                                gamePassed7 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+                                
+                                print("retrieve gamePassed:\(gamePassed7!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed7")
+                                
+                            }
+                            
+                            if let gamePassed8String = user?["gamePassed8"] as! String?{
+                                
+                                let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
+                                
+                                let s = gamePassed8StringArray[0]
+                                let u = gamePassed8StringArray[1]
+                                gamePassed8 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+                                
+                                print("retrieve gamePassed:\(gamePassed8!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed8")
+                                
+                            }
+                            
+                            if let gamePassed9String = user?["gamePassed9"] as! String?{
+                                
+                                let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
+                                
+                                let s = gamePassed9StringArray[0]
+                                let u = gamePassed9StringArray[1]
+                                gamePassed9 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+                                
+                                print("retrieve gamePassed:\(gamePassed9!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed9")
+                                
+                            }
+
                             
                             /*
                             //登入
@@ -1310,6 +1478,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             
                             //MARK: must update
+                            //MARK: simVer 增加值
                             
                             
                             // Part 1. 登入者抓所有數值, 這裡不一定是0因為fb login有可能有玩過
@@ -1363,6 +1532,67 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(mapPassed5!, forKey: "mapPassed5")
                                 
                                 print("retrieve mapPassed:\(mapPassed5!)")
+                                
+                            }
+                            
+                            //MARK: simVer K12 特別作法
+                            if let mapPassed6String = user?["mapPassed6"] as! String?{
+                                var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
+                                
+                                for i in 0 ..< mapPassedStringArray.count {
+                                    
+                                    //避免最後一位空值
+                                    if mapPassedStringArray[i] != "" {
+                                        
+                                        k12MapPassed[i] = Int(mapPassedStringArray[i])!
+                                    }
+                                    
+                                }
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(k12MapPassed, forKey: "mapPassed6")
+                                
+                                print("retrieve mapPassed:\(k12MapPassed!)")
+                                
+                            }
+                            
+//                            if let mapPassed6String = user?["mapPassed6"] as! String?{
+//
+//                                mapPassed6 = Int(mapPassed6String)!
+//                                let userDefaults = UserDefaults.standard
+//                                userDefaults.set(mapPassed6!, forKey: "mapPassed6")
+//
+//                                print("retrieve mapPassed:\(mapPassed6!)")
+//
+//                            }
+                            
+                            if let mapPassed7String = user?["mapPassed7"] as! String?{
+                                
+                                mapPassed7 = Int(mapPassed7String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed7!, forKey: "mapPassed7")
+                                
+                                print("retrieve mapPassed:\(mapPassed7!)")
+                                
+                            }
+                            
+                            if let mapPassed8String = user?["mapPassed8"] as! String?{
+                                
+                                mapPassed8 = Int(mapPassed8String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed8!, forKey: "mapPassed8")
+                                
+                                print("retrieve mapPassed:\(mapPassed8!)")
+                                
+                            }
+                            
+                            if let mapPassed9String = user?["mapPassed9"] as! String?{
+                                
+                                mapPassed9 = Int(mapPassed9String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed9!, forKey: "mapPassed9")
+                                
+                                print("retrieve mapPassed:\(mapPassed9!)")
                                 
                             }
 
@@ -1450,6 +1680,102 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(encodedObject, forKey: "gamePassed5")
                                 
                             }
+                            
+                            //MARK: simVer K12 特別作法
+                            
+                            if let gamePassed6String = user?["gamePassed6"] as! String?{
+                
+                                let k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+                                
+                                var gamePassed6StringArray = [String]()
+                                
+                                for i in 0 ..< k12GamePassedStringArray.count {
+                                    
+                                    //避免最後一位空值
+                                    if k12GamePassedStringArray[i] != "" {
+                                        
+                                        gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
+                                        
+                                        let s = gamePassed6StringArray[0]
+                                        let u = gamePassed6StringArray[1]
+                                        k12GamePassed[i] = [Int(s)!:Int(u)!]
+                                    }
+                                    
+                                }
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+                                
+                                print("retrieve gamePassed:\(k12GamePassed!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed6")
+                                
+                            }
+
+                            
+//                            if let gamePassed6String = user?["gamePassed6"] as! String?{
+//
+//                                let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
+//
+//                                let s = gamePassed6StringArray[0]
+//                                let u = gamePassed6StringArray[1]
+//                                gamePassed6 = [Int(s)!:Int(u)!]
+//
+//                                let userDefaults = UserDefaults.standard
+//                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
+//
+//                                print("retrieve gamePassed:\(gamePassed6!)")
+//                                userDefaults.set(encodedObject, forKey: "gamePassed6")
+//
+//                            }
+                            
+                            if let gamePassed7String = user?["gamePassed7"] as! String?{
+                                
+                                let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
+                                
+                                let s = gamePassed7StringArray[0]
+                                let u = gamePassed7StringArray[1]
+                                gamePassed7 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+                                
+                                print("retrieve gamePassed:\(gamePassed7!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed7")
+                                
+                            }
+                            
+                            if let gamePassed8String = user?["gamePassed8"] as! String?{
+                                
+                                let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
+                                
+                                let s = gamePassed8StringArray[0]
+                                let u = gamePassed8StringArray[1]
+                                gamePassed8 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+                                
+                                print("retrieve gamePassed:\(gamePassed8!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed8")
+                                
+                            }
+                            
+                            if let gamePassed9String = user?["gamePassed9"] as! String?{
+                                
+                                let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
+                                
+                                let s = gamePassed9StringArray[0]
+                                let u = gamePassed9StringArray[1]
+                                gamePassed9 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+                                
+                                print("retrieve gamePassed:\(gamePassed9!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed9")
+                                
+                            }
+
 
                             
                             
@@ -1725,6 +2051,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
                             
                             //MARK: must update
+                            //MARK: simVer增加值
 
                         
                         // Part 1. 登入者抓所有數值
@@ -1774,6 +2101,68 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(mapPassed5!, forKey: "mapPassed5")
                                 
                                 print("retrieve mapPassed:\(mapPassed5!)")
+                                
+                            }
+                            
+                            //MARK: simVer K12 特別作法
+                            if let mapPassed6String = user?["mapPassed6"] as! String?{
+                                var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
+                                
+                                for i in 0 ..< mapPassedStringArray.count {
+                                    
+                                    //避免最後一位空值
+                                    if mapPassedStringArray[i] != "" {
+                                        
+                                        k12MapPassed[i] = Int(mapPassedStringArray[i])!
+                                    }
+                                    
+                                }
+                                
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(k12MapPassed, forKey: "mapPassed6")
+                                
+                                print("retrieve mapPassed:\(k12MapPassed!)")
+                                
+                            }
+
+                            
+//                            if let mapPassed6String = user?["mapPassed6"] as! String?{
+//
+//                                mapPassed6 = Int(mapPassed6String)!
+//                                let userDefaults = UserDefaults.standard
+//                                userDefaults.set(mapPassed6!, forKey: "mapPassed6")
+//
+//                                print("retrieve mapPassed:\(mapPassed6!)")
+//
+//                            }
+                            
+                            if let mapPassed7String = user?["mapPassed7"] as! String?{
+                                
+                                mapPassed7 = Int(mapPassed7String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed7!, forKey: "mapPassed7")
+                                
+                                print("retrieve mapPassed:\(mapPassed7!)")
+                                
+                            }
+                            
+                            if let mapPassed8String = user?["mapPassed8"] as! String?{
+                                
+                                mapPassed8 = Int(mapPassed8String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed8!, forKey: "mapPassed8")
+                                
+                                print("retrieve mapPassed:\(mapPassed8!)")
+                                
+                            }
+                            
+                            if let mapPassed9String = user?["mapPassed9"] as! String?{
+                                
+                                mapPassed9 = Int(mapPassed9String)!
+                                let userDefaults = UserDefaults.standard
+                                userDefaults.set(mapPassed9!, forKey: "mapPassed9")
+                                
+                                print("retrieve mapPassed:\(mapPassed9!)")
                                 
                             }
                             
@@ -1860,8 +2249,105 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 userDefaults.set(encodedObject, forKey: "gamePassed5")
                                 
                             }
+                            
+                            //MARK: simVer K12 特別作法
+                            
+                            if let gamePassed6String = user?["gamePassed6"] as! String?{
+                                
+                                
+                                
+                                var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+                                
+                                //如果有19位數就移除最後一位
+                                if k12GamePassedStringArray.count == 19{
+                                    k12GamePassedStringArray.removeLast()
+                                }
 
-                        
+                                
+                                for i in 0 ..< k12GamePassedStringArray.count {
+                                    
+                                 
+                                   
+                                        let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
+                                        
+                                        let s = gamePassed6StringArray[0]
+                                        let u = gamePassed6StringArray[1]
+                                        k12GamePassed[i] = [Int(s)!:Int(u)!]
+                                
+                                    
+                                }
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+                                
+                                print("retrieve gamePassed:\(k12GamePassed!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed6")
+                                
+                            }
+
+//                            if let gamePassed6String = user?["gamePassed6"] as! String?{
+//
+//                                let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
+//
+//                                let s = gamePassed6StringArray[0]
+//                                let u = gamePassed6StringArray[1]
+//                                gamePassed6 = [Int(s)!:Int(u)!]
+//
+//                                let userDefaults = UserDefaults.standard
+//                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
+//
+//                                print("retrieve gamePassed:\(gamePassed6!)")
+//                                userDefaults.set(encodedObject, forKey: "gamePassed6")
+//
+//                            }
+                            
+                            if let gamePassed7String = user?["gamePassed7"] as! String?{
+                                
+                                let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
+                                
+                                let s = gamePassed7StringArray[0]
+                                let u = gamePassed7StringArray[1]
+                                gamePassed7 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+                                
+                                print("retrieve gamePassed:\(gamePassed7!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed7")
+                                
+                            }
+                            
+                            if let gamePassed8String = user?["gamePassed8"] as! String?{
+                                
+                                let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
+                                
+                                let s = gamePassed8StringArray[0]
+                                let u = gamePassed8StringArray[1]
+                                gamePassed8 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+                                
+                                print("retrieve gamePassed:\(gamePassed8!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed8")
+                                
+                            }
+                            
+                            if let gamePassed9String = user?["gamePassed9"] as! String?{
+                                
+                                let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
+                                
+                                let s = gamePassed9StringArray[0]
+                                let u = gamePassed9StringArray[1]
+                                gamePassed9 = [Int(s)!:Int(u)!]
+                                
+                                let userDefaults = UserDefaults.standard
+                                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+                                
+                                print("retrieve gamePassed:\(gamePassed9!)")
+                                userDefaults.set(encodedObject, forKey: "gamePassed9")
+                                
+                            }
                         
                         
                         
@@ -1891,6 +2377,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                             
                             
                             //MARK: must update
+                            //MARK: simVer更新數字
                             
                             //沒玩過的話, 要更新所有數字 updateGamePassed/ updateScore / addWrongWords
                             if scoreSaved == "0" {
@@ -1905,6 +2392,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed3 = [0:0]
                                     gamePassed4 = [0:0]
                                     gamePassed5 = [0:0]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:0]
                                     
                                     
                                 case 1:
@@ -1913,6 +2404,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed3 = [0:0]
                                     gamePassed4 = [0:0]
                                     gamePassed5 = [0:0]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:0]
                                     
                                     
                                 case 2:
@@ -1921,6 +2416,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed2 = [0:0]
                                     gamePassed4 = [0:0]
                                     gamePassed5 = [0:0]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:0]
                                     
                                     
                                 case 3:
@@ -1929,6 +2428,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed2 = [0:0]
                                     gamePassed4 = [0:1]
                                     gamePassed5 = [0:0]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:0]
                                     
                                 case 4:
                                     gamePassed3 = [0:0]
@@ -1936,9 +2439,62 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                     gamePassed2 = [0:0]
                                     gamePassed4 = [0:0]
                                     gamePassed5 = [0:1]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:0]
                                     
+                                case 5:
+                                    gamePassed3 = [0:0]
+                                    gamePassed = [0:0]
+                                    gamePassed2 = [0:0]
+                                    gamePassed4 = [0:0]
+                                    gamePassed5 = [0:0]
+                                    
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+                                    k12GamePassed[self!.k12MapNumber] = [0:1]
 
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:0]
                                     
+                                case 6:
+                                    gamePassed3 = [0:0]
+                                    gamePassed = [0:0]
+                                    gamePassed2 = [0:0]
+                                    gamePassed4 = [0:0]
+                                    gamePassed5 = [0:0]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+
+                                    gamePassed7 = [0:1]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:0]
+                                    
+                                case 7:
+                                    gamePassed3 = [0:0]
+                                    gamePassed = [0:0]
+                                    gamePassed2 = [0:0]
+                                    gamePassed4 = [0:0]
+                                    gamePassed5 = [0:0]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:1]
+                                    gamePassed9 = [0:0]
+                                    
+                                case 8:
+                                    gamePassed3 = [0:0]
+                                    gamePassed = [0:0]
+                                    gamePassed2 = [0:0]
+                                    gamePassed4 = [0:0]
+                                    gamePassed5 = [0:0]
+                                    k12GamePassed = Array(repeating: [0:0], count: 18)
+
+                                    gamePassed7 = [0:0]
+                                    gamePassed8 = [0:0]
+                                    gamePassed9 = [0:1]
+                                    
+        
                                 default:
                                     break
                                     
@@ -1964,6 +2520,19 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 
                                 let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                                 userDefaults.set(encodedObject5, forKey: "gamePassed5")
+                                
+                                //MARK: simVer k12
+                                let encodedObject6 = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+                                userDefaults.set(encodedObject6, forKey: "gamePassed6")
+                                
+                                let encodedObject7 = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+                                userDefaults.set(encodedObject7, forKey: "gamePassed7")
+                                
+                                let encodedObject8 = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+                                userDefaults.set(encodedObject8, forKey: "gamePassed8")
+                                
+                                let encodedObject9 = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+                                userDefaults.set(encodedObject9, forKey: "gamePassed9")
 
                                 
                                 
@@ -2285,11 +2854,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         return
                     }
                     
-                    print("updateScore")
+                    //print("updateScore")
                     //再次儲存使用者資訊
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    print(user!)
+                    //print(user!)
                     
                     
                     
@@ -2378,11 +2947,31 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
         */
         
-        let passed = "0:1"
+        var passed = String()
+        //MARK: simVer K12
+        
+        if coursePlayed == 5 {
+            
+            for i in 0 ..< k12GamePassed.count{
+                
+                for (s,u) in k12GamePassed[i] {
+                    
+                    passed += String(s) + ":" + String(u) + ";"
+                    
+                }
+                
+            }
+            
+        } else {
+            
+          passed = "0:1"
+        }
+        
+        
         
         // body gonna be appended to url
         let body = "userID=\(id)&gamePassed=\(passed)&course=\(course)"
-        print(body)
+        //print(body)
         
         // append body to our request that gonna be sent
         request.httpBody = body.data(using: .utf8)
@@ -2416,14 +3005,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         DispatchQueue.main.async(execute: {[weak self] in
                             
                             //updateScore
-                         
-                            
-                            
-      
 
-                            
-                            
-                            
                             
                             self!.updateScore(score: self!.scoresToAdd, wrongWordsCount: self!.wrongChineseCount, proRate: self!.proRateToAdd, senRate: self!.senRateToAdd)
                             
@@ -2448,7 +3030,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         
                     }
                     
-                    print("gamePassed updated")
+             //       print("gamePassed updated")
                     
                 } catch{
                     

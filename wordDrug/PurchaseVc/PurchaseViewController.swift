@@ -14,6 +14,23 @@ let purchasedKey = "purchased"
 let failedToPurchaseKey = "failedToPurchase"
 
 class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    
+    let purchaseVC_dialogueTitle = NSLocalizedString("purchaseVC_dialogueTitle", comment: "")
+    let purchaseVC_dialogueSubTitle = NSLocalizedString("purchaseVC_dialogueSubTitle", comment: "")
+    let purchaseVC_downTitle = NSLocalizedString("purchaseVC_downTitle", comment: "")
+    let purchaseVC_downTitle2 = NSLocalizedString("purchaseVC_downTitle2", comment: "")
+    let purchaseVC_iKnowBtnText = NSLocalizedString("purchaseVC_iKnowBtnText", comment: "")
+    let purchaseVC_restoreMsgLabelText = NSLocalizedString("purchaseVC_restoreMsgLabelText", comment: "")
+    let purchaseVC_restoreOkMsg = NSLocalizedString("purchaseVC_restoreOkMsg", comment: "")
+    let purchaseVC_purchaseBtnText = NSLocalizedString("purchaseVC_purchaseBtnText", comment: "")
+    let purchaseVC_purchaseBtnDollars = NSLocalizedString("purchaseVC_purchaseBtnDollars", comment: "")
+    let purchaseVC_purchaseFailedMsg = NSLocalizedString("purchaseVC_purchaseFailedMsg", comment: "")
+    let purchaseVC_internetErrorMsg = NSLocalizedString("purchaseVC_internetErrorMsg", comment: "")
+    let purchaseVC_restoreFailedMsg = NSLocalizedString("purchaseVC_restoreFailedMsg", comment: "")
+    let purchaseVC_purchaseOkMsg = NSLocalizedString("purchaseVC_purchaseOkMsg", comment: "")
+    let purchaseVC_restoreBtnTitle = NSLocalizedString("purchaseVC_restoreBtnTitle", comment: "")
+
+    
     @IBOutlet weak var upBg: UIImageView!
     
     @IBOutlet weak var purchaseBtn: UIButton!
@@ -199,7 +216,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         //dialogueTitle.backgroundColor = .green
         //dialogueTitle.frame = CGRect(x:dialogueBg.frame.minX + 10, y: dialogueBg.frame.minY + 10, width: 230, height: 80)
         dialogueTitle.textAlignment = .left
-        dialogueTitle.text = "無限時間\n讓英語學習無限大"
+        dialogueTitle.text = purchaseVC_dialogueTitle
         dialogueTitle.font = dialogueTitle.font.withSize(titleFontSize)
         
         
@@ -215,7 +232,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         //dialogueSubTitle.frame = CGRect(x: dialogueBg.frame.minX + 10, y: dialogueTitle.frame.maxY + 10, width: dialogueBg.frame.width, height: 22)
         
         
-        dialogueSubTitle.text = "所有課程不限時，一次全解鎖"
+        dialogueSubTitle.text = purchaseVC_dialogueSubTitle
         dialogueSubTitle.textAlignment = .left
         dialogueSubTitle.adjustsFontSizeToFitWidth = true
         
@@ -230,7 +247,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
        
         //downTitle.backgroundColor = .red
         //downTitle.frame = CGRect(x: 0, y: downBg.frame.minY + downBg.frame.height / 20, width: width, height: 44)
-        downTitle.text = "用最正確，最有效率的單字學習方式\n今天就開始你的學習計畫！"
+        downTitle.text = purchaseVC_downTitle
         downTitle.font = downTitle.font.withSize(subTitleFontSize)
         
         downTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -243,7 +260,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         //downTitle2.backgroundColor = .purple
         //downTitle2.frame = CGRect(x: 0, y: downTitle.frame.maxY, width: width, height: 100)
-        downTitle2.text = "英檢初級2100字\n英檢中級2250字\n多益滿分2400字\n及更多字庫更新內容..."
+        downTitle2.text = purchaseVC_downTitle2
          downTitle2.font = downTitle2.font.withSize(subTitleFontSize)
        
         downTitle2.translatesAutoresizingMaskIntoConstraints = false
@@ -307,7 +324,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         //practiceWordBtn.alpha = 0.2
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: subTitleFontSize)
         practiceWordBtn.titleLabel?.numberOfLines = 0
-        practiceWordBtn.setTitle("\n我知道了", for: .normal)
+        practiceWordBtn.setTitle(purchaseVC_iKnowBtnText, for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(PurchaseViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
@@ -332,13 +349,14 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         restoreMsgLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 10 * iPadDif - xDif, left: 0, bottom: 0, right: -15 * iPadDif), size: .init(width: 81 * btnDif, height: 26 * btnDif))
         restoreMsgLabel.font = UIFont(name: "Helvetica", size: subTitleFontSize * 0.7)
         restoreMsgLabel.textColor = .white
-        restoreMsgLabel.text = "恢復購買狀態?"
+        restoreMsgLabel.text = purchaseVC_restoreMsgLabelText
         restoreMsgLabel.textAlignment = .center
         restoreMsgLabel.adjustsFontSizeToFitWidth = true
         
        
         restoreBtn.anchor(top: restoreMsgLabel.bottomAnchor, leading: restoreMsgLabel.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 81 * btnDif, height: 26 * btnDif))
         restoreBtn.titleLabel?.font = restoreBtn.titleLabel?.font.withSize(subTitleFontSize * 0.7)
+        restoreBtn.setTitle(purchaseVC_restoreBtnTitle, for: .normal)
         
         removeBtns()
         
@@ -366,7 +384,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         ghostBtn.isHidden = false
         alertBg.isHidden = false
         alertText.isHidden = false
-        alertText.text = "\n您已成功恢復之前的購買紀錄!"
+        alertText.text = purchaseVC_restoreOkMsg
         practiceWordBtn.isHidden = false
         practiceSenBtn.isHidden = false
         
@@ -458,8 +476,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
             
-            let btnText = NSMutableAttributedString(string: "按此購買無限學習時間", attributes: attrs0)
-            let btnText2 = NSMutableAttributedString(string: "NT 90.00", attributes: attrs1)
+            let btnText = NSMutableAttributedString(string: purchaseVC_purchaseBtnText, attributes: attrs0)
+            let btnText2 = NSMutableAttributedString(string: purchaseVC_purchaseBtnDollars, attributes: attrs1)
             
             attrWords.append(btnText)
             attrWords.append(NSAttributedString(string: "\n"))
@@ -483,7 +501,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         print("successfully purchased")
         
         //SKPaymentQueue.default().finishTransaction(transaction)
-        print("purchased")
+        //print("purchased")
         //Apply purchase here, store info in userDefaults....
         
         //紀錄已購買
@@ -507,7 +525,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         print("failed To Puchase")
         
         //SKPaymentQueue.default().finishTransaction(transaction)
-        print("failed")
+        //print("failed")
         
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
@@ -515,7 +533,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         ghostBtn.isHidden = false
         alertBg.isHidden = false
         alertText.isHidden = false
-        alertText.text = "\n您還沒有購買無限時間喔!"
+        alertText.text = purchaseVC_purchaseFailedMsg
         practiceWordBtn.isHidden = false
         practiceSenBtn.isHidden = false
     
@@ -532,7 +550,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
         
-        let btnText = NSMutableAttributedString(string: "您已購買無限學習時間", attributes: attrs0)
+        let btnText = NSMutableAttributedString(string: purchaseVC_purchaseOkMsg, attributes: attrs0)
         let btnText2 = NSMutableAttributedString(string: "Thank you!", attributes: attrs1)
         
         attrWords.append(btnText)
@@ -565,7 +583,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
         
-        let btnText = NSMutableAttributedString(string: "請檢查網路連線後再試一次", attributes: attrs0)
+        let btnText = NSMutableAttributedString(string: purchaseVC_internetErrorMsg, attributes: attrs0)
         let btnText2 = NSMutableAttributedString(string: "Sorry!", attributes: attrs1)
         
         attrWords.append(btnText)
@@ -597,8 +615,8 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
         
-        let btnText = NSMutableAttributedString(string: "按此購買無限學習時間", attributes: attrs0)
-        let btnText2 = NSMutableAttributedString(string: "NT 90.00", attributes: attrs1)
+        let btnText = NSMutableAttributedString(string: purchaseVC_purchaseBtnText, attributes: attrs0)
+        let btnText2 = NSMutableAttributedString(string: purchaseVC_purchaseBtnDollars, attributes: attrs1)
         
         attrWords.append(btnText)
         attrWords.append(NSAttributedString(string: "\n"))
@@ -741,7 +759,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 ghostBtn.isHidden = false
                 alertBg.isHidden = false
                 alertText.isHidden = false
-                alertText.text = "\n您已成功恢復之前的購買紀錄!"
+                alertText.text = purchaseVC_restoreOkMsg
                 practiceWordBtn.isHidden = false
                 practiceSenBtn.isHidden = false
                 
@@ -797,7 +815,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 ghostBtn.isHidden = false
                 alertBg.isHidden = false
                 alertText.isHidden = false
-                alertText.text = "恢復購買失敗，請確認之前已成功購買過才能恢復購買狀態。若還有問題請聯絡蘋果客服！"
+                alertText.text = purchaseVC_restoreFailedMsg
                 practiceWordBtn.isHidden = false
                 practiceSenBtn.isHidden = false
 
@@ -839,7 +857,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         //alertText.text = "\n您還沒有購買無限時間喔!"
         
         //目前會顯示錯誤訊息
-        alertText.text = "恢復購買失敗，請確認之前已成功購買過才能恢復購買狀態喔！若還有問題請聯絡蘋果客服！"
+        alertText.text = purchaseVC_restoreFailedMsg
         
         practiceWordBtn.isHidden = false
         practiceSenBtn.isHidden = false

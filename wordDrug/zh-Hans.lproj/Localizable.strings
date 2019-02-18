@@ -11,6 +11,31 @@ courseVC_freeState = "免费用户\n新课程：每天7分钟\n单字集/挑战�
 courseVC_learningDays = "学习天数";
 courseVC_newStudent = "新学生";
 courseVC_logOutBtnText = "登出";
+//courseVC_toLoginVCBtnText = "注册/登入";
+courseVC_enterClassBtnText = "进入课程";
+courseVC_enterBookBtnText = "单词集";
+courseVC_wordUnit = "词";
+
+infoVC_wordAchievement = "单词成就";
+infoVC_proAchievement = "发音成就";
+infoVC_senAchievement = "句型成就";
+infoVC_spellKing = "英文单词王";
+infoVC_senKing = "句型冠军榜";
+infoVC_spellRate = "单词正确率";
+infoVC_proRate = "发音正确率";
+infoVC_writeSenRate = "排列正确率";
+infoVC_wordCount = "单词达成";
+infoVC_senCount = "句型达成";
+infoVC_chineseRate = "中文正确率";
+infoVC_wordUnit = "词";
+infoVC_senUnit = "句";
+infoVC_newStudent = "新学生";
+infoVC_noScore = "尚未得分";
+infoVC_noRank = "尚未排名";
+infoVC_titleLabel = "我的学习成就";
+infoVC_wordLabel = "单词量";
+infoVC_scoreLabel = "总分";
+infoVC_rankLabel = "总排名";
 
 registerVC.regOrPlay = "注册帐号\n继续免费学习";
 registerVC.isPurchasedTitleLabel = "注册帐号\n开始纪录你的学习";
@@ -30,3 +55,27 @@ registerVC.errorAccountExist = "此帐号已存在，请重新输入";
 registerVC.errorText = "错误";
 registerVC.errorWrongAccount = "帐号输入有误，请再试一次";
 registerVC.errorWrongPassword =  "密码输入有误，请再试一次";
+
+
+
+chartVC_scoreChart = "总分\n排行榜";
+chartVC_wordChart = "英文\n单词王";
+chartVC_senChart = "句型\n冠军榜";
+chartVC_wordCountLabelText = "单词量";
+chartVC_passCountLabelText = "过关数";
+
+
+purchaseVC_dialogueTitle = "无限时间\n让英语学习无限大";
+purchaseVC_dialogueSubTitle = "所有课程不限时，一次全解锁";
+purchaseVC_downTitle = "用最正确，最有效率的单词学习方式\n今天就开始你的学习计画！";
+purchaseVC_downTitle2 = "英检初级2100字\n英检中级2250字\n多益满分2400字\n及更多字库更新内容...";
+purchaseVC_iKnowBtnText = "\n我知道了";
+purchaseVC_restoreMsgLabelText = "恢復购买状态？";
+purchaseVC_restoreOkMsg = "\n您已成功恢復之前的购买纪录!";
+purchaseVC_purchaseBtnText = "按此购买无限学习时间";
+purchaseVC_purchaseBtnDollars = "RMB 90.00";
+purchaseVC_purchaseFailedMsg = "\n您还没有购买无限时间喔!";
+purchaseVC_internetErrorMsg = "请检查网路连线后再试一次";
+purchaseVC_restoreFailedMsg = "恢復购买失败，请确认之前已成功购买过才能恢復购买状态。若还有问题请联络苹果客服！";
+purchaseVC_purchaseOkMsg =  "您已购买无限学习时间";
+purchaseVC_restoreBtnTitle = "恢復键";

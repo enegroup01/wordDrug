@@ -9,6 +9,13 @@
 import UIKit
 
 class ChartViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let chartVC_scoreChart = NSLocalizedString("chartVC_scoreChart", comment: "")
+    let chartVC_wordChart = NSLocalizedString("chartVC_wordChart", comment: "")
+    let chartVC_senChart = NSLocalizedString("chartVC_senChart", comment: "")
+    let chartVC_wordCountLabelText = NSLocalizedString("chartVC_wordCountLabelText", comment: "")
+    let chartVC_passCountLabelText = NSLocalizedString("chartVC_passCountLabelText", comment: "")
+    
 
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
@@ -42,6 +49,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var difX = CGFloat()
     var iPadDif = CGFloat()
     var iPadSmall = CGFloat()
+    
+    var avatarNames = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,6 +162,21 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         }
         
+
+        
+        for i in 0 ..< 39 {
+            
+            avatarNames.append("m" + String(i + 1))
+        }
+        for i in 0 ..< 39 {
+            
+            avatarNames.append("f" + String(i + 1))
+        }
+        for i in 0 ..< 39 {
+            
+            avatarNames.append("m" + String(i + 1))
+        }
+        
         
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         activityIndicator.layer.zPosition = 15
@@ -184,7 +208,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         //chart0Btn.frame = CGRect(x: width / 3 - 75, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
         chart0Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart0Btn.titleLabel?.textAlignment = .center
-        chart0Btn.setTitle("總分\n排行榜", for:.normal)
+        chart0Btn.setTitle(chartVC_scoreChart, for:.normal)
         //chart0Btn.backgroundColor = .red
         
         chart0Btn.anchor(top: view.safeTopAnchor, leading: backBtn.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15 * iPadDif - btnYDif, left: (width / 3 - 75 * iPadDif) / 2 , bottom: 0, right: 0), size: CGSize(width: 75 * iPadDif, height: 50 * iPadDif))
@@ -195,7 +219,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
           chart1Btn.translatesAutoresizingMaskIntoConstraints = false
         chart1Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart1Btn.titleLabel?.textAlignment = .center
-        chart1Btn.setTitle("英文\n拼字王", for:.normal)
+        chart1Btn.setTitle(chartVC_wordChart, for:.normal)
         //chart1Btn.backgroundColor = .red
 
         chart1Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10).isActive = true
@@ -209,7 +233,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         //chart2Btn.frame = CGRect(x: width - 75 * 1.5 + difX, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
         chart2Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart2Btn.titleLabel?.textAlignment = .center
-        chart2Btn.setTitle("句型\n冠軍榜", for:.normal)
+        chart2Btn.setTitle(chartVC_senChart, for:.normal)
         //chart2Btn.backgroundColor = .red
         
         chart2Btn.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * iPadDif - btnYDif, left: 0 , bottom: 0, right: -(width / 3 - 75 * iPadDif) / 2), size: CGSize(width: 75 * iPadDif, height: 50 * iPadDif))
@@ -310,18 +334,18 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         if rankMode == 0 {
         cell.totalScoreLabel.text = scores[indexPath.row]
         cell.wordCountLabel.text = String(wordCounts[indexPath.row])
-            cell.wordCountTitleLabel.text = "單字量"
+            cell.wordCountTitleLabel.text = chartVC_wordCountLabelText
         } else if rankMode == 1 {
             
             cell.totalScoreLabel.text = ""
-            cell.wordCountTitleLabel.text = "過關數"
+            cell.wordCountTitleLabel.text = chartVC_passCountLabelText
             cell.wordCountLabel.text = String(wordReviewCounts[indexPath.row])
             
             
         } else if rankMode == 2 {
             
             cell.totalScoreLabel.text = ""
-            cell.wordCountTitleLabel.text = "過關數"
+            cell.wordCountTitleLabel.text = chartVC_passCountLabelText
             cell.wordCountLabel.text = String(senReviewCounts[indexPath.row])
       
         }
@@ -329,8 +353,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         //cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
         
-        cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
+        //cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
+ 
         
+        cell.avaImg.image = UIImage(named: avatarNames[indexPath.row] + ".png")
         
         
         /*

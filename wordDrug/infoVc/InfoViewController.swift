@@ -9,7 +9,33 @@
 import UIKit
 
 class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-   
+    
+    
+    let infoVC_wordAchievement = NSLocalizedString("infoVC_wordAchievement", comment: "")
+    let infoVC_proAchievement = NSLocalizedString("infoVC_proAchievement", comment: "")
+    let infoVC_senAchievement = NSLocalizedString("infoVC_senAchievement", comment: "")
+    let infoVC_spellKing = NSLocalizedString("infoVC_spellKing", comment: "")
+    let infoVC_senKing = NSLocalizedString("infoVC_senKing", comment: "")
+    let infoVC_spellRate = NSLocalizedString("infoVC_spellRate", comment: "")
+    let infoVC_proRate = NSLocalizedString("infoVC_proRate", comment: "")
+    let infoVC_writeSenRate = NSLocalizedString("infoVC_writeSenRate", comment: "")
+    let infoVC_wordCount = NSLocalizedString("infoVC_wordCount", comment: "")
+    
+    let infoVC_senCount = NSLocalizedString("infoVC_senCount", comment: "")
+    let infoVC_chineseRate = NSLocalizedString("infoVC_chineseRate", comment: "")
+    let infoVC_wordUnit = NSLocalizedString("infoVC_wordUnit", comment: "")
+    
+    let infoVC_senUnit = NSLocalizedString("infoVC_senUnit", comment: "")
+    let infoVC_newStudent = NSLocalizedString("infoVC_newStudent", comment: "")
+    
+    let infoVC_noScore = NSLocalizedString("infoVC_noScore", comment: "")
+    let infoVC_noRank = NSLocalizedString("infoVC_noRank", comment: "")
+    
+    let infoVC_titleLabel = NSLocalizedString("infoVC_titleLabel", comment: "")
+    let infoVC_wordLabel = NSLocalizedString("infoVC_wordLabel", comment: "")
+    let infoVC_scoreLabel = NSLocalizedString("infoVC_scoreLabel", comment: "")
+    let infoVC_rankLabel = NSLocalizedString("infoVC_rankLabel", comment: "")
+    
     let darkColor = UIColor.init(red: 41/255, green: 56/255, blue: 87/255, alpha: 1)
     let midColor = UIColor.init(red: 138/255, green: 152/255, blue: 170/255, alpha: 1)
     let lightColor = UIColor.init(red: 196/255, green: 203/255, blue: 213/255, alpha: 1)
@@ -17,7 +43,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
-
 
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var rankCountLabel: UILabel!
@@ -38,11 +63,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var dif = CGFloat()
     var photoDif = CGFloat()
     
-    
     var sub1Rates:[Int] = [0,0,0,0,0]
     var sub2Rates:[Int] = [0,Int(),Int(),Int(),Int()]
     var subTitleFontSize:CGFloat!
     var subValueFontSize:CGFloat!
+    var maxSpot:Int!
     
     @IBOutlet weak var alphaLayer: UIImageView!
     
@@ -58,6 +83,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var infoFontSize: CGFloat!
         var usernameFontSize: CGFloat!
         var avaYDif:CGFloat!
+        
+        
+        //print("info VC k12 gamePassed:\(k12GamePassed)")
         
         switch height {
             
@@ -171,6 +199,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         titleLabel.centerYAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * dif * avaYDif).isActive = true
         
         
+        titleLabel.text = infoVC_titleLabel
+        
         
         //avaImg.frame = CGRect(x: width / 2 - (120 * dif * photoDif) / 2, y: titleLabel.frame.maxY * 1.7 * photoDif + iPadSmall, width: 120 * dif * photoDif, height: 120 * dif * photoDif)
         
@@ -229,6 +259,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         wordLabel.frame = CGRect(x: wordCountLabel.frame.minX, y: wordCountLabel.frame.maxY + 5 * dif, width: 90 * dif, height: 23 * dif)
          wordLabel.font = wordLabel.font.withSize(infoFontSize)
+        wordLabel.text = infoVC_wordLabel
+        
         
         
         //wordLabel.backgroundColor = .green
@@ -249,6 +281,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         scoreLabel.textAlignment = .center
         scoreLabel.adjustsFontSizeToFitWidth = true
         scoreLabel.font = scoreLabel.font.withSize(infoFontSize)
+        scoreLabel.text = infoVC_scoreLabel
         
         
         rankCountLabel.frame = CGRect(x: scoreCountLabel.frame.maxX + scoreCountLabel.frame.minX - wordCountLabel.frame.maxX, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
@@ -264,6 +297,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         rankLabel.textAlignment = .center
         rankLabel.adjustsFontSizeToFitWidth = true
         rankLabel.font = rankLabel.font.withSize(infoFontSize)
+        rankLabel.text = infoVC_rankLabel
         
         
 
@@ -319,10 +353,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         cell.backgroundColor = .clear
         
-        let infoTitles = ["單字成就", "發音成就", "句型成就", "英文拼字王", "句型冠軍榜"]
-        let sub1Titles = ["拼字正確率","發音正確率","排列正確率","單字達成","句型達成"]
-        let sub2Titles = ["中文正確率",String(),String(),String(),String()]
-        let countUnits = ["","","","字","句"]
+        let infoTitles = [infoVC_wordAchievement, infoVC_proAchievement,infoVC_senAchievement, infoVC_spellKing, infoVC_senKing]
+        let sub1Titles = [infoVC_spellRate,infoVC_proRate,infoVC_writeSenRate,infoVC_wordCount,infoVC_senCount]
+        let sub2Titles = [infoVC_chineseRate,String(),String(),String(),String()]
+        let countUnits = ["","","",infoVC_wordUnit,infoVC_senUnit]
 
         var totalRates = [Int(),Int(),Int(),Int(),Int()]
 
@@ -484,13 +518,14 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
    
                     
                     
-                    print("selectUser:\(parseJSON)")
+                    //print("selectUser:\(parseJSON)")
                     
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     
                     
                     //MARK: must update
+                    //MARK: simVer 增加
                     
                     if let mapPassedString = user?["mapPassed"] as! String?{
                         
@@ -543,6 +578,74 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         print("retrieve mapPassed:\(mapPassed5!)")
                         
                     }
+                    
+                    //MARK: simVer K12 特別作法
+                    
+                    if let mapPassed6String = user?["mapPassed6"] as! String?{
+                        print("enter 1")
+                        var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
+                        print("enter 2 :\(mapPassedStringArray)")
+                        for i in 0 ..< mapPassedStringArray.count {
+                            
+                            print("enter 3")
+                            //避免最後一位空值
+                            if mapPassedStringArray[i] != "" {
+                                
+                                k12MapPassed[i] = Int(mapPassedStringArray[i])!
+                            }
+                            
+                            print("enter 4 value:\(k12MapPassed)")
+                            
+                        }
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(k12MapPassed, forKey: "mapPassed6")
+                        
+                        print("retrieve k12MapPassed:\(k12MapPassed!)")
+                        
+                    }
+                    
+                    
+//                    if let mapPassed6String = user?["mapPassed6"] as! String?{
+//
+//                        mapPassed6 = Int(mapPassed6String)!
+//                        let userDefaults = UserDefaults.standard
+//                        userDefaults.set(mapPassed6!, forKey: "mapPassed6")
+//
+//                        print("retrieve mapPassed:\(mapPassed6!)")
+//
+//                    }
+
+                    if let mapPassed7String = user?["mapPassed7"] as! String?{
+                        
+                        mapPassed7 = Int(mapPassed7String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed7!, forKey: "mapPassed7")
+                        
+                        print("retrieve mapPassed:\(mapPassed7!)")
+                        
+                    }
+
+                    if let mapPassed8String = user?["mapPassed8"] as! String?{
+                        
+                        mapPassed8 = Int(mapPassed8String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed8!, forKey: "mapPassed8")
+                        
+                        print("retrieve mapPassed:\(mapPassed8!)")
+                        
+                    }
+
+                    if let mapPassed9String = user?["mapPassed9"] as! String?{
+                        
+                        mapPassed9 = Int(mapPassed9String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed9!, forKey: "mapPassed9")
+                        
+                        print("retrieve mapPassed:\(mapPassed9!)")
+                        
+                    }
+
                     
                     
                     if let gamePassedString = user?["gamePassed"] as! String?{
@@ -625,6 +728,103 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         userDefaults.set(encodedObject, forKey: "gamePassed5")
                         
                     }
+                    
+                    
+                    //MARK: simVer K12 特別作法
+                    
+                    if let gamePassed6String = user?["gamePassed6"] as! String?{
+                  
+                        var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+             
+                        //如果有19位數就移除最後一位
+                        if k12GamePassedStringArray.count == 19{
+                        k12GamePassedStringArray.removeLast()
+                        }
+                        
+                        
+                        for i in 0 ..< k12GamePassedStringArray.count {
+      
+                                let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
+                                
+                                let s = gamePassed6StringArray[0]
+                                let u = gamePassed6StringArray[1]
+                                k12GamePassed[i] = [Int(s)!:Int(u)!]
+                            
+                        }
+        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+                        
+                        print("retrieve gamePassed:\(k12GamePassed!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed6")
+                        
+                    }
+                    
+//
+//                    if let gamePassed6String = user?["gamePassed6"] as! String?{
+//
+//                        let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
+//
+//                        let s = gamePassed6StringArray[0]
+//                        let u = gamePassed6StringArray[1]
+//                        gamePassed6 = [Int(s)!:Int(u)!]
+//
+//                        let userDefaults = UserDefaults.standard
+//                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
+//
+//                        print("retrieve gamePassed:\(gamePassed6!)")
+//                        userDefaults.set(encodedObject, forKey: "gamePassed6")
+//
+//                    }
+
+                    if let gamePassed7String = user?["gamePassed7"] as! String?{
+                        
+                        let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
+                        
+                        let s = gamePassed7StringArray[0]
+                        let u = gamePassed7StringArray[1]
+                        gamePassed7 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+                        
+                        print("retrieve gamePassed:\(gamePassed7!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed7")
+                        
+                    }
+
+                    if let gamePassed8String = user?["gamePassed8"] as! String?{
+                        
+                        let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
+                        
+                        let s = gamePassed8StringArray[0]
+                        let u = gamePassed8StringArray[1]
+                        gamePassed8 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+                        
+                        print("retrieve gamePassed:\(gamePassed8!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed8")
+                        
+                    }
+
+                    if let gamePassed9String = user?["gamePassed9"] as! String?{
+                        
+                        let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
+                        
+                        let s = gamePassed9StringArray[0]
+                        let u = gamePassed9StringArray[1]
+                        gamePassed9 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+                        
+                        print("retrieve gamePassed:\(gamePassed9!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed9")
+                        
+                    }
+
                     
 
                     DispatchQueue.main.async {
@@ -733,9 +933,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func getUserInfo(){
         
-
-        
-        print("perform get user")
+        //print("perform get user")
         //指定個人大頭照
         if let avaImgUrl = user?["ava"] as? String{
             
@@ -778,7 +976,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.usernameLabel.text = nickname
         } else {
             
-            self.usernameLabel.text = "新學生"
+            self.usernameLabel.text = self.infoVC_newStudent
         }
         
         
@@ -786,62 +984,106 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //算字數
         //在此有可能遇到user == nil的狀況, 不過在appDelegate已經給值, 稍後應該要修成if user == nil {} else {}
         
-        //MARK: simVer
+        //MARK: simVer 算分數算法要改
         
         var maxWordCount = Int()
-        if lan == "zh-Hans"{
-            //檢體中文
-            
-            //print("檢體中文關卡數")
-            //之後還要用courseReceived來改數值, 因為每個course值不同
-            
-            maxWordCount = 330
-            
-        } else {
-            //其餘語言
-            //print("繁體中文關卡數")
-            maxWordCount = 450
-            
-        }
+        var allMapPassedCount:Int!
         
         if user != nil {
-        
-        let allMapPassedCount = mapPassed! * maxWordCount + mapPassed2! * maxWordCount + mapPassed3! * maxWordCount + mapPassed4! * maxWordCount + mapPassed5! * maxWordCount
-        
-        var gamePassedCount = Int()
-        var gamePassed2Count = Int()
-        var gamePassed3Count = Int()
-        var gamePassed4Count = Int()
-        var gamePassed5Count = Int()
-        
-        var allWordsCount = Int()
-        var wrongWordsCount = Int()
-        
-        for (s,u) in gamePassed!{
-            gamePassedCount = s * 30 + u * 3
-        }
-        for (s,u) in gamePassed2!{
-            gamePassed2Count = s * 30 + u * 3
-        }
-        
-        
-        for (s,u) in gamePassed3!{
-            gamePassed3Count = s * 30 + u * 3
-        }
-        
-        for (s,u) in gamePassed4!{
-            gamePassed4Count = s * 30 + u * 3
-        }
-        
-        for (s,u) in gamePassed5!{
-            gamePassed5Count = s * 30 + u * 3
-        }
-        
-    
- 
-        allWordsCount = allMapPassedCount + gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count + gamePassed5Count
-        
-        wordCountLabel.text = String(allWordsCount)
+            if lan == "zh-Hans"{
+                //檢體中文
+                
+                //print("檢體中文關卡數")
+                //之後還要用courseReceived來改數值, 因為每個course值不同
+                
+                allMapPassedCount =  mapPassed! * 330 + mapPassed2! * 450 + mapPassed3! * 450 +  mapPassed4! * 450 +  mapPassed5! * 450 + mapPassed7! * 450 + mapPassed8! * 450 + mapPassed9! * 450
+                
+                //MARK: simVer 另外計算K12的字數
+                
+                var k12ElemWordsMax = [120,330,330,300,330,330,330,330,390,390,330,330,210,330,300,180,390,390]
+                
+                //k12
+                for i in 0 ..< k12MapPassed.count {
+                    
+                    if k12MapPassed[i] == 1 {
+                        
+                        allMapPassedCount += k12ElemWordsMax[i]
+                        
+                    } else {
+                        
+                        //eachCellMyWordsCount[i] =
+                        
+                        for (s,u) in k12GamePassed[i] {
+                            
+                            allMapPassedCount += s * 30 + u * 3
+                        }
+                        
+                        
+                    }
+                }
+
+                
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                maxWordCount = 450
+                
+                   allMapPassedCount = mapPassed! * maxWordCount + mapPassed2! * maxWordCount + mapPassed3! * maxWordCount + mapPassed4! * maxWordCount + mapPassed5! * maxWordCount
+                
+            }
+         
+            
+            var gamePassedCount = Int()
+            var gamePassed2Count = Int()
+            var gamePassed3Count = Int()
+            var gamePassed4Count = Int()
+            var gamePassed5Count = Int()
+//            var gamePassed6Count = Int()
+            var gamePassed7Count = Int()
+            var gamePassed8Count = Int()
+            var gamePassed9Count = Int()
+
+            
+            var allWordsCount = Int()
+            var wrongWordsCount = Int()
+            
+            for (s,u) in gamePassed!{
+                gamePassedCount = s * 30 + u * 3
+            }
+            for (s,u) in gamePassed2!{
+                gamePassed2Count = s * 30 + u * 3
+            }
+            
+            
+            for (s,u) in gamePassed3!{
+                gamePassed3Count = s * 30 + u * 3
+            }
+            
+            for (s,u) in gamePassed4!{
+                gamePassed4Count = s * 30 + u * 3
+            }
+            
+            for (s,u) in gamePassed5!{
+                gamePassed5Count = s * 30 + u * 3
+            }
+//            for (s,u) in gamePassed6!{
+//                gamePassed6Count = s * 30 + u * 3
+//            }
+            for (s,u) in gamePassed7!{
+                gamePassed7Count = s * 30 + u * 3
+            }
+            for (s,u) in gamePassed8!{
+                gamePassed8Count = s * 30 + u * 3
+            }
+            for (s,u) in gamePassed9!{
+                gamePassed9Count = s * 30 + u * 3
+            }
+            
+            let allGamePassedCount = gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count + gamePassed5Count + gamePassed7Count + gamePassed8Count + gamePassed9Count
+            allWordsCount = allMapPassedCount + allGamePassedCount
+            
+            wordCountLabel.text = String(allWordsCount)
             
             //算拼字正確率
             if let wrongWords = user?["wrongWords"] as? String{
@@ -882,12 +1124,17 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                 }
             }
+
+
             
         } else {
             
             wordCountLabel.text = "0"
-           // print("user is nil 所產生的值")
+            // print("user is nil 所產生的值")
+            
         }
+        
+        
         
         //抓分數
          if let score = user?["score"] as? String{
@@ -896,8 +1143,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
          } else {
             
-            scoreCountLabel.text = "尚未得分"
-            rankCountLabel.text = "尚未排名"
+            scoreCountLabel.text = infoVC_noScore
+            rankCountLabel.text = infoVC_noRank
         }
         
         
@@ -945,11 +1192,20 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 if let wordCount3 = user?["wordReviewCount3"] as? String{
                     if let wordCount4 = user?["wordReviewCount4"] as? String{
                         if let wordCount5 = user?["wordReviewCount5"] as? String {
+                            if let wordCount6 = user?["wordReviewCount6"] as? String {
+                                if let wordCount7 = user?["wordReviewCount7"] as? String {
+                                    if let wordCount8 = user?["wordReviewCount8"] as? String {
+                                        if let wordCount9 = user?["wordReviewCount9"] as? String {
+                            
 
-                        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)! + Int(wordCount5)!
+                        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)! + Int(wordCount5)! + Int(wordCount6)! + Int(wordCount7)! + Int(wordCount8)! + Int(wordCount9)!
         
                        
                             sub1Rates[3] = totalWordCount
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -962,11 +1218,19 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 if let senCount3 = user?["senReviewCount3"] as? String{
                     if let senCount4 = user?["senReviewCount4"] as? String {
                          if let senCount5 = user?["senReviewCount5"] as? String {
+                            if let senCount6 = user?["senReviewCount6"] as? String {
+                                if let senCount7 = user?["senReviewCount7"] as? String {
+                                    if let senCount8 = user?["senReviewCount8"] as? String {
+                                        if let senCount9 = user?["senReviewCount9"] as? String {
                         
         
-                        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)! + Int(senCount5)!
+                        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)! + Int(senCount5)! + Int(senCount6)! + Int(senCount7)! + Int(senCount8)! + Int(senCount9)!
         
                         sub1Rates[4] = totalSenCount
+                                        }
+                                    }
+                                }
+                                }
                         }
                     }
                 }
@@ -1115,7 +1379,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         
                         // successfully uploaded
                         if id != nil {
-                            print("got Id")
+                            //print("got Id")
                             
                             
                             // save user information we received from our host

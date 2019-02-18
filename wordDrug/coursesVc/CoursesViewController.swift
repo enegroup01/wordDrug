@@ -12,6 +12,7 @@ import UIKit
 
 class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate{
     
+    //courseReceived 0國小 1初中 2高中 3CET4 4CET6 5K12 6toeic 7ielts 8tofel
 
     let courseVC_purchasedState = NSLocalizedString("courseVC_purchasedState", comment: "")
     
@@ -19,7 +20,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     let courseVC_learningDays = NSLocalizedString("courseVC_learningDays", comment: "")
     let courseVC_newStudent = NSLocalizedString("courseVC_newStudent", comment: "")
     let courseVC_logOutBtnText = NSLocalizedString("courseVC_logOutBtnText", comment: "")
-    let courseVC_toLoginVCBtnText = NSLocalizedString("courseVC_toLoginVCBtnText", comment: "")
+    //let courseVC_toLoginVCBtnText = NSLocalizedString("courseVC_toLoginVCBtnText", comment: "")
     
     
     
@@ -82,8 +83,13 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBOutlet weak var toLoginVcBtn: UIButton!
     var dynamicCellHeight:CGFloat!
     
+    var lan:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let array = Bundle.main.preferredLocalizations
+        lan = array.first
  
         var dif = CGFloat()
         var iPadDif = CGFloat()
@@ -212,8 +218,28 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         logOutBtn.layer.cornerRadius = 50 * iPadDif * dif / 15
         logOutBtn.setTitle(courseVC_logOutBtnText, for: .normal)
         
+        var btnImg:UIImage!
         
-        toLoginVcBtn.setTitle(courseVC_toLoginVCBtnText, for: .normal)
+        if lan == "zh-Hans"{
+            //檢體中文
+            
+            //print("檢體中文關卡數")
+            //之後還要用courseReceived來改數值, 因為每個course值不同
+            
+            btnImg = UIImage(named: "simToLoginVcBtn.png")
+
+        } else {
+            //其餘語言
+            //print("繁體中文關卡數")
+            btnImg = UIImage(named: "toLoginVcBtn.png")
+        }
+
+        
+        toLoginVcBtn.setBackgroundImage(btnImg, for: .normal)
+        //toLoginVcBtn.setImage(btnImg, for: .normal)
+    
+        
+        //toLoginVcBtn.setTitle(courseVC_toLoginVCBtnText, for: .normal)
         
         toLoginVcBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 0, right: 0), size: .init(width: 63 * iPadDif * dif, height: 24 * iPadDif * dif))
     
@@ -314,9 +340,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         hiddenShopBtn.anchor(top: courseTableView.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: width / 3 * 2, bottom: 0, right: 0))
         hiddenShopBtn.anchorSize(to: hiddenInfoBtn)
 
-        
-        
-        
+
         self.view.bringSubview(toFront: toInfoVcBtn)
         self.view.bringSubview(toFront: toShopVcBtn)
         self.view.bringSubview(toFront: toChartVcBtn)
@@ -445,7 +469,25 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         //MARK: must update
-        return 5
+        //MARK: simVer
+        
+        var rows:Int!
+        
+        if lan == "zh-Hans"{
+            //檢體中文
+            
+            //print("檢體中文關卡數")
+            //之後還要用courseReceived來改數值, 因為每個course值不同
+            
+            rows = 9
+            
+        } else {
+            //其餘語言
+            //print("繁體中文關卡數")
+            rows = 5
+            
+        }
+        return rows
         
     }
     
@@ -486,16 +528,36 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoursesCell", for: indexPath) as! CourseTableViewCell
         
         //MARK: must update
-        let titleImg = ["block0Title","block1Title","block2Title","block3Title", "block4Title"]
-        let wordCounts = [2250,2700, 3150, 4050, 3600]
+        //MARK: simVer 這裡要增加簡體版的方塊圖 & 字數
+        
+        var titleImg = [String]()
+        var wordCounts = [Int]()
+        
+        if lan == "zh-Hans"{
+            //檢體中文
+            
+            //print("檢體中文關卡數")
+            //之後還要用courseReceived來改數值, 因為每個course值不同
+            
+            titleImg = ["simBlock0","simBlock1","simBlock2","simBlock3", "simBlock4","simBlock5","simBlock6","simBlock7","simBlock8"]
+            
+            wordCounts = [990, 2250, 2700, 4950, 5850, 5670, 3150, 4050, 3600]
+            
+            
+        } else {
+            //其餘語言
+            //print("繁體中文關卡數")
+            
+            titleImg = ["block0Title","block1Title","block2Title","block3Title", "block4Title"]
+            wordCounts = [2250,2700, 3150, 4050, 3600]
+        }
+        
 
         cell.wordCountOutlet.text = "\(wordCounts[indexPath.row])"
         cell.courseTitleImg.image = UIImage(named: titleImg[indexPath.row] + ".png")
         cell.courseTitleImg.contentMode = .scaleAspectFill
         cell.generateCell(indexPath: indexPath)
         cell.backgroundColor = .clear
-        
-        
         
         cell.delegate = self
         return cell
@@ -630,6 +692,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
        
         //MARK: must update
         
+        //MARK: simVer 這裡要更新大陸有的關卡
+        
         //抓gamePassed
         let decodedObject = UserDefaults.standard.object(forKey: "gamePassed") as? NSData
         
@@ -681,7 +745,66 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         
         //抓mapPassed5
         mapPassed5 = UserDefaults.standard.object(forKey: "mapPassed5") as? Int
+        
+        
+        
+        //MARK: simVer k12
+ 
+        let decodedObject6 = UserDefaults.standard.object(forKey: "gamePassed6") as? NSData
+        
+        if let decoded = decodedObject6 {
+            k12GamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int : Int]]
+        }
+    
+        k12MapPassed = UserDefaults.standard.object(forKey: "mapPassed6") as? [Int]
+        
+        
+        
+        //抓gamePassed7
+        let decodedObject7 = UserDefaults.standard.object(forKey: "gamePassed7") as? NSData
+        
+        if let decoded = decodedObject7 {
+            gamePassed7 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed7
+        mapPassed7 = UserDefaults.standard.object(forKey: "mapPassed7") as? Int
+        
+        //抓gamePassed8
+        let decodedObject8 = UserDefaults.standard.object(forKey: "gamePassed8") as? NSData
+        
+        if let decoded = decodedObject8 {
+            gamePassed8 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed8
+        mapPassed8 = UserDefaults.standard.object(forKey: "mapPassed8") as? Int
+        
+        //抓gamePassed9
+        let decodedObject9 = UserDefaults.standard.object(forKey: "gamePassed9") as? NSData
+        
+        if let decoded = decodedObject9 {
+            gamePassed9 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
+        }
+        
+        //抓mapPassed9
+        mapPassed9 = UserDefaults.standard.object(forKey: "mapPassed9") as? Int
 
+
+        
+        //MARK: simVer 這是後端完成前的測試使用
+
+//        mapPassed6 = 18
+//        gamePassed6 = [0:0]
+//        mapPassed7 = 7
+//        gamePassed7 = [0:0]
+//        mapPassed8 = 9
+//        gamePassed8 = [0:0]
+//        mapPassed9 = 8
+//        gamePassed9 = [0:0]
+//
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

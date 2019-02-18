@@ -16,6 +16,11 @@ protocol CourseTableViewCellDelegate {
 
 class CourseTableViewCell: UITableViewCell {
     
+    let courseVC_enterClassBtnText = NSLocalizedString("courseVC_enterClassBtnText", comment: "")
+    let courseVC_enterBookBtnText = NSLocalizedString("courseVC_enterBookBtnText", comment: "")
+    let courseVC_wordUnit = NSLocalizedString("courseVC_wordUnit", comment: "")
+    
+    
     var indexPath: IndexPath!
     
     var delegate: CourseTableViewCellDelegate?
@@ -135,7 +140,7 @@ class CourseTableViewCell: UITableViewCell {
         wordUnitLabel.textAlignment = .left
         wordUnitLabel.font = wordUnitLabel.font.withSize(wordUnitFontSize)
         wordUnitLabel.anchor(top: self.topAnchor, leading: nil, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 35 * iPadDif * dif, left: 0, bottom: 0, right: -5 * iPadDif * dif), size: .init(width: 25 * iPadDif * dif, height: 50 * iPadDif * dif))
-        
+        wordUnitLabel.text = courseVC_wordUnit
         
         wordCountOutlet.font = wordCountOutlet.font.withSize(fontSize)
         wordCountOutlet.adjustsFontSizeToFitWidth = true
@@ -146,13 +151,22 @@ class CourseTableViewCell: UITableViewCell {
         
         enterBookBtnOutlet.anchor(top: wordCountOutlet.bottomAnchor, leading: nil, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 5 * iPadDif * dif, left: 0, bottom: 0, right: -5 * iPadDif * dif), size: .init(width: width / 4, height: dynamicHeight - 60 * iPadDif * dif - dynamicHeight / 6))
 
+       
 
         enterClassBtnOutlet.anchor(top: wordCountOutlet.bottomAnchor, leading: nil, bottom: nil, trailing: enterBookBtnOutlet.leadingAnchor, padding: .init(top: 5 * iPadDif * dif, left: 0, bottom: 0, right: -10 * iPadDif * dif))
         enterClassBtnOutlet.anchorSize(to: enterBookBtnOutlet)
+     
+        enterClassBtnOutlet.setTitle(courseVC_enterClassBtnText, for: .normal)
+        
         
 
         enterBookBtnOutlet.titleLabel?.font = enterBookBtnOutlet.titleLabel?.font.withSize(btnFontSize)
+        
+        enterBookBtnOutlet.setTitle(courseVC_enterBookBtnText, for: .normal)
         enterClassBtnOutlet.titleLabel?.font = enterClassBtnOutlet.titleLabel?.font.withSize(btnFontSize)
+        
+        
+        
         
         enterBookBtnOutlet.layer.cornerRadius = enterBookBtnOutlet.frame.width / cornerRadiusValue
         enterClassBtnOutlet.layer.cornerRadius = enterClassBtnOutlet.frame.width / cornerRadiusValue

@@ -229,6 +229,15 @@ class NewGameScene: SKScene {
     var isReplay = false
     
     var lan:String!
+    var maxSpot:Int!
+
+    
+    //MARK: simVer 這裡要建立如何建立音節的變數 done
+    var isSimVerSingleSyllable = false
+    
+    //MARK: simVer K12 課程紀錄變數
+//    var k12MapPassed:[Int]!
+//    var k12GamePassed:[[Int:Int]]!
 
     override func didMove(to view: SKView) {
         
@@ -306,12 +315,10 @@ class NewGameScene: SKScene {
 
         //MARK: must update
         
-        //MARK: simVer這裏位最大值要改動態
+        //MARK: simVer這裏位最大值要改動態 done
         let array = Bundle.main.preferredLocalizations
         lan = array.first
     
-        
-        //讀目前課程數字數量
         switch courseReceived {
             
         case 0:
@@ -319,59 +326,363 @@ class NewGameScene: SKScene {
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
             
+            isSimVerSingleSyllable = true
+            
+            //print("------------------\(lan)")
             if lan == "zh-Hans"{
                 //檢體中文
-                
-                //print("檢體中文關卡數")
                 //之後還要用courseReceived來改數值, 因為每個course值不同
-                
-                increaseNum = 35
                 maxMapNum = 3
+                increaseNum = 35
+                
+                
+            } else {
+                //其餘語言
+
+                maxMapNum = 5
+                increaseNum = 0
+            }
+            
+            
+            
+        case 1:
+            
+            gamePassedDic = gamePassed2!
+            mapPassedInt = mapPassed2!
+            
+  
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //初中
+                //print("檢體中文關卡數")
+
+                maxMapNum = 5
+                increaseNum = 38
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+    
+                increaseNum = 5
+                maxMapNum = 6
+                
+            }
+            
+            
+            
+        case 2:
+            
+            gamePassedDic = gamePassed3!
+            mapPassedInt = mapPassed3!
+            
+ 
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //高中
+                //print("檢體中文關卡數")
+                maxMapNum = 6
+                increaseNum = 43
 
                 
             } else {
                 //其餘語言
                 //print("繁體中文關卡數")
-                increaseNum = 0
-                maxMapNum = 5
+                increaseNum = 11
+                maxMapNum = 7
+ 
                 
             }
-      
-        case 1:
             
-            gamePassedDic = gamePassed2!
-            mapPassedInt = mapPassed2!
-            increaseNum = 5
-            maxMapNum = 6
-          
-        case 2:
             
-            gamePassedDic = gamePassed3!
-            mapPassedInt = mapPassed3!
-            increaseNum = 11
-            maxMapNum = 7
-         
+            
+            
         case 3:
-            
             gamePassedDic = gamePassed4!
             mapPassedInt = mapPassed4!
-            increaseNum = 18
-            maxMapNum = 9
+      
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //CET4
+                //print("檢體中文關卡數")
+                maxMapNum = 11
+                increaseNum = 49
+            
+                
+            } else {
+                //其餘語言
+                
+                //print("繁體中文關卡數")
+                increaseNum = 18
+                maxMapNum = 9
+                
+            }
             
         case 4:
-            
             gamePassedDic = gamePassed5!
             mapPassedInt = mapPassed5!
-            increaseNum = 27
-            maxMapNum = 8
+            
+            isSimVerSingleSyllable = false
+   
+            if lan == "zh-Hans"{
+                //檢體中文
+                //CET6
+                //print("檢體中文關卡數")
+                maxMapNum = 13
+                increaseNum = 60
+          
+                
+                
+            } else {
+                //其餘語言
+                
+                //print("繁體中文關卡數")
+                increaseNum = 27
+                maxMapNum = 8
+        
+                
+            }
+            
+        case 5:
+            
+            //MARK: simVer K12改變作法
+            //測試用
+//            k12MapPassed = Array(repeating: 0, count: 18)
+//            k12GamePassed = Array(repeating: [0:0], count: 18)
+            
+            //k12MapPassed[1] = 2
+//            k12GamePassed[0] = [0:2]
+//            k12GamePassed[2] = [1:0]
+            
+            //print(k12MapPassed)
+            //print(k12GamePassed)
+            
+            //重新設定成k12裡各關的過關情形
+            //            gamePassedDic = gamePassed6!
+            //            mapPassedInt = mapPassed6!
+            gamePassedDic = k12GamePassed[mapNumber]
+            mapPassedInt = k12MapPassed[mapNumber]
+
+            
+            isSimVerSingleSyllable = true
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //CET6
+                //print("檢體中文關卡數")
+                maxMapNum = 18
+                increaseNum = 73
+            }
+            
+        case 6:
+            gamePassedDic = gamePassed7!
+            mapPassedInt = mapPassed7!
+            
+            isSimVerSingleSyllable = false
+          
+            if lan == "zh-Hans"{
+               
+                //print("檢體中文關卡數")
+                maxMapNum = 7
+                increaseNum = 91
+            }
+            
+        case 7:
+            gamePassedDic = gamePassed8!
+            mapPassedInt = mapPassed8!
+            
+        
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+           
+                //print("檢體中文關卡數")
+                maxMapNum = 9
+                increaseNum = 98
+            }
+            
+        case 8:
+            gamePassedDic = gamePassed9!
+            mapPassedInt = mapPassed9!
+            
+            isSimVerSingleSyllable = false
+            
+            
+            if lan == "zh-Hans"{
+            
+              
+                maxMapNum = 8
+                increaseNum = 107
+            }
+            
             
         default:
             break
             
         }
+        
+        //MARK: simVer 這裏tempGamePassedDic要做動態化 done
+        //MARK: 移到外面
+        
+        
+        if lan == "zh-Hans"{
+            
+            //之後還要用courseReceived來改數值, 因為每個course值不同
+            switch courseReceived{
+                
+            case 0:
+                //國小
+                
+                maxSpot = 11
+            case 1:
+                //初中
+                maxSpot = 15
+            case 2:
+                //高中
+                maxSpot = 15
+            case 3:
+                //CET4
+                maxSpot = 15
+            case 4:
+                //CET6
+                maxSpot = 15
+            case 5:
+                //K12
+                
+                //MARK: simVer 要確認這裡是否抓到正確的mapNumber沒被改過的 done
+                switch (mapNumber){
+                    
+                case 0:
+                    maxSpot = 4
+                case 1:
+                    maxSpot = 11
+                case 2:
+                    maxSpot = 11
+                case 3:
+                    maxSpot = 10
+                case 4:
+                    maxSpot = 11
+                case 5:
+                    maxSpot = 11
+                case 6:
+                    maxSpot = 11
+                case 7:
+                    maxSpot = 11
+                case 8:
+                    maxSpot = 13
+                case 9:
+                    maxSpot = 13
+                case 10:
+                    maxSpot = 11
+                case 11:
+                    maxSpot = 11
+                case 12:
+                    maxSpot = 7
+                case 13:
+                    maxSpot = 11
+                case 14:
+                    maxSpot = 11
+                case 15:
+                    maxSpot = 6
+                case 16:
+                    maxSpot = 13
+                case 17:
+                    maxSpot = 13
+                    
+                default:
+                    break
+                    
+                }
+                
+            case 6:
+                //Toeic
+                maxSpot = 15
+                
+            case 7:
+                //ielts
+                maxSpot = 15
+            case 8:
+                
+                //tofel
+                maxSpot = 15
+                
+            default:
+                
+                break
+                
+            }
+        } else {
+            
+            maxSpot = 15
+        }
+        
+//        //讀目前課程數字數量
+//        switch courseReceived {
+//
+//        case 0:
+//
+//            gamePassedDic = gamePassed!
+//            mapPassedInt = mapPassed!
+//
+//            if lan == "zh-Hans"{
+//                //檢體中文
+//
+//                //print("檢體中文關卡數")
+//                //之後還要用courseReceived來改數值, 因為每個course值不同
+//
+//                increaseNum = 35
+//                maxMapNum = 3
+//
+//
+//            } else {
+//                //其餘語言
+//                //print("繁體中文關卡數")
+//                increaseNum = 0
+//                maxMapNum = 5
+//
+//            }
+//
+//        case 1:
+//
+//            gamePassedDic = gamePassed2!
+//            mapPassedInt = mapPassed2!
+//            increaseNum = 5
+//            maxMapNum = 6
+//
+//        case 2:
+//
+//            gamePassedDic = gamePassed3!
+//            mapPassedInt = mapPassed3!
+//            increaseNum = 11
+//            maxMapNum = 7
+//
+//        case 3:
+//
+//            gamePassedDic = gamePassed4!
+//            mapPassedInt = mapPassed4!
+//            increaseNum = 18
+//            maxMapNum = 9
+//
+//        case 4:
+//
+//            gamePassedDic = gamePassed5!
+//            mapPassedInt = mapPassed5!
+//            increaseNum = 27
+//            maxMapNum = 8
+//
+//        default:
+//            break
+//
+//        }
 
         //抓正確的音節
         //MARK: must update
+        //MARK: simVer 要增加檢體版本的 done
         //設定地圖的音節
         
         switch mapNumber + increaseNum{
@@ -391,8 +702,10 @@ class NewGameScene: SKScene {
             syllableSets = map7SyllableSets
         case 7:
             syllableSets = map8SyllableSets
+            
         case 8:
             syllableSets = map9SyllableSets
+            
         case 9:
             syllableSets = map10SyllableSets
         case 10:
@@ -429,6 +742,7 @@ class NewGameScene: SKScene {
             syllableSets = map26SyllableSets
         case 26:
             syllableSets = map27SyllableSets
+            
         case 27:
             syllableSets = map28SyllableSets
         case 28:
@@ -445,15 +759,175 @@ class NewGameScene: SKScene {
             syllableSets = map34SyllableSets
         case 34:
             syllableSets = map35SyllableSets
+            
+        //以下為簡體部分
         case 35:
             syllableSets = map36SyllableSets
-
         case 36:
             syllableSets = map37SyllableSets
-
         case 37:
             syllableSets = map38SyllableSets
-
+            
+        case 38:
+            syllableSets = map39SyllableSets
+        case 39:
+            syllableSets = map40SyllableSets
+        case 40:
+            syllableSets = map41SyllableSets
+        case 41:
+            syllableSets = map42SyllableSets
+        case 42:
+            syllableSets = map43SyllableSets
+        case 43:
+            syllableSets = map44SyllableSets
+        case 44:
+            syllableSets = map45SyllableSets
+        case 45:
+            syllableSets = map46SyllableSets
+        case 46:
+            syllableSets = map47SyllableSets
+        case 47:
+            syllableSets = map48SyllableSets
+        case 48:
+            syllableSets = map49SyllableSets
+        case 49:
+            syllableSets = map50SyllableSets
+        case 50:
+            syllableSets = map51SyllableSets
+        case 51:
+            syllableSets = map52SyllableSets
+        case 52:
+            syllableSets = map53SyllableSets
+        case 53:
+            syllableSets = map54SyllableSets
+        case 54:
+            syllableSets = map55SyllableSets
+        case 55:
+            syllableSets = map56SyllableSets
+        case 56:
+            syllableSets = map57SyllableSets
+        case 57:
+            syllableSets = map58SyllableSets
+        case 58:
+            syllableSets = map59SyllableSets
+        case 59:
+            syllableSets = map60SyllableSets
+        case 60:
+            syllableSets = map61SyllableSets
+        case 61:
+            syllableSets = map62SyllableSets
+        case 62:
+            syllableSets = map63SyllableSets
+        case 63:
+            syllableSets = map64SyllableSets
+        case 64:
+            syllableSets = map65SyllableSets
+        case 65:
+            syllableSets = map66SyllableSets
+        case 66:
+            syllableSets = map67SyllableSets
+        case 67:
+            syllableSets = map68SyllableSets
+        case 68:
+            syllableSets = map69SyllableSets
+        case 69:
+            syllableSets = map70SyllableSets
+            
+        case 70:
+            syllableSets = map71SyllableSets
+        case 71:
+            syllableSets = map72SyllableSets
+        case 72:
+            syllableSets = map73SyllableSets
+        case 73:
+            syllableSets = map74SyllableSets
+        case 74:
+            syllableSets = map75SyllableSets
+        case 75:
+            syllableSets = map76SyllableSets
+        case 76:
+            syllableSets = map77SyllableSets
+        case 77:
+            syllableSets = map78SyllableSets
+        case 78:
+            syllableSets = map79SyllableSets
+        case 79:
+            syllableSets = map80SyllableSets
+            
+            
+        case 80:
+            syllableSets = map81SyllableSets
+        case 81:
+            syllableSets = map82SyllableSets
+        case 82:
+            syllableSets = map83SyllableSets
+        case 83:
+            syllableSets = map84SyllableSets
+        case 84:
+            syllableSets = map85SyllableSets
+        case 85:
+            syllableSets = map86SyllableSets
+        case 86:
+            syllableSets = map87SyllableSets
+        case 87:
+            syllableSets = map88SyllableSets
+        case 88:
+            syllableSets = map89SyllableSets
+        case 89:
+            syllableSets = map90SyllableSets
+            
+        case 90:
+            syllableSets = map91SyllableSets
+        case 91:
+            syllableSets = map92SyllableSets
+        case 92:
+            syllableSets = map93SyllableSets
+        case 93:
+            syllableSets = map94SyllableSets
+        case 94:
+            syllableSets = map95SyllableSets
+        case 95:
+            syllableSets = map96SyllableSets
+        case 96:
+            syllableSets = map97SyllableSets
+        case 97:
+            syllableSets = map98SyllableSets
+        case 98:
+            syllableSets = map99SyllableSets
+        case 99:
+            syllableSets = map100SyllableSets
+            
+        case 100:
+            syllableSets = map101SyllableSets
+        case 101:
+            syllableSets = map102SyllableSets
+        case 102:
+            syllableSets = map103SyllableSets
+        case 103:
+            syllableSets = map104SyllableSets
+        case 104:
+            syllableSets = map105SyllableSets
+        case 105:
+            syllableSets = map106SyllableSets
+        case 106:
+            syllableSets = map107SyllableSets
+        case 107:
+            syllableSets = map108SyllableSets
+        case 108:
+            syllableSets = map109SyllableSets
+        case 109:
+            syllableSets = map110SyllableSets
+            
+        case 110:
+            syllableSets = map111SyllableSets
+        case 111:
+            syllableSets = map112SyllableSets
+        case 112:
+            syllableSets = map113SyllableSets
+        case 113:
+            syllableSets = map114SyllableSets
+        case 114:
+            syllableSets = map115SyllableSets
             
         default:
             break
@@ -484,16 +958,56 @@ class NewGameScene: SKScene {
         } else if gameMode == 1 {
             
             //做一次所有亂數可能性的array, 讓之後每次來selectRanWord
-
-            if mapNumber < mapPassedInt{
+            //MARK: simVer這裏最大值也要更改
+            //MARK: simVer k12特殊作法
             
-                tempGamePassedDic = [14:9]
+            
+            if courseReceived == 5 {
+                
+                if mapPassedInt == 1 {
+                    
+                    //k12當關卡前全票破
+                    tempGamePassedDic = [maxSpot - 1:9]
+                    
+                } else {
+                    //未全破的話
+                    tempGamePassedDic = gamePassedDic
+                    
+                }
+                
+            } else if mapNumber < mapPassedInt{
+                
+                if lan == "zh-Hans"{
+                    //檢體中文
+                    
+                   
+                    
+                    tempGamePassedDic = [maxSpot - 1:9]
+                    
+                    
+                } else {
+                    //其餘語言
+                    //print("繁體中文關卡數")
+                    tempGamePassedDic = [14:9]
+                    
+                }
                 
             } else {
-            
+                
                 //相等的話
                 tempGamePassedDic = gamePassedDic
+                
             }
+
+//            if mapNumber < mapPassedInt{
+//
+//                tempGamePassedDic = [14:9]
+//
+//            } else {
+//
+//                //相等的話
+//                tempGamePassedDic = gamePassedDic
+//            }
             
                 for (s,u) in tempGamePassedDic!{
                     
@@ -618,9 +1132,11 @@ class NewGameScene: SKScene {
             
         //讀取Bundle裡的文字檔
         var wordFile:String?
-        
-        let name = String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
-
+  
+                
+              let name = String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
+   
+         
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {
                 wordFile = try String(contentsOfFile: filepath)
@@ -647,7 +1163,9 @@ class NewGameScene: SKScene {
                     
                     var wordFile:String?
                     //前面的1代表第一張地圖, 從mapPassedInt 改成mapNumber
+
                     let name = String(describing: mapNumber + increaseNum + 1) + "-" + String(i + 1)
+                    
                     
                     //抓字
                     if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -1381,6 +1899,8 @@ class NewGameScene: SKScene {
     }
     
     // 2. makeWords: 讀取所有的字, 造字
+    
+    //MARK: simVer這裏造字在挑戰模式會有錯
     func makeWords(){
         
         //這個engWords是尚未attr的, attr完的是
@@ -1407,7 +1927,7 @@ class NewGameScene: SKScene {
         
         let quarterCount = wordSets.count / 3
         
-        print(quarterCount)
+        print("quarterCount:\(quarterCount)")
         
         if gameMode == 1 {
             
@@ -1519,7 +2039,8 @@ class NewGameScene: SKScene {
         if gameMode == 0 {
      
             //MARK: simVer  做三個音節
-            if lan == "zh-Hans"{
+            //MARK: 用LessonView裡面的變數來判斷 done
+            if lan == "zh-Hans" && isSimVerSingleSyllable{
                 //檢體中文
                 
                 //print("檢體中文關卡數")
@@ -1536,28 +2057,28 @@ class NewGameScene: SKScene {
                 syllablesToCheck = syllables[unitNumber]
                 threeSyllables = [syllablesToCheck,syllablesToCheck,syllablesToCheck]
                 
-                
             }
             
-      
         } else if gameMode == 1 {
             
+            //MARK: simVer 這裡有不一樣...這裡要再次確認應該沒有不一樣, 挑戰模式都是亂數 done
             
-            //MARK: simVer 這裡有不一樣...這裡要再次確認應該沒有不一樣, 挑戰模式都是亂數
-            
-//            firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0] / 3]
-//            secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1] / 3]
-//            thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2] / 3]
-            
-            firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0]]
-            secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1]]
-            thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2]]
+            if lan == "zh-Hans" && isSimVerSingleSyllable{
+               
+                firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0]]
+                secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1]]
+                thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2]]
+                
+            } else {
+                
+                firstSyllablesToCheck = syllableSets[randomSpots[0]][randomUnits[0] / 3]
+                secondSyllablesToCheck = syllableSets[randomSpots[1]][randomUnits[1] / 3]
+                thirdSyllablesToCheck = syllableSets[randomSpots[2]][randomUnits[2] / 3]
 
-          
+            }
+            
             threeSyllables = [firstSyllablesToCheck,secondSyllablesToCheck,thirdSyllablesToCheck]
-            
         }
-
         
         //去掉數字
         
@@ -1579,11 +2100,18 @@ class NewGameScene: SKScene {
         //以下為生成attr的步驟
         //1. 確認是否是specialE
         
+       
         
+        print("ready to make word")
         for sg in 0 ..< syllablesGroup.count {
+            
+            print("1")
         
         if syllablesGroup[sg].contains("_"){
             //specialE的作法
+            
+            
+            print("2")
             
             var characters = [Character]()
             let vowels = ["a","e","i","o","u"]
@@ -1591,6 +2119,8 @@ class NewGameScene: SKScene {
             //每一個英文字節拆字母
                 
                 for i in 0 ..< allThreeEngWordsArray[sg].count{
+                    
+                    print("3")
                     
                     characters.removeAll(keepingCapacity: false)
                     
@@ -1601,6 +2131,7 @@ class NewGameScene: SKScene {
                     
                     if characters.count == 3{
                         if characters[2] == "e"{
+                            
                             
                             if vowels.contains(String(characters[0])){
                                 
@@ -1652,11 +2183,17 @@ class NewGameScene: SKScene {
         } else {
             //非specialE的作法
             
+            print("4")
+            
                 //抓array的音節,  只抓一個字
                 for i in 0 ..< allThreeEngWordsArray[sg].count{
                     
+                    print("5")
+                    
                     if let engWord = allThreeEngWordsArray[sg][i] as String?{
                         
+                        
+                        print("6")
                         if engWord.lowercased() == syllablesGroup[sg]{
                             //符合部首字
                             
@@ -1822,31 +2359,113 @@ class NewGameScene: SKScene {
         
         
         //MARK: must update
-        //MARK: simVer must update 這裡如果有新增關卡要增加
-        switch courseReceived{
-          
-        case 0:
-            sec = 20
-        case 1:
-            sec = 30
-        case 2:
-            sec = 40
-        case 3:
-            sec = 50
-        case 4:
-            sec = 60
+        //MARK: simVer must update 這裡如果有新增關卡要增加秒數的設定 done
+        
+        if lan == "zh-Hans"{
+            
+            
+            switch courseReceived{
+                
+            case 0:
+                sec = 20
+            case 1:
+                sec = 30
+            case 2:
+                sec = 40
+            case 3:
+                sec = 50
+            case 4:
+                sec = 60
+                
+                //K12
+            case 5:
+                switch mapNumber {
+                    
+                case 0:
+                    sec = 20
+                case 1:
+                    sec = 25
+                case 2:
+                    sec = 30
+                case 3:
+                    sec = 35
+                case 4:
+                    sec = 40
+                case 5:
+                    sec = 45
+                case 6:
+                    sec = 50
+                case 7:
+                    sec = 55
+                case 8:
+                    sec = 60
+                case 9:
+                    sec = 60
+                case 10:
+                    sec = 60
+                case 11:
+                    sec = 60
+                case 12:
+                    sec = 60
+                case 13:
+                    sec = 60
+                case 14:
+                    sec = 60
+                case 15:
+                    sec = 60
+                case 16:
+                    sec = 60
+                case 17:
+                    sec = 60
+                    
+                    
+                default:
+                    break
+                }
+                
+            case 6:
+                sec = 40
+            case 7:
+                sec = 50
+            case 8:
+                sec = 60
+                
+            default:
+                break
+                
+            }
 
-        default:
-            break
+            
+        } else {
+            //繁體
+            switch courseReceived{
+                
+            case 0:
+                sec = 20
+            case 1:
+                sec = 30
+            case 2:
+                sec = 40
+            case 3:
+                sec = 50
+            case 4:
+                sec = 60
+                
+            default:
+                break
+                
+            }
 
+            
         }
+        
         
         
          let countDownAction = SKAction.resize(toWidth: 0, duration: sec)
         
         lineNode.run(countDownAction) {[weak self] in
             
-            print("stop counting")
+            //print("stop counting")
             
             self!.run(self!.wrongSound)
             

@@ -11,7 +11,34 @@ courseVC_freeState = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰�
 courseVC_learningDays = "學習天數";
 courseVC_newStudent = "新學生";
 courseVC_logOutBtnText = "登出";
-courseVC_toLoginVCBtnText = "註冊/登入";
+//courseVC_toLoginVCBtnText = "註冊/登入";
+courseVC_enterClassBtnText = "進入課程";
+courseVC_enterBookBtnText = "單字集";
+courseVC_wordUnit = "字";
+
+
+
+
+infoVC_wordAchievement = "單字成就";
+infoVC_proAchievement = "發音成就";
+infoVC_senAchievement = "句型成就";
+infoVC_spellKing = "英文拼字王";
+infoVC_senKing = "句型冠軍榜";
+infoVC_spellRate = "拼字正確率";
+infoVC_proRate = "發音正確率";
+infoVC_writeSenRate = "排列正確率";
+infoVC_wordCount = "單字達成";
+infoVC_senCount = "句型達成";
+infoVC_chineseRate = "中文正確率";
+infoVC_wordUnit = "字";
+infoVC_senUnit = "句";
+infoVC_newStudent = "新學生";
+infoVC_noScore = "尚未得分";
+infoVC_noRank = "尚未排名";
+infoVC_titleLabel = "我的學習成就";
+infoVC_wordLabel = "單字量";
+infoVC_scoreLabel = "總分";
+infoVC_rankLabel = "總排名";
 
 
 
@@ -40,8 +67,28 @@ registerVC.errorWrongPassword =  "密碼輸入有誤，請再試一次";
 
 
 
+chartVC_scoreChart = "總分\n排行榜";
+chartVC_wordChart = "英文\n拼字王";
+chartVC_senChart = "句型\n冠軍榜";
+chartVC_wordCountLabelText = "單字量";
+chartVC_passCountLabelText = "過關數";
 
 
+
+purchaseVC_dialogueTitle = "無限時間\n讓英語學習無限大";
+purchaseVC_dialogueSubTitle = "所有課程不限時，一次全解鎖";
+purchaseVC_downTitle = "用最正確，最有效率的單字學習方式\n今天就開始你的學習計畫！";
+purchaseVC_downTitle2 = "英檢初級2100字\n英檢中級2250字\n多益滿分2400字\n及更多字庫更新內容...";
+purchaseVC_iKnowBtnText = "\n我知道了";
+purchaseVC_restoreMsgLabelText = "恢復購買狀態？";
+purchaseVC_restoreOkMsg = "\n您已成功恢復之前的購買紀錄!";
+purchaseVC_purchaseBtnText = "按此購買無限學習時間";
+purchaseVC_purchaseBtnDollars = "NT 90.00";
+purchaseVC_purchaseFailedMsg = "\n您還沒有購買無限時間喔!";
+purchaseVC_internetErrorMsg = "請檢查網路連線後再試一次";
+purchaseVC_restoreFailedMsg = "恢復購買失敗，請確認之前已成功購買過才能恢復購買狀態。若還有問題請聯絡蘋果客服！";
+purchaseVC_purchaseOkMsg =  "您已購買無限學習時間";
+purchaseVC_restoreBtnTitle = "恢復鍵";
 
 
 

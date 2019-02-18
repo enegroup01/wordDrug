@@ -85,19 +85,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var lessonBigFontSize: CGFloat!
     var lessonSmallFontSize: CGFloat!
     
-    
     var tempS:Int!
     var tempU:Int!
     
-   
     var collectionViewCellSize:CGFloat!
     var smallSylFontSize:CGFloat!
     
     @IBOutlet weak var lessonSylView: UICollectionView!
     
     @IBOutlet weak var allSylBtn: UIButton!
-    
-  
     
     //選擇到的音節
     var collectionTouched = [Int]()
@@ -107,8 +103,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var maxUnit:Int!
     var iPadSizeDif: CGFloat!
     var collectionViewDif:CGFloat!
+    var currentMaxSpotToUse:Int!
+    var currentMaxUnitToUse:Int!
     
     var lan:String!
+    //MARK: simVer K12 課程紀錄變數
+//    var k12MapPassed:[Int]!
+//    var k12GamePassed:[[Int:Int]]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -487,14 +488,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         syllableLabel.backgroundColor = .blue
         */
         
-        
-        
-        
-        
+
         //
-        
-        
-        
         
         removeBtns()
 
@@ -654,16 +649,29 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //let sylToShow = allSyls[indexPath.row]
         
         
-        //MARK: simVer 這兩條code先comment
+        //MARK: simVer 這兩條code先comment not yet
         
-        if lan == "zh-Hans"{
+        if lan == "zh-Hans" && isSimVerSingleSyllable{
             //檢體中文
             
             //print("檢體中文關卡數")
             //之後還要用courseReceived來改數值, 因為每個course值不同
+            //*****這部分有點複雜可能等之後讀取完syllableSets再來看是否要細分處理
            
-            sylText.text = String(indexPath.row + 1)
-       
+            //sylText.text = String(indexPath.row + 1)
+            
+            //MARK: simVer 這裡沒有數字要自加數字上去
+            let sylToShow = syllableSets[indexPath.section][indexPath.row * 3]
+            let numbersRange = sylToShow.rangeOfCharacter(from: .decimalDigits)
+           
+            let hasNumbers = (numbersRange != nil)
+            
+            if hasNumbers{
+            
+                sylText.text = sylToShow
+            } else {
+                sylText.text = sylToShow + "\(indexPath.row + 1)"
+            }
             
         } else {
             //其餘語言
@@ -672,13 +680,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             sylText.text = sylToShow
             
         }
-        
-   
-        
 
         if !lessonSylView.isHidden{
-        
-        
         
         //if collectionTouched[indexPath.row] == 1 {
             
@@ -686,16 +689,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             sylText.textColor = .white
             blueBall.isHidden = false
-                
-                
+         
                 
         } else {
             blueBall.isHidden = true
                 
                 var isSelectable = false
-                if indexPath.section < maxSpot {
+                
+                //MARK: simVer Test maxSpot  / maxUnit  為了避免被改變用另一組變數
+                if indexPath.section < currentMaxSpotToUse {
                     isSelectable = true
-                } else if indexPath.section < maxSpot + 1 && indexPath.row < maxUnit + 1{
+                } else if indexPath.section < currentMaxSpotToUse + 1 && indexPath.row < currentMaxUnitToUse + 1{
                     isSelectable = true
                 } else {
                     isSelectable = false
@@ -736,11 +740,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //選到後 1. 發亮 2. 隱藏畫面 3. load正確字
         
+        //MARK: simVer Test maxSpot  / maxUnit  為了避免被改變用另一組變數
+        
         
         var isSelectable = false
-        if indexPath.section < maxSpot {
+        if indexPath.section < currentMaxSpotToUse {
             isSelectable = true
-        } else if indexPath.section < maxSpot + 1 && indexPath.row < maxUnit + 1{
+        } else if indexPath.section < currentMaxSpotToUse + 1 && indexPath.row < currentMaxUnitToUse + 1{
             isSelectable = true
         } else {
             isSelectable = false
@@ -748,10 +754,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         if isSelectable{
-            
-            
-     
-            
+
       //  }
         
         
@@ -761,6 +764,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
      //       if indexPath.row < maxUnit + 1 {
                 
                 ProgressHUD.spinnerColor(.white)
+            
+            
                 
                 ProgressHUD.show("讀取課程")
                 
@@ -785,24 +790,104 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
             
             
-            //MARK: simVer 這裏最大值要做動態
+            //MARK: simVer 這裏最大值要做動態 done
             
-            
-            
-            var maxSpot = Int()
-                if lan == "zh-Hans"{
-                    //檢體中文
-
-                    print("檢體中文關卡數")
-                    //之後還要用courseReceived來改數值, 因為每個course值不同
-                    maxSpot = 11
-                    
-                } else {
-                    //其餘語言
-                    print("繁體中文關卡數")
-                    maxSpot = 15
-                    
-                }
+            //courseReceived 0國小 1初中 2高中 3CET4 4CET6 5K12 6toeic 7ielts 8tofel
+     
+//            var maxSpot = Int()
+//                if lan == "zh-Hans"{
+//                    //檢體中文
+//
+//                    print("檢體中文關卡數")
+//                    //之後還要用courseReceived來改數值, 因為每個course值不同
+//
+//                    switch courseReceived{
+//
+//                    case 0:
+//
+//                        maxSpot = 11
+//                    case 1:
+//                        maxSpot = 15
+//                    case 2:
+//                        maxSpot = 15
+//                    case 3:
+//                        //CET4
+//                        maxSpot = 15
+//                    case 4:
+//                        //CET6
+//                        maxSpot = 15
+//                    case 5:
+//                        //K12
+//
+//                        switch mapNumToReceive{
+//
+//                        case 0:
+//                            maxSpot = 4
+//                        case 1:
+//                            maxSpot = 11
+//                        case 2:
+//                            maxSpot = 11
+//                        case 3:
+//                            maxSpot = 10
+//                        case 4:
+//                            maxSpot = 11
+//                        case 5:
+//                            maxSpot = 11
+//                        case 6:
+//                            maxSpot = 11
+//                        case 7:
+//                            maxSpot = 11
+//                        case 8:
+//                            maxSpot = 13
+//                        case 9:
+//                            maxSpot = 13
+//                        case 10:
+//                            maxSpot = 11
+//                        case 11:
+//                            maxSpot = 11
+//                        case 12:
+//                            maxSpot = 7
+//                        case 13:
+//                            maxSpot = 11
+//                        case 14:
+//                            maxSpot = 11
+//                        case 15:
+//                            maxSpot = 6
+//                        case 16:
+//                            maxSpot = 13
+//                        case 17:
+//                            maxSpot = 13
+//
+//                        default:
+//                            break
+//
+//                        }
+//
+//                    case 6:
+//                        //Toeic
+//                        maxSpot = 15
+//
+//                    case 7:
+//                        //ielts
+//                        maxSpot = 15
+//                    case 8:
+//
+//                        //tofel
+//                        maxSpot = 15
+//
+//                    default:
+//
+//                        break
+//
+//                    }
+//
+//
+//                } else {
+//                    //其餘語言
+//                    print("繁體中文關卡數")
+//                    maxSpot = 15
+//
+//                }
             
                 for _ in 0 ..< maxSpot {
                     
@@ -827,16 +912,21 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 tempU = indexPath.row
                 
                 secRowTouched[tempS][tempU] = 1
-                
-                if mapNumToReceive == mapPassedInt{
+            
+            //MARK: simVer K12進不來這裡因為mapPassed不同, 所以要讓他可以進得來
+            
+            if mapNumToReceive == mapPassedInt || courseReceived == 5{
                     
                     for (s,u) in gamePassedDic!{
-                        
-                        if s == tempS && u == tempU{
+
+                        //MARK: simVer K12
+                        //這裏最後加入一個判斷是!isClassAllPassed來確保k12過關進入後不會有學習新字的情形
+                        if s == tempS && u == tempU && !isClassAllPassed{
                             //學習新字
-                            enterBtn.setTitle("學習新字", for: .normal)
-                            titleLabel.text = "即將學習\n下列三個新單字"
-                            titleLabel.textColor = .white
+                  
+                                enterBtn.setTitle("學習新字", for: .normal)
+                                titleLabel.text = "即將學習\n下列三個新單字"
+                                titleLabel.textColor = .white
                             
                         } else {
                             
@@ -942,12 +1032,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         */
         
         //這裡沒有大於的可能性
+        //MARK: simVer K12 特別作法
         if gamePassedDic == [0:0] && mapNumToReceive == mapPassedInt{
             
             print("不能練習句子")
             cannotPracticeAlert()
             
-        } else {
+        } else if gamePassedDic == [0:0] && courseReceived == 5{
+            
+            print("不能練習句子")
+            cannotPracticeAlert()
+        } else{
             
             performSegue(withIdentifier: "toGameVc", sender: self)
         }
@@ -978,7 +1073,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     print("不能練習單字")
                     self!.cannotPracticeAlert()
-                } else {
+                } else if self!.gamePassedDic == [0:0] && self!.courseReceived == 5 {
+                    print("不能練習單字")
+                    self!.cannotPracticeAlert()
+                    
+                } else{
                     
                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 }
@@ -987,6 +1086,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
             }
         }
+        
         
         
     }
@@ -1005,6 +1105,16 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var increaseNum = Int()
     var allSyls = [String]()
     
+    
+    
+    
+    
+    //這裡的已經redeclare了
+    //var maxSpot = Int()
+    //MARK: simVer 這裡要建立如何建立音節的變數 done
+    var isSimVerSingleSyllable = false
+    
+    
     override func viewWillAppear(_ animated: Bool) {
     
         
@@ -1022,17 +1132,22 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         titleLabel.textColor = .white
         
         
-        //MARK: simVer 這裏要更新最大數字 & increaseNum
+        //MARK: simVer 這裏要更新最大數字 & increaseNum & isSimVerSingleSyllable done
+        
+        //******** maxMapNum應該用不到 可以刪了 **********
+        
+        
         switch courseReceived {
         case 0:
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
+            isSimVerSingleSyllable = true
        
             
             
             if lan == "zh-Hans"{
                 //檢體中文
-                
+                //國小
                 //print("檢體中文關卡數")
                 maxMapNum = 3
                 increaseNum = 35
@@ -1049,27 +1164,177 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         case 1:
             gamePassedDic = gamePassed2!
             mapPassedInt = mapPassed2!
-            increaseNum = 5
-            maxMapNum = 6
+            
+            isSimVerSingleSyllable = false
+            
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //初中
+                //print("檢體中文關卡數")
+                maxMapNum = 5
+                increaseNum = 38
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                increaseNum = 5
+                maxMapNum = 6
+                
+            }
+
             
         case 2:
             gamePassedDic = gamePassed3!
             mapPassedInt = mapPassed3!
-            increaseNum = 11
-            maxMapNum = 7
+            
+            
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //高中
+                //print("檢體中文關卡數")
+                maxMapNum = 6
+                increaseNum = 43
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                increaseNum = 11
+                maxMapNum = 7
+                
+            }
+          
             
             
         case 3:
             gamePassedDic = gamePassed4!
             mapPassedInt = mapPassed4!
-            increaseNum = 18
-            maxMapNum = 9
+            
+            
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //CET4
+                //print("檢體中文關卡數")
+                maxMapNum = 11
+                increaseNum = 49
+                
+            } else {
+                //其餘語言
+                
+                //print("繁體中文關卡數")
+                increaseNum = 18
+                maxMapNum = 9
+                
+            }
+      
             
         case 4:
             gamePassedDic = gamePassed5!
             mapPassedInt = mapPassed5!
-            increaseNum = 27
-            maxMapNum = 8
+            
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //CET6
+                //print("檢體中文關卡數")
+                maxMapNum = 13
+                increaseNum = 60
+                
+            } else {
+                //其餘語言
+                
+                //print("繁體中文關卡數")
+                increaseNum = 27
+                maxMapNum = 8
+                
+            }
+         
+            
+            //以下為簡體版需求
+            //要確認繁體版進不來
+            
+        case 5:
+            
+            //MARK: simVer k12紀錄
+            //測試用
+//            k12MapPassed = Array(repeating: 0, count: 18)
+//            k12GamePassed = Array(repeating: [0:0], count: 18)
+            
+            //k12MapPassed[1] = 2
+            //k12GamePassed[0] = [0:2]
+            //k12GamePassed[2] = [1:0]
+            //print(k12MapPassed)
+            //print(k12GamePassed)
+            
+            //重新設定成k12裡各關的過關情形
+//            gamePassedDic = gamePassed6!
+//            mapPassedInt = mapPassed6!
+            gamePassedDic = k12GamePassed[mapNumToReceive]
+            mapPassedInt = k12MapPassed[mapNumToReceive]
+            //print(gamePassedDic)
+            //print(mapPassedInt)
+            
+            isSimVerSingleSyllable = true
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //K12
+                //print("檢體中文關卡數")
+                maxMapNum = 18
+               
+                increaseNum = 73
+                
+            }
+            
+        case 6:
+            gamePassedDic = gamePassed7!
+            mapPassedInt = mapPassed7!
+            
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //toiec
+                //print("檢體中文關卡數")
+                maxMapNum = 7
+                increaseNum = 91
+                
+            }
+            
+        case 7:
+            gamePassedDic = gamePassed8!
+            mapPassedInt = mapPassed8!
+            
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //ielts
+                //print("檢體中文關卡數")
+                maxMapNum = 9
+                increaseNum = 98
+                
+            }
+            
+        case 8:
+            gamePassedDic = gamePassed9!
+            mapPassedInt = mapPassed9!
+            
+            isSimVerSingleSyllable = false
+            
+            if lan == "zh-Hans"{
+                //檢體中文
+                //tofel
+                //print("檢體中文關卡數")
+                maxMapNum = 8
+                increaseNum = 107
+                
+            }
 
 
         default:
@@ -1089,9 +1354,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //增加數字來抓正確的值
         mapNumToReceive += increaseNum
-            
-            //MARK: must update
-        //MARK: simVer 這裡要加入檢體音節檔案
+        
+        //MARK: must update
+        //MARK: simVer 這裡要加入檢體音節檔案 done
         
         switch mapNumToReceive {
         case 0:
@@ -1168,6 +1433,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         case 34:
             syllableSets = map35SyllableSets
             
+            //以下為簡體部分
         case 35:
             syllableSets = map36SyllableSets
         case 36:
@@ -1175,10 +1441,172 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         case 37:
             syllableSets = map38SyllableSets
 
+        case 38:
+            syllableSets = map39SyllableSets
+        case 39:
+            syllableSets = map40SyllableSets
+        case 40:
+            syllableSets = map41SyllableSets
+        case 41:
+            syllableSets = map42SyllableSets
+        case 42:
+            syllableSets = map43SyllableSets
+        case 43:
+            syllableSets = map44SyllableSets
+        case 44:
+            syllableSets = map45SyllableSets
+        case 45:
+            syllableSets = map46SyllableSets
+        case 46:
+            syllableSets = map47SyllableSets
+        case 47:
+            syllableSets = map48SyllableSets
+        case 48:
+            syllableSets = map49SyllableSets
+        case 49:
+            syllableSets = map50SyllableSets
+        case 50:
+            syllableSets = map51SyllableSets
+        case 51:
+            syllableSets = map52SyllableSets
+        case 52:
+            syllableSets = map53SyllableSets
+        case 53:
+            syllableSets = map54SyllableSets
+        case 54:
+            syllableSets = map55SyllableSets
+        case 55:
+            syllableSets = map56SyllableSets
+        case 56:
+            syllableSets = map57SyllableSets
+        case 57:
+            syllableSets = map58SyllableSets
+        case 58:
+            syllableSets = map59SyllableSets
+        case 59:
+            syllableSets = map60SyllableSets
+        case 60:
+            syllableSets = map61SyllableSets
+        case 61:
+            syllableSets = map62SyllableSets
+        case 62:
+            syllableSets = map63SyllableSets
+        case 63:
+            syllableSets = map64SyllableSets
+        case 64:
+            syllableSets = map65SyllableSets
+        case 65:
+            syllableSets = map66SyllableSets
+        case 66:
+            syllableSets = map67SyllableSets
+        case 67:
+            syllableSets = map68SyllableSets
+        case 68:
+            syllableSets = map69SyllableSets
+        case 69:
+            syllableSets = map70SyllableSets
+            
+        case 70:
+            syllableSets = map71SyllableSets
+        case 71:
+            syllableSets = map72SyllableSets
+        case 72:
+            syllableSets = map73SyllableSets
+        case 73:
+            syllableSets = map74SyllableSets
+        case 74:
+            syllableSets = map75SyllableSets
+        case 75:
+            syllableSets = map76SyllableSets
+        case 76:
+            syllableSets = map77SyllableSets
+        case 77:
+            syllableSets = map78SyllableSets
+        case 78:
+            syllableSets = map79SyllableSets
+        case 79:
+            syllableSets = map80SyllableSets
+            
+            
+        case 80:
+            syllableSets = map81SyllableSets
+        case 81:
+            syllableSets = map82SyllableSets
+        case 82:
+            syllableSets = map83SyllableSets
+        case 83:
+            syllableSets = map84SyllableSets
+        case 84:
+            syllableSets = map85SyllableSets
+        case 85:
+            syllableSets = map86SyllableSets
+        case 86:
+            syllableSets = map87SyllableSets
+        case 87:
+            syllableSets = map88SyllableSets
+        case 88:
+            syllableSets = map89SyllableSets
+        case 89:
+            syllableSets = map90SyllableSets
+            
+        case 90:
+            syllableSets = map91SyllableSets
+        case 91:
+            syllableSets = map92SyllableSets
+        case 92:
+            syllableSets = map93SyllableSets
+        case 93:
+            syllableSets = map94SyllableSets
+        case 94:
+            syllableSets = map95SyllableSets
+        case 95:
+            syllableSets = map96SyllableSets
+        case 96:
+            syllableSets = map97SyllableSets
+        case 97:
+            syllableSets = map98SyllableSets
+        case 98:
+            syllableSets = map99SyllableSets
+        case 99:
+            syllableSets = map100SyllableSets
+            
+        case 100:
+            syllableSets = map101SyllableSets
+        case 101:
+            syllableSets = map102SyllableSets
+        case 102:
+            syllableSets = map103SyllableSets
+        case 103:
+            syllableSets = map104SyllableSets
+        case 104:
+            syllableSets = map105SyllableSets
+        case 105:
+            syllableSets = map106SyllableSets
+        case 106:
+            syllableSets = map107SyllableSets
+        case 107:
+            syllableSets = map108SyllableSets
+        case 108:
+            syllableSets = map109SyllableSets
+        case 109:
+            syllableSets = map110SyllableSets
+            
+        case 110:
+            syllableSets = map111SyllableSets
+        case 111:
+            syllableSets = map112SyllableSets
+        case 112:
+            syllableSets = map113SyllableSets
+        case 113:
+            syllableSets = map114SyllableSets
+        case 114:
+            syllableSets = map115SyllableSets
+            
 
         default:
             break
         }
+        
         
         var syllablesWithoutDigit = String()
         
@@ -1204,35 +1632,119 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             smallDic.append(0)
         }
 
-        //MARK: simVer 這部分要動態有幾個30
+        //MARK: simVer 這部分要動態有幾個30 done
+        //***照理講這裡設定好maxSpot之後就不用設定了, 所以目前後面出現過的已經comment起來了
         
-        var maxNum = Int()
+        //var maxNum = Int()
         if lan == "zh-Hans"{
             //檢體中文
             
-            print("檢體中文關卡數")
-            print("***")
+            
             //之後還要用courseReceived來改數值, 因為每個course值不同
-            maxNum = 11
+            switch courseReceived{
+                
+            case 0:
+                //國小
+                
+                maxSpot = 11
+            case 1:
+                //初中
+                maxSpot = 15
+            case 2:
+                //高中
+                maxSpot = 15
+            case 3:
+                //CET4
+                maxSpot = 15
+            case 4:
+                //CET6
+                maxSpot = 15
+            case 5:
+                //K12
+                
+                //這裡要用減去increaseNum的方式來找數值
+                switch (mapNumToReceive - increaseNum){
+                    
+                case 0:
+                    maxSpot = 4
+                case 1:
+                    maxSpot = 11
+                case 2:
+                    maxSpot = 11
+                case 3:
+                    maxSpot = 10
+                case 4:
+                    maxSpot = 11
+                case 5:
+                    maxSpot = 11
+                case 6:
+                    maxSpot = 11
+                case 7:
+                    maxSpot = 11
+                case 8:
+                    maxSpot = 13
+                case 9:
+                    maxSpot = 13
+                case 10:
+                    maxSpot = 11
+                case 11:
+                    maxSpot = 11
+                case 12:
+                    maxSpot = 7
+                case 13:
+                    maxSpot = 11
+                case 14:
+                    maxSpot = 11
+                case 15:
+                    maxSpot = 6
+                case 16:
+                    maxSpot = 13
+                case 17:
+                    maxSpot = 13
+                    
+                default:
+                    break
+                    
+                }
+                
+            case 6:
+                //Toeic
+                maxSpot = 15
+                
+            case 7:
+                //ielts
+                maxSpot = 15
+            case 8:
+                
+                //tofel
+                maxSpot = 15
+                
+            default:
+                
+                break
+                
+            }
+            
+            
+            
             
         } else {
             //其餘語言
             print("繁體中文關卡數")
-            maxNum = 15
+            maxSpot = 15
             
         }
         
         //原始
         //for _ in 0 ..< 15 {
-                
-                for _ in 0 ..< maxNum {
-                
-             secRowTouched.append(smallDic)
-                
-            }
+      
+       
+        for _ in 0 ..< maxSpot {
             
+            secRowTouched.append(smallDic)
+            
+        }
         
-
         
         //再把數字減回來
         mapNumToReceive -= increaseNum
@@ -1241,12 +1753,14 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             //抓目前的元素
         
         
-        //MARK: simVer 放在外的變數
+        //MARK: simVer 放在外的變數 done
         var threeSyllables = [String]()
             
         
         
         if isClassAllPassed {
+            
+            //設定gamePassed給予該關卡最大值 全開
             
             mapNum = mapNumToReceive
             
@@ -1255,8 +1769,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
                 print("檢體中文關卡數")
                 //之後還要用courseReceived來改數值, 因為每個course值不同
-                
-                tempS = 10
+                //***** 這部分的動態做法之前已做過數字只差1 ****所以不用Switch了
+                tempS = maxSpot - 1
                 
             } else {
                 //其餘語言
@@ -1274,6 +1788,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         }else {
             
             for (s,u) in gamePassedDic! {
+                
+                print("enter 1")
                 //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
                 mapNum = mapPassedInt
                 
@@ -1299,24 +1815,44 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
 //
 //                }
         
+        // print("enter 2")
                 
-                //MARK: simVer 在這裡做三個音節
+                //MARK: simVer 在這裡做三個音節, 要先判斷要怎麼做, 要指定好一個變數來判斷 done
                 
                 if lan == "zh-Hans"{
-                    //檢體中文
                     
-                    //print("檢體中文關卡數")
-                    for i in tempU * 3 ..< tempU * 3 + 3{
+                  //   print("enter 3")
+                    if isSimVerSingleSyllable{
+                    
                         
-                        let syllableChosen = syllableSets[tempS][i]
+                        
+                        //檢體中文 單一音節作法
+                        
+                        //print("檢體中文關卡數")
+                        for i in tempU * 3 ..< tempU * 3 + 3{
+                            
+                            let syllableChosen = syllableSets[tempS][i]
+                            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+                            
+                            syllablesWithoutDigit = syllableChosenArray[0]
+                            threeSyllables.append(syllablesWithoutDigit)
+                            
+                        }
+                        //****這裡的labelText fontSize要因此變小
+                        syllableLabel.font = syllableLabel.font.withSize(sylFontSize / 2)
+                        syllableLabel.text = "Unit " + String(tempU + 1)
+                        
+                    } else {
+                        
+                        // 檢體中文 音節三字作法
+                        let syllableChosen = syllableSets[tempS][tempU]
                         let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                        
                         syllablesWithoutDigit = syllableChosenArray[0]
-                        threeSyllables.append(syllablesWithoutDigit)
+                        syllableLabel.text = syllablesWithoutDigit
+
                         
                     }
-                    syllableLabel.text = "Unit " + String(tempU + 1)
-               
+                    
                     
                 } else {
                     //其餘語言
@@ -1335,16 +1871,19 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 progressFloat = CGFloat(tempU + 1)
                 
             //}
-            print("############got mapnum:\(mapNum)")
+          //  print("############got mapnum:\(mapNum)")
         //}
         
         //MARK: simVer 這條好像用不到, 這也跟traVer沒有什麼關係...所以之後確認玩應該可以刪掉
         //maxIndex = tempS * 10 + tempU
         
 
-        maxSpot = tempS
-        maxUnit = tempU
+        //?????這裡為什麼要這樣不懂??? 應該要刪掉....試試看
+        currentMaxSpotToUse = tempS
+        currentMaxUnitToUse = tempU
  
+        
+        
         //第幾課
         
         //MARK: simVer 這裡的課程總數要動態
@@ -1371,7 +1910,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
-        lessonText.append(NSMutableAttributedString(string: " / \(maxNum)", attributes: attrs1))
+        let maxSpotString = String(maxSpot!)
+        lessonText.append(NSMutableAttributedString(string: " / \(maxSpotString)", attributes: attrs1))
         lessonLabel.attributedText = lessonText
         
         //進度條
@@ -1379,17 +1919,28 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
         progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
 
-        
-        
             
         //MARK: 讀取文字檔
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
         //供抓字用 & pass給 gameVc
-        mapNum += increaseNum
+        //mapNum += increaseNum
         
-        let name = String(mapNum + 1) + "-" + String(spotNum + 1)
+          //MARK: simVer K12的地圖讀法要再增加
+        var name:String!
+        
+        if courseReceived == 5 {
+         //k12 在這狀況下mapNum = 0
+            
+            name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(spotNum + 1)
+        } else {
+            
+            name = String(mapNum  + increaseNum + 1) + "-" + String(spotNum + 1)
+
+        }
+        
+      
         
         //print(name)
         
@@ -1408,7 +1959,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             // example.txt not found!
         }
             
-            mapNum -= increaseNum
+           // mapNum -= increaseNum
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
@@ -1437,9 +1988,12 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
         
         
-        //MARK: simVer 新造字方式, 下方有原本的造字放方式
+        //MARK: simVer 新造字方式, 下方有原本的造字放方式 done
+        //**** 在這裡也要用 isSimVerSingleSyllable的變數來判斷怎麼造字
         
-        if lan == "zh-Hans"{
+        if lan == "zh-Hans" && isSimVerSingleSyllable{
+            
+            
             //檢體中文
             
             for i in 0 ..< threeSyllables.count {
@@ -1552,7 +2106,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             
         } else {
-            //其餘語言
+            //其餘語言 或者是簡體用3音節造字方式
             
             //MARK: 音節變色
             if syllablesWithoutDigit.contains("_"){
@@ -1756,13 +2310,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         var progressFloat = CGFloat()
         
-        //MARK: simVer 放在外面的音節變數
+        //MARK: simVer 放在外面的音節變數 done
         var threeSyllables = [String]()
         
-      
 
-        
-        
         //首先抓音節
   
 
@@ -1777,26 +2328,29 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 } else {
                     //假如u == 9, 要加ｓ
                 
-                    //MARK: simVer 這裏要設動態最大值
-                    
-                    var maxTempS = Int()
-                    if lan == "zh-Hans"{
-                        //檢體中文
-                        
-                        //print("檢體中文關卡數")
-                        //之後還要用courseReceived來改數值, 因為每個course值不同
-                        
-                        maxTempS = 10
-                        
-                    } else {
-                        //其餘語言
-                        //print("繁體中文關卡數")
-                        maxTempS = 14
-                        
-                    }
+                    //MARK: simVer 這裏要設動態最大值 done
+                    //*** 這裏應該在下方用之前的maxSpot就可以搞定 done
+                    //var maxTempS = Int()
+//                    if lan == "zh-Hans"{
+//                        //檢體中文
+//
+//                        //print("檢體中文關卡數")
+//                        //之後還要用courseReceived來改數值, 因為每個course值不同
+//
+//                        maxTempS = 10
+//
+//                    } else {
+//                        //其餘語言
+//                        //print("繁體中文關卡數")
+//                        maxTempS = 14
+//
+//                    }
 
                     //if tempS < 14 {
-                    if tempS < maxTempS {
+                    
+                    //MARK: simVer這裏直接取用之前的maxSpot done
+                    // **** 這裡的maxSpot要 - 1
+                    if tempS < maxSpot - 1 {
                         //直接 +1
                         
                         
@@ -1825,12 +2379,19 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                         titleLabel.text = "即將學習\n下列三個新單字"
                         titleLabel.textColor = .white
                         
+                    }  else if tempU == u && tempS == s && courseReceived == 5{
+                        enterBtn.setTitle("學習新字", for: .normal)
+                        titleLabel.text = "即將學習\n下列三個新單字"
+                        titleLabel.textColor = .white
+                        
                     }
                 }
                 
         
             } else if seq == 0 {
+                
                 print("畫面跳轉")
+                
         } else {
                 
                 //上一課
@@ -1862,9 +2423,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
             }
         
-        //MARK: simVer 這裏要寫新的音節讀取
+        //MARK: simVer 這裏要寫新的音節讀取  加個判斷式done
         
-        if lan == "zh-Hans"{
+        if lan == "zh-Hans" && isSimVerSingleSyllable{
             //檢體中文
             
             //print("檢體中文關卡數")
@@ -1914,30 +2475,31 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //第幾課
         
-        //MARK: simVer 這裏課程總數要動態
-                var classMaxNum = Int()
-        
-                if lan == "zh-Hans"{
-                    //檢體中文
-        
-                    print("檢體中文關卡數")
-                    //之後還要用courseReceived來改數值, 因為每個course值不同
-        
-                    classMaxNum = 11
-        
-                } else {
-                    //其餘語言
-                    print("繁體中文關卡數")
-                    classMaxNum = 15
-        
-                }
+        //MARK: simVer 這裏課程總數要動態 done
+        //**** 這裏沿用之前的maxSpot即可
+//                var classMaxNum = Int()
+//
+//                if lan == "zh-Hans"{
+//                    //檢體中文
+//
+//                    print("檢體中文關卡數")
+//                    //之後還要用courseReceived來改數值, 因為每個course值不同
+//
+//                    classMaxNum = 11
+//
+//                } else {
+//                    //其餘語言
+//                    print("繁體中文關卡數")
+//                    classMaxNum = 15
+//
+//                }
         
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
-        lessonText.append(NSMutableAttributedString(string: " / \(classMaxNum)", attributes: attrs1))
+        lessonText.append(NSMutableAttributedString(string: " / \(String(maxSpot!))", attributes: attrs1))
         lessonLabel.attributedText = lessonText
         
         //進度條
-        print("讀取進度條")
+        //print("讀取進度條")
         //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
        // progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
         
@@ -1948,10 +2510,18 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var wordFile:String?
         
         //供抓字用 & pass給 gameVc
-        mapNum += increaseNum
+       // mapNum += increaseNum
         
-        let name = String(mapNum + 1) + "-" + String(spotNum + 1)
+        var name:String!
         
+        if courseReceived == 5 {
+         //k12 在這狀況下mapNum = 0 / 1
+            name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(spotNum + 1)
+        }else {
+            name = String(increaseNum + mapNum + 1) + "-" + String(spotNum + 1)
+        }
+        
+       
         //print(name)
         
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -1969,7 +2539,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             // example.txt not found!
         }
         
-        mapNum -= increaseNum
+       // mapNum -= increaseNum
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
@@ -2000,9 +2570,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         
-        //MARK: simVer 這裏音節要重做, 下方放有原始作法
+        //MARK: simVer 這裏音節要重做, 下方放有原始作法 done
+        //***** 這裏加入判斷式儀即可
         
-        if lan == "zh-Hans"{
+        if lan == "zh-Hans" && isSimVerSingleSyllable{
             //檢體中文
             
             //print("檢體中文關卡數")
@@ -2307,6 +2878,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             //#test: 試試看複習模式
             destinationVC.spotNumber = tempS
             destinationVC.unitNumber = tempU
+           // print("sentTempS:\(tempS)")
+           // print("sentTempU:\(tempU)")
+            
             
             for (s,u) in gamePassedDic!{
                 
@@ -2322,10 +2896,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
             }
 
-
-            destinationVC.mapNumber = mapNum
+            //MARK: simVer K12特別作法
+            if courseReceived == 5 {
+                
+                destinationVC.mapNumber = mapNumToReceive
+            } else {
+                destinationVC.mapNumber = mapNum
+            }
+       
             destinationVC.gameMode = gameMode
             destinationVC.courseReceived = courseReceived
+            //print("sentMapNumber:\(mapNum)")
             
         }
     }
@@ -2384,27 +2965,28 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         
-        //MARK: simVer 最大值要改變
+        //MARK: simVer 最大值要改變 done
+        //*** 這裏沿用之前的maxSpot即可
  
-                var maxNum = Int()
-        
-                if lan == "zh-Hans"{
-                    //檢體中文
-        
-                    print("檢體中文關卡數")
-                    //之後還要用courseReceived來改數值, 因為每個course值不同
-        
-                    maxNum = 11
-        
-                } else {
-                    //其餘語言
-                    print("繁體中文關卡數")
-                    maxNum = 15
-        
-                }
+//                var maxNum = Int()
+//
+//                if lan == "zh-Hans"{
+//                    //檢體中文
+//
+//                    print("檢體中文關卡數")
+//                    //之後還要用courseReceived來改數值, 因為每個course值不同
+//
+//                    maxNum = 11
+//
+//                } else {
+//                    //其餘語言
+//                    print("繁體中文關卡數")
+//                    maxNum = 15
+//
+//                }
         //for _ in 0 ..< 15 {
-            
-             for _ in 0 ..< maxNum {
+          //  print("maxSpot\(maxSpot)")
+             for _ in 0 ..< maxSpot {
             
             secRowTouched.append(smallDic)
             
@@ -2421,6 +3003,25 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBAction func preBtnClicked(_ sender: Any) {
         
         //需要排除第一次玩的狀態
+        //MARK: simVer K12的例外狀況
+        
+        if courseReceived == 5 {
+            
+            for (s,u) in gamePassedDic!{
+                
+                if s != 0 || u != 0 || mapPassedInt == 1{
+                    
+                    loadWords(seq: -1)
+                    enterBtn.setTitle("開始複習", for: .normal)
+                    titleLabel.text = "複習下列\n三個學過的單字"
+                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                } else {
+                    print("這是第一關")
+                    ProgressHUD.showError("沒有上一頁喔！")
+                }
+            }
+            
+        } else{
         
          for (s,u) in gamePassedDic!{
             
@@ -2435,6 +3036,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 ProgressHUD.showError("沒有上一頁喔！")
             }
         }
+        }
     }
     
     
@@ -2442,24 +3044,56 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //假如等於當下關卡就不能加１
         
-        for (s,u) in gamePassedDic!{
+        //MARK: simVer k12此處的mapPassedInt不正確
+        
+        if courseReceived == 5 {
+         //K12
             
-            if tempU != u || tempS != s || mapNumToReceive != mapPassedInt{
-                //不是當下關卡
+            for (s,u) in gamePassedDic!{
                 
-                loadWords(seq: 1)
-                
-            } else if !isClassAllPassed{
-                
-                print("是當下關卡")
-                ProgressHUD.showError("沒有下一頁喔！")
-                enterBtn.setTitle("學習新字", for: .normal)
-                titleLabel.text = "即將學習\n下列三個新單字"
-                titleLabel.textColor = .white
+                if tempU != u || tempS != s || isClassAllPassed{
+                    //不是當下關卡
+                    
+                    loadWords(seq: 1)
+                    
+                } else if !isClassAllPassed{
+                    
+                    print("是當下關卡")
+                    ProgressHUD.showError("沒有下一頁喔！")
+                    enterBtn.setTitle("學習新字", for: .normal)
+                    titleLabel.text = "即將學習\n下列三個新單字"
+                    titleLabel.textColor = .white
+                    
+                }
                 
             }
+
+            
+            
+        } else {
+            
+            for (s,u) in gamePassedDic!{
+                
+                if tempU != u || tempS != s || mapNumToReceive != mapPassedInt{
+                    //不是當下關卡
+                    
+                    loadWords(seq: 1)
+                    
+                } else if !isClassAllPassed{
+                    
+                    print("是當下關卡")
+                    ProgressHUD.showError("沒有下一頁喔！")
+                    enterBtn.setTitle("學習新字", for: .normal)
+                    titleLabel.text = "即將學習\n下列三個新單字"
+                    titleLabel.textColor = .white
+                    
+                }
+                
+            }
+
             
         }
+        
         
         
         
