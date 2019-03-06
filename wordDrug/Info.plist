@@ -53,6 +53,11 @@
 	<string>MissWord 想打開你的相簿讓你選擇照片來更新個人大頭照</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>MissWord會使用語音辨識來辨識你的單字發音</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>bubble &amp; soap.ttf</string>
+		<string>Bangers.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

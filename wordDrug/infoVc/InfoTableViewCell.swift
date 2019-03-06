@@ -9,18 +9,24 @@
 import UIKit
 
 class InfoTableViewCell: UITableViewCell {
+   
 
     @IBOutlet weak var infoTitle: UILabel!
     
     @IBOutlet weak var totalRate: UILabel!
     @IBOutlet weak var ringView: MKRingProgressView!
     @IBOutlet weak var sub2Rate: UILabel!
+    
     @IBOutlet weak var sub2Title: UILabel!
+   
     @IBOutlet weak var sub1Rate: UILabel!
+    
     @IBOutlet weak var sub1Title: UILabel!
+    
+    
     @IBOutlet weak var infoCellBg: UIView!
     let lightGrayShadow = UIColor.init(red: 211/255, green: 211/255, blue: 211/255, alpha: 0.5)
-        let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
+    let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     let darkColor = UIColor.init(red: 41/255, green: 56/255, blue: 87/255, alpha: 1)
     let midColor = UIColor.init(red: 138/255, green: 152/255, blue: 170/255, alpha: 1)
@@ -30,10 +36,51 @@ class InfoTableViewCell: UITableViewCell {
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
+    
     @IBOutlet weak var bigCountLabel: UILabel!
     
     @IBOutlet weak var countUnitLabel: UILabel!
+
+    //var indexPath:IndexPath?
+    var value:Value? {
+        
+        didSet{
+            
+            guard let value = value else {return}
+            
+            infoTitle.text = value.infoTitle
+            sub1Title.text = value.sub1Title
+            sub1Rate.text = value.sub1Value
+            sub2Title.text = value.sub2Title
+            sub2Rate.text = value.sub2Value
+            totalRate.text = value.avgValue
+            bigCountLabel.text = value.bigCountValue
+            countUnitLabel.text = value.bigCountUnit
+            
+            let progressString = value.avgValue
+            let progressInt = progressString?.replacingOccurrences(of: "%", with: "")
+            
+         
+            if progressInt != "" {
+                
+                ringView.progress = 0.0
+                CATransaction.setCompletionBlock {[weak self] in
+                CATransaction.begin()
+                CATransaction.setAnimationDuration(2)
+                self!.ringView.progress = Double(progressInt!)! / Double(100)
+                CATransaction.commit()
+                
+            
+                }
+            
+      
+            }
+        }
+        
+    }
     
+
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -274,8 +321,12 @@ class InfoTableViewCell: UITableViewCell {
         */
  
         
+        
+        
     }
 
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -283,3 +334,4 @@ class InfoTableViewCell: UITableViewCell {
     }
 
 }
+

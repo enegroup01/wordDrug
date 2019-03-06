@@ -877,8 +877,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     }
     
     @IBAction func toInfoVcClicked(_ sender: Any) {
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
+//        activityIndicator.startAnimating()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
         performSegue(withIdentifier: "toInfoVc", sender: self)
     }
     

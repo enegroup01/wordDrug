@@ -607,6 +607,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             label.text = "第\(labelText)課";
             label.textColor = UIColor.white
             
+            
+            
         }
         
         //reusableView.addSubview(label)

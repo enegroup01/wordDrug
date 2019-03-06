@@ -8,6 +8,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Bangers.ttf">
+            <string>Bangers-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="quZ-1J-VlG">
@@ -1564,12 +1569,110 @@
                                 <rect key="frame" x="0.0" y="200" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mOS-p6-XAT">
+                                <rect key="frame" x="0.0" y="229" width="375" height="209"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0g-5a-bbv">
+                                        <rect key="frame" x="53" y="171" width="192" height="56"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Bangers-Regular" family="Bangers" pointSize="25"/>
+                                        <state key="normal" title="OK" backgroundImage="avatarOkBtn.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="avatarOkBtnClicked:" destination="Y58-0X-len" eventType="touchUpInside" id="AWh-Ty-UWw"/>
+                                        </connections>
+                                    </button>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yBI-yR-MPG">
+                                        <rect key="frame" x="28" y="40" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="286-za-FZv">
+                                            <size key="itemSize" width="60" height="60"/>
+                                            <size key="headerReferenceSize" width="50" height="50"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="5" minY="10" maxX="5" maxY="10"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AvatarCell" id="z07-28-1mj" customClass="InfoAvatarViewCell" customModule="wordDrug" customModuleProvider="target">
+                                                <rect key="frame" x="5" y="60" width="60" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatarFrame0.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZOb-Cj-Stv">
+                                                            <rect key="frame" x="5" y="8" width="40" height="36"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="m3.png" translatesAutoresizingMaskIntoConstraints="NO" id="FL8-vs-XQE">
+                                                            <rect key="frame" x="7" y="5" width="27" height="25"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatarBanner.png" translatesAutoresizingMaskIntoConstraints="NO" id="GyO-1O-dOw">
+                                                            <rect key="frame" x="7" y="34" width="38" height="10"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSc-lC-C2A">
+                                                            <rect key="frame" x="9" y="34" width="31" height="11"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Bangers-Regular" family="Bangers" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatarCheck.png" translatesAutoresizingMaskIntoConstraints="NO" id="TUx-8C-1u0">
+                                                            <rect key="frame" x="34" y="14" width="11" height="9"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </view>
+                                                <connections>
+                                                    <outlet property="avatarBanner" destination="GyO-1O-dOw" id="YvN-5L-PMN"/>
+                                                    <outlet property="avatarCheck" destination="TUx-8C-1u0" id="MPa-sh-MjO"/>
+                                                    <outlet property="avatarFrame" destination="ZOb-Cj-Stv" id="Af7-Hd-Tbx"/>
+                                                    <outlet property="avatarImage" destination="FL8-vs-XQE" id="Jmd-d3-yS1"/>
+                                                    <outlet property="avatarLevelLabel" destination="FSc-lC-C2A" id="ebA-zn-h6b"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AvatarHeader" id="Ig7-kc-br2" customClass="InfoAvatarCollectionReusableView" customModule="wordDrug" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ao1-lS-bfK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5000/10000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxO-xH-7Hl">
+                                                    <rect key="frame" x="99" y="15" width="93" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Bangers-Regular" family="Bangers" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <connections>
+                                                <outlet property="avatarColorBarImage" destination="Ao1-lS-bfK" id="9Pg-d2-JQG"/>
+                                                <outlet property="avatarScoreLabel" destination="cxO-xH-7Hl" id="21y-cH-z5m"/>
+                                            </connections>
+                                        </collectionReusableView>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Y58-0X-len" id="XGg-m5-ukI"/>
+                                            <outlet property="delegate" destination="Y58-0X-len" id="buO-82-Jyu"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
                         <outlet property="alphaLayer" destination="gfl-JG-Ef3" id="dDJ-0k-pAY"/>
                         <outlet property="avaImg" destination="RS4-tr-nGf" id="idr-LX-2C7"/>
+                        <outlet property="avatarBgView" destination="mOS-p6-XAT" id="1kD-RB-jUb"/>
+                        <outlet property="avatarCollectionView" destination="yBI-yR-MPG" id="L6m-2y-QUk"/>
+                        <outlet property="avatarOkBtn" destination="d0g-5a-bbv" id="qP6-bX-VoD"/>
                         <outlet property="backBtn" destination="Krq-Kp-zIa" id="Q9d-nf-PXL"/>
                         <outlet property="changePhotoBtn" destination="gQS-6n-nKc" id="Bze-kB-p0e"/>
                         <outlet property="chartUpBg" destination="g7F-bi-u8w" id="nbd-Np-GGl"/>
@@ -1650,7 +1753,7 @@
                                                     <rect key="frame" x="133" y="60" width="148" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
-                                                    <color key="textColor" red="0.18072378635406494" green="0.63113957643508911" blue="0.64701169729232788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.10196078431372549" green="0.54117647058823526" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1765" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ld-2A-1me">
@@ -1953,6 +2056,10 @@
         <image name="alarmClock.png" width="30" height="30"/>
         <image name="alphaLayer.png" width="375" height="60"/>
         <image name="avatar.png" width="192" height="192"/>
+        <image name="avatarBanner.png" width="88" height="20"/>
+        <image name="avatarCheck.png" width="40" height="40"/>
+        <image name="avatarFrame0.png" width="90" height="102"/>
+        <image name="avatarOkBtn.png" width="192" height="56"/>
         <image name="bigOkBtn.png" width="420" height="58"/>
         <image name="block0Title.png" width="152" height="152"/>
         <image name="blueFinger.png" width="270" height="352"/>
@@ -1974,6 +2081,7 @@
         <image name="lessonProgress.png" width="375" height="3"/>
         <image name="lockPng.png" width="113" height="144"/>
         <image name="logoAlpha.png" width="366" height="354"/>
+        <image name="m3.png" width="96" height="124"/>
         <image name="newBookBg.png" width="375" height="667"/>
         <image name="newBookVcBottom.png" width="375" height="66"/>
         <image name="newFbBtn.png" width="306" height="37"/>
@@ -2000,8 +2108,8 @@
         <image name="yellowBack.png" width="38" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FzF-te-kXe"/>
-        <segue reference="Qsn-eF-t3O"/>
+        <segue reference="rwi-hC-Ovx"/>
+        <segue reference="hHL-FR-I78"/>
         <segue reference="QVk-5k-4AB"/>
     </inferredMetricsTieBreakers>
 </document>

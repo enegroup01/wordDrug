@@ -43,13 +43,12 @@ var gamePassed8:[Int:Int]?
 var mapPassed9:Int?
 var gamePassed9:[Int:Int]?
 
-
-
 var introWatched:Bool?
 var isRegistered:Bool?
 
 
 var seconds:Int?
+var lan:String!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -58,6 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+
+        //MARK: simVer
+            let array = Bundle.main.preferredLocalizations
+            lan = array.first
+
         
         print("appDelegate called")
        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -100,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: must update
         //抓使用者檔案
-        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary 
+        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
         
  
         

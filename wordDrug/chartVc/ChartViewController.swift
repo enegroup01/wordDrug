@@ -164,18 +164,20 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
 
         
-        for i in 0 ..< 39 {
+        for i in 0 ..< 36 {
             
             avatarNames.append("m" + String(i + 1))
         }
-        for i in 0 ..< 39 {
+        for i in 0 ..< 36 {
             
             avatarNames.append("f" + String(i + 1))
         }
-        for i in 0 ..< 39 {
+        for i in 0 ..< 36 {
             
-            avatarNames.append("m" + String(i + 1))
+            avatarNames.append("f" + String(i + 1))
         }
+      
+        print("chart info avatarNames:\(avatarNames)")
         
         
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -204,6 +206,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         //backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
         
         backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 25 * iPadDif * yDif, left: 10 * iPadDif, bottom: 0, right: 0), size: CGSize(width: 19 * iPadDif, height: 31 * iPadDif))
+        
         
         //chart0Btn.frame = CGRect(x: width / 3 - 75, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
         chart0Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -831,6 +834,7 @@ extension UIImageView
                     //      print("\nerror on download \(String(describing: error))")
                     return
                 }
+                
                 DispatchQueue.main.async() { () -> Void in
                     //    print("\ndownload completed \(url.lastPathComponent!)")
                     self?.image = UIImage(data: data)
@@ -841,7 +845,6 @@ extension UIImageView
         {
             self.image = UIImage(named: "avatar.png")
         }
-
 
     }
 }
