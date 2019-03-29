@@ -28,14 +28,16 @@ let restartCountingKey = "restartCounting"
 let globalPause = "globalPause"
 let globalStart = "globalStart"
 let turnOffRedLight = "turnOffRedLight"
+let restartReviewKey = "restartReview"
 
 var limitTimer = Timer()
 
 var sentenceCounts = Int()
 var senFontSize = CGFloat()
 
-class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
+class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
+    @IBOutlet weak var reviewWordsCollectionView: UICollectionView!
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
@@ -313,12 +315,80 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //MARK: simVer這裏新增一個變數來避免 wrongPronounce word把 synWord被取代掉
     var originalWordToRecognize:String!
     
+    var wordsToPractice = [Word]()
+    var counter = Int()
+    
+    var finalReviewWordsToShow = [Word]() {
+        didSet{
+           
+            for word in finalReviewWordsToShow{
+                if word.isReviewWrong{
+                    counter += 1
+                }
+            }
+            
+            let reviewRate = Int((1 - (Double(counter) / Double(finalReviewWordsToShow.count))) * 100)
+          
+            reviewScoreLabel.text = "正確率 " + String(reviewRate) + "%"
+            alreadyLearnedLabel.text = "已選擇 " + String(counter) + "字"
+            reviewWordsCollectionView.reloadData()
+            //show collectionView
+            showReivewCollectionView()
+            
+        }
+    }
+    
+    var alreadyLearnedLabel:UILabel = {
+        var lb = UILabel()
+        lb.font = UIFont(name: "Helvetica Bold", size: 14)
+        lb.textColor = .white
+        lb.adjustsFontSizeToFitWidth = true
+        lb.textAlignment = .center
+        return lb
+        
+    }()
+    
+    var reviewExitBtn:UIButton = {
+       var btn = UIButton(type: .system)
+        btn.setTitle("離開", for: .normal)
+        btn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+        btn.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
+        btn.setTitleColor(#colorLiteral(red: 0.2, green: 0.03137254902, blue: 0.1607843137, alpha: 1), for: .normal)
+        return btn
+    }()
+    
+    var practiceAgainBtn:UIButton = {
+        var btn = UIButton(type: .system)
+        btn.setTitle("再次練習", for: .normal)
+        btn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: 16)
+        btn.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
+        btn.setTitleColor(#colorLiteral(red: 0.2, green: 0.03137254902, blue: 0.1607843137, alpha: 1), for: .normal)
+        btn.addTarget(self, action: #selector(NewGameViewController.practiceAgainClicked), for: .touchUpInside)
+        return btn
+    }()
+    
+    var reviewScoreLabel:UILabel = {
+        var lb = UILabel()
+        
+        lb.font = UIFont(name: "Helvetica Bold", size: 30)
+        lb.textColor = #colorLiteral(red: 0.1490196078, green: 0.01568627451, blue: 0.1215686275, alpha: 1)
+        lb.adjustsFontSizeToFitWidth = true
+        lb.textAlignment = .right
+        //lb.backgroundColor = .white
+       
+        
+        return lb
+        
+    }()
+    
+    let middleLine = UIView()
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        let array = Bundle.main.preferredLocalizations
-        lan = array.first
+//        let array = Bundle.main.preferredLocalizations
+//        lan = array.first
 
         skipPronounceBtn.isHidden = true
         
@@ -509,6 +579,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
+        //離開自訂練習
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveReview), name: NSNotification.Name("leaveReview"), object: nil)
+        
         //接收發音 - ok
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.pronounceWord), name: NSNotification.Name("pronounceWord"), object: nil)
@@ -573,6 +646,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
+        
+          NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartReview), name: NSNotification.Name("restartReview"), object: nil)
         
         
         //MARK: UI Setting
@@ -839,6 +914,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         coverBtn.isHidden = true
         coverBg.isHidden = true
         resultBg.isHidden = true
+        reviewScoreLabel.isHidden = true
+        reviewWordsCollectionView.isHidden = true
+        alreadyLearnedLabel.isHidden = true
+        reviewExitBtn.isHidden = true
+        practiceAgainBtn.isHidden = true
+        middleLine.isHidden = true
+        
+        
         resultTitleImg.isHidden = true
         firstWordBtn.isHidden = true
         secondWordBtn.isHidden = true
@@ -933,10 +1016,55 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         resultBg.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (100 * iPadDif * dif / resultElementDif) * iPhoneXHeightDif * iPhoneXHeightDif2).isActive = true
 
         
+        //reviewWordsCollectionview
+        reviewWordsCollectionView.anchor(top: resultBg.topAnchor, leading: resultBg.leadingAnchor, bottom: resultBg.bottomAnchor, trailing: resultBg.trailingAnchor, padding: .init(top: resultBg.frame.height / 4, left: 0, bottom: -resultBg.frame.height / 5, right: 0))
+        
+        self.view.addSubview(alreadyLearnedLabel)
+        alreadyLearnedLabel.translatesAutoresizingMaskIntoConstraints = false
+        alreadyLearnedLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        alreadyLearnedLabel.centerYAnchor.constraint(equalTo: reviewWordsCollectionView.bottomAnchor, constant: 20).isActive = true
+        alreadyLearnedLabel.widthAnchor.constraint(equalToConstant: reviewWordsCollectionView.frame.width).isActive = true
+        alreadyLearnedLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        
+        self.view.addSubview(reviewExitBtn)
+   
+  
+        self.view.addSubview(middleLine)
+        middleLine.backgroundColor = .clear
+        middleLine.translatesAutoresizingMaskIntoConstraints = false
+        middleLine.centerXAnchor.constraint(equalTo: resultBg.centerXAnchor).isActive = true
+        middleLine.centerYAnchor.constraint(equalTo: alreadyLearnedLabel.bottomAnchor).isActive = true
+        middleLine.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        middleLine.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        
+        self.view.addSubview(reviewExitBtn)
+        reviewExitBtn.anchor(top: middleLine.bottomAnchor, leading: nil, bottom: nil, trailing: middleLine.leadingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -5), size: CGSize(width: resultBg.frame.width / 3, height: resultBg.frame.width / 8))
+        
+//        reviewExitBtn.translatesAutoresizingMaskIntoConstraints = false
+//        reviewExitBtn.centerXAnchor.constraint(equalTo: resultBg.centerXAnchor).isActive = true
+//        reviewExitBtn.centerYAnchor.constraint(equalTo: middleLine.bottomAnchor).isActive = true
+//        reviewExitBtn.widthAnchor.constraint(equalToConstant: resultBg.frame.width / 2).isActive = true
+//        reviewExitBtn.heightAnchor.constraint(equalToConstant: resultBg.frame.width / 8).isActive = true
+        
+        reviewExitBtn.layer.cornerRadius = 8
+        
+        reviewExitBtn.addTarget(self, action: #selector(NewGameViewController.exitReview), for: .touchUpInside)
+        
+        
+        
+        self.view.addSubview(practiceAgainBtn)
+        practiceAgainBtn.anchor(top: middleLine.bottomAnchor, leading: middleLine.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 5, bottom: 0, right: 0), size:  CGSize(width: resultBg.frame.width / 3, height: resultBg.frame.width / 8))
+        practiceAgainBtn.layer.cornerRadius = 8
+        
+
+        self.view.addSubview(reviewScoreLabel)
+        reviewScoreLabel.anchor(top: nil, leading: nil, bottom: reviewWordsCollectionView.topAnchor, trailing: resultBg.trailingAnchor, padding: .init(top: -30, left: 0, bottom: 0, right: -20), size: CGSize(width: resultBg.frame.width / 2, height: resultBg.frame.width / 4))
+        
+        
+        
+        
         //firstWordBtn.frame = CGRect(x: resultBg.frame.origin.x + ((resultBg.frame.width - (519 / 2 * dif)) / 2), y: resultBg.frame.midY - resultBg.frame.height / 20, width: 519 / 2 * dif, height: 57 * dif)
-        
-        //0913做到這裡要調iphoneX的三個字Y網上
-        
         
         firstWordBtn.translatesAutoresizingMaskIntoConstraints = false
         firstWordBtn.widthAnchor.constraint(equalToConstant: 260 * dif * iPadDif).isActive = true
@@ -1782,6 +1910,38 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
             
+        } else if gameMode == 3 {
+            
+            //自訂練習
+            
+            //自己設定讀取s1-11 ~ s1-15
+            
+            
+            for i in 11 ..< 16 {
+            
+            
+            let sentenceName = "s1-" + String(i)
+            
+            
+            if let filepath = Bundle.main.path(forResource: sentenceName, ofType: "txt") {
+                do {
+                    sentenceFile = try String(contentsOfFile: filepath)
+                    let sentences = sentenceFile?.components(separatedBy: "; ")
+                    
+                    //把字讀取到wordSets裡
+                    sentenceSets = sentences!
+                    
+                } catch {
+                    // contents could not be loaded
+                    print("catch error")
+                }
+            } else {
+                // example.txt not found!
+                print("txt can't be found")
+            }
+
+            }
+            
         }
         
         //print("how many: :\(allSentenceSets[0])")
@@ -1803,6 +1963,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 sceneNode.gameMode = gameMode
                 sceneNode.courseReceived = courseReceived
                 sceneNode.isReplay = isReplay
+                sceneNode.wordsToPractice = wordsToPractice
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -1971,8 +2132,70 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //print("loaded relword counts:\(newRels.count)")
         
+    
+        
+        //collectionView LayOut
+        let layOut = UICollectionViewFlowLayout()
+        layOut.sectionInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        layOut.minimumInteritemSpacing = 8
+        layOut.minimumLineSpacing = 8
+        reviewWordsCollectionView.collectionViewLayout = layOut
+        reviewWordsCollectionView.backgroundColor = .clear
         
     }
+    
+    
+    //MARK: reviewWordsCollectionView
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let cellWidth = (resultBg.frame.width - 16) / 2
+        let cellSize = CGSize(width: cellWidth, height: reviewWordsCollectionView.frame.height / 4)
+        return cellSize
+    }
+    
+    @available(iOS 6.0, *)
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        return finalReviewWordsToShow.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = reviewWordsCollectionView.dequeueReusableCell(withReuseIdentifier: "reviewWordsCell", for: indexPath) as! ReviewWordsCollectionViewCell
+        
+        cell.word = finalReviewWordsToShow[indexPath.row]
+        
+        if finalReviewWordsToShow[indexPath.row].isReviewWrong {
+            cell.checkSpot.backgroundColor = .red
+        } else {
+            cell.checkSpot.backgroundColor = .clear
+        }
+        
+        if finalReviewWordsToShow[indexPath.row].isReviewWrongLocked {
+            cell.backgroundColor = #colorLiteral(red: 1, green: 0.6274509804, blue: 0.6274509804, alpha: 1)
+        } else {
+            cell.backgroundColor = #colorLiteral(red: 0.6470588235, green: 0.9843137255, blue: 0.8235294118, alpha: 1)
+        }
+        
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+   
+        
+    finalReviewWordsToShow[indexPath.row].isReviewWrong =
+        !finalReviewWordsToShow[indexPath.row].isReviewWrong
+        reviewWordsCollectionView.reloadData()
+
+        if finalReviewWordsToShow[indexPath.row].isReviewWrong{
+            counter += 1
+        } else {
+            counter -= 1
+        }
+        alreadyLearnedLabel.text = "已選擇 " + String(counter) + "字"
+        
+    }
+    
     
     deinit {
         
@@ -1982,8 +2205,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     @objc func removePronounceBtn(){
-        
-        
+         
+    }
+    
+    @objc func notifyRestartReview(){
         
     }
     
@@ -1994,6 +2219,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    
+    @objc func exitReview(){
+    
+    self.dismiss(animated: true, completion: nil)
+        
+    }
     
     @objc func countLimit(){
         
@@ -2130,6 +2361,29 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    func showReivewCollectionView(){
+                resultBg.isHidden = false
+                reviewWordsCollectionView.isHidden = false
+                alreadyLearnedLabel.isHidden = false
+                reviewExitBtn.isHidden = false
+                practiceAgainBtn.isHidden = false
+      
+        reviewScoreLabel.isHidden = false
+    }
+    
+    
+    func hideReviewCollectionView(){
+        
+        coverBtn.isHidden = true
+        coverBg.isHidden = true
+        resultBg.isHidden = true
+        reviewWordsCollectionView.isHidden = true
+        alreadyLearnedLabel.isHidden = true
+        reviewExitBtn.isHidden = true
+        practiceAgainBtn.isHidden = true
+        reviewScoreLabel.isHidden = true
+    }
+    
     
     
     @IBAction func playSoundClicked(_ sender: Any) {
@@ -2248,6 +2502,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
   
         NotificationCenter.default.removeObserver(self)
         
+        //離開自訂練習
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveReview), name: NSNotification.Name("leaveReview"), object: nil)
+        
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
@@ -2315,6 +2572,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //1.0.7 bug fixed
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPlayEndMusic), name: NSNotification.Name("playEndingMusic"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartReview), name: NSNotification.Name("restartReview"), object: nil)
+        
+        
+ 
         
         //先確認有沒有購買
         
@@ -2389,7 +2651,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //接收單字數字準備做句子
         
-        if gameMode == 0 {
+        if gameMode == 0 || gameMode == 3{
             
             if let sequenceToReceive = notification.userInfo?["currentWordSequence"] as? String{
                 
@@ -2430,7 +2692,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recogTextLabel.isHidden = true
         
         //回復recordBtn
-        if gameMode == 0 {
+        if gameMode == 0 || gameMode == 3{
             
             //移除按鈕target
             for btn in allBtns {
@@ -3152,8 +3414,53 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
         }
     }
+
     
     
+    @objc func leaveReview(){
+        print("recieved notification leave review")
+        
+        playSoundBtn.isEnabled = false
+        coverBtn.isHidden = false
+        coverBg.isHidden = false
+        resultBg.image = UIImage(named: "reviewResultBg.png")
+        resultBg.isHidden = false
+        
+        //setupCollectionView
+        finalReviewWordsToShow = wordsToPractice
+
+        
+    }
+    
+    @objc func practiceAgainClicked(){
+        
+        print("practice again clicked")
+        counter = 0
+        //1. 新的指定 2. 錯的復原
+        for word in wordsToPractice{
+            //word.isSelected = word.isReviewWrong
+            if !word.isReviewWrong {
+                let indexToRemove = wordsToPractice.index{$0 === word}
+                wordsToPractice.remove(at: indexToRemove!)
+            }
+
+        }
+        
+        for word in wordsToPractice{
+            word.isReviewWrongLocked = false
+            word.isReviewWrong = false
+        }
+        
+
+        
+        hideReviewCollectionView()
+
+
+        let userInfo:[String:AnyObject] = ["restartReview":true as AnyObject,"wordsToPractice":wordsToPractice as AnyObject]
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: userInfo)
+        
+    }
     
     func countScore(score:Int){
         
@@ -3530,9 +3837,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //開始辨識聲音
     @objc func startToRecognize(){
-        
-        
-        
         //顯示按鈕, 顯示label
         recordBtn.isHidden = false
         
@@ -3551,9 +3855,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //所有的變數要改成另一個
         
         //wordToReceive = synWord
-        
-        
-        
+
         
         //移除標點符號
         //wordToReceive = wordToReceive.removingCharacters(inCharacterSet: CharacterSet.punctuationCharacters)
@@ -4272,6 +4574,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 let addScore:[String:Int] = ["addScore":score]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backToSpell"), object: nil, userInfo: addScore)
                 
+                
             } else {
                 
                 
@@ -4301,9 +4604,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 }
                 
             }
-            
-            
-            
+
             self!.skipPronounceBtn.isEnabled = true
 
             
@@ -4419,12 +4720,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //抓四個隨機數, 並且避開重複值
                 allRandomSens[i] = getRandom()
 
-                
                 for (s,u) in allRandomSens[i] {
                     
                     //填入中文句子當作選項
                     senBtnTitles[i] = allSentenceSets[s][u + halfCount]
-                    
                     
                 }
                 
@@ -4505,9 +4804,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     func guidedSentence(){
         //英文句子
-        sentence = sentenceSets[Int(wordSequenceToReceive)!]
+        
+        if gameMode == 0 {
+        
+            sentence = sentenceSets[Int(wordSequenceToReceive)!]
         let halfCount = sentenceSets.count / 2
-        chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
+        
+            chiSentence = sentenceSets[halfCount + Int(wordSequenceToReceive)!]
+        } else if gameMode == 3 {
+            
+        
+            sentence = wordsToPractice[Int(wordSequenceToReceive)!].engSen
+            chiSentence = wordsToPractice[Int(wordSequenceToReceive)!].chiSen
+            
+            
+        }
         //抓好中英文句子答案
         sentenceLabel.text = sentence
         chiSentenceLabel.text = chiSentence
@@ -4531,7 +4842,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         synPronounce()
         
-        print("正常製造句子的功能")
         //只練習句子
         
         //英文句子
@@ -4580,8 +4890,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             randomSens[i] = getRan()
             
             senBtnTitles[i] = sentenceSets[randomSens[i] + halfCount]
-            
-            
             
             //設定好其餘選項的tag
             allBtns[i].tag = i
@@ -4773,6 +5081,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
+    
+    //3/19 做到MakeTag
+    
     //選擇題
     func makeTag(){
         //製作tags
@@ -4924,7 +5235,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //確認tag的答案
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
         
-        
         recogTextLabel.text = ""
         
         tagView.isSelected = !tagView.isSelected
@@ -4945,9 +5255,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         attrTagsSelected[i] = NSMutableAttributedString()
                         
                     }
-                    
                 }
-                
                 
             } else {
                 
@@ -4972,8 +5280,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 sentenceShown += attrWords[0] + " "
                 
             }
-            
-            
+       
         }
         
         
@@ -4990,7 +5297,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //跳轉下個字
             
-            if gameMode == 0 {
+            if gameMode == 0 || gameMode == 3{
                 //過關進入下個字
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "practiceNextWord"), object: nil, userInfo: nil)
                 
@@ -5030,9 +5337,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     //要跳出練習總結畫面
                     
                     updateReviewSenCount(senCount: senCount, course:courseReceived)
-                    
-                    
-                    
+
                     
                 } else {
                     

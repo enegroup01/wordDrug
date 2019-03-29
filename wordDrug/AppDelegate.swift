@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //mapPassed3 = 0
                 //gamePassed3 = [0:0]
  
-                toCourse()
+                //toCourse()
          
 
             }

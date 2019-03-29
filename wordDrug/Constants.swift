@@ -11,6 +11,31 @@ import Foundation
 
 public let userDefaults = UserDefaults.standard
 
+//public let maxMapNumArray = [5,6,7,9,8]
+
+public var maxMapNumArray:[Int] {
+    var array = [Int]()
+    if lan == "zh-Hans"{
+        array = [3,5,6,11,13,18,7,9]
+    } else {
+        array = [5,6,7,9,8]
+    }
+    return array
+}
+
+var publicMaxSpotNumArrayDic:[[Int]] {
+    var dic = [[Int]]()
+    if lan == "zh-Hans"{
+        
+        dic = [[11,11,11],[15,15,15,15,15],[15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15,15,15,15,15],[4,11,11,10,11,11,11,11,13,13,11,11,7,11,11,6,13,13],[15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15]]
+    } else {
+        
+        dic = [[15,15,15,15,15],[15,15,15,15,15,15],[15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15]]
+    }
+    
+    return dic
+}
+
 
 //第一張地圖 1-15探索點元素 已更新過
 public let map1SyllableSets:[[String]] =
@@ -29,8 +54,6 @@ public let map1SyllableSets:[[String]] =
 ["to1","tr1","ty1","ub1","u_e1","ui1","um1","un1","up1","ture1"],
 ["ur1","ut1","war1","wh1","ab2","ac2","ad2","a_e2","ai2","af2"],
 ["er34","er35","er36","ea34","ea35","ble4","ble5","fr3","at4","ple2"]]
-
-
 
 //第二張地圖1-15探索點 已更新過
 public let map2SyllableSets:[[String]] =

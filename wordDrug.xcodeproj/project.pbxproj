@@ -66,6 +66,7 @@
 		AA27DE1120B6E2B2003250D2 /* reviewOkBtnPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1020B6E2B2003250D2 /* reviewOkBtnPng.png */; };
 		AA27DE1320B6E633003250D2 /* reviewSenResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */; };
 		AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */; };
+		AA2AC19D224A13E3003ADD56 /* orangePractice.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2AC19C224A13E2003ADD56 /* orangePractice.png */; };
 		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
 		AA2CFA6B20BD7E91009DBBB6 /* IntroScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */; };
 		AA2CFA6F20BD7F68009DBBB6 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */; };
@@ -135,7 +136,6 @@
 		AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF415204EC68A005FCC87 /* TagListView.swift */; };
 		AA5C2ED720A5542900EAD999 /* filledStar.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C2ED520A5542900EAD999 /* filledStar.png */; };
 		AA5C2ED820A5542900EAD999 /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C2ED620A5542900EAD999 /* emptyStar.png */; };
-		AA63D1F52087588C000EA088 /* resultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1F42087588B000EA088 /* resultBg.png */; };
 		AA63D1FB2087661B000EA088 /* bigOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1FA2087661A000EA088 /* bigOkBtn.png */; };
 		AA63D1FD20879A31000EA088 /* unlockOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA63D1FC20879A31000EA088 /* unlockOkBtn.png */; };
 		AA690ED3221D697000BF325F /* m28.png in Resources */ = {isa = PBXBuildFile; fileRef = AA690E8B221D696F00BF325F /* m28.png */; };
@@ -282,6 +282,8 @@
 		AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC142088FB58003A61E9 /* lessonFullLength.png */; };
 		AA9D5A3D221A7EEA001B00BA /* k12PassedBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9D5A3C221A7EE9001B00BA /* k12PassedBtn.png */; };
 		AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA0E10420987FF5007148EB /* wrongSenBlock.png */; };
+		AAA1D35C2238DFC100091C8E /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1D35B2238DFC100091C8E /* Word.swift */; };
+		AAA1D35E2238E29D00091C8E /* FetchWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1D35D2238E29D00091C8E /* FetchWords.swift */; };
 		AAA3848721E05A9B00636414 /* 38-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA3844321E05A9A00636414 /* 38-9.txt */; };
 		AAA3848821E05A9B00636414 /* 38-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA3844421E05A9A00636414 /* 38-8.txt */; };
 		AAA3848921E05A9B00636414 /* s38-10.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAA3844521E05A9A00636414 /* s38-10.txt */; };
@@ -2502,6 +2504,8 @@
 		AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */; };
 		AAB30D2D20E20A3700D4EE4A /* toLoginVcBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */; };
 		AAB30D3120E2138600D4EE4A /* registerLaterBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */; };
+		AABF04182244B15B00E9768C /* reviewResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AABF04172244B15A00E9768C /* reviewResultBg.png */; };
+		AABF041A2244C84A00E9768C /* ReviewWordsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABF04192244C84A00E9768C /* ReviewWordsCollectionViewCell.swift */; };
 		AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */; };
 		AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */; };
 		AAC6A6B72133CB60005EAC9D /* skipTagTest.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC6A6B62133CB5F005EAC9D /* skipTagTest.png */; };
@@ -2519,6 +2523,9 @@
 		AAE181981F97892D00683896 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE181961F97892D00683896 /* Main.storyboard */; };
 		AAE1819A1F97892D00683896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAE181991F97892D00683896 /* Assets.xcassets */; };
 		AAE1819D1F97892D00683896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAE1819B1F97892D00683896 /* LaunchScreen.storyboard */; };
+		AAE3C7C82230D27D00CB7971 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE3C7C72230D27D00CB7971 /* PracticeViewController.swift */; };
+		AAE3C7CA2230D2B400CB7971 /* PracticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE3C7C92230D2B400CB7971 /* PracticeTableViewCell.swift */; };
+		AAE3C7CD2230D89900CB7971 /* greenBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE3C7CC2230D89800CB7971 /* greenBackBtn.png */; };
 		AAE5A87321639CCB00FA26E9 /* s26-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAE5A45521639CC700FA26E9 /* s26-13.txt */; };
 		AAE5A87421639CCB00FA26E9 /* s26-9.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAE5A45621639CC700FA26E9 /* s26-9.txt */; };
 		AAE5A87521639CCB00FA26E9 /* 21-8.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAE5A45721639CC700FA26E9 /* 21-8.txt */; };
@@ -3628,6 +3635,7 @@
 		AA27DE1020B6E2B2003250D2 /* reviewOkBtnPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewOkBtnPng.png; sourceTree = "<group>"; };
 		AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSenResultBg.png; sourceTree = "<group>"; };
 		AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewWordResultBg.png; sourceTree = "<group>"; };
+		AA2AC19C224A13E2003ADD56 /* orangePractice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePractice.png; sourceTree = "<group>"; };
 		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
 		AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroScene.sks; sourceTree = "<group>"; };
 		AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
@@ -3700,7 +3708,6 @@
 		AA5AF416204EC68A005FCC87 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA5C2ED520A5542900EAD999 /* filledStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStar.png; sourceTree = "<group>"; };
 		AA5C2ED620A5542900EAD999 /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
-		AA63D1F42087588B000EA088 /* resultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultBg.png; sourceTree = "<group>"; };
 		AA63D1FA2087661A000EA088 /* bigOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigOkBtn.png; sourceTree = "<group>"; };
 		AA63D1FC20879A31000EA088 /* unlockOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlockOkBtn.png; sourceTree = "<group>"; };
 		AA690E8B221D696F00BF325F /* m28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m28.png; sourceTree = "<group>"; };
@@ -3848,6 +3855,8 @@
 		AA9AFC142088FB58003A61E9 /* lessonFullLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonFullLength.png; sourceTree = "<group>"; };
 		AA9D5A3C221A7EE9001B00BA /* k12PassedBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = k12PassedBtn.png; sourceTree = "<group>"; };
 		AAA0E10420987FF5007148EB /* wrongSenBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongSenBlock.png; sourceTree = "<group>"; };
+		AAA1D35B2238DFC100091C8E /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		AAA1D35D2238E29D00091C8E /* FetchWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchWords.swift; sourceTree = "<group>"; };
 		AAA3844321E05A9A00636414 /* 38-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "38-9.txt"; sourceTree = "<group>"; };
 		AAA3844421E05A9A00636414 /* 38-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "38-8.txt"; sourceTree = "<group>"; };
 		AAA3844521E05A9A00636414 /* s38-10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s38-10.txt"; sourceTree = "<group>"; };
@@ -6068,6 +6077,8 @@
 		AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordBtn.png; sourceTree = "<group>"; };
 		AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toLoginVcBtn.png; sourceTree = "<group>"; };
 		AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerLaterBtn.png; sourceTree = "<group>"; };
+		AABF04172244B15A00E9768C /* reviewResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewResultBg.png; sourceTree = "<group>"; };
+		AABF04192244C84A00E9768C /* ReviewWordsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWordsCollectionViewCell.swift; sourceTree = "<group>"; };
 		AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
 		AAC6A6B62133CB5F005EAC9D /* skipTagTest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skipTagTest.png; sourceTree = "<group>"; };
@@ -6087,6 +6098,9 @@
 		AAE181991F97892D00683896 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAE1819C1F97892D00683896 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAE1819E1F97892D00683896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAE3C7C72230D27D00CB7971 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
+		AAE3C7C92230D2B400CB7971 /* PracticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTableViewCell.swift; sourceTree = "<group>"; };
+		AAE3C7CC2230D89800CB7971 /* greenBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenBackBtn.png; sourceTree = "<group>"; };
 		AAE5A45521639CC700FA26E9 /* s26-13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s26-13.txt"; sourceTree = "<group>"; };
 		AAE5A45621639CC700FA26E9 /* s26-9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s26-9.txt"; sourceTree = "<group>"; };
 		AAE5A45721639CC700FA26E9 /* 21-8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "21-8.txt"; sourceTree = "<group>"; };
@@ -7166,6 +7180,7 @@
 				AAFCCC9121DE489800E75F11 /* simToLoginVcBtn.png */,
 				AA39854C20D29203004E9CE3 /* orangeCart.png */,
 				AA39854E20D29204004E9CE3 /* orangeChart.png */,
+				AA2AC19C224A13E2003ADD56 /* orangePractice.png */,
 				AA39854D20D29204004E9CE3 /* orangeStatus.png */,
 				AA39855420D29C3B004E9CE3 /* logoAlpha.png */,
 				AA36412220D38B9700237B9F /* courseBtmAlpha.png */,
@@ -7438,6 +7453,7 @@
 				AA8B69F52024777D0023E0FD /* NewGameScene.sks */,
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
+				AABF04192244C84A00E9768C /* ReviewWordsCollectionViewCell.swift */,
 				AA6D83FA20DD385C00A6025C /* purchaseAlert.png */,
 				AAC6A6B62133CB5F005EAC9D /* skipTagTest.png */,
 				AA95661C20DB880D005BD5E8 /* abortPng.png */,
@@ -7459,10 +7475,10 @@
 				AA36413320D395F200237B9F /* leftRoundedSqr2.png */,
 				AA36413220D395F200237B9F /* rightRoundedSqr2.png */,
 				AA98E6032085CBC2001100BA /* rightRoundedSqr.png */,
+				AABF04172244B15A00E9768C /* reviewResultBg.png */,
 				AA4E2E71207CCF7A00AAACC3 /* pointImg.png */,
 				AAF31A0E207E23D9002F8FD8 /* darkSel.png */,
 				AACD89732167496F00BFC53C /* newResultBg.png */,
-				AA63D1F42087588B000EA088 /* resultBg.png */,
 				AA36412720D38FDA00237B9F /* darkSel2.png */,
 				AA36412620D38FDA00237B9F /* lightSel2.png */,
 				AAF31A0F207E23D9002F8FD8 /* lightSel.png */,
@@ -10537,8 +10553,8 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
-				AA2B64CE205A606C00742226 /* newBookVc */,
 				AA7BB4E320C8EE6A001A1F66 /* wordDrug.entitlements */,
+				AA2B64CE205A606C00742226 /* newBookVc */,
 				AA9AFC0D2088EDF0003A61E9 /* lessonVc */,
 				AA7BB4C220C78FCE001A1F66 /* PurchaseVc */,
 				AA3A847720C562AE00BE88EC /* RegisterVc */,
@@ -10550,6 +10566,7 @@
 				AA5E2C40203D32D7005E22A0 /* loginVc */,
 				AA04ED8F203D964000EC0A8E /* stageVc */,
 				AA04ED80203D7B1E00EC0A8E /* coursesVc */,
+				AAE3C7CB2230D87400CB7971 /* PracticeVc */,
 				AAE1818C1F97892D00683896 /* AppDelegate.swift */,
 				AA00379820497CCD0030F786 /* SwiftSiriWaveformView.swift */,
 				AA98C2BB21268A6C006F325F /* Constants.swift */,
@@ -10567,6 +10584,18 @@
 				AA2712C221C0CC640081FB1D /* InfoPlist.strings */,
 			);
 			path = wordDrug;
+			sourceTree = "<group>";
+		};
+		AAE3C7CB2230D87400CB7971 /* PracticeVc */ = {
+			isa = PBXGroup;
+			children = (
+				AAE3C7CC2230D89800CB7971 /* greenBackBtn.png */,
+				AAE3C7C72230D27D00CB7971 /* PracticeViewController.swift */,
+				AAE3C7C92230D2B400CB7971 /* PracticeTableViewCell.swift */,
+				AAA1D35B2238DFC100091C8E /* Word.swift */,
+				AAA1D35D2238E29D00091C8E /* FetchWords.swift */,
+			);
+			path = PracticeVc;
 			sourceTree = "<group>";
 		};
 		AAE5A45421639CC700FA26E9 /* ielts */ = {
@@ -12108,7 +12137,6 @@
 				AAA394FE21E0B82200636414 /* s110-12.txt in Resources */,
 				AAE5AB6021639CCB00FA26E9 /* s30-10.txt in Resources */,
 				AAE5AC4721639CCC00FA26E9 /* s13-14.txt in Resources */,
-				AA63D1F52087588C000EA088 /* resultBg.png in Resources */,
 				AAA38ED021E0B0DE00636414 /* s87-1.txt in Resources */,
 				AAA38BDA21E0A8C600636414 /* 66-12.txt in Resources */,
 				AAA38BEF21E0A8C600636414 /* s66-11.txt in Resources */,
@@ -12366,6 +12394,7 @@
 				AAA38F2021E0B0DE00636414 /* 82-11.txt in Resources */,
 				AAA3896221E060E900636414 /* 58-3.txt in Resources */,
 				AAE5ABD621639CCC00FA26E9 /* s17-6.txt in Resources */,
+				AAE3C7CD2230D89900CB7971 /* greenBackBtn.png in Resources */,
 				AAA389A821E060E900636414 /* 57-13.txt in Resources */,
 				AAA3897C21E060E900636414 /* s51-5.txt in Resources */,
 				AA3FE1BC221BE05A000B645F /* avatarFrame0.png in Resources */,
@@ -13138,6 +13167,7 @@
 				AAE5A89F21639CCB00FA26E9 /* 19-13.txt in Resources */,
 				AAE5AB5821639CCB00FA26E9 /* 31-6.txt in Resources */,
 				AAE5AC8121639CCC00FA26E9 /* s15-10.txt in Resources */,
+				AA2AC19D224A13E3003ADD56 /* orangePractice.png in Resources */,
 				AAA3875721E05E1100636414 /* s48-7.txt in Resources */,
 				AAA3954921E0B82200636414 /* 115-6.txt in Resources */,
 				AAA38C2021E0A8C600636414 /* s73-15.txt in Resources */,
@@ -14542,6 +14572,7 @@
 				AAA385CF21E05C5100636414 /* 41-12.txt in Resources */,
 				AAA3913821E0B45C00636414 /* 98-10.txt in Resources */,
 				AAA3871D21E05E1100636414 /* s46-15.txt in Resources */,
+				AABF04182244B15B00E9768C /* reviewResultBg.png in Resources */,
 				AAE5AA0321639CCB00FA26E9 /* 4-5.txt in Resources */,
 				AAE5A8D521639CCB00FA26E9 /* s21-5.txt in Resources */,
 				AAA38BCE21E0A8C600636414 /* s71-5.txt in Resources */,
@@ -15323,7 +15354,9 @@
 			files = (
 				AADE6EE22223BA94009A0D72 /* FetchImage.swift in Sources */,
 				AADE6EE82223D588009A0D72 /* Service.swift in Sources */,
+				AABF041A2244C84A00E9768C /* ReviewWordsCollectionViewCell.swift in Sources */,
 				AA98C2BC21268A6C006F325F /* Constants.swift in Sources */,
+				AAE3C7C82230D27D00CB7971 /* PracticeViewController.swift in Sources */,
 				AADE6EE42223BAC4009A0D72 /* Avatar.swift in Sources */,
 				AA7BB4C420C78FED001A1F66 /* PurchaseViewController.swift in Sources */,
 				AA8392E5222CEEB40085645E /* AvatarHeader.swift in Sources */,
@@ -15335,7 +15368,10 @@
 				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,
 				AA8392E9222D054B0085645E /* InfoAvatarCollectionReusableView.swift in Sources */,
+				AAA1D35C2238DFC100091C8E /* Word.swift in Sources */,
+				AAA1D35E2238E29D00091C8E /* FetchWords.swift in Sources */,
 				AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */,
+				AAE3C7CA2230D2B400CB7971 /* PracticeTableViewCell.swift in Sources */,
 				AA98BE822125B2D1006F325F /* CourseTableViewCell.swift in Sources */,
 				AADE6EE62223CB07009A0D72 /* Student.swift in Sources */,
 				AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */,

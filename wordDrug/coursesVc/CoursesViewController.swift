@@ -22,8 +22,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     let courseVC_logOutBtnText = NSLocalizedString("courseVC_logOutBtnText", comment: "")
     //let courseVC_toLoginVCBtnText = NSLocalizedString("courseVC_toLoginVCBtnText", comment: "")
     
-    
-    
     @IBOutlet weak var block0LBtn: UIButton!
     
     @IBOutlet weak var block0RBtn: UIButton!
@@ -294,7 +292,9 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         toInfoVcBtn.frame = CGRect(x: width / 6 - (27 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 27 * dif * iPadDif, height: 36 * dif * iPadDif)
        
         
-        toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 36 * dif * iPadDif)
+//        toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 36 * dif * iPadDif)
+        
+             toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 32 * dif * iPadDif)
     
         
         
@@ -589,7 +589,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBAction func toChartVcBtnClicked(_ sender: Any) {
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
-        performSegue(withIdentifier: "toChartVc", sender: self)
+        performSegue(withIdentifier: "toPracticeVc", sender: self)
 
     }
     @IBAction func toShopVcBtnClicked(_ sender: Any) {

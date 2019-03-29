@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MDq-zg-zeG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2JK-8B-Ztd">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,6 +14,68 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Practice View Controller-->
+        <scene sceneID="g8Y-3S-MRn">
+            <objects>
+                <viewController id="YCz-2L-vHk" customClass="PracticeViewController" customModule="wordDrug" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ndL-9S-5ac"/>
+                        <viewControllerLayoutGuide type="bottom" id="btP-wM-D1X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j4n-2q-Jnm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RKz-h5-odA">
+                                <rect key="frame" x="16" y="133" width="343" height="450"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" rowHeight="94" id="Eic-eq-DLN" customClass="PracticeTableViewCell" customModule="wordDrug" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="94"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eic-eq-DLN" id="NJ9-w1-40W">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="93.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="YCz-2L-vHk" id="vgL-G8-m7g"/>
+                                    <outlet property="delegate" destination="YCz-2L-vHk" id="jOg-zo-loX"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xns-wJ-bnF">
+                                <rect key="frame" x="112" y="617" width="151" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="enterGameClicked:" destination="YCz-2L-vHk" eventType="touchUpInside" id="GOF-wX-Lzo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GT3-rN-1oP"/>
+                    <connections>
+                        <outlet property="enterGameButton" destination="Xns-wJ-bnF" id="gF4-jK-zks"/>
+                        <outlet property="searchDisplayController" destination="Ucy-C1-Xl0" id="T4B-3g-NQl"/>
+                        <outlet property="tableView" destination="RKz-h5-odA" id="33m-EF-8RZ"/>
+                        <segue destination="v6L-yK-9Lk" kind="show" identifier="practiceToGame" id="kcU-pB-vqe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IDp-qY-1FG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Ucy-C1-Xl0">
+                    <connections>
+                        <outlet property="delegate" destination="YCz-2L-vHk" id="1Wj-vK-unj"/>
+                        <outlet property="searchContentsController" destination="YCz-2L-vHk" id="3Uq-Oh-5nu"/>
+                        <outlet property="searchResultsDataSource" destination="YCz-2L-vHk" id="96a-Ms-hu7"/>
+                        <outlet property="searchResultsDelegate" destination="YCz-2L-vHk" id="wu4-By-ck2"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="-4706" y="2946"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="quZ-1J-VlG">
             <objects>
@@ -151,7 +213,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IRQ-Nb-WFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4116" y="2193.5532233883059"/>
+            <point key="canvasLocation" x="-3176.8000000000002" y="2193.5532233883059"/>
         </scene>
         <!--New Game View Controller-->
         <scene sceneID="5PR-vQ-Hl8">
@@ -407,6 +469,31 @@
                                     <action selector="skipPronunceBtnClicked:" destination="v6L-yK-9Lk" eventType="touchUpInside" id="0lB-IF-Uc8"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nzw-VA-8QW">
+                                <rect key="frame" x="112" y="147" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mna-n2-aRy">
+                                    <size key="itemSize" width="93" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="reviewWordsCell" id="xXX-ZV-UGT" customClass="ReviewWordsCollectionViewCell" customModule="wordDrug" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="93" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="v6L-yK-9Lk" id="yZ6-zT-RbP"/>
+                                    <outlet property="delegate" destination="v6L-yK-9Lk" id="Oe5-VL-Bwv"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -427,6 +514,7 @@
                         <outlet property="recogTextLabel" destination="140-yy-deB" id="puS-3u-TFB"/>
                         <outlet property="recordBtn" destination="Im1-Oy-Q3k" id="X9V-hT-naw"/>
                         <outlet property="resultBg" destination="Npy-0N-1SM" id="jdQ-uh-uVg"/>
+                        <outlet property="reviewWordsCollectionView" destination="nzw-VA-8QW" id="NfL-Nx-Euu"/>
                         <outlet property="scoreLabel" destination="Yen-Vo-yRP" id="s3P-dD-WdM"/>
                         <outlet property="secondChiWord" destination="j6O-fO-8ag" id="4tF-gI-8MX"/>
                         <outlet property="secondEngWord" destination="85M-8T-ARB" id="cbh-fw-8Ms"/>
@@ -448,7 +536,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzm-ap-Lz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1476" y="2655"/>
+            <point key="canvasLocation" x="-536.79999999999995" y="2654.1229385307347"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="dj7-w8-eNt">
@@ -612,7 +700,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wp5-zU-zte" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-607.20000000000005" y="2245.7271364317844"/>
+            <point key="canvasLocation" x="332" y="2245.7271364317844"/>
         </scene>
         <!--New Book View Controller-->
         <scene sceneID="iue-Lt-fS9">
@@ -1120,7 +1208,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-c3-hHb">
                                 <rect key="frame" x="178" y="40" width="43" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="orangeChart.png"/>
+                                <state key="normal" backgroundImage="orangePractice.png"/>
                                 <connections>
                                     <action selector="toChartVcBtnClicked:" destination="2JK-8B-Ztd" eventType="touchUpInside" id="ddR-Bp-2Uf"/>
                                 </connections>
@@ -1310,11 +1398,12 @@
                         <segue destination="9xs-zv-ylp" kind="show" identifier="toShopVc" id="FzF-te-kXe"/>
                         <segue destination="8TX-sA-F2o" kind="show" identifier="toChartVc" id="Z9s-Y6-tg2"/>
                         <segue destination="MDq-zg-zeG" kind="show" identifier="fromCourseToLogin" id="5NS-9I-ikF"/>
+                        <segue destination="YCz-2L-vHk" kind="show" identifier="toPracticeVc" id="uSp-xR-RZm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOz-KG-elN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3178.4000000000001" y="2193.5532233883059"/>
+            <point key="canvasLocation" x="-2239.1999999999998" y="2193.5532233883059"/>
         </scene>
         <!--Intro View Controller-->
         <scene sceneID="Xik-Nz-e1M">
@@ -1354,7 +1443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bvM-4h-mL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4117.6000000000004" y="2974.362818590705"/>
+            <point key="canvasLocation" x="-3178.4000000000001" y="2974.362818590705"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="1Ix-ht-Jdq">
@@ -1368,14 +1457,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chartUpBg2.png" translatesAutoresizingMaskIntoConstraints="NO" id="g7F-bi-u8w">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mcy-A0-aAj">
                                 <rect key="frame" x="0.0" y="265" width="375" height="394"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.94872504472732544" green="0.9524962306022644" blue="0.98142832517623901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <imageView key="tableFooterView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chartUpBg2.png" id="g7F-bi-u8w">
+                                    <rect key="frame" x="0.0" y="206" width="375" height="265"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoCell" rowHeight="178" id="Kpj-v6-8Fa" customClass="InfoTableViewCell" customModule="wordDrug" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="178"/>
@@ -1689,7 +1778,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ere-cg-aMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3178.4000000000001" y="2909.5952023988007"/>
+            <point key="canvasLocation" x="-2239.1999999999998" y="2909.5952023988007"/>
         </scene>
         <!--Chart View Controller-->
         <scene sceneID="ZK0-Jn-ivo">
@@ -1836,7 +1925,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRq-Dc-Mdx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2362.4000000000001" y="2910.4947526236883"/>
+            <point key="canvasLocation" x="-1423.2" y="2910.4947526236883"/>
         </scene>
         <!--Purchase View Controller-->
         <scene sceneID="99y-BT-4qc">
@@ -2049,7 +2138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29d-aW-u6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2290.4000000000001" y="2193.5532233883059"/>
+            <point key="canvasLocation" x="-1351.2" y="2193.5532233883059"/>
         </scene>
     </scenes>
     <resources>
@@ -2087,7 +2176,7 @@
         <image name="newFbBtn.png" width="306" height="37"/>
         <image name="newLoginBtn.png" width="143" height="37"/>
         <image name="orangeCart.png" width="86" height="88"/>
-        <image name="orangeChart.png" width="86" height="98"/>
+        <image name="orangePractice.png" width="64" height="64"/>
         <image name="orangeStatus.png" width="74" height="96"/>
         <image name="practiceBook.png" width="20" height="24"/>
         <image name="pronounceBtn4.png" width="209" height="98"/>
@@ -2108,8 +2197,9 @@
         <image name="yellowBack.png" width="38" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rwi-hC-Ovx"/>
-        <segue reference="hHL-FR-I78"/>
+        <segue reference="FzF-te-kXe"/>
+        <segue reference="Qsn-eF-t3O"/>
         <segue reference="QVk-5k-4AB"/>
+        <segue reference="kcU-pB-vqe"/>
     </inferredMetricsTieBreakers>
 </document>
