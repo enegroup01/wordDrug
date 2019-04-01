@@ -372,10 +372,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //在此就算user == nil, gamePasse & mapPasse也都設定好初始值了
         
         //MARK: simVer這裏最大值要動態 & 要append的音節檔案數量也不同 & 在此的maxSpotNum也加1了為了配合數字分類然後做成Array
-        
-        let array = Bundle.main.preferredLocalizations
-        let lan = array.first
-        
+
         switch courseReceived{
             
         case 0:
@@ -3471,12 +3468,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //var isAlertPoppedOut = false
     func jumpToRow(sylSelected:String){
         
-        
-        let array = Bundle.main.preferredLocalizations
-        let lan = array.first
-        
-        
-        
+
         
         //找對應的row, 並跳過去
         //#新寫法

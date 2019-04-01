@@ -229,10 +229,9 @@ class NewGameScene: SKScene {
     
     var isReplay = false
     
-    var lan:String!
+
     var maxSpot:Int!
     
-    var wordsToPractice = [Word]()
 
     
     //MARK: simVer 這裡要建立如何建立音節的變數 done
@@ -311,7 +310,7 @@ class NewGameScene: SKScene {
         //移除發音符號
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyRemovePronounceBtn), name:  NSNotification.Name("removePlaySoundBtn"), object: nil)
         
-                NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.restartReview), name: NSNotification.Name("restartReview"), object: nil)
+
 
         //接收再度倒數
 
@@ -325,8 +324,7 @@ class NewGameScene: SKScene {
         //MARK: must update
         
         //MARK: simVer這裏位最大值要改動態 done
-//        let array = Bundle.main.preferredLocalizations
-//        lan = array.first
+
     
         switch courseReceived {
             
@@ -1087,14 +1085,7 @@ class NewGameScene: SKScene {
 
             setUpScreen()
             
-        } else if gameMode == 3 {
-            
-            loadAllKindsOfWord()
-            
-            setUpScreen()
-            
         }
-        
         //避免多次按
         self.view?.isMultipleTouchEnabled = false
         
@@ -1202,35 +1193,7 @@ class NewGameScene: SKScene {
 
             }
             
-        } else if gameMode == 3 {
-            
-            //隨意讀第一張地圖即可
-            
-            //讀取Bundle裡的文字檔
-            var wordFile:String?
-            
-            
-            let name = "1-1"
-            
-            
-            if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-                do {
-                    wordFile = try String(contentsOfFile: filepath)
-                    let words = wordFile?.components(separatedBy: "; ")
-                    
-                    //把字讀取到wordSets裡
-                    wordSets = words!
-                    
-                } catch {
-                    // contents could not be loaded
-                }
-            } else {
-                // example.txt not found!
-            }
-            
-  
         }
-        
     }
     
 
@@ -1765,10 +1728,6 @@ class NewGameScene: SKScene {
             leftSqr = "leftRoundedSqr"
             rightSqr = "rightRoundedSqr"
             
-        case 3:
-            leftSqr = "leftRoundedSqr"
-            rightSqr = "rightRoundedSqr"
-            
         default:
             break
             
@@ -2049,45 +2008,6 @@ class NewGameScene: SKScene {
             
 
             
-        } else if gameMode == 3 {
-            
-//            let totalWordCount = wordsToPractice.count
-
-        
-//            for i in 0 ..< totalWordCount {
-//
-//                let engWord = wordsToPractice[i].engWordElement.components(separatedBy: " ")
-//                let chiWord = wordsToPractice[i].chiWord
-//
-//                allThreeEngWordsArray.append(engWord)
-//                allThreeChiWords.append(chiWord!)
-            
-            
-            allThreeEngWords.removeAll(keepingCapacity: true)
-            allThreeChiWords.removeAll(keepingCapacity: true)
-     
-            if wordsToPractice.count > currentWordSequence{
-              
-                engWord0 = wordsToPractice[currentWordSequence].engWordElement.components(separatedBy: " ")
-                chiWord0 = wordsToPractice[currentWordSequence].chiWord
-          
-            }
-            
-            if wordsToPractice.count > currentWordSequence + 1{
-                
-                engWord1 = wordsToPractice[currentWordSequence + 1].engWordElement.components(separatedBy: " ")
-                chiWord1 = wordsToPractice[currentWordSequence + 1].chiWord
-            }
-            
-            if wordsToPractice.count > currentWordSequence + 2{
-            
- 
-            engWord2 = wordsToPractice[currentWordSequence + 2].engWordElement.components(separatedBy: " ")
-            chiWord2 = wordsToPractice[currentWordSequence + 2].chiWord
-
-            }
-//            }
-
         }
         
         
@@ -2177,25 +2097,7 @@ class NewGameScene: SKScene {
             }
             
             threeSyllables = [firstSyllablesToCheck,secondSyllablesToCheck,thirdSyllablesToCheck]
-        } else if gameMode == 3 {
-            
-            
-              if wordsToPractice.count > currentWordSequence{
-                firstSyllablesToCheck = wordsToPractice[currentWordSequence].syllable
-            }
-            if wordsToPractice.count > currentWordSequence + 1{
-                secondSyllablesToCheck = wordsToPractice[currentWordSequence + 1].syllable
-            }
-            
-            if wordsToPractice.count > currentWordSequence + 2{
-                thirdSyllablesToCheck = wordsToPractice[currentWordSequence + 2].syllable
-            }
-            
-            
-            threeSyllables = [firstSyllablesToCheck,secondSyllablesToCheck,thirdSyllablesToCheck]
-            
         }
-        
         //去掉數字
         
         firstSyllablesWithoutDigit = (threeSyllables[0].components(separatedBy: NSCharacterSet.decimalDigits) as NSArray).componentsJoined(by: "")
@@ -2379,10 +2281,9 @@ class NewGameScene: SKScene {
                         
                         self!.wordsToPronounce = self!.allWordSets[self!.randomSpots[0]][self!.randomUnits[0]].replacingOccurrences(of: " ", with: "")
                         
-                    } else if self!.gameMode == 3 {
-                        
-                        self!.wordsToPronounce = self!.wordsToPractice[self!.currentWordSequence].engWord
                     }
+
+
                     if self!.gameMode == 1 {
                    
                         //reviewMode不發音 , 留到後方practice發音, 原因好像不明顯...
@@ -2460,10 +2361,14 @@ class NewGameScene: SKScene {
         //MARK: must update
         //MARK: simVer must update 這裡如果有新增關卡要增加秒數的設定 done
         
+        print("course received:\(courseReceived)")
+        print("mapNumber :\(mapNumber)")
+        
         if lan == "zh-Hans"{
             
-            
+             print("enter course recevied simplilifed here")
             switch courseReceived{
+               
                 
             case 0:
                 sec = 20
@@ -2480,11 +2385,14 @@ class NewGameScene: SKScene {
             case 5:
                 switch mapNumber {
                     
+                  
+                    
                 case 0:
                     sec = 20
                 case 1:
                     sec = 25
                 case 2:
+         
                     sec = 30
                 case 3:
                     sec = 35
@@ -2536,6 +2444,7 @@ class NewGameScene: SKScene {
 
             
         } else {
+            print("enter traditional here")
             //繁體
             switch courseReceived{
                 
@@ -2558,6 +2467,7 @@ class NewGameScene: SKScene {
             
         }
         
+        print("sec: \(sec)")
         
         
          let countDownAction = SKAction.resize(toWidth: 0, duration: sec)
@@ -2574,7 +2484,7 @@ class NewGameScene: SKScene {
            
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopReview"), object: nil, userInfo: nil)
           
-            } else if self!.gameMode == 0 || self!.gameMode == 3{
+            } else if self!.gameMode == 0 {
                 
                 
                 //timesUp
@@ -2658,10 +2568,13 @@ class NewGameScene: SKScene {
     
     @objc func addScore(_ notification:NSNotification){
         
+        print(" 啟動 倒數")
+        
         if let addScore = notification.userInfo?["addScore"] as? Int{
             if addScore != 0 {
                 if gameMode == 0 {
        
+                
                     countScore(score: addScore)
                 }
         }
@@ -2669,7 +2582,9 @@ class NewGameScene: SKScene {
         //有finalPoints就是要啟動倒數Timer
         if (notification.userInfo?["finalPoints"] as? Int) != nil{
                 //tag倒數
+            print("start count down")
                 startCountDown()
+            
         }
     }
     
@@ -2732,12 +2647,11 @@ class NewGameScene: SKScene {
             let waitTime = DispatchTime.now()
             
             //首先指定好上方中英文的label
-           
-            let newSeq = self!.currentPracticeSequence % 3
+     
             
             DispatchQueue.main.asyncAfter(deadline: waitTime) {[weak self] in
                 
-                switch newSeq{
+                switch self!.currentPracticeSequence{
                     
                 case 0:
                     
@@ -2760,11 +2674,11 @@ class NewGameScene: SKScene {
 
                     
                     print("currentPracticeSequence:\(self!.currentPracticeSequence)")
-                    let newSequence = self!.currentPracticeSequence % 3
+                
 //                    print(self!.words[self!.currentPracticeSequence])
 //                    print(self!.allThreeChiWords[self!.currentPracticeSequence])
-                    self?.firstEngWordLabel.attributedText = self!.words[newSequence]
-                    self!.firstChiWordLabel.text = self!.allThreeChiWords[newSequence]
+                    self?.firstEngWordLabel.attributedText = self!.words[self!.currentPracticeSequence]
+                    self!.firstChiWordLabel.text = self!.allThreeChiWords[self!.currentPracticeSequence]
                     print(" new seq words")
                     
                     
@@ -2782,19 +2696,8 @@ class NewGameScene: SKScene {
                         
                          self!.wordsToPronounce =  self!.allWordSets[self!.randomSpots[self!.currentPracticeSequence]][self!.randomUnits[self!.currentPracticeSequence]].replacingOccurrences(of: " ", with: "")
                         
-                    } else if self!.gameMode == 3 {
-                        
-                 
-                        //部分的做法跟gameMode == 1 一樣
-                        
-                        let moveBack = SKAction.moveTo(y: -290, duration: 0)
-                        self!.findLabelNode(name: "showHint").run(moveBack)
-                        self!.hintSec = 0
-                        self!.findLabelNode(name: "showHint").text = "請連線拼字"
-                        self!.wordsToPronounce =  self!.wordsToPractice[self!.currentWordSequence].engWord
-
                     }
-                        shouldPronounce = true
+                    shouldPronounce = true
 
                 default:
                     break
@@ -2847,8 +2750,6 @@ class NewGameScene: SKScene {
             currentWord = wordSets[currentWordSequence]
         } else if gameMode == 1{
             currentWord = allWordSets[randomSpots[currentPracticeSequence]][randomUnits[currentPracticeSequence]]
-        } else if gameMode == 3 {
-            currentWord = wordsToPractice[currentWordSequence].engWordElement
         }
         //分目前單字音節
         currentWordArray = currentWord.components(separatedBy: " ")
@@ -2859,7 +2760,7 @@ class NewGameScene: SKScene {
         //抓部首以外的英文字
         var otherWords = [String]()
         
-        if gameMode == 0 || gameMode == 3{
+        if gameMode == 0{
         
         //在所有英文字裡面, 如果音節沒有重複目前顯示的音節, 就把它加入到otherWords裡
         for i in 0 ..< wordSets.count / 3{
@@ -3673,7 +3574,7 @@ class NewGameScene: SKScene {
                             
                         } else {
                             
-                            if gameMode == 0 || gameMode == 3{
+                            if gameMode == 0{
                                 self.run(rightSound)
                             }
                             
@@ -3875,9 +3776,7 @@ class NewGameScene: SKScene {
                             //把輸入字刪除
                             findLabelNode(name: "tempWord").text = ""
                             
-                            //紀錄自訂練習的錯誤
-                            wordsToPractice[currentPracticeSequence].isReviewWrong = true
-                            wordsToPractice[currentPracticeSequence].isReviewWrongLocked = true
+                        
                             
                             
                                testChinese()
@@ -4002,24 +3901,6 @@ class NewGameScene: SKScene {
             //移除掉正確答案
             allChiWords.remove(at: randomUnits[currentPracticeSequence])
 
-        } else if gameMode == 3 {
-            
-            
-            //抓亂數中文
-            let quarterCount = wordSets.count / 3
-            let halfCount = wordSets.count / 3 * 2
-            
-            chiWord = wordsToPractice[currentWordSequence].chiWord
-            
-            for i in quarterCount ..< halfCount{
-                allChiWords.append(wordSets[i])
-            }
-       
-            //不一定會有
-            if let indexToRemove = allChiWords.firstIndex(of: chiWord){
-                allChiWords.remove(at: indexToRemove)
-            }
-            
         }
         
         //亂數
@@ -4097,22 +3978,6 @@ class NewGameScene: SKScene {
     
     @objc func receiveCorrectPracticeNextWord(_ notification: NSNotification){
         
-        if let restartReview = notification.userInfo?["restartReview"] as? Bool {
-            
-            if let wordsToPractice = notification.userInfo?["wordsToPractice"] as? [Word] {
-                
-                if restartReview {
-                currentPracticeSequence = -1
-                currentWordSequence = -1
-                isBackToSpell = false
-                self.wordsToPractice = wordsToPractice
-     
-                practiceNextWord()
-                }
-
-            }
-            
-        } else {
             self.run(rightSound)
             //countScore
             if gameMode == 0 {
@@ -4121,7 +3986,7 @@ class NewGameScene: SKScene {
             practiceNextWord()
             isFinalGetPoint = true
             
-        }
+    
 
     }
     
@@ -4140,84 +4005,8 @@ class NewGameScene: SKScene {
             abortKey.alpha = 0
         }
         
-        print("wordsToPractice:\(wordsToPractice)")
-        print("word seq :\(currentWordSequence)")
-        if gameMode == 3 {
-            let totalWordsCount = wordsToPractice.count
-            
-            if currentWordSequence < totalWordsCount - 1{
 
-                //還有字
-                //順序加一
-                currentWordSequence += 1
-                currentPracticeSequence += 1
-                
-                
-                shownWords.removeAll(keepingCapacity: false)
-                wordEntered.removeAll(keepingCapacity: false)
-                //準備下一個字的練習
-                isBackToSpell = false
-                
-                findImageNode(name: "recogWordsBg").alpha = 0
-                
-                //選項alpha變淡+移除選項字
-                for node in children{
-                    
-                    if (node.name?.contains("filledButton"))!{
-                        changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
-                        
-                    }
-                    
-                    if (node.name?.contains("emptyButton"))!{
-                        changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
-                    }
-                    
-                    
-                    if (node.name?.contains("Sel"))!{
-                        node.removeFromParent()
-                    }
-
-                }
-                
-                firstEngWordLabel.isHidden = false
-                firstChiWordLabel.isHidden = false
-                
-
-           
-                
-                //沒練習完就繼續練習
-                isFinalGetPoint = false
-           
-                let checkNum = currentWordSequence % 3
-                
-                
-                if checkNum == 0 {
-                    //要重讀字
-                    print("重新讀取新字")
-                    makeWords()
-                    
-                } else {
-                    practice()
-                }
-                
-            } else {
-                //沒有字
-                //不能暫停
-                findImageNode(name: "pause").isHidden = true
-                
-                if user != nil {
-                    //這是連接後端的func
-                    addWrongWords()
-                }
-                
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "leaveReview"), object: nil, userInfo: nil)
-                
-                
-                print("離開遊戲")
-            }
-            
-        } else if gameMode == 0 {
+        if gameMode == 0 {
         
         if currentWordSequence < (unitNumber + 1) * 3 - 1{
             
@@ -5191,13 +4980,6 @@ class NewGameScene: SKScene {
                 //刪掉一些不該出現的
                 notifyShowSentence()
                 
-            } else if gameMode == 3 {
-                
-                findLabelNode(name: "showHint").text = ""
-                
-             
-                
-                
             }
             
       
@@ -5282,14 +5064,13 @@ class NewGameScene: SKScene {
             
         } else {
             //錯誤的話
-            
-            if gameMode != 3{
+    
             
             correctResults[currentPracticeSequence] = "1"
             
             //紀錄中文錯誤
             wrongChinese[currentPracticeSequence] = "1"
-            }
+            
             
             
             if gameMode == 0{
@@ -5370,37 +5151,7 @@ class NewGameScene: SKScene {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopReview"), object: nil, userInfo: wordCount)
 
  
-            } else if gameMode == 3 {
-                
-                
-                findLabelNode(name: "showHint").text = ""
-                
-                
-                //真正紀錄錯誤的字進去準備給後端儲存
-                var wrongWord = String()
-     
-                wrongWord = wordsToPractice[currentWordSequence].engWord
-                
-                if !wrongWords.contains(wrongWord){
-                    
-                    wrongWords.append(wrongWord)
-                    
-                }
-                
-                //紀錄自訂練習的錯誤
-                wordsToPractice[currentPracticeSequence].isReviewWrong = true
-                wordsToPractice[currentPracticeSequence].isReviewWrongLocked = true
-
-                
-                let wordSequenceToPass:[String:Any] = ["currentWordSequence":String(currentWordSequence),"pronounceTime":1]
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showSentence"), object: nil, userInfo: wordSequenceToPass)
-                
-
-                
-                
-            }
-            
+            }             
         }
         
     }

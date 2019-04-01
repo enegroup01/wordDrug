@@ -80,14 +80,11 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     
     @IBOutlet weak var toLoginVcBtn: UIButton!
     var dynamicCellHeight:CGFloat!
-    
-    var lan:String!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let array = Bundle.main.preferredLocalizations
-        lan = array.first
+
  
         var dif = CGFloat()
         var iPadDif = CGFloat()
@@ -292,9 +289,9 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         toInfoVcBtn.frame = CGRect(x: width / 6 - (27 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 27 * dif * iPadDif, height: 36 * dif * iPadDif)
        
         
-//        toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 36 * dif * iPadDif)
+        toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 36 * dif * iPadDif)
         
-             toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 32 * dif * iPadDif)
+//             toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 32 * dif * iPadDif)
     
         
         
@@ -589,7 +586,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBAction func toChartVcBtnClicked(_ sender: Any) {
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
-        performSegue(withIdentifier: "toPracticeVc", sender: self)
+        performSegue(withIdentifier: "toChartVc", sender: self)
 
     }
     @IBAction func toShopVcBtnClicked(_ sender: Any) {

@@ -106,7 +106,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var currentMaxSpotToUse:Int!
     var currentMaxUnitToUse:Int!
     
-    var lan:String!
+
     //MARK: simVer K12 課程紀錄變數
 //    var k12MapPassed:[Int]!
 //    var k12GamePassed:[[Int:Int]]!
@@ -114,9 +114,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let array = Bundle.main.preferredLocalizations
-        lan = array.first
-        
+
 
         // Do any additional setup after loading the view.
         var dif = CGFloat()

@@ -8,13 +8,8 @@
 
 import UIKit
 
-
-var subTitleFontSize:CGFloat!
-var subValueFontSize:CGFloat!
-
-class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UICollectionViewDelegate, UICollectionViewDataSource, InfoAvatarViewCellDelegate{
+class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var activityIndicator = UIActivityIndicatorView()
     
     let infoVC_wordAchievement = NSLocalizedString("infoVC_wordAchievement", comment: "")
     let infoVC_proAchievement = NSLocalizedString("infoVC_proAchievement", comment: "")
@@ -25,21 +20,25 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let infoVC_proRate = NSLocalizedString("infoVC_proRate", comment: "")
     let infoVC_writeSenRate = NSLocalizedString("infoVC_writeSenRate", comment: "")
     let infoVC_wordCount = NSLocalizedString("infoVC_wordCount", comment: "")
-    let infoVC_newStudent = NSLocalizedString("infoVC_newStudent", comment: "")
+    
     let infoVC_senCount = NSLocalizedString("infoVC_senCount", comment: "")
     let infoVC_chineseRate = NSLocalizedString("infoVC_chineseRate", comment: "")
     let infoVC_wordUnit = NSLocalizedString("infoVC_wordUnit", comment: "")
     
     let infoVC_senUnit = NSLocalizedString("infoVC_senUnit", comment: "")
+    let infoVC_newStudent = NSLocalizedString("infoVC_newStudent", comment: "")
+    
     let infoVC_noScore = NSLocalizedString("infoVC_noScore", comment: "")
     let infoVC_noRank = NSLocalizedString("infoVC_noRank", comment: "")
+    
     
     let infoVC_titleLabel = NSLocalizedString("infoVC_titleLabel", comment: "")
     let infoVC_wordLabel = NSLocalizedString("infoVC_wordLabel", comment: "")
     let infoVC_scoreLabel = NSLocalizedString("infoVC_scoreLabel", comment: "")
     let infoVC_rankLabel = NSLocalizedString("infoVC_rankLabel", comment: "")
-
     
+    
+   
     let darkColor = UIColor.init(red: 41/255, green: 56/255, blue: 87/255, alpha: 1)
     let midColor = UIColor.init(red: 138/255, green: 152/255, blue: 170/255, alpha: 1)
     let lightColor = UIColor.init(red: 196/255, green: 203/255, blue: 213/255, alpha: 1)
@@ -47,6 +46,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
+
 
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var rankCountLabel: UILabel!
@@ -66,48 +66,25 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let height = UIScreen.main.bounds.height
     var dif = CGFloat()
     var photoDif = CGFloat()
-
+    
+    
+    var sub1Rates:[Int] = [0,0,0,0,0]
+    var sub2Rates:[Int] = [0,Int(),Int(),Int(),Int()]
+    var subTitleFontSize:CGFloat!
+    var subValueFontSize:CGFloat!
     var maxSpot:Int!
     
-    @IBOutlet weak var avatarCollectionView: UICollectionView!
-
     @IBOutlet weak var alphaLayer: UIImageView!
     
-    @IBOutlet weak var avatarOkBtn: UIButton!
-    
-    @IBOutlet weak var avatarBgView: UIView!
-
-    //MARK: simVer newVer
-    var stageScores = [10000,50000,200000,500000,1000000,2000000,3000000,4000000,5000000]
-    var avatarColorBars = [String()]
-    var userScore = String()
-    //var stagePassed = [0,0,0,0,0,0,0,0,0]
-    var barLengths:[CGFloat] = [130,550,230,40,250,110,70,30,89]
-    var avatar:[Avatar]?
-    var student:Student?
-    var values:[Value]?
-    var avatarHeaderData:[AvatarHeader]?
-    
-    var collectionViewDif:CGFloat!
-    var collectionViewCellSize:CGFloat!
-    var smallSylFontSize:CGFloat!
-    var selectedAvatarImageName:String?
-    
-    var shouldShowAvatarAlert = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-     
-        let array = Bundle.main.preferredLocalizations
-        lan = array.first
       
         var titleFontSize: CGFloat!
         var infoFontSize: CGFloat!
         var usernameFontSize: CGFloat!
         var avaYDif:CGFloat!
-        var iPadDif = CGFloat()
-
         
         switch height {
             
@@ -115,39 +92,29 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case 1366, 1336, 1112:
                 dif = 1.5
                 photoDif = 2
-                collectionViewDif = 2.3
-                collectionViewCellSize = 150
-                iPadDif = 2
-        
+          
                 titleFontSize = 40
                 infoFontSize = 30
                 subTitleFontSize = 35
                 subValueFontSize = 35
             usernameFontSize = 60
             avaYDif = 1
-            smallSylFontSize = 30
 
         case 1024:
                 dif = 1.1
                 photoDif = 1.5
-                collectionViewDif = 2
-                collectionViewCellSize = 130
-                iPadDif = 1.5
+       
                 titleFontSize = 35
                 infoFontSize = 20
                 subTitleFontSize = 28
                 subValueFontSize = 22
-                usernameFontSize = 40
-                avaYDif = 1
-                smallSylFontSize = 30
+             usernameFontSize = 40
+             avaYDif = 1
         case 812:
             
             //iPhoneX
             dif = 0.8
             photoDif = 1
-            collectionViewDif = 1
-            collectionViewCellSize = 100
-            iPadDif = 1
      
             titleFontSize = 20
             infoFontSize = 16
@@ -155,16 +122,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             subValueFontSize = 15
             usernameFontSize = 25
              avaYDif = 1
-            smallSylFontSize = 15
             
         case 736:
             
             //plus
             dif = 0.8
             photoDif = 1
-            collectionViewDif = 1
-            collectionViewCellSize = 100
-            iPadDif = 1
      
             titleFontSize = 24
             infoFontSize = 16
@@ -173,15 +136,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             usernameFontSize = 26
              avaYDif = 1
             
-            smallSylFontSize = 15
-            
         case 667:
             
             dif = 0.7
             photoDif = 1
-            collectionViewDif = 1
-            collectionViewCellSize = 100
-            iPadDif = 1
         
             titleFontSize = 20
             infoFontSize = 16
@@ -189,15 +147,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             subValueFontSize = 14
             usernameFontSize = 22
              avaYDif = 1
-            smallSylFontSize = 15
-            
         case 568:
             
             dif = 0.8
             photoDif = 0.7
-            collectionViewDif = 0.8
-            collectionViewCellSize = 100
-            iPadDif = 1
       
             titleFontSize = 16
             infoFontSize = 16
@@ -205,14 +158,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             subValueFontSize = 14
             usernameFontSize = 18
              avaYDif = 0.6
-            smallSylFontSize = 12
             
         default:
             dif = 0.8
             photoDif = 1
-            collectionViewDif = 1
-            collectionViewCellSize = 100
-            iPadDif = 1
          
             titleFontSize = 20
             infoFontSize = 16
@@ -220,58 +169,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             subValueFontSize = 15
             usernameFontSize = 25
             avaYDif = 1
-            smallSylFontSize = 15
     
             break
             
         }
         
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100 * iPadDif, height: 100 * iPadDif))
-        activityIndicator.layer.zPosition = 15
-        let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.layer.cornerRadius = activityIndicator.frame.width / 20
-        activityIndicator.backgroundColor = alphaGray
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-
-        view.addSubview(activityIndicator)
-        
-        avatarBgView.translatesAutoresizingMaskIntoConstraints = false
-        avatarBgView.widthAnchor.constraint(equalToConstant: 320 * collectionViewDif).isActive = true
-        avatarBgView.heightAnchor.constraint(equalToConstant: 500 * collectionViewDif).isActive = true
-        avatarBgView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        avatarBgView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50 * collectionViewDif).isActive = true
-        avatarBgView.layer.cornerRadius = avatarBgView.frame.width / 20
-        avatarBgView.backgroundColor = #colorLiteral(red: 0.2823529412, green: 0.3647058824, blue: 0.4392156863, alpha: 1)
-        //avatarCollectionView.isHidden = true
-        avatarBgView.layer.zPosition = 10
-        
-        avatarCollectionView.delegate = self
 
 
-        avatarCollectionView.anchor(top: avatarBgView.topAnchor, leading: avatarBgView.leadingAnchor, bottom: nil, trailing: avatarBgView.trailingAnchor, size: CGSize(width: avatarBgView.frame.width, height: 420))
-        
-        avatarCollectionView.layer.cornerRadius = avatarCollectionView.frame.width / 20
-        avatarCollectionView.backgroundColor = #colorLiteral(red: 0.2823529412, green: 0.3647058824, blue: 0.4392156863, alpha: 1)
-        //avatarCollectionView.isHidden = true
-        avatarCollectionView.layer.zPosition = 11
-        
-        avatarOkBtn.layer.zPosition = 12
-        avatarOkBtn.translatesAutoresizingMaskIntoConstraints = false
-        avatarOkBtn.widthAnchor.constraint(equalToConstant: avatarBgView.frame.width / 2).isActive = true
-        avatarOkBtn.heightAnchor.constraint(equalToConstant: 40 * collectionViewDif).isActive = true
-        avatarOkBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        avatarOkBtn.bottomAnchor.constraint(equalTo: avatarBgView.bottomAnchor, constant: -15 * collectionViewDif).isActive = true
-        
-        
-        //加入alertView
-//        let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
-//        ghostBtn.backgroundColor = lightGray
-//        ghostBtn.addTarget(self, action: #selector(InfoViewController.removeBtns), for: .touchUpInside)
-//        self.view.addSubview(ghostBtn)
-//        ghostBtn.fillSupervivew()
-        
         // Do any additional setup after loading the view.
         chartUpBg.frame = CGRect(x: 0, y: 0, width: width, height: height / 2.2)
         
@@ -293,6 +197,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * dif * avaYDif).isActive = true
         
+        
         titleLabel.text = infoVC_titleLabel
         
         
@@ -306,8 +211,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         avaImg.frame.size = CGSize(width: 120 * photoDif, height: 120 * photoDif)
         
-        avaImg.contentMode = .scaleAspectFit
-        avaImg.layer.cornerRadius = avaImg.frame.width / 5
+        avaImg.contentMode = .scaleAspectFill
+        avaImg.layer.cornerRadius = avaImg.frame.width / 2
         avaImg.layer.masksToBounds = true
         
         let cgWhite = UIColor.white.cgColor
@@ -334,15 +239,17 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         changePhotoBtn.anchor(top: nil, leading: nil, bottom: avaImg.bottomAnchor, trailing: avaImg.trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -8 * dif) ,size: CGSize(width: 28 * dif, height: 28 * dif))
         
         
+        
         alphaLayer.frame = CGRect(x: 0, y: chartUpBg.frame.maxY - 60 * dif, width: width, height: 60 * dif)
         
         //alphaLayer.anchor(top: nil, leading: chartUpBg.leadingAnchor, bottom: chartUpBg.bottomAnchor, trailing: chartUpBg.trailingAnchor, size: CGSize(width: width, height: 70 * dif))
         
+        
+        
         infoTableView.frame = CGRect(x: 0, y: chartUpBg.frame.maxY, width: width, height: height - chartUpBg.frame.height)
         
-        
+
         wordCountLabel.frame = CGRect(x: backBtn.frame.minX + 10 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
-        
         
         //wordCountLabel.backgroundColor = .green
         wordCountLabel.textAlignment = .center
@@ -391,231 +298,15 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         rankLabel.font = rankLabel.font.withSize(infoFontSize)
         rankLabel.text = infoVC_rankLabel
         
-        for i in 0 ..< 9{
-            avatarColorBars.append("avatarColor" + String(i) + ".png")
-        }
-        avatarBgView.isHidden = true
-
-//        let nib = UINib(nibName: \(InfoViewController.self), bundle: nil)
-//        avatarCollectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "AvatarHeader")
-        
-    }
-    
-
-    //MARK: CollectionViewLayOut
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize = CGSize(width: collectionViewCellSize, height: collectionViewCellSize)
-        return cellSize
-    }
-    
-    @available(iOS 6.0, *)
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return 8
-    }
-    
-    
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 9
-    }
-    
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize{
-        return CGSize(width: 320 * collectionViewDif, height: 40 * collectionViewDif)
-    }
-    
-    
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        // 建立 UICollectionReusableView
- 
-        switch kind {
-        case UICollectionElementKindSectionHeader:
-            
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: "AvatarHeader",
-                for: indexPath) as? InfoAvatarCollectionReusableView else {fatalError("Invalid view type")
-            }
-            
-            headerView.backgroundColor = .black
-            if avatarHeaderData != nil {
-            headerView.header = avatarHeaderData![indexPath.section]
-                
-
-            }
-            
-            return headerView
-        default:
-            assert(false, "Invalid element type")
-        }
-        
-      
-//
-//        // header
-//        if kind == UICollectionElementKindSectionHeader {
-//            // 依據前面註冊設置的識別名稱 "Header" 取得目前使用的 header
-//            reusableView =
-//                collectionView.dequeueReusableSupplementaryView(
-//                    ofKind: kind,
-//                    withReuseIdentifier: "AvatarHeader",
-//                    for: indexPath) as! InfoAvatarCollectionReusableView
-//
-//
-//
-//
-        
-        
-            
-        
-            
-//
-//            let avatarColorBarImage = reusableView.viewWithTag(1) as! UIImageView
-//            //avatarColorBarImage.anchor(top: reusableView.topAnchor, leading: reusableView.leadingAnchor, bottom: reusableView.bottomAnchor, trailing: reusableView.trailingAnchor, padding:.init(top: 0, left: 0, bottom: 0, right: 0))
-//            avatarColorBarImage.image = UIImage(named: avatarColorBars[indexPath.section])
-//
-//            let avatarScoreLabel = reusableView.viewWithTag(7) as! UILabel
-//
-//
-//            if let scoreString = student?.score{
-//                if Int(scoreString)! >= stageScores[indexPath.section] {
-//
-//                    avatarScoreLabel.text = String(stageScores[indexPath.section]) + "/" + String(stageScores[indexPath.section])
-//
-//                } else {
-//
-//                    avatarScoreLabel.text = scoreString + "/" + String(stageScores[indexPath.section])
-//
-//
-//                }
-//
-//            }
-            
-//
-//            //mark: simVer temp comment
-//            if userScore != "" {
-//
-//            if Int(userScore)! >= stageScores.stageScores[indexPath.section] {
-//
-//                    avatarScoreLabel.text = String(stageScores[indexPath.section]) + "/" + String(stageScores[indexPath.section])
-//
-//            } else {
-//
-//                avatarScoreLabel.text = userScore + "/" + String(stageScores[indexPath.section])
-//
-//
-//                }
-//
-//            }
-            
-            
         
 
-            
-            //avatarColorBarImage.anchor(top: reusableView.topAnchor, leading: reusableView.leadingAnchor, bottom: reusableView.bottomAnchor, trailing: reusableView.trailingAnchor, padding:.init(top: 0, left: 0, bottom: 0, right: barLengths[indexPath.section]))
-
-
-//            avatarColorBarImage.translatesAutoresizingMaskIntoConstraints = false
-//            avatarColorBarImage.leadingAnchor.constraint(equalTo: reusableView.leadingAnchor).isActive = true
-//            avatarColorBarImage.topAnchor.constraint(equalTo: reusableView.topAnchor).isActive = true
-//            avatarColorBarImage.heightAnchor.constraint(equalTo: reusableView.heightAnchor).isActive = true
-//            avatarColorBarImage.widthAnchor.constraint(equalTo: reusableView.widthAnchor, constant: barLengths[indexPath.section]).isActive = true
-            
-            //reusableView.frame = CGRect(x: 0, y: 0, width: 320 * collectionViewDif, height: 40 * collectionViewDif)
-            
-            // 設置 header 的內容
-//            let label = reusableView.viewWithTag(3) as! UILabel
-//            // 顯示文字
-//            label.frame = CGRect(x: 0, y: 0,width: 320 * collectionViewDif, height: 40 * collectionViewDif)
-//            label.textAlignment = .center
-//
-//            label.font = label.font.withSize(smallSylFontSize)
-////            let labelText = indexPath.section + 1
-//            reusableView.backgroundColor = .black
-////            label.text = "Level \(labelText)";
-////            label.textColor = UIColor.white
-//
-//        }
-//
-//        //reusableView.addSubview(label)
-//
-//        return reusableView
     }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = avatarCollectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCell", for: indexPath) as! InfoAvatarViewCell
-
-        cell.delegate = self
-        cell.generateCell(indexPath: indexPath)
-      
-        if avatar != nil {
-        let arrayIndex = indexPath.section * 8 + indexPath.row
-        cell.avatar = avatar![arrayIndex]
-        }
-        
-        var selectableNumber = Int()
-        if student != nil {
-            for i in 0 ..< student!.stagePassed.count{
-                if student?.stagePassed[i] == 1 {
-                    selectableNumber += 1
-                }
-            }
-            if indexPath.section < selectableNumber {
-                cell.isUserInteractionEnabled = true
-            } else {
-                cell.isUserInteractionEnabled = false
-              
-            }
-        } else {
-            cell.isUserInteractionEnabled = false
-        }
-        
-        return cell
-        
-    }
-    
-    
-    
-    func didTapAvatar(indexPath: IndexPath) {
-        
-    }
-    
-    @IBAction func avatarOkBtnClicked(_ sender: Any) {
-        
-        avatarBgView.isHidden = true
-        if selectedAvatarImageName != nil {
-            
-            //上傳後端
-            
-        }
-      
-
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-        if avatar != nil {
-            let arrayIndex = indexPath.section * 8 + indexPath.row
-              avaImg.image = avatar![arrayIndex].image
-              student?.avaImg = avatar![arrayIndex].imageName
-              selectedAvatarImageName = avatar![arrayIndex].imageName
-            
-        }
-    }
-    
-    
-    //之後做ghostBtn使用
-    @objc func removeBtns(){
-        
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let heightForRow = height / 4
+        
         return heightForRow
+        
         
     }
     
@@ -634,233 +325,525 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     @IBAction func changePhotoClicked(_ sender: Any) {
         
-//        let picker = UIImagePickerController()
-//        picker.delegate = self
-//        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-//        picker.allowsEditing = true
-//        picker.modalPresentationStyle = .overFullScreen
-//
-//
-//        self.present(picker, animated: true, completion: nil)
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        picker.allowsEditing = true
+        picker.modalPresentationStyle = .overFullScreen
+        
 
-        
-        
-            activityIndicator.startAnimating()
-            UIApplication.shared.beginIgnoringInteractionEvents()
-     
-        
-        let time = DispatchTime.now() + 0.1
-        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
-            FetchImage.shared.fetchAvatar(stagePassed:self!.student!.stagePassed) {(avatar) in
-                self!.avatar = avatar
-                self!.avatarCollectionView.reloadData()
-                
-                
-                self!.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-                
-                self!.avatarBgView.isHidden = false
-                
-                
-            }
-
-        }
+        self.present(picker, animated: true, completion: nil)
     }
     
-  
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-
-         let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InfoTableViewCell
         
-            
-            let attrs1: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subValueFontSize), NSAttributedStringKey.foregroundColor : yellowColor]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InfoTableViewCell
 
+       
+       // let attrs0 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Neue", size: 12), NSAttributedStringKey.foregroundColor : lightColor]
+      
+        let attrs1: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subValueFontSize), NSAttributedStringKey.foregroundColor : yellowColor]
+        
 
-            let attrs2: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: subTitleFontSize)!, NSAttributedStringKey.foregroundColor : darkColor]
+        let attrs2: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: subTitleFontSize)!, NSAttributedStringKey.foregroundColor : darkColor]
+
         
         cell.backgroundColor = .clear
         
-        cell.value = values?[indexPath.row]
+        let infoTitles = [infoVC_wordAchievement, infoVC_proAchievement,infoVC_senAchievement, infoVC_spellKing, infoVC_senKing]
+        let sub1Titles = [infoVC_spellRate,infoVC_proRate,infoVC_writeSenRate,infoVC_wordCount,infoVC_senCount]
+        let sub2Titles = [infoVC_chineseRate,String(),String(),String(),String()]
+        let countUnits = ["","","",infoVC_wordUnit,infoVC_senUnit]
+
+        var totalRates = [Int(),Int(),Int(),Int(),Int()]
+
         
-            //快速複習的數字不show
-            if indexPath.row < 3 {
+        //快速複習的數字不show
+        if indexPath.row < 3 {
+        
+            cell.infoTitle.text = infoTitles[indexPath.row]
+           
+            cell.sub1Rate.text = String(sub1Rates[indexPath.row]) + "%"
+          
+            
+            cell.sub1Title.text = sub1Titles[indexPath.row]
+ 
+
+            cell.bigCountLabel.text = ""
+
+            
+            cell.countUnitLabel.text = ""
+        } else {
+            
+            cell.infoTitle.attributedText = NSAttributedString(string: infoTitles[indexPath.row], attributes: attrs2)
+            
+            cell.sub1Rate.attributedText = NSAttributedString(string: sub1Titles[indexPath.row], attributes: attrs1)
+            
+            cell.sub1Title.text = ""
+
+            //show大字
+            cell.bigCountLabel.text = String(sub1Rates[indexPath.row])
+            
+            //cell.bigCountLabel.text = "9999"
+            
+            cell.countUnitLabel.text = countUnits[indexPath.row]
+            
+            
+        }
+        
+        if sub2Rates[indexPath.row] != Int(){
+            
+            cell.sub2Rate.text = String(sub2Rates[indexPath.row]) + "%"
+            
+        } else {
+            
+            cell.sub2Rate.text = ""
+        }
+        
+        
+        //設定不同顏色的title
+
+        cell.sub2Title.text = sub2Titles[indexPath.row]
+        
+        for i in 0 ..< sub1Rates.count{
+            
+            let firstRate = sub1Rates[i]
+            let secondRate = sub2Rates[i]
+            
+            if secondRate != Int(){
                 
-                //cell.infoTitle.text = infoTitles[indexPath.row]
+                let avgRate:Int = (firstRate + secondRate) / 2
                 
-                //cell.sub1Rate.text = String(sub1Rates[indexPath.row]) + "%"
+                totalRates[i] = avgRate
                 
-                
-                //cell.sub1Title.text = sub1Titles[indexPath.row]
-                
-                
-                //cell.bigCountLabel.text = ""
-                
-                
-                //cell.countUnitLabel.text = ""
             } else {
                 
+                totalRates[i] = firstRate
+            }
+        }
+        
+        if indexPath.row < 3 {
+            cell.totalRate.text = String(totalRates[indexPath.row]) + "%"
             
-             //   cell.infoTitle.attributedText = NSAttributedString(string: cell.infoTitle.text!, attributes: attrs2)
-              //  cell.infoTitle.attributedText = NSAttributedString(string: infoTitles[indexPath.row], attributes: attrs2)
+            cell.ringView.progress = 0.0
+            
+            CATransaction.setCompletionBlock {
                 
-              //  cell.sub1Rate.attributedText = NSAttributedString(string: cell.sub1Rate.text!, attributes: attrs1)
+                CATransaction.begin()
+                CATransaction.setAnimationDuration(2)
                 
-                //cell.sub1Title.text = ""
-                
-                //show大字
-                //cell.bigCountLabel.text = String(sub1Rates[indexPath.row])
-                
-                //cell.bigCountLabel.text = "9999"
-                
-                //cell.countUnitLabel.text = countUnits[indexPath.row]
-                
+                cell.ringView.progress = Double(totalRates[indexPath.row]) / Double(100)
+                CATransaction.commit()
                 
             }
             
-//            if sub2Rates[indexPath.row] != Int(){
-//
-//                cell.sub2Rate.text = String(sub2Rates[indexPath.row]) + "%"
-//
-//            } else {
-//
-//                cell.sub2Rate.text = ""
-//            }
+            cell.ringView.isHidden = false
+            
+        } else {
         
             
-            //設定不同顏色的title
-            
-            //cell.sub2Title.text = sub2Titles[indexPath.row]
-            
-//            for i in 0 ..< sub1Rates.count{
-//
-//                let firstRate = sub1Rates[i]
-//                let secondRate = sub2Rates[i]
-//
-//                if secondRate != Int(){
-//
-//                    let avgRate:Int = (firstRate + secondRate) / 2
-//
-//                    totalRates[i] = avgRate
-//
-//                } else {
-//
-//                    totalRates[i] = firstRate
-//                }
-//            }
+            cell.totalRate.text = ""
+            cell.ringView.isHidden = true
         
-            if indexPath.row < 3 {
-                //cell.totalRate.text = String(totalRates[indexPath.row]) + "%"
-
-                cell.ringView.isHidden = false
-
-            } else {
-                cell.infoTitle.attributedText = NSAttributedString(string: cell.infoTitle.text!, attributes: attrs2)
-                cell.sub1Rate.attributedText = NSAttributedString(string: cell.sub1Rate.text!, attributes: attrs1)
-                cell.totalRate.text = ""
-                cell.ringView.isHidden = true
-
-            }
+        }
         return cell
     }
     
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 5
+        
+        
+        return 5
     }
 
     
-    //var avatarCache = NSCache<AnyObject, AnyObject>()
-    
     override func viewWillAppear(_ animated: Bool) {
         
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
+
+       
         if user != nil {
-
             
-            Service.shared.selectUser { [weak self](student, values, headers) in
-                
-                self!.student = student
-                self!.avatarHeaderData = headers
-                //self!.stagePassed = (self!.student?.stagePassed)!
-                
-                
-                DispatchQueue.main.async {
-                   
-                    self!.showStudentBasicInfo()
-                    self!.myRank()
-                    self!.values = values
-         
-                    self!.infoTableView.reloadData()
-                    
-                    self!.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-
-                }
-            }
-
+        selectUser()
+            
         } else {
-          print("user is nil")
-            //create empty student & rank
-            student = Student(avaImg: "avatar", nickName: infoVC_newStudent, allWordsCount: 0, score: infoVC_noScore, stagePassed: [0,0,0,0,0,0,0,0,0])
-            rankCountLabel.text = infoVC_noRank
-            showStudentBasicInfo()
-     
-            //create empty values
-            createEmptyValues { [weak self] (values) in
-                self!.values = values
-                self!.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            }
-
-            //create avatarColectionView
-//            FetchImage.shared.fetchAvatar(stagePassed: student!.stagePassed) {[weak self] (avatar) in
-//                self!.avatar = avatar
-//
-//            }
-
+          
+            //沒有user的時候
+            getUserInfo()
             
         }
   
     }
 
+  
     
-    func showStudentBasicInfo(){
-        
-        self.avaImg.image = UIImage(named:student!.avaImg + ".png")
-        self.usernameLabel.text = student!.nickName
-        self.wordCountLabel.text = String(student!.allWordsCount)
-        self.scoreCountLabel.text = String(student!.score)
-        
-    }
     
-    func createEmptyValues(completion:@escaping ([Value]) -> ()){
+    func selectUser(){
         
-        var tempValue = [Value]()
-        let value1 = Value(infoTitle: infoVC_wordAchievement, sub1Title: infoVC_spellRate, sub1Value: "0%", sub2Title: infoVC_chineseRate, sub2Value: "0%"
-            , avgValue: "0%", bigCountValue: "", bigCountUnit: "")
-        tempValue.append(value1)
         
-        let value2 = Value(infoTitle: infoVC_proAchievement, sub1Title: infoVC_proRate, sub1Value: "0%", sub2Title: "", sub2Value: "", avgValue: "0%", bigCountValue: "", bigCountUnit: "")
-        tempValue.append(value2)
+        // url to access our php file
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
         
-        let value3 = Value(infoTitle: infoVC_senAchievement, sub1Title: infoVC_writeSenRate, sub1Value: "0%", sub2Title: "", sub2Value: "", avgValue: "0%", bigCountValue: "", bigCountUnit: "")
-        tempValue.append(value3)
+        let id = user?["id"] as! String
         
-        let value4 = Value(infoTitle: infoVC_spellKing, sub1Title: "", sub1Value: infoVC_wordCount, sub2Title: "", sub2Value: "", avgValue: "", bigCountValue: "0", bigCountUnit: infoVC_wordUnit)
-        tempValue.append(value4)
+        // request url
+        var request = URLRequest(url: url)
         
-        let value5 = Value(infoTitle: infoVC_senKing, sub1Title: "", sub1Value: infoVC_senCount, sub2Title: "", sub2Value: "", avgValue: "", bigCountValue: "0", bigCountUnit: infoVC_senUnit)
-        tempValue.append(value5)
+        // method to pass data POST - cause it is secured
+        request.httpMethod = "POST"
         
-        completion(tempValue)
-    }
-    
+        
+        // body gonna be appended to url
+        let body = "id=\(id)"
+        
+        // append body to our request that gonna be sent
+        request.httpBody = body.data(using: .utf8)
 
+        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+            // no error
+            if error == nil {
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    guard let parseJSON = json else {
+                        print("Error while parsing")
+                        
+                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                        return
+                    }
+   
+                    
+                    
+                    print("selectUser:\(parseJSON)")
+                    
+                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                    
+                    
+                    //MARK: must update
+                    //MARK: simVer 增加
+                    
+                    if let mapPassedString = user?["mapPassed"] as! String?{
+                        
+                        mapPassed = Int(mapPassedString)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed!, forKey: "mapPassed")
+                        
+                        print("retrieve mapPassed:\(mapPassed!)")
+                        
+                    }
+                    
+                    if let mapPassed2String = user?["mapPassed2"] as! String?{
+                        
+                        mapPassed2 = Int(mapPassed2String)!
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+                        
+                        print("retrieve mapPassed:\(mapPassed2!)")
+                        
+                    }
+                    
+                    if let mapPassed3String = user?["mapPassed3"] as! String?{
+                        
+                        mapPassed3 = Int(mapPassed3String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+                        
+                        print("retrieve mapPassed:\(mapPassed3!)")
+                        
+                    }
+                    
+                    if let mapPassed4String = user?["mapPassed4"] as! String?{
+                        
+                        mapPassed4 = Int(mapPassed4String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+                        
+                        print("retrieve mapPassed:\(mapPassed4!)")
+                        
+                    }
+                    
+                    if let mapPassed5String = user?["mapPassed5"] as! String?{
+                        
+                        mapPassed5 = Int(mapPassed5String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+                        
+                        print("retrieve mapPassed:\(mapPassed5!)")
+                        
+                    }
+//                    if let mapPassed6String = user?["mapPassed6"] as! String?{
+//
+//                        mapPassed6 = Int(mapPassed6String)!
+//                        let userDefaults = UserDefaults.standard
+//                        userDefaults.set(mapPassed6!, forKey: "mapPassed6")
+//
+//                        print("retrieve mapPassed:\(mapPassed6!)")
+//
+//                    }
+                    
+                    //K12特別作法
+                    if let mapPassed6String = user?["mapPassed6"] as! String?{
+                        print("enter 1")
+                        var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
+                        print("enter 2 :\(mapPassedStringArray)")
+                        for i in 0 ..< mapPassedStringArray.count {
+                            
+                            print("enter 3")
+                            //避免最後一位空值
+                            if mapPassedStringArray[i] != "" {
+                                
+                                k12MapPassed[i] = Int(mapPassedStringArray[i])!
+                            }
+                            
+                            print("enter 4 value:\(k12MapPassed)")
+                            
+                        }
+                        
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(k12MapPassed, forKey: "mapPassed6")
+                        
+                        print("retrieve k12MapPassed:\(k12MapPassed!)")
+                        
+                    }
+
+                    if let mapPassed7String = user?["mapPassed7"] as! String?{
+                        
+                        mapPassed7 = Int(mapPassed7String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed7!, forKey: "mapPassed7")
+                        
+                        print("retrieve mapPassed:\(mapPassed7!)")
+                        
+                    }
+
+                    if let mapPassed8String = user?["mapPassed8"] as! String?{
+                        
+                        mapPassed8 = Int(mapPassed8String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed8!, forKey: "mapPassed8")
+                        
+                        print("retrieve mapPassed:\(mapPassed8!)")
+                        
+                    }
+
+                    if let mapPassed9String = user?["mapPassed9"] as! String?{
+                        
+                        mapPassed9 = Int(mapPassed9String)!
+                        let userDefaults = UserDefaults.standard
+                        userDefaults.set(mapPassed9!, forKey: "mapPassed9")
+                        
+                        print("retrieve mapPassed:\(mapPassed9!)")
+                        
+                    }
+
+                    
+                    
+                    if let gamePassedString = user?["gamePassed"] as! String?{
+                        
+                        let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+                        
+                        let s = gamePassedStringArray[0]
+                        let u = gamePassedStringArray[1]
+                        gamePassed = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                        
+                        print("retrieve gamePassed:\(gamePassed!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                    }
+                    
+                    if let gamePassed2String = user?["gamePassed2"] as! String?{
+                        
+                        let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+                        
+                        let s = gamePassed2StringArray[0]
+                        let u = gamePassed2StringArray[1]
+                        gamePassed2 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+                        
+                        print("retrieve gamePassed:\(gamePassed2!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed2")
+                        
+                    }
+                    
+                    if let gamePassed3String = user?["gamePassed3"] as! String?{
+                        
+                        let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
+                        
+                        let s = gamePassed3StringArray[0]
+                        let u = gamePassed3StringArray[1]
+                        gamePassed3 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+                        
+                        print("retrieve gamePassed:\(gamePassed3!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed3")
+                        
+                    }
+                    
+                    
+                    if let gamePassed4String = user?["gamePassed4"] as! String?{
+                        
+                        let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+                        
+                        let s = gamePassed4StringArray[0]
+                        let u = gamePassed4StringArray[1]
+                        gamePassed4 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+                        
+                        print("retrieve gamePassed:\(gamePassed4!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed4")
+                        
+                    }
+                    
+                    if let gamePassed5String = user?["gamePassed5"] as! String?{
+                        
+                        let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+                        
+                        let s = gamePassed5StringArray[0]
+                        let u = gamePassed5StringArray[1]
+                        gamePassed5 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+                        
+                        print("retrieve gamePassed:\(gamePassed5!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed5")
+                        
+                    }
+                    
+//                    if let gamePassed6String = user?["gamePassed6"] as! String?{
+//
+//                        let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
+//
+//                        let s = gamePassed6StringArray[0]
+//                        let u = gamePassed6StringArray[1]
+//                        gamePassed6 = [Int(s)!:Int(u)!]
+//
+//                        let userDefaults = UserDefaults.standard
+//                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
+//
+//                        print("retrieve gamePassed:\(gamePassed6!)")
+//                        userDefaults.set(encodedObject, forKey: "gamePassed6")
+//
+//                    }
+                    
+                    //MARK: simVer K12 特別作法
+                    
+                    if let gamePassed6String = user?["gamePassed6"] as! String?{
+                        
+                        var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+                        
+                        //如果有19位數就移除最後一位
+                        if k12GamePassedStringArray.count == 19{
+                            k12GamePassedStringArray.removeLast()
+                        }
+                        
+                        
+                        for i in 0 ..< k12GamePassedStringArray.count {
+                            
+                            let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
+                            
+                            let s = gamePassed6StringArray[0]
+                            let u = gamePassed6StringArray[1]
+                            k12GamePassed[i] = [Int(s)!:Int(u)!]
+                            
+                        }
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+                        
+                        print("retrieve gamePassed:\(k12GamePassed!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed6")
+                        
+                    }
+
+                    if let gamePassed7String = user?["gamePassed7"] as! String?{
+                        
+                        let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
+                        
+                        let s = gamePassed7StringArray[0]
+                        let u = gamePassed7StringArray[1]
+                        gamePassed7 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+                        
+                        print("retrieve gamePassed:\(gamePassed7!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed7")
+                        
+                    }
+
+                    if let gamePassed8String = user?["gamePassed8"] as! String?{
+                        
+                        let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
+                        
+                        let s = gamePassed8StringArray[0]
+                        let u = gamePassed8StringArray[1]
+                        gamePassed8 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+                        
+                        print("retrieve gamePassed:\(gamePassed8!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed8")
+                        
+                    }
+
+                    if let gamePassed9String = user?["gamePassed9"] as! String?{
+                        
+                        let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
+                        
+                        let s = gamePassed9StringArray[0]
+                        let u = gamePassed9StringArray[1]
+                        gamePassed9 = [Int(s)!:Int(u)!]
+                        
+                        let userDefaults = UserDefaults.standard
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+                        
+                        print("retrieve gamePassed:\(gamePassed9!)")
+                        userDefaults.set(encodedObject, forKey: "gamePassed9")
+                        
+                    }
+
+                    
+
+                    DispatchQueue.main.async {
+                       
+                        self!.getUserInfo()
+                        self!.myRank()
+                    }
+               
+                    
+                } catch{
+                    
+                    print("catch error")
+                    
+                }
+            } else {
+                
+                print("urlsession has error")
+                
+            }
+        }).resume()
+        
+    }
+    
+    
+    
     func myRank(){
         
         
@@ -909,7 +892,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                         
                                         DispatchQueue.main.async(execute: {
                                             
-                                            self!.rankCountLabel.text = self!.infoVC_noRank
+                                            self!.rankCountLabel.text = "尚未排名"
                                             
                                         })
                                         
@@ -942,6 +925,313 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    func getUserInfo(){
+        
+        //print("perform get user")
+        //指定個人大頭照
+        if let avaImgUrl = user?["ava"] as? String{
+            
+            // communicate back user as main queue
+            DispatchQueue.main.async(execute: {[weak self] in
+                
+                if avaImgUrl != "" {
+                    
+                    let newAvaUrl = avaImgUrl.replacingOccurrences(of: "__", with: "&")
+                    
+                    let imageUrl = URL(string: newAvaUrl)!
+                    // get data from image url
+                    let imageData = try? Data(contentsOf: imageUrl)
+                    
+                    // if data is not nill assign it to ava.Img
+                    if imageData != nil {
+                        DispatchQueue.main.async(execute: {
+                            self?.avaImg.image = UIImage(data: imageData!)
+                        })
+                    }
+                    
+                    
+                } else {
+                    
+                    self?.avaImg.image = UIImage(named: "avatar.png")
+                }
+            })
+            
+            
+        } else {
+            
+            //沒有就用預設大頭照
+            avaImg.image = UIImage(named: "avatar.png")
+            
+        }
+        
+        //取得暱稱
+        if let nickname = user?["nickname"] as? String{
+            
+            self.usernameLabel.text = nickname
+        } else {
+            
+            self.usernameLabel.text = self.infoVC_newStudent
+        }
+        
+        
+        //MARK: must update
+        //算字數
+        //在此有可能遇到user == nil的狀況, 不過在appDelegate已經給值, 稍後應該要修成if user == nil {} else {}
+        
+        //MARK: simVer 算分數算法要改
+        
+        var maxWordCount = Int()
+        var allMapPassedCount:Int!
+        
+        if user != nil {
+         
+            if lan == "zh-Hans"{
+                //檢體中文
+                
+                //print("檢體中文關卡數")
+                //之後還要用courseReceived來改數值, 因為每個course值不同
+                
+                allMapPassedCount =  mapPassed! * 330 + mapPassed2! * 450 + mapPassed3! * 450 +  mapPassed4! * 450 +  mapPassed5! * 450 + mapPassed7! * 450 + mapPassed8! * 450 + mapPassed9! * 450
+                
+                //MARK: simVer 另外計算K12的字數
+                
+                var k12ElemWordsMax = [120,330,330,300,330,330,330,330,390,390,330,330,210,330,300,180,390,390]
+                
+                //k12
+                for i in 0 ..< k12MapPassed.count {
+                    
+                    //MARK: 這裡要修正
+                    if k12MapPassed[i] == 1 {
+                        
+                        allMapPassedCount += k12ElemWordsMax[i]
+                        
+                    } else {
+                        
+                        //eachCellMyWordsCount[i] =
+                        
+                        for (s,u) in k12GamePassed[i] {
+                            
+                            allMapPassedCount += s * 30 + u * 3
+                        }
+                        
+                        
+                    }
+                }
+                
+                
+                
+            } else {
+                //其餘語言
+                //print("繁體中文關卡數")
+                maxWordCount = 450
+                
+                allMapPassedCount = mapPassed! * maxWordCount + mapPassed2! * maxWordCount + mapPassed3! * maxWordCount + mapPassed4! * maxWordCount + mapPassed5! * maxWordCount
+                
+            }
+            
+            var gamePassedCount = Int()
+            var gamePassed2Count = Int()
+            var gamePassed3Count = Int()
+            var gamePassed4Count = Int()
+            var gamePassed5Count = Int()
+            var gamePassed7Count = Int()
+            var gamePassed8Count = Int()
+            var gamePassed9Count = Int()
+            
+            
+            for (s,u) in gamePassed!{
+                gamePassedCount = s * 30 + u * 3
+            }
+            for (s,u) in gamePassed2!{
+                gamePassed2Count = s * 30 + u * 3
+            }
+            
+            
+            for (s,u) in gamePassed3!{
+                gamePassed3Count = s * 30 + u * 3
+            }
+            
+            for (s,u) in gamePassed4!{
+                gamePassed4Count = s * 30 + u * 3
+            }
+            
+            for (s,u) in gamePassed5!{
+                gamePassed5Count = s * 30 + u * 3
+            }
+            
+            for (s,u) in gamePassed7!{
+                gamePassed7Count = s * 30 + u * 3
+            }
+            for (s,u) in gamePassed8!{
+                gamePassed8Count = s * 30 + u * 3
+            }
+            for (s,u) in gamePassed9!{
+                gamePassed9Count = s * 30 + u * 3
+            }
+            
+            let allGamePassedCount = gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count + gamePassed5Count + gamePassed7Count + gamePassed8Count + gamePassed9Count
+            let allWordsCount = allMapPassedCount + allGamePassedCount
+            
+            wordCountLabel.text = String(allWordsCount)
+            
+            //算拼字正確率
+            var wrongWordsCount = Int()
+            if let wrongWords = user?["wrongWords"] as? String{
+                
+                let wrongWordArray = wrongWords.components(separatedBy: ";")
+                
+                wrongWordsCount = wrongWordArray.count - 1
+                
+            }
+            
+            print("wrongWordsCount:\(wrongWordsCount)")
+            
+            if allWordsCount == 0 {
+                //這樣的話比例也是0
+                
+                sub1Rates[0] = 0
+                
+            } else {
+                
+                sub1Rates[0] = Int((1 - (Double(wrongWordsCount) / Double(allWordsCount))) * 100)
+                
+            }
+            
+            //中文正確率
+            
+            //目前中文正確率若設定為0的時候, cellForRow裡面不會顯示0%..雖然不影響但是怪怪的
+            
+            if let wrongChinese = user?["wrongChinese"] as? String{
+                
+                if allWordsCount == 0 {
+                    //這樣的話比例也是0
+                    
+                    sub2Rates[0] = 0
+                    
+                } else {
+                    
+                    sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
+                    
+                }
+            }
+
+
+            
+        } else {
+            
+            wordCountLabel.text = "0"
+            // print("user is nil 所產生的值")
+            
+        }
+        
+        
+        
+        //抓分數
+         if let score = user?["score"] as? String{
+            
+            scoreCountLabel.text = score
+            
+         } else {
+            
+            scoreCountLabel.text = infoVC_noScore
+            rankCountLabel.text = infoVC_noRank
+        }
+        
+        
+      
+        
+        //發音正確率
+        
+        if let proRate = user?["proRate"] as? String{
+            
+            if proRate == "200" {
+                
+                sub1Rates[1] = 0
+                
+            } else {
+            
+            sub1Rates[1] = Int(proRate)!
+                
+            }
+            
+        }
+
+        
+        //句子排列正確率
+        
+        if let senRate = user?["senRate"] as? String{
+            
+            if senRate == "200"{
+                
+                sub1Rates[2] = 0
+                
+            } else {
+            
+            sub1Rates[2] = Int(senRate)!
+                
+            }
+            
+        }
+        
+        
+        //MARK: must update
+        
+       //快速複習單字數
+        if let wordCount = user?["wordReviewCount"] as? String{
+            if let wordCount2 = user?["wordReviewCount2"] as? String{
+                if let wordCount3 = user?["wordReviewCount3"] as? String{
+                    if let wordCount4 = user?["wordReviewCount4"] as? String{
+                        if let wordCount5 = user?["wordReviewCount5"] as? String {
+                            if let wordCount6 = user?["wordReviewCount6"] as? String {
+                                if let wordCount7 = user?["wordReviewCount7"] as? String {
+                                    if let wordCount8 = user?["wordReviewCount8"] as? String {
+                                        if let wordCount9 = user?["wordReviewCount9"] as? String {
+                            
+
+                        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)! + Int(wordCount5)! + Int(wordCount6)! + Int(wordCount7)! + Int(wordCount8)! + Int(wordCount9)!
+        
+                       
+                            sub1Rates[3] = totalWordCount
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        //快速複習句型數
+        if let senCount = user?["senReviewCount"] as? String{
+            if let senCount2 = user?["senReviewCount2"] as? String{
+                if let senCount3 = user?["senReviewCount3"] as? String{
+                    if let senCount4 = user?["senReviewCount4"] as? String {
+                         if let senCount5 = user?["senReviewCount5"] as? String {
+                            if let senCount6 = user?["senReviewCount6"] as? String {
+                                if let senCount7 = user?["senReviewCount7"] as? String {
+                                    if let senCount8 = user?["senReviewCount8"] as? String {
+                                        if let senCount9 = user?["senReviewCount9"] as? String {
+                        
+        
+                        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)! + Int(senCount5)! + Int(senCount6)! + Int(senCount7)! + Int(senCount8)! + Int(senCount9)!
+        
+                        sub1Rates[4] = totalSenCount
+                                        }
+                                    }
+                                }
+                                }
+                        }
+                    }
+                }
+            }
+        }
+        
+
+        infoTableView.reloadData()
+
+
+    }
 
     
     
@@ -1161,3 +1451,4 @@ extension NSMutableData {
     }
     
 }
+

@@ -53,8 +53,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var alreadyLearnedLabel: UILabel!
     @IBOutlet weak var wordCountsLabel: UILabel!
     @IBOutlet weak var classTitle: UIImageView!
-    var lan:String!
-    
+
     //MARK: simVer K12 課程紀錄變數
 //    var k12MapPassed:[Int]!
 //    var k12GamePassed:[[Int:Int]]!
@@ -62,9 +61,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let array = Bundle.main.preferredLocalizations
-        lan = array.first
+
 
         var iPadDif:CGFloat!
         var wordCountTitleLabelFontSize: CGFloat!
