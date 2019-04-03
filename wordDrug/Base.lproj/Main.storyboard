@@ -1827,12 +1827,11 @@
                         <outlet property="purchaseBtn" destination="oTx-wR-MN3" id="LFw-QO-18U"/>
                         <outlet property="restoreBtn" destination="NR9-1e-Wuv" id="AdK-Yc-x4k"/>
                         <outlet property="upBg" destination="mea-XC-VeU" id="DMw-4i-EDc"/>
-                        <segue destination="U8l-e9-jsA" kind="show" identifier="fromPurchaseToRegisterVc" id="08a-wE-CO2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iZs-JS-p8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4530" y="1269"/>
+            <point key="canvasLocation" x="-414" y="745"/>
         </scene>
         <!--Stage View Controller-->
         <scene sceneID="uAY-7P-Q8w">
@@ -2002,6 +2001,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="rwi-hC-Ovx"/>
         <segue reference="Qsn-eF-t3O"/>
-        <segue reference="QVk-5k-4AB"/>
     </inferredMetricsTieBreakers>
 </document>

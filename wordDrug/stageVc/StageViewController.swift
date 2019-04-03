@@ -815,6 +815,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         wordCountsLabel.text = String(totalWordsLearned)
         collectionView.reloadData()
 
+        
+        print("check mapNum :\(k12MapPassed)")
+        print("check gameNum :\(k12GamePassed)")
     }
     
     deinit {

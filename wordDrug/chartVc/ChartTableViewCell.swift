@@ -139,7 +139,7 @@ class ChartTableViewCell: UITableViewCell {
         avaImg.heightAnchor.constraint(equalToConstant: 120 * iPadDif * iPhoneXDif).isActive = true
         avaImg.leadingAnchor.constraint(equalTo: rankLabel.trailingAnchor, constant: 15 * iPadDif).isActive = true
         avaImg.contentMode = .scaleAspectFit
-        //avaImg.layer.cornerRadius = 120 * iPadDif * iPhoneXDif / 2
+        avaImg.layer.cornerRadius = 120 * iPadDif * iPhoneXDif / 2
         
         
         

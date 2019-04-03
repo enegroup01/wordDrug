@@ -720,16 +720,16 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "fromPurchaseToRegisterVc"{
-            
-            let destineVc = segue.destination as! RegisterViewController
-            destineVc.isDirectedHere = true
-            
-        }
-    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        if segue.identifier == "fromPurchaseToRegisterVc"{
+//
+//            let destineVc = segue.destination as! RegisterViewController
+//            destineVc.isDirectedHere = true
+//
+//        }
+//    }
     
     
     var isRestore = false

@@ -28,7 +28,7 @@ let restartCountingKey = "restartCounting"
 let globalPause = "globalPause"
 let globalStart = "globalStart"
 let turnOffRedLight = "turnOffRedLight"
-let restartReviewKey = "restartReview"
+
 
 var limitTimer = Timer()
 
@@ -574,8 +574,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
-        
-          NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyRestartReview), name: NSNotification.Name("restartReview"), object: nil)
+
         
         
         //MARK: UI Setting
@@ -729,7 +728,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         let title = NSAttributedString(string: "我知道了", attributes: attrs0)
         
-        
+        reviewOkBtn = UIButton(type: .system)
+        //reviewOkBtn.showsTouchWhenHighlighted = true
+        reviewOkBtn.frame = CGRect(x: (width - 169 * dif * iPadDif) / 2 + okBtnDif, y: reviewWordBg.frame.maxY - 27 * dif * 1.5 * iPadDif, width: 169 * dif * iPadDif, height: 27 * dif * iPadDif)
+        reviewOkBtn.addTarget(self, action: #selector(NewGameViewController.reviewOkBtnClicked), for: .touchUpInside)
+        reviewOkBtn.setBackgroundImage(UIImage(named:"reviewOkBtnPng.png"), for: .normal)
+        reviewOkBtn.setAttributedTitle(title, for: .normal)
+        self.view.addSubview(reviewOkBtn)
+        self.view.bringSubview(toFront: reviewOkBtn)
 
 
         
@@ -1985,9 +1991,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
          
     }
     
-    @objc func notifyRestartReview(){
-        
-    }
+
     
     @objc func removePlaySoundBtn(){
         
@@ -2049,17 +2053,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         
     }
-//
-//    @objc func reviewOkBtnClicked(){
-//
-//        print("button clicked")
-//
-//
-//
-//        //這裏按下去要能夠儲存
-//
-//        self.dismiss(animated: true, completion: nil)
-//    }
+
+    @objc func reviewOkBtnClicked(){
+
+        print("button clicked")
+        //這裏按下去要能夠儲存
+
+        self.dismiss(animated: true, completion: nil)
+    }
     
     //接收nc
     @objc func pauseGame(){

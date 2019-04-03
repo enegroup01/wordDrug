@@ -670,7 +670,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             //檢查註冊
             // url to php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register.php")!
+            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
             
             // request to this file
             var request = URLRequest(url: url)
@@ -683,11 +683,24 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             
             //在此決定後端是否要  + 1
-            if isDirectedHere{
-                body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=&ava="
+//            if isDirectedHere{
+//                body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=&ava="
+//            } else {
+//            body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=\(coursePlayed)&ava="
+//            }
+            
+            
+            if coursePlayed == 5 {
+                
+                //在此更新k12的關卡 + 1
+                body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=\(coursePlayed)&ava=&mapPlayed=\(k12MapNumber)"
+                
             } else {
-            body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=\(coursePlayed)&ava="
+                
+                body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=\(coursePlayed)&ava=&mapPlayed="
+
             }
+            
             
             request.httpBody = body.data(using: .utf8)
             //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -1405,7 +1418,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
         //檢查註冊
         // url to php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
         
         // request to this file
         var request = URLRequest(url: url)
@@ -1416,15 +1429,23 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         // body to be appended to url, 讓nickname = 註冊帳號
         var body = String()
         
-        if isDirectedHere{
-            
-             body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava="
-        } else {
+//        if isDirectedHere{
+//
+//             body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava="
+//        } else {
+//
+//
+//            body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=\(coursePlayed)&ava="
+//        }
+//            print(body)
         
-      
-            body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=\(coursePlayed)&ava="
+        if coursePlayed == 5 {
+            
+            body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=\(coursePlayed)&ava=&mapPlayed=\(k12MapNumber)"
+        } else {
+            
+             body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=\(coursePlayed)&ava=$mapPlayed="
         }
-            print(body)
         
         
         request.httpBody = body.data(using: .utf8)

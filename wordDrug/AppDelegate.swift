@@ -34,8 +34,7 @@ var gamePassed5:[Int:Int]?
 var k12MapPassed:[Int]!
 var k12GamePassed:[[Int:Int]]!
 
-var mapPassed6:Int?
-var gamePassed6:[Int:Int]?
+
 var mapPassed7:Int?
 var gamePassed7:[Int:Int]?
 var mapPassed8:Int?
@@ -647,7 +646,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     //MARK: must update
                     //MARK: simVer增加值
-                    
                     k12MapPassed = Array(repeating: 0, count: 18)
                     k12GamePassed = Array(repeating: [0:0], count: 18)
                     
@@ -707,9 +705,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     //MARK: simVer K12 特別作法
                   
                     if let mapPassed6String = user?["mapPassed6"] as! String?{
-                        print("enter 1")
+                        
+                        print("mapPassed6String:\(mapPassed6String)")
+                        
+                        if mapPassed6String != "0" {
                         var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
-                        print("enter 2 :\(mapPassedStringArray)")
+         
                         for i in 0 ..< mapPassedStringArray.count {
 
                                print("enter 3")
@@ -727,6 +728,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         userDefaults.set(k12MapPassed, forKey: "mapPassed6")
 
                         print("retrieve k12MapPassed:\(k12MapPassed!)")
+                        }
 
                     }
                     
@@ -849,33 +851,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     if let gamePassed6String = user?["gamePassed6"] as! String?{
                         
-                        var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+                          print("gamePassed6String:\(gamePassed6String)")
                         
-                 
-                        //如果有19位數就移除最後一位
-                        if k12GamePassedStringArray.count == 19{
-                            k12GamePassedStringArray.removeLast()
-                        }
-                        
-                       
-                        for i in 0 ..< k12GamePassedStringArray.count {
+                        if gamePassed6String != "0:0" {
+                            var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
                             
-
+                            
+                            //如果有19位數就移除最後一位
+                            if k12GamePassedStringArray.count == 19{
+                                k12GamePassedStringArray.removeLast()
+                            }
+                            
+                            
+                            for i in 0 ..< k12GamePassedStringArray.count {
+                                
+                                
                                 let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
-                            
+                                
                                 let s = gamePassed6StringArray[0]
                                 let u = gamePassed6StringArray[1]
                                 k12GamePassed[i] = [Int(s)!:Int(u)!]
+                                
+                                
+                            }
                             
+                            let userDefaults = UserDefaults.standard
+                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
                             
+                            print("retrieve gamePassed:\(k12GamePassed!)")
+                            userDefaults.set(encodedObject, forKey: "gamePassed6")
                         }
-  
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
-                        
-                        print("retrieve gamePassed:\(k12GamePassed!)")
-                        userDefaults.set(encodedObject, forKey: "gamePassed6")
-                        
                     }
                     
                     

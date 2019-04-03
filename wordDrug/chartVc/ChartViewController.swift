@@ -164,21 +164,6 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
 
         
-        for i in 0 ..< 36 {
-            
-            avatarNames.append("m" + String(i + 1))
-        }
-        for i in 0 ..< 36 {
-            
-            avatarNames.append("f" + String(i + 1))
-        }
-        for i in 0 ..< 36 {
-            
-            avatarNames.append("f" + String(i + 1))
-        }
-      
-        print("chart info avatarNames:\(avatarNames)")
-        
         
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         activityIndicator.layer.zPosition = 15
@@ -356,11 +341,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         //cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
         
-        //cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
+        cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
  
-        
-        cell.avaImg.image = UIImage(named: avatarNames[indexPath.row] + ".png")
-        
         
         /*
         if avas[indexPath.row] != "" {

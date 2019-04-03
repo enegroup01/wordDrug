@@ -480,7 +480,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         //檢查註冊
         // url to php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
         
         // request to this file
         var request = URLRequest(url: url)
@@ -489,7 +489,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         request.httpMethod = "POST"
         
         // body to be appended to url, 讓nickname = 註冊帳號
-        let body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=&ava="
+        let body = "username=\(username)&password=\(password)&fbid=&nickname=\(username)&coursePlayed=&ava=&mapPlayed="
         
         request.httpBody = body.data(using: .utf8)
         //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -889,6 +889,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     
                     //MARK: simVer k12 特別作法
                     if let mapPassed6String = user?["mapPassed6"] as! String?{
+                        print("mapPassed6String:\(user?["mapPassed6"])")
                         var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
                         
                         for i in 0 ..< mapPassedStringArray.count {
@@ -896,6 +897,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             //避免最後一位空值
                             if mapPassedStringArray[i] != "" {
                                 
+                                print("還是近來設定了")
                                 k12MapPassed[i] = Int(mapPassedStringArray[i])!
                             }
                             
@@ -1492,7 +1494,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         //檢查註冊
         // url to php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register.php")!
+        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
         
         // request to this file
         var request = URLRequest(url: url)
@@ -1501,7 +1503,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         request.httpMethod = "POST"
         
         // body to be appended to url, 讓nickname = 註冊帳號
-        let body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava="
+        let body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava=&mapPlayed="
         
         request.httpBody = body.data(using: .utf8)
         //request.addValue("application/json", forHTTPHeaderField: "Content-Type")

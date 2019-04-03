@@ -1203,10 +1203,7 @@ class NewGameScene: SKScene {
         print("notify remove pronounce btn")
     }
     
-    @objc func restartReview(){
-        introAnimation()
-        
-    }
+
     
     @objc func playEndingMusic(){
         
