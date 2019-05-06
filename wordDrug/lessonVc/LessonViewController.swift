@@ -13,6 +13,29 @@ import ProgressHUD
 
 class LessonViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
+    let lessonVC_aboutToLearn3Words = NSLocalizedString("lessonVC_aboutToLearn3Words", comment: "")
+    let lessonVC_review3Words = NSLocalizedString("lessonVC_review3Words", comment: "")
+    let lessonVC_currentLesson = NSLocalizedString("lessonVC_currentLesson", comment: "")
+    let lessonVC_hintLabel = NSLocalizedString("lessonVC_hintLabel", comment: "")
+    let lessonVC_reviewBtn = NSLocalizedString("lessonVC_reviewBtn", comment: "")
+    let lessonVC_previousBtn = NSLocalizedString("lessonVC_previousBtn", comment: "")
+    let lessonVC_allSylBtn = NSLocalizedString("lessonVC_allSylBtn", comment: "")
+    let lessonVC_nextBtn = NSLocalizedString("lessonVC_nextBtn", comment: "")
+    let lessonVC_enterBtn = NSLocalizedString("lessonVC_enterBtn", comment: "")
+    let lessonVC_enterReviewBtn = NSLocalizedString("lessonVC_enterReviewBtn", comment: "")
+    let lessonVC_thisIsFirst = NSLocalizedString("lessonVC_thisIsFirst", comment: "")
+    let lessonVC_noPrePage = NSLocalizedString("lessonVC_noPrePage", comment: "")
+    let lessonVC_alertNotYet = NSLocalizedString("lessonVC_alertNotYet", comment: "")
+    let lessonVC_loading = NSLocalizedString("lessonVC_loading", comment: "")
+    let lessonVC_noNextPage = NSLocalizedString("lessonVC_noNextPage", comment: "")
+    let lessonVC_pleaseChoose = NSLocalizedString("lessonVC_pleaseChoose", comment: "")
+    let lessonVC_wordChallenge = NSLocalizedString("lessonVC_wordChallenge", comment: "")
+    let lessonVC_senChallenge = NSLocalizedString("lessonVC_senChallenge", comment: "")
+    let lessonVC_alertNoChallenge = NSLocalizedString("lessonVC_alertNoChallenge", comment: "")
+    let lessonVC_iKnow = NSLocalizedString("lessonVC_iKnow", comment: "")
+    let lessonVC_theLastPage = NSLocalizedString("lessonVC_theLastPage", comment: "")
+    let lessonVC_class = NSLocalizedString("lessonVC_class", comment: "")
+
     
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -111,6 +134,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
 //    var k12MapPassed:[Int]!
 //    var k12GamePassed:[[Int:Int]]!
     
+     let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -126,7 +151,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             print("big iPad")
    
 
@@ -146,7 +171,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             collectionViewCellSize = 100
             smallSylFontSize = 30
             
-        case 1024:
+        case 1024, 1194, 1112:
             
             print("small iPad")
   
@@ -323,7 +348,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //alertText.backgroundColor = .blue
         alertText.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         alertText.textColor = .white
-        alertText.text = "請選擇挑戰模式"
+        alertText.text = lessonVC_pleaseChoose
         alertText.numberOfLines = 3
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
@@ -336,7 +361,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
-        practiceWordBtn.setTitle("拼字王挑戰", for: .normal)
+        practiceWordBtn.setTitle(lessonVC_wordChallenge, for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(LessonViewController.practiceWord), for: .touchUpInside)
         //practiceWordBtn.backgroundColor = .green
@@ -349,7 +374,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //practiceSenBtn.backgroundColor = .brown
         //practiceSenBtn.alpha = 0.5
         practiceSenBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
-        practiceSenBtn.setTitle("句型冠軍榜", for: .normal)
+        practiceSenBtn.setTitle(lessonVC_senChallenge, for: .normal)
         practiceSenBtn.setTitleColor(orangeColor, for: .normal)
         practiceSenBtn.addTarget(self, action: #selector(LessonViewController.practiceSen), for: .touchUpInside)
         self.view.addSubview(practiceSenBtn)
@@ -360,7 +385,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
        
  
         bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
-        bigQuitBtn.setTitle("我知道了", for: .normal)
+        bigQuitBtn.setTitle(lessonVC_iKnow, for: .normal)
         bigQuitBtn.setTitleColor(orangeColor, for: .normal)
         //bigQuitBtn.backgroundColor = .blue
         bigQuitBtn.addTarget(self, action:#selector(LessonViewController.removeBtns), for: .touchUpInside)
@@ -380,6 +405,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
         lessonTitleLabel.textAlignment = .right
         lessonTitleLabel.font = lessonTitleLabel.font.withSize(lessonTitleFontSize)
+        lessonTitleLabel.text = lessonVC_currentLesson
         
         
 
@@ -392,7 +418,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //titleLabel.backgroundColor = .red
 
         titleLabel.numberOfLines = 2
-        titleLabel.text = "即將學習\n下列三個新單字"
+        titleLabel.text = lessonVC_aboutToLearn3Words
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
         titleLabel.adjustsFontSizeToFitWidth = true
@@ -433,11 +459,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         enterBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, size: .init(width: width / 5, height: 50 * iPadSizeDif))
         
         nextBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: enterBtn.leadingAnchor)
+        nextBtn.setTitle(lessonVC_nextBtn, for: .normal)
+       
         
         allSylBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: nextBtn.leadingAnchor)
+        allSylBtn.setTitle(lessonVC_allSylBtn, for: .normal)
+
         
         previousBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: allSylBtn.leadingAnchor)
-        
+        previousBtn.setTitle(lessonVC_previousBtn, for: .normal)
         
         
         reviewBtn.anchor(top: nil, leading: view.safeLeftAnchor, bottom: view.safeBottomAnchor, trailing: nil)
@@ -445,6 +475,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         allSylBtn.anchorSize(to: enterBtn)
         previousBtn.anchorSize(to: enterBtn)
         reviewBtn.anchorSize(to: enterBtn)
+        
+        let attrs = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.368627451, green: 0.8117647059, blue: 0.4470588235, alpha: 1)]
+        reviewBtn.setAttributedTitle(NSAttributedString(string: lessonVC_reviewBtn, attributes: attrs), for: .normal)
+      
 
 
         enterBtn.titleLabel?.font = enterBtn.titleLabel?.font.withSize(btnFontSize)
@@ -454,6 +488,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         previousBtn.titleLabel?.font = previousBtn.titleLabel?.font.withSize(btnFontSize)
         reviewBtn.titleLabel?.font = reviewBtn.titleLabel?.font.withSize(btnFontSize)
         
+        
 
         fullLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: view.safeRightAnchor, size: .init(width: width, height: 3))
 
@@ -462,6 +497,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         hintLabel.anchor(top: nil, leading: view.safeLeftAnchor, bottom: fullLength.topAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -5, right: 0) ,size: .init(width: width, height: 21 * dif * iPadSizeDif))
         
          hintLabel.font = hintLabel.font.withSize(hintLabelFontSize)
+        
+        hintLabel.text = lessonVC_hintLabel
         
         //拉到最前方
         
@@ -602,7 +639,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             label.font = label.font.withSize(smallSylFontSize)
             let labelText = indexPath.section + 1
             reusableView.backgroundColor = .darkGray
-            label.text = "第\(labelText)課";
+            label.text = "第\(labelText)\(lessonVC_class)";
             label.textColor = UIColor.white
             
             
@@ -767,7 +804,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             
                 
-                ProgressHUD.show("讀取課程")
+                ProgressHUD.show(lessonVC_loading)
                 
                 
                 loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(LessonViewController.loading), userInfo: nil, repeats: true)
@@ -924,15 +961,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                         if s == tempS && u == tempU && !isClassAllPassed{
                             //學習新字
                   
-                                enterBtn.setTitle("學習新字", for: .normal)
-                                titleLabel.text = "即將學習\n下列三個新單字"
+                                enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                            
+                                titleLabel.text = lessonVC_aboutToLearn3Words
                                 titleLabel.textColor = .white
                             
                         } else {
                             
                             //複習機制
-                            enterBtn.setTitle("開始複習", for: .normal)
-                            titleLabel.text = "複習下列\n三個學過的單字"
+                            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                        
+                            titleLabel.text = lessonVC_review3Words
                             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                         }
                         
@@ -941,8 +980,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 } else {
                     
                     //複習機制
-                    enterBtn.setTitle("開始複習", for: .normal)
-                    titleLabel.text = "複習下列\n三個學過的單字"
+                      enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                
+                    titleLabel.text = lessonVC_review3Words
                     titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                     
                 }
@@ -952,7 +992,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
         } else {
             
-            ProgressHUD.showError("尚未學習過!")
+            ProgressHUD.showError(lessonVC_alertNotYet)
         }
         
         /*
@@ -987,7 +1027,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     @objc func removeBtns(){
         
-        alertText.text = "請選擇挑戰模式"
+        alertText.text = lessonVC_pleaseChoose
         ghostBtn.isHidden = true
         alertBg.isHidden = true
         //ghost2Btn.isHidden = true
@@ -1127,8 +1167,12 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //mapPassed = 0
         
         //重置
-        enterBtn.setTitle("學習新字", for: .normal)
-        titleLabel.text = "即將學習\n下列三個新單字"
+        let lessonVC_enterBtn1 = NSLocalizedString("lessonVC_enterBtn", comment: "")
+       let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
+        
+        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn1, attributes: attrsBtn), for: .normal)
+
+        titleLabel.text = lessonVC_aboutToLearn3Words
         titleLabel.textColor = .white
         
         
@@ -1780,8 +1824,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
             tempU = 9
             
-            enterBtn.setTitle("開始複習", for: .normal)
-            titleLabel.text = "複習下列\n三個學過的單字"
+                  enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+          
+            titleLabel.text = lessonVC_review3Words
             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
 
             
@@ -2362,7 +2407,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                         //全部練完
                         print("全部練完")
                         
-                        ProgressHUD.showError("這是最後一頁喔！")
+                        ProgressHUD.showError(lessonVC_theLastPage)
                         
                         
                     }
@@ -2375,13 +2420,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
                         
-                        enterBtn.setTitle("學習新字", for: .normal)
-                        titleLabel.text = "即將學習\n下列三個新單字"
+               enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                        titleLabel.text = lessonVC_aboutToLearn3Words
                         titleLabel.textColor = .white
                         
                     }  else if tempU == u && tempS == s && courseReceived == 5{
-                        enterBtn.setTitle("學習新字", for: .normal)
-                        titleLabel.text = "即將學習\n下列三個新單字"
+                              enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                        titleLabel.text = lessonVC_aboutToLearn3Words
                         titleLabel.textColor = .white
                         
                     }
@@ -2413,7 +2458,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                         
                     } else {
                         
-                        ProgressHUD.showError("這是第一頁喔！")
+                        ProgressHUD.showError(lessonVC_thisIsFirst)
                         print("全部練完")
                     }
  
@@ -2853,7 +2898,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
 
         
-        alertText.text = "\n此課程尚未學習，無法挑戰\n至少需要學習一個單元才能挑戰"
+        alertText.text = lessonVC_alertNoChallenge
         ghostBtn.isHidden = false
         
         
@@ -3012,12 +3057,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 if s != 0 || u != 0 || mapPassedInt == 1{
                     
                     loadWords(seq: -1)
-                    enterBtn.setTitle("開始複習", for: .normal)
-                    titleLabel.text = "複習下列\n三個學過的單字"
+                          enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+            
+                    titleLabel.text = lessonVC_review3Words
                     titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                 } else {
                     print("這是第一關")
-                    ProgressHUD.showError("沒有上一頁喔！")
+                    ProgressHUD.showError(lessonVC_noPrePage)
                 }
             }
             
@@ -3028,12 +3074,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             if s != 0 || u != 0 || mapPassedInt != mapNumToReceive {
         
         loadWords(seq: -1)
-        enterBtn.setTitle("開始複習", for: .normal)
-        titleLabel.text = "複習下列\n三個學過的單字"
+                
+              enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+        titleLabel.text = lessonVC_review3Words
         titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
             } else {
                 print("這是第一關")
-                ProgressHUD.showError("沒有上一頁喔！")
+                ProgressHUD.showError(lessonVC_noPrePage)
             }
         }
         }
@@ -3059,9 +3106,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 } else if !isClassAllPassed{
                     
                     print("是當下關卡")
-                    ProgressHUD.showError("沒有下一頁喔！")
-                    enterBtn.setTitle("學習新字", for: .normal)
-                    titleLabel.text = "即將學習\n下列三個新單字"
+                    ProgressHUD.showError(lessonVC_noNextPage)
+               
+                          enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    titleLabel.text = lessonVC_aboutToLearn3Words
                     titleLabel.textColor = .white
                     
                 }
@@ -3082,9 +3130,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 } else if !isClassAllPassed{
                     
                     print("是當下關卡")
-                    ProgressHUD.showError("沒有下一頁喔！")
-                    enterBtn.setTitle("學習新字", for: .normal)
-                    titleLabel.text = "即將學習\n下列三個新單字"
+                    ProgressHUD.showError(lessonVC_noNextPage)
+
+                          enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    titleLabel.text = lessonVC_aboutToLearn3Words
                     titleLabel.textColor = .white
                     
                 }

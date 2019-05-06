@@ -123,7 +123,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             //print("big iPad")
 
             dif = 2
@@ -131,7 +131,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             fontSize = 28
             cornerRadiusValue = 12
             
-        case 1024:
+        case 1024, 1194, 1112:
             
    
             dif = 1.5
@@ -192,6 +192,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
         registerBg.image = UIImage(named: "launchBg.png")
  
+        
         
         registerBg.frame = CGRect(x: 0, y: 0, width: width * 1.1, height: height * 1.1)
         registerBg.contentMode = .scaleToFill
@@ -670,7 +671,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             //檢查註冊
             // url to php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+            var url:URL!
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/register2.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+            }
+
+            
+            //let url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/register2.php")!
+            
+            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
             
             // request to this file
             var request = URLRequest(url: url)
@@ -1418,7 +1429,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
         //檢查註冊
         // url to php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+        
+        var url:URL!
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/register2.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+        }
+        
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
         
         // request to this file
         var request = URLRequest(url: url)
@@ -2020,7 +2039,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             // send request to mysql db
             // url to access our php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
+            
+            var url:URL!
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/login.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
+            }
+
+            
+            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
             
             // request url
             var request = URLRequest(url: url)
@@ -2749,7 +2777,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     let id = user?["id"] as! String
                     
                     // url to access our php file
-                    let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWrongWord.php")!
+                    
+                    var url:URL!
+                    if lan == "zh-Hans" {
+                        url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/addWrongWord.php")!
+                    } else {
+                        url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWrongWord.php")!
+                    }
+                    
+                    //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWrongWord.php")!
                     
                     // request url
                     var request = URLRequest(url: url)
@@ -2844,7 +2880,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
+        
+        var url:URL!
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateScore.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
+        }
+
+        
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -2949,7 +2994,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
+        
+        var url:URL!
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/gamePassed.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
+        }
+
+        
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
         
         // request url
         var request = URLRequest(url: url)

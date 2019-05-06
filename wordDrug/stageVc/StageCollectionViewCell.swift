@@ -32,7 +32,7 @@ class StageCollectionViewCell: UICollectionViewCell {
 
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             print("big iPad")
 
             stageFontSize = 180
@@ -43,7 +43,7 @@ class StageCollectionViewCell: UICollectionViewCell {
             dif = 1
            
             
-        case 1024:
+        case 1024, 1194, 1112:
             print("small iPad")
             
             stageFontSize = 160

@@ -77,7 +77,7 @@ chartVC_passCountLabelText = "過關數";
 
 purchaseVC_dialogueTitle = "無限時間\n讓英語學習無限大";
 purchaseVC_dialogueSubTitle = "所有課程不限時，一次全解鎖";
-purchaseVC_downTitle = "用最正確，最有效率的單字學習方式\n今天就開始你的學習計畫！";
+purchaseVC_downTitle = "用最正確，最有效率的單字學習方式\n只需付費一次，永久無限時間！";
 purchaseVC_downTitle2 = "英檢初級2100字\n英檢中級2250字\n多益滿分2400字\n及更多字庫更新內容...";
 purchaseVC_iKnowBtnText = "\n我知道了";
 purchaseVC_restoreMsgLabelText = "恢復購買狀態？";
@@ -90,5 +90,139 @@ purchaseVC_restoreFailedMsg = "恢復購買失敗，請確認之前已成功購�
 purchaseVC_purchaseOkMsg =  "您已購買無限學習時間";
 purchaseVC_restoreBtnTitle = "恢復鍵";
 
+bookVC_correctWordTitle = "正確單字";
+bookVC_wrongWordTitle = "錯誤單字";
+bookVC_favoriteWordTitle = "最愛單字";
+bookVC_slideToLeft = "<< 向左滑動";
+bookVC_addToFav = "加入最愛";
+bookVC_deleteWord = "移除單字";
+bookVC_deleteFav = "移除最愛";
+bookVC_alreadyAddedToFav = "已新增至最愛";
+bookVC_autoPlay = "自動播放";
+bookVC_playSentence = "播放句子";
+bookVC_playTimes = "發音次數";
+bookVC_playSpeed = "放慢速度";
+bookVC_alertNoWords = "\n此課程尚未學習任何單字\n單字集還是空的喔！";
+bookVC_iKnow = "我知道了";
+bookVC_alertNoWrongWords = "\n此課程到目前為止\n無任何錯字！";
+bookVC_alertNoFavWords = "\n此課程還沒加任何字\n到我的最愛！";
+bookVC_noWordsLearned = "沒有學習過的單字喔！";
+
+stageVC_alreadyLearned = "已學習";
+stageVC_alert = "要先學完前面的單元喔，請加油！";
+
+lessonVC_aboutToLearn3Words = "即將學習\n下列三個新單字";
+lessonVC_review3Words = "複習下列\n三個學過的單字";
+lessonVC_currentLesson = "目前課程";
+lessonVC_hintLabel = "選擇下方學習功能";
+lessonVC_reviewBtn = "挑戰模式";
+lessonVC_previousBtn = "上一頁";
+lessonVC_allSylBtn = "總課表";
+lessonVC_nextBtn = "下一頁";
+lessonVC_enterBtn = "學習新字";
+lessonVC_enterReviewBtn = "開始複習";
+lessonVC_thisIsFirst = "這是第一頁喔！";
+lessonVC_noPrePage = "沒有上一頁喔！";
+lessonVC_alertNotYet = "尚未學習過！";
+lessonVC_loading = "讀取課程";
+lessonVC_noNextPage = "沒有下一頁喔！";
+lessonVC_pleaseChoose = "請選擇挑戰模式";
+lessonVC_wordChallenge = "拼字王挑戰";
+lessonVC_senChallenge = "句型冠軍榜";
+lessonVC_alertNoChallenge = "\n此課程尚未學習，無法挑戰\n至少需要學習一個單元才能挑戰";
+lessonVC_iKnow = "我知道了";
+lessonVC_theLastPage = "這是最後一頁喔！";
+lessonVC_class = "課";
 
 
+
+//gameScene
+gameSC_learn = "學習";
+gameSC_word = "單字";
+gameSC_pleaseConnect = "請連線拼字";
+gameSC_good = "很棒";
+gameSC_oh = "喔！";
+gameSC_yourTurn = "換你";
+gameSC_pronounce = "發音";
+gameSC_pleaseChooseChinese = "請選擇正確中文";
+gameSC_popQuiz = "限時挑戰";
+gameSC_timesUp = "時間到！";
+gameSC_connect = "連線";
+gameSC_spell = "拼字";
+gameSC_limit = "限時";
+gameSC_challenge = "挑戰";
+
+//GameVC
+
+gameVC_pleasePressMic = "請按一下麥克風";
+
+gameVC_pleasePronounce = "請唸單字";
+gameVC_oopsWrong = "Oops！錯了喔!";
+gameVC_great = "很棒喔！";
+gameVC_tryAgain = "再試一次";
+gameVC_pleaseChooseRightChiSen = "請選出正確中文翻譯";
+gameVC_tagWordsToMakeSentence = "點擊下列單字來排列句型";
+gameVC_alertLeave = "\n離開目前課程\n學習進度不會儲存!";
+gameVC_leave = "離開";
+gameVC_cancel = "取消";
+gameVC_addToFav = "加入最愛";
+gameVC_quickReview = "快速複習";
+gameVC_wordPassed = "單字達成";
+gameVC_total = "總計";
+gameVC_word = "字";
+gameVC_iKnow = "我知道了";
+gameVC_senPassed = "句型達成";
+gameVC_sen = "句";
+gameVC_toShop = "前往商城";
+gameVC_noBuyNow = "先不購買";
+gameVC_reviewNoScore = "複習不計分";
+
+
+//loginVC
+loginVC_subTitle = "立即註冊新帳號\n每日免費7分鐘學習新單字！";
+loginVC_usernamePlaceholder = "請輸入5位數以上帳號";
+loginVC_passwordPlaceholder = "請輸入5位數以上密碼";
+loginVC_login = "登入";
+loginVC_register = "註冊";
+loginVC_thirdPartyLogin = "使用facebook登入";
+loginVC_or = "或";
+loginVC_tryFirst = "先試用，晚點再註冊";
+loginVC_accountExisted = "此帳號已存在，請重新輸入";
+loginVC_error = "錯誤";
+loginVC_wrongAccount = "帳號輸入有誤，請再試一次";
+loginVC_wrongPassword = "密碼輸入有誤，請再試一次";
+loginVC_accountDoesNotExist = "帳號不存在，請再試一次";
+loginVC_errorLogin = "登入錯誤，請再試一次";
+
+
+//introSC
+introSC_openingWarningTextIPad = "歡迎iPad用戶來到快速導覽\n請打開音量及關閉靜音模式";
+
+introSC_openingWarningTextIPhone = "歡迎來到快速導覽\n請先打開音量按鈕";
+introSC_nextStep = "下一步";
+introSC_levelTest = "分級測驗";
+introSC_recommendYou = "MissWord\n建議你學習";
+introSC_accuracy = "正確率";
+introSC_correctNum = "正確字數";
+introSC_wrongNum = "錯誤字數";
+introSC_pleaseTest = "請先測試你的單字程度";
+introSC_enterTest = "進入分級測驗";
+introSC_level = "分級";
+introSC_test = "測驗";
+introSC_pleaseConnect = "請連線拼字";
+introSC_level1 = "英檢初級";
+introSC_level2 = "英檢中級";
+introSC_level3 = "多益滿分";
+introSC_level4 = "雅思IELTS";
+
+
+
+
+//introVC
+introVC_micHint = "請到[設定] -> [MissWord] 裡開啟麥克風及語音辨識權限";
+introVC_pressMic = "按一下麥克風";
+introVC_howAreYou = "你好啊！";
+introVC_wrongTryAgain = "唸錯了!再試一次喔!";
+introVC_tryNextTime = "Oops！下次再練習!";
+introVC_pleaseSayHi = "請對麥克風說「Hi」!";
+introVC_pressToEndMic = "再按一下麥克風來結束";

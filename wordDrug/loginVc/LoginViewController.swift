@@ -13,9 +13,22 @@ import SSBouncyButton
 import FBSDKLoginKit
 import FBSDKCoreKit
 
-
-
 class LoginViewController: UIViewController,UITextFieldDelegate {
+    
+    let loginVC_subTitle = NSLocalizedString("loginVC_subTitle", comment: "")
+    let loginVC_usernamePlaceholder = NSLocalizedString("loginVC_usernamePlaceholder", comment: "")
+    let loginVC_passwordPlaceholder = NSLocalizedString("loginVC_passwordPlaceholder", comment: "")
+    let loginVC_login = NSLocalizedString("loginVC_login", comment: "")
+    let loginVC_register = NSLocalizedString("loginVC_register", comment: "")
+    let loginVC_thirdPartyLogin = NSLocalizedString("loginVC_thirdPartyLogin", comment: "")
+    let loginVC_or = NSLocalizedString("loginVC_or", comment: "")
+    let loginVC_tryFirst = NSLocalizedString("loginVC_tryFirst", comment: "")
+    let loginVC_accountExisted = NSLocalizedString("loginVC_accountExisted", comment: "")
+    let loginVC_error = NSLocalizedString("loginVC_error", comment: "")
+    let loginVC_wrongAccount = NSLocalizedString("loginVC_wrongAccount", comment: "")
+    let loginVC_wrongPassword = NSLocalizedString("loginVC_wrongPassword", comment: "")
+    let loginVC_accountDoesNotExist = NSLocalizedString("loginVC_accountDoesNotExist", comment: "")
+    let loginVC_errorLogin = NSLocalizedString("loginVC_errorLogin", comment: "")
 
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var usernameTxt: UITextField!
@@ -63,7 +76,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             print("big iPad")
             
             
@@ -73,7 +86,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             cornerRadiusValue = 12
             
             
-        case 1024:
+        case 1024, 1194, 1112:
             
             print("small iPad")
             
@@ -96,8 +109,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             dif = 1
             fontSize = 14
             cornerRadiusValue = 6
-            
-
             
             
         case 667:
@@ -162,8 +173,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         let logoImg = UIImageView()
         self.view.addSubview(logoImg)
         
+//        var logoImgStr = String()
+//        if lan == "zh-Hans"{
+//            logoImgStr = "launchLogoSim.png"
+//        } else {
+//            logoImgStr = "launchLogo.png"
+//        }
         
-        logoImg.image = UIImage(named: "launchLogo.png")
+        logoImg.image = UIImage(named: "launchLogoUni.png")
         
         logoImg.translatesAutoresizingMaskIntoConstraints = false
         logoImg.widthAnchor.constraint(equalToConstant: 98 * dif).isActive = true
@@ -201,7 +218,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         
         
-        subTitleLabel.text = "立即註冊新帳號\n每日免費7分鐘學習新單字！"
+        subTitleLabel.text = loginVC_subTitle
         //subTitleLabel.frame = CGRect(x: 0, y: doubleLine.frame.maxY + 10, width: width, height: 50)
         subTitleLabel.font = UIFont(name: "Helvetica Bold", size: fontSize * 1.2)
         subTitleLabel.textAlignment = .center
@@ -232,7 +249,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
      
         
         
-        usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        usernameTxt.attributedPlaceholder = NSAttributedString(string: loginVC_usernamePlaceholder, attributes:  [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         usernameTxt.font = usernameTxt.font?.withSize(fontSize)
         usernameTxt.translatesAutoresizingMaskIntoConstraints = false
         usernameTxt.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
@@ -263,7 +280,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         */
         
         
-        passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
+        passwordTxt.attributedPlaceholder = NSAttributedString(string: loginVC_passwordPlaceholder, attributes: [NSAttributedStringKey.foregroundColor: darkTextColor,NSAttributedStringKey.font : UIFont.systemFont(ofSize: fontSize)])
         passwordTxt.font = passwordTxt.font?.withSize(fontSize)
         passwordTxt.translatesAutoresizingMaskIntoConstraints = false
         passwordTxt.widthAnchor.constraint(equalToConstant: 250 * dif).isActive = true
@@ -281,7 +298,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
         loginBtn.clipsToBounds = true
         loginBtn.titleLabel?.textAlignment = .center
-        loginBtn.setTitle("登入", for: .normal)
+        loginBtn.setTitle(loginVC_login, for: .normal)
         loginBtn.titleLabel?.font = loginBtn.titleLabel?.font.withSize(fontSize)
         
         loginBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -298,7 +315,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         //registerBtn.layer.cornerRadius = registerBtn.frame.width / 40
         registerBtn.clipsToBounds = true
         registerBtn.titleLabel?.textAlignment = .center
-        registerBtn.setTitle("註冊", for: .normal)
+        registerBtn.setTitle(loginVC_register, for: .normal)
         
         registerBtn.titleLabel?.font = registerBtn.titleLabel?.font.withSize(fontSize)
         
@@ -317,7 +334,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         //fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
         fbLoginBtn.clipsToBounds = true
         fbLoginBtn.titleLabel?.textAlignment = .center
-        fbLoginBtn.setTitle("使用facebook登入", for: .normal)
+        fbLoginBtn.setTitle(loginVC_thirdPartyLogin, for: .normal)
         fbLoginBtn.titleLabel?.font = fbLoginBtn.titleLabel?.font.withSize(fontSize)
         
         
@@ -347,7 +364,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         orLabel.textColor = .white
         orLabel.font = orLabel.font.withSize(fontSize)
         orLabel.textAlignment = .center
-        orLabel.text = "或"
+        orLabel.text = loginVC_or
         self.view.addSubview(orLabel)
         //orLabel.backgroundColor = .green
         orLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -361,7 +378,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         //registerLaterBtn.center = CGPoint(x: width / 2, y: orLabel.frame.maxY + 23)
         //registerLaterBtn.frame.size = CGSize(width: 183 , height: 33)
-        registerLaterBtn.setTitle("先試用，晚點再註冊", for: .normal)
+        registerLaterBtn.setTitle(loginVC_tryFirst, for: .normal)
         registerLaterBtn.titleLabel?.font = registerLaterBtn.titleLabel?.font.withSize(fontSize)
 
         registerLaterBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -407,11 +424,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
          
          */
         
-        
-   
-        
-        
-        
     }
 
     
@@ -438,13 +450,13 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
 
             usernameTxt.text = ""
-            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+            usernameTxt.attributedPlaceholder = NSAttributedString(string: loginVC_usernamePlaceholder, attributes: attrs)
             
             if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
                 
                 passwordTxt.text = ""
                 
-                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+                passwordTxt.attributedPlaceholder = NSAttributedString(string: loginVC_passwordPlaceholder, attributes: attrs)
 
                 
             }
@@ -453,14 +465,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
             passwordTxt.text = ""
             
-            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+            passwordTxt.attributedPlaceholder = NSAttributedString(string: loginVC_passwordPlaceholder, attributes: attrs)
             
             if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
                 
                 
                 
                 usernameTxt.text = ""
-                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+                usernameTxt.attributedPlaceholder = NSAttributedString(string: loginVC_usernamePlaceholder, attributes: attrs)
                 
                 
             }
@@ -480,8 +492,16 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         //檢查註冊
         // url to php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+            
+            var url:URL!
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/register2.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+            }
+
         
+            
         // request to this file
         var request = URLRequest(url: url)
         
@@ -679,8 +699,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                 
                                 self?.usernameTxt.text = ""
                                 self?.passwordTxt.text = ""
-                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: self!.attrs)
-                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_accountExisted, attributes: self!.attrs)
+                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_error, attributes: self!.attrs)
                                 
                             })
                             return
@@ -722,8 +742,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongAccount, attributes: self!.attrs)
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongPassword, attributes: self!.attrs)
                 })
                 return
                 
@@ -742,20 +762,16 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     //登入功能
     @IBAction func loginclick(_ sender: Any) {
         
-        
-        
         if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
             
-            
-            
             usernameTxt.text = ""
-            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+            usernameTxt.attributedPlaceholder = NSAttributedString(string: loginVC_usernamePlaceholder, attributes: attrs)
             
             if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
                 
                 passwordTxt.text = ""
                 
-                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+                passwordTxt.attributedPlaceholder = NSAttributedString(string: loginVC_passwordPlaceholder, attributes: attrs)
 
             }
             
@@ -763,14 +779,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
             passwordTxt.text = ""
             
-            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+            passwordTxt.attributedPlaceholder = NSAttributedString(string: loginVC_passwordPlaceholder, attributes: attrs)
             
             if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
                 
                 
                 
                 usernameTxt.text = ""
-                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+                usernameTxt.attributedPlaceholder = NSAttributedString(string: loginVC_usernamePlaceholder, attributes: attrs)
                 
                 
             }
@@ -789,7 +805,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         // send request to mysql db
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
+            var url:URL!
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/login.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
+            }
+
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -1180,15 +1203,15 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                     self?.usernameTxt.text = ""
                                     self?.passwordTxt.text = ""
                                     self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: self!.attrs)
-                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_error, attributes: self!.attrs)
                                     
                                     
                                 } else if errorStatus == "401"{
                                     
                                     self?.usernameTxt.text = ""
                                     self?.passwordTxt.text = ""
-                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: self!.attrs)
-                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+                                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongPassword, attributes: self!.attrs)
+                                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_error, attributes: self!.attrs)
                                     
                                     
                                 }
@@ -1211,8 +1234,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         
                         self?.usernameTxt.text = ""
                         self?.passwordTxt.text = ""
-                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
-                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_errorLogin, attributes: self!.attrs)
+                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_error, attributes: self!.attrs)
                         
                         
                     })
@@ -1232,8 +1255,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_errorLogin, attributes: self!.attrs)
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_error, attributes: self!.attrs)
                 })
                 return
                 
@@ -1262,7 +1285,17 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         }
     }
     
+    var weChatTest = true
+    
     @IBAction func fbLoginClicked(_ sender: Any) {
+        
+        if weChatTest{
+            let req = SendAuthReq()
+            req.scope = "snsapi_userinfo" //Important that this is the same
+            req.state = "co.company.yourapp_wx_login" //This can be any random value
+            WXApi.send(req)
+            
+        } else {
         
         
         activityIndicator.startAnimating()
@@ -1329,6 +1362,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
          }
          }
          */
+        }
     }
     
     
@@ -1494,7 +1528,13 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         //檢查註冊
         // url to php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+        var url:URL!
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/register2.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
         
         // request to this file
         var request = URLRequest(url: url)
@@ -1781,8 +1821,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                 print("1")
                                 self?.usernameTxt.text = ""
                                 self?.passwordTxt.text = ""
-                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "此帳號已存在，請重新輸入", attributes: self!.attrs)
-                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_accountExisted, attributes: self!.attrs)
+                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_error, attributes: self!.attrs)
                                 
                             })
                             return
@@ -1801,8 +1841,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             print("2")
                             self?.usernameTxt.text = ""
                             self?.passwordTxt.text = ""
-                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
-                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
+                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongAccount, attributes: self!.attrs)
+                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongPassword, attributes: self!.attrs)
                         })
                         return
                         
@@ -1824,8 +1864,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     print(message)
                     self?.usernameTxt.text = ""
                     self?.passwordTxt.text = ""
-                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
-                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "密碼輸入有誤，請再試一次", attributes: self!.attrs)
+                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongAccount, attributes: self!.attrs)
+                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongPassword, attributes: self!.attrs)
                 })
                 return
                 

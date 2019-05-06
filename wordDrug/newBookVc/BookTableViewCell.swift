@@ -9,6 +9,8 @@
 import UIKit
 
 class BookTableViewCell: UITableViewCell {
+    
+      let bookVC_slideToLeft = NSLocalizedString("bookVC_slideToLeft", comment: "")
 
     @IBOutlet weak var chiWordLabel: UILabel!
     @IBOutlet weak var engWordLabel: UILabel!
@@ -34,7 +36,7 @@ class BookTableViewCell: UITableViewCell {
         switch height {
             
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
 
             dif = 2
             fontDif = 2
@@ -42,7 +44,7 @@ class BookTableViewCell: UITableViewCell {
             iPhoneXHeightDif = 1
             hintLabelWidthDif = 1
             
-        case 1024:
+        case 1024, 1194, 1112:
             
             dif = 1.5
             fontDif = 1.5
@@ -121,9 +123,9 @@ class BookTableViewCell: UITableViewCell {
 
         
         hintLabel.frame = CGRect(x: width - (80 * dif * hintLabelWidthDif), y: engWordLabel.frame.minY, width: 70 * dif * hintLabelWidthDif, height: 21 * dif * iPhoneXHeightDif)
- 
         
         hintLabel.adjustsFontSizeToFitWidth = true
+        hintLabel.text = bookVC_slideToLeft
         
 
         /*

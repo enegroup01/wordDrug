@@ -11,6 +11,10 @@ import ProgressHUD
 
 class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    let stageVC_alreadyLearned = NSLocalizedString("stageVC_alreadyLearned", comment: "")
+    
+    let stageVC_alert = NSLocalizedString("stageVC_alert", comment: "")
+    
     
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
@@ -71,7 +75,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
    
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             print("big iPad")
 
             dif = 1
@@ -80,7 +84,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             wordCountTitleLabelFontSize = 30
             wordCountLabelFontSize = 80
    
-        case 1024:
+        case 1024, 1194, 1112:
             
             print("small iPad")
 
@@ -267,8 +271,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         alreadyLearnedLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * dif * iPadDif, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 100 * dif * iPadDif, height: 28 * dif * iPadDif))
         
-        
-        
+        alreadyLearnedLabel.text = stageVC_alreadyLearned
 
         //wordCountsLabel.backgroundColor = .red
         wordCountsLabel.font = wordCountsLabel.font.withSize(wordCountLabelFontSize)
@@ -1101,7 +1104,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
         } else if mapPassedInt < indexPath.row{
      
-             ProgressHUD.showError("要先學完前面的單元喔，請加油！")
+             ProgressHUD.showError(stageVC_alert)
             
               //performSegue(withIdentifier: "toLessonVc", sender: self)
     

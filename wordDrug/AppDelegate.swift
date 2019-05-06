@@ -50,20 +50,30 @@ var seconds:Int?
 var lan:String!
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        
 
+        //Register Wechat
+        WXApi.registerApp("wx3bed7af660076818")
+        
+        
         //MARK: simVer
             let array = Bundle.main.preferredLocalizations
             lan = array.first
 
         
-        print("appDelegate called")
+        //避免後面補不到值
+        k12MapPassed = Array(repeating: 0, count: 18)
+        k12GamePassed = Array(repeating: [0:0], count: 18)
+
+       
+        
        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
       
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
@@ -105,14 +115,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MARK: must update
         //抓使用者檔案
         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-        
- 
-        
+
         //確認有沒有看過介紹
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
         isRegistered = UserDefaults.standard.object(forKey: "isRegistered") as? Bool
         
+         print("intro watched:\(introWatched)")
 
+        print("user\(user)")
         // if user is once logged in / register, keep him logged in
         if user != nil {
             
@@ -125,7 +135,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //mapPassed3 = 0
                 //gamePassed3 = [0:0]
  
-                //toCourse()
+                print("app delegate right here")
+                toCourse()
+
+
          
 
             }
@@ -424,25 +437,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     //抓mapPassed9
                     mapPassed9 = UserDefaults.standard.object(forKey: "mapPassed9") as? Int
-                    
-                    
-
-                    
+ 
                 toCourse()
                   
                 
                 }
       
-            } 
+            } else {
+                
+                toIntro()
+                print("come here")
+            
+            }
           
         }
         
         //print("user:\(String(describing: user))")
 
+    
         
         return true
     }
     
+    
+    private let appID = "wx3bed7af660076818"
+    private let appSecret = "ef9ff4154c77db61b9c7c1bec357b3cf"
+    
+    private let accessTokenPrefix = "https://api.weixin.qq.com/sns/oauth2/access_token?"
+    
+    private func buildAccessTokenLink(withCode code: String) -> String {
+        
+
+        return accessTokenPrefix + "appid=" + appID + "&secret=" + appSecret + "&code=" + code + "&grant_type=authorization_code"
+        
+    }
     
     /*
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -451,6 +479,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
  */
     
+    
+    //weChat Delegate
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        
+        return WXApi.handleOpen(url, delegate: self)
+    }
+
+    func application(application: UIApplication, openURL url: URL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return WXApi.handleOpen(url, delegate: self)
+    }
+
+    
+    func onReq(_ req: BaseReq) {
+        // do optional stuff
+    }
+    
+    func onResp(_ resp: BaseResp) {
+        // do optional stuff
+        
+        print("we chat login")
+        if let authResp = resp as? SendAuthResp {
+            
+            if authResp.code != nil {
+                
+                let dict = ["response": authResp.code]
+              
+                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WeChatAuthCodeResp"), object: nil, userInfo: dict)
+                
+            } else {
+                
+                let dict = ["response": "Fail"]
+              
+                
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WeChatAuthCodeResp"), object: nil, userInfo: dict)
+            }
+            
+        } else {
+            
+            let dict = ["response": "Fail"]
+              NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WeChatAuthCodeResp"), object: nil, userInfo: dict)
+            
+        }
+    }
     
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
@@ -593,6 +664,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             
             print("沒有user不需要refresh")
+            
         }
  
 
@@ -602,7 +674,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        var url:URL!
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/selectUser.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
         
         let id = user?["id"] as! String
         
@@ -646,8 +724,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     //MARK: must update
                     //MARK: simVer增加值
-                    k12MapPassed = Array(repeating: 0, count: 18)
-                    k12GamePassed = Array(repeating: [0:0], count: 18)
+//                    k12MapPassed = Array(repeating: 0, count: 18)
+//                    k12GamePassed = Array(repeating: [0:0], count: 18)
                     
                     
                     if let mapPassedString = user?["mapPassed"] as! String?{

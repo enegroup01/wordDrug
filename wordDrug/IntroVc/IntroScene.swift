@@ -13,6 +13,27 @@ import GameplayKit
 let tutorialRecognize = "tutorialRecognize"
 
 class IntroScene: SKScene {
+    
+    let introSC_openingWarningTextIPad = NSLocalizedString("introSC_openingWarningTextIPad", comment: "")
+    let introSC_openingWarningTextIPhone = NSLocalizedString("introSC_openingWarningTextIPhone", comment: "")
+    let introSC_nextStep = NSLocalizedString("introSC_nextStep", comment: "")
+    let introSC_levelTest = NSLocalizedString("introSC_levelTest", comment: "")
+    let introSC_recommendYou = NSLocalizedString("introSC_recommendYou", comment: "")
+    let introSC_accuracy = NSLocalizedString("introSC_accuracy", comment: "")
+    let introSC_correctNum = NSLocalizedString("introSC_correctNum", comment: "")
+    let introSC_wrongNum = NSLocalizedString("introSC_wrongNum", comment: "")
+    let introSC_pleaseTest = NSLocalizedString("introSC_pleaseTest", comment: "")
+    let introSC_enterTest = NSLocalizedString("introSC_enterTest", comment: "")
+    let introSC_level = NSLocalizedString("introSC_level", comment: "")
+    let introSC_test = NSLocalizedString("introSC_test", comment: "")
+    let introSC_pleaseConnect = NSLocalizedString("introSC_pleaseConnect", comment: "")
+    let introSC_level1 = NSLocalizedString("introSC_level1", comment: "")
+    let introSC_level2 = NSLocalizedString("introSC_level2", comment: "")
+    let introSC_level3 = NSLocalizedString("introSC_level3", comment: "")
+    let introSC_level4 = NSLocalizedString("introSC_level4", comment: "")
+    
+    
+    
 
     //紀錄手指位置
     var location = CGPoint()
@@ -40,11 +61,10 @@ class IntroScene: SKScene {
     
     let question3 = ["paraphrase", "sufficient", "complement", "tendency", "consequence", "equivalent", "trauma"]
     
-    let answer1 = ["男性的, 女性的", "演唱會, 關心", "沙漠, 甜點", "底部, 按鈕", "相當地, 安靜的", "溫度, 脾氣", "桶子, 美元"]
-    
-    let answer2 = ["校長, 原則", "缺乏, 湖泊", "博物館, 音樂會", "吞嚥, 麻雀", "飲食, 死亡", "家庭的, 民主的", "雇員, 雇主"]
-    
-    let answer3 = ["改述, 段落", "足夠的, 有效的", "使增色, 讚美", "傾向, 溫柔", "後果, 一連串", "相等的, 裝備", "心理創傷, 腫瘤"]
+    var answer1 = [String]()
+    var answer2 = [String]()
+    var answer3 = [String]()
+
     
     //中文字左右對錯
     var leftOrRight = Int()
@@ -88,72 +108,114 @@ class IntroScene: SKScene {
         print("yes scene")
         
         
+
+        if lan == "zh-Hans" {
+            answer1 = ["男性的, 女性的", "演唱会, 关心", "沙漠, 甜点", "底部, 按钮", "相当地, 安静的", "温度, 脾气", "桶子, 美元" ]
+            answer2 = ["校长, 原则", "缺乏, 湖泊", "博物馆, 音乐会", "吞咽, 麻雀", "饮食, 死亡", "家庭的, 民主的", "雇员, 雇主"]
+            answer3 = ["改述, 段落", "足够的, 有效的", "使增色, 赞美", "倾向, 温柔", "后果, 一连串", "相等的, 装备", "心理创伤, 肿瘤" ]
+            
+            
+            
+        } else {
+            
+            answer1 = ["男性的, 女性的", "演唱會, 關心", "沙漠, 甜點", "底部, 按鈕", "相當地, 安靜的", "溫度, 脾氣", "桶子, 美元"]
+            answer2 = ["校長, 原則", "缺乏, 湖泊", "博物館, 音樂會", "吞嚥, 麻雀", "飲食, 死亡", "家庭的, 民主的", "雇員, 雇主"]
+            answer3 = ["改述, 段落", "足夠的, 有效的", "使增色, 讚美", "傾向, 溫柔", "後果, 一連串", "相等的, 裝備", "心理創傷, 腫瘤"]
+        }
+        
+        
         rightSound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
 
         var openingWarningText: String!
         var speakerAlpha: CGFloat!
         var chiBtnSize: CGFloat!
+        var skipIntroBtnXDif: CGFloat!
+        var skipIntroBtnYDif: CGFloat!
         
         switch height {
             
-        case 1366, 1336, 1112:
-            print("big iPad")
+        case 1366, 1336:
+            print("size: big iPad")
             xDif = 1.2
             iPadDif = 60
             chiBtnSize = 256
+            skipIntroBtnXDif = 1.2
+            skipIntroBtnYDif = 1.3
+            
 
-            openingWarningText = "歡迎iPad用戶來到快速導覽\n請打開音量及關閉靜音模式"
+            openingWarningText = introSC_openingWarningTextIPad
             speakerAlpha = 0
             
             
-        case 1024:
+        case 1024, 1194, 1112:
+            print("size: small iPad")
             xDif = 1.2
             iPadDif = 50
             chiBtnSize = 240
+            skipIntroBtnXDif = 1.2
+            skipIntroBtnYDif = 1.3
             
-            openingWarningText = "歡迎iPad用戶來到快速導覽\n請打開音量及關閉靜音模式"
+            openingWarningText = introSC_openingWarningTextIPad
             speakerAlpha = 0
             
         case 812:
             
+            print("size: 812")
             xDif = 1.2
             iPadDif = 0
-            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            openingWarningText = introSC_openingWarningTextIPhone
             speakerAlpha = 1
             chiBtnSize = 256
+            skipIntroBtnXDif = 1.3
+            skipIntroBtnYDif = 1
 
         case 736:
+            
+            print("size: 736")
             xDif = 1
 
             iPadDif = 0
-            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            openingWarningText = introSC_openingWarningTextIPhone
             speakerAlpha = 1
             chiBtnSize = 256
+            skipIntroBtnXDif = 1
+            skipIntroBtnYDif = 1
 
             
         case 667:
+            print("size: 667")
             xDif = 1
 
             iPadDif = 0
-            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            openingWarningText = introSC_openingWarningTextIPhone
             speakerAlpha = 1
             chiBtnSize = 256
+            skipIntroBtnXDif = 1
+            skipIntroBtnYDif = 1
 
         case 568:
+            
+            print("size: 568")
             xDif = 1
 
             iPadDif = 0
-            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            openingWarningText = introSC_openingWarningTextIPhone
             speakerAlpha = 1
             chiBtnSize = 256
+            skipIntroBtnXDif = 1
+            skipIntroBtnYDif = 1
 
             
         default:
+            
+            print("size: default")
             xDif = 1.2
             iPadDif = 0
-            openingWarningText = "歡迎來到快速導覽\n請先打開音量按鈕"
+            openingWarningText = introSC_openingWarningTextIPhone
             speakerAlpha = 1
             chiBtnSize = 256
+            skipIntroBtnXDif = 1.2
+            skipIntroBtnYDif = 1
             break
 
         }
@@ -184,7 +246,7 @@ class IntroScene: SKScene {
         
         makeImageNode(name: "okBtnFrame", image: "okBtnFrame", x: 0, y: -400 + iPadDif, width: 253, height: 75, z: 1, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: 0, y: -425 + iPadDif, alignMent: .center, fontColor: .cyan, fontSize: 36, text: "下一步", zPosition: 2, name: "okBtnLabel", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: -425 + iPadDif, alignMent: .center, fontColor: .cyan, fontSize: 36, text: introSC_nextStep, zPosition: 2, name: "okBtnLabel", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
         
         makeImageNode(name: "world", image: "world", x: 0, y: 0, width: 256, height: 256, z: 1, alpha: 0, isAnchoring: false)
         
@@ -224,7 +286,7 @@ class IntroScene: SKScene {
         
         makeLabelNode(x: 160, y: -490 + iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 60, text: "政府", zPosition: 2, name: "rightChi", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: 0, y: 500 - iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 48, text: "分級測驗", zPosition: 1, name: "testTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: 500 - iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 48, text: introSC_levelTest, zPosition: 1, name: "testTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         makeLabelNode(x: 0, y: 450 - iPadDif * 1.6, alignMent: .center, fontColor: .white, fontSize: 40, text: "1/15", zPosition: 1, name: "testNumber", fontName: "Helvetica Neue Light", isHidden: false, alpha: 0)
        
@@ -257,21 +319,21 @@ class IntroScene: SKScene {
         
         makeImageNode(name: "testResult", image: "testResult", x: 0, y: 0, width: 650 / xDif, height: 520 / xDif, z: 1, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: -290 / xDif, y: 160  / xDif, alignMent: .left, fontColor: .white, fontSize: 30, text: "MissWord\n建議你學習", zPosition: 2, name: "resultTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: -290 / xDif, y: 160  / xDif, alignMent: .left, fontColor: .white, fontSize: 30, text: introSC_recommendYou, zPosition: 2, name: "resultTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
 
         makeLabelNode(x: 310  / xDif, y: 60  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 90  / xDif, text: "英檢初級", zPosition: 2, name: "suggestedClass", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: 0, y: -50, alignMent: .center, fontColor: darkTextColor, fontSize: 24, text: "正確率", zPosition: 2, name: "percentTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: -50, alignMent: .center, fontColor: darkTextColor, fontSize: 24, text: introSC_accuracy, zPosition: 2, name: "percentTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         makeLabelNode(x: 0, y: -90, alignMent: .center, fontColor: darkTextColor, fontSize: 30, text: "83%", zPosition: 2, name: "percent", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         makeImageNode(name: "resultOkBtn", image: "resultOkBtn", x: 2, y: -210  / xDif, width: 420, height: 58, z: 2, alpha: 0, isAnchoring: false)
         
-        makeLabelNode(x: -270  / xDif, y: -50  / xDif, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "正確字數", zPosition: 2, name: "rightWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: -270  / xDif, y: -50  / xDif, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: introSC_correctNum, zPosition: 2, name: "rightWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         makeLabelNode(x: -120  / xDif, y: -100  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 60 / xDif / xDif, text: "14", zPosition: 2, name: "rightWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
-        makeLabelNode(x: 115  / xDif, y: 10  / xDif, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: "錯誤字數", zPosition: 2, name: "wrongWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 115  / xDif, y: 10  / xDif, alignMent: .left, fontColor: darkTextColor, fontSize: 18, text: introSC_wrongNum, zPosition: 2, name: "wrongWordTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
           makeLabelNode(x: 260  / xDif, y: -30  / xDif, alignMent: .right, fontColor: darkTextColor, fontSize: 60 / xDif / xDif, text: "7", zPosition: 2, name: "wrongWordCount", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
@@ -281,13 +343,20 @@ class IntroScene: SKScene {
         let stepAction = SKAction.sequence([wait, stepFadeIn])
         findImageNode(name: "steps").run(stepAction)
         
+        var btnImg = String()
+        if lan == "zh-Hans"{
+            btnImg = "skipIntroBtnSim"
+        } else {
+            btnImg = "skipIntroBtn"
+        }
+        
+        makeImageNode(name: "skipBtn", image: btnImg, x: 300 / skipIntroBtnXDif, y: 550 / skipIntroBtnYDif, width: 121, height: 49, z: 3, alpha: 0, isAnchoring: false)
+
     }
     
 
     deinit {
-        
-        
-            NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         print("intro scene deinit")
     }
     
@@ -308,12 +377,12 @@ class IntroScene: SKScene {
         
         findImageNode(name: "recogWordsBg").alpha = 0
         findLabelNode(name: "bigWordLabel").fontSize = 40
-        findLabelNode(name: "bigWordLabel").text = "請先測試你的單字程度"
+        findLabelNode(name: "bigWordLabel").text = introSC_pleaseTest
         isBigWordLocked = true
         
         isOkClicked = false
         isEnterTest = true
-        findLabelNode(name: "okBtnLabel").text = "進入分級測驗"
+        findLabelNode(name: "okBtnLabel").text = introSC_enterTest
         
         changeImageAlfa(name: "world", toAlpha: 1, time: 0.3)
         changeImageAlfa(name: "okBtnFrame", toAlpha: 1, time: 0.3)
@@ -336,6 +405,12 @@ class IntroScene: SKScene {
             let node : SKNode = self.atPoint(location)
             
               firstTouch = touch.location(in: self)
+            
+            if node.name == "skipBtn"{
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toCourse"), object: nil, userInfo: nil)
+
+            }
          
 
             if node.name == "okBtnFrame" || node.name == "okBtnLabel"{
@@ -361,7 +436,7 @@ class IntroScene: SKScene {
                         
                         let finalFadeOut = SKAction.fadeOut(withDuration: 0.5)
                         findLabelNode(name: "okBtnLabel").run(finalFadeOut) {[weak self] in
-                            self!.hintSlideIn(leftText: "分級", rightText: "測驗", waitTime: 1) {
+                            self!.hintSlideIn(leftText: self!.introSC_level, rightText: self!.introSC_test, waitTime: 1) {
                                 
                                 self!.testSetup()
                             }
@@ -381,7 +456,7 @@ class IntroScene: SKScene {
                     
                     self!.changeTexture(nodeName: "steps", newTexture: "step2Png")
                     
-                    self!.findLabelNode(name: "tutorialLabel").text = "請連線拼字"
+                    self!.findLabelNode(name: "tutorialLabel").text = self!.introSC_pleaseConnect
                     
                     let wait = SKAction.wait(forDuration: 0.3)
                     let fadeIn = SKAction.fadeIn(withDuration: 0.5)
@@ -423,11 +498,7 @@ class IntroScene: SKScene {
                 
                 
             }
-                
-
-                
-                
-                
+ 
             }
             
             
@@ -526,8 +597,8 @@ class IntroScene: SKScene {
         changeLabelAlfa(name: "testTitle", toAlpha: 1, time: 0.3)
         changeLabelAlfa(name: "testNumber", toAlpha: 1, time: 0.3)
         changeLabelAlfa(name: "bigEnglishLabel", toAlpha: 1, time: 0.3)
-        
- 
+
+        changeImageAlfa(name: "skipBtn", toAlpha: 1, time: 0.3)
         
     }
     
@@ -627,7 +698,7 @@ class IntroScene: SKScene {
         if right1 + right2 + right3 == 21 {
             
             
-            recommendedClass = "雅思IELTS"
+            recommendedClass = introSC_level4
             
         } else {
         
@@ -637,12 +708,12 @@ class IntroScene: SKScene {
             if right2 >= 4 {
                 
                 
-                 recommendedClass = "英檢中級"
+                 recommendedClass = introSC_level2
  
                 
                     if right3 >= 5 {
                         
-                         recommendedClass = "多益滿分"
+                         recommendedClass = introSC_level3
                         
                     }
                 
@@ -651,14 +722,14 @@ class IntroScene: SKScene {
             } else {
                 
                 
-                 recommendedClass = "英檢初級"
+                 recommendedClass = introSC_level1
             }
             
 
             
         } else {
             
-           recommendedClass = "英檢初級"
+           recommendedClass = introSC_level1
             
         }
         }

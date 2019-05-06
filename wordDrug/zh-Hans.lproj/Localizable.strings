@@ -67,15 +67,158 @@ chartVC_passCountLabelText = "过关数";
 
 purchaseVC_dialogueTitle = "无限时间\n让英语学习无限大";
 purchaseVC_dialogueSubTitle = "所有课程不限时，一次全解锁";
-purchaseVC_downTitle = "用最正确，最有效率的单词学习方式\n今天就开始你的学习计画！";
-purchaseVC_downTitle2 = "英检初级2100字\n英检中级2250字\n多益满分2400字\n及更多字库更新内容...";
+purchaseVC_downTitle = "用最正确，最有效率的单词学习方式\n只需付费一次，永久无限时间！";
+purchaseVC_downTitle2 = "小学必备990词\n初中必备2250词\n高中必备2700词\n及更多词库更新内容...";
 purchaseVC_iKnowBtnText = "\n我知道了";
 purchaseVC_restoreMsgLabelText = "恢復购买状态？";
 purchaseVC_restoreOkMsg = "\n您已成功恢復之前的购买纪录!";
 purchaseVC_purchaseBtnText = "按此购买无限学习时间";
-purchaseVC_purchaseBtnDollars = "RMB 90.00";
+purchaseVC_purchaseBtnDollars = "RMB 50.00";
 purchaseVC_purchaseFailedMsg = "\n您还没有购买无限时间喔!";
 purchaseVC_internetErrorMsg = "请检查网路连线后再试一次";
 purchaseVC_restoreFailedMsg = "恢復购买失败，请确认之前已成功购买过才能恢復购买状态。若还有问题请联络苹果客服！";
 purchaseVC_purchaseOkMsg =  "您已购买无限学习时间";
 purchaseVC_restoreBtnTitle = "恢復键";
+
+
+bookVC_correctWordTitle = "正确单词";
+bookVC_wrongWordTitle = "错误单词";
+bookVC_favoriteWordTitle = "最爱单词";
+bookVC_slideToLeft = "<< 向左滑动";
+bookVC_addToFav = "加入最爱";
+bookVC_deleteWord = "移除单词";
+bookVC_deleteFav = "移除最爱";
+bookVC_alreadyAddedToFav = "已新增至最爱";
+bookVC_autoPlay = "自动播放";
+bookVC_playSentence = "播放句子";
+bookVC_playTimes = "发音次数";
+bookVC_playSpeed = "放慢速度";
+bookVC_alertNoWords = "\n此课程尚未学习任何单词\n单词集还是空的喔！";
+bookVC_iKnow = "我知道了";
+bookVC_alertNoWrongWords = "\n此课程到目前为止\n无任何错误单词！";
+bookVC_alertNoFavWords = "\n此课程还没加任何单词\n到我的最爱！";
+bookVC_noWordsLearned = "没有学习过的单词喔！";
+
+
+stageVC_alreadyLearned = "已学习";
+stageVC_alert = "要先学完前面的单元喔，请加油！";
+
+lessonVC_aboutToLearn3Words = "即将学习\n下列三个新单词";
+lessonVC_review3Words = "复习下列\n三个学过的单词";
+lessonVC_currentLesson = "目前课程";
+lessonVC_hintLabel = "选择下方学习功能";
+lessonVC_reviewBtn = "挑战模式";
+lessonVC_previousBtn = "上一页";
+lessonVC_allSylBtn = "总课表";
+lessonVC_nextBtn = "下一页";
+lessonVC_enterBtn = "学习新词";
+lessonVC_enterReviewBtn = "开始复习";
+lessonVC_thisIsFirst = "这是第一页喔！";
+lessonVC_noPrePage = "没有上一页喔！";
+lessonVC_alertNotYet = "尚未学习过！";
+lessonVC_loading = "读取课程";
+lessonVC_noNextPage = "没有下一页喔！";
+lessonVC_pleaseChoose = "请选择挑战模式";
+lessonVC_wordChallenge = "单词王挑战";
+lessonVC_senChallenge = "句型冠军榜";
+lessonVC_alertNoChallenge = "\n此课程尚未学习，无法挑战\n至少需要学习一个单元才能挑战";
+lessonVC_iKnow = "我知道了";
+lessonVC_theLastPage = "这是最后一页喔！";
+lessonVC_class = "课";
+
+//gameScene
+gameSC_learn = "学习";
+gameSC_word = "单词";
+gameSC_pleaseConnect = "请连线单词";
+gameSC_good = "很棒";
+gameSC_oh = "喔！";
+gameSC_yourTurn = "换你";
+gameSC_pronounce = "发音";
+gameSC_pleaseChooseChinese = "请选择正确中文";
+gameSC_popQuiz = "限时挑战";
+gameSC_timesUp = "时间到！";
+gameSC_connect = "连线";
+gameSC_spell = "单词";
+gameSC_limit = "限时";
+gameSC_challenge = "挑战";
+
+
+//GameVC
+gameVC_pleasePressMic = "请按一下麦克风";
+gameVC_pleasePronounce = "请念单词";
+gameVC_oopsWrong = "Oops！错了喔!";
+gameVC_great = "很棒喔！";
+gameVC_tryAgain = "再试一次";
+gameVC_pleaseChooseRightChiSen = "请选出正确中文翻译";
+gameVC_tagWordsToMakeSentence = "点击下列单词来排列句型";
+gameVC_alertLeave = "\n离开目前课程\n学习进度不会储存!";
+gameVC_leave = "离开";
+gameVC_cancel = "取消";
+gameVC_addToFav = "加入最爱";
+gameVC_quickReview = "快速复习";
+gameVC_wordPassed = "单字达成";
+gameVC_total = "总计";
+gameVC_word = "词";
+gameVC_iKnow = "我知道了";
+gameVC_senPassed = "句型达成";
+gameVC_sen = "句";
+gameVC_toShop = "前往商城";
+gameVC_noBuyNow = "先不购买";
+gameVC_reviewNoScore = "复习不计分";
+
+
+//loginVC
+loginVC_subTitle = "立即注册新帐号\n每日免费7分钟学习新单字！";
+loginVC_usernamePlaceholder = "请输入5位数以上帐号";
+loginVC_passwordPlaceholder = "请输入5位数以上密码";
+loginVC_login = "登入";
+loginVC_register = "注册";
+loginVC_thirdPartyLogin = "使用微信登入";
+loginVC_or = "或";
+loginVC_tryFirst = "先试用，晚点再注册";
+loginVC_accountExisted = "此帐号已存在，请重新输入";
+loginVC_error = "错误";
+loginVC_wrongAccount = "帐号输入有误，请再试一次";
+loginVC_wrongPassword = "密码输入有误，请再试一次";
+loginVC_accountDoesNotExist = "帐号不存在，请再试一次";
+loginVC_errorLogin = "登入错误，请再试一次";
+
+
+//introSC
+introSC_openingWarningTextIPad = "欢迎iPad用户来到快速导览\n请打开音量及关闭静音模式";
+
+introSC_openingWarningTextIPhone = "欢迎来到快速导览\n请先打开音量按钮";
+introSC_nextStep = "下一步";
+introSC_levelTest = "分级测验";
+introSC_recommendYou = "MissWord\n觉得你是";
+introSC_accuracy = "正确率";
+introSC_correctNum = "正确词数";
+introSC_wrongNum = "错误词数";
+introSC_pleaseTest = "请先测试你的单词程度";
+introSC_enterTest = "进入分级测验";
+introSC_level = "分级";
+introSC_test = "测验";
+introSC_pleaseConnect = "请连线单词";
+introSC_level1 = "初级程度";
+introSC_level2 = "中级程度";
+introSC_level3 = "中高程度";
+introSC_level4 = "高级程度";
+
+
+
+
+//introVC
+introVC_micHint = "请到[设定] -> [MissWord] 里开启麦克风及语音辨识权限";
+introVC_pressMic = "按一下麦克风";
+introVC_howAreYou = "你好啊！";
+introVC_wrongTryAgain = "念错了!再试一次喔!";
+introVC_tryNextTime = "Oops！下次再练习!";
+introVC_pleaseSayHi = "请对麦克风说「Hi」!";
+introVC_pressToEndMic = "再按一下麦克风来结束";
+
+
+
+
+
+
+

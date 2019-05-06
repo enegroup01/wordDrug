@@ -94,11 +94,14 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         var dayTitleFontSize:CGFloat!
         var statusFontSize: CGFloat!
         
+        print("width :\(width)")
+        print("height:\(height)")
+
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             //print("iPad pro 2nd generation")
-    
+            
             dif = 1
             iPadDif = 2
     
@@ -109,7 +112,9 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayTitleFontSize = 24
             statusFontSize = 24
  
-        case 1024:
+            
+ 
+        case 1024, 1194, 1112:
             //print("9.7 iPad or 7.9 iPad mini, iPad(5th), iPad air, iPad air 2")
         
             dif = 1
@@ -121,7 +126,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayFontSize = 70
             dayTitleFontSize = 20
             statusFontSize = 20
-          
+ 
 
         case 812:
            //iPhoneX
@@ -134,6 +139,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayFontSize = 50
             dayTitleFontSize = 12
             statusFontSize = 12
+
    
         case 736:
             //plus
@@ -146,6 +152,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayFontSize = 46
             dayTitleFontSize = 12
             statusFontSize = 12
+ 
 
             
         case 667:
@@ -183,7 +190,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayFontSize = 50
             dayTitleFontSize = 12
             statusFontSize = 12
-            
+
             break
 
         }
@@ -603,6 +610,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        print("willAppear mapPassed2: \(mapPassed2)")
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

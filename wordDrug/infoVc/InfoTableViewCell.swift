@@ -51,7 +51,7 @@ class InfoTableViewCell: UITableViewCell {
         
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
      
             iPadDif = 1.5
             cellBgHeight = 300
@@ -65,7 +65,7 @@ class InfoTableViewCell: UITableViewCell {
             iPhoneXInfoTitleYDif = 1
             
             
-        case 1024:
+        case 1024, 1194, 1112:
             
               iPadDif = 1
             cellBgHeight = 220

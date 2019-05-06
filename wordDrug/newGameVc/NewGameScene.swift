@@ -20,6 +20,21 @@ let removePronounceBtnKey = "removePlaySoundBtn"
 let leaveReviewKey = "leaveReview"
 
 class NewGameScene: SKScene {
+    
+    let gameSC_learn = NSLocalizedString("gameSC_learn", comment: "")
+    let gameSC_word = NSLocalizedString("gameSC_word", comment: "")
+    let gameSC_pleaseConnect = NSLocalizedString("gameSC_pleaseConnect", comment: "")
+    let gameSC_good = NSLocalizedString("gameSC_good", comment: "")
+    let gameSC_oh = NSLocalizedString("gameSC_oh", comment: "")
+    let gameSC_yourTurn = NSLocalizedString("gameSC_yourTurn", comment: "")
+    let gameSC_pronounce = NSLocalizedString("gameSC_pronounce", comment: "")
+    let gameSC_pleaseChooseChinese = NSLocalizedString("gameSC_pleaseChooseChinese", comment: "")
+    let gameSC_popQuiz = NSLocalizedString("gameSC_popQuiz", comment: "")
+    let gameSC_timesUp = NSLocalizedString("gameSC_timesUp", comment: "")
+    let gameSC_connect = NSLocalizedString("gameSC_connect", comment: "")
+    let gameSC_spell = NSLocalizedString("gameSC_spell", comment: "")
+    let gameSC_limit = NSLocalizedString("gameSC_limit", comment: "")
+    let gameSC_challenge = NSLocalizedString("gameSC_challenge", comment: "")
 
     var syllableSets = [[String]()]
     
@@ -279,8 +294,8 @@ class NewGameScene: SKScene {
         //啟動時間到
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyTimesUp), name: NSNotification.Name("timesUp"), object: nil)
 
-        //啟動顯示tagView
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowTag), name: NSNotification.Name("showTag"), object: nil)
+//        //啟動顯示tagView
+//        NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyShowTag), name: NSNotification.Name("showTag"), object: nil)
         
         //啟動顯示tagView
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.readyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
@@ -1307,7 +1322,7 @@ class NewGameScene: SKScene {
  
     func setUpScreen(){
         
-        findLabelNode(name: "showHint").text = "請連線拼字"
+        findLabelNode(name: "showHint").text = gameSC_pleaseConnect
         
         var chiBtnDif = CGFloat()
         var starX = CGFloat()
@@ -1328,7 +1343,7 @@ class NewGameScene: SKScene {
 
         switch  height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             print("big iPad")
             
             dif = 1
@@ -1357,7 +1372,7 @@ class NewGameScene: SKScene {
             iPhone8YDif = 0
             
             
-        case 1024:
+        case 1024, 1194, 1112:
             
             print("small iPad")
             dif = 1
@@ -1599,7 +1614,7 @@ class NewGameScene: SKScene {
 
         // 製作TimerBg & timer label
         
-        makeLabelNode(x: 0, y: height * 3 / 5 * dif + popQuizSeTitleY, alignMent: .center, fontColor: specialYellow, fontSize: 50, text: "限時挑戰", zPosition: 2, name: "quizTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
+        makeLabelNode(x: 0, y: height * 3 / 5 * dif + popQuizSeTitleY, alignMent: .center, fontColor: specialYellow, fontSize: 50, text: gameSC_popQuiz, zPosition: 2, name: "quizTitle", fontName: "Helvetica Bold", isHidden: false, alpha: 0)
         
         
         makeImageNode(name: "timerBg", image: "timerBg", x: 0, y: height * 2 / 5 * dif - popQuizIPadDif * 3.5, width: 277 * dif * timerBgSizeDif, height: 185 * dif * timerBgSizeDif, z: 1, alpha: 0, isAnchoring: false)
@@ -1813,7 +1828,15 @@ class NewGameScene: SKScene {
         
         
         //iPhone 7 & 8 Y不夠高
-        makeImageNode(name: "abort", image: "skipTagTest", x: 260 * xFactor2, y: 340 * yFactor2 , width: 90 * widthFactor, height: 32 * heightFactor, z: 3, alpha: 0, isAnchoring: false)
+        var skipTagImg = String()
+        if lan == "zh-Hans"{
+            skipTagImg = "skipTagTestSim"
+        } else {
+            skipTagImg = "skipTagTest"
+        }
+        
+        
+        makeImageNode(name: "abort", image: skipTagImg, x: 260 * xFactor2, y: 340 * yFactor2 , width: 90 * widthFactor, height: 32 * heightFactor, z: 3, alpha: 0, isAnchoring: false)
         
         introAnimation()
         
@@ -1879,7 +1902,7 @@ class NewGameScene: SKScene {
             
             isUserInteractionEnabled = false
             
-            findLabelNode(name: "quizTitle").text = "時間到！"
+            findLabelNode(name: "quizTitle").text = gameSC_timesUp
             findLabelNode(name: "quizTitle").fontColor = .red
             findLabelNode(name: "bigNumber").fontColor = .red
             findLabelNode(name: "smallNumber").fontColor = .red
@@ -1891,7 +1914,7 @@ class NewGameScene: SKScene {
             self.run(wait) {[weak self] in
                 self!.chooseChineseResult(isCorrect: false)
                 
-                self!.findLabelNode(name: "quizTitle").text = "限時挑戰"
+                self!.findLabelNode(name: "quizTitle").text = self!.gameSC_popQuiz
                 self!.findLabelNode(name: "quizTitle").fontColor = .white
                 self!.findLabelNode(name: "bigNumber").fontColor = .white
                 self!.findLabelNode(name: "smallNumber").fontColor = .white
@@ -1905,7 +1928,7 @@ class NewGameScene: SKScene {
     
     func introAnimation(){
         
-        hintSlideIn(leftText: "學習", rightText: "單字",waitTime: 1.3) {[weak self] in
+        hintSlideIn(leftText: gameSC_learn, rightText: gameSC_word,waitTime: 1.3) {[weak self] in
             
             self!.makeWords()
             
@@ -2301,9 +2324,9 @@ class NewGameScene: SKScene {
         
     }
     
-    @objc func notifyShowTag(){
-        
-    }
+//    @objc func notifyShowTag(){
+//        
+//    }
     
     var hintTime = 0
     @objc func readyToReadSentence(){
@@ -2311,7 +2334,7 @@ class NewGameScene: SKScene {
         
         if hintTime == 0 {
             
-            hintSlideIn(leftText: "換你", rightText: "發音", waitTime: 1.3) {[weak self] in
+            hintSlideIn(leftText: gameSC_yourTurn, rightText: gameSC_pronounce, waitTime: 1.3) {[weak self] in
                 
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readSentence"), object: nil, userInfo: nil)
@@ -2531,7 +2554,14 @@ class NewGameScene: SKScene {
         findImageNode(name: "recogWordsBg").alpha = 0
         
         //建立說話圖示
-        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380 / iPadDif, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
+        var talkImg = String()
+        if lan == "zh-Hans"{
+            talkImg = "talkPngSim"
+        } else {
+            talkImg = " talkPng"
+        }
+        
+        makeImageNode(name: "talkPng", image: talkImg, x: 0, y: 380 / iPadDif, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
         
         
         //宣告此為第二次練習
@@ -2550,7 +2580,14 @@ class NewGameScene: SKScene {
         findImageNode(name: "recogWordsBg").alpha = 0
         
         //建立說話圖示
-        makeImageNode(name: "talkPng", image: "talkPng", x: 0, y: 380 / iPadDif, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
+        var talkImg = String()
+        if lan == "zh-Hans"{
+            talkImg = "talkPngSim"
+        } else {
+            talkImg = " talkPng"
+        }
+
+        makeImageNode(name: "talkPng", image: talkImg, x: 0, y: 380 / iPadDif, width: 256, height: 196, z: 1, alpha: 1, isAnchoring: false)
         
         
         //宣告此為第二次練習
@@ -2606,7 +2643,7 @@ class NewGameScene: SKScene {
         if isBackToSpell{
         print("practice 1")
         hintSec = 0
-        findLabelNode(name: "showHint").text = "請連線拼字"
+        findLabelNode(name: "showHint").text = gameSC_pleaseConnect
             print("practice 2")
         }
         
@@ -2635,7 +2672,7 @@ class NewGameScene: SKScene {
         */
        
         
-        hintSlideIn(leftText: "連線", rightText: "拼字",waitTime: 1) {[weak self] in
+        hintSlideIn(leftText: gameSC_connect, rightText: gameSC_spell,waitTime: 1) {[weak self] in
          
             //是否要發音, 判斷是不是第一個字
             var shouldPronounce = Bool()
@@ -2686,7 +2723,7 @@ class NewGameScene: SKScene {
                         let moveBack = SKAction.moveTo(y: -290, duration: 0)
                         self!.findLabelNode(name: "showHint").run(moveBack)
                         self!.hintSec = 0
-                        self!.findLabelNode(name: "showHint").text = "請連線拼字"
+                        self!.findLabelNode(name: "showHint").text = self!.gameSC_pleaseConnect
                         self!.wordsToPronounce =  self!.wordSets[self!.currentWordSequence].replacingOccurrences(of: " ", with: "")
                     
                     } else if self!.gameMode == 1 {
@@ -3617,8 +3654,8 @@ class NewGameScene: SKScene {
                             
                             //在此卡一個正確動畫
                             
-                            hintSlideIn(leftText: "很棒", rightText: "喔！", waitTime: 1, finished: {[weak self] in
-                                self!.hintSlideIn(leftText: "換你", rightText: "發音", waitTime: 1.5, finished: {
+                            hintSlideIn(leftText: gameSC_good, rightText: gameSC_oh, waitTime: 1, finished: {[weak self] in
+                                self!.hintSlideIn(leftText: self!.gameSC_yourTurn, rightText: self!.gameSC_pronounce, waitTime: 1.5, finished: {
                                     
                                     //口試
                                     //self!.recognizeWord()
@@ -3846,7 +3883,7 @@ class NewGameScene: SKScene {
         let moveUp = SKAction.moveTo(y: -150, duration: 0)
         
         findLabelNode(name: "showHint").run(moveUp)
-        findLabelNode(name: "showHint").text = "請選擇正確中文"
+        findLabelNode(name: "showHint").text = gameSC_pleaseChooseChinese
         
         for node in children{
             
@@ -4095,7 +4132,7 @@ class NewGameScene: SKScene {
                 findImageNode(name: "star2").alpha = 1
                 
                 
-                hintSlideIn(leftText: "限時", rightText: "挑戰", waitTime: 1.2) {[weak self] in
+                hintSlideIn(leftText: gameSC_limit, rightText: gameSC_challenge, waitTime: 1.2) {[weak self] in
                     
                     //把這些畫面包起來,少寫很多self!.
                     self!.setupPopQuizScreen()

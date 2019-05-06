@@ -19,7 +19,7 @@ let backToSpellKey = "backToSpell"
 let practiceNextWordKey = "practiceNextWord"
 let startCountDownKey = "startCountDown"
 let timesUpKey = "timesUp"
-let showTagKey = "showTag"
+//let showTagKey = "showTag"
 let readyToReadSentenceKey = "readyToReadSentence"
 let readSentenceKey = "readSentence"
 let onlyPracticeSentenceKey = "onlyPracticeSentence"
@@ -38,6 +38,31 @@ var senFontSize = CGFloat()
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
     
 
+   
+    let gameVC_pleasePressMic = NSLocalizedString("gameVC_pleasePressMic", comment: "")
+  
+    let gameVC_pleasePronounce = NSLocalizedString("gameVC_pleasePronounce", comment: "")
+    let gameVC_oopsWrong = NSLocalizedString("gameVC_oopsWrong", comment: "")
+    let gameVC_great = NSLocalizedString("gameVC_great", comment: "")
+    let gameVC_tryAgain = NSLocalizedString("gameVC_tryAgain", comment: "")
+    let gameVC_pleaseChooseRightChiSen = NSLocalizedString("gameVC_pleaseChooseRightChiSen", comment: "")
+    let gameVC_tagWordsToMakeSentence = NSLocalizedString("gameVC_tagWordsToMakeSentence", comment: "")
+    let gameVC_alertLeave = NSLocalizedString("gameVC_alertLeave", comment: "")
+    let gameVC_leave = NSLocalizedString("gameVC_leave", comment: "")
+    let gameVC_cancel = NSLocalizedString("gameVC_cancel", comment: "")
+    let gameVC_addToFav = NSLocalizedString("gameVC_addToFav", comment: "")
+    
+    let gameVC_quickReview = NSLocalizedString("gameVC_quickReview", comment: "")
+    let gameVC_wordPassed = NSLocalizedString("gameVC_wordPassed", comment: "")
+    let gameVC_total = NSLocalizedString("gameVC_total", comment: "")
+    let gameVC_word = NSLocalizedString("gameVC_word", comment: "")
+    let gameVC_iKnow = NSLocalizedString("gameVC_iKnow", comment: "")
+    let gameVC_senPassed = NSLocalizedString("gameVC_senPassed", comment: "")
+    let gameVC_sen = NSLocalizedString("gameVC_sen", comment: "")
+    let gameVC_toShop = NSLocalizedString("gameVC_toShop", comment: "")
+    let gameVC_noBuyNow = NSLocalizedString("gameVC_noBuyNow", comment: "")
+    let gameVC_reviewNoScore = NSLocalizedString("gameVC_reviewNoScore", comment: "")
+    
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
@@ -253,6 +278,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var audioSession = AVAudioSession.sharedInstance()
     
     @IBOutlet weak var playSoundBtn: UIButton!
+    var clearTagBtn = UIButton()
     
     var courseReceived = Int()
     var gamePassedDic:[Int:Int]?
@@ -332,11 +358,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var iPhoneXHeightDif2:CGFloat!
         var iPhonePlusHeightDif:CGFloat!
         var iPhoneSeYDif:CGFloat!
+        var resultBgExtraHigh:CGFloat = 0
+        
+        switch width {
+        case 834:
+            resultBgExtraHigh = 80
+            
+        default:
+            break
+        }
      
         switch height {
             
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             print("big iPad")
             
             
@@ -359,7 +394,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             iPhoneSeYDif = 10
    
             
-        case 1024:
+        case 1024, 1194, 1112:
             
             print("small iPad")
             
@@ -536,8 +571,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("timesUp"), object: nil)
         
         
-        //接收顯示tagView內容
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
+//        //接收顯示tagView內容
+//        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
         
         
         //通知句子念完要準備口試
@@ -675,7 +710,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         reviewAlertTitle1.frame = CGRect(x: reviewWordBg.frame.width / 22, y: reviewWordBg.frame.height / 20, width: 92 * dif * iPadDif, height: 25 * dif * iPadDif)
         //reviewAlertTitle1.backgroundColor = .gray
-        reviewAlertTitle1.text = "快速複習"
+        
+        reviewAlertTitle1.text = gameVC_quickReview
         reviewAlertTitle1.font = UIFont(name: "Helvetica Bold", size: 20 * iPadDif)
         reviewAlertTitle1.textColor = .white
         reviewAlertTitle1.textAlignment = .right
@@ -685,7 +721,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         reviewAlertTitle2.frame = CGRect(x: reviewAlertTitle1.frame.minX, y: reviewAlertTitle1.frame.maxY - 5 * dif, width: 92 * dif * iPadDif, height: 25 * dif * iPadDif)
         //reviewAlertTitle2.backgroundColor = .red
-        reviewAlertTitle2.text = "單字達成"
+        reviewAlertTitle2.text = gameVC_wordPassed
         reviewAlertTitle2.font = UIFont(name: "Helvetica Bold", size: 12 * iPadDif)
         reviewAlertTitle2.textColor = .white
         reviewAlertTitle2.textAlignment = .right
@@ -695,7 +731,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         reviewAlertTotalLabel.frame = CGRect(x: reviewAlertTitle1.frame.midX - 10 * dif, y: reviewAlertTitle2.frame.maxY * 1.3, width: 30 * dif * iPadDif, height: 17 * dif * iPadDif)
-        reviewAlertTotalLabel.text = "總計"
+        reviewAlertTotalLabel.text = gameVC_total
         reviewAlertTotalLabel.textAlignment = .left
         reviewAlertTotalLabel.font = UIFont(name: "Helvetica Bold", size: 12 * iPadDif)
         reviewAlertTotalLabel.textColor = darkColor
@@ -715,7 +751,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         reviewAlertUnitLabel.frame = CGRect(x: reviewAlertCountLabel.frame.maxX - 10 * dif * iPadDif, y: reviewAlertCountLabel.frame.maxY - 17 * dif * iPadDif, width: 20 * dif * iPadDif, height: 17 * dif * iPadDif)
-        reviewAlertUnitLabel.text = "字"
+        reviewAlertUnitLabel.text = gameVC_word
         reviewAlertUnitLabel.textAlignment = .left
         reviewAlertUnitLabel.font = UIFont(name: "Helvetica Bold", size: 12 * iPadDif)
         reviewAlertUnitLabel.textColor = darkColor
@@ -726,7 +762,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12 * iPadDif), NSAttributedStringKey.foregroundColor : darkColor]
         
         
-        let title = NSAttributedString(string: "我知道了", attributes: attrs0)
+        let title = NSAttributedString(string: gameVC_iKnow, attributes: attrs0)
         
         reviewOkBtn = UIButton(type: .system)
         //reviewOkBtn.showsTouchWhenHighlighted = true
@@ -760,14 +796,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         purchaseAlert.heightAnchor.constraint(equalToConstant: 462 * iPadDif * dif).isActive = true
         purchaseAlert.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         purchaseAlert.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
+        var purImg = String()
+        if lan == "zh-Hans"{
+            purImg = "purchaseAlertSim2.png"
+        } else {
+            purImg = "purchaseAlert.png"
+        }
+        purchaseAlert.image = UIImage(named:purImg)
         
          alertText.translatesAutoresizingMaskIntoConstraints = false
         //alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
         //alertText.backgroundColor = .green
         alertText.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         alertText.textColor = .white
-        alertText.text = "\n離開目前課程\n學習進度不會儲存!"
+        alertText.text = gameVC_alertLeave
         alertText.numberOfLines = 0
         alertText.textAlignment = .center
         alertText.adjustsFontSizeToFitWidth = true
@@ -781,7 +823,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         cancelBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         cancelBtn.titleLabel?.numberOfLines = 2
-        cancelBtn.setTitle("取消", for: .normal)
+        cancelBtn.setTitle(gameVC_cancel, for: .normal)
         cancelBtn.setTitleColor(orangeColor, for: .normal)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(cancelBtn)
@@ -799,7 +841,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         noBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         //noBuyBtn.backgroundColor = .red
         noBuyBtn.setTitleColor(orangeColor, for: .normal)
-        noBuyBtn.setTitle("先不購買", for: .normal)
+        noBuyBtn.setTitle(gameVC_noBuyNow, for: .normal)
         
         self.view.addSubview(noBuyBtn)
           self.view.bringSubview(toFront: noBuyBtn)
@@ -807,7 +849,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         //quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
-        quitBtn.setTitle("離開", for: .normal)
+        quitBtn.setTitle(gameVC_leave, for: .normal)
         quitBtn.titleLabel?.numberOfLines = 2
         quitBtn.setTitleColor(orangeColor, for: .normal)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
@@ -826,7 +868,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         goToBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         
         goToBuyBtn.setTitleColor(orangeColor, for: .normal)
-        goToBuyBtn.setTitle("前往商城", for: .normal)
+        goToBuyBtn.setTitle(gameVC_toShop, for: .normal)
         self.view.addSubview(goToBuyBtn)
         self.view.bringSubview(toFront: goToBuyBtn)
         
@@ -834,15 +876,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         goToBuyBtn.anchorSize(to: noBuyBtn)
         
         coverBg.image = UIImage(named:"coverBg.png")
-        resultBg.image = UIImage(named:"newResultBg.png")
+        var resultBgImg = String()
+        if lan == "zh-Hans"{
+            resultBgImg = "newResultBgSim.png"
+        } else {
+            
+            resultBgImg = "newResultBg.png"
+        }
+        
+        resultBg.image = UIImage(named:resultBgImg)
         
         
         coverBtn.isHidden = true
         coverBg.isHidden = true
         resultBg.isHidden = true
-      
-        
-        
+    
         resultTitleImg.isHidden = true
         firstWordBtn.isHidden = true
         secondWordBtn.isHidden = true
@@ -931,7 +979,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         resultBg.translatesAutoresizingMaskIntoConstraints = false
         resultBg.widthAnchor.constraint(equalToConstant: 280 * dif * iPadDif).isActive = true
-        resultBg.heightAnchor.constraint(equalToConstant: 488 * dif * iPadDif).isActive = true
+        resultBg.heightAnchor.constraint(equalToConstant: 488 * dif * iPadDif + resultBgExtraHigh).isActive = true
         resultBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         //568的位置過低
         resultBg.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (100 * iPadDif * dif / resultElementDif) * iPhoneXHeightDif * iPhoneXHeightDif2).isActive = true
@@ -1138,6 +1186,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         circleOkBtn.heightAnchor.constraint(equalToConstant: 128 * iPadDif * dif).isActive = true
         circleOkBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         circleOkBtn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 160 * dif * iPadDif * iPhoneXHeightDif).isActive = true
+        
+        if lan == "zh-Hans" {
+            circleOkBtn.setBackgroundImage(UIImage(named: "circleOkBtnSim2.png"), for: .normal)
+        } else {
+            circleOkBtn.setBackgroundImage(UIImage(named: "circleOkBtn.png"), for: .normal)
+        }
 
     
         coverBg.frame = CGRect(x: 0, y: 0, width: width, height: height)
@@ -1156,7 +1210,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
         word1Label.textColor = .white
         word1Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
-        word1Label.text = "加入最愛"
+        word1Label.text = gameVC_addToFav
         word1Label.textAlignment = .center
         word1Label.alpha = 0
         self.firstWordBtn.addSubview(word1Label)
@@ -1175,7 +1229,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //word2Label.frame = CGRect(x: secondWordBtn.frame.width / 3, y: 0, width: secondWordBtn.frame.width / 3, height: secondWordBtn.frame.height)
         word2Label.textColor = .white
         word2Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
-        word2Label.text = "加入最愛"
+        word2Label.text = gameVC_addToFav
         word2Label.textAlignment = .center
         word2Label.alpha = 0
         self.secondWordBtn.addSubview(word2Label)
@@ -1192,7 +1246,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //word3Label.frame = CGRect(x: thirdWordBtn.frame.width / 3, y: 0, width: thirdWordBtn.frame.width / 3, height: thirdWordBtn.frame.height)
         word3Label.textColor = .white
         word3Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
-        word3Label.text = "加入最愛"
+        word3Label.text = gameVC_addToFav
         word3Label.textAlignment = .center
         word3Label.alpha = 0
         self.thirdWordBtn.addSubview(word3Label)
@@ -1242,9 +1296,43 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif + iPadSmall, width: 69 * dif * playBtnY / iPadDif, height: 32 * dif * playBtnY / iPadDif)
         
         playSoundBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -5 * iPadDif * dif, right: -5 * iPadDif * dif), size: .init(width: 60 * iPadDif * dif, height: 27 * iPadDif * dif))
+        var playSoundBtnImg = UIImage()
+        if lan == "zh-Hans" {
+            playSoundBtnImg = UIImage(named: "playSoundBtnSim.png")!
+            
+        } else {
+            
+            playSoundBtnImg = UIImage(named: "pronounceBtn4.png")!
+        }
+        //playSoundBtn.setImage(playSoundBtnImg, for: .normal)
+
+        playSoundBtn.setBackgroundImage(playSoundBtnImg, for: .normal)
         
+        
+        clearTagBtn = UIButton(type: .system)
+        clearTagBtn.addTarget(self, action: #selector(NewGameViewController.clearTag), for: .touchUpInside)
+
+        view.addSubview(clearTagBtn)
+        view.bringSubview(toFront: clearTagBtn)
+        clearTagBtn.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeBottomAnchor, trailing: nil, padding: .init(top: 0, left: 5 * iPadDif * dif, bottom: -5 * iPadDif * dif, right: 0), size: .init(width: 25 * iPadDif * dif, height: 23 * iPadDif * dif))
+
+        clearTagBtn.setBackgroundImage(UIImage(named:"clearTagBtn.png"
+            ), for: .normal)
+
         //skipPronounceBtn.frame = CGRect(x: playSoundBtn.frame.minX, y: recogTextLabel.frame.maxY + 20, width: 82 * skipBtnDif, height: 29 * skipBtnDif)
+        
         skipPronounceBtn.anchor(top: recogTextLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 30 * iPadDif * dif, left: 0, bottom: 0, right: -5 * iPadDif * dif), size: .init(width: 82 * iPadDif * dif, height: 29 * iPadDif * dif))
+        
+        var skipProImg = UIImage()
+        if lan == "zh-Hans"{
+            skipProImg = UIImage(named: "skipPronounceBtnSim.png")!
+        } else {
+             skipProImg = UIImage(named: "skipPronounceBtn.png")!
+            
+        }
+        
+        skipPronounceBtn.setBackgroundImage(skipProImg, for: .normal)
+
         
         
         //先隱藏錄音及辨識
@@ -1353,7 +1441,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed4!
        
             titleImg = "block3Title.png"
-            titleWidth = 87
             
             if lan == "zh-Hans"{
                 //檢體中文
@@ -1362,6 +1449,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 maxMapNum = 10
                 increaseNum = 49
                 titleImg = "simBlock3.png"
+                titleWidth = 70
+
                 
             } else {
                 //其餘語言
@@ -1370,6 +1459,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 increaseNum = 18
                 maxMapNum = 8
                 titleImg = "block3Title.png"
+                titleWidth = 87
+
                 
             }
 
@@ -1378,7 +1469,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed5!
         
             titleImg = "block4Title.png"
-            titleWidth = 95
+         
             
             if lan == "zh-Hans"{
                 //檢體中文
@@ -1387,6 +1478,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 maxMapNum = 12
                 increaseNum = 60
                 titleImg = "simBlock4.png"
+                   titleWidth = 70
 
                 
             } else {
@@ -1396,6 +1488,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 increaseNum = 27
                 maxMapNum = 7
                 titleImg = "block4Title.png"
+                   titleWidth = 95
                 
             }
 
@@ -1423,7 +1516,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             //****做到換titlepng
             
             titleImg = "simBlock5.png"
-            titleWidth = 95
+            titleWidth = 70
             
             if lan == "zh-Hans"{
                 //檢體中文
@@ -1438,7 +1531,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed7!
             
             titleImg = "simBlock6.png"
-            titleWidth = 95
+            titleWidth = 70
             
             if lan == "zh-Hans"{
                 //檢體中文
@@ -1453,7 +1546,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             mapPassedInt = mapPassed8!
             
             titleImg = "simBlock7.png"
-            titleWidth = 95
+            titleWidth = 87
             
             if lan == "zh-Hans"{
                 //檢體中文
@@ -1874,6 +1967,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         rightBtnClickedImg.isHidden = true
         reviewWordBg.isHidden = true
         reviewOkBtn.isHidden = true
+        clearTagBtn.isHidden = true
         
         
         //抓發音相關字
@@ -1977,7 +2071,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
+    @objc func clearTag(){
+        
+        recogTextLabel.text = ""
+        for tag in tagView.tagViews{
+            
+            tag.isSelected = false
+        }
     
+        for i in 0 ..< attrTagsSelected.count{
+            attrTagsSelected[i] = NSMutableAttributedString()
+        }
+        
+    }
    
     
     deinit {
@@ -2074,9 +2180,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         
-        alertText.text = "\n離開目前課程\n學習進度不會儲存!"
-        quitBtn.setTitle("離開", for: .normal)
-        cancelBtn.setTitle("取消", for: .normal)
+        alertText.text = gameVC_alertLeave
+        quitBtn.setTitle(gameVC_leave, for: .normal)
+        cancelBtn.setTitle(gameVC_cancel, for: .normal)
         ghostBtn.isHidden = false
         alertBg.isHidden = false
         cancelBtn.isHidden = false
@@ -2104,8 +2210,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //alertText.text = ""
-        goToBuyBtn.setTitle("前往商城", for: .normal)
-        noBuyBtn.setTitle("先不購買", for: .normal)
+        goToBuyBtn.setTitle(gameVC_toShop, for: .normal)
+        noBuyBtn.setTitle(gameVC_noBuyNow, for: .normal)
         ghostBtn.isHidden = false
         //alertBg.isHidden = false
         purchaseAlert.isHidden = false
@@ -2205,14 +2311,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     //顯示tagView
-    @objc func showTag(){
-        
-        //避免再次產生hint
-        isCheckingSentence = false
-        
-        tagView.isHidden = false
-        recogTextLabel.text = ""
-    }
+//    @objc func showTag(){
+//
+//        //避免再次產生hint
+//        isCheckingSentence = false
+//
+//        tagView.isHidden = false
+//        recogTextLabel.text = ""
+//    }
     
     @objc func notifyReadyToReadSentence(){
         
@@ -2290,7 +2396,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //接收顯示tagView內容
-        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
         
         
         //通知句子念完要準備口試
@@ -2441,6 +2547,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         attrTagsSelected.removeAll(keepingCapacity: false)
         tagView.isHidden = true
         tagView.removeAllTags()
+        clearTagBtn.isHidden = true
         
         //移除輸入字
         recogTextLabel.text = ""
@@ -2588,7 +2695,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                     //popQuiz bonus加分
                                     if isReplay{
                                         
-                                        scoreLabel.text = "複習不計分"
+                                        scoreLabel.text = gameVC_reviewNoScore
                                         wordCountLabel.text = "3"
                                         bigOkBtn.isEnabled = true
                                     } else {
@@ -2669,16 +2776,31 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         // 破關訊息
                                                     
                                                         isCelebratingClassPassed = true
-                                                        bigOkBtn.setImage(UIImage(named:"classFinishedBtn.png"), for: .normal)
+                                                           var btnImgStr = String()
+                                                        
+                                                        if lan == "zh-Hans"{
+                                                            btnImgStr = "classFinishedBtnSim.png"
+                                                        } else {
+                                                            btnImgStr = "classFinishedBtn.png"
+                                                            
+                                                        }
+                                                        bigOkBtn.setImage(UIImage(named:btnImgStr), for: .normal)
                                                         
                                                     } else if courseReceived == 5 {
                                                         
                                                         isCelebratingMapPassed = true
-                                                        bigOkBtn.setImage(UIImage(named:"k12PassedBtn.png"), for: .normal)
+                                                        bigOkBtn.setImage(UIImage(named:"k12PassedBtnSim.png"), for: .normal)
                                                         
                                                     } else {
                                                         isCelebratingMapPassed = true
-                                                        bigOkBtn.setImage(UIImage(named:"unlockOkBtn.png"), for: .normal)
+                                                       
+                                                           var btnImgStr = String()
+                                                        if lan == "zh-Hans"{
+                                                            btnImgStr = "unlockOkBtnSim.png"
+                                                        } else {
+                                                            btnImgStr = "unlockOkBtn.png"
+                                                        }
+                                                        bigOkBtn.setImage(UIImage(named:btnImgStr), for: .normal)
                                                         
                                                     }
                                                     
@@ -3577,7 +3699,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //改成小寫
         originalWordToRecognize = originalWordToRecognize.lowercased()
         
-        hintLabel.text = "請按一下麥克風"
+        hintLabel.text = gameVC_pleasePressMic
         
         
     }
@@ -3679,7 +3801,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }  else {
             
             
-            hintLabel.text = "請唸單字"
+            hintLabel.text = gameVC_pleasePronounce
             
             
             
@@ -4227,7 +4349,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 //        if wordRecorded == wordToReceive{
         if wordRecorded == originalWordToRecognize{
         
-            hintLabel.text = "很棒喔！"
+            hintLabel.text = gameVC_great
             
             recordBtn.setImage(UIImage(named:"recordCheck.png"), for: .normal)
             
@@ -4238,7 +4360,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         } else {
             
-            hintLabel.text = "Oops！錯了喔!"
+            hintLabel.text = gameVC_oopsWrong
 
             //錯誤
             recordBtn.setImage(UIImage(named:"recordCross.png"), for: .normal)
@@ -4293,7 +4415,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     //可以繼續練習
                     
-                    self!.hintLabel.text = "再試一次"
+                    self!.hintLabel.text = self!.gameVC_tryAgain
                     
                     self!.answerTime += 1
                     
@@ -4401,7 +4523,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
             //抓好中英文句子答案
             sentenceLabel.text = sentence
-            chiSentenceLabel.text = "請選出正確中文翻譯"
+            chiSentenceLabel.text = gameVC_pleaseChooseRightChiSen
 
             
             //準備做四個選項
@@ -4561,7 +4683,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //抓好中英文句子答案
         
-        chiSentenceLabel.text = "請選出正確中文翻譯"
+        chiSentenceLabel.text = gameVC_pleaseChooseRightChiSen
         
         
         //準備做四個選項
@@ -4703,12 +4825,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         case 0:
             bgImage = "reviewSenResultBg.png"
-            title = "單字達成"
-            unit = "字"
+            title = gameVC_wordPassed
+            unit = gameVC_word
         case 1:
             bgImage = "reviewWordResultBg.png"
-            title = "句型達成"
-            unit = "句"
+            title = gameVC_senPassed
+            unit = gameVC_sen
         default:
             break
             
@@ -4871,13 +4993,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: chiSentenceFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         
      
-        recogTextLabel.attributedText = NSAttributedString(string: "點擊下列單字來排列句型", attributes: attrs0)
+        recogTextLabel.attributedText = NSAttributedString(string: gameVC_tagWordsToMakeSentence, attributes: attrs0)
         
         //recogTextLabel.font = UIFont(name: "Helvetica Bold", size: chiSentenceFontSize)
         
         //顯示出tag
         tagView.isHidden = false
         //tagView.backgroundColor = .white
+        clearTagBtn.isHidden = false
         
         //避免再次產生hint
         isCheckingSentence = false
@@ -5101,7 +5224,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateWordReviewCount.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -5328,7 +5457,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateSenReviewCount.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -5778,7 +5913,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/mapPassed.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/mapPassed.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/mapPassed.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/mapPassed.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -5857,7 +5998,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/gamePassed.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
+        
+        
         
         // request url
         var request = URLRequest(url: url)
@@ -5951,7 +6100,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             let id = user?["id"] as! String
             
             // url to access our php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
+            var url:URL
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/addWord.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
+            }
+            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
             
             // request url
             var request = URLRequest(url: url)
@@ -6016,7 +6171,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             let id = user?["id"] as! String
             
             // url to access our php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+            var url:URL
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/removeWord.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+            }
+            
+            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
             
             // request url
             var request = URLRequest(url: url)
@@ -6077,7 +6239,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let id = user?["id"] as! String
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateScore.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
         
         // request url
         var request = URLRequest(url: url)

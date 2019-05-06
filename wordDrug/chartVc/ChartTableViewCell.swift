@@ -40,7 +40,7 @@ class ChartTableViewCell: UITableViewCell {
         var iPhoneXDif:CGFloat!
         
         switch height {
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             
             dif = 1.5
             iPadDif = 1
@@ -51,7 +51,7 @@ class ChartTableViewCell: UITableViewCell {
             wordCountTitleFontSize = 30
             wordCountFontSize = 40
             iPhoneXDif = 1
-        case 1024:
+        case 1024, 1194, 1112:
             dif = 1.1
             iPadDif = 0.8
             rankFontSize = 42

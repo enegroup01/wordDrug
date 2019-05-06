@@ -20,6 +20,16 @@ let toCourse = "toCourse"
 
 class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeechSynthesizerDelegate{
     
+    
+    let introVC_micHint = NSLocalizedString("introVC_micHint", comment: "")
+    let introVC_pressMic = NSLocalizedString("introVC_pressMic", comment: "")
+    let introVC_howAreYou = NSLocalizedString("introVC_howAreYou", comment: "")
+    let introVC_wrongTryAgain = NSLocalizedString("introVC_wrongTryAgain", comment: "")
+    let introVC_tryNextTime = NSLocalizedString("introVC_tryNextTime", comment: "")
+    let introVC_pleaseSayHi = NSLocalizedString("introVC_pleaseSayHi", comment: "")
+
+    let introVC_pressToEndMic = NSLocalizedString("introVC_pressToEndMic", comment: "")
+    
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
@@ -78,14 +88,14 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
 
             dif = 2
    
             hintLabelFontSize = 36
             
             
-        case 1024:
+        case 1024, 1194, 1112:
             
             dif = 1.6
             hintLabelFontSize = 30
@@ -253,13 +263,13 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     @objc func toCourse(_ notification: NSNotification){
         
         
-        //抓到的順序為0
-        if let recommendedClass = notification.userInfo?["recommendedClass"] as? String {
-            
-           recommendedClassToPass  = recommendedClass
-            
-        }
-        
+//        //抓到的順序為0
+//        if let recommendedClass = notification.userInfo?["recommendedClass"] as? String {
+//
+//           recommendedClassToPass  = recommendedClass
+//
+//        }
+//
         
         let userDefaults = UserDefaults.standard
         introWatched = true
@@ -272,17 +282,17 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "fromIntroToCourse" {
-            
-            if let destinedVc = segue.destination as? CoursesViewController{
-                
-                //destinedVc.isGuidingMode = true
-                destinedVc.recommendedClass = recommendedClassToPass
-                
-            }
-            
-            
-        }
+//        if segue.identifier == "fromIntroToCourse" {
+//
+//            if let destinedVc = segue.destination as? CoursesViewController{
+//
+//                //destinedVc.isGuidingMode = true
+//                destinedVc.recommendedClass = recommendedClassToPass
+//
+//            }
+//
+//
+//        }
         
         
     }
@@ -337,7 +347,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     
     func failToAuthorizeMic(){
         
-        recogTextLabel.text = "請到[設定] -> [MissWord] 裡開啟麥克風及語音辨識權限"
+        recogTextLabel.text = introVC_micHint
         
     }
     
@@ -355,7 +365,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
         recordBtn.isHidden = false
         
-        hintLabel.text = "按一下麥克風"
+        hintLabel.text = introVC_pressMic
         
     }
     
@@ -389,7 +399,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             if recogTextLabel.text == "hi"{
                 
                 recordBtn.setImage(UIImage(named: "recordCheck.png"), for: .normal)
-                hintLabel.text = "你好啊！"
+                hintLabel.text = introVC_howAreYou
                 
                         restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
                 isRecogRight = true
@@ -401,7 +411,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
 
                     recordBtn.setImage(UIImage(named: "recordCross.png"), for: .normal)
             
-                    hintLabel.text = "唸錯了!再試一次喔!"
+                    hintLabel.text = introVC_wrongTryAgain
                 
                     restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
              
@@ -414,7 +424,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
  
                     recordBtn.setImage(UIImage(named: "recordCross.png"), for: .normal)
                     
-                    hintLabel.text = "Oops！下次再練習!"
+                    hintLabel.text = introVC_tryNextTime
 
            
                     
@@ -430,7 +440,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             
             
             hintLabel.adjustsFontSizeToFitWidth = true
-            hintLabel.text = "請對麥克風說「Hi」!"
+            hintLabel.text = introVC_pleaseSayHi
             
             //btn圖案更改成錄音
             recordBtn.setImage(UIImage(named:"recordingBtn.png"), for: .normal)
@@ -481,7 +491,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                                 
                                 self!.recogTextLabel.text = resultWord
                                 
-                                self!.hintLabel.text = "再按一下麥克風來結束"
+                                self!.hintLabel.text = self!.introVC_pressToEndMic
 
                             }
                             
@@ -495,12 +505,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                                 //移除掉Request避免Reuse
                                 self!.recognitionRequest = nil
                                 self!.recognitionTask = nil
-                                
-                   
-                                
-                                
-                                
-                                
+
                             }
                             
                         }
@@ -578,7 +583,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             } else {
                 
                 
-                hintLabel.text = "按一下麥克風"
+                hintLabel.text = introVC_pressMic
                 recogTextLabel.text = ""
                 recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
                 recordBtn.isHidden = false

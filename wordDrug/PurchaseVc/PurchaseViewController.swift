@@ -99,7 +99,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             newDif = 1.35
             dif = 8
             
@@ -111,7 +111,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             btnDif = 1.5
             
     
-        case 1024:
+        case 1024, 1194, 1112:
             newDif = 1.35
             dif = 8
           
@@ -432,7 +432,16 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         purchaseBtn.isEnabled = false
         restoreBtn.isEnabled = false
         
-        let productIdentifiers: Set<String> = ["unlockTimeLimit"]
+        var iapProductName = String()
+        if lan == "zh-Hans" {
+            iapProductName = "simUnlockTimeLimit"
+            
+        } else {
+            
+            iapProductName = "unlockTimeLimit"
+        }
+        
+        let productIdentifiers: Set<String> = [iapProductName]
        
         let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
         productRequest.delegate = self

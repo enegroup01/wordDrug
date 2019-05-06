@@ -89,7 +89,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         switch height {
             
         
-        case 1366, 1336, 1112:
+        case 1366, 1336:
                 dif = 1.5
                 photoDif = 2
           
@@ -100,7 +100,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             usernameFontSize = 60
             avaYDif = 1
 
-        case 1024:
+        case 1024, 1194, 1112:
                 dif = 1.1
                 photoDif = 1.5
        
@@ -484,7 +484,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/selectUser.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
         
         let id = user?["id"] as! String
         
@@ -848,7 +854,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/myRank.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
         
         // request url
         var request = URLRequest(url: url)
@@ -1317,7 +1329,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //let id = "135"
         
         // url path to php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateAva.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
         
         // declare request to this file
         var request = URLRequest(url: url)

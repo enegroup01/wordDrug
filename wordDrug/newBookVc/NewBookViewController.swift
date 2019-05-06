@@ -16,6 +16,42 @@ import Speech
 
 class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, AVSpeechSynthesizerDelegate, UICollectionViewDelegateFlowLayout{
     
+    let bookVC_correctWordTitle = NSLocalizedString("bookVC_correctWordTitle", comment: "")
+    
+    let bookVC_wrongWordTitle = NSLocalizedString("bookVC_wrongWordTitle", comment: "")
+    
+    let bookVC_favoriteWordTitle = NSLocalizedString("bookVC_favoriteWordTitle", comment: "")
+    
+  
+    
+    let bookVC_addToFav = NSLocalizedString("bookVC_addToFav", comment: "")
+    
+    let bookVC_deleteWord = NSLocalizedString("bookVC_deleteWord", comment: "")
+    
+    let bookVC_deleteFav = NSLocalizedString("bookVC_deleteFav", comment: "")
+    
+    let bookVC_alreadyAddedToFav = NSLocalizedString("bookVC_alreadyAddedToFav", comment: "")
+    
+    let bookVC_autoPlay = NSLocalizedString("bookVC_autoPlay", comment: "")
+    
+    let bookVC_playSentence = NSLocalizedString("bookVC_playSentence", comment: "")
+    
+    let bookVC_playTimes = NSLocalizedString("bookVC_playTimes", comment: "")
+    
+    let bookVC_playSpeed = NSLocalizedString("bookVC_playSpeed", comment: "")
+    
+    let bookVC_alertNoWords = NSLocalizedString("bookVC_alertNoWords", comment: "")
+    
+    let bookVC_iKnow = NSLocalizedString("bookVC_iKnow", comment: "")
+    
+    let bookVC_alertNoWrongWords = NSLocalizedString("bookVC_alertNoWrongWords", comment: "")
+    
+    let bookVC_alertNoFavWords = NSLocalizedString("bookVC_alertNoFavWords", comment: "")
+    
+    let bookVC_noWordsLearned = NSLocalizedString("bookVC_noWordsLearned", comment: "")
+    
+    
+    
     //所有音節
     var syllableSets = [String]()
     
@@ -231,7 +267,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         switch height {
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             seperatorDif = 2.5
             dif = 0.9
             cellDif = 1.2
@@ -248,7 +284,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             alertXDif = 1
             
-        case 1024:
+        case 1024, 1194, 1112:
             seperatorDif = 1.9
             dif = 0.9
             cellDif = 1.1
@@ -774,7 +810,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
         
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: sylFontSize)
-        practiceWordBtn.setTitle("我知道了", for: .normal)
+        practiceWordBtn.setTitle(bookVC_iKnow, for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
         practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
         self.view.addSubview(practiceWordBtn)
@@ -852,8 +888,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         autoPlayText.anchor(top: autoPlayImg.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil,padding: .init(top: 5 * iPadDif, left: 0, bottom: 0, right: 0), size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
         autoPlayText.font = autoPlayText.font.withSize(btnTextFontSize)
+        autoPlayText.text = bookVC_autoPlay
         
         sentenceBtn.frame = CGRect(x: playBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
+        
         
         //sentenceBtn.backgroundColor = .green
         
@@ -881,6 +919,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playSenText.anchor(top: autoPlayText.topAnchor, leading: playBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
         playSenText.font = playSenText.font.withSize(btnTextFontSize)
+        playSenText.text = bookVC_playSentence
         
         playTimesBtn.frame = CGRect(x: sentenceBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
         
@@ -912,6 +951,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playTimesText.anchor(top: playSenText.topAnchor, leading: sentenceBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
         playTimesText.font = playTimesText.font.withSize(btnTextFontSize)
+        playTimesText.text = bookVC_playTimes
         
         playSpeedBtn.frame = CGRect(x: playTimesBtn.frame.maxX, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
         
@@ -941,6 +981,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playSpeedText.anchor(top: playTimesText.topAnchor, leading: playTimesBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
         playSpeedText.font = playSpeedText.font.withSize(btnTextFontSize)
+        playSpeedText.text = bookVC_playSpeed
         
         
         /*
@@ -967,7 +1008,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //設定delegate來監控讀音
         synth.delegate = self
         
-        let titles = ["正確單字", "錯誤單字", "最愛單字"]
+        let titles = [bookVC_correctWordTitle, bookVC_wrongWordTitle, bookVC_favoriteWordTitle]
+        
         segControl.setSegmentItems(segments:titles, height:sliderHeight)
         //segControl.set
         segControl.backgroundColor = .clear
@@ -1789,7 +1831,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         //預設值
-        alertTextShown = "\n此課程尚未學習任何單字\n單字集還是空的喔!"
+        alertTextShown = bookVC_alertNoWords
         
         
         //沒有值的話 無線條
@@ -1895,10 +1937,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         switch state{
             
         case 0:
-            favAddedLabel.text = "\(word)\n已新增至最愛"
+            favAddedLabel.text = "\(word)\n\(bookVC_alreadyAddedToFav)"
         case 1:
             
-            favAddedLabel.text = "沒有學習過的單字喔！"
+            favAddedLabel.text = bookVC_noWordsLearned
         default:
             break
         }
@@ -1941,7 +1983,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     func loadMyFavWords(){
         
         
-        alertTextShown = "\n此課程還沒加任何字\n到我的最愛!"
+        alertTextShown = bookVC_alertNoFavWords
         
         //載入我的最愛單字
         if let myWordsString = user?["myWords"] as! String?{
@@ -2093,7 +2135,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //載入錯誤單字, 使用時機: 移除錯誤單字即時顯示使用
     func loadMyWrongWords(){
         
-        alertTextShown = "\n此課程到目前為止\n無任何錯字!"
+        alertTextShown = bookVC_alertNoWrongWords
         
         //載入我的錯誤單字
         if let myWrongWordsString = user?["wrongWords"] as! String?{
@@ -2996,7 +3038,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         case 0:
             
             
-            let addToFavAction = UITableViewRowAction(style: .default, title: "加入最愛") { [weak self](action, indexPath) in
+            let addToFavAction = UITableViewRowAction(style: .default, title: bookVC_addToFav) { [weak self](action, indexPath) in
                 
                 //抓單字
                 
@@ -3046,7 +3088,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         case 1:
             
             
-            let addToFavAction = UITableViewRowAction(style: .default, title: "加入最愛") {[weak self] (action, indexPath) in
+            let addToFavAction = UITableViewRowAction(style: .default, title: bookVC_addToFav) {[weak self] (action, indexPath) in
                 
                 
                 //抓單字
@@ -3086,7 +3128,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             }
             
             
-            let deleteAction = UITableViewRowAction(style: .normal, title: "移除單字", handler: {[weak self] (action, indexPath) in
+            let deleteAction = UITableViewRowAction(style: .normal, title: bookVC_deleteWord, handler: {[weak self] (action, indexPath) in
                 
                 
                 let wordToCheck = self!.engWordsSelected[indexPath.row]
@@ -3121,7 +3163,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         case 2:
             
-            let deleteAction = UITableViewRowAction(style: .normal, title: "移除最愛", handler: {[weak self] (action, indexPath) in
+            let deleteAction = UITableViewRowAction(style: .normal, title: bookVC_deleteFav, handler: {[weak self] (action, indexPath) in
                 
                 
                 let wordToCheck = self!.engWordsSelected[indexPath.row]
@@ -3851,7 +3893,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             let id = user?["id"] as! String
             
             // url to access our php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
+            
+            var url:URL
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/addWord.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
+            }
             
             // request url
             var request = URLRequest(url: url)
@@ -3916,7 +3964,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             let id = user?["id"] as! String
             
             // url to access our php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+            
+            var url:URL!
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/removeWord.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+            }
+            
+            
+            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
             
             // request url
             var request = URLRequest(url: url)
@@ -3980,7 +4037,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             let id = user?["id"] as! String
             
             // url to access our php file
-            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWrongWord.php")!
+            
+            var url:URL!
+            if lan == "zh-Hans" {
+                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/removeWrongWord.php")!
+            } else {
+                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWrongWord.php")!
+            }
+            
+            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWrongWord.php")!
             
             // request url
             var request = URLRequest(url: url)
@@ -4045,7 +4110,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        
+        var url:URL!
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/selectUser.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
+        }
+        
+        
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
         
         let id = user?["id"] as! String
         

@@ -67,7 +67,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         switch height {
             
             
-        case 1366, 1336, 1112:
+        case 1366, 1336:
             
             dif = 1
             photoDif = 0
@@ -81,7 +81,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             btnYDif = 0
             
             
-        case 1024:
+        case 1024, 1194, 1112:
             dif = 1
             photoDif = 0
             difX = 0
@@ -451,17 +451,28 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         // url to access our php file
         var urlString = String()
-        
-        if type == 0 {
-        urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewWords.php"
-        } else if type == 1{
-            
-        urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewSens.php"
-        }
-    
+        var url:URL!
+        if lan == "zh-Hans" {
 
+            if type == 0 {
+                urlString = "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/rankReviewWords.php"
+            } else if type == 1{
+                
+                urlString = "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/rankReviewSens.php"
+            }
+        } else {
+    
+            
+            if type == 0 {
+                urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewWords.php"
+            } else if type == 1{
+                
+                urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewSens.php"
+            }
+        }
         
-        let url = URL(string: urlString)!
+        
+        url = URL(string: urlString)!
         // request url
         var request = URLRequest(url: url)
         
@@ -581,7 +592,13 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     func rankUsers(){
         
         // url to access our php file
-        let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
+        var url:URL
+        if lan == "zh-Hans" {
+            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/rankUser.php")!
+        } else {
+            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
+        }
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
         
         // request url
         var request = URLRequest(url: url)
