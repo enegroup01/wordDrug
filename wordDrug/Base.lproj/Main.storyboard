@@ -1192,14 +1192,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blueFinger.png" translatesAutoresizingMaskIntoConstraints="NO" id="JjV-ow-DLG">
-                                <rect key="frame" x="99" y="258" width="67" height="88"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bluePoint.png" translatesAutoresizingMaskIntoConstraints="NO" id="jnl-1w-SQ0">
-                                <rect key="frame" x="115" y="235" width="45" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoAlpha.png" translatesAutoresizingMaskIntoConstraints="NO" id="Psd-ol-vLF">
                                 <rect key="frame" x="121" y="28" width="135" height="131"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1287,10 +1279,8 @@
                         <outlet property="courseTableView" destination="x3I-fA-CGR" id="1KV-Qu-dwE"/>
                         <outlet property="dayTitleLabel" destination="ohj-Ne-WFq" id="SYi-bj-nNR"/>
                         <outlet property="daysLabel" destination="pSo-Gt-U6x" id="PgW-VQ-JDZ"/>
-                        <outlet property="finger" destination="JjV-ow-DLG" id="lsK-Mq-ttm"/>
                         <outlet property="logOutBtn" destination="a1e-Ia-agD" id="x1z-Oy-SAr"/>
                         <outlet property="logoImg" destination="Psd-ol-vLF" id="ErM-4G-jyM"/>
-                        <outlet property="point" destination="jnl-1w-SQ0" id="J3E-93-rES"/>
                         <outlet property="toChartLabel" destination="ao4-dz-W8A" id="CVT-ES-eu4"/>
                         <outlet property="toChartVcBtn" destination="0JX-c3-hHb" id="fKh-Zy-0th"/>
                         <outlet property="toInfoLabel" destination="xll-v6-3Ij" id="lMP-bV-J1m"/>
@@ -1954,8 +1944,6 @@
         <image name="avatar.png" width="192" height="192"/>
         <image name="bigOkBtn.png" width="420" height="58"/>
         <image name="block0Title.png" width="152" height="152"/>
-        <image name="blueFinger.png" width="270" height="352"/>
-        <image name="bluePoint.png" width="94" height="94"/>
         <image name="bookPlayOff.png" width="42" height="42"/>
         <image name="bookSenOff.png" width="96" height="78"/>
         <image name="bookSpeed2.png" width="88" height="54"/>
@@ -1999,7 +1987,7 @@
         <image name="yellowBack.png" width="38" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rwi-hC-Ovx"/>
+        <segue reference="FzF-te-kXe"/>
         <segue reference="Qsn-eF-t3O"/>
     </inferredMetricsTieBreakers>
 </document>

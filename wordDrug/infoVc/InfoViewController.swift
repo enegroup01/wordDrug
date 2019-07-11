@@ -38,7 +38,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let infoVC_rankLabel = NSLocalizedString("infoVC_rankLabel", comment: "")
     
     
-   
     let darkColor = UIColor.init(red: 41/255, green: 56/255, blue: 87/255, alpha: 1)
     let midColor = UIColor.init(red: 138/255, green: 152/255, blue: 170/255, alpha: 1)
     let lightColor = UIColor.init(red: 196/255, green: 203/255, blue: 213/255, alpha: 1)
@@ -46,8 +45,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let lightBlueColor = UIColor.init(red: 97/255, green: 136/255, blue: 216/255, alpha: 1)
     let darkRed = UIColor.init(red: 192/255, green: 40/255, blue: 75/255, alpha: 1)
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
-
-
+    
+    
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var rankCountLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -76,11 +75,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var alphaLayer: UIImageView!
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      
+        
+        
         var titleFontSize: CGFloat!
         var infoFontSize: CGFloat!
         var usernameFontSize: CGFloat!
@@ -88,109 +87,109 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         switch height {
             
-        
+            
         case 1366, 1336:
-                dif = 1.5
-                photoDif = 2
-          
-                titleFontSize = 40
-                infoFontSize = 30
-                subTitleFontSize = 35
-                subValueFontSize = 35
+            dif = 1.5
+            photoDif = 2
+            
+            titleFontSize = 40
+            infoFontSize = 30
+            subTitleFontSize = 35
+            subValueFontSize = 35
             usernameFontSize = 60
             avaYDif = 1
-
+            
         case 1024, 1194, 1112:
-                dif = 1.1
-                photoDif = 1.5
-       
-                titleFontSize = 35
-                infoFontSize = 20
-                subTitleFontSize = 28
-                subValueFontSize = 22
-             usernameFontSize = 40
-             avaYDif = 1
+            dif = 1.1
+            photoDif = 1.5
+            
+            titleFontSize = 35
+            infoFontSize = 20
+            subTitleFontSize = 28
+            subValueFontSize = 22
+            usernameFontSize = 40
+            avaYDif = 1
         case 812:
             
             //iPhoneX
             dif = 0.8
             photoDif = 1
-     
+            
             titleFontSize = 20
             infoFontSize = 16
             subTitleFontSize = 20
             subValueFontSize = 15
             usernameFontSize = 25
-             avaYDif = 1
+            avaYDif = 1
             
         case 736:
             
             //plus
             dif = 0.8
             photoDif = 1
-     
+            
             titleFontSize = 24
             infoFontSize = 16
             subTitleFontSize = 20
             subValueFontSize = 16
             usernameFontSize = 26
-             avaYDif = 1
+            avaYDif = 1
             
         case 667:
             
             dif = 0.7
             photoDif = 1
-        
+            
             titleFontSize = 20
             infoFontSize = 16
             subTitleFontSize = 18
             subValueFontSize = 14
             usernameFontSize = 22
-             avaYDif = 1
+            avaYDif = 1
         case 568:
             
             dif = 0.8
             photoDif = 0.7
-      
+            
             titleFontSize = 16
             infoFontSize = 16
             subTitleFontSize = 16
             subValueFontSize = 14
             usernameFontSize = 18
-             avaYDif = 0.6
+            avaYDif = 0.6
             
         default:
             dif = 0.8
             photoDif = 1
-         
+            
             titleFontSize = 20
             infoFontSize = 16
             subTitleFontSize = 20
             subValueFontSize = 15
             usernameFontSize = 25
             avaYDif = 1
-    
+            
             break
             
         }
         
-
-
+        
+        
         // Do any additional setup after loading the view.
         chartUpBg.frame = CGRect(x: 0, y: 0, width: width, height: height / 2.2)
         
         //backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
-
+        
         
         backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 30 * dif * avaYDif, left: 20 * dif, bottom: 0, right: 0), size: .init(width: 19 * dif, height: 31 * dif))
-
+        
         
         //titleLabel.frame = CGRect(x: backBtn.frame.maxX , y: backBtn.frame.maxY / 2, width: width - backBtn.frame.maxX * 2, height: 28 * dif)
         titleLabel.textAlignment = .center
         //titleLabel.backgroundColor = .red
-
+        
         titleLabel.font = titleLabel.font.withSize(titleFontSize)
-      
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.widthAnchor.constraint(equalToConstant: 200 * dif).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 40 * dif).isActive = true
@@ -228,7 +227,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         usernameLabel.heightAnchor.constraint(equalToConstant: 50 * photoDif).isActive = true
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameLabel.centerYAnchor.constraint(equalTo: avaImg.bottomAnchor, constant: 35 * dif).isActive = true
-
+        
         usernameLabel.adjustsFontSizeToFitWidth = true
         usernameLabel.font = usernameLabel.font.withSize(usernameFontSize)
         
@@ -248,7 +247,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         infoTableView.frame = CGRect(x: 0, y: chartUpBg.frame.maxY, width: width, height: height - chartUpBg.frame.height)
         
-
+        
         wordCountLabel.frame = CGRect(x: backBtn.frame.minX + 10 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
         //wordCountLabel.backgroundColor = .green
@@ -257,7 +256,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         wordCountLabel.font = wordCountLabel.font.withSize(infoFontSize)
         
         wordLabel.frame = CGRect(x: wordCountLabel.frame.minX, y: wordCountLabel.frame.maxY + 5 * dif, width: 90 * dif, height: 23 * dif)
-         wordLabel.font = wordLabel.font.withSize(infoFontSize)
+        wordLabel.font = wordLabel.font.withSize(infoFontSize)
         wordLabel.text = infoVC_wordLabel
         
         
@@ -299,7 +298,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         rankLabel.text = infoVC_rankLabel
         
         
-
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -322,7 +321,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-
+    
     @IBAction func changePhotoClicked(_ sender: Any) {
         
         let picker = UIImagePickerController()
@@ -331,7 +330,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         picker.allowsEditing = true
         picker.modalPresentationStyle = .overFullScreen
         
-
+        
         self.present(picker, animated: true, completion: nil)
     }
     
@@ -340,15 +339,15 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InfoTableViewCell
-
-       
-       // let attrs0 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Neue", size: 12), NSAttributedStringKey.foregroundColor : lightColor]
-      
+        
+        
+        // let attrs0 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Neue", size: 12), NSAttributedStringKey.foregroundColor : lightColor]
+        
         let attrs1: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subValueFontSize), NSAttributedStringKey.foregroundColor : yellowColor]
         
-
+        
         let attrs2: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: subTitleFontSize)!, NSAttributedStringKey.foregroundColor : darkColor]
-
+        
         
         cell.backgroundColor = .clear
         
@@ -356,23 +355,23 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let sub1Titles = [infoVC_spellRate,infoVC_proRate,infoVC_writeSenRate,infoVC_wordCount,infoVC_senCount]
         let sub2Titles = [infoVC_chineseRate,String(),String(),String(),String()]
         let countUnits = ["","","",infoVC_wordUnit,infoVC_senUnit]
-
+        
         var totalRates = [Int(),Int(),Int(),Int(),Int()]
-
+        
         
         //快速複習的數字不show
         if indexPath.row < 3 {
-        
+            
             cell.infoTitle.text = infoTitles[indexPath.row]
-           
+            
             cell.sub1Rate.text = String(sub1Rates[indexPath.row]) + "%"
-          
+            
             
             cell.sub1Title.text = sub1Titles[indexPath.row]
- 
-
+            
+            
             cell.bigCountLabel.text = ""
-
+            
             
             cell.countUnitLabel.text = ""
         } else {
@@ -382,7 +381,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.sub1Rate.attributedText = NSAttributedString(string: sub1Titles[indexPath.row], attributes: attrs1)
             
             cell.sub1Title.text = ""
-
+            
             //show大字
             cell.bigCountLabel.text = String(sub1Rates[indexPath.row])
             
@@ -404,7 +403,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         //設定不同顏色的title
-
+        
         cell.sub2Title.text = sub2Titles[indexPath.row]
         
         for i in 0 ..< sub1Rates.count{
@@ -442,42 +441,42 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.ringView.isHidden = false
             
         } else {
-        
+            
             
             cell.totalRate.text = ""
             cell.ringView.isHidden = true
-        
+            
         }
         return cell
     }
     
-
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         
         return 5
     }
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         
-
-       
+        
+        
         if user != nil {
             
-        selectUser()
+            selectUser()
             
         } else {
-          
+            
             //沒有user的時候
             getUserInfo()
             
         }
-  
+        
     }
-
-  
+    
+    
     
     
     func selectUser(){
@@ -490,8 +489,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else {
             url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
         }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
-        
+
         let id = user?["id"] as! String
         
         // request url
@@ -506,7 +504,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // append body to our request that gonna be sent
         request.httpBody = body.data(using: .utf8)
-
+        
         URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
             // no error
             if error == nil {
@@ -520,7 +518,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                         return
                     }
-   
+                    
                     
                     
                     print("selectUser:\(parseJSON)")
@@ -538,8 +536,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed!, forKey: "mapPassed")
-                        
-                        print("retrieve mapPassed:\(mapPassed!)")
+                
                         
                     }
                     
@@ -549,8 +546,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                        
-                        print("retrieve mapPassed:\(mapPassed2!)")
+                  
                         
                     }
                     
@@ -560,7 +556,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed3!, forKey: "mapPassed3")
                         
-                        print("retrieve mapPassed:\(mapPassed3!)")
                         
                     }
                     
@@ -570,7 +565,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                         
-                        print("retrieve mapPassed:\(mapPassed4!)")
                         
                     }
                     
@@ -580,75 +574,59 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed5!, forKey: "mapPassed5")
                         
-                        print("retrieve mapPassed:\(mapPassed5!)")
                         
                     }
-//                    if let mapPassed6String = user?["mapPassed6"] as! String?{
-//
-//                        mapPassed6 = Int(mapPassed6String)!
-//                        let userDefaults = UserDefaults.standard
-//                        userDefaults.set(mapPassed6!, forKey: "mapPassed6")
-//
-//                        print("retrieve mapPassed:\(mapPassed6!)")
-//
-//                    }
+
                     
                     //K12特別作法
                     if let mapPassed6String = user?["mapPassed6"] as! String?{
-                        print("enter 1")
+                  
                         var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
-                        print("enter 2 :\(mapPassedStringArray)")
+                 
                         for i in 0 ..< mapPassedStringArray.count {
                             
-                            print("enter 3")
                             //避免最後一位空值
                             if mapPassedStringArray[i] != "" {
                                 
                                 k12MapPassed[i] = Int(mapPassedStringArray[i])!
                             }
-                            
-                            print("enter 4 value:\(k12MapPassed)")
+                       
                             
                         }
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(k12MapPassed, forKey: "mapPassed6")
                         
-                        print("retrieve k12MapPassed:\(k12MapPassed!)")
-                        
+ 
                     }
-
+                    
                     if let mapPassed7String = user?["mapPassed7"] as! String?{
                         
                         mapPassed7 = Int(mapPassed7String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed7!, forKey: "mapPassed7")
                         
-                        print("retrieve mapPassed:\(mapPassed7!)")
                         
                     }
-
+                    
                     if let mapPassed8String = user?["mapPassed8"] as! String?{
                         
                         mapPassed8 = Int(mapPassed8String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed8!, forKey: "mapPassed8")
                         
-                        print("retrieve mapPassed:\(mapPassed8!)")
                         
                     }
-
+                    
                     if let mapPassed9String = user?["mapPassed9"] as! String?{
                         
                         mapPassed9 = Int(mapPassed9String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed9!, forKey: "mapPassed9")
                         
-                        print("retrieve mapPassed:\(mapPassed9!)")
                         
                     }
-
-                    
+       
                     
                     if let gamePassedString = user?["gamePassed"] as! String?{
                         
@@ -661,7 +639,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                         
-                        print("retrieve gamePassed:\(gamePassed!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed")
                         
                     }
@@ -677,7 +654,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                         
-                        print("retrieve gamePassed:\(gamePassed2!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed2")
                         
                     }
@@ -693,7 +669,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                         
-                        print("retrieve gamePassed:\(gamePassed3!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed3")
                         
                     }
@@ -710,7 +685,6 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                         
-                        print("retrieve gamePassed:\(gamePassed4!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
@@ -726,26 +700,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                         
-                        print("retrieve gamePassed:\(gamePassed5!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed5")
                         
                     }
                     
-//                    if let gamePassed6String = user?["gamePassed6"] as! String?{
-//
-//                        let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
-//
-//                        let s = gamePassed6StringArray[0]
-//                        let u = gamePassed6StringArray[1]
-//                        gamePassed6 = [Int(s)!:Int(u)!]
-//
-//                        let userDefaults = UserDefaults.standard
-//                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
-//
-//                        print("retrieve gamePassed:\(gamePassed6!)")
-//                        userDefaults.set(encodedObject, forKey: "gamePassed6")
-//
-//                    }
+
                     
                     //MARK: simVer K12 特別作法
                     
@@ -772,11 +731,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
                         
-                        print("retrieve gamePassed:\(k12GamePassed!)")
+        
                         userDefaults.set(encodedObject, forKey: "gamePassed6")
                         
                     }
-
+                    
                     if let gamePassed7String = user?["gamePassed7"] as! String?{
                         
                         let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
@@ -788,11 +747,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                         
-                        print("retrieve gamePassed:\(gamePassed7!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed7")
                         
                     }
-
+                    
                     if let gamePassed8String = user?["gamePassed8"] as! String?{
                         
                         let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
@@ -804,11 +762,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                         
-                        print("retrieve gamePassed:\(gamePassed8!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed8")
                         
                     }
-
+                    
                     if let gamePassed9String = user?["gamePassed9"] as! String?{
                         
                         let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
@@ -820,19 +777,18 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                         
-                        print("retrieve gamePassed:\(gamePassed9!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed9")
                         
                     }
-
                     
-
+                    
+                    
                     DispatchQueue.main.async {
-                       
+                        
                         self!.getUserInfo()
                         self!.myRank()
                     }
-               
+                    
                     
                 } catch{
                     
@@ -996,7 +952,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var allMapPassedCount:Int!
         
         if user != nil {
-         
+            
             if lan == "zh-Hans"{
                 //檢體中文
                 
@@ -1025,13 +981,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             
                             allMapPassedCount += s * 30 + u * 3
                         }
-                        
-                        
+                
                     }
                 }
-                
-                
-                
+ 
             } else {
                 //其餘語言
                 //print("繁體中文關卡數")
@@ -1070,7 +1023,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             for (s,u) in gamePassed5!{
                 gamePassed5Count = s * 30 + u * 3
             }
-            
+
             for (s,u) in gamePassed7!{
                 gamePassed7Count = s * 30 + u * 3
             }
@@ -1082,6 +1035,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             
             let allGamePassedCount = gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count + gamePassed5Count + gamePassed7Count + gamePassed8Count + gamePassed9Count
+            
+
             let allWordsCount = allMapPassedCount + allGamePassedCount
             
             wordCountLabel.text = String(allWordsCount)
@@ -1095,8 +1050,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 wrongWordsCount = wrongWordArray.count - 1
                 
             }
-            
-            print("wrongWordsCount:\(wrongWordsCount)")
+
             
             if allWordsCount == 0 {
                 //這樣的話比例也是0
@@ -1126,8 +1080,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                 }
             }
-
-
+            
+            
             
         } else {
             
@@ -1139,18 +1093,18 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         //抓分數
-         if let score = user?["score"] as? String{
+        if let score = user?["score"] as? String{
             
             scoreCountLabel.text = score
             
-         } else {
+        } else {
             
             scoreCountLabel.text = infoVC_noScore
             rankCountLabel.text = infoVC_noRank
         }
         
         
-      
+        
         
         //發音正確率
         
@@ -1161,13 +1115,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 sub1Rates[1] = 0
                 
             } else {
-            
-            sub1Rates[1] = Int(proRate)!
+                
+                sub1Rates[1] = Int(proRate)!
                 
             }
             
         }
-
+        
         
         //句子排列正確率
         
@@ -1178,8 +1132,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 sub1Rates[2] = 0
                 
             } else {
-            
-            sub1Rates[2] = Int(senRate)!
+                
+                sub1Rates[2] = Int(senRate)!
                 
             }
             
@@ -1188,7 +1142,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //MARK: must update
         
-       //快速複習單字數
+        //快速複習單字數
         if let wordCount = user?["wordReviewCount"] as? String{
             if let wordCount2 = user?["wordReviewCount2"] as? String{
                 if let wordCount3 = user?["wordReviewCount3"] as? String{
@@ -1198,12 +1152,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 if let wordCount7 = user?["wordReviewCount7"] as? String {
                                     if let wordCount8 = user?["wordReviewCount8"] as? String {
                                         if let wordCount9 = user?["wordReviewCount9"] as? String {
-                            
-
-                        let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)! + Int(wordCount5)! + Int(wordCount6)! + Int(wordCount7)! + Int(wordCount8)! + Int(wordCount9)!
-        
-                       
-                            sub1Rates[3] = totalWordCount
+                                            
+                                            
+                                            let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)! + Int(wordCount5)! + Int(wordCount6)! + Int(wordCount7)! + Int(wordCount8)! + Int(wordCount9)!
+                                            
+                                            
+                                            sub1Rates[3] = totalWordCount
                                         }
                                     }
                                 }
@@ -1219,58 +1173,58 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let senCount2 = user?["senReviewCount2"] as? String{
                 if let senCount3 = user?["senReviewCount3"] as? String{
                     if let senCount4 = user?["senReviewCount4"] as? String {
-                         if let senCount5 = user?["senReviewCount5"] as? String {
+                        if let senCount5 = user?["senReviewCount5"] as? String {
                             if let senCount6 = user?["senReviewCount6"] as? String {
                                 if let senCount7 = user?["senReviewCount7"] as? String {
                                     if let senCount8 = user?["senReviewCount8"] as? String {
                                         if let senCount9 = user?["senReviewCount9"] as? String {
-                        
-        
-                        let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)! + Int(senCount5)! + Int(senCount6)! + Int(senCount7)! + Int(senCount8)! + Int(senCount9)!
-        
-                        sub1Rates[4] = totalSenCount
+                                            
+                                            
+                                            let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)! + Int(senCount5)! + Int(senCount6)! + Int(senCount7)! + Int(senCount8)! + Int(senCount9)!
+                                            
+                                            sub1Rates[4] = totalSenCount
                                         }
                                     }
                                 }
-                                }
+                            }
                         }
                     }
                 }
             }
         }
         
-
+        
         infoTableView.reloadData()
-
-
+        
+        
     }
-
+    
     
     
     // selected image
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-  //  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        //  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         avaImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
         
         
-         self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: false, completion: nil)
         
         /*
-        self.dismiss(animated: true) {
-            /*
-            let value = UIInterfaceOrientation.landscapeLeft.rawValue
-            UIDevice.current.setValue(value, forKey: "orientation")
- */
-        }
-        */
+         self.dismiss(animated: true) {
+         /*
+         let value = UIInterfaceOrientation.landscapeLeft.rawValue
+         UIDevice.current.setValue(value, forKey: "orientation")
+         */
+         }
+         */
         
         
         // call func of uploading file to server
         if user != nil {
-        uploadAva()
-        
+            uploadAva()
+            
         }
         
     }
@@ -1279,14 +1233,14 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         self.dismiss(animated: true, completion: nil)
         /*
-        self.dismiss(animated: true) {
-            let value = UIInterfaceOrientation.landscapeLeft.rawValue
-            UIDevice.current.setValue(value, forKey: "orientation")
-        }
-        */
+         self.dismiss(animated: true) {
+         let value = UIInterfaceOrientation.landscapeLeft.rawValue
+         UIDevice.current.setValue(value, forKey: "orientation")
+         }
+         */
     }
     
-
+    
     // custom body of HTTP request to upload image file
     func createBodyWithParams(_ parameters: [String: String]?, filePathKey: String?, imageDataKey: Data, boundary: String) -> Data {
         
@@ -1394,8 +1348,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             
                             UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                             user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                            
-                            print(user)
+                       
                         } else {
                             print("didn't get id")
                             // get main queue to communicate back to user
@@ -1448,15 +1401,15 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 // Creating protocol of appending string to var of type data
 extension NSMutableData {

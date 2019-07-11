@@ -43,7 +43,7 @@ registerVC.startYourLearningPlan = "开始你的学习计画吧！";
 registerVC.accountPlaceholder = "请输入5位数以上帐号";
 registerVC.passwordPlaceholder = "请输入5位数以上密码";
 registerVC.registerBtnLabelText = "注册";
-registerVC.fbWechatLoginBtnText = "使用微信登入";
+registerVC.fbWechatLoginBtnText = "微信一键登录";
 registerVC.commercialLine1 = "每日免费7分钟，学习9个新单字";
 registerVC.commercialLine2 = "听说拼读一把罩！";
 registerVC.commercialLine3 = "*可至购物商城购买无限学习时间";
@@ -66,7 +66,7 @@ chartVC_passCountLabelText = "过关数";
 
 
 purchaseVC_dialogueTitle = "无限时间\n让英语学习无限大";
-purchaseVC_dialogueSubTitle = "所有课程不限时，一次全解锁";
+purchaseVC_dialogueSubTitle = "所有课程不限时，今天就开始";
 purchaseVC_downTitle = "用最正确，最有效率的单词学习方式\n只需付费一次，永久无限时间！";
 purchaseVC_downTitle2 = "小学必备990词\n初中必备2250词\n高中必备2700词\n及更多词库更新内容...";
 purchaseVC_iKnowBtnText = "\n我知道了";
@@ -165,6 +165,7 @@ gameVC_sen = "句";
 gameVC_toShop = "前往商城";
 gameVC_noBuyNow = "先不购买";
 gameVC_reviewNoScore = "复习不计分";
+gameVC_pressMicAgain = "再按一下麦克风结束";
 
 
 //loginVC
@@ -173,7 +174,7 @@ loginVC_usernamePlaceholder = "请输入5位数以上帐号";
 loginVC_passwordPlaceholder = "请输入5位数以上密码";
 loginVC_login = "登入";
 loginVC_register = "注册";
-loginVC_thirdPartyLogin = "使用微信登入";
+loginVC_thirdPartyLogin = "微信一键登录";
 loginVC_or = "或";
 loginVC_tryFirst = "先试用，晚点再注册";
 loginVC_accountExisted = "此帐号已存在，请重新输入";

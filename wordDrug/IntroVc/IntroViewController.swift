@@ -27,7 +27,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     let introVC_wrongTryAgain = NSLocalizedString("introVC_wrongTryAgain", comment: "")
     let introVC_tryNextTime = NSLocalizedString("introVC_tryNextTime", comment: "")
     let introVC_pleaseSayHi = NSLocalizedString("introVC_pleaseSayHi", comment: "")
-
+    
     let introVC_pressToEndMic = NSLocalizedString("introVC_pressToEndMic", comment: "")
     
     //中文字粉紅色
@@ -59,7 +59,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     //錄音動畫
     var recordingIndicator:NVActivityIndicatorView?
     
-  
+    
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
@@ -75,12 +75,12 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     var second = Int()
     
     var recommendedClassToPass = String()
-
+    
     var answerTime = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         var dif = CGFloat()
         var hintLabelFontSize: CGFloat!
@@ -89,9 +89,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         switch height {
             
         case 1366, 1336:
-
+            
             dif = 2
-   
+            
             hintLabelFontSize = 36
             
             
@@ -101,38 +101,36 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             hintLabelFontSize = 30
             
         case 812:
-      
+            
             dif = 1.15
- 
+            
             hintLabelFontSize = 20
-
+            
         case 736:
-
+            
             dif = 1.1
-
+            
             hintLabelFontSize = 20
             
         case 667:
-
+            
             dif = 1
-
+            
             hintLabelFontSize = 18
             
         case 568:
             
             dif = 0.9
-
+            
             hintLabelFontSize = 14
             
         default:
             
             dif = 1.15
-            
             hintLabelFontSize = 20
-
- 
+            
             break
-       
+            
             
         }
         
@@ -156,7 +154,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         recordBtn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 160 * dif).isActive = true
         
         //做錄音動畫
- 
+        
         let frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
         
@@ -183,7 +181,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         audioView.heightAnchor.constraint(equalToConstant: height / 6.5).isActive = true
         audioView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         audioView.centerYAnchor.constraint(equalTo: recordBtn.centerYAnchor).isActive = true
-
+        
         //hintLabel.backgroundColor = .red
         
         hintLabel.textAlignment = .center
@@ -217,8 +215,8 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             if let sceneNode = scene.rootNode as! IntroScene? {
                 
                 // Copy gameplay related content over to the scene
-
-
+                
+                
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -248,13 +246,12 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         //設定語言
         speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en"))!
         
-
+        
     }
-
+    
     
     
     @objc func startToRecognize(){
-   
         
         sayHi()
         
@@ -262,14 +259,6 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     
     @objc func toCourse(_ notification: NSNotification){
         
-        
-//        //抓到的順序為0
-//        if let recommendedClass = notification.userInfo?["recommendedClass"] as? String {
-//
-//           recommendedClassToPass  = recommendedClass
-//
-//        }
-//
         
         let userDefaults = UserDefaults.standard
         introWatched = true
@@ -279,23 +268,6 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-//        if segue.identifier == "fromIntroToCourse" {
-//
-//            if let destinedVc = segue.destination as? CoursesViewController{
-//
-//                //destinedVc.isGuidingMode = true
-//                destinedVc.recommendedClass = recommendedClassToPass
-//
-//            }
-//
-//
-//        }
-        
-        
-    }
     
     
     deinit {
@@ -320,20 +292,20 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                     
                 case .denied:
                     
-                          self!.recordBtn.isEnabled = true
-                       self!.failToAuthorizeMic()
-                           self!.authorized()
+                    self!.recordBtn.isEnabled = true
+                    self!.failToAuthorizeMic()
+                    self!.authorized()
                 case .restricted:
-
-                          self!.recordBtn.isEnabled = true
-                       self!.failToAuthorizeMic()
-                           self!.authorized()
+                    
+                    self!.recordBtn.isEnabled = true
+                    self!.failToAuthorizeMic()
+                    self!.authorized()
                     
                 case .notDetermined:
-              
-                          self!.recordBtn.isEnabled = true
+                    
+                    self!.recordBtn.isEnabled = true
                     self!.failToAuthorizeMic()
-                           self!.authorized()
+                    self!.authorized()
                 }
                 
                 
@@ -341,7 +313,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             
             
         }
-
+        
     }
     
     
@@ -369,7 +341,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
-
+    
     @IBAction func recordClicked(_ sender: Any) {
         
         //停止
@@ -401,32 +373,31 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                 recordBtn.setImage(UIImage(named: "recordCheck.png"), for: .normal)
                 hintLabel.text = introVC_howAreYou
                 
-                        restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
+                
+                restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
+                
                 isRecogRight = true
             } else {
                 
                 
                 if answerTime == 0 {
-                
-
+                    
                     recordBtn.setImage(UIImage(named: "recordCross.png"), for: .normal)
-            
+                    
                     hintLabel.text = introVC_wrongTryAgain
-                
+                    
                     restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
-             
+                    
                     isRecogRight = false
                     
                     answerTime += 1
-               
+                    
                 } else if answerTime == 1 {
                     
- 
+                    
                     recordBtn.setImage(UIImage(named: "recordCross.png"), for: .normal)
                     
                     hintLabel.text = introVC_tryNextTime
-
-           
                     
                     restultTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(IntroViewController.recogResult), userInfo: nil, repeats: true)
                     
@@ -458,12 +429,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                 recognitionTask?.cancel()
                 recognitionTask = nil
             }
-            
 
-            
             //開始辨識
-            
-            
+                        
             do {
                 
                 try audioSession.setCategory(AVAudioSessionCategoryRecord)
@@ -492,10 +460,10 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                                 self!.recogTextLabel.text = resultWord
                                 
                                 self!.hintLabel.text = self!.introVC_pressToEndMic
-
+                                
                             }
                             
-
+                            
                             
                             if result.isFinal {
                                 
@@ -505,7 +473,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                                 //移除掉Request避免Reuse
                                 self!.recognitionRequest = nil
                                 self!.recognitionTask = nil
-
+                                
                             }
                             
                         }
@@ -526,7 +494,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                     audioEngine.prepare()
                     try audioEngine.start()
                     
-               
+                    
                 }
                 
                 
@@ -537,20 +505,15 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             }
             
         }
-
+        
         
     }
     
     
     override func viewDidDisappear(_ animated: Bool) {
         
-      
-        
-        
         restultTimer.invalidate()
         NotificationCenter.default.removeObserver(self)
-        
-        
         
     }
     @objc func notifyRecogRight(){
@@ -576,7 +539,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                 hintLabel.text = ""
                 
                 
-                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "recogRight"), object: nil, userInfo: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "recogRight"), object: nil, userInfo: nil)
                 
                 
                 
@@ -611,7 +574,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     //syn發音
     func sayHi(){
         
@@ -627,23 +590,23 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         } catch  {
             print("error")
         }
-
-
+        
+        
         let utterance = AVSpeechUtterance(string: "hi")
-
+        
         let rateFloat = 0.45
-            utterance.postUtteranceDelay = 0
+        utterance.postUtteranceDelay = 0
         
         
-       // utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        // utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
-
+        
         
         
         utterance.rate = Float(rateFloat)
         synth.speak(utterance)
         
-      
+        
     }
     
     
@@ -651,51 +614,46 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance){
         
-        print("**start")
-       
         
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
         
-        print("**Finish")
         
-            
+        
         requestMicAuth()
         
-
-        print("nc received")
         
     }
-
+    
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance){
-        print("**pause")
+        
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance){
-        print("**continue")
-   
+        
+        
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance){
-        print("**cancel")
-     
+        
+        
         
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -53,8 +53,6 @@ class IntroScene: SKScene {
     var isDrawingEnable = false
     
 
-    
-    
     let question1 = ["male", "concert", "desert", "bottom", "quite", "temperature", "bucket"]
     
     let question2 = ["principal", "lack", "museum", "swallow", "diet", "domestic", "employee"]
@@ -105,9 +103,7 @@ class IntroScene: SKScene {
     
     
     override func didMove(to view: SKView) {
-        print("yes scene")
-        
-        
+   
 
         if lan == "zh-Hans" {
             answer1 = ["男性的, 女性的", "演唱会, 关心", "沙漠, 甜点", "底部, 按钮", "相当地, 安静的", "温度, 脾气", "桶子, 美元" ]
@@ -135,7 +131,7 @@ class IntroScene: SKScene {
         switch height {
             
         case 1366, 1336:
-            print("size: big iPad")
+           
             xDif = 1.2
             iPadDif = 60
             chiBtnSize = 256
@@ -148,7 +144,6 @@ class IntroScene: SKScene {
             
             
         case 1024, 1194, 1112:
-            print("size: small iPad")
             xDif = 1.2
             iPadDif = 50
             chiBtnSize = 240
@@ -159,8 +154,7 @@ class IntroScene: SKScene {
             speakerAlpha = 0
             
         case 812:
-            
-            print("size: 812")
+
             xDif = 1.2
             iPadDif = 0
             openingWarningText = introSC_openingWarningTextIPhone
@@ -170,8 +164,7 @@ class IntroScene: SKScene {
             skipIntroBtnYDif = 1
 
         case 736:
-            
-            print("size: 736")
+
             xDif = 1
 
             iPadDif = 0
@@ -183,7 +176,7 @@ class IntroScene: SKScene {
 
             
         case 667:
-            print("size: 667")
+           
             xDif = 1
 
             iPadDif = 0
@@ -195,7 +188,6 @@ class IntroScene: SKScene {
 
         case 568:
             
-            print("size: 568")
             xDif = 1
 
             iPadDif = 0
@@ -208,7 +200,6 @@ class IntroScene: SKScene {
             
         default:
             
-            print("size: default")
             xDif = 1.2
             iPadDif = 0
             openingWarningText = introSC_openingWarningTextIPhone
@@ -573,7 +564,6 @@ class IntroScene: SKScene {
                 
                 let recommendedClass:[String:String] = ["recommendedClass":self.recommendedClass]
                 
-            
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toCourse"), object: nil, userInfo: recommendedClass)
                 
                 
@@ -586,9 +576,7 @@ class IntroScene: SKScene {
 
     func testSetup(){
         
-        
         makeWord(seq: sequence)
-        
         
         changeImageAlfa(name: "leftChiBtn", toAlpha: 1, time: 0.3)
         changeImageAlfa(name: "rightChiBtn", toAlpha: 1, time: 0.3)
@@ -671,7 +659,7 @@ class IntroScene: SKScene {
                 
 
                 switch sequence{
-                case ..<7:
+                case 0 ..< 7:
 
                     right1 += 1
                     
@@ -780,7 +768,6 @@ class IntroScene: SKScene {
             
         } else {
         
-        
         //繼續練
             
             removeSomeNodes(name: "mark")
@@ -792,9 +779,7 @@ class IntroScene: SKScene {
             findLabelNode(name: "rightChi").text = ""
             
             makeWord(seq: sequence)
-
-            
-            
+      
         }
             
         
@@ -811,13 +796,11 @@ class IntroScene: SKScene {
             
             findLabelNode(name: "percent").text = String(numberShown) + "%"
             
-  
-            
+
         } else {
             
             timer.invalidate()
     
-            
             let downY = findLabelNode(name: "suggestedClass").frame.origin.y - 20
             let moveDown = SKAction.moveTo(y: downY, duration: 0)
             let moveUp = SKAction.moveTo(y: 60, duration: 0.2)
@@ -827,9 +810,7 @@ class IntroScene: SKScene {
             findLabelNode(name: "suggestedClass").run(sequence)
             
         }
-        
-        
-        
+
         
     }
 
@@ -856,12 +837,9 @@ class IntroScene: SKScene {
                 
                 
                 if node.name == "ss" || node.name == "ssLabel"{
-                    
-                    
-                    
+         
                     findImageNode(name: "ss2").alpha = 1
-   
-                        
+                    
                         findLabelNode(name: "bigWordLabel").text = "Miss"
                     
                 }
@@ -899,10 +877,7 @@ class IntroScene: SKScene {
             if node.name == "ss" || node.name == "ssLabel" || node.name == "ss2" ||  findLabelNode(name: "bigWordLabel").text == "Miss"{
                 
                 self.run(rightSound)
-                
-                
-                
-       
+
                 //passed
                 
                 findImageNode(name: "finger").removeAllActions()
@@ -934,7 +909,7 @@ class IntroScene: SKScene {
                     self!.findLabelNode(name: "tutorialLabel").text = "Good！"
                     self!.findLabelNode(name: "tutorialLabel").alpha = 1
                     
-                             self!.step5()
+                    self!.step5()
                 }
                 
                 

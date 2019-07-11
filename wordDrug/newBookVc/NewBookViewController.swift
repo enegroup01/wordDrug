@@ -17,40 +17,21 @@ import Speech
 class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, UITableViewDelegate,UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, AVSpeechSynthesizerDelegate, UICollectionViewDelegateFlowLayout{
     
     let bookVC_correctWordTitle = NSLocalizedString("bookVC_correctWordTitle", comment: "")
-    
     let bookVC_wrongWordTitle = NSLocalizedString("bookVC_wrongWordTitle", comment: "")
-    
     let bookVC_favoriteWordTitle = NSLocalizedString("bookVC_favoriteWordTitle", comment: "")
-    
-  
-    
     let bookVC_addToFav = NSLocalizedString("bookVC_addToFav", comment: "")
-    
     let bookVC_deleteWord = NSLocalizedString("bookVC_deleteWord", comment: "")
-    
     let bookVC_deleteFav = NSLocalizedString("bookVC_deleteFav", comment: "")
-    
     let bookVC_alreadyAddedToFav = NSLocalizedString("bookVC_alreadyAddedToFav", comment: "")
-    
     let bookVC_autoPlay = NSLocalizedString("bookVC_autoPlay", comment: "")
-    
     let bookVC_playSentence = NSLocalizedString("bookVC_playSentence", comment: "")
-    
     let bookVC_playTimes = NSLocalizedString("bookVC_playTimes", comment: "")
-    
     let bookVC_playSpeed = NSLocalizedString("bookVC_playSpeed", comment: "")
-    
     let bookVC_alertNoWords = NSLocalizedString("bookVC_alertNoWords", comment: "")
-    
     let bookVC_iKnow = NSLocalizedString("bookVC_iKnow", comment: "")
-    
     let bookVC_alertNoWrongWords = NSLocalizedString("bookVC_alertNoWrongWords", comment: "")
-    
     let bookVC_alertNoFavWords = NSLocalizedString("bookVC_alertNoFavWords", comment: "")
-    
     let bookVC_noWordsLearned = NSLocalizedString("bookVC_noWordsLearned", comment: "")
-    
-    
     
     //所有音節
     var syllableSets = [String]()
@@ -250,11 +231,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var k12WordSets = [[[String()]]]
     var k12SentenceSets = [[[String()]]]
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("enter book view did load")
+
         
         var sliderHeight: CGFloat!
         var btnDif: CGFloat!
@@ -767,7 +746,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-        
+        //test使用
         
         
         //加入alertView
@@ -777,7 +756,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //ghostBtn.addTarget(self, action: #selector(NewBookViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(ghostBtn)
         
-        //alertBg.frame = CGRect(x: (width - 237 * dif) / 2 + xDif, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         alertBg.image = UIImage(named: "reviewQuitBg3.png")
         self.view.addSubview(alertBg)
         
@@ -790,7 +768,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         ghost2Btn.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: width * 237 / 375, height: height * 140 / 667)
         self.view.addSubview(ghost2Btn)
         
-        //alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+
         alertText.font = UIFont(name: "Helvetica Bold", size: sylFontSize)
         alertText.textColor = .white
         alertText.text = "選擇練習模式"
@@ -806,9 +784,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         alertText.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10 * iPadDif).isActive = true
         alertText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        
-        //practiceWordBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * cellDif + iPadSmall, width: alertBg.frame.width, height: height * 44 / 667)
-        
+
+        //名稱有誤 其實只是alert的按鈕 要保留
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: sylFontSize)
         practiceWordBtn.setTitle(bookVC_iKnow, for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
@@ -850,7 +827,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         backBtn.frame = CGRect(x: width / 14 / iPadDif , y: width / 10 / iPadDif / iPadDif, width: 19 * iPadDif, height: 31 * iPadDif)
         
-        //backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 10 * iPadDif, left: 15 * iPadDif, bottom: 0, right: 0), size: .init(width: 19 * iPadDif, height: 31 * iPadDif))
+
         
         //設定好segMent
         segControl.frame = CGRect(x: backBtn.frame.maxX, y: backBtn.frame.minY,width: width - backBtn.frame.width * 4, height: sliderHeight )
@@ -867,23 +844,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         playBtn.frame = CGRect(x: 0, y: tableView.frame.maxY, width: width / 4, height: 66 * dif * iPadDif)
         //playBtn.backgroundColor = .red
         
-        //autoPlayImg.frame = CGRect(x: (width / 5 - 23 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 23 * dif, height: 23 * dif)
-        
-        //autoPlayImg.center = CGPoint(x: playBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif * btnDif)
-        //autoPlayImg.frame.size = CGSize(width: 23 * dif * btnDif, height: 23 * dif * btnDif)
+
         autoPlayImg.translatesAutoresizingMaskIntoConstraints = false
         autoPlayImg.widthAnchor.constraint(equalToConstant: 23 * dif * btnDif).isActive = true
         autoPlayImg.heightAnchor.constraint(equalToConstant: 23 * dif * btnDif).isActive = true
         autoPlayImg.centerYAnchor.constraint(equalTo: bookViewBottomBg.centerYAnchor, constant: -autoPlayImg.frame.height / 2).isActive = true
-        //autoPlayImg.leadingAnchor.constraint(equalTo: view.safeLeftAnchor, constant: width / 8 - autoPlayImg.frame.width).isActive = true
+
         
         autoPlayImg.centerXAnchor.constraint(equalTo: playBtn.centerXAnchor).isActive = true
         
-        
-        //autoPlayText.frame = CGRect(x:(width / 5 - 72 * dif) / 2, y: height - 21 * 1.2 * dif, width: 72 * dif , height: 21 * dif)
-        //autoPlayText.backgroundColor = .green
-        // autoPlayText.frame.size = CGSize(width: 72 * dif , height: 21 * dif)
-        //autoPlayText.center = CGPoint(x: playBtn.frame.midX, y: height - 11 * 1.2 * dif)
         
         autoPlayText.anchor(top: autoPlayImg.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil,padding: .init(top: 5 * iPadDif, left: 0, bottom: 0, right: 0), size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
@@ -895,26 +864,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //sentenceBtn.backgroundColor = .green
         
-        //playSenImg.frame = CGRect(x: width / 5 + (width / 5 - 27 * dif) / 2 ,y: bookViewBottomBg.frame.minY + 12 * dif, width: 27 * dif, height: 23 * dif)
-        
-        //playSenImg.center = CGPoint(x: sentenceBtn.frame.midX, y: bookViewBottomBg.frame.midY - 12 * dif)
-        //playSenImg.frame.size = CGSize(width: 27 * dif, height: 23 * dif)
-        
         
         playSenImg.translatesAutoresizingMaskIntoConstraints = false
         playSenImg.widthAnchor.constraint(equalToConstant: 27 * dif * btnDif).isActive = true
         playSenImg.heightAnchor.constraint(equalToConstant: 23 * dif * btnDif).isActive = true
         playSenImg.centerYAnchor.constraint(equalTo: bookViewBottomBg.centerYAnchor, constant: -playSenImg.frame.height / 2).isActive = true
-        //playSenImg.leadingAnchor.constraint(equalTo: playBtn.trailingAnchor ,constant: width / 8 - playSenImg.frame.width).isActive = true
         
         playSenImg.centerXAnchor.constraint(equalTo: sentenceBtn.centerXAnchor).isActive = true
         
-        
-        //playSenText.frame = CGRect(x: width / 5 + (width / 5 - 79 * dif) / 2, y: height - 21 * 1.2 * dif, width: 79 * dif , height: 21 * dif)
-        //playSenText.frame.size = CGSize(width: 79 * dif , height: 21 * dif)
-        //playSenText.center = CGPoint(x: sentenceBtn.frame.midX, y: height - 11 * 1.2 * dif)
-        
-        //playSenText.anchor(top: playSenImg.bottomAnchor, leading: playBtn.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 5 * iPadDif, left: 0, bottom: 0, right: 0), size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
         playSenText.anchor(top: autoPlayText.topAnchor, leading: playBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
@@ -926,12 +883,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //playTimesBtn.backgroundColor = .yellow
         
-        //playTimesImg.frame = CGRect(x: width * 2 / 5 + (width / 5 - 46 * dif) / 2, y: bookViewBottomBg.frame.minY + 18 * dif, width: 46 * dif, height: 8 * dif)
-        
-        //playTimesImg.center = CGPoint(x: playTimesBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
-        //playTimesImg.frame.size = CGSize(width: 46 * dif, height: 8 * dif)
-        
-        
         playTimesImg.translatesAutoresizingMaskIntoConstraints = false
         playTimesImg.widthAnchor.constraint(equalToConstant: 46 * dif * btnDif).isActive = true
         playTimesImg.heightAnchor.constraint(equalToConstant: 8 * dif * btnDif).isActive = true
@@ -939,14 +890,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         playTimesImg.centerXAnchor.constraint(equalTo: playTimesBtn.centerXAnchor).isActive = true
         
-        
-        
-        //playTimesText.frame = CGRect(x: width * 2 / 5 + (width / 5 - 76 * dif) / 2, y: height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
-        //playTimesText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
-        //playTimesText.center = CGPoint(x: playTimesBtn.frame.midX, y: height - 11 * 1.2 * dif)
-        
-        
-        //playTimesText.anchor(top: playTimesImg.bottomAnchor, leading: sentenceBtn.trailingAnchor, bottom: nil, trailing: nil,padding:.init(top: 10 * iPadDif - playTimeBtnYDif, left: 0, bottom: 0, right: 0) , size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
         playTimesText.anchor(top: playSenText.topAnchor, leading: sentenceBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
@@ -957,13 +900,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //playSpeedBtn.backgroundColor = .purple
         
-        // playSpeedImg.frame = CGRect(x: width * 3 / 5 + (width / 5 - 44 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 44 * dif, height: 28 * dif)
-        
-        
-        // playSpeedImg.center = CGPoint(x: playSpeedBtn.frame.midX, y: bookViewBottomBg.frame.midY - 11 * dif)
-        //  playSpeedImg.frame.size = CGSize(width: 44 * dif, height: 28 * dif)
-        
-        
         playSpeedImg.translatesAutoresizingMaskIntoConstraints = false
         playSpeedImg.widthAnchor.constraint(equalToConstant: 40 * dif * btnDif).isActive = true
         playSpeedImg.heightAnchor.constraint(equalToConstant: 26 * dif * btnDif).isActive = true
@@ -971,26 +907,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         playSpeedImg.centerXAnchor.constraint(equalTo: playSpeedBtn.centerXAnchor).isActive = true
         
-        
-        //playSpeedText.frame = CGRect(x: width * 3 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
-        //playSpeedText.frame.size = CGSize(width: 76 * dif, height: 21 * dif)
-        //playSpeedText.center = CGPoint(x: playSpeedBtn.frame.midX, y: height - 11 * 1.2 * dif)
-        
-        //playSpeedText.anchor(top: playSpeedImg.bottomAnchor, leading: playTimesBtn.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 5 * iPadDif, left: 0, bottom: 0, right: 0), size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
-        
+
         playSpeedText.anchor(top: playTimesText.topAnchor, leading: playTimesBtn.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: width / 4, height: bookViewBottomBg.frame.height / 3))
         
         playSpeedText.font = playSpeedText.font.withSize(btnTextFontSize)
         playSpeedText.text = bookVC_playSpeed
         
-        
-        /*
-         practiceBtn.frame = CGRect(x: playSpeedBtn.frame.maxX, y: tableView.frame.maxY, width: width / 5, height: 66 * dif)
-         
-         practiceImg.frame = CGRect(x: width * 4 / 5 + (width / 5 - 24 * dif) / 2, y: bookViewBottomBg.frame.minY + 12 * dif, width: 24 * dif, height: 24 * dif)
-         
-         practiceText.frame = CGRect(x: width * 4 / 5 + (width / 5 - 76 * dif) / 2, y:  height - 21 * 1.2 * dif, width: 76 * dif, height: 21 * dif)
-         */
         
         practiceBtn.isHidden = true
         practiceImg.isHidden = true
@@ -1062,7 +984,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         // *** 處理文字 ***
         
         //歸類所有syllable
-        
         syllableGroup.removeFirst()
         
         for groupSet in syllableGroup{
@@ -1106,28 +1027,24 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //預設第一個元素
         collectionTouched[0] = 1
         
-        
         // *** 讀取單字 ***
         
         //MARK: simVer K12特別作法
         if courseReceived == 5  {
-            print("book chek 1")
-            
+
             //篩選有字的再讀, 沒有字的就保持空值
             
             for i in 0 ..< k12MapPassed.count {
-                       print("book chek 2")
                 
                 for (spot, unit) in k12GamePassed[i] {
-                           print("book chek 3")
+               
                     if spot != 0 || unit != 0  || k12MapPassed[i] == 1{
-                        
-                               print("book chek 4")
+                   
+                        //有字
                         
                         //讀全部值
                         for s in 0 ..< maxSpotNumArray[i]{
-                                   print("book chek 5")
- 
+                            
                             var wordFile:String?
                             //前面的1代表第一張地圖
                             let name = String(i + increaseNum + 1) + "-" + String(s + 1)
@@ -1168,9 +1085,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             }
                             
                         }
-                               print("book chek 6")
-                        
-                        
                     }
                     
                 }
@@ -1249,9 +1163,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 }
                 
             }
-            
-            
-            
+
             
             //接著抓目前最新開放地圖裡的完成字 + 殘字
             for (s,_) in gamePassedDic!{
@@ -1474,9 +1386,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     for s in 1 ..< i + 1 {
                         
                         addedSequence += maxSpotNumArray[s - 1] * 30
-                        print("1+\(addedSequence)")
-                        
-                        
                     }
                     
                 }
@@ -1491,8 +1400,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             
                             syllablesToShow.append(sylArray[addedSequence])
                             addedSequence += 1
-                            print("3+\(addedSequence)")
-                            
+               
                             
                         }
                     }
@@ -1516,8 +1424,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                                 syllablesToShow.append(sylArray[addedSequence])
                                 
                                 addedSequence += 1
-                                
-                                print("2+\(addedSequence)")
+                        
                             }
                             
                             
@@ -1527,13 +1434,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             
                             syllablesToShow.append(sylArray[addedSequence])
                             addedSequence += 1
-                            print("3+\(addedSequence)")
                             
                         }
-                        
-                        
-                        
-                        
+      
                         
                     }
                     
@@ -1571,8 +1474,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         //檢體中文
                         
                         syllableSequence = Int(i * 30) +  Int(w)
-                        
-                        
+
                     } else {
                         //其餘語言
                         //print("繁體中文關卡數")
@@ -1581,9 +1483,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     }
                     
                     //排除掉K12, 到後方抓殘字時再處理, 這裡先保留著之後再check
-                        syllablesToShow.append(sylArray[syllableSequence])
+                  
+                    syllablesToShow.append(sylArray[syllableSequence])
 
-                    
                 }
                 
                 for c in 30 ..< 60{
@@ -1657,18 +1559,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 for w in 60 ..< (60 + (g + 1) * 3){
                     
-                    
                     partOfSpeechToShow.append(tempWordSets[0][w])
-                    
                 }
                 
             }
-
             
         }
-        
 
-        
     
         //這部分之後要分course類了
         //載入我的最愛單字
@@ -1681,8 +1578,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             myWrongWords = myWrongWordsString.components(separatedBy: ";")
             
         }
-        
-        
         
         //在這如果沒有全破關者要先移除掉三個字
         //移除三個多增加的數量, 這三個是可能會錯的部分?? 為什麼只移除engWordsSelected..應該是因為這樣return cell就直接少三個
@@ -1705,7 +1600,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         
       
-        
+        //print("sortedsyl Array :\(sortedSylArray)")
+        //print("syll array :\(sylArray)")
         //兩個音節做比對, 抓新字的順序
         for s in 0 ..< sortedSylArray.count{
             
@@ -1713,7 +1609,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 
                 if sortedSylArray[s] == sylArray[i]{
-                    
+                   // print("same syl :\(sortedSylArray[s])")
                     //MARK: simVer 這裏不抓三個字... 原始寫法保留在下方
                     
                     if lan == "zh-Hans" && isSimVerSingleSyllable{
@@ -1726,9 +1622,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             sortedSyllablesToShow.append(syllablesToShow[i])
                             sortedEngSenToShow.append(engSenToShow[i])
                             sortedChiSenToShow.append(chiSenToShow[i])
-                            
+
                         }
-                        
                         
                     } else {
                         //其餘語言
@@ -1740,6 +1635,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                                 
                                 sortedEngWordsToShow.append(engWordsToShow[(i * 3) + n])
                                 sortedChiWordsToShow.append(chiWordsToShow[(i * 3) + n])
+                                
+                
                                 sortedPartOfSpeechToShow.append(partOfSpeechToShow[(i * 3) + n])
                                 sortedSyllablesToShow.append(syllablesToShow[(i * 3) + n])
                                 sortedEngSenToShow.append(engSenToShow[(i * 3) + n])
@@ -1751,13 +1648,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                     }
                     
-                    
                 }
                 
             }
             
         }
         
+
+
         //從所有的單字裡去找match到的我的最愛單字
         for i in 0 ..< sortedEngWordsToShow.count{
             
@@ -1841,17 +1739,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     
     override func viewWillAppear(_ animated: Bool) {
-        print("enter book will appear")
-        
+
         //沒有網路的測試要comment掉
         
         if user != nil {
-            
             selectUser()
         }
-        
-        
-        
+
     }
     
     
@@ -2059,22 +1953,17 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //目前機制 先看delete完再看add就是正確
         for temp in tempMyFav {
             
-            
             for fav in myFavWords{
-                
                 
                 //如果已經有的話 又不曾刪除掉的話, 就沒有必要存在, 因為myFavWord裡已經有了
                 if temp == fav && !tempFavWordsToDelete.contains(temp){
-                    
                     
                     tempMyFav = tempMyFav.filter { $0 != temp }
                 }
                 
             }
-            
-            
-        }
         
+        }
         
         
         //以所有的單字來match我的最愛單字的資訊
@@ -2082,7 +1971,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             //做比對使用
             let word = sortedEngWordsToShow[i].replacingOccurrences(of: " ", with: "")
-            
             
             for myWord in tempMyFav{
                 
@@ -2102,18 +1990,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     myFavEngSenToShow.append(engSenToAppend)
                     myFavChiSenToShow.append(chiSenToAppend)
                     
-                    
                 }
                 
             }
             
-            
         }
-        
-        
-        
-        
-        
         
         //選擇好要show的單字
         engWordsSelected = myFavEngWordsToShow
@@ -2160,7 +2041,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 if myWrongWord == word && !tempWrongWordsToDelete.contains(myWrongWord){
                     
-                    
                     let chiWord = sortedChiWordsToShow[i]
                     let partOfSpeech = sortedPartOfSpeechToShow[i]
                     let syllables = sortedSyllablesToShow[i]
@@ -2175,55 +2055,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     myWrongEngSenToShow.append(engSenToAppend)
                     myWrongChiSenToShow.append(chiSenToAppend)
                 }
+      
             }
-            
-            
-            
-            /*
-             
-             //抓我的錯字
-             for myWrongWord in myWrongWords{
-             
-             //排除暫時刪除的字
-             //          for temp in tempWrongWordsToDelete{
-             
-             
-             if myWrongWord == word {
-             
-             if tempWrongWordsToDelete.count > 0 {
-             
-             for temp in tempWrongWordsToDelete {
-             
-             if myWrongWord != temp {
-             
-             
-             let chiWord = sortedChiWordsToShow[i]
-             let partOfSpeech = sortedPartOfSpeechToShow[i]
-             let syllables = sortedSyllablesToShow[i]
-             let wordToAppend = sortedEngWordsToShow[i]
-             let engSenToAppend = sortedEngSenToShow[i]
-             let chiSenToAppend = sortedChiSenToShow[i]
-             
-             myWrongEngWordsToShow.append(wordToAppend)
-             myWrongChiWordsToShow.append(chiWord)
-             myWrongPartOfSpeechToShow.append(partOfSpeech)
-             myWrongSyllablesToShow.append(syllables)
-             myWrongEngSenToShow.append(engSenToAppend)
-             myWrongChiSenToShow.append(chiSenToAppend)
-             
-             }
-             
-             }
-             } else {
-             
-             
-             }
-             }
-             
-             
-             }
-             
-             */
+
         }
         
         engWordsSelected = myWrongEngWordsToShow
@@ -2232,7 +2066,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         syllablesSelected = myWrongSyllablesToShow
         engSenSelected = myWrongEngSenToShow
         chiSenSelected = myWrongChiSenToShow
-        
         
         tableView.reloadData()
         findMatchCollectionCell()
@@ -2261,17 +2094,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             engSenSelected = sortedEngSenToShow
             chiSenSelected = sortedChiSenToShow
             
-            //移除三個多增加的數量
-            //             if (mapPassedInt! + 1) != maxMapNum{
-            //
-            //
-            //                for  _ in 0 ..< 3 {
-            //
-            //                engWordsSelected.removeLast()
-            //
-            //                }
-            //
-            //            }
+
             tableView.reloadData()
             findMatchCollectionCell()
             
@@ -2384,16 +2207,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                                     
                                     //假如有抓到的話
                                     if word == engWord{
-                                        print("found wrong pronounce word")
+                              
                                         synEngWord = rightWord[0]
                                         
                                     }
                                     
+                            
                                 }
                                 
                             }
-                            
-                            
                             synChiWord = chiWordsSelected[i]
                             synEngSen = engSenSelected[i]
                             synChiSen = chiSenSelected[i]
@@ -2419,24 +2241,18 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             }
                     })
                     
-                    
                     //Part 3. 往下播放
                     synPronounce()
                     
                 }
-            }else {
-                
-                //找不到字
-                print("no word")
             }
+            
         }
-        
-        
+
     }
     
     @IBAction func practiceBtnClicked(_ sender: Any) {
-        print("enter practice")
-        
+ 
         ghostBtn.isHidden = false
         alertBg.isHidden = false
         ghost2Btn.isHidden = false
@@ -2611,7 +2427,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                         //假如有抓到的話
                         if word == synEngWord{
-                            print("found wrong pronounce word")
                             synEngWord = rightWord[0]
                             
                         }
@@ -2733,12 +2548,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-        print(engWordsSelected.count)
+  
         
         if engWordsSelected.count == 0 {
-            
-            print("沒有字")
-            
+
             
             ghostBtn.isHidden = false
             alertBg.isHidden = false
@@ -2755,22 +2568,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 practiceWordBtn.removeTarget(self, action: #selector(NewBookViewController.practiceWord), for: .touchUpInside)
                 practiceWordBtn.addTarget(self, action: #selector(NewBookViewController.backBtnClicked(_:)), for: .touchUpInside)
-                
-                
-                
-            } else {
-                
-                
             }
-            
-            
-            
         }
         
         print("how many words loaded:\(engWordsSelected.count)")
         return engWordsSelected.count
-        
-        //return 5
+
         
     }
     
@@ -2819,9 +2622,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         if indexPath.row == 0 {
             
             cell.hintLabel.isHidden = false
-            
-            
-            
+
             UIView.animate(withDuration: 0.5, delay: 0, options: [.autoreverse,.repeat], animations: {
                 
                 UIView.setAnimationRepeatCount(5)
@@ -3058,29 +2859,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 self!.addToFavAnimation(word: wordToAdd, state: 0)
                 
                 
-                /*
-                 if self!.tempFavWordsToDelete.count > 0 {
-                 
-                 for i in 0 ..< self!.tempFavWordsToDelete.count {
-                 
-                 if self!.tempFavWordsToDelete[i] == wordToAdd {
-                 
-                 self!.tempFavWordsToDelete.remove(at: i)
-                 
-                 }
-                 
-                 }
-                 
-                 }
-                 
-                 */
-                
                 
             }
-            
-            print("add:\(tempMyFav)")
-            
-            print("toDelete:\(tempFavWordsToDelete)")
+
             
             return [addToFavAction]
             
@@ -3110,19 +2891,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 self!.addToFavAnimation(word: wordToAdd, state: 0)
                 
-                /*
-                 if self!.tempFavWordsToDelete.count > 0 {
-                 
-                 for i in 0 ..< self!.tempFavWordsToDelete.count {
-                 
-                 if self!.tempFavWordsToDelete[i] == wordToAdd {
-                 
-                 self!.tempFavWordsToDelete.remove(at: i)
-                 }
-                 
-                 }
-                 }
-                 */
+
                 
                 
             }
@@ -3152,12 +2921,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             })
             
-            print("add:\(tempMyFav)")
-            print("toDelete:\(tempFavWordsToDelete)")
-            print("wrongToDelete:\(tempWrongWordsToDelete)")
-            
-            
-            
             return [addToFavAction,deleteAction]
             
             
@@ -3177,23 +2940,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     self!.tempFavWordsToDelete.append(wordToDelete)
                     
                 }
-                
-                
-                
-                
-                /*
-                 var indexToRemove = [Int]()
-                 for i in 0 ..< self!.tempMyFav.count{
-                 
-                 if self!.tempMyFav[i] == wordToDelete {
-                 
-                 indexToRemove.append(i)
-                 
-                 }
-                 
-                 }
-                 */
-                
+
                 
                 for temp in self!.tempMyFav {
                     
@@ -3218,12 +2965,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 self!.tableView.reloadData()
                 
             })
-            
-            
-            
-            print("toDelete:\(tempFavWordsToDelete)")
-            print("toAdd:\(tempMyFav)")
-            
+
             return [deleteAction]
             
         default:
@@ -3259,7 +3001,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 //假如有抓到的話
                 if word == synEngWord{
-                    print("found wrong pronounce word")
+                
                     synEngWord = rightWord[0]
                     
                 }
@@ -3305,9 +3047,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     @objc func turnOffRedLight(){
         
-        
-        print("turn off red light")
-        
+
         for cell in tableView.visibleCells{
             
             cell.backgroundColor = .clear
@@ -3370,20 +3110,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 }
                 
                 
-                /*
-                 for i in 0 ..< sortedSylArray.count{
-                 
-                 if sortedSylArray[i] == sylTextLabel.text! {
-                 indexToChange = i
-                 }
-                 }
-                 */
+
                 //#新寫法
                 
                 indexToChange = sortedSylArray.index(of: sylTextLabel.text!)!
-                //  indexToChange = sortedSylArray.firstIndex(of: sylTextLabel.text!)!
-                
-                
+             
                 //假如找到的話就做collecitonView更新
                 //設定選項顏色
                 for c in 0 ..< collectionTouched.count{
@@ -3440,13 +3171,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             isScrolling = false
             
             if syllablesSelected.contains(sortedSylArray[collectionSelectedIndex!]) {
-                
-                
-                print("可以show")
+
                 collectionView.reloadData()
                 
             } else {
-                print("沒有單字可以show")
+      
                 addToFavAnimation(word: "", state: 1)
             }
         }
@@ -3478,10 +3207,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         sylText.heightAnchor.constraint(equalToConstant: collectionViewCellSize * 0.9).isActive = true
         sylText.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
         sylText.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        
-        
-        
-        
+
         sylSelected = sortedSylArray[collectionSelectedIndex!]
         
         
@@ -3538,14 +3264,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     if lan == "zh-Hans" && isSimVerSingleSyllable{
                         //檢體中文
                         
-                        print("檢體中文關卡數")
                         //之後還要用courseReceived來改數值, 因為每個course值不同
                         indexPathRow = IndexPath(row: indexToJump, section: 0)
                         
                         
                     } else {
                         //其餘語言
-                        print("繁體中文關卡數")
+            
                         indexPathRow = IndexPath(row: indexToJump + 1, section: 0)
                         
                     }
@@ -3566,61 +3291,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             print("沒有找到字")
         }
         
-        
-        /*
-         
-         for i in 0 ..< syllablesSelected.count{
-         
-         if isJump == false {
-         
-         //確認有字可以跳, 因爲有一些是正開放可以學習的單字但是不代表已經過了
-         
-         //  print("allsylSelected:\(syllablesSelected)")
-         //  print("sylSelected:\(sylSelected)")
-         
-         if syllablesSelected[i] == sylSelected{
-         
-         if i < tableView.numberOfRows(inSection: 0){
-         
-         if i == 0 {
-         
-         let index = IndexPath(row: 0, section: 0)
-         
-         tableView.scrollToRow(at: index, at: .top, animated: true)
-         
-         isJump = true
-         
-         } else {
-         
-         //這裡可以加1的原因是因為3個字為一組
-         var index = IndexPath(row: i + 1, section: 0)
-         
-         
-         if segControl.selectedSegmentIndex == 2 {
-         
-         index = IndexPath(row: i, section: 0)
-         }
-         
-         tableView.scrollToRow(at: index, at: .bottom, animated: true)
-         
-         isJump = true
-         
-         
-         
-         }
-         
-         }
-         
-         } else {
-         //沒有字
-         print("還是沒有字")
-         
-         
-         }
-         
-         }
-         }
-         */
         
         
     }
@@ -3709,9 +3379,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         alreadyPlayTimes += 1
         step = 4
-        
-        print("alreadyPlay:\(alreadyPlayTimes)")
-        
+
         let chiSen = AVSpeechUtterance(string:synChiSen)
         chiSen.voice = AVSpeechSynthesisVoice(language: "zh-TW")
         chiSen.rate = 0.48
@@ -3723,9 +3391,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     override func viewWillDisappear(_ animated: Bool) {
         
         //在此存檔後端
-        
-        print("book will disapear")
-        
+
         //確認錯誤單字的刪除狀態
         
         if tempWrongWordsToDelete.count > 0 {
@@ -3734,22 +3400,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             for word in tempWrongWordsToDelete {
                 
-                
                 wordsToDeleteInWrong.append(word)
-                print("錯誤字刪除:\(word)")
-                
-                
                 
             }
-            
-            
-            
+     
         }
-        
-        
-        
-        
-        
+
         //確認我的最愛刪除狀況
         
         if tempFavWordsToDelete.count > 0 {
@@ -3768,10 +3424,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     
                     if !tempMyFav.contains(word){
                         
-                        
                         //直接delete
-                        
-                        print("刪除字1:\(word)")
                         wordsToDeleteInFav.append(word)
                         
                         
@@ -3781,22 +3434,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             if !myFavWords.contains(fav) {
                                 
                                 
-                                
                                 wordsToAddToFav.append(fav)
                                 
                                 tempMyFav = tempMyFav.filter { $0 != fav }
-                                
-                                
-                                print("新增字1:\(fav)")
+
                                 
                             }
                             
                         }
-                        
-                        
-                        
-                        
-                        
+         
                     }
                     
                     
@@ -3816,10 +3462,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         wordsToAddToFav.append(fav)
                         
                         tempMyFav = tempMyFav.filter { $0 != fav }
-                        
-                        print("新增字2:\(fav)")
-                        
-                        
+
                         
                     }
                     
@@ -3845,9 +3488,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     
                     if !myFavWords.contains(fav) {
                         wordsToAddToFav.append(fav)
-                        
-                        print("新增字3:\(fav)")
-                        
+
                     }
                     
                 }
@@ -3926,8 +3567,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             //self?.isParseEnabled = true
                             return
                         }
-                        print("add word")
-                        
+                     
                         
                         //再次儲存使用者資訊
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
@@ -4006,7 +3646,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         //再次儲存使用者資訊
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                        print(user!)
+                        //print(user!)
                         /*
                          //載入我的最愛單字
                          if let myWordsString = user!["myWords"] as! String?{
@@ -4079,7 +3719,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         //再次儲存使用者資訊
                         UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                         user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                        print(user!)
+                      
                         /*
                          //載入我的最愛單字
                          if let myWordsString = user!["myWords"] as! String?{
@@ -4166,8 +3806,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed!, forKey: "mapPassed")
-                        
-                        print("retrieve mapPassed:\(mapPassed!)")
+
                         
                     }
                     
@@ -4177,8 +3816,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                        
-                        print("retrieve mapPassed:\(mapPassed2!)")
+
                         
                     }
                     
@@ -4187,8 +3825,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         mapPassed3 = Int(mapPassed3String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                        
-                        print("retrieve mapPassed:\(mapPassed3!)")
+
                         
                     }
                     
@@ -4197,8 +3834,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         mapPassed4 = Int(mapPassed4String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed4!, forKey: "mapPassed4")
-                        
-                        print("retrieve mapPassed:\(mapPassed4!)")
+
                         
                     }
                     
@@ -4207,46 +3843,35 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         mapPassed5 = Int(mapPassed5String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed5!, forKey: "mapPassed5")
-                        
-                        print("retrieve mapPassed:\(mapPassed5!)")
+
                         
                     }
                     
                     //MARK: simVer K12 特別作法
                     
                     if let mapPassed6String = user?["mapPassed6"] as! String?{
-                        print("enter 1")
+                   
                         var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
-                        print("enter 2 :\(mapPassedStringArray)")
+            
                         for i in 0 ..< mapPassedStringArray.count {
-                            
-                            print("enter 3")
+
                             //避免最後一位空值
                             if mapPassedStringArray[i] != "" {
                                 
                                 k12MapPassed[i] = Int(mapPassedStringArray[i])!
                             }
-                            
-                            //print("enter 4 value:\(k12MapPassed)")
+                
                             
                         }
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(k12MapPassed, forKey: "mapPassed6")
                         
-                        //print("retrieve k12MapPassed:\(k12MapPassed!)")
+                    
                         
                     }
                     
-//                    if let mapPassed6String = user?["mapPassed6"] as! String?{
-//
-//                        mapPassed6 = Int(mapPassed6String)!
-//                        let userDefaults = UserDefaults.standard
-//                        userDefaults.set(mapPassed6!, forKey: "mapPassed6")
-//
-//                        print("retrieve mapPassed:\(mapPassed6!)")
-//
-//                    }
+
                     
                     if let mapPassed7String = user?["mapPassed7"] as! String?{
                         
@@ -4254,7 +3879,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed7!, forKey: "mapPassed7")
                         
-                        print("retrieve mapPassed:\(mapPassed7!)")
                         
                     }
                     
@@ -4264,7 +3888,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed8!, forKey: "mapPassed8")
                         
-                        print("retrieve mapPassed:\(mapPassed8!)")
                         
                     }
                     
@@ -4273,8 +3896,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         mapPassed9 = Int(mapPassed9String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed9!, forKey: "mapPassed9")
-                        
-                        print("retrieve mapPassed:\(mapPassed9!)")
+
                         
                     }
                     
@@ -4290,8 +3912,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                        
-                        print("retrieve gamePassed:\(gamePassed!)")
+                 
                         userDefaults.set(encodedObject, forKey: "gamePassed")
                         
                     }
@@ -4306,8 +3927,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                        
-                        print("retrieve gamePassed:\(gamePassed2!)")
+                    
                         userDefaults.set(encodedObject, forKey: "gamePassed2")
                         
                     }
@@ -4323,7 +3943,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                         
-                        print("retrieve gamePassed:\(gamePassed3!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed3")
                         
                     }
@@ -4340,7 +3959,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                         
-                        print("retrieve gamePassed:\(gamePassed4!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
@@ -4356,7 +3974,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                         
-                        print("retrieve gamePassed:\(gamePassed5!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed5")
                         
                     }
@@ -4385,26 +4002,10 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
                         
-                        print("retrieve gamePassed:\(k12GamePassed!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed6")
                         
                     }
                     
-//                    if let gamePassed6String = user?["gamePassed6"] as! String?{
-//
-//                        let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
-//
-//                        let s = gamePassed6StringArray[0]
-//                        let u = gamePassed6StringArray[1]
-//                        gamePassed6 = [Int(s)!:Int(u)!]
-//
-//                        let userDefaults = UserDefaults.standard
-//                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
-//
-//                        print("retrieve gamePassed:\(gamePassed6!)")
-//                        userDefaults.set(encodedObject, forKey: "gamePassed6")
-//
-//                    }
                     if let gamePassed7String = user?["gamePassed7"] as! String?{
                         
                         let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
@@ -4416,7 +4017,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                         
-                        print("retrieve gamePassed:\(gamePassed7!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed7")
                         
                     }
@@ -4431,7 +4031,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                         
-                        print("retrieve gamePassed:\(gamePassed8!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed8")
                         
                     }
@@ -4446,12 +4045,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                         
-                        print("retrieve gamePassed:\(gamePassed9!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed9")
                         
                     }
                     
-                    
+
                     
                     
                 } catch{

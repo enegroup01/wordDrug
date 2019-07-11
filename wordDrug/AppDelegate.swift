@@ -13,6 +13,7 @@ import FirebaseMessaging
 import FirebaseInstanceID
 import UserNotifications
 import StoreKit
+import ProgressHUD
 
 //MARK: must update
 //MARK: simVer要增加簡體變數
@@ -54,18 +55,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
 
     var window: UIWindow?
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
-
         //Register Wechat
-        WXApi.registerApp("wx3bed7af660076818")
-        
+        WXApi.registerApp("wx6908874b5cdb2067")
         
         //MARK: simVer
-            let array = Bundle.main.preferredLocalizations
-            lan = array.first
+        let array = Bundle.main.preferredLocalizations
+        lan = array.first
 
         
         //避免後面補不到值
@@ -90,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
             
             if error == nil {
                 
-                print("successful")
+                //print("successful")
             }
             
         }
@@ -120,26 +119,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
         isRegistered = UserDefaults.standard.object(forKey: "isRegistered") as? Bool
         
-         print("intro watched:\(introWatched)")
+        //print("intro watched:\(introWatched)")
 
-        print("user\(user)")
+        //print("user\(user)")
         // if user is once logged in / register, keep him logged in
         if user != nil {
             
-            let id = user!["id"] as? String
+            //let id = user!["id"] as? String
             
-            if id != nil {
+            if let _ = user!["id"] as? String {
+                
+            //}
+            
+            //if id != nil {
 
                 //跳轉到角色畫面
                 //測試用
                 //mapPassed3 = 0
                 //gamePassed3 = [0:0]
- 
-                print("app delegate right here")
                 toCourse()
-
-
-         
 
             }
             
@@ -163,49 +161,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                 //儲存mapPassed & gamePassed的初始值
                 
                 mapPassed = 0
-                
                 userDefaults.set(mapPassed!, forKey: "mapPassed")
                 
                 gamePassed = [0:0]
-                
                 let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                 userDefaults.set(encodedObject, forKey: "gamePassed")
                 
                 mapPassed2 = 0
-                
-                
+    
                 userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                
                 gamePassed2 = [0:0]
                 
                 let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                 userDefaults.set(encodedObject2, forKey: "gamePassed2")
                 
                 mapPassed3 = 0
-                
                 userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                
                 gamePassed3 = [0:0]
-                
                 let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                 userDefaults.set(encodedObject3, forKey: "gamePassed3")
                 
                 mapPassed4 = 0
-                
                 userDefaults.set(mapPassed4!, forKey: "mapPassed4")
-                
                 gamePassed4 = [0:0]
-                
                 let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                 userDefaults.set(encodedObject4, forKey: "gamePassed4")
                 
 
                 mapPassed5 = 0
-                
                 userDefaults.set(mapPassed5!, forKey: "mapPassed5")
-                
                 gamePassed5 = [0:0]
-                
                 let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                 userDefaults.set(encodedObject5, forKey: "gamePassed5")
                 
@@ -213,47 +198,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                 //MARK: simVer K12特別作法
                 k12MapPassed = Array(repeating: 0, count: 18)
                 k12GamePassed = Array(repeating: [0:0], count: 18)
-                
-                
                 //mapPassed6 = 0
-                
                 userDefaults.set(k12MapPassed, forKey: "mapPassed6")
-                
                 //gamePassed6 = [0:0]
-                
                 let encodedObject6 = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
                 userDefaults.set(encodedObject6, forKey: "gamePassed6")
 
                 
                 mapPassed7 = 0
-                
                 userDefaults.set(mapPassed7!, forKey: "mapPassed7")
-                
                 gamePassed7 = [0:0]
-                
                 let encodedObject7 = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                 userDefaults.set(encodedObject7, forKey: "gamePassed7")
 
                 
                 mapPassed8 = 0
-                
                 userDefaults.set(mapPassed8!, forKey: "mapPassed8")
-                
                 gamePassed8 = [0:0]
-                
                 let encodedObject8 = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                 userDefaults.set(encodedObject8, forKey: "gamePassed8")
 
                 
                 mapPassed9 = 0
-                
                 userDefaults.set(mapPassed9!, forKey: "mapPassed9")
-                
                 gamePassed9 = [0:0]
-                
                 let encodedObject9 = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                 userDefaults.set(encodedObject9, forKey: "gamePassed9")
-
 
                 //到介紹畫面
                 toIntro()
@@ -267,44 +237,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                 if isRegistered == true{
                 
                     //跳往註冊畫面
-           
                     //維持原本initial Vc
                     
                 } else {
                     
-                    
+                    //MARK: 所有更新時的檔案保險使用
                     //如果有沒有帳號資訊者給0
                     //抓gamePassed4, 在此對原本玩家來說抓不到值 就賦予值
                     
                     //MARK: simVer這裏也補上去 避免之前就用簡體手機的人突然之間更新不到數字
-                    
-                    
-                    
+           
                     let decodedObject4 = UserDefaults.standard.object(forKey: "gamePassed4") as? NSData
                     
                     if let decoded = decodedObject4 {
                         gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
                     } else {
-                        print("give value for nil value")
+            
                         // give value for nil
                         
-                        // if user != nil {
+         
                         mapPassed4 = 0
-                        
                         userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                         
                         gamePassed4 = [0:0]
                         
                         let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                         userDefaults.set(encodedObject4, forKey: "gamePassed4")
-                        
-                        //   }
+      
                     }
                     
                     //抓mapPassed4
                     mapPassed4 = UserDefaults.standard.object(forKey: "mapPassed4") as? Int
-                    
-                    
                     
                     //抓gamePassed5, 在此對原本玩家來說抓不到值 就賦予值
                     let decodedObject5 = UserDefaults.standard.object(forKey: "gamePassed5") as? NSData
@@ -312,10 +275,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     if let decoded = decodedObject5 {
                         gamePassed5 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
                     } else {
-                        print("give value for nil value")
+   
                         // give value for nil
                         
-                        //if user != nil {
                         mapPassed5 = 0
                         
                         userDefaults.set(mapPassed5!, forKey: "mapPassed5")
@@ -324,8 +286,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                         userDefaults.set(encodedObject5, forKey: "gamePassed5")
-                        
-                        //  }
+       
                     }
                     
                     //抓mapPassed5
@@ -340,25 +301,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     if let decoded = decodedObject6 {
                         k12GamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int : Int]]
                     } else {
-                        print("give value for nil value")
+             
                         // give value for nil
                         
-                        //if user != nil {
+    
                         k12MapPassed = Array(repeating: 0, count: 18)
                         k12GamePassed = Array(repeating: [0:0], count: 18)
                         
                         userDefaults.set(k12MapPassed, forKey: "mapPassed6")
                         
-               
-                        
+
                         let encodedObject6 = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
                         userDefaults.set(encodedObject6, forKey: "gamePassed6")
-                        
-                        //  }
+
                     }
                     
-                    //抓mapPassed6
-                    //mapPassed6 = UserDefaults.standard.object(forKey: "mapPassed6") as? Int
+
                     k12MapPassed = UserDefaults.standard.object(forKey: "mapPassed6") as? [Int]
                     
                     
@@ -369,10 +327,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     if let decoded = decodedObject7 {
                         gamePassed7 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
                     } else {
-                        print("give value for nil value")
+    
                         // give value for nil
-                        
-                        //if user != nil {
+
                         mapPassed7 = 0
                         
                         userDefaults.set(mapPassed7!, forKey: "mapPassed7")
@@ -381,8 +338,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let encodedObject7 = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                         userDefaults.set(encodedObject7, forKey: "gamePassed7")
-                        
-                        //  }
                     }
                     
                     //抓mapPassed7
@@ -394,10 +349,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     if let decoded = decodedObject8 {
                         gamePassed8 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
                     } else {
-                        print("give value for nil value")
+           
                         // give value for nil
-                        
-                        //if user != nil {
+          
                         mapPassed8 = 0
                         
                         userDefaults.set(mapPassed8!, forKey: "mapPassed8")
@@ -406,8 +360,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let encodedObject8 = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                         userDefaults.set(encodedObject8, forKey: "gamePassed8")
-                        
-                        //  }
+   
                     }
                     
                     //抓mapPassed8
@@ -419,10 +372,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     if let decoded = decodedObject9 {
                         gamePassed9 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int : Int]
                     } else {
-                        print("give value for nil value")
+               
                         // give value for nil
-                        
-                        //if user != nil {
+           
                         mapPassed9 = 0
                         
                         userDefaults.set(mapPassed9!, forKey: "mapPassed9")
@@ -431,8 +383,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let encodedObject9 = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                         userDefaults.set(encodedObject9, forKey: "gamePassed9")
-                        
-                        //  }
+                     
                     }
                     
                     //抓mapPassed9
@@ -446,22 +397,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
             } else {
                 
                 toIntro()
-                print("come here")
             
             }
           
         }
-        
-        //print("user:\(String(describing: user))")
-
-    
-        
+ 
         return true
     }
     
     
-    private let appID = "wx3bed7af660076818"
-    private let appSecret = "ef9ff4154c77db61b9c7c1bec357b3cf"
+    //MARK: wechat info
+    private let appID = "wx6908874b5cdb2067"
+    private let appSecret = "60267992075223409ecb4b4b1e9d6893"
     
     private let accessTokenPrefix = "https://api.weixin.qq.com/sns/oauth2/access_token?"
     
@@ -472,32 +419,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
         
     }
     
-    /*
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return UIApplicationDelegate.shared.application(app, open: url,options:options)
+    private let userInfoPrefix = "https://api.weixin.qq.com/sns/userinfo?"
+    
+    private func buildUserInfoLink(withOpenID openID: String, accessToken: String) -> String {
+        
+        return userInfoPrefix + "access_token=" + accessToken + "&openid=" + openID
         
     }
- */
     
-    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return WXApi.handleOpen(url, delegate: self)
+
+    }
+ 
+
     //weChat Delegate
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        
+     
         return WXApi.handleOpen(url, delegate: self)
     }
 
     func application(application: UIApplication, openURL url: URL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+
         return WXApi.handleOpen(url, delegate: self)
     }
 
     
     func onReq(_ req: BaseReq) {
         // do optional stuff
+        
+     
+    
     }
     
     func onResp(_ resp: BaseResp) {
         // do optional stuff
-        
+      
+        ProgressHUD.show("读取微信信息")
         print("we chat login")
         if let authResp = resp as? SendAuthResp {
             
@@ -505,7 +463,90 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                 
                 let dict = ["response": authResp.code]
               
-                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WeChatAuthCodeResp"), object: nil, userInfo: dict)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WeChatAuthCodeResp"), object: nil, userInfo: dict as [AnyHashable : Any])
+                
+                
+                let url = URL(string: buildAccessTokenLink(withCode: authResp.code!))
+                
+                var request = URLRequest(url: url!)
+                request.httpMethod = "GET"
+                URLSession.shared.dataTask(with: request) {[weak self] (data, response, error) in
+                    
+                    if error == nil {
+                        
+                        DispatchQueue.main.async(execute: {
+                            
+                            do {
+                                
+                                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                
+                                guard let parseJSON = json else {return}
+                                
+                                if let openID = parseJSON["openid"] as? String{
+                                    if let accessToken = parseJSON["access_token"] as? String{
+                                        
+                                        let url = URL(string: self!.buildUserInfoLink(withOpenID: openID, accessToken: accessToken))
+                                        
+                                        
+                                        var request = URLRequest(url: url!)
+                                        request.httpMethod = "GET"
+                                        
+                                        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] (data, response, error) in
+                                            
+                                            if error == nil {
+                                                
+                                                DispatchQueue.main.async(execute: {
+                                                    
+                                                    do{
+                                                        
+                                                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                                        
+                                                        guard let parseJSON = json else {return}
+                                                        
+                                                        print(parseJSON)
+                                                        
+                                                        if let nickName = parseJSON["nickname"] as? String{
+                                                            if let wechatId = parseJSON["openid"] as? String {
+                                                                
+                                                                    
+                                                                    self!.fbRegister(fbid: wechatId, nickname: nickName, ava: "")
+                                                                
+                                                                
+                                                            }
+                                                            
+                                                            print("nickname:\(nickName)")
+                                                        }
+                                                        
+                                                    }catch {
+                                                        
+                                                        
+                                                    }
+                                                    
+                                                    
+                                                })
+                                                
+                                                
+                                            }
+                                            
+                                            
+                                        }).resume()
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                }
+                                
+                                
+                            }catch {
+                                
+                            }
+                          
+                            
+                        })
+                        
+                    }
+                }.resume()
                 
             } else {
                 
@@ -621,8 +662,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: dateFetch)
-        
-        print(dateString)
+
 
         let previousDate = UserDefaults.standard.object(forKey: "previousDate") as? String
         
@@ -660,11 +700,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
             
             //沒網路測試comment掉
             selectUser()
-            
         } else {
-            
             print("沒有user不需要refresh")
-            
         }
  
 
@@ -705,8 +742,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                     
                     guard let parseJSON = json else {
-                        print("Error while parsing")
-                        
+           
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                         return
                     }
@@ -714,14 +750,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     
                     
                     //print("selectUser:\(parseJSON)")
-                    print("become active refresh user status")
+            
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    
-                    
-                    
-                    
-                    
+ 
                     //MARK: must update
                     //MARK: simVer增加值
 //                    k12MapPassed = Array(repeating: 0, count: 18)
@@ -734,9 +766,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed!, forKey: "mapPassed")
-                        
-                        print("retrieve mapPassed:\(mapPassed!)")
-                        
+        
                     }
                     
                     if let mapPassed2String = user?["mapPassed2"] as! String?{
@@ -746,8 +776,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed2!, forKey: "mapPassed2")
                         
-                        print("retrieve mapPassed:\(mapPassed2!)")
-                        
                     }
                     
                     if let mapPassed3String = user?["mapPassed3"] as! String?{
@@ -755,8 +783,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         mapPassed3 = Int(mapPassed3String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                        
-                        print("retrieve mapPassed:\(mapPassed3!)")
+
                         
                     }
                     
@@ -766,8 +793,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                         
-                        print("retrieve mapPassed:\(mapPassed4!)")
-                        
                     }
                     
                     if let mapPassed5String = user?["mapPassed5"] as! String?{
@@ -775,31 +800,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         mapPassed5 = Int(mapPassed5String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed5!, forKey: "mapPassed5")
-                        
-                        print("retrieve mapPassed:\(mapPassed5!)")
+
                         
                     }
                     
                     //MARK: simVer K12 特別作法
                   
                     if let mapPassed6String = user?["mapPassed6"] as! String?{
-                        
-                        print("mapPassed6String:\(mapPassed6String)")
-                        
+            
                         if mapPassed6String != "0" {
                         var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
          
                         for i in 0 ..< mapPassedStringArray.count {
 
-                               print("enter 3")
                             //避免最後一位空值
                             if mapPassedStringArray[i] != "" {
 
                             k12MapPassed[i] = Int(mapPassedStringArray[i])!
                             }
-                            
-                            print("enter 4 value:\(k12MapPassed)")
-
+                      
                         }
 
                         let userDefaults = UserDefaults.standard
@@ -817,9 +836,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         mapPassed7 = Int(mapPassed7String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed7!, forKey: "mapPassed7")
-                        
-                        print("retrieve mapPassed:\(mapPassed7!)")
-                        
+                    
                     }
                     
                     if let mapPassed8String = user?["mapPassed8"] as! String?{
@@ -827,8 +844,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         mapPassed8 = Int(mapPassed8String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed8!, forKey: "mapPassed8")
-                        
-                        print("retrieve mapPassed:\(mapPassed8!)")
+              
                         
                     }
                     
@@ -838,7 +854,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed9!, forKey: "mapPassed9")
                         
-                        print("retrieve mapPassed:\(mapPassed9!)")
                         
                     }
                     
@@ -854,8 +869,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                        
-                        print("retrieve gamePassed:\(gamePassed!)")
+                 
                         userDefaults.set(encodedObject, forKey: "gamePassed")
                         
                     }
@@ -870,8 +884,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                        
-                        print("retrieve gamePassed:\(gamePassed2!)")
+               
                         userDefaults.set(encodedObject, forKey: "gamePassed2")
                         
                     }
@@ -886,8 +899,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                        
-                        print("retrieve gamePassed:\(gamePassed3!)")
+            
                         userDefaults.set(encodedObject, forKey: "gamePassed3")
                         
                     }
@@ -903,8 +915,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                        
-                        print("retrieve gamePassed:\(gamePassed4!)")
+          
                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
@@ -919,8 +930,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
-                        
-                        print("retrieve gamePassed:\(gamePassed5!)")
+                     
                         userDefaults.set(encodedObject, forKey: "gamePassed5")
                         
                     }
@@ -929,7 +939,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                     
                     if let gamePassed6String = user?["gamePassed6"] as! String?{
                         
-                          print("gamePassed6String:\(gamePassed6String)")
+                        
                         
                         if gamePassed6String != "0:0" {
                             var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
@@ -942,8 +952,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                             
                             
                             for i in 0 ..< k12GamePassedStringArray.count {
-                                
-                                
+
                                 let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
                                 
                                 let s = gamePassed6StringArray[0]
@@ -989,8 +998,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
-                        
-                        print("retrieve gamePassed:\(gamePassed8!)")
+            
                         userDefaults.set(encodedObject, forKey: "gamePassed8")
                         
                     }
@@ -1005,8 +1013,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
-                        
-                        print("retrieve gamePassed:\(gamePassed9!)")
+                    
                         userDefaults.set(encodedObject, forKey: "gamePassed9")
                         
                     }
@@ -1038,9 +1045,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
 
     @objc func refreshToken(notification: NSNotification){
      
-        let refreshToken = InstanceID.instanceID().token()!
+        //let refreshToken = InstanceID.instanceID().token()!
         
-        print("token:\(refreshToken)")
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+            }
+        }
         
         FBHandler()
     
@@ -1052,6 +1065,356 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate{
     }
 
 
+    func fbRegister(fbid:String,nickname:String,ava:String){
+        
+        // shortcuts
+        
+        //檢查註冊
+        // url to php file
+       // var url:URL!
+        
+        
+        let url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/register2.php")!
+
+        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/register2.php")!
+        
+        // request to this file
+        var request = URLRequest(url: url)
+        
+        // method to pass data to this file (e.g. via POST)
+        request.httpMethod = "POST"
+        
+        // body to be appended to url, 讓nickname = 註冊帳號
+        let body = "username=&password=&fbid=\(fbid)&nickname=\(nickname)&coursePlayed=&ava=&mapPlayed="
+        
+        request.httpBody = body.data(using: .utf8)
+        //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // proceed request
+        URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
+            
+            
+            if error == nil {
+                
+                // get main queue in code process to communicate back to UI
+                DispatchQueue.main.async(execute: {
+                    
+                    do {
+                        // get json result
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        
+                        
+                        // assign json to new var parseJSON in guard/secured way
+                        guard let parseJSON = json else {
+                            print("Error while parsing")
+                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//                            self!.activityIndicator.stopAnimating()
+//                            UIApplication.shared.endIgnoringInteractionEvents()
+                            ProgressHUD.dismiss()
+                            return
+                        }
+                        
+                        //先儲存使用者資訊
+                        //print(parseJSON)
+                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+                        
+                        //第一次玩
+                        //儲存mapPassed & gamePassed的初始值
+                        
+                        //MARK: simVer 要增加值
+                        //MARK: must update
+                        
+                        
+                        let mapPassedInt = user?["mapPassed"] as? String
+                        let gamePassedInt = user?["gamePassed"] as? String
+                        
+                        var gp:[Int:Int]?
+                        gp = [Int((gamePassedInt?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt?.components(separatedBy: ":")[1])!)!]
+                        
+                        
+                        
+                        let mapPassedInt2 = user?["mapPassed2"] as? String
+                        let gamePassedInt2 = user?["gamePassed2"] as? String
+                        
+                        var gp2:[Int:Int]?
+                        gp2 = [Int((gamePassedInt2?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt2?.components(separatedBy: ":")[1])!)!]
+                        
+                        
+                        
+                        let mapPassedInt3 = user?["mapPassed3"] as? String
+                        let gamePassedInt3 = user?["gamePassed3"] as? String
+                        
+                        var gp3:[Int:Int]?
+                        gp3 = [Int((gamePassedInt3?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt3?.components(separatedBy: ":")[1])!)!]
+                        
+                        
+                        let mapPassedInt4 = user?["mapPassed4"] as? String
+                        let gamePassedInt4 = user?["gamePassed4"] as? String
+                        
+                        var gp4:[Int:Int]?
+                        gp4 = [Int((gamePassedInt4?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt4?.components(separatedBy: ":")[1])!)!]
+                        
+                        
+                        
+                        let mapPassedInt5 = user?["mapPassed5"] as? String
+                        let gamePassedInt5 = user?["gamePassed5"] as? String
+                        
+                        var gp5:[Int:Int]?
+                        gp5 = [Int((gamePassedInt5?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt5?.components(separatedBy: ":")[1])!)!]
+                        
+                        
+                        //MARK: simVer K12特別作法
+                        if let mapPassed6String = user?["mapPassed6"] as! String?{
+                            var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
+                            
+                            for i in 0 ..< mapPassedStringArray.count {
+                                
+                                //避免最後一位空值
+                                if mapPassedStringArray[i] != "" {
+                                    
+                                    k12MapPassed[i] = Int(mapPassedStringArray[i])!
+                                }
+                                
+                            }
+                            
+                            let userDefaults = UserDefaults.standard
+                            userDefaults.set(k12MapPassed, forKey: "mapPassed6")
+                            
+                            print("retrieve mapPassed:\(k12MapPassed!)")
+                            
+                        }
+                        //MARK: simVer K12 特別作法
+                        
+                        if let gamePassed6String = user?["gamePassed6"] as! String?{
+                            
+                            
+                            
+                            var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+                            
+                            //如果有19位數就移除最後一位
+                            if k12GamePassedStringArray.count == 19{
+                                k12GamePassedStringArray.removeLast()
+                            }
+                            
+                            for i in 0 ..< k12GamePassedStringArray.count {
+                                
+                                //避免最後一位空值
+                                
+                                
+                                let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
+                                
+                                let s = gamePassed6StringArray[0]
+                                let u = gamePassed6StringArray[1]
+                                k12GamePassed[i] = [Int(s)!:Int(u)!]
+                                
+                                
+                            }
+                            
+                            let userDefaults = UserDefaults.standard
+                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+                            
+                            print("retrieve gamePassed:\(k12GamePassed!)")
+                            userDefaults.set(encodedObject, forKey: "gamePassed6")
+                            
+                        }
+                        
+                        
+                        
+                        //                        let mapPassedInt6 = user?["mapPassed6"] as? String
+                        //                        let gamePassedInt6 = user?["gamePassed6"] as? String
+                        //
+                        //                        var gp6:[Int:Int]?
+                        //                        gp6 = [Int((gamePassedInt6?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt6?.components(separatedBy: ":")[1])!)!]
+                        
+                        let mapPassedInt7 = user?["mapPassed7"] as? String
+                        let gamePassedInt7 = user?["gamePassed7"] as? String
+                        
+                        var gp7:[Int:Int]?
+                        gp7 = [Int((gamePassedInt7?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt7?.components(separatedBy: ":")[1])!)!]
+                        
+                        let mapPassedInt8 = user?["mapPassed8"] as? String
+                        let gamePassedInt8 = user?["gamePassed8"] as? String
+                        
+                        var gp8:[Int:Int]?
+                        gp8 = [Int((gamePassedInt8?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt8?.components(separatedBy: ":")[1])!)!]
+                        
+                        let mapPassedInt9 = user?["mapPassed9"] as? String
+                        let gamePassedInt9 = user?["gamePassed9"] as? String
+                        
+                        var gp9:[Int:Int]?
+                        gp9 = [Int((gamePassedInt9?.components(separatedBy: ":")[0])!)!:Int((gamePassedInt9?.components(separatedBy: ":")[1])!)!]
+                        
+
+                        let userDefaults = UserDefaults.standard
+                        
+                        userDefaults.set(Int(mapPassedInt!), forKey: "mapPassed")
+                        
+                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gp!)
+                        userDefaults.set(encodedObject, forKey: "gamePassed")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt2!), forKey: "mapPassed2")
+                        
+                        let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gp2!)
+                        userDefaults.set(encodedObject2, forKey: "gamePassed2")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt3!), forKey: "mapPassed3")
+                        
+                        let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gp3!)
+                        userDefaults.set(encodedObject3, forKey: "gamePassed3")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt4!), forKey: "mapPassed4")
+                        
+                        let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gp4!)
+                        userDefaults.set(encodedObject4, forKey: "gamePassed4")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt5!), forKey: "mapPassed5")
+                        
+                        let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gp5!)
+                        userDefaults.set(encodedObject5, forKey: "gamePassed5")
+                        
+                        
+                        //                        userDefaults.set(Int(mapPassedInt6!), forKey: "mapPassed6")
+                        //
+                        //                        let encodedObject6 = NSKeyedArchiver.archivedData(withRootObject: gp6!)
+                        //                        userDefaults.set(encodedObject6, forKey: "gamePassed6")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt7!), forKey: "mapPassed7")
+                        
+                        let encodedObject7 = NSKeyedArchiver.archivedData(withRootObject: gp7!)
+                        userDefaults.set(encodedObject7, forKey: "gamePassed7")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt8!), forKey: "mapPassed8")
+                        
+                        let encodedObject8 = NSKeyedArchiver.archivedData(withRootObject: gp8!)
+                        userDefaults.set(encodedObject8, forKey: "gamePassed8")
+                        
+                        
+                        userDefaults.set(Int(mapPassedInt9!), forKey: "mapPassed9")
+                        
+                        let encodedObject9 = NSKeyedArchiver.archivedData(withRootObject: gp9!)
+                        userDefaults.set(encodedObject9, forKey: "gamePassed9")
+                        
+                        
+                        
+                        
+                        isRegistered = true
+                        
+                        UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
+                        
+                        /*
+                         //登入
+                         DispatchQueue.main.async(execute: {
+                         
+                         
+                         //dimiss掉3個VCs
+                         
+                         self!.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
+                         })
+                         
+                         */
+                        // get id from parseJSON dictionary
+                        let id = user?["id"] as? String
+                        
+                        // successfully registered
+                        if id != nil {
+                            
+                            
+                            //登入
+                            DispatchQueue.main.async(execute: {
+
+                                ProgressHUD.dismiss()
+                                
+                                self!.toCourse()
+                                
+                            })
+                            
+                            // error
+                            
+                            //print(user)
+                            
+                        } else {
+                            
+                            ProgressHUD.dismiss()
+//                            // get main queue to communicate back to user
+//                            DispatchQueue.main.async(execute: {
+//                                self!.activityIndicator.stopAnimating()
+//                                UIApplication.shared.endIgnoringInteractionEvents()
+//
+//                                print("1")
+//                                self?.usernameTxt.text = ""
+//                                self?.passwordTxt.text = ""
+//                                self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_accountExisted, attributes: self!.attrs)
+//                                self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_error, attributes: self!.attrs)
+//
+//                            })
+                            return
+                            
+                        }
+                        
+                        
+                    } catch {
+                        
+                        ProgressHUD.dismiss()
+//                        // get main queue to communicate back to user
+//                        DispatchQueue.main.async(execute: {
+//
+//                            self!.activityIndicator.stopAnimating()
+//                            UIApplication.shared.endIgnoringInteractionEvents()
+//
+//                            print("2")
+//                            self?.usernameTxt.text = ""
+//                            self?.passwordTxt.text = ""
+//                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongAccount, attributes: self!.attrs)
+//                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongPassword, attributes: self!.attrs)
+//                        })
+                        return
+                        
+                    }
+                    
+                })
+                
+                // if unable to proceed request
+            } else {
+                
+                ProgressHUD.dismiss()
+//                // get main queue to communicate back to user
+//                DispatchQueue.main.async(execute: {
+//
+//                    self!.activityIndicator.stopAnimating()
+//                    UIApplication.shared.endIgnoringInteractionEvents()
+//
+//                    print("3")
+//                    let message = error!.localizedDescription
+//                    print(message)
+//                    self?.usernameTxt.text = ""
+//                    self?.passwordTxt.text = ""
+//                    self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongAccount, attributes: self!.attrs)
+//                    self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: self!.loginVC_wrongPassword, attributes: self!.attrs)
+//                })
+                return
+                
+            }
+            
+            // launch prepared session
+            }.resume()
+        
+        
+        
+        
+        
+        
+        
+    }
+
+    
+    
 
 }
 

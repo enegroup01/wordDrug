@@ -15,22 +15,22 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     //courseReceived 0國小 1初中 2高中 3CET4 4CET6 5K12 6toeic 7ielts 8tofel
 
     let courseVC_purchasedState = NSLocalizedString("courseVC_purchasedState", comment: "")
-    
     let courseVC_freeState = NSLocalizedString("courseVC_freeState", comment: "")
     let courseVC_learningDays = NSLocalizedString("courseVC_learningDays", comment: "")
     let courseVC_newStudent = NSLocalizedString("courseVC_newStudent", comment: "")
     let courseVC_logOutBtnText = NSLocalizedString("courseVC_logOutBtnText", comment: "")
     //let courseVC_toLoginVCBtnText = NSLocalizedString("courseVC_toLoginVCBtnText", comment: "")
     
-    @IBOutlet weak var block0LBtn: UIButton!
-    
-    @IBOutlet weak var block0RBtn: UIButton!
-    
-    @IBOutlet weak var block1LBtn: UIButton!
-    
-    @IBOutlet weak var block2RBtn: UIButton!
-    @IBOutlet weak var block2LBtn: UIButton!
-    @IBOutlet weak var block1RBtn: UIButton!
+//    @IBOutlet weak var block0LBtn: UIButton!
+//
+//    @IBOutlet weak var block0RBtn: UIButton!
+//
+//    @IBOutlet weak var block1LBtn: UIButton!
+//
+//    @IBOutlet weak var block2RBtn: UIButton!
+//    @IBOutlet weak var block2LBtn: UIButton!
+//    @IBOutlet weak var block1RBtn: UIButton!
+
     
     @IBOutlet weak var logOutBtn: UIButton!
  
@@ -41,8 +41,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     let height = UIScreen.main.bounds.height
     
     @IBOutlet weak var toInfoVcBtn: UIButton!
-
-    var recommendedClass:String?
 
     @IBOutlet weak var toChartVcBtn: UIButton!
     
@@ -56,8 +54,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     var hiddenChartBtn = UIButton()
     var hiddenShopBtn = UIButton()
     
-    //從loginVc過來的變數暫時保留, 以後可以做歡迎畫面
-    var isWelcome = false
     
     @IBOutlet weak var bigNameLabel: UILabel!
     
@@ -65,10 +61,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBOutlet weak var userStatusLabel: UILabel!
     @IBOutlet weak var daysLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
-    
-    @IBOutlet weak var finger: UIImageView!
-    
-    @IBOutlet weak var point: UIImageView!
+
     
     @IBOutlet weak var logoImg: UIImageView!
    
@@ -84,8 +77,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
- 
         var dif = CGFloat()
         var iPadDif = CGFloat()
         var bigNameFontSize: CGFloat!
@@ -93,9 +84,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         var dayFontSize:CGFloat!
         var dayTitleFontSize:CGFloat!
         var statusFontSize: CGFloat!
-        
-        print("width :\(width)")
-        print("height:\(height)")
 
         switch height {
             
@@ -111,9 +99,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayFontSize = 100
             dayTitleFontSize = 24
             statusFontSize = 24
- 
-            
- 
+
         case 1024, 1194, 1112:
             //print("9.7 iPad or 7.9 iPad mini, iPad(5th), iPad air, iPad air 2")
         
@@ -152,9 +138,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayFontSize = 46
             dayTitleFontSize = 12
             statusFontSize = 12
- 
-
-            
+   
         case 667:
             //iphone 7
             dif = 1
@@ -258,7 +242,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         userStatusLabel.anchor(top: bigNameLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0), size: .init(width: 200 * iPadDif * dif, height: 55 * iPadDif * dif))
 
         
-  
         dayTitleLabel.font = dayTitleLabel.font.withSize(dayTitleFontSize)
         dayTitleLabel.anchor(top: logOutBtn.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: -10), size: .init(width: 60 * iPadDif * dif, height: 25 * iPadDif * dif))
     
@@ -297,10 +280,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
        
         
         toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 36 * dif * iPadDif)
-        
-//             toChartVcBtn.frame = CGRect(x: width / 2 - (32 * dif * iPadDif) / 2, y: height - 44 * dif * iPadDif, width: 32 * dif * iPadDif, height: 32 * dif * iPadDif)
-    
-        
+
         
         toShopVcBtn.frame = CGRect(x: width * 5 / 6 - (32 * dif * iPadDif) / 2, y: height - 40 * dif * iPadDif, width: 32 * dif * iPadDif, height: 32 * dif * iPadDif)
 
@@ -357,116 +337,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         daysLabel.text = ""
         daysLabel.adjustsFontSizeToFitWidth = true
     
-
-        /*
-        
-        if recommendedClass != nil {
-        
-            //假如尚未註冊者, 就是開始引導
-            
-            var posX = CGFloat()
-            var posY = CGFloat()
-         
-            // recommendedClass = "英檢初級"
-            
-            switch recommendedClass{
-                
-            case "英檢初級":
-                print("初級")
-                posX = block0LBtn.frame.minX
-                posY = block0LBtn.frame.midY
-         
-            case "英檢中級":
-                print("中級")
-                posX = block1LBtn.frame.minX
-                posY = block1LBtn.frame.midY
-         
-            case "多益滿分":
-                print("多益")
-                posX = block2LBtn.frame.minX
-                posY = block2LBtn.frame.midY
-         
-            case "雅思IELTS":
-                print("多益")
-                posX = block2LBtn.frame.minX
-                posY = block2LBtn.frame.midY
-            
-   
-            default:
-                break
-                
-                
-            }
-            
-            finger.frame = CGRect(x: posX, y: posY, width: 67, height: 88)
-     
-            point.center = CGPoint(x: finger.frame.midX, y: finger.frame.minY)
-            point.frame.size = CGSize(width: 45, height: 45)
-          
-            
-            fingerAnimation()
-           
-        
-        }
- */
     }
-    
-    
-    //用不到
-    func fingerAnimation(){
-        
-        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear, animations: {[weak self] in
-            
-            self!.finger.alpha = 1
-            self!.point.alpha = 1
-       
-        
-        }) { (finished:Bool) in
-            
-            if finished {
-                
-                UIView.animate(withDuration: 0.6, animations: {[weak self] in
-                 
-                    self!.point.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-                    self!.point.alpha = 0
-                }, completion: {[weak self] (finished:Bool) in
-                    
-          
-                    self!.point.transform = CGAffineTransform(scaleX: 1, y: 1)
-                    self!.point.alpha = 1
-                    
-                    UIView.animate(withDuration: 0.6, animations: {[weak self] in
-                        self!.point.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-                        self!.point.alpha = 0
-                        self!.finger.alpha = 0
-                        }, completion: {[weak self] (finished:Bool) in
 
-                            self!.point.transform = CGAffineTransform(scaleX: 1, y: 1)
-                            
- 
-                           
-                            self!.repeatTimes += 1
-                            
-                            
-                            //重複5次
-                            if self!.repeatTimes < 6{
-                             self!.fingerAnimation()
-                            }
-                            
-                    
-                    })
-               
-                })
-       
-            }
-
-            
-        }
-        
-        
-        
-    }
-    
     
     //MARK: TableView delegate
     @available(iOS 2.0, *)
@@ -497,22 +369,18 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        
-        
         return dynamicCellHeight
     }
     
     func didTapEnterClass(indexPath: IndexPath) {
-        print("enter class: \(indexPath.row)")
-        
+       
         courseSent = indexPath.row
         performSegue(withIdentifier: "toStageVc", sender: self)
         
     }
     
     func didTapEnterBook(indexPath: IndexPath) {
-        print("enter book: \(indexPath.row)")
-        
+ 
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
@@ -570,10 +438,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
 
     
     override func viewWillDisappear(_ animated: Bool) {
-        
 
-        finger.alpha = 0
-        point.alpha = 0
         
         //停止打開單字集的loadingView
         activityIndicator.stopAnimating()
@@ -610,16 +475,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        print("willAppear mapPassed2: \(mapPassed2)")
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-    
-        
-        finger.alpha = 0
-        point.alpha = 0
-       
+
         
          var nickname = String()
          var purchaseStatus = String()
@@ -644,18 +500,11 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             
          nickname = user?["nickname"] as! String
             
-
-            /*
-         let isPurchased = user?["isPurchased"] as? String
             
-            if isPurchased == "0"{
-                
-                purchaseStatus = "免費用戶\n新課程：每天7分鐘\n單字集/挑戰模式：不限時間"
-            } else if isPurchased == "1"{
-                
-                purchaseStatus = "付費用戶\n新課程：不限時間\n單字集/挑戰模式：不限時間"
-            }
-            */
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
             
             //計算天數
             let startDateString = user?["date"] as! String
@@ -689,11 +538,12 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         if isRegistered == false{
             
             logOutBtn.isHidden = true
-              toLoginVcBtn.isHidden = false
+            toLoginVcBtn.isHidden = false
+            
         } else {
             
             logOutBtn.isHidden = false
-              toLoginVcBtn.isHidden = true
+            toLoginVcBtn.isHidden = true
         }
        
         //MARK: must update
@@ -708,9 +558,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         }
         //抓mapPassed
         mapPassed = UserDefaults.standard.object(forKey: "mapPassed") as? Int
-        
-        
-        
+  
         //抓gamePassed2
         let decodedObject2 = UserDefaults.standard.object(forKey: "gamePassed2") as? NSData
         
@@ -818,69 +666,69 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func elementaryClicked(_ sender: Any) {
-        courseSent = 0
-        performSegue(withIdentifier: "toStageVc", sender: self)
-    }
-    
-    @IBAction func intermedaiteClicked(_ sender: Any) {
-        courseSent = 1
-        performSegue(withIdentifier: "toStageVc", sender: self)
-        
-    }
-    
-    @IBAction func toeicClicked(_ sender: Any) {
-        courseSent = 2
-        performSegue(withIdentifier: "toStageVc", sender: self)
-        
-    }
-  
-    
-    @IBAction func toNewBookBtn(_ sender: Any) {
-        
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        
-        let time = DispatchTime.now() + 0.1
-        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
-            self!.courseSent = 0
-            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
-        }
-        
- 
-    }
-    
-    
-    deinit {
-        print("course deinit")
-    }
-    
-    
-    @IBAction func toNewBook2Btn(_ sender: Any) {
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        
-        let time = DispatchTime.now() + 0.1
-        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
-            self!.courseSent = 1
-            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
-        }
-        
-        
-    }
-    @IBAction func toNewBook3Btn(_ sender: Any) {
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        
-        let time = DispatchTime.now() + 0.1
-        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
-            self!.courseSent = 2
-            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
-        }
-    }
+//    @IBAction func elementaryClicked(_ sender: Any) {
+//        courseSent = 0
+//        performSegue(withIdentifier: "toStageVc", sender: self)
+//    }
+//    
+//    @IBAction func intermedaiteClicked(_ sender: Any) {
+//        courseSent = 1
+//        performSegue(withIdentifier: "toStageVc", sender: self)
+//        
+//    }
+//    
+//    @IBAction func toeicClicked(_ sender: Any) {
+//        courseSent = 2
+//        performSegue(withIdentifier: "toStageVc", sender: self)
+//        
+//    }
+//  
+//    
+//    @IBAction func toNewBookBtn(_ sender: Any) {
+//        
+//        activityIndicator.startAnimating()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
+//        
+//        
+//        let time = DispatchTime.now() + 0.1
+//        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+//            self!.courseSent = 0
+//            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
+//        }
+//        
+// 
+//    }
+//    
+//    
+//    deinit {
+//        print("course deinit")
+//    }
+//    
+//    
+//    @IBAction func toNewBook2Btn(_ sender: Any) {
+//        activityIndicator.startAnimating()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
+//        
+//        
+//        let time = DispatchTime.now() + 0.1
+//        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+//            self!.courseSent = 1
+//            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
+//        }
+//        
+//        
+//    }
+//    @IBAction func toNewBook3Btn(_ sender: Any) {
+//        activityIndicator.startAnimating()
+//        UIApplication.shared.beginIgnoringInteractionEvents()
+//        
+//        
+//        let time = DispatchTime.now() + 0.1
+//        DispatchQueue.main.asyncAfter(deadline: time) {[weak self] in
+//            self!.courseSent = 2
+//            self!.performSegue(withIdentifier: "toNewBookVc", sender: self)
+//        }
+//    }
     
     @IBAction func toInfoVcClicked(_ sender: Any) {
 //        activityIndicator.startAnimating()

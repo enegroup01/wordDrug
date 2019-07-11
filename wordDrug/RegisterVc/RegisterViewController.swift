@@ -383,10 +383,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         
         //fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
+        var fbLoginBtnImg = String()
+        if lan == "zh-Hans" {
+            
+            fbLoginBtnImg = "wechatLoginBtn.png"
+        } else {
+            
+            fbLoginBtnImg = "newFbBtn.png"
+            
+        }
+        facebookBtn.backgroundColor = .clear
         facebookBtn.clipsToBounds = true
         facebookBtn.titleLabel?.textAlignment = .center
         facebookBtn.setTitle(fbWechatLoginBtnText, for: .normal)
         facebookBtn.titleLabel?.font = facebookBtn.titleLabel?.font.withSize(fontSize)
+        facebookBtn.setBackgroundImage(UIImage(named: fbLoginBtnImg), for: .normal)
         
         
         facebookBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -1245,6 +1256,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func fbLoginClicked(_ sender: Any) {
         
+        
+        if lan == "zh-Hans" {
+            print("wechat login")
+            let req = SendAuthReq()
+            req.scope = "snsapi_userinfo" //Important that this is the same
+            req.state = "com.playplay.missWord" //This can be any random value
+            WXApi.send(req)
+            
+        } else {
+        
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
@@ -1309,6 +1330,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             }
         }
  */
+        }
+            
     }
 
     func getDetails(){

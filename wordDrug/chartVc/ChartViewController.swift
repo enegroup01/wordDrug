@@ -16,7 +16,6 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     let chartVC_wordCountLabelText = NSLocalizedString("chartVC_wordCountLabelText", comment: "")
     let chartVC_passCountLabelText = NSLocalizedString("chartVC_passCountLabelText", comment: "")
     
-
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
@@ -33,10 +32,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var photoDif = CGFloat()
     
     var usernames = [String]()
-
+    
     var scores = [String]()
     var avas = [String]()
-
+    
     var wordCounts = [Int]()
     var wordReviewCounts = [Int]()
     var senReviewCounts = [Int]()
@@ -44,7 +43,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     var rankMode = Int()
     
     let lightGrayColor = UIColor.init(red: 206/255, green: 208/255, blue: 208/255, alpha: 1)
-   
+    
     var activityIndicator = UIActivityIndicatorView()
     var difX = CGFloat()
     var iPadDif = CGFloat()
@@ -54,10 +53,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        
-        
         
         var bgY:CGFloat!
         var btnFontSize:CGFloat!
@@ -157,13 +154,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             tableViewYDif = 0
             yDif = 0.1
             btnYDif = 20
-     
+            
             break
             
         }
-        
-
-        
         
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         activityIndicator.layer.zPosition = 15
@@ -184,10 +178,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         //chartTableView.alpha = 0.3
         
         /*
-        chartTitle.frame = CGRect(x: width / 2 - 50, y: chartTableView.frame.minY / 3, width: 100, height: 33)
-        //chartTitle.backgroundColor = .red
-        chartTitle.textAlignment = .center
-        */
+         chartTitle.frame = CGRect(x: width / 2 - 50, y: chartTableView.frame.minY / 3, width: 100, height: 33)
+         //chartTitle.backgroundColor = .red
+         chartTitle.textAlignment = .center
+         */
         //backBtn.frame = CGRect(x: width / 30, y: height / 30 + iPadSmall, width: 19 * dif, height: 31 * dif)
         
         backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 25 * iPadDif * yDif, left: 10 * iPadDif, bottom: 0, right: 0), size: CGSize(width: 19 * iPadDif, height: 31 * iPadDif))
@@ -204,17 +198,17 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart0Btn.titleLabel?.font = chart0Btn.titleLabel?.font.withSize(btnFontSize)
         
         //chart1Btn.frame = CGRect(x: width / 2 - 30, y: chartTableView.frame.minY / 3.3 + photoDif, width: 75 * iPadDif, height: 50 * iPadDif)
-          chart1Btn.translatesAutoresizingMaskIntoConstraints = false
+        chart1Btn.translatesAutoresizingMaskIntoConstraints = false
         chart1Btn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         chart1Btn.titleLabel?.textAlignment = .center
         chart1Btn.setTitle(chartVC_wordChart, for:.normal)
         //chart1Btn.backgroundColor = .red
-
+        
         chart1Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10).isActive = true
-       // chart1Btn.centerYAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50).isActive = true
+        // chart1Btn.centerYAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50).isActive = true
         chart1Btn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 15 * iPadDif - btnYDif).isActive = true
         chart1Btn.anchorSize(to: chart0Btn)
-
+        
         chart1Btn.titleLabel?.font = chart1Btn.titleLabel?.font.withSize(btnFontSize)
         
         
@@ -225,7 +219,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         //chart2Btn.backgroundColor = .red
         
         chart2Btn.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * iPadDif - btnYDif, left: 0 , bottom: 0, right: -(width / 3 - 75 * iPadDif) / 2), size: CGSize(width: 75 * iPadDif, height: 50 * iPadDif))
-         chart2Btn.anchorSize(to: chart0Btn)
+        chart2Btn.anchorSize(to: chart0Btn)
         
         chart2Btn.titleLabel?.font = chart2Btn.titleLabel?.font.withSize(btnFontSize)
         
@@ -242,8 +236,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         rankMode = 2
         
         /*
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
+         activityIndicator.startAnimating()
+         UIApplication.shared.beginIgnoringInteractionEvents()
          */
         rankReview(type: 1)
         
@@ -258,15 +252,15 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart1Btn.setTitleColor(grassGreen, for: .normal)
         chart0Btn.setTitleColor(lightGrayColor, for: .normal)
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
-       // self.view.isUserInteractionEnabled = false
+        // self.view.isUserInteractionEnabled = false
         
         rankMode = 1
         /*
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        disableBtns()
- */
- rankReview(type: 0)
+         activityIndicator.startAnimating()
+         UIApplication.shared.beginIgnoringInteractionEvents()
+         disableBtns()
+         */
+        rankReview(type: 0)
         
     }
     @IBAction func chart0Clicked(_ sender: Any) {
@@ -274,37 +268,37 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         chart0Btn.setTitleColor(grassGreen, for: .normal)
         chart1Btn.setTitleColor(lightGrayColor, for: .normal)
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
-       // self.view.isUserInteractionEnabled = false
+        // self.view.isUserInteractionEnabled = false
         rankMode = 0
         /*
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        disableBtns()
-*/
- rankUsers()
+         activityIndicator.startAnimating()
+         UIApplication.shared.beginIgnoringInteractionEvents()
+         disableBtns()
+         */
+        rankUsers()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         chart0Btn.setTitleColor(grassGreen, for: .normal)
         chart1Btn.setTitleColor(lightGrayColor, for: .normal)
         chart2Btn.setTitleColor(lightGrayColor, for: .normal)
-      //  self.view.isUserInteractionEnabled = false
+        //  self.view.isUserInteractionEnabled = false
         rankMode = 0
         /*
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        disableBtns()
-*/
- 
+         activityIndicator.startAnimating()
+         UIApplication.shared.beginIgnoringInteractionEvents()
+         disableBtns()
+         */
+        
         rankUsers()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return usernames.count
         
@@ -312,7 +306,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-               let cell = tableView.dequeueReusableCell(withIdentifier: "chartCell", for: indexPath) as! ChartTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chartCell", for: indexPath) as! ChartTableViewCell
         
         cell.backgroundColor = .clear
         
@@ -320,8 +314,8 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.usernameLabel.text = usernames[indexPath.row]
         
         if rankMode == 0 {
-        cell.totalScoreLabel.text = scores[indexPath.row]
-        cell.wordCountLabel.text = String(wordCounts[indexPath.row])
+            cell.totalScoreLabel.text = scores[indexPath.row]
+            cell.wordCountLabel.text = String(wordCounts[indexPath.row])
             cell.wordCountTitleLabel.text = chartVC_wordCountLabelText
         } else if rankMode == 1 {
             
@@ -335,53 +329,53 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.totalScoreLabel.text = ""
             cell.wordCountTitleLabel.text = chartVC_passCountLabelText
             cell.wordCountLabel.text = String(senReviewCounts[indexPath.row])
-      
+            
         }
         
         
         //cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
         
         cell.avaImg.downloadFrom(link: avas[indexPath.row], contentMode: .scaleAspectFit)
- 
+        
         
         /*
-        if avas[indexPath.row] != "" {
-            print("ava not nil")
-           // let newString = avas[indexPath.row].replacingOccurrences(of: "__", with: "&")
+         if avas[indexPath.row] != "" {
+         print("ava not nil")
+         // let newString = avas[indexPath.row].replacingOccurrences(of: "__", with: "&")
          
-                let imageUrl = URL(string: avas[indexPath.row])!
-            
-                // get data from image url
-                let imageData = try? Data(contentsOf: imageUrl)
-                
-                // if data is not nill assign it to ava.Img
-                if imageData != nil {
-                    
-                    
-                    print("imgData not nil")
-                    
-                    DispatchQueue.main.async(execute: {[weak self] in
-                        cell.avaImg.image = UIImage(data: imageData!)
-                        
-                        self!.activityIndicator.stopAnimating()
-                        UIApplication.shared.endIgnoringInteractionEvents()
-                        //self!.view.isUserInteractionEnabled = true
-                        self!.enableBtns()
-                    })
-                }
-                
-                
-            } else {
-            activityIndicator.stopAnimating()
-            UIApplication.shared.endIgnoringInteractionEvents()
-            //self!.view.isUserInteractionEnabled = true
-            enableBtns()
-                
-                cell.avaImg.image = UIImage(named: "avatar.png")
-            }
-    */
+         let imageUrl = URL(string: avas[indexPath.row])!
+         
+         // get data from image url
+         let imageData = try? Data(contentsOf: imageUrl)
+         
+         // if data is not nill assign it to ava.Img
+         if imageData != nil {
+         
+         
+         print("imgData not nil")
+         
+         DispatchQueue.main.async(execute: {[weak self] in
+         cell.avaImg.image = UIImage(data: imageData!)
+         
+         self!.activityIndicator.stopAnimating()
+         UIApplication.shared.endIgnoringInteractionEvents()
+         //self!.view.isUserInteractionEnabled = true
+         self!.enableBtns()
+         })
+         }
+         
+         
+         } else {
+         activityIndicator.stopAnimating()
+         UIApplication.shared.endIgnoringInteractionEvents()
+         //self!.view.isUserInteractionEnabled = true
+         enableBtns()
+         
+         cell.avaImg.image = UIImage(named: "avatar.png")
+         }
+         */
         
-       
+        
         
         return cell
         
@@ -393,11 +387,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     @objc func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //滾動時不能選擇
-       // isCollectionViewSelectabel = false
-       // segControl.isEnabled = false
+        // isCollectionViewSelectabel = false
+        // segControl.isEnabled = false
         
         
-        print("start scroll")
         disableBtns()
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ChartViewController.scrollViewDidEndDecelerating(_:)), object: nil)
         
@@ -408,25 +401,21 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
     @objc func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         //滾動停止可以選擇
-     //   isCollectionViewSelectabel = true
-     //   segControl.isEnabled = true
+        //   isCollectionViewSelectabel = true
+        //   segControl.isEnabled = true
         
         //self!.view.isUserInteractionEnabled = true
         enableBtns()
-        
-        print("end scroll")
-        
+       
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ChartViewController.scrollViewDidScroll(_:)), object: nil)
         
         //用這個func來決定collectionView Cell要顯示哪個
         
     }
     
- 
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        
         return height / 8
         
     }
@@ -453,20 +442,17 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         var urlString = String()
         var url:URL!
         if lan == "zh-Hans" {
-
+            
             if type == 0 {
                 urlString = "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/rankReviewWords.php"
             } else if type == 1{
-                
                 urlString = "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/rankReviewSens.php"
             }
         } else {
-    
-            
+
             if type == 0 {
                 urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewWords.php"
             } else if type == 1{
-                
                 urlString = "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankReviewSens.php"
             }
         }
@@ -492,16 +478,16 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     guard let parseJSON = json else {
                         print("Error while parsing")
                         /*
-                        self!.enableBtns()
-                        self!.activityIndicator.stopAnimating()
-                        UIApplication.shared.endIgnoringInteractionEvents()
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                         self!.enableBtns()
+                         self!.activityIndicator.stopAnimating()
+                         UIApplication.shared.endIgnoringInteractionEvents()
+                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                          */
- 
+                        
                         return
                     }
                     
-                    print("rank")
+                    
                     //再次儲存使用者資訊
                     
                     //print(parseJSON)
@@ -513,11 +499,10 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     self!.senReviewCounts.removeAll(keepingCapacity: false)
                     self!.wordCounts.removeAll(keepingCapacity: false)
                     self!.scores.removeAll(keepingCapacity: false)
- 
                     
-
+                    
+                    
                     for i in 0 ..< parseJSON.count{
-                        
                         
                         if let username = parseJSON[i]["nickname"] as? String{
                             
@@ -534,55 +519,46 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         }
                         
                         
-                         if let wordCounts = parseJSON[i]["wordReviewCounts"] as? Int{
-                   
+                        if let wordCounts = parseJSON[i]["wordReviewCounts"] as? Int{
+                            
                             self!.wordReviewCounts.append(wordCounts)
                             
-                         }
-                         
-                         
-                         if let senCounts = parseJSON[i]["senReviewCounts"] as? Int{
-                         
-                         
+                        }
+                        
+                        
+                        if let senCounts = parseJSON[i]["senReviewCounts"] as? Int{
+                            
                             self!.senReviewCounts.append(senCounts)
-                         
-                         }
-              
-                    
+                        }
 
-                    
                     }
                     
                     DispatchQueue.main.async(execute: {
                         
-                        
                         self!.chartTableView.reloadData()
-                        
-                        
-                        //self!.view.isUserInteractionEnabled = true
-                        
+  
                     })
-
+                    
                     
                 } catch{
                     
                     print("catch error")
                     /*
                      self!.enableBtns()
-                    self!.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                 //   self!.view.isUserInteractionEnabled = true
-                    */
+                     self!.activityIndicator.stopAnimating()
+                     UIApplication.shared.endIgnoringInteractionEvents()
+                     //   self!.view.isUserInteractionEnabled = true
+                     */
                 }
             } else {
                 
                 print("urlsession has error")
                 /*
                  self!.enableBtns()
-                self!.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-               // self!.view.isUserInteractionEnabled = true
-                */
+                 self!.activityIndicator.stopAnimating()
+                 UIApplication.shared.endIgnoringInteractionEvents()
+                 // self!.view.isUserInteractionEnabled = true
+                 */
             }
         }).resume()
         
@@ -598,7 +574,7 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
         }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/rankUser.php")!
+
         
         // request url
         var request = URLRequest(url: url)
@@ -620,20 +596,14 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         print("Error while parsing")
                         /*
                          self!.enableBtns()
-                        self!.activityIndicator.stopAnimating()
-                        UIApplication.shared.endIgnoringInteractionEvents()
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        */
+                         self!.activityIndicator.stopAnimating()
+                         UIApplication.shared.endIgnoringInteractionEvents()
+                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+                         */
                         return
                     }
-                    
-                    print("rank")
+      
                     //再次儲存使用者資訊
-
-                    //print(parseJSON)
-
-                    
-                    
                     
                     self!.usernames.removeAll(keepingCapacity: false)
                     self!.avas.removeAll(keepingCapacity: false)
@@ -646,94 +616,178 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                         
                         
                         if let username = parseJSON[i]["nickname"] as? String{
-                 
+                            
                             self!.usernames.append(username)
-
+                            
                         }
                         
                         if let ava = parseJSON[i]["ava"] as? String{
-
+                            
                             let newAva = ava.replacingOccurrences(of: "__", with: "&")
                             
                             self!.avas.append(newAva)
-                       
-                        }
-                        
-                        /*
-                        if let wordCounts = parseJSON[i]["wordReviewCounts"] as? Int{
-                           newDic![i]["wordCounts"] = String(wordCounts)
-                        }
-                        
-                        
-                        if let senCounts = parseJSON[i]["senReviewCounts"] as? Int{
-                            
-                                             newDic![i]["senCounts"] = String(senCounts)
-                            
                             
                         }
-         
-                        */
-    
+                        
+            
                         
                         if let score = parseJSON[i]["score"] as? Int{
                             
                             self!.scores.append(String(score))
                         }
                         
-                       
+                        
                         //print(self!.avas)
-                      
-                    
-                        //MARK: must update
-                        var mapWord = Int()
-                        var mapWord2 = Int()
-                        var mapWord3 = Int()
-                        var mapWord4 = Int()
-                        var mapWord5 = Int()
                         
+                        var tempMap = Int()
+                        var tempMap2 = Int()
+                        var tempMap3 = Int()
+                        var tempMap4 = Int()
+                        var tempMap5 = Int()
+                        var tempMapK12String = String()
+                        var tempMapK12 = [Int]()
+                        var tempMap7 = Int()
+                        var tempMap8 = Int()
+                        var tempMap9 = Int()
+
                         
-                        if let mapPassed = parseJSON[i]["mapPassed"] as? String{
-                            mapWord = Int(mapPassed)! * 450
+                        if let mapPassedString = parseJSON[i]["mapPassed"] as? String{
+                            if let mapPassed2String = parseJSON[i]["mapPassed2"] as? String{
+                                if let mapPassed3String = parseJSON[i]["mapPassed3"] as? String{
+                                    if let mapPassed4String = parseJSON[i]["mapPassed4"] as? String{
+                                        if let mapPassed5String = parseJSON[i]["mapPassed5"] as? String{
+                                            if let mapPassed7String = parseJSON[i]["mapPassed7"] as? String{
+                                                if let mapPassed8String = parseJSON[i]["mapPassed8"] as? String{
+                                                    if let mapPassed9String = parseJSON[i]["mapPassed9"] as? String{
+                                                        if let mapPassed6String = parseJSON[i]["mapPassed6"] as? String{
+                                                            
+                                                            tempMap = Int(mapPassedString)!
+                                                            tempMap2 = Int(mapPassed2String)!
+                                                            tempMap3 = Int(mapPassed3String)!
+                                                            tempMap4 = Int(mapPassed4String)!
+                                                            tempMap5 = Int(mapPassed5String)!
+                                                            tempMap7 = Int(mapPassed7String)!
+                                                            tempMap8 = Int(mapPassed8String)!
+                                                            tempMap9 = Int(mapPassed9String)!
+                                                            
+                                                            //另外處理成[Int]()
+                                                            tempMapK12String = mapPassed6String
+                                                            
+                                                       
+                                                            tempMapK12 = Array(repeating: Int(), count: 18)
+                                                            var mapPassedStringArray = tempMapK12String.components(separatedBy: ";")
+                                                            
+                                                            for i in 0 ..< mapPassedStringArray.count {
+                                                                //避免最後一位空值
+                                                                if mapPassedStringArray[i] != "" {
+                                                                    
+                                                                    tempMapK12[i] = Int(mapPassedStringArray[i])!
+                                                                }
+                                                            }
+
+                                                        }
+                                                    }
+                                                
+                                                }
+                                              
+                                            }
+                                       
+                                        }
+                                    }
+                                   
+                                }
+                                
+                            }
                             
                         }
-                        if let mapPassed2 = parseJSON[i]["mapPassed2"] as? String{
-                            mapWord2 = Int(mapPassed2)! * 450
+                        
+                      
+                        
+                        //k12GamePassed要先處理...其他的gamePassed之後再處理
+                        
+                        var tempK12Game:[[Int:Int]]!
+                        if let gamePassed6String = parseJSON[i]["gamePassed6"] as! String?{
+                            
+                            
+                            tempK12Game = Array(repeating: [0:0], count: 18)
+                            
+                            
+                            var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
+                            
+                            //如果有19位數就移除最後一位
+                            if k12GamePassedStringArray.count == 19{
+                                k12GamePassedStringArray.removeLast()
+                            }
+                            
+                            
+                            for i in 0 ..< k12GamePassedStringArray.count {
+                                
+                                let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
+                                
+                                let s = gamePassed6StringArray[0]
+                                let u = gamePassed6StringArray[1]
+                                tempK12Game[i] = [Int(s)!:Int(u)!]
+                                
+                            }
+                            
                         }
+
                         
                         
-                        if let mapPassed3 = parseJSON[i]["mapPassed3"] as? String{
+                        var allMapPassedCount:Int!
+
+                        if lan == "zh-Hans"{
+
+                            allMapPassedCount = tempMap * 330 + tempMap2 * 450 + tempMap3 * 450 + tempMap4 * 450 + tempMap5 * 450 + tempMap7 * 450 + tempMap8 * 450 + tempMap9 * 450
+                            
                           
-                           mapWord3 = Int(mapPassed3)! * 450
-                        }
-                        
-                        if let mapPassed4 = parseJSON[i]["mapPassed4"] as? String{
-                      
+                            var k12ElemWordsMax = [120,330,330,300,330,330,330,330,390,390,330,330,210,330,300,180,390,390]
+                            //k12
+                            for i in 0 ..< tempMapK12.count {
+                                
+                                //MARK: 這裡要修正
+                                if tempMapK12[i] == 1 {
+                                    
+                                    allMapPassedCount += k12ElemWordsMax[i]
+                                    
+                                } else {
+                                    
+                                    //eachCellMyWordsCount[i] =
+                                    
+                                    for (s,u) in tempK12Game[i] {
+                                        
+                                        allMapPassedCount += s * 30 + u * 3
+                                    }
+                                    
+                                }
+                            }
+
                             
-                            mapWord4 = Int(mapPassed4)! * 450
-                        }
-                        if let mapPassed5 = parseJSON[i]["mapPassed5"] as? String{
                             
+                        } else {
                             
-                            mapWord5 = Int(mapPassed5)! * 450
+                            allMapPassedCount = tempMap * 450 + tempMap2 * 450 + tempMap3 * 450 + tempMap4 * 450 + tempMap5 * 450
                         }
-                        
-                        
+                
                         
                         var gameWord = Int()
                         var gameWord2 = Int()
                         var gameWord3 = Int()
                         var gameWord4 = Int()
                         var gameWord5 = Int()
-                      
+                        var gameWord7 = Int()
+                        var gameWord8 = Int()
+                        var gameWord9 = Int()
+                        
                         if let gamePassed = parseJSON[i]["gamePassed"] as? String{
                             
                             let sep = gamePassed.components(separatedBy: ":")
                             gameWord = Int(sep[0])! * 30 + Int(sep[1])! * 3
                             
-       
+                            
                         }
                         if let gamePassed2 = parseJSON[i]["gamePassed2"] as? String{
-                
+                            
                             let sep = gamePassed2.components(separatedBy: ":")
                             gameWord2 = Int(sep[0])! * 30 + Int(sep[1])! * 3
                             
@@ -758,21 +812,39 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                             gameWord5 = Int(sep[0])! * 30 + Int(sep[1])! * 3
                             
                         }
+                        if let gamePassed7 = parseJSON[i]["gamePassed7"] as? String{
+                            
+                            let sep = gamePassed7.components(separatedBy: ":")
+                            gameWord7 = Int(sep[0])! * 30 + Int(sep[1])! * 3
+                            
+                        }
+                        if let gamePassed8 = parseJSON[i]["gamePassed8"] as? String{
+                            
+                            let sep = gamePassed8.components(separatedBy: ":")
+                            gameWord8 = Int(sep[0])! * 30 + Int(sep[1])! * 3
+                            
+                        }
+                        if let gamePassed9 = parseJSON[i]["gamePassed9"] as? String{
+                            
+                            let sep = gamePassed9.components(separatedBy: ":")
+                            gameWord9 = Int(sep[0])! * 30 + Int(sep[1])! * 3
+                            
+                        }
                         
                         
-                        let totalWordCount = mapWord + mapWord2 + gameWord + gameWord2 + mapWord3 + gameWord3 + mapWord4 + gameWord4 + mapWord5 + gameWord5
+                        let totalWordCount = gameWord + gameWord2 + gameWord3 + gameWord4 + gameWord5 + gameWord7 + gameWord8 + gameWord9 + allMapPassedCount
                         
                         self!.wordCounts.append(totalWordCount)
-
-   
+                        
+                        
                     }
-
-  
+                    
+                    
                     DispatchQueue.main.async(execute: {
                         self!.chartTableView.reloadData()
-     
+                        
                     })
-                   
+                    
                     
                 } catch{
                     
@@ -780,39 +852,39 @@ class ChartViewController: UIViewController, UITableViewDataSource, UITableViewD
                     
                     /*
                      self!.enableBtns()
-                    self!.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                    //self!.view.isUserInteractionEnabled = true
-                    */
+                     self!.activityIndicator.stopAnimating()
+                     UIApplication.shared.endIgnoringInteractionEvents()
+                     //self!.view.isUserInteractionEnabled = true
+                     */
                 }
             } else {
                 
                 print("urlsession has error")
                 /*
                  self!.enableBtns()
-                self!.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-                //self!.view.isUserInteractionEnabled = true
-                */
+                 self!.activityIndicator.stopAnimating()
+                 UIApplication.shared.endIgnoringInteractionEvents()
+                 //self!.view.isUserInteractionEnabled = true
+                 */
             }
         }).resume()
         
     }
-
+    
     @IBAction func backBtnClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension UIImageView
@@ -844,7 +916,7 @@ extension UIImageView
         {
             self.image = UIImage(named: "avatar.png")
         }
-
+        
     }
 }
 

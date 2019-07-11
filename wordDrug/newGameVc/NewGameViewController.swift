@@ -37,8 +37,6 @@ var senFontSize = CGFloat()
 
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
     
-
-   
     let gameVC_pleasePressMic = NSLocalizedString("gameVC_pleasePressMic", comment: "")
   
     let gameVC_pleasePronounce = NSLocalizedString("gameVC_pleasePronounce", comment: "")
@@ -62,7 +60,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let gameVC_toShop = NSLocalizedString("gameVC_toShop", comment: "")
     let gameVC_noBuyNow = NSLocalizedString("gameVC_noBuyNow", comment: "")
     let gameVC_reviewNoScore = NSLocalizedString("gameVC_reviewNoScore", comment: "")
-    
+    let gameVC_pressMicAgain = NSLocalizedString("gameVC_pressMicAgain", comment: "")
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
@@ -125,22 +123,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //句子的文字
     var sentence = String()
     
-    //是否是在確認句子
-    var isCheckingSentence = Bool()
-    
+//    //是否是在確認句子
+//    var isCheckingSentence = Bool()
     
     //所選到的tag
     //var tagsSelected = [String]()
-    
     var attrTagsSelected = [NSMutableAttributedString]()
     
     //製作tag
     @IBOutlet weak var tagView: TagListView!
-    
-    //這兩個應該用不到
-    var player: AVAudioPlayer?
-    var mp3FileName = String()
-    
     
     //發音單字
     var synWord = String()
@@ -288,7 +279,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     var maxSpot:Int!
     
-    
     var countScoreTimer = Timer()
     //紀錄已加過的分數
     var scoreAdded = Int()
@@ -300,12 +290,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     var senCount = Int()
     
-    
     var firstTimeFavWords = [String]()
     
-    
     var limitSeconds = Int()
-    
     
     @IBOutlet weak var circleOkBtn: UIButton!
     //var isPurchased = String()
@@ -344,7 +331,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         super.viewDidLoad()
 
         
-
+        print("width: \(width)")
+        print("height: \(height)")
+        
         skipPronounceBtn.isHidden = true
         
         var tagMarginY = CGFloat()
@@ -372,9 +361,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             
         case 1366, 1336:
-            print("big iPad")
-            
-            
+
             dif = 1
             iPadDif = 2
             engSentenceFontSize = 70
@@ -395,8 +382,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
    
             
         case 1024, 1194, 1112:
-            
-            print("small iPad")
+  
             
             dif = 1
             iPadDif = 1.6
@@ -516,7 +502,29 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
  
             iPhoneSeYDif = 20
            
+            
+        case 896:
+            print("user figures here")
+            dif = 1
+            iPadDif = 1
+            engSentenceFontSize = 30
+            chiSentenceFontSize = 18
+            wordCountLabelSize = 80
+            hintLabelFontSize = 16
+            senFontSize = 26
+            tagMarginY = 13
+            
+            okBtnDif = 15
+            
+            cornerRadiusNumber = 6
+            resultElementDif = 0.95
+            iPhoneXHeightDif = 1.5
+            iPhoneXHeightDif2 = 1.1
+            iPhonePlusHeightDif = 1
+            
+            iPhoneSeYDif = 0
         default:
+           
             dif = 1
             iPadDif = 1
             engSentenceFontSize = 30
@@ -796,9 +804,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         purchaseAlert.heightAnchor.constraint(equalToConstant: 462 * iPadDif * dif).isActive = true
         purchaseAlert.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         purchaseAlert.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
         var purImg = String()
         if lan == "zh-Hans"{
-            purImg = "purchaseAlertSim2.png"
+            purImg = "purchaseAlertSim3.png"
         } else {
             purImg = "purchaseAlert.png"
         }
@@ -914,7 +923,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sen1Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         sen1Btn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -23 * iPadDif * dif / iPhoneXHeightDif / iPhoneXHeightDif).isActive = true
         
-   
         
         //sen2Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * btnDif2, height: 57 * btnDif2)
         sen2Btn.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -927,8 +935,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sen2Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         sen2Btn.topAnchor.constraint(equalTo: sen1Btn.bottomAnchor, constant: 12 * iPadDif * dif).isActive = true
         
-        
-        
+    
         //sen3Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
         sen3Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen3Btn.titleLabel?.numberOfLines = 2
@@ -939,8 +946,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sen3Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         sen3Btn.topAnchor.constraint(equalTo: sen2Btn.bottomAnchor, constant: 12 * iPadDif * dif).isActive = true
         
-        
-        
+     
         //sen4Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
         sen4Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen4Btn.titleLabel?.numberOfLines = 2
@@ -1308,7 +1314,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         playSoundBtn.setBackgroundImage(playSoundBtnImg, for: .normal)
         
-        
         clearTagBtn = UIButton(type: .system)
         clearTagBtn.addTarget(self, action: #selector(NewGameViewController.clearTag), for: .touchUpInside)
 
@@ -1332,9 +1337,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
         skipPronounceBtn.setBackgroundImage(skipProImg, for: .normal)
-
-        
-        
+    
         //先隱藏錄音及辨識
         recordBtn.isHidden = true
         
@@ -1362,9 +1365,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if lan == "zh-Hans"{
                 //檢體中文
                 //之後還要用courseReceived來改數值, 因為每個course值不同
-                print("檢體中文關卡數")
-                
-                
                 titleImg = "simBlock0.png"
                 maxMapNum = 2
                 increaseNum = 35
@@ -1372,7 +1372,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             } else {
                 //其餘語言
-                print("繁體中文關卡數")
           
                 titleImg = "block0Title.png"
                 maxMapNum = 4
@@ -1496,24 +1495,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
         
             //MARK: simVer K12改變作法
-            //測試用
-//            k12MapPassed = Array(repeating: 0, count: 18)
-//            k12GamePassed = Array(repeating: [0:0], count: 18)
-            
-            //k12MapPassed[1] = 2
-            //k12GamePassed[0] = [0:2]
-            //k12GamePassed[2] = [1:0]
-            
-            //print(k12MapPassed)
-            //print(k12GamePassed)
-            
-            //重新設定成k12裡各關的過關情形
-            //            gamePassedDic = gamePassed6!
-            //            mapPassedInt = mapPassed6!
             gamePassedDic = k12GamePassed[mapNumber]
             mapPassedInt = k12MapPassed[mapNumber]
-            
-            //****做到換titlepng
+
             
             titleImg = "simBlock5.png"
             titleWidth = 70
@@ -1669,9 +1653,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             maxSpot = 15
         }
         
-        
 
-        
         //需要判定抓那一個title圖來顯示
         resultTitleImg.image = UIImage(named: titleImg)
         resultTitleImg.anchor(top: resultBg.topAnchor, leading: resultBg.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20 * dif * iPadDif, left: 20 * dif * iPadDif, bottom: 0, right: 0), size: .init(width: titleWidth * dif * iPadDif, height: 70 * dif * iPadDif))
@@ -1682,11 +1664,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if gameMode == 0 {
             
-            
-            
             limitSeconds = UserDefaults.standard.object(forKey: "limitSeconds") as! Int
         
-            //print("剩餘時間幾秒:\(limitSeconds)")
             //測試用
             //limitSeconds = 2
             
@@ -1732,7 +1711,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 if mapPassedInt == 1 {
                 
                     //K12當關卡全破
-                tempGamePassedDic = [maxSpot - 1:9]
+         
+                    tempGamePassedDic = [maxSpot - 1:9]
                 
                 } else {
                     
@@ -1767,9 +1747,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 tempGamePassedDic = gamePassedDic
                 
             }
-
-            
-            
+  
             for (s,u) in tempGamePassedDic!{
                 
                 //1. 填入spot上限供亂數選擇
@@ -1798,11 +1776,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         for i in 0 ..< u * 3 {
                             
                             allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
-                            
+                        
                         }
+                   
                     } else {
-                        
-                        
+
                         //若u為0, 就移除掉一整排空值
                         allUnitSpotNums.remove(at: allUnitSpotNums.count - 1)
                         
@@ -1978,7 +1956,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             do {
                 relWordFile = try String(contentsOfFile: filepath)
                 
-                
                 relArray = relWordFile.components(separatedBy: "]],")
                 
             } catch {
@@ -2067,8 +2044,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //print("loaded relword counts:\(newRels.count)")
         
-
-        
     }
     
     @objc func clearTag(){
@@ -2098,7 +2073,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
 
-    
     @objc func removePlaySoundBtn(){
         
         //print("remove pronounceBtn")
@@ -2358,9 +2332,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillAppear(_ animated: Bool) {
         
-       
-        
-        //print("是否為重複玩:\(isReplay)")
 
   
         NotificationCenter.default.removeObserver(self)
@@ -2578,8 +2549,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recogTextLabel.text = ""
         
         recogTextLabel.isHidden = true
-
-        
+   
         recordBtn.isHidden = true
         
     }
@@ -2672,11 +2642,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
                                         scoreLabel.text = "0"
                                   
-
                                     }
-                                    
-                      
-                                    
 
                                     moveUpAnimation(label: firstEngWord, text: firstEngWordText)
                                     
@@ -2739,7 +2705,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                         if user != nil {  // 要保留給第一次進入的玩家
                                             
                                             
-                                            print("過關卡")
                                             
                                             //紀錄關卡
                                             if unitNumber == 9{         //代表過一整個課程
@@ -2747,25 +2712,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                 //此探索點已過完, 此探索點要做動態化  ----中級為 14
                                                 //MARK: simVer 要動態話SpotNum
                                                 
-                                                //上方經處理過
-//
-//
-//
-//                                                if lan == "zh-Hans"{
-//                                                    //檢體中文
-//
-//                                                    //print("檢體中文關卡數")
-//                                                    //之後還要用courseReceived來改數值, 因為每個course值不同
-//
-//                                                    maxSpot = 10
-//
-//                                                } else {
-//                                                    //其餘語言
-//                                                    //print("繁體中文關卡數")
-//                                                    maxSpot = 14
-//
-//                                                }
-                                                
+
                                                 //MARK: simVer 要取代掉動態的最大值改到這裡...
                                                 
                                                 if spotNumber == maxSpot - 1 {
@@ -3208,7 +3155,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     updateGamePassed(course:courseReceived)
                                                 case 5:
 
-                                                    print("leave game enter here ")
                                                     k12GamePassed[mapNumber] = [spotNumber: unitNumber + 1]
                                                     gamePassedDic = k12GamePassed[mapNumber]
 //                                                    gamePassed6 = [spotNumber: unitNumber + 1]
@@ -3386,144 +3332,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         }
         
-        
-        
-//        switch courseReceived{
-//
-//        case 0:
-//
-//
-////            if lan == "zh-Hans"{
-////                //檢體中文
-////
-////                print("檢體中文關卡數")
-////                //之後還要用courseReceived來改數值, 因為每個course值不同
-////
-////                unitMaxWordCount = 330
-////
-////
-////            } else {
-////                //其餘語言
-////                print("繁體中文關卡數")
-////                unitMaxWordCount = 450
-////
-////            }
-//
-//
-//            wordsCounts += mapPassed! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//
-//
-//        case 1:
-//
-//
-//            wordsCounts += mapPassed2! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed2!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//
-//        case 2:
-//
-//
-//            wordsCounts += mapPassed3! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed3!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//
-//        case 3:
-//
-//
-//            wordsCounts += mapPassed4! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed4!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//        case 4:
-//
-//
-//            wordsCounts += mapPassed5! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed5!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//        case 5:
-//                 print("enter K12 count")
-//
-//            wordsCounts += mapPassed6! * unitMaxWordCount
-//                print("enter K12 count2")
-//
-//            for (s,u) in gamePassed6!{
-//
-//                wordsCounts += s * 30 + u * 3
-//                     print("enter K12 count3")
-//            }
-//
-//        case 6:
-//
-//
-//            wordsCounts += mapPassed7! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed7!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//        case 7:
-//
-//
-//            wordsCounts += mapPassed8! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed8!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//        case 8:
-//
-//
-//            wordsCounts += mapPassed9! * unitMaxWordCount
-//
-//
-//            for (s,u) in gamePassed9!{
-//
-//                wordsCounts += s * 30 + u * 3
-//
-//            }
-//
-//
-//        default:
-//            break
-//
-//        }
+
         
         //顯示出來
         wordCountLabel.text = String(wordsCounts)
@@ -3681,7 +3490,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         wordRecorded = String()
         
         //對字
-        isCheckingSentence = false
+//        isCheckingSentence = false
         
         //指定答案的字
         //MARK: simVer 這裡要避免wrong pronounceWord, synWord可能已經被取代掉了
@@ -3732,7 +3541,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     //假如有抓到的話
                     if word == wordToPronunce{
-                        print("found wrond pronounce word")
+                    
                         synWord = rightWord[0]
                         
                     }
@@ -3784,19 +3593,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             playSoundBtn.isEnabled = true
             
             //檢查答案, 句子/單字
-            if isCheckingSentence{
-                
-                //檢查 以下的func已經不用了
-                //self.checkSentence()
-                
-                //隱藏Btn, 以便顯示句子得分的img
-                recordBtn.isHidden = true
-                
-            } else {
-                self.checkWord()
-                
-            }
-            
+//            if isCheckingSentence{
+//
+//                //檢查 以下的func已經不用了
+//                //self.checkSentence()
+//
+//                //隱藏Btn, 以便顯示句子得分的img
+//                recordBtn.isHidden = true
+//
+//            } else {
+//
+//
+//            }
+                      self.checkWord()
             
         }  else {
             
@@ -3832,8 +3641,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 let keyArray = new.components(separatedBy: ":")
                 if keyArray[0].replacingOccurrences(of: " ", with: "") ==  originalWordToRecognize{
                     
-                    
-                    print(" found rel words")
+              
                     let rels = keyArray[1].components(separatedBy: ", ")
                     for r in rels{
                         
@@ -3873,14 +3681,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             if let resultWord = result.bestTranscription.formattedString.lowercased() as String?{
                                 
                                 self!.recogTextLabel.font = self!.recogTextLabel.font.withSize(self!.chiSentenceFontSize * 2)
-                                self!.hintLabel.text = "再按一下麥克風結束"
+                                self!.hintLabel.text = self!.gameVC_pressMicAgain
                                 
                                 
                                 if relWordsFound.count != 0 {
                                     if relWordsFound.contains(resultWord){
-      
-                                        print(relWordsFound)
-                                        self!.recogTextLabel.text = self!.originalWordToRecognize
+                                              self!.recogTextLabel.text = self!.originalWordToRecognize
                                         
                                     } else {
                                         
@@ -4377,7 +4183,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         DispatchQueue.main.asyncAfter(deadline: when) {[weak self] in
             
-            
             //辨識的字消失
             self!.recogTextLabel.text = ""
             
@@ -4582,8 +4387,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             }
 
             
-            //避免再次產生hint
-            isCheckingSentence = false
+//            //避免再次產生hint
+//            isCheckingSentence = false
 
             
         } else{
@@ -4648,9 +4453,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sentenceLabel.text = sentence
         chiSentenceLabel.text = chiSentence
         
+        //用這個來啟動ok按鍵
         isReadingGuidedSentence = true
-        
-        
+     
     }
     
     
@@ -4696,7 +4501,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //填入數字
         
-        
         randomSens = [Int(),Int(),Int(),Int()]
         randomSens[correctRandom] = Int(wordSequenceToReceive)!
    
@@ -4736,8 +4540,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
 
         
-        //避免再次產生hint
-        isCheckingSentence = false
+//        //避免再次產生hint
+//        isCheckingSentence = false
         
         
         
@@ -4870,8 +4674,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if isReviewWrong{
 
                 updateReviewSenCount(senCount: senCount, course: courseReceived)
-                
-                
+
             } else{
                 
                 jumpToTagPractice()
@@ -4926,32 +4729,21 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sentenceCounts = sentenceTag.count
         
         switch sentenceCounts{
-            
-        case 0...9:
-            //senFontSize += 2
-            print("小於9個字")
-            
-        case 10 ..< 15:
-            print("小於15個字")
-            
+     
         case 15 ..< 20:
-            print("字數15-20")
-            
+          
             senFontSize -= 4
             
         case 20...23:
             
-            print("字數20 - 23以上")
             senFontSize -= 6
             
-            
         case 24...26:
-            print("字數24 - 26")
-            
+       
             senFontSize -= 8
             
         case 26...:
-            print("字數26以上")
+      
             senFontSize -= 10
             
         default:
@@ -4973,7 +4765,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //準備選擇題
         sentenceLabel.text = ""
         
-        //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數）
+        //算分數 + 啟動tag的機制 (目前修正成nc去啟動倒數, score為0過去, finalPoints為0過去啟動）
         let score = Int()
         let finalPoints = Int()
         
@@ -5002,8 +4794,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //tagView.backgroundColor = .white
         clearTagBtn.isHidden = false
         
-        //避免再次產生hint
-        isCheckingSentence = false
+//        //避免再次產生hint
+//        isCheckingSentence = false
         
         //發音
         pronounceTime = 1
@@ -5136,7 +4928,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //確認是否還有字
                 //繼續練習下一個字
                 //如果是的話代表是練習最後一個
-                
                 
                 senCount += 1
                 
@@ -5390,7 +5181,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //只有正確更新時會回傳user資訊
                         user = parseJSON
                         //有更新的狀態
-                        print("updated Count")
+                     
                         tempCount = Int(resultCount)!
                         let otherCount = user?[otherCountName] as! String
                         let otherCount2 = user?[otherCountName2] as! String
@@ -5410,7 +5201,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //這裡的user檔案必須要有所有的gamePassed & mapPassed才不會user?[]抓不到導致crash
                         
                         
-                        print("original Count")
                         let count = user?["wordReviewCount"] as! String
                         let otherCount = user?["wordReviewCount2"] as! String
                         let otherCount2 = user?["wordReviewCount3"] as! String
@@ -5495,7 +5285,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     //print("rank")
                     //再次儲存使用者資訊
                     
-                    print(parseJSON)
+           
                     
                     var tempCount = Int()
                     var tempJsonName = String()
@@ -5669,7 +5459,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //只有正確更新時會回傳user資訊
                         user = parseJSON
                         //有更新的狀態
-                        print("updated Count")
+                    
                         tempCount = Int(resultCount)!
                         let otherCount = user?[otherCountName] as! String
                         let otherCount2 = user?[otherCountName2] as! String
@@ -5688,7 +5478,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //無更新的狀態
                         //這裡的user檔案必須要有所有的gamePassed & mapPassed才不會user?[]抓不到導致crash
                         
-                        print("original Count")
+                   
                         let count = user?["senReviewCount"] as! String
                         let otherCount = user?["senReviewCount2"] as! String
                         let otherCount2 = user?["senReviewCount3"] as! String
@@ -5840,14 +5630,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
 
         
-        if isCheckingSentence{
-            
-            
-            print("trigger readyToReadSentence")
-            //檢查句子前先發hint
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
-        }
+//        if isCheckingSentence{
+//
+//
+//            print("trigger readyToReadSentence")
+//            //檢查句子前先發hint
+//
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
+//        }
         
         
         if isReadingGuidedSentence{
@@ -5864,7 +5654,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         } else {
             
             //避免delegate不成功...此function可能不需要暫時留著需要注意timer有沒有invalidate..
-            print("not yet Paused")
+
             waitTimer.invalidate()
             waitTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(NewGameViewController.waitTime), userInfo: nil, repeats: true)
         }
@@ -5876,10 +5666,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //避免delegate不成功的TIMER
     @objc func waitTime(){
         
-        print("enter Timer")
+       
         if !synth.isSpeaking{
             recordBtn.isEnabled = true
-            print("timer pause")
+   
             waitTimer.invalidate()
         }
         
@@ -5971,7 +5761,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
                     
                     //print(user!)
-                    print("mapPassed updated")
+       
                     
                 } catch{
                     
@@ -5992,8 +5782,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //更新gamePassed
     func updateGamePassed(course:Int){
-        
-        print("enter gamePassed")
+      
         
         let id = user?["id"] as! String
         
@@ -6165,73 +5954,73 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //刪除最愛單字---這部分要到單字集裡面做
     
-    func removeWord(word:String){
-        
-        if myWords.contains(word) {
-            let id = user?["id"] as! String
-            
-            // url to access our php file
-            var url:URL
-            if lan == "zh-Hans" {
-                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/removeWord.php")!
-            } else {
-                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
-            }
-            
-            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
-            
-            // request url
-            var request = URLRequest(url: url)
-            
-            // method to pass data POST - cause it is secured
-            request.httpMethod = "POST"
-            
-            // body gonna be appended to url
-            let body = "userID=\(id)&word=\(word)"
-            
-            // append body to our request that gonna be sent
-            request.httpBody = body.data(using: .utf8)
-            
-            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-                // no error
-                if error == nil {
-                    
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        
-                        guard let parseJSON = json else {
-                            print("Error while parsing")
-                            self?.isParseEnabled = true
-                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                            return
-                        }
-                        
-                        //再次儲存使用者資訊
-                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                        print(user!)
-                        //載入我的最愛單字
-                        if let myWordsString = user!["myWords"] as! String?{
-                            self!.myWords = myWordsString.components(separatedBy: ";")
-                            
-                        }
-                        
-                        self?.isParseEnabled = true
-                        
-                    } catch{
-                        
-                        self?.isParseEnabled = true
-                        print("catch error")
-                        
-                    }
-                } else {
-                    self?.isParseEnabled = true
-                    print("urlsession has error")
-                    
-                }
-            }).resume()
-        }
-    }
+//    func removeWord(word:String){
+//
+//        if myWords.contains(word) {
+//            let id = user?["id"] as! String
+//
+//            // url to access our php file
+//            var url:URL
+//            if lan == "zh-Hans" {
+//                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/removeWord.php")!
+//            } else {
+//                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+//            }
+//
+//            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
+//
+//            // request url
+//            var request = URLRequest(url: url)
+//
+//            // method to pass data POST - cause it is secured
+//            request.httpMethod = "POST"
+//
+//            // body gonna be appended to url
+//            let body = "userID=\(id)&word=\(word)"
+//
+//            // append body to our request that gonna be sent
+//            request.httpBody = body.data(using: .utf8)
+//
+//            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+//                // no error
+//                if error == nil {
+//
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//
+//                        guard let parseJSON = json else {
+//                            print("Error while parsing")
+//                            self?.isParseEnabled = true
+//                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//                            return
+//                        }
+//
+//                        //再次儲存使用者資訊
+//                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+//                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+//                        print(user!)
+//                        //載入我的最愛單字
+//                        if let myWordsString = user!["myWords"] as! String?{
+//                            self!.myWords = myWordsString.components(separatedBy: ";")
+//
+//                        }
+//
+//                        self?.isParseEnabled = true
+//
+//                    } catch{
+//
+//                        self?.isParseEnabled = true
+//                        print("catch error")
+//
+//                    }
+//                } else {
+//                    self?.isParseEnabled = true
+//                    print("urlsession has error")
+//
+//                }
+//            }).resume()
+//        }
+//    }
     
     func updateScore(score:Int, wrongWordsCount:Int, proRate:Int, senRate:Int){
         
@@ -6272,12 +6061,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
                         return
                     }
-                    
-                    print("updateScore")
+
                     //再次儲存使用者資訊
                     UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
                     user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    print(user!)
+                    //print(user!)
                     
                     //MARK: must update
                     //MARK: simVer 增加
@@ -6289,7 +6077,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed!, forKey: "mapPassed")
                         
-                        print("retrieve mapPassed:\(mapPassed!)")
                         
                     }
                     
@@ -6299,9 +6086,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                        
-                        print("retrieve mapPassed:\(mapPassed2!)")
-                        
+                      
                     }
                     
                     if let mapPassed3String = user?["mapPassed3"] as! String?{
@@ -6309,9 +6094,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         mapPassed3 = Int(mapPassed3String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                        
-                        print("retrieve mapPassed:\(mapPassed3!)")
-                        
+                     
                     }
                     
                     if let mapPassed4String = user?["mapPassed4"] as! String?{
@@ -6319,8 +6102,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         mapPassed4 = Int(mapPassed4String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed4!, forKey: "mapPassed4")
-                        
-                        print("retrieve mapPassed:\(mapPassed4!)")
+                  
                         
                     }
                     
@@ -6329,47 +6111,31 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         mapPassed5 = Int(mapPassed5String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed5!, forKey: "mapPassed5")
-                        
-                        print("retrieve mapPassed:\(mapPassed5!)")
-                        
+                 
                     }
                     
                     //MARK: simVer K12 特別作法
                     
                     if let mapPassed6String = user?["mapPassed6"] as! String?{
-                        print("enter 1")
+                   
                         var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
-                        print("enter 2 :\(mapPassedStringArray)")
+                      
                         for i in 0 ..< mapPassedStringArray.count {
-                            
-                            print("enter 3")
+                       
                             //避免最後一位空值
                             if mapPassedStringArray[i] != "" {
                                 
                                 k12MapPassed[i] = Int(mapPassedStringArray[i])!
                             }
-                            
-                            print("enter 4 value:\(k12MapPassed)")
-                            
+                          
                         }
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(k12MapPassed, forKey: "mapPassed6")
-                        
-                        print("retrieve k12MapPassed:\(k12MapPassed!)")
-                        
+                     
                     }
                     
-                    
-                    //                    if let mapPassed6String = user?["mapPassed6"] as! String?{
-                    //
-                    //                        mapPassed6 = Int(mapPassed6String)!
-                    //                        let userDefaults = UserDefaults.standard
-                    //                        userDefaults.set(mapPassed6!, forKey: "mapPassed6")
-                    //
-                    //                        print("retrieve mapPassed:\(mapPassed6!)")
-                    //
-                    //                    }
+           
                     
                     if let mapPassed7String = user?["mapPassed7"] as! String?{
                         
@@ -6377,7 +6143,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed7!, forKey: "mapPassed7")
                         
-                        print("retrieve mapPassed:\(mapPassed7!)")
                         
                     }
                     
@@ -6387,7 +6152,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed8!, forKey: "mapPassed8")
                         
-                        print("retrieve mapPassed:\(mapPassed8!)")
                         
                     }
                     
@@ -6396,8 +6160,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         mapPassed9 = Int(mapPassed9String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed9!, forKey: "mapPassed9")
-                        
-                        print("retrieve mapPassed:\(mapPassed9!)")
+
                         
                     }
                     
@@ -6413,8 +6176,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                        
-                        print("retrieve gamePassed:\(gamePassed!)")
+
                         userDefaults.set(encodedObject, forKey: "gamePassed")
                         
                     }
@@ -6430,7 +6192,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                         
-                        print("retrieve gamePassed:\(gamePassed2!)")
+
                         userDefaults.set(encodedObject, forKey: "gamePassed2")
                         
                     }
@@ -6446,7 +6208,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                         
-                        print("retrieve gamePassed:\(gamePassed3!)")
+
                         userDefaults.set(encodedObject, forKey: "gamePassed3")
                         
                     }
@@ -6463,7 +6225,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                         
-                        print("retrieve gamePassed:\(gamePassed4!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
@@ -6479,7 +6240,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                         
-                        print("retrieve gamePassed:\(gamePassed5!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed5")
                         
                     }
@@ -6510,28 +6270,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
                         
-                        print("retrieve gamePassed:\(k12GamePassed!)")
+            
                         userDefaults.set(encodedObject, forKey: "gamePassed6")
                         
                     }
                     
-                    //
-                    //                    if let gamePassed6String = user?["gamePassed6"] as! String?{
-                    //
-                    //                        let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
-                    //
-                    //                        let s = gamePassed6StringArray[0]
-                    //                        let u = gamePassed6StringArray[1]
-                    //                        gamePassed6 = [Int(s)!:Int(u)!]
-                    //
-                    //                        let userDefaults = UserDefaults.standard
-                    //                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
-                    //
-                    //                        print("retrieve gamePassed:\(gamePassed6!)")
-                    //                        userDefaults.set(encodedObject, forKey: "gamePassed6")
-                    //
-                    //                    }
-                    
+                 
                     if let gamePassed7String = user?["gamePassed7"] as! String?{
                         
                         let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
@@ -6543,7 +6287,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                         
-                        print("retrieve gamePassed:\(gamePassed7!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed7")
                         
                     }
@@ -6559,7 +6302,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                         
-                        print("retrieve gamePassed:\(gamePassed8!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed8")
                         
                     }
@@ -6575,7 +6317,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                         
-                        print("retrieve gamePassed:\(gamePassed9!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed9")
                         
                     }

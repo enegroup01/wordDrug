@@ -35,7 +35,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     let lessonVC_iKnow = NSLocalizedString("lessonVC_iKnow", comment: "")
     let lessonVC_theLastPage = NSLocalizedString("lessonVC_theLastPage", comment: "")
     let lessonVC_class = NSLocalizedString("lessonVC_class", comment: "")
-
+    
     
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -51,7 +51,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var enterBtn: UIButton!
     let pinkColor = UIColor.init(red: 247/255, green: 127/255, blue: 124/255, alpha: 1)
     var mapNumToReceive = Int()
-   
+    
     @IBOutlet weak var previousBtn: UIButton!
     
     @IBOutlet weak var nextBtn: UIButton!
@@ -84,13 +84,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     @IBOutlet weak var hintLabel: UILabel!
     
-    //發音單字
-    var synWord = String()
     
-    //Text to speech合成器
-    var synth = AVSpeechSynthesizer()
-    var audioSession = AVAudioSession.sharedInstance()
-   
     @IBOutlet weak var titleLabel: UILabel!
     
     //收到的課程數字
@@ -119,7 +113,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var allSylBtn: UIButton!
     
     //選擇到的音節
-    var collectionTouched = [Int]()
+    //var collectionTouched = [Int]()
     var secRowTouched = [[Int]]()
     var maxIndex:Int!
     var maxSpot:Int!
@@ -129,32 +123,30 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var currentMaxSpotToUse:Int!
     var currentMaxUnitToUse:Int!
     
-
-    //MARK: simVer K12 課程紀錄變數
-//    var k12MapPassed:[Int]!
-//    var k12GamePassed:[[Int:Int]]!
     
-     let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
+    //MARK: simVer K12 課程紀錄變數
+    //    var k12MapPassed:[Int]!
+    //    var k12GamePassed:[[Int:Int]]!
+    
+    let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-
+        
+        
         // Do any additional setup after loading the view.
         var dif = CGFloat()
- 
-      
+        
+        
         var btnFontSize:CGFloat!
         var hintLabelFontSize:CGFloat!
-       
+        
         
         switch height {
             
         case 1366, 1336:
-            print("big iPad")
-   
-
+            
             dif = 0.9
             iPadSizeDif = 2.3
             collectionViewDif = 2.3
@@ -167,18 +159,16 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             lessonSmallFontSize = 20
             btnFontSize = 34
             hintLabelFontSize = 30
-        
+            
             collectionViewCellSize = 100
             smallSylFontSize = 30
             
         case 1024, 1194, 1112:
             
-            print("small iPad")
-  
             dif = 0.9
             iPadSizeDif = 2
             collectionViewDif = 2
-         
+            
             
             sylFontSize = 160
             wordFontSize = 60
@@ -191,15 +181,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             collectionViewCellSize = 80
             
             smallSylFontSize = 30
-        
+            
             
         case 812:
             
-       
+            
             dif = 1
             iPadSizeDif = 1
             collectionViewDif = 1
-          
+            
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
@@ -212,14 +202,14 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             collectionViewCellSize = 50
             
             smallSylFontSize = 15
- 
-
+            
+            
         case 736:
-  
+            
             dif = 1.1
             iPadSizeDif = 1
             collectionViewDif = 1
-          
+            
             sylFontSize = 130
             wordFontSize = 40
             titleFontSize = 28
@@ -228,17 +218,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             lessonSmallFontSize = 15
             btnFontSize = 15
             hintLabelFontSize = 16
-          
+            
             collectionViewCellSize = 50
             smallSylFontSize = 15
             
         case 667:
             
-   
+            
             dif = 1
             iPadSizeDif = 1
             collectionViewDif = 1
-         
+            
             sylFontSize = 120
             wordFontSize = 35
             titleFontSize = 24
@@ -251,15 +241,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             collectionViewCellSize = 50
             
             smallSylFontSize = 15
-      
+            
             
         case 568:
-     
+            
             dif = 0.9
             iPadSizeDif = 1
             collectionViewDif = 0.8
-       
-
+            
+            
             sylFontSize = 100
             wordFontSize = 30
             titleFontSize = 20
@@ -271,13 +261,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             collectionViewCellSize = 50
             smallSylFontSize = 12
-      
-       
+            
+            
         default:
             dif = 1
             iPadSizeDif = 1
             collectionViewDif = 1
-      
+            
             
             sylFontSize = 130
             wordFontSize = 40
@@ -291,10 +281,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             collectionViewCellSize = 50
             
             smallSylFontSize = 15
-
+            
             break
         }
-   
+        
         
         lessonSylView.delegate = self
         lessonSylView.translatesAutoresizingMaskIntoConstraints = false
@@ -318,11 +308,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //layout.minimumLineSpacing = 5
         
         // 設置每個 cell 的尺寸
-      //  layout.itemSize = CGSize(width:CGFloat(width)/3 - 10.0,height:CGFloat(width)/3 - 10.0)
+        //  layout.itemSize = CGSize(width:CGFloat(width)/3 - 10.0,height:CGFloat(width)/3 - 10.0)
         
         // 設置 header 及 footer 的尺寸
         layout.headerReferenceSize = CGSize(width: 320 * collectionViewDif, height: 140 * collectionViewDif)
-
+        
         
         //加入alertView
         let lightGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
@@ -333,8 +323,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //ghostBtn.layer.zPosition = 10
         
-    
-
+        
+        
         alertBg.translatesAutoresizingMaskIntoConstraints = false
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
@@ -342,8 +332,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         alertBg.heightAnchor.constraint(equalToConstant: 140 * iPadSizeDif).isActive = true
         alertBg.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         alertBg.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-
-
+        
+        
         alertText.translatesAutoresizingMaskIntoConstraints = false
         //alertText.backgroundColor = .blue
         alertText.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
@@ -357,9 +347,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         alertText.heightAnchor.constraint(equalToConstant: 80 * iPadSizeDif).isActive = true
         alertText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         alertText.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10).isActive = true
-
         
-    
+        
+        
         practiceWordBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         practiceWordBtn.setTitle(lessonVC_wordChallenge, for: .normal)
         practiceWordBtn.setTitleColor(orangeColor, for: .normal)
@@ -368,9 +358,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //practiceWordBtn.alpha = 0.5
         //practiceWordBtn.layer.zPosition = 10
         self.view.addSubview(practiceWordBtn)
-       
+        
         practiceWordBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: nil, size: .init(width: 119 * iPadSizeDif, height: alertBg.frame.height / 3))
-
+        
         //practiceSenBtn.backgroundColor = .brown
         //practiceSenBtn.alpha = 0.5
         practiceSenBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
@@ -382,8 +372,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         practiceSenBtn.anchorSize(to: practiceWordBtn)
         
         bigQuitBtn = UIButton(type: .system)
-       
- 
+        
+        
         bigQuitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         bigQuitBtn.setTitle(lessonVC_iKnow, for: .normal)
         bigQuitBtn.setTitleColor(orangeColor, for: .normal)
@@ -392,31 +382,31 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.view.addSubview(bigQuitBtn)
         bigQuitBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: alertBg.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         
- 
-
+        
+        
         
         backBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 10, bottom: 0, right: 0), size: .init(width: 19 * iPadSizeDif, height: 31 * iPadSizeDif))
         
         
         //backBtn.backgroundColor = .blue
-
+        
         
         lessonTitleLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 30, left: 0, bottom: 0, right: -20), size: .init(width: 66 * iPadSizeDif, height: 22 * iPadSizeDif))
-    
+        
         lessonTitleLabel.textAlignment = .right
         lessonTitleLabel.font = lessonTitleLabel.font.withSize(lessonTitleFontSize)
         lessonTitleLabel.text = lessonVC_currentLesson
         
         
-
+        
         lessonLabel.anchor(top: lessonTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -20), size: .zero)
-
+        
         lessonLabel.anchorSize(to: lessonTitleLabel)
         
         titleLabel.anchor(top: lessonTitleLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: 72 * dif * iPadSizeDif))
         
         //titleLabel.backgroundColor = .red
-
+        
         titleLabel.numberOfLines = 2
         titleLabel.text = lessonVC_aboutToLearn3Words
         titleLabel.textAlignment = .center
@@ -424,22 +414,22 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.font = titleLabel.font.withSize(titleFontSize)
         
-     
+        
         
         syllableLabel.anchor(top: titleLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: height / 3.5 * dif))
         syllableLabel.adjustsFontSizeToFitWidth = true
         syllableLabel.font = syllableLabel.font.withSize(sylFontSize)
         
         syllableLabel.textAlignment = .center
-      
-    
+        
+        
         firstLabel.anchor(top: syllableLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: 44 * dif * iPadSizeDif))
         firstLabel.adjustsFontSizeToFitWidth = true
         firstLabel.font = firstLabel.font.withSize(wordFontSize)
         
         
-     
-         secondLabel.anchor(top: firstLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .zero)
+        
+        secondLabel.anchor(top: firstLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .zero)
         
         secondLabel.anchorSize(to: firstLabel)
         
@@ -447,24 +437,24 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         secondLabel.font = secondLabel.font.withSize(wordFontSize)
         
         
-
+        
         thirdLabel.anchor(top: secondLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor)
         
         thirdLabel.anchorSize(to: secondLabel)
         
         thirdLabel.adjustsFontSizeToFitWidth = true
         thirdLabel.font = thirdLabel.font.withSize(wordFontSize)
-
+        
         
         enterBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, size: .init(width: width / 5, height: 50 * iPadSizeDif))
         
         nextBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: enterBtn.leadingAnchor)
         nextBtn.setTitle(lessonVC_nextBtn, for: .normal)
-       
+        
         
         allSylBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: nextBtn.leadingAnchor)
         allSylBtn.setTitle(lessonVC_allSylBtn, for: .normal)
-
+        
         
         previousBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: allSylBtn.leadingAnchor)
         previousBtn.setTitle(lessonVC_previousBtn, for: .normal)
@@ -478,9 +468,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         let attrs = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.368627451, green: 0.8117647059, blue: 0.4470588235, alpha: 1)]
         reviewBtn.setAttributedTitle(NSAttributedString(string: lessonVC_reviewBtn, attributes: attrs), for: .normal)
-      
-
-
+        
+        
+        
         enterBtn.titleLabel?.font = enterBtn.titleLabel?.font.withSize(btnFontSize)
         nextBtn.titleLabel?.font = nextBtn.titleLabel?.font.withSize(btnFontSize)
         allSylBtn.titleLabel?.font = allSylBtn.titleLabel?.font.withSize(btnFontSize)
@@ -489,103 +479,52 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         reviewBtn.titleLabel?.font = reviewBtn.titleLabel?.font.withSize(btnFontSize)
         
         
-
-        fullLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: view.safeRightAnchor, size: .init(width: width, height: 3))
-
         
-
+        fullLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: view.safeRightAnchor, size: .init(width: width, height: 3))
+        
+        
+        
         hintLabel.anchor(top: nil, leading: view.safeLeftAnchor, bottom: fullLength.topAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -5, right: 0) ,size: .init(width: width, height: 21 * dif * iPadSizeDif))
         
-         hintLabel.font = hintLabel.font.withSize(hintLabelFontSize)
+        hintLabel.font = hintLabel.font.withSize(hintLabelFontSize)
         
         hintLabel.text = lessonVC_hintLabel
         
         //拉到最前方
         
         self.view.bringSubview(toFront: ghostBtn)
-         self.view.bringSubview(toFront: alertBg)
+        self.view.bringSubview(toFront: alertBg)
         
         self.view.bringSubview(toFront: practiceWordBtn)
         self.view.bringSubview(toFront: practiceSenBtn)
         self.view.bringSubview(toFront: leftBtnClickedImg)
         self.view.bringSubview(toFront: rightBtnClickedImg)
         self.view.bringSubview(toFront: bigQuitBtn)
-  
+        
         self.view.bringSubview(toFront: lessonSylView)
         
         /*
-        firstLabel.backgroundColor = .red
-        lessonTitleLabel.backgroundColor = .yellow
-        secondLabel.backgroundColor = .green
-        thirdLabel.backgroundColor = .yellow
-        hintLabel.backgroundColor = .green
-        lessonLabel.backgroundColor = .red
-        syllableLabel.backgroundColor = .blue
-        */
+         firstLabel.backgroundColor = .red
+         lessonTitleLabel.backgroundColor = .yellow
+         secondLabel.backgroundColor = .green
+         thirdLabel.backgroundColor = .yellow
+         hintLabel.backgroundColor = .green
+         lessonLabel.backgroundColor = .red
+         syllableLabel.backgroundColor = .blue
+         */
         
-
+        
         //
         
         removeBtns()
-
-    }
-
-    
-    
-    
-    
-    //syn發音, 用不到
-    func synPronounce(){
-        print("pronounce")
-        print(synWord)
-        
-        do {
-            
-            //設置成ambient看能不能避免任何interruption 造成當機
-            
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
-            try audioSession.setMode(AVAudioSessionModeDefault)
-            try audioSession.setActive(true)
-            
-        } catch  {
-            print("error")
-        }
-        
-        
-        
-        var rateFloat = Float()
-        
-        let utterance = AVSpeechUtterance(string: synWord)
-        let utterance2 = AVSpeechUtterance(string: synWord)
-        
-        rateFloat = 0.45
-        utterance.postUtteranceDelay = 0
-    
-        utterance2.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance2.rate = rateFloat
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = rateFloat
-        
-        
-        //stopSpeech()
-         //發音等待時間
-         let when = DispatchTime.now() + 2
-         
-         DispatchQueue.main.async {[weak self] in
-         
-         guard let strongSelf = self else{
-         return
-         }
-         //strongSelf.synth.stopSpeaking(at: .immediate)
-         strongSelf.synth.speak(utterance)
-         
-         DispatchQueue.main.asyncAfter(deadline: when, execute: {
-         strongSelf.synth.speak(utterance2)
-         
-         })
-         }
         
     }
+    
+    
+    
+    
+    
+    
     
     //MARK: CollectionViewLayOut
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -594,13 +533,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         return cellSize
         
     }
-
+    
     
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
         return 10
-
+        
     }
     
     
@@ -635,7 +574,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             // 顯示文字
             label.frame = CGRect(x: 0, y: 0,width: 320 * collectionViewDif, height: 40 * collectionViewDif)
             label.textAlignment = .center
-
+            
             label.font = label.font.withSize(smallSylFontSize)
             let labelText = indexPath.section + 1
             reusableView.backgroundColor = .darkGray
@@ -649,8 +588,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //reusableView.addSubview(label)
         return reusableView
     }
-
-
+    
+    
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     @available(iOS 6.0, *)
@@ -694,17 +633,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             //print("檢體中文關卡數")
             //之後還要用courseReceived來改數值, 因為每個course值不同
             //*****這部分有點複雜可能等之後讀取完syllableSets再來看是否要細分處理
-           
+            
             //sylText.text = String(indexPath.row + 1)
             
             //MARK: simVer 這裡沒有數字要自加數字上去
             let sylToShow = syllableSets[indexPath.section][indexPath.row * 3]
             let numbersRange = sylToShow.rangeOfCharacter(from: .decimalDigits)
-           
+            
             let hasNumbers = (numbersRange != nil)
             
             if hasNumbers{
-            
+                
                 sylText.text = sylToShow
             } else {
                 sylText.text = sylToShow + "\(indexPath.row + 1)"
@@ -717,20 +656,18 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             sylText.text = sylToShow
             
         }
-
-        if !lessonSylView.isHidden{
         
-        //if collectionTouched[indexPath.row] == 1 {
+        if !lessonSylView.isHidden{
+            
+          
             
             if secRowTouched[indexPath.section][indexPath.row] == 1 {
-            
-            sylText.textColor = .white
-            blueBall.isHidden = false
-         
                 
-        } else {
-            blueBall.isHidden = true
-                
+                sylText.textColor = .white
+                blueBall.isHidden = false
+
+            } else {
+                blueBall.isHidden = true
                 var isSelectable = false
                 
                 //MARK: simVer Test maxSpot  / maxUnit  為了避免被改變用另一組變數
@@ -742,35 +679,35 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     isSelectable = false
                 }
                 
-            
+                
                 
                 if isSelectable{
-                        sylText.textColor = .lightGray
+                    sylText.textColor = .lightGray
                 } else {
-                     sylText.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+                    sylText.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
                 }
                 
-           
-
-        }
-            
-
-            if isScrollable{
-            
-            isScrollable = false
-            let indexToScroll = IndexPath(item: tempU, section: tempS)
                 
-            lessonSylView.scrollToItem(at: indexToScroll, at: .centeredVertically, animated: false)
+                
+            }
+            
+            
+            if isScrollable{
+                
+                isScrollable = false
+                let indexToScroll = IndexPath(item: tempU, section: tempS)
+                
+                lessonSylView.scrollToItem(at: indexToScroll, at: .centeredVertically, animated: false)
             }
             
         }
         
         
-
+        
         return cell
         
     }
-
+    
     var loadingTimer:Timer!
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -791,238 +728,108 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         if isSelectable{
+            
 
-      //  }
-        
-        
-        
-    //    if indexPath.section < maxSpot + 1 {
-         
-     //       if indexPath.row < maxUnit + 1 {
-                
-                ProgressHUD.spinnerColor(.white)
+            
+            ProgressHUD.spinnerColor(.white)
+            
+            ProgressHUD.show(lessonVC_loading)
             
             
+            //啟動loading標題及字
+            loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(LessonViewController.loading), userInfo: nil, repeats: true)
+            
+            secRowTouched.removeAll(keepingCapacity: false)
+            var smallDic = [Int]()
+            
+            for _ in  0 ..< 10 {
                 
-                ProgressHUD.show(lessonVC_loading)
-                
-                
-                loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(LessonViewController.loading), userInfo: nil, repeats: true)
-                
-                
-                /*
-                for i in 0 ..< collectionTouched.count {
-                    
-                    collectionTouched[i] = 0
-                    
-                }
-                */
-                
-                secRowTouched.removeAll(keepingCapacity: false)
-                var smallDic = [Int]()
-                
-                for _ in  0 ..< 10 {
-                    
-                    smallDic.append(0)
-                }
+                smallDic.append(0)
+            }
             
             
-            //MARK: simVer 這裏最大值要做動態 done
+            for _ in 0 ..< maxSpot {
+                
+                secRowTouched.append(smallDic)
+            }
             
-            //courseReceived 0國小 1初中 2高中 3CET4 4CET6 5K12 6toeic 7ielts 8tofel
-     
-//            var maxSpot = Int()
-//                if lan == "zh-Hans"{
-//                    //檢體中文
-//
-//                    print("檢體中文關卡數")
-//                    //之後還要用courseReceived來改數值, 因為每個course值不同
-//
-//                    switch courseReceived{
-//
-//                    case 0:
-//
-//                        maxSpot = 11
-//                    case 1:
-//                        maxSpot = 15
-//                    case 2:
-//                        maxSpot = 15
-//                    case 3:
-//                        //CET4
-//                        maxSpot = 15
-//                    case 4:
-//                        //CET6
-//                        maxSpot = 15
-//                    case 5:
-//                        //K12
-//
-//                        switch mapNumToReceive{
-//
-//                        case 0:
-//                            maxSpot = 4
-//                        case 1:
-//                            maxSpot = 11
-//                        case 2:
-//                            maxSpot = 11
-//                        case 3:
-//                            maxSpot = 10
-//                        case 4:
-//                            maxSpot = 11
-//                        case 5:
-//                            maxSpot = 11
-//                        case 6:
-//                            maxSpot = 11
-//                        case 7:
-//                            maxSpot = 11
-//                        case 8:
-//                            maxSpot = 13
-//                        case 9:
-//                            maxSpot = 13
-//                        case 10:
-//                            maxSpot = 11
-//                        case 11:
-//                            maxSpot = 11
-//                        case 12:
-//                            maxSpot = 7
-//                        case 13:
-//                            maxSpot = 11
-//                        case 14:
-//                            maxSpot = 11
-//                        case 15:
-//                            maxSpot = 6
-//                        case 16:
-//                            maxSpot = 13
-//                        case 17:
-//                            maxSpot = 13
-//
-//                        default:
-//                            break
-//
-//                        }
-//
-//                    case 6:
-//                        //Toeic
-//                        maxSpot = 15
-//
-//                    case 7:
-//                        //ielts
-//                        maxSpot = 15
-//                    case 8:
-//
-//                        //tofel
-//                        maxSpot = 15
-//
-//                    default:
-//
-//                        break
-//
-//                    }
-//
-//
-//                } else {
-//                    //其餘語言
-//                    print("繁體中文關卡數")
-//                    maxSpot = 15
-//
-//                }
+      
+            lessonSylView.reloadData()
             
-                for _ in 0 ..< maxSpot {
-                    
-                    secRowTouched.append(smallDic)
-                    
-                }
-                
-                
-                /*
-                let indexToShine = tempS * 10 + tempU
-                
-                collectionTouched[indexToShine] = 1
-                */
-                
-                lessonSylView.reloadData()
-                
-                //換算tempS & tempU
-                //tempU = indexPath.row % 10
-                //tempS = indexPath.row / 10
-                
-                tempS = indexPath.section
-                tempU = indexPath.row
-                
-                secRowTouched[tempS][tempU] = 1
+            //換算tempS & tempU
+            //tempU = indexPath.row % 10
+            //tempS = indexPath.row / 10
+            
+            tempS = indexPath.section
+            tempU = indexPath.row
+            
+            secRowTouched[tempS][tempU] = 1
             
             //MARK: simVer K12進不來這裡因為mapPassed不同, 所以要讓他可以進得來
             
             if mapNumToReceive == mapPassedInt || courseReceived == 5{
-                    
-                    for (s,u) in gamePassedDic!{
-
-                        //MARK: simVer K12
-                        //這裏最後加入一個判斷是!isClassAllPassed來確保k12過關進入後不會有學習新字的情形
-                        if s == tempS && u == tempU && !isClassAllPassed{
-                            //學習新字
-                  
-                                enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
-                            
-                                titleLabel.text = lessonVC_aboutToLearn3Words
-                                titleLabel.textColor = .white
-                            
-                        } else {
-                            
-                            //複習機制
-                            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
-                        
-                            titleLabel.text = lessonVC_review3Words
-                            titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-                        }
-                        
-                    }
-                    
-                } else {
-                    
-                    //複習機制
-                      enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
                 
-                    titleLabel.text = lessonVC_review3Words
-                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                for (s,u) in gamePassedDic!{
+                    
+                    //MARK: simVer K12
+                    //這裏最後加入一個判斷是!isClassAllPassed來確保k12過關進入後不會有學習新字的情形
+                    if s == tempS && u == tempU && !isClassAllPassed{
+                        //學習新字
+                        
+                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                        
+                        titleLabel.text = lessonVC_aboutToLearn3Words
+                        titleLabel.textColor = .white
+                        
+                    } else {
+                        
+                        //複習機制
+                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                        
+                        titleLabel.text = lessonVC_review3Words
+                        titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                    }
                     
                 }
                 
-
-          //  }
+            } else {
+                
+                //複習機制
+                enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                
+                titleLabel.text = lessonVC_review3Words
+                titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                
+            }
+            
+            
+            //  }
             
         } else {
             
             ProgressHUD.showError(lessonVC_alertNotYet)
         }
-        
-        /*
-        if indexPath.row < maxIndex + 1{
-        }
-        */
     }
     
     var secondCount = 0
     
     @objc func loading(){
-     
+        
         if secondCount < 3 {
             
-  
             secondCount += 1
-         
             
         } else {
-         
+            
             ProgressHUD.dismiss()
             secondCount = 0
             loadingTimer.invalidate()
             loadWords(seq: 0)
             lessonSylView.isHidden = true
             ghostBtn.isHidden = true
-
+            
         }
-
-        
+     
     }
     
     @objc func removeBtns(){
@@ -1040,11 +847,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         practiceWordBtn.isEnabled = true
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         lessonSylView.isHidden = true
+        
 
-        for i in 0 ..< collectionTouched.count {
-            
-         collectionTouched[i] = 0
-        }
         
     }
     
@@ -1059,7 +863,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         print("practice Sen")
         
         gameMode = 2
-   
+        
         
         practiceWordBtn.isEnabled = false
         practiceSenBtn.isEnabled = false
@@ -1067,32 +871,28 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //有bug, 印出以下兩數字
         
         /*
-        print(self!.mapPassedInt)
-        print(self!.gamePassedDic)
-        */
+         print(self!.mapPassedInt)
+         print(self!.gamePassedDic)
+         */
         
         //這裡沒有大於的可能性
         //MARK: simVer K12 特別作法
         if gamePassedDic == [0:0] && mapNumToReceive == mapPassedInt{
-            
-            print("不能練習句子")
+
             cannotPracticeAlert()
             
         } else if gamePassedDic == [0:0] && courseReceived == 5{
-            
-            print("不能練習句子")
+
             cannotPracticeAlert()
         } else{
             
             performSegue(withIdentifier: "toGameVc", sender: self)
         }
-
+        
     }
     
     @objc func practiceWord(){
-        print("practice word")
-    
-        
+
         gameMode = 1
         
         UIView.animate(withDuration: 0.06, animations: {[weak self] in
@@ -1111,10 +911,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //這裡沒有大於的可能性
                 if self!.gamePassedDic == [0:0] && self!.mapNumToReceive == self!.mapPassedInt{
                     
-                    print("不能練習單字")
                     self!.cannotPracticeAlert()
                 } else if self!.gamePassedDic == [0:0] && self!.courseReceived == 5 {
-                    print("不能練習單字")
+
                     self!.cannotPracticeAlert()
                     
                 } else{
@@ -1122,7 +921,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 }
                 
-             
+                
                 
             }
         }
@@ -1133,7 +932,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     override func viewWillDisappear(_ animated: Bool) {
-
+        
         practiceSenBtn.isEnabled = true
         practiceWordBtn.isEnabled = true
         removeBtns()
@@ -1156,7 +955,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     override func viewWillAppear(_ animated: Bool) {
-    
+        
         
         //MARK: must update
         //就算user == nil, gamePassed & mapPassed都已經設定初始值了
@@ -1167,11 +966,12 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //mapPassed = 0
         
         //重置
+        //這兩個變數感覺重複了...
         let lessonVC_enterBtn1 = NSLocalizedString("lessonVC_enterBtn", comment: "")
-       let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
+        let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
         
         enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn1, attributes: attrsBtn), for: .normal)
-
+        
         titleLabel.text = lessonVC_aboutToLearn3Words
         titleLabel.textColor = .white
         
@@ -1186,7 +986,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
             isSimVerSingleSyllable = true
-       
+            
             
             
             if lan == "zh-Hans"{
@@ -1203,7 +1003,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 increaseNum = 0
                 
             }
-
+            
             
         case 1:
             gamePassedDic = gamePassed2!
@@ -1226,7 +1026,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 maxMapNum = 6
                 
             }
-
+            
             
         case 2:
             gamePassedDic = gamePassed3!
@@ -1249,7 +1049,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 maxMapNum = 7
                 
             }
-          
+            
             
             
         case 3:
@@ -1274,7 +1074,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 maxMapNum = 9
                 
             }
-      
+            
             
         case 4:
             gamePassedDic = gamePassed5!
@@ -1297,7 +1097,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 maxMapNum = 8
                 
             }
-         
+            
             
             //以下為簡體版需求
             //要確認繁體版進不來
@@ -1306,8 +1106,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             //MARK: simVer k12紀錄
             //測試用
-//            k12MapPassed = Array(repeating: 0, count: 18)
-//            k12GamePassed = Array(repeating: [0:0], count: 18)
+            //            k12MapPassed = Array(repeating: 0, count: 18)
+            //            k12GamePassed = Array(repeating: [0:0], count: 18)
             
             //k12MapPassed[1] = 2
             //k12GamePassed[0] = [0:2]
@@ -1316,8 +1116,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             //print(k12GamePassed)
             
             //重新設定成k12裡各關的過關情形
-//            gamePassedDic = gamePassed6!
-//            mapPassedInt = mapPassed6!
+            //            gamePassedDic = gamePassed6!
+            //            mapPassedInt = mapPassed6!
             gamePassedDic = k12GamePassed[mapNumToReceive]
             mapPassedInt = k12MapPassed[mapNumToReceive]
             //print(gamePassedDic)
@@ -1330,7 +1130,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //K12
                 //print("檢體中文關卡數")
                 maxMapNum = 18
-               
+                
                 increaseNum = 73
                 
             }
@@ -1379,17 +1179,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 increaseNum = 107
                 
             }
-
-
+            
+            
         default:
             break
         }
         
         
-    
         
-     //   if isClassAllPassed == false{
-
+        
+        //   if isClassAllPassed == false{
+        
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedStringKey.foregroundColor : pinkColor]
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -1477,14 +1277,14 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         case 34:
             syllableSets = map35SyllableSets
             
-            //以下為簡體部分
+        //以下為簡體部分
         case 35:
             syllableSets = map36SyllableSets
         case 36:
             syllableSets = map37SyllableSets
         case 37:
             syllableSets = map38SyllableSets
-
+            
         case 38:
             syllableSets = map39SyllableSets
         case 39:
@@ -1646,7 +1446,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         case 114:
             syllableSets = map115SyllableSets
             
-
+            
         default:
             break
         }
@@ -1656,26 +1456,16 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         var progressFloat = CGFloat()
         
-        /*
-        for s in syllableSets{
-            
-            for syl in s {
-             
-                allSyls.append(syl)
-                  collectionTouched.append(0)
-                
-            }
-        }
-        */
+
         
         //建立目錄數字
         var smallDic = [Int]()
         
         for _ in  0 ..< 10 {
-         
+            
             smallDic.append(0)
         }
-
+        
         //MARK: simVer 這部分要動態有幾個30 done
         //***照理講這裡設定好maxSpot之後就不用設定了, 所以目前後面出現過的已經comment起來了
         
@@ -1774,15 +1564,16 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
         } else {
             //其餘語言
-            print("繁體中文關卡數")
+           
             maxSpot = 15
             
         }
         
         //原始
         //for _ in 0 ..< 15 {
-      
-       
+        
+        
+        //新增出正確組數的音節
         for _ in 0 ..< maxSpot {
             
             secRowTouched.append(smallDic)
@@ -1793,13 +1584,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //再把數字減回來
         mapNumToReceive -= increaseNum
         
-  //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
-            //抓目前的元素
+        //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
+        //抓目前的元素
         
         
         //MARK: simVer 放在外的變數 done
         var threeSyllables = [String]()
-            
+        
         
         
         if isClassAllPassed {
@@ -1811,30 +1602,30 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             if lan == "zh-Hans"{
                 //檢體中文
                 
-                print("檢體中文關卡數")
+       
                 //之後還要用courseReceived來改數值, 因為每個course值不同
                 //***** 這部分的動態做法之前已做過數字只差1 ****所以不用Switch了
                 tempS = maxSpot - 1
                 
             } else {
                 //其餘語言
-                print("繁體中文關卡數")
+ 
                 tempS = 14
                 
             }
             tempU = 9
             
-                  enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
-          
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+            
             titleLabel.text = lessonVC_review3Words
             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-
+            
             
         }else {
             
             for (s,u) in gamePassedDic! {
                 
-                print("enter 1")
+            
                 //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
                 mapNum = mapPassedInt
                 
@@ -1848,85 +1639,86 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         //這裡的做法有不需要的環迴圈, check android版本是不是也一樣
-//            for (s,u) in gamePassedDic! {
-//
-//
-//                //MARK: simVer 這裡 (tempS = 要做不一樣的最大值)
-//                if isClassAllPassed {
-//
-//
-//
-//                } else {
-//
-//                }
+        //            for (s,u) in gamePassedDic! {
+        //
+        //
+        //                //MARK: simVer 這裡 (tempS = 要做不一樣的最大值)
+        //                if isClassAllPassed {
+        //
+        //
+        //
+        //                } else {
+        //
+        //                }
         
         // print("enter 2")
+        
+        //MARK: simVer 在這裡做三個音節, 要先判斷要怎麼做, 要指定好一個變數來判斷 done
+        
+        if lan == "zh-Hans"{
+            
+            //   print("enter 3")
+            if isSimVerSingleSyllable{
                 
-                //MARK: simVer 在這裡做三個音節, 要先判斷要怎麼做, 要指定好一個變數來判斷 done
                 
-                if lan == "zh-Hans"{
+                
+                //檢體中文 單一音節作法
+                
+                //print("檢體中文關卡數")
+                for i in tempU * 3 ..< tempU * 3 + 3{
                     
-                  //   print("enter 3")
-                    if isSimVerSingleSyllable{
-                    
-                        
-                        
-                        //檢體中文 單一音節作法
-                        
-                        //print("檢體中文關卡數")
-                        for i in tempU * 3 ..< tempU * 3 + 3{
-                            
-                            let syllableChosen = syllableSets[tempS][i]
-                            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                            
-                            syllablesWithoutDigit = syllableChosenArray[0]
-                            threeSyllables.append(syllablesWithoutDigit)
-                            
-                        }
-                        //****這裡的labelText fontSize要因此變小
-                        syllableLabel.font = syllableLabel.font.withSize(sylFontSize / 2)
-                        syllableLabel.text = "Unit " + String(tempU + 1)
-                        
-                    } else {
-                        
-                        // 檢體中文 音節三字作法
-                        let syllableChosen = syllableSets[tempS][tempU]
-                        let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                        syllablesWithoutDigit = syllableChosenArray[0]
-                        syllableLabel.text = syllablesWithoutDigit
-
-                        
-                    }
-                    
-                    
-                } else {
-                    //其餘語言
-                    //print("繁體中文關卡數")
-                    
-                    let syllableChosen = syllableSets[tempS][tempU]
+                    let syllableChosen = syllableSets[tempS][i]
                     let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+                    
                     syllablesWithoutDigit = syllableChosenArray[0]
-                    syllableLabel.text = syllablesWithoutDigit
-
+                    threeSyllables.append(syllablesWithoutDigit)
                     
                 }
+                //****這裡的labelText fontSize要因此變小
+                syllableLabel.font = syllableLabel.font.withSize(sylFontSize / 2)
+                syllableLabel.text = "Unit " + String(tempU + 1)
                 
-                spotNum = tempS
-                unitNum = tempU
-                progressFloat = CGFloat(tempU + 1)
+            } else {
                 
-            //}
-          //  print("############got mapnum:\(mapNum)")
+                // 檢體中文 音節三字作法
+                let syllableChosen = syllableSets[tempS][tempU]
+                let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+                syllablesWithoutDigit = syllableChosenArray[0]
+                syllableLabel.text = syllablesWithoutDigit
+                
+                
+            }
+            
+            
+        } else {
+            //其餘語言
+            //print("繁體中文關卡數")
+            
+            let syllableChosen = syllableSets[tempS][tempU]
+            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+            syllablesWithoutDigit = syllableChosenArray[0]
+            syllableLabel.text = syllablesWithoutDigit
+            
+            
+        }
+        
+        spotNum = tempS
+        unitNum = tempU
+        progressFloat = CGFloat(tempU + 1)
+        
+        //}
+        //  print("############got mapnum:\(mapNum)")
         //}
         
         //MARK: simVer 這條好像用不到, 這也跟traVer沒有什麼關係...所以之後確認玩應該可以刪掉
         //maxIndex = tempS * 10 + tempU
         
-
-        //?????這裡為什麼要這樣不懂??? 應該要刪掉....試試看
+        
+        //?????這裡為什麼要這樣不懂??? 應該要刪掉....試試看, 好像tempS & tempU會更改!
+        //已確認 : maxSpot  / maxUnit  為了避免被改變用另一組變數
         currentMaxSpotToUse = tempS
         currentMaxUnitToUse = tempU
- 
+        
         
         
         //第幾課
@@ -1935,22 +1727,22 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //明天改個名字, 以下的變數應該更上方一樣
         
-//        var maxNum = Int()
-//
-//        if lan == "zh-Hans"{
-//            //檢體中文
-//
-//            print("檢體中文關卡數")
-//            //之後還要用courseReceived來改數值, 因為每個course值不同
-//
-//            maxNum = 11
-//
-//        } else {
-//            //其餘語言
-//            print("繁體中文關卡數")
-//            maxNum = 15
-//
-//        }
+        //        var maxNum = Int()
+        //
+        //        if lan == "zh-Hans"{
+        //            //檢體中文
+        //
+        //            print("檢體中文關卡數")
+        //            //之後還要用courseReceived來改數值, 因為每個course值不同
+        //
+        //            maxNum = 11
+        //
+        //        } else {
+        //            //其餘語言
+        //            print("繁體中文關卡數")
+        //            maxNum = 15
+        //
+        //        }
         
         
         
@@ -1963,8 +1755,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //   print("讀取進度條")
         //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
         progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
-
-            
+        
+        
         //MARK: 讀取文字檔
         //讀取Bundle裡的文字檔
         var wordFile:String?
@@ -1972,20 +1764,20 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //供抓字用 & pass給 gameVc
         //mapNum += increaseNum
         
-          //MARK: simVer K12的地圖讀法要再增加
+        //MARK: simVer K12的地圖讀法要再增加
         var name:String!
         
         if courseReceived == 5 {
-         //k12 在這狀況下mapNum = 0
+            //k12 在這狀況下mapNum = 0
             
             name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(spotNum + 1)
         } else {
             
             name = String(mapNum  + increaseNum + 1) + "-" + String(spotNum + 1)
-
+            
         }
         
-      
+        
         
         //print(name)
         
@@ -2003,8 +1795,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         } else {
             // example.txt not found!
         }
-            
-           // mapNum -= increaseNum
+        
+        // mapNum -= increaseNum
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
@@ -2253,15 +2045,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
                 
             }
-
-   
+            
+            
             
         }
-        
-
-        
-        
-    
         
         //*** 以下為共同的造字func, 把字造到words裡
         
@@ -2283,63 +2070,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         firstLabel.attributedText = words[0]
         secondLabel.attributedText = words[1]
         thirdLabel.attributedText = words[2]
-
+        
         enterBtn.isEnabled = true
         
-        //指定音節
-        //synWord = syllablesWithoutDigit
-                
-        //音節發音
-        //synPronounce()
+      
         
         //}
         
         
-        /*
-        else {
-            
-            //複習模式
-            
-            
-            //進度條
-            
-            titleLabel.text = ""
-            
-            //如果是複習模式在此指定傳送數值, 在此不要加increaseNum因為在gameVc裡沒有再減了, 直接拿來比較
-            mapNum = mapNumToReceive
-            
-            let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 36), NSAttributedStringKey.foregroundColor : UIColor.white]
-            let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 36), NSAttributedStringKey.foregroundColor : pinkColor]
-            
-            let attrWords = NSMutableAttributedString()
-            let text1 = NSMutableAttributedString(string: "此單元結束", attributes: attrs0)
-            let text2 = NSMutableAttributedString(string: "請選擇", attributes: attrs0)
-            let text3 = NSMutableAttributedString(string: "挑戰模式", attributes: attrs1)
-            
-            let text4 = NSMutableAttributedString(string: "來複習", attributes: attrs0)
-            
-            attrWords.append(text1)
-            attrWords.append(NSMutableAttributedString(string: "\n"))
-            attrWords.append(text2)
-            attrWords.append(text3)
-            attrWords.append(NSMutableAttributedString(string: "\n"))
-            attrWords.append(text4)
-            
-            //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: fullLength.frame.width, height: 3)
-            progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: view.safeRightAnchor, size: .init(width: fullLength.frame.width, height: 3))
-            
-            enterBtn.isEnabled = false
-            enterBtn.setTitle("課程結束", for: .normal)
-            //syllableLabel.text = "此單元結束\n請選擇下方快速複習\n挑戰模式"
-            syllableLabel.attributedText = attrWords
-            //syllableLabel.font = UIFont(name: "Helvetica Bold", size: 36)
-            syllableLabel.adjustsFontSizeToFitWidth = true
-            syllableLabel.numberOfLines = 3
-            syllableLabel.textAlignment = .center
-
-        }
-        
-      */
+    
     }
     
     //寫一個獨立的讀取單字功能
@@ -2349,124 +2088,107 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
         let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
-
+        
         
         var syllablesWithoutDigit = String()
         
-        var progressFloat = CGFloat()
+        //進度條動不了先不用了
+        //var progressFloat = CGFloat()
         
         //MARK: simVer 放在外面的音節變數 done
         var threeSyllables = [String]()
         
-
-        //首先抓音節
-  
-
-            if seq > 0 {
-
-                //下一課
-                
-                if tempU < 9 {
-                    //直接加一
-                    tempU = tempU + 1
-                    
-                } else {
-                    //假如u == 9, 要加ｓ
-                
-                    //MARK: simVer 這裏要設動態最大值 done
-                    //*** 這裏應該在下方用之前的maxSpot就可以搞定 done
-                    //var maxTempS = Int()
-//                    if lan == "zh-Hans"{
-//                        //檢體中文
-//
-//                        //print("檢體中文關卡數")
-//                        //之後還要用courseReceived來改數值, 因為每個course值不同
-//
-//                        maxTempS = 10
-//
-//                    } else {
-//                        //其餘語言
-//                        //print("繁體中文關卡數")
-//                        maxTempS = 14
-//
-//                    }
-
-                    //if tempS < 14 {
-                    
-                    //MARK: simVer這裏直接取用之前的maxSpot done
-                    // **** 這裡的maxSpot要 - 1
-                    if tempS < maxSpot - 1 {
-                        //直接 +1
-                        
-                        
-                        tempS = tempS + 1
-                        tempU = 0
-                        
-                        
-                    } else {
-                        //全部練完
-                        print("全部練完")
-                        
-                        ProgressHUD.showError(lessonVC_theLastPage)
-                        
-                        
-                    }
-                    
-
-                }
-
-                
-                for (s,u) in gamePassedDic!{
-                    
-                    if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
-                        
-               enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
-                        titleLabel.text = lessonVC_aboutToLearn3Words
-                        titleLabel.textColor = .white
-                        
-                    }  else if tempU == u && tempS == s && courseReceived == 5{
-                              enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
-                        titleLabel.text = lessonVC_aboutToLearn3Words
-                        titleLabel.textColor = .white
-                        
-                    }
-                }
-                
         
-            } else if seq == 0 {
+        //首先抓音節
+        
+        
+        if seq > 0 {
+            
+            //下一課
+            
+            if tempU < 9 {
+                //直接加一
+                tempU = tempU + 1
                 
-                print("畫面跳轉")
-                
-        } else {
-                
-                //上一課
-                
-                if tempU > 0 {
-                    //直接減一
-                    tempU = tempU - 1
+            } else {
 
+                
+                //if tempS < 14 {
+                
+                //MARK: simVer這裏直接取用之前的maxSpot done
+                // **** 這裡的maxSpot要 - 1
+                if tempS < maxSpot - 1 {
+                    //直接 +1
+                    
+                    
+                    tempS = tempS + 1
+                    tempU = 0
+                    
                     
                 } else {
-                    //假入u == 0,  要扣 s
+                    //全部練完
+                    //print("全部練完")
                     
-                    if tempS > 0 {
-                        //直接 -1
-                        
-                        tempS = tempS - 1
-                        tempU = 9
-                        
-                        
-                    } else {
-                        
-                        ProgressHUD.showError(lessonVC_thisIsFirst)
-                        print("全部練完")
-                    }
- 
+                    ProgressHUD.showError(lessonVC_theLastPage)
+                    
                     
                 }
-  
+                
                 
             }
+            
+            
+            for (s,u) in gamePassedDic!{
+                
+                if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
+                    
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    titleLabel.text = lessonVC_aboutToLearn3Words
+                    titleLabel.textColor = .white
+                    
+                }  else if tempU == u && tempS == s && courseReceived == 5{
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    titleLabel.text = lessonVC_aboutToLearn3Words
+                    titleLabel.textColor = .white
+                    
+                }
+            }
+            
+            
+        } else if seq == 0 {
+            
+            print("畫面跳轉")
+            
+        } else {
+            
+            //上一課
+            
+            if tempU > 0 {
+                //直接減一
+                tempU = tempU - 1
+                
+                
+            } else {
+                //假入u == 0,  要扣 s
+                
+                if tempS > 0 {
+                    //直接 -1
+                    
+                    tempS = tempS - 1
+                    tempU = 9
+                    
+                    
+                } else {
+                    
+                    ProgressHUD.showError(lessonVC_thisIsFirst)
+                    print("全部練完")
+                }
+                
+                
+            }
+            
+            
+        }
         
         //MARK: simVer 這裏要寫新的音節讀取  加個判斷式done
         
@@ -2474,7 +2196,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             //檢體中文
             
             //print("檢體中文關卡數")
-            
             
             //以下為新修正
             
@@ -2493,51 +2214,31 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         } else {
             //其餘語言
             //print("繁體中文關卡數")
-     
+            
             let syllableChosen = syllableSets[tempS][tempU]
             
             let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
             
             syllablesWithoutDigit = syllableChosenArray[0]
             syllableLabel.text = syllablesWithoutDigit
-
+            
             
         }
-
+        
         
         if isClassAllPassed {
-         
+            
             mapNum = mapNumToReceive
         } else {
             mapNum = mapPassedInt
         }
-            spotNum = tempS
-            unitNum = tempU
-            progressFloat = CGFloat(tempU + 1)
-    
+        spotNum = tempS
+        unitNum = tempU
+        //progressFloat = CGFloat(tempU + 1)
         
-           //print("progressFloat\(progressFloat)")
         
-        //第幾課
+        //print("progressFloat\(progressFloat)")
         
-        //MARK: simVer 這裏課程總數要動態 done
-        //**** 這裏沿用之前的maxSpot即可
-//                var classMaxNum = Int()
-//
-//                if lan == "zh-Hans"{
-//                    //檢體中文
-//
-//                    print("檢體中文關卡數")
-//                    //之後還要用courseReceived來改數值, 因為每個course值不同
-//
-//                    classMaxNum = 11
-//
-//                } else {
-//                    //其餘語言
-//                    print("繁體中文關卡數")
-//                    classMaxNum = 15
-//
-//                }
         
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
         lessonText.append(NSMutableAttributedString(string: " / \(String(maxSpot!))", attributes: attrs1))
@@ -2546,27 +2247,27 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //進度條
         //print("讀取進度條")
         //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
-       // progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
+        // progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
         
         //print("widthChange:\(width * progressFloat / 10)")
-
+        
         //MARK: 讀取文字檔
         //讀取Bundle裡的文字檔
         var wordFile:String?
         
         //供抓字用 & pass給 gameVc
-       // mapNum += increaseNum
+        // mapNum += increaseNum
         
         var name:String!
         
         if courseReceived == 5 {
-         //k12 在這狀況下mapNum = 0 / 1
+            //k12 在這狀況下mapNum = 0 / 1
             name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(spotNum + 1)
         }else {
             name = String(increaseNum + mapNum + 1) + "-" + String(spotNum + 1)
         }
         
-       
+        
         //print(name)
         
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -2584,7 +2285,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             // example.txt not found!
         }
         
-       // mapNum -= increaseNum
+        // mapNum -= increaseNum
         
         //這個engWords是尚未attr的, attr完的是
         var allThreeEngWordsArray = [[String]]()
@@ -2726,8 +2427,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
                 
             }
-
-       
+            
+            
             
         } else {
             //其餘語言
@@ -2832,12 +2533,12 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
             }
             
-
-       
+            
+            
             
         }
-
-
+        
+        
         
         
         
@@ -2864,17 +2565,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         enterBtn.isEnabled = true
         
-        //指定音節 用不到
-        //synWord = syllablesWithoutDigit
-        
-        //音節發音
-        //synPronounce()
-        
-    
-        
+
         
     }
-
+    
     @IBAction func enterGameClicked(_ sender: Any) {
         
         gameMode = 0
@@ -2896,7 +2590,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func cannotPracticeAlert(){
         
-
         
         alertText.text = lessonVC_alertNoChallenge
         ghostBtn.isHidden = false
@@ -2923,16 +2616,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             //#test: 試試看複習模式
             destinationVC.spotNumber = tempS
             destinationVC.unitNumber = tempU
-           // print("sentTempS:\(tempS)")
-           // print("sentTempU:\(tempU)")
+            // print("sentTempS:\(tempS)")
+            // print("sentTempU:\(tempU)")
             
             
             for (s,u) in gamePassedDic!{
                 
                 if tempU != u || tempS != s{
                     //不是當下關卡
-                    
-
+       
                     destinationVC.isReplay = true
                 } else {
                     
@@ -2940,7 +2632,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
                 
             }
-
+            
             //MARK: simVer K12特別作法
             if courseReceived == 5 {
                 
@@ -2948,10 +2640,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             } else {
                 destinationVC.mapNumber = mapNum
             }
-       
+            
             destinationVC.gameMode = gameMode
             destinationVC.courseReceived = courseReceived
-            //print("sentMapNumber:\(mapNum)")
             
         }
     }
@@ -2965,17 +2656,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
     var indexToJump:Int!
     var isScrollable = false
     //MARK: button actions
@@ -2987,18 +2667,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         ghostBtn.isHidden = false
         
         indexToJump = tempS * 10 + tempU
-      
         
         //指定好發亮的球
-        /*
-        for i in 0 ..< collectionTouched.count {
-            
-            collectionTouched[i] = 0
-            
-        }
-
-        collectionTouched[indexToJump] = 1
-        */
         
         secRowTouched.removeAll(keepingCapacity: false)
         var smallDic = [Int]()
@@ -3008,37 +2678,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             smallDic.append(0)
         }
         
+
+
         
-        
-        //MARK: simVer 最大值要改變 done
-        //*** 這裏沿用之前的maxSpot即可
- 
-//                var maxNum = Int()
-//
-//                if lan == "zh-Hans"{
-//                    //檢體中文
-//
-//                    print("檢體中文關卡數")
-//                    //之後還要用courseReceived來改數值, 因為每個course值不同
-//
-//                    maxNum = 11
-//
-//                } else {
-//                    //其餘語言
-//                    print("繁體中文關卡數")
-//                    maxNum = 15
-//
-//                }
-        //for _ in 0 ..< 15 {
-          //  print("maxSpot\(maxSpot)")
-             for _ in 0 ..< maxSpot {
-            
+        for _ in 0 ..< maxSpot {
+
             secRowTouched.append(smallDic)
-            
+
         }
         
         secRowTouched[tempS][tempU] = 1
-     
+        
         
         lessonSylView.reloadData()
         lessonSylView.isHidden = false
@@ -3057,32 +2707,32 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 if s != 0 || u != 0 || mapPassedInt == 1{
                     
                     loadWords(seq: -1)
-                          enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
-            
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                    
                     titleLabel.text = lessonVC_review3Words
                     titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                 } else {
-                    print("這是第一關")
+        
                     ProgressHUD.showError(lessonVC_noPrePage)
                 }
             }
             
         } else{
-        
-         for (s,u) in gamePassedDic!{
             
-            if s != 0 || u != 0 || mapPassedInt != mapNumToReceive {
-        
-        loadWords(seq: -1)
+            for (s,u) in gamePassedDic!{
                 
-              enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
-        titleLabel.text = lessonVC_review3Words
-        titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-            } else {
-                print("這是第一關")
-                ProgressHUD.showError(lessonVC_noPrePage)
+                if s != 0 || u != 0 || mapPassedInt != mapNumToReceive {
+                    
+                    loadWords(seq: -1)
+                    
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                    titleLabel.text = lessonVC_review3Words
+                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                } else {
+                    //print("這是第一關")
+                    ProgressHUD.showError(lessonVC_noPrePage)
+                }
             }
-        }
         }
     }
     
@@ -3094,7 +2744,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //MARK: simVer k12此處的mapPassedInt不正確
         
         if courseReceived == 5 {
-         //K12
+            //K12
             
             for (s,u) in gamePassedDic!{
                 
@@ -3105,17 +2755,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                 } else if !isClassAllPassed{
                     
-                    print("是當下關卡")
+
                     ProgressHUD.showError(lessonVC_noNextPage)
-               
-                          enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
                     titleLabel.text = lessonVC_aboutToLearn3Words
                     titleLabel.textColor = .white
                     
                 }
                 
             }
-
+            
             
             
         } else {
@@ -3129,17 +2779,16 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                 } else if !isClassAllPassed{
                     
-                    print("是當下關卡")
                     ProgressHUD.showError(lessonVC_noNextPage)
-
-                          enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
                     titleLabel.text = lessonVC_aboutToLearn3Words
                     titleLabel.textColor = .white
                     
                 }
                 
             }
-
+            
             
         }
         
@@ -3148,35 +2797,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-
-
+    
+    
 }
 
 
-/*
-else {
- 
- 
-    //這裡是進不來的地方
- 
-    //跳轉到該地圖的第一個元素
- 
-    mapNum = mapNumToReceive
-    spotNum = 0
-    unitNum = 0
-    progressFloat = 10
- 
-    let syllableChosen = syllableSets[spotNum][unitNum]
- 
-    let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
- 
-    syllablesWithoutDigit = syllableChosenArray[0]
- 
-    syllableLabel.text = syllablesWithoutDigit
- 
-}
-
-*/
 
 extension UIView{
     
@@ -3189,7 +2814,7 @@ extension UIView{
         
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-
+        
     }
     
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero){
@@ -3218,7 +2843,7 @@ extension UIView{
             trailingAnchor.constraint(equalTo: trailing, constant: padding.right).isActive = true
             
         }
-
+        
         if size.width != 0 {
             
             widthAnchor.constraint(equalToConstant: size.width).isActive = true
@@ -3237,7 +2862,7 @@ extension UIView{
             return self.safeAreaLayoutGuide.topAnchor
         } else {
             return self.topAnchor
-        
+            
         }
     }
     

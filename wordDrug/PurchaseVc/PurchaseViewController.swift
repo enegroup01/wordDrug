@@ -294,9 +294,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         alertBg.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         
-        
-        
-        
         //alertText.frame = CGRect(x: 5 * newDif , y: 15 * newDif, width: alertBg.frame.width - 5 * newDif * 2, height: alertBg.frame.height / 2)
         alertText.font = UIFont(name: "Helvetica Bold", size: subTitleFontSize)
         alertText.textColor = .white
@@ -379,7 +376,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     
     @objc func restoreOK(){
-        
         
         ghostBtn.isHidden = false
         alertBg.isHidden = false
@@ -531,7 +527,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     
    
-        print("failed To Puchase")
+        print("purchase VC failed To Puchase")
         
         //SKPaymentQueue.default().finishTransaction(transaction)
         //print("failed")
@@ -552,7 +548,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     func purchasedBtnText(){
         
-        print("2")
         let attrWords = NSMutableAttributedString()
         
         let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
@@ -740,8 +735,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
 //        }
 //    }
     
-    
-    var isRestore = false
+ 
     
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -750,17 +744,13 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             switch (transaction.transactionState){
                 
-                
             case .restored:
-                
-                
                 SKPaymentQueue.default().finishTransaction(transaction)
                 print("restored")
-                isRestore = true
+          
                 
                 activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
-                
                 
                 restoreTimer.invalidate()
                 second = 0
@@ -771,7 +761,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 alertText.text = purchaseVC_restoreOkMsg
                 practiceWordBtn.isHidden = false
                 practiceSenBtn.isHidden = false
-                
                 
                 UserDefaults.standard.set(true, forKey: "isPurchased")
                 purchasedBtnText()
@@ -789,19 +778,17 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         
-        //啟動倒數timer
+        //啟動restore倒數timer
         
         restoreTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PurchaseViewController.countTime), userInfo: nil, repeats: true)
-        
-        
+
     }
     
 
     
     var second = Int()
     @objc func countTime(){
-        
-        
+  
         //秒數增加到6
         if second < 6{
             
@@ -811,15 +798,11 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             restoreTimer.invalidate()
             second = 0
-            if !isRestore{
-                
-                print("沒有東西restored")
+            
            
-
-                
+                print("沒有東西restored")
                 activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
-                
                 
                 ghostBtn.isHidden = false
                 alertBg.isHidden = false
@@ -832,16 +815,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 
                 //紀錄沒買過
                 UserDefaults.standard.set(false, forKey: "isPurchased")
-                
-                
-            }
-            
             
             
         }
-        
-        
-        
+   
     }
     
     

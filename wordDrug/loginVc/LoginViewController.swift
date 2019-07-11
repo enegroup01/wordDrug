@@ -12,8 +12,8 @@ import SSBouncyButton
 //import FacebookCore
 import FBSDKLoginKit
 import FBSDKCoreKit
-
-class LoginViewController: UIViewController,UITextFieldDelegate {
+import ProgressHUD
+class LoginViewController: UIViewController,UITextFieldDelegate{
     
     let loginVC_subTitle = NSLocalizedString("loginVC_subTitle", comment: "")
     let loginVC_usernamePlaceholder = NSLocalizedString("loginVC_usernamePlaceholder", comment: "")
@@ -55,8 +55,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var doubleLine2: UIImageView!
     
-    var isWelcome = false
-    
+  
     var activityIndicator = UIActivityIndicatorView()
 
     @IBOutlet weak var registerLaterBtn: UIButton!
@@ -69,17 +68,15 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         var dif: CGFloat!
         var fontSize: CGFloat!
         var cornerRadiusValue: CGFloat!
-        print("enter login view")
-        
+    
         switch height {
             
         case 1366, 1336:
-            print("big iPad")
-            
-            
+   
             dif = 2
 
             fontSize = 28
@@ -88,8 +85,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
         case 1024, 1194, 1112:
             
-            print("small iPad")
-            
+
             dif = 1.5
 
             fontSize = 22
@@ -332,10 +328,22 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         
         //fbLoginBtn.layer.cornerRadius = fbLoginBtn.frame.width / 40
+        var fbLoginBtnImg = String()
+        if lan == "zh-Hans" {
+            
+            fbLoginBtnImg = "wechatLoginBtn.png"
+        } else {
+            
+            fbLoginBtnImg = "newFbBtn.png"
+            
+        }
+        fbLoginBtn.backgroundColor = .clear
         fbLoginBtn.clipsToBounds = true
         fbLoginBtn.titleLabel?.textAlignment = .center
         fbLoginBtn.setTitle(loginVC_thirdPartyLogin, for: .normal)
         fbLoginBtn.titleLabel?.font = fbLoginBtn.titleLabel?.font.withSize(fontSize)
+        fbLoginBtn.setBackgroundImage(UIImage(named: fbLoginBtnImg), for: .normal)
+        fbLoginBtn.contentMode = .scaleAspectFit
         
         
         fbLoginBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -387,42 +395,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         registerLaterBtn.topAnchor.constraint(equalTo: orLabel.bottomAnchor, constant: 5 * dif).isActive = true
         registerLaterBtn.centerXAnchor.constraint(equalTo: passwordPng.centerXAnchor).isActive = true
         
-        
-        
-        /*
-         var iphoneWidth = CGFloat()
-         var fontSize = CGFloat()
-         var dif = CGFloat()
-         
-         switch  height {
-         case 812:
-         iphoneWidth = height * 375/667
-         fontSize = 20
-         dif = 1.15
-         
-         case 736:
-         iphoneWidth = width
-         fontSize = 18
-         dif = 1.1
-         case 667:
-         iphoneWidth = width
-         fontSize = 18
-         
-         dif = 1
-         case 568:
-         iphoneWidth = width
-         fontSize = 16
-         dif = 0.9
-         
-         default:
-         iphoneWidth = width
-         fontSize = 16
-         dif = 0.9
-         
-         
-         }
-         
-         */
+
         
     }
 
@@ -479,9 +452,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
         } else {
             
-      
-            
-          
+
             activityIndicator.startAnimating()
             UIApplication.shared.beginIgnoringInteractionEvents()
             
@@ -672,8 +643,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                                     self!.activityIndicator.stopAnimating()
                                     UIApplication.shared.endIgnoringInteractionEvents()
                              
-                                    //暫時留著之後可能可以使用
-                                    self!.isWelcome = true
+                               
                                  
                                     if self!.isFromCourse{
                                         
@@ -715,8 +685,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             
                             self!.activityIndicator.stopAnimating()
                             UIApplication.shared.endIgnoringInteractionEvents()
-                            
-                                     print("2")
+                     
                             self?.usernameTxt.text = ""
                             self?.passwordTxt.text = ""
                             self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號輸入有誤，請再試一次", attributes: self!.attrs)
@@ -737,7 +706,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     
                     self!.activityIndicator.stopAnimating()
                     UIApplication.shared.endIgnoringInteractionEvents()
-                             print("3")
+                   
                     let message = error!.localizedDescription
                     print(message)
                     self?.usernameTxt.text = ""
@@ -758,6 +727,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         
         
     }
+    
     
     //登入功能
     @IBAction func loginclick(_ sender: Any) {
@@ -865,7 +835,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed!, forKey: "mapPassed")
                         
-                        print("retrieve mapPassed:\(mapPassed!)")
                         
                     }
                     
@@ -875,8 +844,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                        
-                        print("retrieve mapPassed:\(mapPassed2!)")
+     
                         
                     }
                     
@@ -885,8 +853,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         mapPassed3 = Int(mapPassed3String)!
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                        
-                        print("retrieve mapPassed:\(mapPassed3!)")
+                    
                         
                     }
                     
@@ -896,7 +863,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed4!, forKey: "mapPassed4")
                         
-                        print("retrieve mapPassed:\(mapPassed4!)")
+                       
                         
                     }
                     
@@ -906,13 +873,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed5!, forKey: "mapPassed5")
                         
-                        print("retrieve mapPassed:\(mapPassed5!)")
+            
                         
                     }
                     
                     //MARK: simVer k12 特別作法
                     if let mapPassed6String = user?["mapPassed6"] as! String?{
-                        print("mapPassed6String:\(user?["mapPassed6"])")
                         var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
                         
                         for i in 0 ..< mapPassedStringArray.count {
@@ -920,7 +886,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             //避免最後一位空值
                             if mapPassedStringArray[i] != "" {
                                 
-                                print("還是近來設定了")
                                 k12MapPassed[i] = Int(mapPassedStringArray[i])!
                             }
                             
@@ -929,20 +894,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(k12MapPassed, forKey: "mapPassed6")
                         
-                        print("retrieve mapPassed:\(k12MapPassed!)")
                         
                     }
                     
                     
-//                    if let mapPassed6String = user?["mapPassed6"] as! String?{
-//
-//                        mapPassed6 = Int(mapPassed6String)!
-//                        let userDefaults = UserDefaults.standard
-//                        userDefaults.set(mapPassed6!, forKey: "mapPassed6")
-//
-//                        print("retrieve mapPassed:\(mapPassed6!)")
-//
-//                    }
                     
                     if let mapPassed7String = user?["mapPassed7"] as! String?{
                         
@@ -950,7 +905,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed7!, forKey: "mapPassed7")
                         
-                        print("retrieve mapPassed:\(mapPassed7!)")
                         
                     }
                     
@@ -960,7 +914,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed8!, forKey: "mapPassed8")
                         
-                        print("retrieve mapPassed:\(mapPassed8!)")
                         
                     }
                     
@@ -970,7 +923,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         userDefaults.set(mapPassed9!, forKey: "mapPassed9")
                         
-                        print("retrieve mapPassed:\(mapPassed9!)")
                         
                     }
                     
@@ -988,7 +940,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                         
-                        print("retrieve gamePassed:\(gamePassed!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed")
                         
                     }
@@ -1004,7 +955,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                         
-                        print("retrieve gamePassed:\(gamePassed2!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed2")
                         
                     }
@@ -1020,7 +970,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                         
-                        print("retrieve gamePassed:\(gamePassed3!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed3")
                         
                     }
@@ -1037,7 +986,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                         
-                        print("retrieve gamePassed:\(gamePassed4!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                         
                     }
@@ -1052,7 +1000,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                         
-                        print("retrieve gamePassed:\(gamePassed5!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed5")
                         
                     }
@@ -1086,30 +1033,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
                         
-                        print("retrieve gamePassed:\(k12GamePassed!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed6")
                         
                     }
                     
                     
-                    
-                    
-                    
-//                    if let gamePassed6String = user?["gamePassed6"] as! String?{
-//
-//                        let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
-//
-//                        let s = gamePassed6StringArray[0]
-//                        let u = gamePassed6StringArray[1]
-//                        gamePassed6 = [Int(s)!:Int(u)!]
-//
-//                        let userDefaults = UserDefaults.standard
-//                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
-//
-//                        print("retrieve gamePassed:\(gamePassed6!)")
-//                        userDefaults.set(encodedObject, forKey: "gamePassed6")
-//
-//                    }
                     
                     if let gamePassed7String = user?["gamePassed7"] as! String?{
                         
@@ -1122,7 +1050,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                         
-                        print("retrieve gamePassed:\(gamePassed7!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed7")
                         
                     }
@@ -1138,7 +1065,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                         
-                        print("retrieve gamePassed:\(gamePassed8!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed8")
                         
                     }
@@ -1154,16 +1080,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                         let userDefaults = UserDefaults.standard
                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                         
-                        print("retrieve gamePassed:\(gamePassed9!)")
                         userDefaults.set(encodedObject, forKey: "gamePassed9")
                         
                     }
                     
-                    
-           
-                    print(user!)
-                    
-                    
+
                   
                     let id = user?["id"] as? String
                     
@@ -1171,8 +1092,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     if id != nil {
                       
                         DispatchQueue.main.async(execute: {
-                            print("successfully logged in")
-                            
+            
                             self!.activityIndicator.stopAnimating()
                             UIApplication.shared.endIgnoringInteractionEvents()
                    
@@ -1275,25 +1195,18 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        
-        if segue.identifier == "toCoursesVc"{
-            
-            //暫時保留以後可以做歡迎畫面
-            let destineVc = segue.destination as! CoursesViewController
-            destineVc.isWelcome = isWelcome
-            
-        }
     }
     
-    var weChatTest = true
-    
+
     @IBAction func fbLoginClicked(_ sender: Any) {
         
-        if weChatTest{
+        if lan == "zh-Hans" {
+            print("wechat login")
             let req = SendAuthReq()
             req.scope = "snsapi_userinfo" //Important that this is the same
-            req.state = "co.company.yourapp_wx_login" //This can be any random value
+            req.state = "com.playplay.missWord" //This can be any random value
             WXApi.send(req)
+        
             
         } else {
         
@@ -1333,6 +1246,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             
         }
         
+            
         
         /*
          let loginManager = FBSDKLoginManager()
@@ -1365,6 +1279,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         }
     }
     
+  
+
     
     
     func getDetails(){
@@ -1515,7 +1431,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     */
     
     @IBAction func registerLaterBtnClicked(_ sender: Any) {
-        
         
         self.dismiss(animated: true, completion: nil)
         
