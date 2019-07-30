@@ -13,6 +13,60 @@ public let userDefaults = UserDefaults.standard
 
 //public let maxMapNumArray = [5,6,7,9,8]
 
+public let kMapPassed = "mapPassed"
+public let kMapPassed2 = "mapPassed2"
+public let kMapPassed3 = "mapPassed3"
+public let kMapPassed4 = "mapPassed4"
+public let kMapPassed5 = "mapPassed5"
+public let kMapPassed6 = "mapPassed6"
+public let kMapPassed7 = "mapPassed7"
+public let kMapPassed8 = "mapPassed8"
+public let kMapPassed9 = "mapPassed9"
+
+public let kGamePassed = "gamePassed"
+public let kGamePassed2 = "gamePassed2"
+public let kGamePassed3 = "gamePassed3"
+public let kGamePassed4 = "gamePassed4"
+public let kGamePassed5 = "gamePassed5"
+public let kGamePassed6 = "gamePassed6"
+public let kGamePassed7 = "gamePassed7"
+public let kGamePassed8 = "gamePassed8"
+public let kGamePassed9 = "gamePassed9"
+
+
+public let kWordReviewCount = "wordReviewCount"
+public let kWordReviewCount2 = "wordReviewCount2"
+public let kWordReviewCount3 = "wordReviewCount3"
+public let kWordReviewCount4 = "wordReviewCount4"
+public let kWordReviewCount5 = "wordReviewCount5"
+public let kWordReviewCount6 = "wordReviewCount6"
+public let kWordReviewCount7 = "wordReviewCount7"
+public let kWordReviewCount8 = "wordReviewCount8"
+public let kWordReviewCount9 = "wordReviewCount9"
+
+
+public let kSenReviewCount = "senReviewCount"
+public let kSenReviewCount2 = "senReviewCount2"
+public let kSenReviewCount3 = "senReviewCount3"
+public let kSenReviewCount4 = "senReviewCount4"
+public let kSenReviewCount5 = "senReviewCount5"
+public let kSenReviewCount6 = "senReviewCount6"
+public let kSenReviewCount7 = "senReviewCount7"
+public let kSenReviewCount8 = "senReviewCount8"
+public let kSenReviewCount9 = "senReviewCount9"
+
+public let kWrongChinese = "wrongChinese"
+public let kProRate = "proRate"
+public let kSenRate = "senRate"
+
+public let kMyWords = "myWords"
+public let kWrongWords = "wrongWords"
+public let kAva = "ava"
+public let kScore = "score"
+public let kNickname = "nickname"
+public let kDate = "date"
+
+
 public var maxMapNumArray:[Int] {
     var array = [Int]()
     if lan == "zh-Hans"{

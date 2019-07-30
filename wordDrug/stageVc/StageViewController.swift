@@ -13,6 +13,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     let stageVC_alreadyLearned = NSLocalizedString("stageVC_alreadyLearned", comment: "")
     let stageVC_alert = NSLocalizedString("stageVC_alert", comment: "")
+    
+    let stageVC_openAllSwitch = NSLocalizedString("stageVC_openAllSwitch", comment: "")
+    
     let orangeColor = UIColor.init(red: 232/255, green: 98/255, blue: 61/255, alpha: 1)
     
     //此兩數字要做動態
@@ -43,20 +46,28 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     //MARK: must update
     //MARK: simVer 這裡要看最多有多少map.. 這裡看起來有最多有18個課程 done
     var locks:[Int]!
+    var tempLocks:[Int]!
     
     var alertBg = UIImageView()
     var alertText = UILabel()
-    var iknowBtn = UIButton()
     var isClassAllPassed = false
     
     @IBOutlet weak var alreadyLearnedLabel: UILabel!
-    @IBOutlet weak var wordCountsLabel: UILabel!
+
     @IBOutlet weak var classTitle: UIImageView!
     
     //MARK: simVer K12 課程紀錄變數
     //    var k12MapPassed:[Int]!
     //    var k12GamePassed:[[Int:Int]]!
     
+    var isUnlocked = false
+    
+    @IBOutlet weak var unlockSwitch: UISwitch!
+
+    
+    @IBOutlet weak var unlockSwitchLabel: UILabel!
+    
+    let greenColor = #colorLiteral(red: 0.3254901961, green: 0.8431372549, blue: 0.4117647059, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,11 +78,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         var wordCountLabelFontSize: CGFloat!
         var dif = CGFloat()
         
-        
         switch height {
             
         case 1366, 1336:
-            
             
             dif = 1
             iPadDif = 2
@@ -180,14 +189,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 bgColor = #colorLiteral(red: 0.07085690866, green: 0.1181558561, blue: 0.03652065598, alpha: 1)
                 titleImg = "simBlock8.png"
                 
-                
             default:
                 break
-                
-                
             }
-            
-            
+          
         } else {
             //其餘語言
             //print("繁體中文關卡數")
@@ -238,26 +243,40 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         classTitle.image = UIImage(named: titleImg)
         classTitle.contentMode = .scaleAspectFill
         
-        classTitle.anchor(top: view.safeTopAnchor, leading: backBtn.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15 * dif * iPadDif, left: 50 * dif * iPadDif, bottom: 0, right: 0), size: .init(width: 73 * dif * iPadDif, height: 78 * dif * iPadDif))
+        classTitle.anchor(top: view.safeTopAnchor, leading: backBtn.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15 * dif * iPadDif, left: 30 * dif * iPadDif, bottom: 0, right: 0), size: .init(width: 73 * dif * iPadDif, height: 78 * dif * iPadDif))
         
+
         
         alreadyLearnedLabel.font = alreadyLearnedLabel.font.withSize(wordCountTitleLabelFontSize)
         
-        alreadyLearnedLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * dif * iPadDif, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 100 * dif * iPadDif, height: 28 * dif * iPadDif))
         
-        alreadyLearnedLabel.text = stageVC_alreadyLearned
+        alreadyLearnedLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 25 * dif * iPadDif, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 100 * dif * iPadDif, height: 28 * dif * iPadDif))
+        
+        alreadyLearnedLabel.text = stageVC_openAllSwitch
         
         //wordCountsLabel.backgroundColor = .red
-        wordCountsLabel.font = wordCountsLabel.font.withSize(wordCountLabelFontSize)
-        wordCountsLabel.anchor(top: alreadyLearnedLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 150 * dif * iPadDif, height: 55 * dif * iPadDif))
-        wordCountsLabel.adjustsFontSizeToFitWidth = true
+//        wordCountsLabel.font = wordCountsLabel.font.withSize(wordCountLabelFontSize)
+//        wordCountsLabel.anchor(top: alreadyLearnedLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 150 * dif * iPadDif, height: 55 * dif * iPadDif))
+//        wordCountsLabel.adjustsFontSizeToFitWidth = true
+//     wordCountsLabel.isHidden = true
+        
+        unlockSwitch.anchor(top: alreadyLearnedLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor,padding: .init(top: 10, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 49 * dif * iPadDif, height: 31 * dif * iPadDif))
+        
+    
+        
         
         self.view.bringSubview(toFront: alreadyLearnedLabel)
-        self.view.bringSubview(toFront: wordCountsLabel)
+//        self.view.bringSubview(toFront: wordCountsLabel)
         self.view.bringSubview(toFront: backBtn)
         self.view.bringSubview(toFront: classTitle)
+        self.view.bringSubview(toFront: unlockSwitch)
+
         
+
     }
+    
+
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -265,6 +284,24 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     
+    @IBAction func unlockSwitchTapped(_ sender: Any) {
+        
+        if unlockSwitch.isOn {
+            isUnlocked = true
+            for i in 0 ..< 18{
+                locks[i] = 0
+            }
+            alreadyLearnedLabel.textColor = greenColor
+           
+        } else {
+            
+            isUnlocked = false
+            locks = tempLocks
+            alreadyLearnedLabel.textColor = .white
+        }
+        
+         collectionView.reloadData()
+    }
     
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -279,12 +316,17 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewWillAppear(_ animated: Bool) {
         
-        var totalWordsLearned = Int()
+        isUnlocked = false
+        unlockSwitch.isEnabled = true
+        unlockSwitch.setOn(false, animated: false)
+        alreadyLearnedLabel.textColor = .white
+
+        
         //MARK: simVer 要製造足夠數量的
         eachCellMyWordsCount = Array(repeating: 0, count: 18)
         locks = Array(repeating: 1, count: 18)
         
-        //print("eachCellMyWordsCount:\(eachCellMyWordsCount)")
+
         
         isClassAllPassed = false
         
@@ -293,6 +335,21 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //MARK: must update
         //就算user == nil, gamePassed & mapPasse都已經設定初始值了
         //MARK: simVersion 共有幾個關卡 done
+        
+        print("mapPassed:\(mapPassed)")
+        
+        //單機版
+//        mapPassed = 5
+//        mapPassed2 = 6
+//        mapPassed3 = 7
+//        mapPassed4 = 9
+//        mapPassed5 = 8
+//
+//        gamePassed = [0:0]
+//        gamePassed2 = [0:0]
+//        gamePassed3 = [0:0]
+//        gamePassed4 = [0:0]
+//        gamePassed5 = [0:0]
         
         if lan == "zh-Hans"{
             //檢體中文
@@ -412,90 +469,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             default:
                 break
             }
-            
-            //MARK: simVer 這裡要考量簡體版的數量繼續往下加，以下為新寫法
-            //下方450的數字
-            
-            
-            //            switch mapPassedInt{
-            //
-            //            case 0:
-            //                eachCellMyWordsCount[0] = wordCounts
-            //            case 1:
-            //
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = wordCounts
-            //
-            //            case 2:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = wordCounts
-            //            case 3:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = wordCounts
-            //            case 4:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = wordCounts
-            //
-            //            case 5:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = wordCounts
-            //            case 6:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = wordCounts
-            //
-            //            case 7:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = elemWordsMax[0]
-            //                eachCellMyWordsCount[7] = wordCounts
-            //
-            //            case 8:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = elemWordsMax[0]
-            //                eachCellMyWordsCount[7] = elemWordsMax[0]
-            //                eachCellMyWordsCount[8] = wordCounts
-            //
-            //
-            //            case 9:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = elemWordsMax[0]
-            //                eachCellMyWordsCount[7] = elemWordsMax[0]
-            //                eachCellMyWordsCount[8] = elemWordsMax[0]
-            //
-            //                //只有最後一張地圖需要補滿數字, 其餘的地圖都用wordCounts去抓
-            //
-            //            default:
-            //                break
-            //            }
+
      
         } else {
             //其餘語言
@@ -547,94 +521,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 
                 gamePassedDic = gamePassed5!
                 mapPassedInt = mapPassed5!
-                
-                
-                
+
             default:
                 break
             }
-            
-            //            //MARK: simVer 這裡要考量簡體版的數量繼續往下加
-            //            //下方450的數字
-            //            switch mapPassedInt{
-            //
-            //            case 0:
-            //                eachCellMyWordsCount[0] = wordCounts
-            //            case 1:
-            //
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = wordCounts
-            //
-            //            case 2:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = wordCounts
-            //            case 3:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = wordCounts
-            //            case 4:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = wordCounts
-            //
-            //            case 5:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = wordCounts
-            //            case 6:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = wordCounts
-            //
-            //            case 7:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = elemWordsMax[0]
-            //                eachCellMyWordsCount[7] = wordCounts
-            //
-            //            case 8:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = elemWordsMax[0]
-            //                eachCellMyWordsCount[7] = elemWordsMax[0]
-            //                eachCellMyWordsCount[8] = wordCounts
-            //
-            //
-            //            case 9:
-            //                eachCellMyWordsCount[0] = elemWordsMax[0]
-            //                eachCellMyWordsCount[1] = elemWordsMax[0]
-            //                eachCellMyWordsCount[2] = elemWordsMax[0]
-            //                eachCellMyWordsCount[3] = elemWordsMax[0]
-            //                eachCellMyWordsCount[4] = elemWordsMax[0]
-            //                eachCellMyWordsCount[5] = elemWordsMax[0]
-            //                eachCellMyWordsCount[6] = elemWordsMax[0]
-            //                eachCellMyWordsCount[7] = elemWordsMax[0]
-            //                eachCellMyWordsCount[8] = elemWordsMax[0]
-            //
-            //                //只有最後一張地圖需要補滿數字, 其餘的地圖都用wordCounts去抓
-            //
-            //            default:
-            //                break
-            //            }
             
             
         }
@@ -669,18 +559,12 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             for (s,u) in gamePassedDic!{
                 
-                
                 wordCounts = s * 30 + u * 3
-                // print("count over :\(wordCounts)")
-                
-                
+          
+    
             }
-            
-            
-            //MARK: simVer 改寫原本上方不同的switch方法字數統計,
-            
-            
-            //for i in 0 ..< mapPassedInt + 1 {
+                        
+            //MARK: simVer 改寫原本上方不同的switch方法字數統計
             
             for i in 0 ..< mapPassedInt + 1{
                 
@@ -697,9 +581,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             }
         }
         //print("6")
-        
-        
-        
+
         //MARK: simVer locks應該上方已做過18個
         //locks = [1,1,1,1,1,1,1,1,1]
         
@@ -710,13 +592,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         if courseReceived == 5 {
             
             //k12 本來就不會有任何上鎖
-            
             for i in 0 ..< 18{
                 locks[i] = 0
-                
             }
-            
-            
+   
         } else {
             //其餘課程
             //MARK: simVer這裡也要顧到繁體的最大值
@@ -737,32 +616,25 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 //print("7")
                 
                 for i in 0 ..< mapPassedInt{
-                    
+
                     //print(i)
                     locks[i] = 0
-                    
                 }
                 
             } else {
                 
                 for i in 0 ..< mapPassedInt + 1{
-                    
+
                     locks[i] = 0
-                    
                 }
             }
         }
         
-        for c in eachCellMyWordsCount{
-            totalWordsLearned += c
-        }
-        
-        wordCountsLabel.text = String(totalWordsLearned)
+
         collectionView.reloadData()
         
-        
-       // print("check mapNum :\(k12MapPassed)")
-       // print("check gameNum :\(k12GamePassed)")
+        tempLocks = locks
+
     }
     
     deinit {
@@ -784,25 +656,21 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         let lockImg = cell.viewWithTag(3) as! UIImageView
         if locks[indexPath.row] == 0 {
-            
             lockImg.isHidden = true
         } else {
-            
             lockImg.isHidden = false
         }
-        
-        
         
         cell.stageLabel.adjustsFontSizeToFitWidth = true
         cell.stageLabel.text = String(indexPath.row + 1)
         
         //cell.wordCountLabel.adjustsFontSizeToFitWidth = true
-        
-        
-        
+
         let wordCounts = eachCellMyWordsCount[indexPath.row]
         
+        //單機版: 測試
         cell.wordCountLabel.text = "\(wordCounts) / \(elemWordsMax[indexPath.row])"
+
         
         //MARK: simVer 這裡要看課程最大值
         
@@ -900,9 +768,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             p12Color = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
             p13Color = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
             p14Color = #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)
-            
-            
-            
+
             colors = [p1Color,p2Color,p3Color,p4Color,p5Color,p6Color, p7Color, p8Color, p9Color, p10Color, p11Color, p12Color, p13Color, p14Color]
         case 5:
             
@@ -1013,43 +879,53 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //MARK: simVer 這裏要做K12的單獨各個判斷 決定是否isClassAllPassed
         
         //有過地圖才能進關卡
+
         
-        if courseReceived == 5 {
-            //ＭARK: simVer K12特別作法
-            
-            //確認該單元是否全過
-            
-            if k12MapPassed[mapNumToPass] == 1 {
-                
-                isClassAllPassed = true
-            }
+        //單機版: 以下的篩選模式都先comment掉
+        
+        if isUnlocked {
             
             performSegue(withIdentifier: "toLessonVc", sender: self)
             
         } else {
-            
-            if mapPassedInt == indexPath.row {
-                
-                performSegue(withIdentifier: "toLessonVc", sender: self)
-                
-            } else if mapPassedInt > indexPath.row{
-                
-                //show已過關訊息
-                
+        
+        if courseReceived == 5 {
+            //ＭARK: simVer K12特別作法
+
+            //確認該單元是否全過
+
+            if k12MapPassed[mapNumToPass] == 1 {
+
                 isClassAllPassed = true
-                
-                performSegue(withIdentifier: "toLessonVc", sender: self)
-                
-                
-            } else if mapPassedInt < indexPath.row{
-                
-                ProgressHUD.showError(stageVC_alert)
-                
-                //performSegue(withIdentifier: "toLessonVc", sender: self)
-                
-                
             }
-            
+
+            performSegue(withIdentifier: "toLessonVc", sender: self)
+
+        } else {
+
+            if mapPassedInt == indexPath.row {
+
+                performSegue(withIdentifier: "toLessonVc", sender: self)
+
+            } else if mapPassedInt > indexPath.row{
+
+                //show已過關訊息
+
+                isClassAllPassed = true
+
+                performSegue(withIdentifier: "toLessonVc", sender: self)
+
+
+            } else if mapPassedInt < indexPath.row{
+
+                ProgressHUD.showError(stageVC_alert)
+
+                //performSegue(withIdentifier: "toLessonVc", sender: self)
+
+
+            }
+
+        }
         }
     }
     
@@ -1065,6 +941,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             destinationVC.courseReceived = courseReceived
             destinationVC.mapNumToReceive = mapNumToPass
             destinationVC.isClassAllPassed = isClassAllPassed
+            destinationVC.isUnlocked = isUnlocked
             
         }
     }

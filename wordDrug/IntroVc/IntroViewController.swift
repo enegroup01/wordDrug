@@ -215,9 +215,6 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             if let sceneNode = scene.rootNode as! IntroScene? {
                 
                 // Copy gameplay related content over to the scene
-                
-                
-                
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
                 

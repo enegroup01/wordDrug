@@ -247,8 +247,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         infoTableView.frame = CGRect(x: 0, y: chartUpBg.frame.maxY, width: width, height: height - chartUpBg.frame.height)
         
+//        wordCountLabel.frame = CGRect(x: backBtn.frame.minX + 10 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
-        wordCountLabel.frame = CGRect(x: backBtn.frame.minX + 10 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
+        wordCountLabel.frame = CGRect(x: width / 3 - 45 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
         
         //wordCountLabel.backgroundColor = .green
         wordCountLabel.textAlignment = .center
@@ -259,13 +260,11 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         wordLabel.font = wordLabel.font.withSize(infoFontSize)
         wordLabel.text = infoVC_wordLabel
         
-        
-        
         //wordLabel.backgroundColor = .green
         wordLabel.textAlignment = .center
         wordLabel.adjustsFontSizeToFitWidth = true
         
-        scoreCountLabel.frame = CGRect(x: width / 2 - 75 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 150 * dif, height: 23 * dif)
+        scoreCountLabel.frame = CGRect(x: width * 2 / 3 - 75 * dif, y: alphaLayer.frame.minY + 5 * dif, width: 150 * dif, height: 23 * dif)
         
         //scoreCountLabel.backgroundColor = .red
         scoreCountLabel.textAlignment = .center
@@ -281,32 +280,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         scoreLabel.font = scoreLabel.font.withSize(infoFontSize)
         scoreLabel.text = infoVC_scoreLabel
         
-        
-        rankCountLabel.frame = CGRect(x: scoreCountLabel.frame.maxX + scoreCountLabel.frame.minX - wordCountLabel.frame.maxX, y: alphaLayer.frame.minY + 5 * dif, width: 90 * dif, height: 23 * dif)
-        
-        //rankCountLabel.backgroundColor = .green
-        rankCountLabel.textAlignment = .center
-        rankCountLabel.adjustsFontSizeToFitWidth = true
-        rankCountLabel.font = rankCountLabel.font.withSize(infoFontSize)
-        
-        rankLabel.frame = CGRect(x: rankCountLabel.frame.minX, y: wordCountLabel.frame.maxY + 5 * dif, width: 90 * dif, height: 23 * dif)
-        
-        //rankLabel.backgroundColor = .green
-        rankLabel.textAlignment = .center
-        rankLabel.adjustsFontSizeToFitWidth = true
-        rankLabel.font = rankLabel.font.withSize(infoFontSize)
-        rankLabel.text = infoVC_rankLabel
-        
-        
-        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let heightForRow = height / 4
-        
         return heightForRow
-        
-        
+
     }
     
     
@@ -320,8 +299,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
+
     @IBAction func changePhotoClicked(_ sender: Any) {
         
         let picker = UIImagePickerController()
@@ -460,19 +438,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     override func viewWillAppear(_ animated: Bool) {
+
         
-        
-        
-        if user != nil {
-            
-            selectUser()
-            
-        } else {
-            
-            //沒有user的時候
-            getUserInfo()
-            
-        }
+        //單機版: 不排名
+        getUserInfo()
         
     }
     
@@ -480,456 +449,29 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func selectUser(){
-        
-        
-        // url to access our php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/selectUser.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/selectUser.php")!
-        }
 
-        let id = user?["id"] as! String
-        
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "POST"
-        
-        
-        // body gonna be appended to url
-        let body = "id=\(id)"
-        
-        // append body to our request that gonna be sent
-        request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-            // no error
-            if error == nil {
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        return
-                    }
-                    
-                    
-                    
-                    print("selectUser:\(parseJSON)")
-                    
-                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    
-                    
-                    //MARK: must update
-                    //MARK: simVer 增加
-                    
-                    if let mapPassedString = user?["mapPassed"] as! String?{
-                        
-                        mapPassed = Int(mapPassedString)!
-                        
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed!, forKey: "mapPassed")
-                
-                        
-                    }
-                    
-                    if let mapPassed2String = user?["mapPassed2"] as! String?{
-                        
-                        mapPassed2 = Int(mapPassed2String)!
-                        
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                  
-                        
-                    }
-                    
-                    if let mapPassed3String = user?["mapPassed3"] as! String?{
-                        
-                        mapPassed3 = Int(mapPassed3String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                        
-                        
-                    }
-                    
-                    if let mapPassed4String = user?["mapPassed4"] as! String?{
-                        
-                        mapPassed4 = Int(mapPassed4String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
-                        
-                        
-                    }
-                    
-                    if let mapPassed5String = user?["mapPassed5"] as! String?{
-                        
-                        mapPassed5 = Int(mapPassed5String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
-                        
-                        
-                    }
-
-                    
-                    //K12特別作法
-                    if let mapPassed6String = user?["mapPassed6"] as! String?{
-                  
-                        var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
-                 
-                        for i in 0 ..< mapPassedStringArray.count {
-                            
-                            //避免最後一位空值
-                            if mapPassedStringArray[i] != "" {
-                                
-                                k12MapPassed[i] = Int(mapPassedStringArray[i])!
-                            }
-                       
-                            
-                        }
-                        
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(k12MapPassed, forKey: "mapPassed6")
-                        
- 
-                    }
-                    
-                    if let mapPassed7String = user?["mapPassed7"] as! String?{
-                        
-                        mapPassed7 = Int(mapPassed7String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed7!, forKey: "mapPassed7")
-                        
-                        
-                    }
-                    
-                    if let mapPassed8String = user?["mapPassed8"] as! String?{
-                        
-                        mapPassed8 = Int(mapPassed8String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed8!, forKey: "mapPassed8")
-                        
-                        
-                    }
-                    
-                    if let mapPassed9String = user?["mapPassed9"] as! String?{
-                        
-                        mapPassed9 = Int(mapPassed9String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed9!, forKey: "mapPassed9")
-                        
-                        
-                    }
-       
-                    
-                    if let gamePassedString = user?["gamePassed"] as! String?{
-                        
-                        let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
-                        
-                        let s = gamePassedStringArray[0]
-                        let u = gamePassedStringArray[1]
-                        gamePassed = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed")
-                        
-                    }
-                    
-                    if let gamePassed2String = user?["gamePassed2"] as! String?{
-                        
-                        let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
-                        
-                        let s = gamePassed2StringArray[0]
-                        let u = gamePassed2StringArray[1]
-                        gamePassed2 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed2")
-                        
-                    }
-                    
-                    if let gamePassed3String = user?["gamePassed3"] as! String?{
-                        
-                        let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
-                        
-                        let s = gamePassed3StringArray[0]
-                        let u = gamePassed3StringArray[1]
-                        gamePassed3 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed3")
-                        
-                    }
-                    
-                    
-                    if let gamePassed4String = user?["gamePassed4"] as! String?{
-                        
-                        let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
-                        
-                        let s = gamePassed4StringArray[0]
-                        let u = gamePassed4StringArray[1]
-                        gamePassed4 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed4")
-                        
-                    }
-                    
-                    if let gamePassed5String = user?["gamePassed5"] as! String?{
-                        
-                        let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
-                        
-                        let s = gamePassed5StringArray[0]
-                        let u = gamePassed5StringArray[1]
-                        gamePassed5 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed5")
-                        
-                    }
-                    
-
-                    
-                    //MARK: simVer K12 特別作法
-                    
-                    if let gamePassed6String = user?["gamePassed6"] as! String?{
-                        
-                        var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
-                        
-                        //如果有19位數就移除最後一位
-                        if k12GamePassedStringArray.count == 19{
-                            k12GamePassedStringArray.removeLast()
-                        }
-                        
-                        
-                        for i in 0 ..< k12GamePassedStringArray.count {
-                            
-                            let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
-                            
-                            let s = gamePassed6StringArray[0]
-                            let u = gamePassed6StringArray[1]
-                            k12GamePassed[i] = [Int(s)!:Int(u)!]
-                            
-                        }
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
-                        
-        
-                        userDefaults.set(encodedObject, forKey: "gamePassed6")
-                        
-                    }
-                    
-                    if let gamePassed7String = user?["gamePassed7"] as! String?{
-                        
-                        let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
-                        
-                        let s = gamePassed7StringArray[0]
-                        let u = gamePassed7StringArray[1]
-                        gamePassed7 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed7")
-                        
-                    }
-                    
-                    if let gamePassed8String = user?["gamePassed8"] as! String?{
-                        
-                        let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
-                        
-                        let s = gamePassed8StringArray[0]
-                        let u = gamePassed8StringArray[1]
-                        gamePassed8 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed8")
-                        
-                    }
-                    
-                    if let gamePassed9String = user?["gamePassed9"] as! String?{
-                        
-                        let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
-                        
-                        let s = gamePassed9StringArray[0]
-                        let u = gamePassed9StringArray[1]
-                        gamePassed9 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed9")
-                        
-                    }
-                    
-                    
-                    
-                    DispatchQueue.main.async {
-                        
-                        self!.getUserInfo()
-                        self!.myRank()
-                    }
-                    
-                    
-                } catch{
-                    
-                    print("catch error")
-                    
-                }
-            } else {
-                
-                print("urlsession has error")
-                
-            }
-        }).resume()
-        
     }
     
     
     
     func myRank(){
-        
-        
-        // url to access our php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/myRank.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
-        }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/myRank.php")!
-        
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "GET"
-        
-        // append body to our request that gonna be sent
-        //request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-            // no error
-            if error == nil {
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [NSDictionary]
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        return
-                    }
-                    
-                    
-                    for i in 0 ..< parseJSON.count{
-                        
-                        if let id = parseJSON[i]["id"] as? Int{
-                            
-                            if user != nil {
-                                
-                                let userId = user?["id"] as! String
-                                
-                                //找到該使用者
-                                if String(id) == userId{
-                                    
-                                    //抓他的分數
-                                    let score = parseJSON[i]["score"] as! Int
-                                    
-                                    if score == 0 {
-                                        
-                                        DispatchQueue.main.async(execute: {
-                                            
-                                            self!.rankCountLabel.text = "尚未排名"
-                                            
-                                        })
-                                        
-                                    } else {
-                                        
-                                        DispatchQueue.main.async(execute: {
-                                            
-                                            self!.rankCountLabel.text = String(i + 1)
-                                            
-                                        })
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    
-                } catch{
-                    
-                    print("catch error")
-                    
-                }
-            } else {
-                
-                print("urlsession has error")
-                
-            }
-        }).resume()
-        
+
     }
     
     func getUserInfo(){
         
         //print("perform get user")
         //指定個人大頭照
-        if let avaImgUrl = user?["ava"] as? String{
+        
+        if let avaData = user?[kAva] as? Data {
             
-            // communicate back user as main queue
-            DispatchQueue.main.async(execute: {[weak self] in
-                
-                if avaImgUrl != "" {
-                    
-                    let newAvaUrl = avaImgUrl.replacingOccurrences(of: "__", with: "&")
-                    
-                    let imageUrl = URL(string: newAvaUrl)!
-                    // get data from image url
-                    let imageData = try? Data(contentsOf: imageUrl)
-                    
-                    // if data is not nill assign it to ava.Img
-                    if imageData != nil {
-                        DispatchQueue.main.async(execute: {
-                            self?.avaImg.image = UIImage(data: imageData!)
-                        })
-                    }
-                    
-                    
-                } else {
-                    
-                    self?.avaImg.image = UIImage(named: "avatar.png")
-                }
-            })
-            
-            
+            DispatchQueue.main.async {[weak self] in
+                self!.avaImg.image = UIImage(data: avaData)
+            }
         } else {
-            
-            //沒有就用預設大頭照
-            avaImg.image = UIImage(named: "avatar.png")
-            
+            DispatchQueue.main.async {[weak self] in
+                self!.avaImg.image = UIImage(named: "avatar.png")
+            }
         }
         
         //取得暱稱
@@ -951,8 +493,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var maxWordCount = Int()
         var allMapPassedCount:Int!
         
-        if user != nil {
-            
+//        if user != nil {
+        
             if lan == "zh-Hans"{
                 //檢體中文
                 
@@ -1067,7 +609,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             //目前中文正確率若設定為0的時候, cellForRow裡面不會顯示0%..雖然不影響但是怪怪的
             
-            if let wrongChinese = user?["wrongChinese"] as? String{
+            if let wrongChinese = user?["wrongChinese"] as? Int{
                 
                 if allWordsCount == 0 {
                     //這樣的話比例也是0
@@ -1076,31 +618,31 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                 } else {
                     
-                    sub2Rates[0] = Int((1 - (Double(wrongChinese)! / Double(allWordsCount))) * 100)
+                    sub2Rates[0] = Int((1 - (Double(wrongChinese) / Double(allWordsCount))) * 100)
                     
                 }
             }
             
             
             
-        } else {
-            
-            wordCountLabel.text = "0"
-            // print("user is nil 所產生的值")
-            
-        }
+//        } else {
+//
+//            wordCountLabel.text = "0"
+//            // print("user is nil 所產生的值")
+//
+//        }
         
         
         
         //抓分數
-        if let score = user?["score"] as? String{
+        if let score = user?["score"] as? Int{
             
-            scoreCountLabel.text = score
+            scoreCountLabel.text = "\(score)"
             
         } else {
             
             scoreCountLabel.text = infoVC_noScore
-            rankCountLabel.text = infoVC_noRank
+//            rankCountLabel.text = infoVC_noRank
         }
         
         
@@ -1108,53 +650,48 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //發音正確率
         
-        if let proRate = user?["proRate"] as? String{
+        if let proRate = user?["proRate"] as? Int{
             
-            if proRate == "200" {
+            if proRate == 200 {
                 
                 sub1Rates[1] = 0
                 
             } else {
                 
-                sub1Rates[1] = Int(proRate)!
+                sub1Rates[1] = Int(proRate)
                 
             }
             
         }
-        
-        
         //句子排列正確率
         
-        if let senRate = user?["senRate"] as? String{
+        if let senRate = user?["senRate"] as? Int{
             
-            if senRate == "200"{
+            if senRate == 200{
                 
                 sub1Rates[2] = 0
                 
             } else {
-                
-                sub1Rates[2] = Int(senRate)!
-                
+                sub1Rates[2] = senRate
             }
-            
         }
         
         
         //MARK: must update
         
         //快速複習單字數
-        if let wordCount = user?["wordReviewCount"] as? String{
-            if let wordCount2 = user?["wordReviewCount2"] as? String{
-                if let wordCount3 = user?["wordReviewCount3"] as? String{
-                    if let wordCount4 = user?["wordReviewCount4"] as? String{
-                        if let wordCount5 = user?["wordReviewCount5"] as? String {
-                            if let wordCount6 = user?["wordReviewCount6"] as? String {
-                                if let wordCount7 = user?["wordReviewCount7"] as? String {
-                                    if let wordCount8 = user?["wordReviewCount8"] as? String {
-                                        if let wordCount9 = user?["wordReviewCount9"] as? String {
+        if let wordCount = user?["wordReviewCount"] as? Int{
+            if let wordCount2 = user?["wordReviewCount2"] as? Int{
+                if let wordCount3 = user?["wordReviewCount3"] as? Int{
+                    if let wordCount4 = user?["wordReviewCount4"] as? Int{
+                        if let wordCount5 = user?["wordReviewCount5"] as? Int {
+                            if let wordCount6 = user?["wordReviewCount6"] as? Int {
+                                if let wordCount7 = user?["wordReviewCount7"] as? Int {
+                                    if let wordCount8 = user?["wordReviewCount8"] as? Int {
+                                        if let wordCount9 = user?["wordReviewCount9"] as? Int {
                                             
                                             
-                                            let totalWordCount = Int(wordCount)! + Int(wordCount2)! + Int(wordCount3)! + Int(wordCount4)! + Int(wordCount5)! + Int(wordCount6)! + Int(wordCount7)! + Int(wordCount8)! + Int(wordCount9)!
+                                            let totalWordCount = Int(wordCount) + Int(wordCount2) + Int(wordCount3) + Int(wordCount4) + Int(wordCount5) + Int(wordCount6) + Int(wordCount7) + Int(wordCount8) + Int(wordCount9)
                                             
                                             
                                             sub1Rates[3] = totalWordCount
@@ -1169,18 +706,18 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         //快速複習句型數
-        if let senCount = user?["senReviewCount"] as? String{
-            if let senCount2 = user?["senReviewCount2"] as? String{
-                if let senCount3 = user?["senReviewCount3"] as? String{
-                    if let senCount4 = user?["senReviewCount4"] as? String {
-                        if let senCount5 = user?["senReviewCount5"] as? String {
-                            if let senCount6 = user?["senReviewCount6"] as? String {
-                                if let senCount7 = user?["senReviewCount7"] as? String {
-                                    if let senCount8 = user?["senReviewCount8"] as? String {
-                                        if let senCount9 = user?["senReviewCount9"] as? String {
+        if let senCount = user?["senReviewCount"] as? Int{
+            if let senCount2 = user?["senReviewCount2"] as? Int{
+                if let senCount3 = user?["senReviewCount3"] as? Int{
+                    if let senCount4 = user?["senReviewCount4"] as? Int {
+                        if let senCount5 = user?["senReviewCount5"] as? Int {
+                            if let senCount6 = user?["senReviewCount6"] as? Int {
+                                if let senCount7 = user?["senReviewCount7"] as? Int {
+                                    if let senCount8 = user?["senReviewCount8"] as? Int {
+                                        if let senCount9 = user?["senReviewCount9"] as? Int {
                                             
                                             
-                                            let totalSenCount = Int(senCount)! + Int(senCount2)! + Int(senCount3)! + Int(senCount4)! + Int(senCount5)! + Int(senCount6)! + Int(senCount7)! + Int(senCount8)! + Int(senCount9)!
+                                            let totalSenCount = Int(senCount) + Int(senCount2) + Int(senCount3) + Int(senCount4) + Int(senCount5) + Int(senCount6) + Int(senCount7) + Int(senCount8) + Int(senCount9)
                                             
                                             sub1Rates[4] = totalSenCount
                                         }
@@ -1277,128 +814,149 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // upload image to serve
     func uploadAva() {
         
-        // shotcut id
-        let id = user!["id"] as! String
+        //save photo to userdefault
         
-        //let id = "135"
-        
-        // url path to php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateAva.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
-        }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
-        
-        // declare request to this file
-        var request = URLRequest(url: url)
-        
-        // declare method of passign inf to this file
-        request.httpMethod = "POST"
-        
-        // param to be sent in body of request
-        let param = ["id" : id]
-        
-        // body
-        let boundary = "Boundary-\(UUID().uuidString)"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        // compress image and assign to imageData var
         let imageData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
-        
-        // if not compressed, return ... do not continue to code
-        if imageData == nil {
-            return
-        }
-        
-        // ... body
-        request.httpBody = createBodyWithParams(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+        //let encodedAvaData = NSKeyedArchiver.archivedData(withRootObject: imageData)
+        //userDefaults.set(encodedAvaData, forKey: kAva)
         
         
-        // launc session
-        URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
-            
-            // get main queue to communicate back to user
-            DispatchQueue.main.async(execute: {
-                
-                if error == nil {
-                    
-                    do {
-                        // json containes $returnArray from php
-                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        
-                        // declare new parseJSON to store json
-                        guard let parseJSON = json else {
-                            print("Error while parsing")
-                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                            
-                            return
-                        }
-                        
-                        // get id from $returnArray["id"] - parseJSON["id"]
-                        let id = parseJSON["id"]
-                        
-                        // successfully uploaded
-                        if id != nil {
-                            //print("got Id")
-                            
-                            
-                            // save user information we received from our host
-                            
-                            UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                            user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                       
-                        } else {
-                            print("didn't get id")
-                            // get main queue to communicate back to user
-                            DispatchQueue.main.async(execute: {
-                                let message = parseJSON["message"] as! String
-                                //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                                
-                                print(message)
-                            })
-                            
-                        }
-                        
-                        // error while jsoning
-                    } catch {
-                        
-                        if let error = error as? NSError{
-                            
-                            print(error)
-                        }
-                        
-                        print("error while parsing")/*
-                         // get main queue to communicate back to user
-                         DispatchQueue.main.async(execute: {
-                         let message = error as! String
-                         print(message)
-                         appDelegate.createAlert(title: self.generalErrorTitleText, message: self.generalErrorMessageText, view: self)
-                         
-                         })
-                         */
-                    }
-                    
-                    // error with php
-                } else {
-                    
-                    // get main queue to communicate back to user
-                    DispatchQueue.main.async(execute: {
-                        let message = error!.localizedDescription
-                        print(message)
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        
-                        
-                    })
-                    
-                }
-                
-                
-            })
-            
-            }.resume()
+        let copyUser = user?.mutableCopy() as! NSMutableDictionary
         
+        copyUser.setValue(imageData, forKey: kAva)
+ 
+        //                    copyUser[kScore] = updatePoints
+        //                    copyUser[kWrongChinese] = wrongChineseCounts
+        //                    copyUser[kProRate] = proRate
+        //                    copyUser[kSenRate] = senRate
+        
+        user = copyUser
+        userDefaults.set(user, forKey: "parseJSON")
+        
+        print(user)
+        
+//        // shotcut id
+//        let id = user!["id"] as! String
+//
+//        //let id = "135"
+//
+//        // url path to php file
+//        var url:URL
+//        if lan == "zh-Hans" {
+//            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateAva.php")!
+//        } else {
+//            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
+//        }
+//        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateAva.php")!
+//
+//        // declare request to this file
+//        var request = URLRequest(url: url)
+//
+//        // declare method of passign inf to this file
+//        request.httpMethod = "POST"
+//
+//        // param to be sent in body of request
+//        let param = ["id" : id]
+//
+//        // body
+//        let boundary = "Boundary-\(UUID().uuidString)"
+//        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//
+//        // compress image and assign to imageData var
+//        let imageData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
+//
+//        // if not compressed, return ... do not continue to code
+//        if imageData == nil {
+//            return
+//        }
+//
+//        // ... body
+//        request.httpBody = createBodyWithParams(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+//
+//
+//        // launc session
+//        URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
+//
+//            // get main queue to communicate back to user
+//            DispatchQueue.main.async(execute: {
+//
+//                if error == nil {
+//
+//                    do {
+//                        // json containes $returnArray from php
+//                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//
+//                        // declare new parseJSON to store json
+//                        guard let parseJSON = json else {
+//                            print("Error while parsing")
+//                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//
+//                            return
+//                        }
+//
+//                        // get id from $returnArray["id"] - parseJSON["id"]
+//                        let id = parseJSON["id"]
+//
+//                        // successfully uploaded
+//                        if id != nil {
+//                            //print("got Id")
+//
+//
+//                            // save user information we received from our host
+//
+//                            UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+//                            user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+//
+//                        } else {
+//                            print("didn't get id")
+//                            // get main queue to communicate back to user
+//                            DispatchQueue.main.async(execute: {
+//                                let message = parseJSON["message"] as! String
+//                                //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//
+//                                print(message)
+//                            })
+//
+//                        }
+//
+//                        // error while jsoning
+//                    } catch {
+//
+//                        if let error = error as? NSError{
+//
+//                            print(error)
+//                        }
+//
+//                        print("error while parsing")/*
+//                         // get main queue to communicate back to user
+//                         DispatchQueue.main.async(execute: {
+//                         let message = error as! String
+//                         print(message)
+//                         appDelegate.createAlert(title: self.generalErrorTitleText, message: self.generalErrorMessageText, view: self)
+//
+//                         })
+//                         */
+//                    }
+//
+//                    // error with php
+//                } else {
+//
+//                    // get main queue to communicate back to user
+//                    DispatchQueue.main.async(execute: {
+//                        let message = error!.localizedDescription
+//                        print(message)
+//                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//
+//
+//                    })
+//
+//                }
+//
+//
+//            })
+//
+//            }.resume()
+//
     }
     /*
      // MARK: - Navigation

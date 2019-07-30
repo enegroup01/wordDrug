@@ -19,7 +19,7 @@ let backToSpellKey = "backToSpell"
 let practiceNextWordKey = "practiceNextWord"
 let startCountDownKey = "startCountDown"
 let timesUpKey = "timesUp"
-//let showTagKey = "showTag"
+
 let readyToReadSentenceKey = "readyToReadSentence"
 let readSentenceKey = "readSentence"
 let onlyPracticeSentenceKey = "onlyPracticeSentence"
@@ -28,6 +28,7 @@ let restartCountingKey = "restartCounting"
 let globalPause = "globalPause"
 let globalStart = "globalStart"
 let turnOffRedLight = "turnOffRedLight"
+let sendUnlockStatus = "sendUnlockStatus"
 
 
 var limitTimer = Timer()
@@ -61,6 +62,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     let gameVC_noBuyNow = NSLocalizedString("gameVC_noBuyNow", comment: "")
     let gameVC_reviewNoScore = NSLocalizedString("gameVC_reviewNoScore", comment: "")
     let gameVC_pressMicAgain = NSLocalizedString("gameVC_pressMicAgain", comment: "")
+    let gameVC_isReplayTitle = NSLocalizedString("gameVC_isReplayTitle", comment: "")
     //中文字粉紅色
     let pinkColor = UIColor.init(red: 1, green: 153/255, blue: 212/255, alpha: 1)
     let waveColor = UIColor.init(red: 1, green: 237/255, blue: 241/255, alpha: 1)
@@ -177,8 +179,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var firstEngWordText = String()
     var secondEngWordText = String()
     var thirdEngWordText = String()
-    var isParseEnabled = true
-    
+
     @IBOutlet weak var wordCountLabel: UILabel!
     
     let word1Label = UILabel()
@@ -252,7 +253,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var noBuyBtn = UIButton()
     var goToBuyBtn = UIButton()
     
-    
     //reviewWord & sentence alert
     var reviewWordBg = UIImageView()
     var reviewAlertTitle1 = UILabel()
@@ -325,6 +325,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //MARK: simVer這裏新增一個變數來避免 wrongPronounce word把 synWord被取代掉
     var originalWordToRecognize:String!
+    
+
+    var isUnlocked = false
     
     override func viewDidLoad() {
         
@@ -401,9 +404,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             iPhonePlusHeightDif = 1
    
             iPhoneSeYDif = 0
-    
 
-     
         case 812:
             
             //iphoneX
@@ -426,9 +427,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             iPhonePlusHeightDif = 1
 
             iPhoneSeYDif = 0
-         
 
-     
         case 736:
             
             //plus
@@ -578,11 +577,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //接收時間到, 利用別的func來刪除畫面
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPracticeNextWord), name: NSNotification.Name("timesUp"), object: nil)
         
-        
-//        //接收顯示tagView內容
-//        NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.showTag), name: NSNotification.Name("showTag"), object: nil)
-        
-        
+
         //通知句子念完要準備口試
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyReadyToReadSentence), name: NSNotification.Name("readyToReadSentence"), object: nil)
         
@@ -618,20 +613,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.removePlaySoundBtn), name: NSNotification.Name("removePlaySoundBtn"), object: nil)
 
-        
-        
         //MARK: UI Setting
-        
-        
-       
-        //scoreLabel.frame = CGRect(x: resultBg.frame.maxX - 140 * dif, y: resultBg.frame.minY + 53 * dif, width: 106 * dif, height: 21 * dif)
-       
-        
-        //這是最後resultBg上面的scoreLabel
-        //scoreLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 15 * dif * iPadDif, left: 0, bottom: 0, right: -10 * dif * iPadDif), size: .init(width: 150 * dif * iPadDif, height: 50 * dif * iPadDif))
-        
-        //scoreLabel.backgroundColor = .brown
-        
         scoreLabel.adjustsFontSizeToFitWidth = true
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.widthAnchor.constraint(equalToConstant: 150 * dif * iPadDif).isActive = true
@@ -646,9 +628,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
         self.view.bringSubview(toFront: limitTimerLabel)
         limitTimerLabel.translatesAutoresizingMaskIntoConstraints = false
-        //limitTimerLabel.center = CGPoint(x: width / 2 - 25, y: 45 - iPadSmall)
         limitTimerLabel.font = limitTimerLabel.font.withSize(hintLabelFontSize)
-        //limitTimerLabel.frame.size = CGSize(width: 50, height: 20)
         limitTimerLabel.textAlignment = .center
 
         limitTimerLabel.adjustsFontSizeToFitWidth = true
@@ -675,46 +655,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(reviewWordBg)
         self.view.bringSubview(toFront: reviewWordBg)
         
-        /*
-         
-         //要修改resultBG上方的標題字
-        var bgColor = UIColor()
-        var titleImg = String()
         
-        
-        //MARK: must update
-        switch courseReceived{
-        case 0:
-            
-            bgColor = UIColor.init(red: 22/255, green: 51/255, blue: 87/255, alpha: 1)
-            titleImg = "block0Title.png"
-        case 1:
-            bgColor = UIColor.init(red: 30/255, green: 36/255, blue: 83/255, alpha: 1)
-            titleImg = "block1Title.png"
-        case 2:
-            bgColor = UIColor.init(red: 59/255, green: 5/255, blue: 27/255, alpha: 1)
-            titleImg = "block2Title.png"
-        case 3:
-            //color literal
-            bgColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            titleImg = "block3Title.png"
-        case 4:
-            bgColor = #colorLiteral(red: 0.07085690866, green: 0.1181558561, blue: 0.03652065598, alpha: 1)
-            titleImg = "block4Title.png"
-            
-        default:
-            break
-            
-            
-        }
-
-        
-        //做課程標題label
-        let courseLabelImage = UIImageView()
-        
-        
-        courseLabelImage.image = UIImage(
-*/
 
         reviewAlertTitle1.frame = CGRect(x: reviewWordBg.frame.width / 22, y: reviewWordBg.frame.height / 20, width: 92 * dif * iPadDif, height: 25 * dif * iPadDif)
         //reviewAlertTitle1.backgroundColor = .gray
@@ -781,13 +722,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(reviewOkBtn)
         self.view.bringSubview(toFront: reviewOkBtn)
 
-
-        
         //加入alertView
         
         self.view.bringSubview(toFront: alertBg)
         alertBg.translatesAutoresizingMaskIntoConstraints = false
-        //alertBg.frame = CGRect(x: (width - 237 * dif) / 2, y: height * 2 /  5, width: 237 * dif, height: 158 * dif)
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
         alertBg.widthAnchor.constraint(equalToConstant: 237 * iPadDif * dif).isActive = true
@@ -814,7 +752,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         purchaseAlert.image = UIImage(named:purImg)
         
          alertText.translatesAutoresizingMaskIntoConstraints = false
-        //alertText.frame = CGRect(x: 5 * dif , y: 15 * dif, width: alertBg.frame.width - 5 * dif * 2, height: alertBg.frame.height / 2)
+
         //alertText.backgroundColor = .green
         alertText.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         alertText.textColor = .white
@@ -828,8 +766,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         alertText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         alertText.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20).isActive = true
         
-        
-        //cancelBtn.frame = CGRect(x: alertBg.frame.minX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
+
         cancelBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         cancelBtn.titleLabel?.numberOfLines = 2
         cancelBtn.setTitle(gameVC_cancel, for: .normal)
@@ -838,7 +775,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(cancelBtn)
         self.view.bringSubview(toFront: cancelBtn)
         
-       // cancelBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: nil ,size: .init(width: 119 * iPadDif * dif, height: alertBg.frame.height / 3))
+
 
         cancelBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: alertBg.centerXAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         
@@ -846,7 +783,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
         //cancelBtn.backgroundColor = .red
         
-        //noBuyBtn.frame = CGRect(x: purchaseAlert.frame.minX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
+
         noBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         //noBuyBtn.backgroundColor = .red
         noBuyBtn.setTitleColor(orangeColor, for: .normal)
@@ -856,7 +793,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
           self.view.bringSubview(toFront: noBuyBtn)
         noBuyBtn.anchor(top: nil, leading: purchaseAlert.leadingAnchor, bottom: purchaseAlert.bottomAnchor, trailing: nil, size: .init(width: 119 * iPadDif * dif, height: 462 * iPadDif * dif / 10))
 
-        //quitBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: alertBg.frame.maxY - 40 * dif * xDif, width: alertBg.frame.width / 2, height: height * 44 / 667)
         quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         quitBtn.setTitle(gameVC_leave, for: .normal)
         quitBtn.titleLabel?.numberOfLines = 2
@@ -864,16 +800,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         self.view.addSubview(quitBtn)
                 self.view.bringSubview(toFront: quitBtn)
-          // quitBtn.anchor(top: alertText.bottomAnchor, leading: cancelBtn.trailingAnchor, bottom: alertBg.bottomAnchor, trailing: nil)
+
         
         quitBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.centerXAnchor, bottom: alertBg.bottomAnchor, trailing: alertBg.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         
-        
-        //quitBtn.anchorSize(to: cancelBtn)
         //quitBtn.backgroundColor = .black
-        
-        
-        //goToBuyBtn.frame = CGRect(x: cancelBtn.frame.maxX, y: purchaseAlert.frame.maxY - 40 * dif * xDif, width: purchaseAlert.frame.width / 2, height: height * 44 / 667)
+
         goToBuyBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         
         goToBuyBtn.setTitleColor(orangeColor, for: .normal)
@@ -894,8 +826,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         }
         
         resultBg.image = UIImage(named:resultBgImg)
-        
-        
+
         coverBtn.isHidden = true
         coverBg.isHidden = true
         resultBg.isHidden = true
@@ -912,7 +843,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //sentenceBtn layout
-        //sen1Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: (height / 2 - 10) / iPadDif, width: 350 * btnDif2, height: 57 * btnDif2)
+
         sen1Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen1Btn.titleLabel?.numberOfLines = 2
         sen1Btn.titleEdgeInsets.left = 8
@@ -923,8 +854,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sen1Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         sen1Btn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -23 * iPadDif * dif / iPhoneXHeightDif / iPhoneXHeightDif).isActive = true
         
-        
-        //sen2Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen1Btn.frame.maxY + 20 * dif, width: 350 * btnDif2, height: 57 * btnDif2)
+
         sen2Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen2Btn.titleLabel?.numberOfLines = 2
         sen2Btn.titleEdgeInsets.left = 8
@@ -936,7 +866,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sen2Btn.topAnchor.constraint(equalTo: sen1Btn.bottomAnchor, constant: 12 * iPadDif * dif).isActive = true
         
     
-        //sen3Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen2Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
         sen3Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen3Btn.titleLabel?.numberOfLines = 2
         sen3Btn.titleEdgeInsets.left = 8
@@ -946,8 +875,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sen3Btn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         sen3Btn.topAnchor.constraint(equalTo: sen2Btn.bottomAnchor, constant: 12 * iPadDif * dif).isActive = true
         
-     
-        //sen4Btn.frame = CGRect(x:(width - 350 * btnDif2) / 2, y: sen3Btn.frame.maxY + 20 * dif , width: 350 * btnDif2, height: 57 * btnDif2)
+
         sen4Btn.titleLabel?.adjustsFontSizeToFitWidth = true
         sen4Btn.titleLabel?.numberOfLines = 2
         sen4Btn.titleEdgeInsets.left = 8
@@ -980,9 +908,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.addSubview(resultTitleImg)
         self.view.bringSubview(toFront: resultTitleImg)
         
-        
-        //resultBg.frame = CGRect(x: (width - 280 * dif) / 2, y: height / 8, width: 280 * dif, height: 488 * dif)
-        
         resultBg.translatesAutoresizingMaskIntoConstraints = false
         resultBg.widthAnchor.constraint(equalToConstant: 280 * dif * iPadDif).isActive = true
         resultBg.heightAnchor.constraint(equalToConstant: 488 * dif * iPadDif + resultBgExtraHigh).isActive = true
@@ -991,16 +916,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         resultBg.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (100 * iPadDif * dif / resultElementDif) * iPhoneXHeightDif * iPhoneXHeightDif2).isActive = true
 
         
-        //firstWordBtn.frame = CGRect(x: resultBg.frame.origin.x + ((resultBg.frame.width - (519 / 2 * dif)) / 2), y: resultBg.frame.midY - resultBg.frame.height / 20, width: 519 / 2 * dif, height: 57 * dif)
-        
         firstWordBtn.translatesAutoresizingMaskIntoConstraints = false
         firstWordBtn.widthAnchor.constraint(equalToConstant: 260 * dif * iPadDif).isActive = true
         firstWordBtn.heightAnchor.constraint(equalToConstant: 60 * dif * iPadDif).isActive = true
         firstWordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         firstWordBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: ((height / 2 - (15 * iPadDif * dif)) * resultElementDif)).isActive = true
-        
-        
-        //secondWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: firstWordBtn.frame.maxY +  15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
+       
         
         secondWordBtn.translatesAutoresizingMaskIntoConstraints = false
         secondWordBtn.widthAnchor.constraint(equalToConstant: 260 * dif * iPadDif).isActive = true
@@ -1008,19 +929,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondWordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
        secondWordBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: ((height / 2 + (50 * iPadDif * dif)) * resultElementDif)).isActive = true
         
-        
-        //thirdWordBtn.frame = CGRect(x: firstWordBtn.frame.origin.x, y: secondWordBtn.frame.maxY + 15 * dif, width: firstWordBtn.frame.width, height: firstWordBtn.frame.height)
+   
         thirdWordBtn.translatesAutoresizingMaskIntoConstraints = false
         thirdWordBtn.widthAnchor.constraint(equalToConstant: 260 * dif * iPadDif).isActive = true
         thirdWordBtn.heightAnchor.constraint(equalToConstant: 60 * dif * iPadDif).isActive = true
         thirdWordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         thirdWordBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: ((height / 2 + (115 * iPadDif * dif)) * resultElementDif)).isActive = true
         
-        //firstEngWord.backgroundColor = .red
-        //firstChiWord.backgroundColor = .orange
-        //firstEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: firstWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
-        
-        //firstEngWord.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: nil, padding: .init(top: height / 2, left: (width - 420) / 2 , bottom: 0, right: 0) , size: .init(width:180 * iPadDif * dif,height:40 * iPadDif * dif))
+  
         
         firstEngWord.translatesAutoresizingMaskIntoConstraints = false
         firstEngWord.widthAnchor.constraint(equalToConstant: 160 * dif * iPadDif).isActive = true
@@ -1032,9 +948,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
 
         
-        //firstChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: firstWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
-        
-        
         firstChiWord.translatesAutoresizingMaskIntoConstraints = false
         firstChiWord.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
         firstChiWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
@@ -1045,8 +958,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //secondEngWord.backgroundColor = .yellow
         //secondChiWord.backgroundColor = .green
-        //secondEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: secondWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
-        
+     
         
         secondEngWord.translatesAutoresizingMaskIntoConstraints = false
         secondEngWord.widthAnchor.constraint(equalToConstant: 160 * dif * iPadDif).isActive = true
@@ -1054,8 +966,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         secondEngWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40 * iPadDif * dif).isActive = true
         secondEngWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (60 * iPadDif * dif)) * resultElementDif).isActive = true
         
-        
-        //secondChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: secondWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
+     
         secondChiWord.translatesAutoresizingMaskIntoConstraints = false
         secondChiWord.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
         secondChiWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
@@ -1067,7 +978,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //thirdEngWord.backgroundColor = .blue
         //thirdEngWord.alpha = 0.3
         //thirdChiWord.backgroundColor = .purple
-        //thirdEngWord.frame = CGRect(x: firstWordBtn.frame.minX + 20 * dif, y: thirdWordBtn.frame.minY + 12 * dif, width: 208 * dif, height: 35 * dif)
+     
         
         thirdEngWord.translatesAutoresizingMaskIntoConstraints = false
         thirdEngWord.widthAnchor.constraint(equalToConstant: 160 * dif * iPadDif).isActive = true
@@ -1075,9 +986,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         thirdEngWord.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -40 * iPadDif * dif).isActive = true
         thirdEngWord.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (125 * iPadDif * dif)) * resultElementDif).isActive = true
         
-        
-        //thirdChiWord.frame = CGRect(x: firstWordBtn.frame.maxX - 89 * dif, y: thirdWordBtn.frame.minY + 16 * dif, width: 69 * dif, height: 28 * dif)
-        
+   
         thirdChiWord.translatesAutoresizingMaskIntoConstraints = false
         thirdChiWord.widthAnchor.constraint(equalToConstant: 80 * dif * iPadDif).isActive = true
         thirdChiWord.heightAnchor.constraint(equalToConstant: 40 * dif * iPadDif).isActive = true
@@ -1106,8 +1015,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         firstChiWord.textAlignment = .center
         secondChiWord.textAlignment = .center
         thirdChiWord.textAlignment = .center
-        
-        //bigOkBtn.frame = CGRect(x: resultBg.frame.minX + ((resultBg.frame.width - (210 * dif)) / 2), y: resultBg.frame.maxY - 40 * dif * iPadDif, width: 210 * dif, height: 29 * dif)
+    
         
         bigOkBtn.translatesAutoresizingMaskIntoConstraints = false
         bigOkBtn.widthAnchor.constraint(equalToConstant: 210 * dif * iPadDif).isActive = true
@@ -1131,15 +1039,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         view.addSubview(bonusScoreLabel)
         
-        /*
-        bonusScoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        bonusScoreLabel.widthAnchor.constraint(equalToConstant: 100 * dif * iPadDif).isActive = true
-        bonusScoreLabel.heightAnchor.constraint(equalToConstant: 39 * dif * iPadDif).isActive = true
-        bonusScoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bonusScoreLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: height / 2 - (190 * iPadDif * dif)).isActive = true
-        */
-  
-        //wordCountLabel.frame = CGRect(x: resultBg.frame.minX + 50 * dif, y: resultBg.frame.minY + 140 * dif, width: 157 * dif, height: 95 * dif)
         
         wordCountLabel.translatesAutoresizingMaskIntoConstraints = false
         wordCountLabel.widthAnchor.constraint(equalToConstant: 170 * dif * iPadDif).isActive = true
@@ -1156,7 +1055,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //0911
         
-        //sentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: height / 10, width: width - 50 * dif, height: height / 4.6 * dif * senLabelHeightDif)
         sentenceLabel.font = sentenceLabel.font.withSize(engSentenceFontSize)
         sentenceLabel.adjustsFontSizeToFitWidth = true
         sentenceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -1166,9 +1064,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         sentenceLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 50 * iPadDif * dif).isActive = true
         
         //sentenceLabel.backgroundColor = .red
-
-        
-        //chiSentenceLabel.frame = CGRect(x: (width - (width - 50 * dif)) / 2, y: sentenceLabel.frame.maxY + 10 * dif, width: sentenceLabel.frame.width, height: height / 10 * dif)
 
         chiSentenceLabel.numberOfLines = 2
         chiSentenceLabel.font = chiSentenceLabel.font.withSize(chiSentenceFontSize)
@@ -1183,8 +1078,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //chiSentenceLabel.backgroundColor = .green
-  
-        //circleOkBtn.frame = recordBtn.frame
+
         
         circleOkBtn.translatesAutoresizingMaskIntoConstraints = false
         
@@ -1204,16 +1098,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         coverBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         recogTextLabel.frame = CGRect(x: 0, y: height * 2 / 5, width: width, height: height / 5.5)
-        
-        
-        
-        //recogTextLabel.text = "test every word recorded"
+    
         
         //recogTextLabel.backgroundColor = .yellow
        
         //recogTextLabel.alpha = 0.3
-        
-        //word1Label.frame = CGRect(x: firstWordBtn.frame.width / 3, y: 0, width: firstWordBtn.frame.width / 3, height: firstWordBtn.frame.height)
+
         word1Label.textColor = .white
         word1Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         word1Label.text = gameVC_addToFav
@@ -1227,12 +1117,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         word1Label.heightAnchor.constraint(equalToConstant: 60 * iPadDif * dif).isActive = true
         word1Label.centerXAnchor.constraint(equalTo: firstWordBtn.centerXAnchor).isActive = true
         word1Label.centerYAnchor.constraint(equalTo:firstWordBtn.centerYAnchor).isActive = true
-        
-        
-        
-        
-        
-        //word2Label.frame = CGRect(x: secondWordBtn.frame.width / 3, y: 0, width: secondWordBtn.frame.width / 3, height: secondWordBtn.frame.height)
+
         word2Label.textColor = .white
         word2Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         word2Label.text = gameVC_addToFav
@@ -1247,9 +1132,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         word2Label.centerYAnchor.constraint(equalTo:secondWordBtn.centerYAnchor).isActive = true
         
         
-        
-        
-        //word3Label.frame = CGRect(x: thirdWordBtn.frame.width / 3, y: 0, width: thirdWordBtn.frame.width / 3, height: thirdWordBtn.frame.height)
+
         word3Label.textColor = .white
         word3Label.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
         word3Label.text = gameVC_addToFav
@@ -1266,7 +1149,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //載入我的最愛單字
         
-        if let myWordsString = user?["myWords"] as! String?{
+        if let myWordsString = user?[kMyWords] as! String?{
             myWords = myWordsString.components(separatedBy: ";")
             
         }
@@ -1286,9 +1169,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         tagView.marginY = tagMarginY
 
-        //tagView.frame = CGRect(x: width / 20, y: height * 3 / 5, width: width - width / 10, height: height * 2 / 5)
-        
-        
+
         tagView.anchor(top: recogTextLabel.bottomAnchor, leading: view.safeLeftAnchor, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: 30 * dif * iPadDif, left: 10 * dif * iPadDif, bottom: -30 * dif * iPadDif, right: -10 * dif * iPadDif))
         
         //tagView.backgroundColor = .red
@@ -1299,7 +1180,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //設定發音鍵
-        //playSoundBtn.frame = CGRect(x: width - 72 * dif, y: height - 25 * dif * 1.5 + btnDif + iPadSmall, width: 69 * dif * playBtnY / iPadDif, height: 32 * dif * playBtnY / iPadDif)
         
         playSoundBtn.anchor(top: nil, leading: nil, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -5 * iPadDif * dif, right: -5 * iPadDif * dif), size: .init(width: 60 * iPadDif * dif, height: 27 * iPadDif * dif))
         var playSoundBtnImg = UIImage()
@@ -1310,7 +1190,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             playSoundBtnImg = UIImage(named: "pronounceBtn4.png")!
         }
-        //playSoundBtn.setImage(playSoundBtnImg, for: .normal)
 
         playSoundBtn.setBackgroundImage(playSoundBtnImg, for: .normal)
         
@@ -1324,7 +1203,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         clearTagBtn.setBackgroundImage(UIImage(named:"clearTagBtn.png"
             ), for: .normal)
 
-        //skipPronounceBtn.frame = CGRect(x: playSoundBtn.frame.minX, y: recogTextLabel.frame.maxY + 20, width: 82 * skipBtnDif, height: 29 * skipBtnDif)
         
         skipPronounceBtn.anchor(top: recogTextLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 30 * iPadDif * dif, left: 0, bottom: 0, right: -5 * iPadDif * dif), size: .init(width: 82 * iPadDif * dif, height: 29 * iPadDif * dif))
         
@@ -1674,7 +1552,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             if !isReplay{
             
             limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
-            }
+            } 
             //修正成要加increaseNum, lessonVc傳過來之前有扣除increaseNum
        
            let sentenceName = "s" + String(mapNumber + increaseNum + 1) + "-" + String(spotNumber + 1)
@@ -1700,7 +1578,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         } else if gameMode == 2{
             
             //隨機單字
-            
             //在此抓測驗單字的亂數順序
             //MARK: simVer K12 特別辨識是否已學完
             
@@ -1709,20 +1586,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //K12
                 
                 if mapPassedInt == 1 {
-                
                     //K12當關卡全破
-         
                     tempGamePassedDic = [maxSpot - 1:9]
                 
                 } else {
-                    
                     //未全破的話
                     tempGamePassedDic = gamePassedDic
                     
                 }
                 
             } else if mapNumber < mapPassedInt{
-                
                 //非K12
 
                 if lan == "zh-Hans"{
@@ -1745,7 +1618,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 //相等的話
                 tempGamePassedDic = gamePassedDic
-                
             }
   
             for (s,u) in tempGamePassedDic!{
@@ -1762,11 +1634,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     for i in 0 ..< (s) {
                         
                         for n in 0 ..< 30{
-                            
                             allUnitSpotNums[i].append(n)
-                            
                         }
-                        
                     }
                     
                     //填入殘值
@@ -1776,16 +1645,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                         for i in 0 ..< u * 3 {
                             
                             allUnitSpotNums[allUnitSpotNums.count - 1].append(i)
-                        
                         }
                    
                     } else {
-
                         //若u為0, 就移除掉一整排空值
                         allUnitSpotNums.remove(at: allUnitSpotNums.count - 1)
-                        
                     }
-                    
                     
                 } else {
                     
@@ -1810,13 +1675,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                             
                         }
                     }
-                    
-                    
                 }
-                
-                
             }
-            
 
             //Part 2. 讀取所有句子
             
@@ -1825,8 +1685,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 //讀取已完整的所有字集
                 
                 for i in 0 ..< (s + 1){
-                    
-                    
                     var wordFile:String?
                     //前面的1代表第一張地圖
                     
@@ -1983,15 +1841,12 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         self.view.bringSubview(toFront: hintLabel)
         hintLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        //hintLabel.frame = CGRect(x: (width - 200) / 2, y: recordBtn.frame.minY - 40 + iPadSmall, width: 200, height: 30)
-        
-        //hintLabel.frame.size = CGSize(width: 200, height: 30)
+
         
         //hintLabel.backgroundColor = .blue
         hintLabel.widthAnchor.constraint(equalToConstant: 250 * iPadDif * dif).isActive = true
         hintLabel.heightAnchor.constraint(equalToConstant: 50 * iPadDif * dif).isActive = true
         hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        //hintLabel.topAnchor.constraint(equalTo: recogTextLabel.bottomAnchor, constant: 30 / dif * iPadDif * iPhoneXHeightDif * iPhoneXHeightDif).isActive = true
         
         hintLabel.topAnchor.constraint(equalTo: recordBtn.topAnchor, constant: -50 / dif * iPadDif / iPhonePlusHeightDif).isActive = true
         
@@ -2002,8 +1857,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         hintLabel.textAlignment = .center
         
         recordBtn.translatesAutoresizingMaskIntoConstraints = false
-        //recordBtn.frame = CGRect(x: (width - 128 * dif) / 2, y: height - 180 * dif, width: 128 * dif, height: 128 * dif)
-        
         
         recordBtn.widthAnchor.constraint(equalToConstant: 128 * iPadDif * dif).isActive = true
         recordBtn.heightAnchor.constraint(equalToConstant: 128 * iPadDif * dif).isActive = true
@@ -2011,7 +1864,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recordBtn.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 160 * dif * iPadDif * iPhoneXHeightDif).isActive = true
 
         //做錄音動畫
-        //let frame = CGRect(x: recordBtn.frame.origin.x - 8 * dif, y: recordBtn.frame.origin.y - 8 * dif, width:145 * dif, height: 145 * dif)
         let frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
    
@@ -2023,8 +1875,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recordingIndicator?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         recordingIndicator?.centerYAnchor.constraint(equalTo: recordBtn.centerYAnchor).isActive = true
 
-        
-        
         //wave畫面設定
         audioView.isHidden = true
         audioView.backgroundColor = .clear
@@ -2035,7 +1885,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         audioView.alpha = 0.7
         audioView.waveColor = recordingPinkColor
         audioView.translatesAutoresizingMaskIntoConstraints = false
-        //audioView.frame = CGRect(x: 0, y: height - 158 * dif, width: width, height: height / 6.5)
         
         audioView.widthAnchor.constraint(equalToConstant: width).isActive = true
         audioView.heightAnchor.constraint(equalToConstant: height / 6.5).isActive = true
@@ -2062,7 +1911,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
    
     
     deinit {
-        
         print("new game deinit")
     }
     
@@ -2074,8 +1922,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
 
     @objc func removePlaySoundBtn(){
-        
-        //print("remove pronounceBtn")
+
         playSoundBtn.isHidden = true
         
     }
@@ -2136,7 +1983,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
     @objc func reviewOkBtnClicked(){
 
-        print("button clicked")
         //這裏按下去要能夠儲存
 
         self.dismiss(animated: true, completion: nil)
@@ -2144,15 +1990,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //接收nc
     @objc func pauseGame(){
-        
-        
-        //1.0.7 把這兩條放到前面
+
         
         limitTimer.invalidate()
-        
         UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
-        
-        
+
         
         alertText.text = gameVC_alertLeave
         quitBtn.setTitle(gameVC_leave, for: .normal)
@@ -2175,11 +2017,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     func timerPause(){
         
-        
-        //1.0.7 把這兩條放到前面
-        
+
         limitTimer.invalidate()
-        
         UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         
         
@@ -2187,7 +2026,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         goToBuyBtn.setTitle(gameVC_toShop, for: .normal)
         noBuyBtn.setTitle(gameVC_noBuyNow, for: .normal)
         ghostBtn.isHidden = false
-        //alertBg.isHidden = false
         purchaseAlert.isHidden = false
         goToBuyBtn.isHidden = false
         noBuyBtn.isHidden = false
@@ -2198,25 +2036,16 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         noBuyBtn.layer.zPosition = 10
         leftBtnClickedImg.layer.zPosition = 10
         rightBtnClickedImg.layer.zPosition = 10
-        
-        
-        
+
         goToBuyBtn.addTarget(self, action: #selector(NewGameViewController.toPurchaseVc), for: .touchUpInside)
         
         noBuyBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
-        
-        
-        
     }
     
     
     @objc func toPurchaseVc(){
         
-        
         performSegue(withIdentifier: "fromGameToPurchase", sender: self)
-        
-        
-        
     }
     
 
@@ -2261,13 +2090,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         //暫時測試使用 let 改成 var
-        var isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
         
-        isPurchased = true
-        
-        
-        if gameMode == 0 {
-            
+        //isPurchased = true
+
+
+        //isnlocked就不計時
+        if !isUnlocked && gameMode == 0 {
             
             //沒有買的話
             if isPurchased == false && !isReplay{
@@ -2284,15 +2113,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-    //顯示tagView
-//    @objc func showTag(){
-//
-//        //避免再次產生hint
-//        isCheckingSentence = false
-//
-//        tagView.isHidden = false
-//        recogTextLabel.text = ""
-//    }
+
     
     @objc func notifyReadyToReadSentence(){
         
@@ -2307,8 +2128,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             recordBtn.isHidden = false
         }
-        //playSoundBtn.isEnabled = true
-        
+
         //打開輸入字的label
         recogTextLabel.isHidden = false
         
@@ -2332,12 +2152,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillAppear(_ animated: Bool) {
         
-
-  
         NotificationCenter.default.removeObserver(self)
-        
- 
-        
+
         //離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.leaveGame), name: NSNotification.Name("leaveGame"), object: nil)
         
@@ -2407,16 +2223,18 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifyPlayEndMusic), name: NSNotification.Name("playEndingMusic"), object: nil)
 
         
+        //send unlock status
+           NotificationCenter.default.addObserver(self, selector: #selector(NewGameViewController.notifySendUnlockStatus), name: NSNotification.Name(sendUnlockStatus), object: nil)
         
  
         
         //先確認有沒有購買
         
         //暫時測試使用let 改成var
-        var isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
+        let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
         
         //test
-        isPurchased = true
+        //isPurchased = true
         
         if isPurchased{
             
@@ -2428,7 +2246,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             removeBtns()
             
         } else {
-            /*
+            
             print("還沒買所以要計時")
             
             if gameMode == 0 {
@@ -2458,23 +2276,24 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 } else{
                     
                     //本日時間已到
+                    if !isReplay{
                     
                     limitTimerLabel.text = "0:00"
                     
                     timerPause()
-                    
+                    }
                 }
                 
             }
-            */
+            
             
         }
         
-        if isReplay && gameMode == 0{
+      if isReplay && gameMode == 0{
             limitTimerLabel.textColor = pinkColor
-            limitTimerLabel.text = "[複習]"
+            limitTimerLabel.text = gameVC_isReplayTitle
+    
         }
-        
     }
     
     
@@ -2501,19 +2320,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //製作句子
             makeSentence()
-            
         } else if gameMode == 2 {
-                
-                makeSentence()
-                
+            makeSentence()
         }
         
     }
     
     
     @objc func notifyPracticeNextWord(){
-        
-        
+
         //移除tagView
         attrTagsSelected.removeAll(keepingCapacity: false)
         tagView.isHidden = true
@@ -2555,11 +2370,15 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     }
     
     
+    @objc func notifySendUnlockStatus(){
+        print("sending isunlock status")
+    }
+    
+    
     //result畫面
     @objc func leaveGame(_ notification: NSNotification){
         
         if gameMode == 0 {
-            
             limitTimer.invalidate()
             UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
         }
@@ -2580,10 +2399,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         firstWordBtn.isEnabled = true
         secondWordBtn.isEnabled = true
         thirdWordBtn.isEnabled = true
-        
- 
-        //接收單字數字準備做句子
-        
+
         var wrongWordsCount = 0
         
         if let engWords = notification.userInfo?["engWords"] as? [String]{
@@ -2603,21 +2419,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                         if wrongChinese[i] == "1" {
                                             
                                             wrongChineseCounts += 1
-                                            
                                         }
-                                        
                                     }
                                     
                                     for i in 0 ..< results.count{
                                         
                                         if results[i] == "1"{
-                                            
                                             wordBtns[i].setImage(UIImage(named:"wrongWordBtn.png"), for: .normal)
                                             
                                             wrongWordsCount += 1
                                             
                                         } else {
-                                            
                                             wordBtns[i].setImage(UIImage(named:"rightWordBtn.png"), for: .normal)
                                             
                                         }
@@ -2628,12 +2440,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                     secondEngWordText = engWords[1]
                                     thirdEngWordText = engWords[2]
                                     
-                                    
                                     //做分數動畫+ 單字動畫
                                     
-                                    if let originalScore = user?["score"] as? String{
+                                    if let originalScore = user?["score"] as? Int{
                                         
-                                        originalPoints = Int(originalScore)!
+                                        originalPoints = Int(originalScore)
                                         
                                         scoreLabel.text = String(originalPoints)
                                         
@@ -2703,9 +2514,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                         
                                         
                                         if user != nil {  // 要保留給第一次進入的玩家
-                                            
-                                            
-                                            
+   
                                             //紀錄關卡
                                             if unitNumber == 9{         //代表過一整個課程
                                                 
@@ -2769,10 +2578,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed")
                                                         
-                                                        //有更新地圖才執行
-                                                        
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
+
                                                         
                                                     case 1:
                                                         mapPassed2! += 1
@@ -2789,10 +2595,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                                                         UserDefaults.standard.set(mapPassed2!, forKey: "mapPassed2")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed2")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
+
                                                         
                                                     case 2:
                                                         mapPassed3! += 1
@@ -2809,10 +2612,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                                                         UserDefaults.standard.set(mapPassed3!, forKey: "mapPassed3")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
+
                                                         
                                                     case 3:
                                                         mapPassed4! += 1
@@ -2828,11 +2628,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                                                         UserDefaults.standard.set(mapPassed4!, forKey: "mapPassed4")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
-                                                        
+          
                                                         
                                                     case 4:
                                                         mapPassed5! += 1
@@ -2849,9 +2645,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         UserDefaults.standard.set(mapPassed5!, forKey: "mapPassed5")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed5")
                                                         
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
                                                     case 5:
                                                         
                                                         //MARK: simVer K12特別作法
@@ -2875,10 +2668,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed[mapNumber])
                                                         UserDefaults.standard.set(k12MapPassed[mapNumber], forKey: "mapPassed6")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed6")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
+
                                                     case 6:
                                                         mapPassed7! += 1
                                                         gamePassed7 = [0:0]
@@ -2894,9 +2684,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         UserDefaults.standard.set(mapPassed7!, forKey: "mapPassed7")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed7")
                                                         
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
+
                                                     case 7:
                                                         mapPassed8! += 1
                                                         gamePassed8 = [0:0]
@@ -2912,9 +2700,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         UserDefaults.standard.set(mapPassed8!, forKey: "mapPassed8")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed8")
                                                         
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
+
                                                     case 8:
                                                         mapPassed9! += 1
                                                         gamePassed9 = [0:0]
@@ -2929,11 +2715,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                                                         UserDefaults.standard.set(mapPassed9!, forKey: "mapPassed9")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed9")
-                                                        
-                                                        //pending做一個純粹更新中級的sql
-                                                        updateMapPassed(course:courseReceived)
-                                                        updateGamePassed(course:courseReceived)
-                                                        
                                                         
                                                         
                                                     default:
@@ -2957,7 +2738,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed")
                                                         
-                                                        updateGamePassed(course:courseReceived)
                                                         
                                                     case 1:
                                                         
@@ -2970,9 +2750,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed2")
-                                                        
-                                                        updateGamePassed(course:courseReceived)
-                                                        
+      
                                                     case 2:
                                                         
                                                         gamePassed3 = [spotNumber + 1:0]
@@ -2984,8 +2762,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                        
-                                                        updateGamePassed(course:courseReceived)
                                                         
                                                     case 3:
                                                         
@@ -2999,8 +2775,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed4")
                                                         
-                                                        updateGamePassed(course:courseReceived)
-                                                        
                                                     case 4:
                                                         
                                                         gamePassed5 = [spotNumber + 1:0]
@@ -3012,8 +2786,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed5")
-                                                        
-                                                        updateGamePassed(course:courseReceived)
                                                         
                                                     case 5:
                                                         
@@ -3030,8 +2802,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed[mapNumber])
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed6")
-                                                        
-                                                        updateGamePassed(course:courseReceived)
+
                                                     case 6:
                                                         
                                                         gamePassed7 = [spotNumber + 1:0]
@@ -3043,8 +2814,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed7")
-                                                        
-                                                        updateGamePassed(course:courseReceived)
+
                                                     case 7:
                                                         
                                                         gamePassed8 = [spotNumber + 1:0]
@@ -3056,8 +2826,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed8")
-                                                        
-                                                        updateGamePassed(course:courseReceived)
+
                                                     case 8:
                                                         
                                                         gamePassed9 = [spotNumber + 1:0]
@@ -3069,10 +2838,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed9")
-                                                        
-                                                        updateGamePassed(course:courseReceived)
-                                                        
-                                                        
+             
                                                     default:
                                                         break
                                                         
@@ -3097,9 +2863,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     userDefaults.set(encodedObject, forKey: "gamePassed")
                                                     
                                                     
-                                                    updateGamePassed(course:courseReceived)
-                                                    
-                                                    
                                                 case 1:
                                                     
                                                     gamePassed2 = [spotNumber: unitNumber + 1]
@@ -3111,8 +2874,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed2")
                                                     
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
                                                     
                                                 case 2:
                                                     
@@ -3124,9 +2885,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed3")
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
-                                                    
+
                                                     
                                                 case 3:
                                                     
@@ -3138,9 +2897,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed4")
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
-                                                    
+      
                                                 case 4:
                                                     
                                                     gamePassed5 = [spotNumber: unitNumber + 1]
@@ -3151,8 +2908,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed5")
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
+
                                                 case 5:
 
                                                     k12GamePassed[mapNumber] = [spotNumber: unitNumber + 1]
@@ -3165,9 +2921,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed[mapNumber])
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed6")
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
-                                                    
+       
                                                 case 6:
                                                     
                                                     gamePassed7 = [spotNumber: unitNumber + 1]
@@ -3178,9 +2932,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed7")
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
-                                                    
+       
                                                 case 7:
                                                     
                                                     gamePassed8 = [spotNumber: unitNumber + 1]
@@ -3191,8 +2943,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed8")
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
+
                                                 case 8:
                                                     
                                                     gamePassed9 = [spotNumber: unitNumber + 1]
@@ -3203,8 +2954,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed9")
-                                                    //pending update to sql
-                                                    updateGamePassed(course:courseReceived)
                                                     
                                                 default:
                                                     break
@@ -3268,8 +3017,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     //加完分後直接上傳
                     bigOkBtn.isEnabled = true
-                    
-                    
+
                 }
                 
             }
@@ -3283,8 +3031,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         var unitMaxWordCount = Int()
         
         var wordsCounts = Int()
-        
-        
         
         //MARK: simVer 這裡的450要做成動態化, 單位最大值要拉出來做, 並且加入K12特別作法
         //print(maxSpot)
@@ -3342,13 +3088,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @IBAction func firstWordClicked(_ sender: Any) {
         
         if user != nil {
-            
-            if isParseEnabled{
-                isParseEnabled = false
+ 
                 addWord(word: firstEngWordText)
                 moveUpAndGone(label: word1Label)
-                
-            }
         } else {
             
             moveUpAndGone(label: word1Label)
@@ -3359,12 +3101,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         if user != nil {
             
-            if isParseEnabled{
-                isParseEnabled = false
+
                 addWord(word: secondEngWordText)
                 moveUpAndGone(label: word2Label)
-                
-            }
         } else {
             
             moveUpAndGone(label: word2Label)
@@ -3375,26 +3114,33 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         if user != nil {
-            if isParseEnabled{
-                isParseEnabled = false
+      
                 addWord(word: thirdEngWordText)
                 moveUpAndGone(label: word3Label)
-                
-            }
+ 
         } else {
             
             moveUpAndGone(label: word3Label)
         }
     }
     
-    
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        
+        let status:[String:Bool] = ["isUnlocked":isUnlocked]
+        
+        NotificationCenter.default.post(name: NSNotification.Name(sendUnlockStatus), object: nil, userInfo: status)
+        
+        
+    }
+
     
     override func viewDidDisappear(_ animated: Bool) {
         
         NotificationCenter.default.removeObserver(self)
         timer?.invalidate()
         waitTimer.invalidate()
+
     }
     
     
@@ -3808,8 +3554,70 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             let updatePoints = Int(scoreLabel.text!)! - originalPoints
             
+            //單機版更新法
             
-            updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
+            if let score = user?[kScore] as! Int?{
+                if score == 200 {
+                    print("第一次玩")
+                    
+                    let copyUser = user?.mutableCopy() as! NSMutableDictionary
+                    
+                    copyUser.setValue(updatePoints, forKey: kScore)
+                    copyUser.setValue(wrongChineseCounts, forKey: kWrongChinese)
+                    copyUser.setValue(proRate, forKey: kProRate)
+                    copyUser.setValue(senRate, forKey: kSenRate)
+//                    copyUser[kScore] = updatePoints
+//                    copyUser[kWrongChinese] = wrongChineseCounts
+//                    copyUser[kProRate] = proRate
+//                    copyUser[kSenRate] = senRate
+                    
+                    user = copyUser
+                    userDefaults.set(user, forKey: "parseJSON")
+                    
+                } else {
+                    
+                    let oldScore = user?.object(forKey: kScore) as! Int
+                    let newScore = oldScore + updatePoints
+                    
+                    let oldWrongChinese = user?.object(forKey: kWrongChinese) as! Int
+                    let newWrongChinese = oldWrongChinese + wrongChineseCounts
+                    
+                    let oldProRate = user?.object(forKey: kProRate) as! Int
+                    let newProRate = (oldProRate + proRate) / 2
+                    
+                    let oldSenRate = user?.object(forKey: kSenRate) as! Int
+                    let newSenRate = (oldSenRate + senRate) / 2
+               
+                    
+                    let copyUser = user?.mutableCopy() as! NSMutableDictionary
+                    
+                    copyUser.setValue(newScore, forKey: kScore)
+                    copyUser.setValue(newWrongChinese, forKey: kWrongChinese)
+                    copyUser.setValue(newProRate, forKey: kProRate)
+                    copyUser.setValue(newSenRate, forKey: kSenRate)
+                    
+                    
+//                    copyUser[kScore] = newScore
+//                    copyUser[kWrongChinese] = newWrongChinese
+//                    copyUser[kProRate] = newProRate
+//                    copyUser[kSenRate] = newSenRate
+                    
+                    
+                    user = copyUser
+                    userDefaults.set(user, forKey: "parseJSON")
+                    
+//                    user?.setValue(newScore as Int, forKey: kScore)
+//                    user?.setValue(newWrongChinese as Int, forKey: kWrongChinese)
+//                    user?.setValue(newProRate as Int, forKey: kProRate)
+//                    user?.setValue(newSenRate as Int, forKey: kSenRate)
+
+                    print("非第一次玩")
+                    
+                }
+                
+            }
+            
+//            updateScore(score:updatePoints, wrongWordsCount:wrongChineseCounts, proRate:proRate, senRate:senRate)
             
             
             if isCelebratingClassPassed {
@@ -3832,16 +3640,17 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             }
             
-        } else {
-            //第一次嘗試玩
-            
-            //print("first time play")
-            
-            //註冊畫面
-            
-            performSegue(withIdentifier: "toRegisterVc", sender: self)
-            
-        }
+            }
+//             else {
+//            //第一次嘗試玩
+//
+//            //print("first time play")
+//
+//            //註冊畫面
+//
+//            performSegue(withIdentifier: "toRegisterVc", sender: self)
+//
+//        }
         
         
         
@@ -3855,24 +3664,25 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         
+//
+//        if segue.identifier == "toRegisterVc" {
+//
+//            let registerVc = segue.destination as! RegisterViewController
+//
+//            //MARK: simVer K12 必須多傳送mapNumber去紀錄玩第幾關
+//            registerVc.k12MapNumber = mapNumber
+//
+//            registerVc.coursePlayed = courseReceived
+//            registerVc.wrongWordsToAdd = wrongWordsToSend
+//            registerVc.scoresToAdd = scoresToSend
+//            registerVc.proRateToAdd = proRate
+//            registerVc.senRateToAdd = senRate
+//            registerVc.wrongChineseCount = wrongChineseCounts
+//
+//
+//        } else
+        if segue.identifier == "fromGameToPurchase"{
         
-        if segue.identifier == "toRegisterVc" {
-            
-            let registerVc = segue.destination as! RegisterViewController
-            
-            //MARK: simVer K12 必須多傳送mapNumber去紀錄玩第幾關
-            registerVc.k12MapNumber = mapNumber
-            
-            registerVc.coursePlayed = courseReceived
-            registerVc.wrongWordsToAdd = wrongWordsToSend
-            registerVc.scoresToAdd = scoresToSend
-            registerVc.proRateToAdd = proRate
-            registerVc.senRateToAdd = senRate
-            registerVc.wrongChineseCount = wrongChineseCounts
-            
-            
-        } else if segue.identifier == "fromGameToPurchase"{
-            
             
             let purchaseVc = segue.destination as! PurchaseViewController
             
@@ -5012,230 +4822,255 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     //MARK: simVer 增加值
     func updateReviewWordCount(wordCount:Int, course:Int){
         
-        let id = user?["id"] as! String
+        var wordReviewGroup = [kWordReviewCount, kWordReviewCount2, kWordReviewCount3, kWordReviewCount4, kWordReviewCount5, kWordReviewCount6, kWordReviewCount7, kWordReviewCount8, kWordReviewCount9]
         
-        // url to access our php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateWordReviewCount.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
+        let copyUser = user?.mutableCopy() as! NSMutableDictionary
+        
+        let wordReviewCount = user?.object(forKey: wordReviewGroup[course]) as! Int
+        
+        if wordCount > wordReviewCount {
+            //replace new counts
+            copyUser.setValue(wordCount, forKey: wordReviewGroup[course])
+            user = copyUser
+            userDefaults.set(user, forKey: "parseJSON")
         }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
         
-        // request url
-        var request = URLRequest(url: url)
+        //計算所有的count
         
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "POST"
+        var totalCount = Int()
+        for i in 0 ..< wordReviewGroup.count {
+            let count = user?.object(forKey: wordReviewGroup[i]) as! Int
+            totalCount += count
+        }
         
-        // body gonna be appended to url
-        let body = "userID=\(id)&wordCount=\(wordCount)&course=\(course)"
+        reviewResult(type: 1, count: totalCount)
         
-        // append body to our request that gonna be sent
-        request.httpBody = body.data(using: .utf8)
         
-        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-            // no error
-            if error == nil {
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        return
-                    }
-                    
-                    //print("rank")
-                    //再次儲存使用者資訊
-                    
-                    //print(parseJSON)
-                    
-                    var tempCount = Int()
-                    var tempJsonName = String()
-                    var otherCountName = String()
-                    var otherCountName2 = String()
-                    var otherCountName3 = String()
-                    var otherCountName4 = String()
-                    
-                    var otherCountName5 = String()
-                    var otherCountName6 = String()
-                    var otherCountName7 = String()
-                    var otherCountName8 = String()
-                    
-                    
-                    var totalCount = Int()
-                    
-                    switch course{
-                        
-                    case 0:
-                        tempJsonName = "wordReviewCount"
-                        otherCountName = "wordReviewCount2"
-                        otherCountName2 = "wordReviewCount3"
-                        otherCountName3 = "wordReviewCount4"
-                        otherCountName4 = "wordReviewCount5"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount9"
-                        
-                    case 1:
-                        tempJsonName = "wordReviewCount2"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount3"
-                        otherCountName3 = "wordReviewCount4"
-                        otherCountName4 = "wordReviewCount5"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount9"
-                        
-                        
-                    case 2:
-                        tempJsonName = "wordReviewCount3"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount2"
-                        otherCountName3 = "wordReviewCount4"
-                        otherCountName4 = "wordReviewCount5"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount9"
-                        
-                    case 3:
-                        tempJsonName = "wordReviewCount4"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount2"
-                        otherCountName3 = "wordReviewCount3"
-                        otherCountName4 = "wordReviewCount5"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount9"
-                        
-                    case 4:
-                        tempJsonName = "wordReviewCount5"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount2"
-                        otherCountName3 = "wordReviewCount3"
-                        otherCountName4 = "wordReviewCount4"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount9"
-                        
-                    case 5:
-                        tempJsonName = "wordReviewCount6"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount2"
-                        otherCountName3 = "wordReviewCount3"
-                        otherCountName4 = "wordReviewCount4"
-                        otherCountName5 = "wordReviewCount5"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount9"
-                    case 6:
-                        tempJsonName = "wordReviewCount7"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount2"
-                        otherCountName3 = "wordReviewCount3"
-                        otherCountName4 = "wordReviewCount4"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount5"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount9"
-                    case 7:
-                        tempJsonName = "wordReviewCount8"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount2"
-                        otherCountName3 = "wordReviewCount3"
-                        otherCountName4 = "wordReviewCount4"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount5"
-                        otherCountName8 = "wordReviewCount9"
-                    case 8:
-                        tempJsonName = "wordReviewCount9"
-                        otherCountName = "wordReviewCount"
-                        otherCountName2 = "wordReviewCount2"
-                        otherCountName3 = "wordReviewCount3"
-                        otherCountName4 = "wordReviewCount4"
-                        otherCountName5 = "wordReviewCount6"
-                        otherCountName6 = "wordReviewCount7"
-                        otherCountName7 = "wordReviewCount8"
-                        otherCountName8 = "wordReviewCount5"
-                        
-                        
-                        
-                    default:
-                        break
-
-                    }
-                    
-                    //如果有抓到該更新數字
-                    if let resultCount = parseJSON[tempJsonName] as? String{
-                        
-                        //只有正確更新時會回傳user資訊
-                        user = parseJSON
-                        //有更新的狀態
-                     
-                        tempCount = Int(resultCount)!
-                        let otherCount = user?[otherCountName] as! String
-                        let otherCount2 = user?[otherCountName2] as! String
-                        let otherCount3 = user?[otherCountName3] as! String
-                        let otherCount4 = user?[otherCountName4] as! String
-                        let otherCount5 = user?[otherCountName5] as! String
-                        let otherCount6 = user?[otherCountName6] as! String
-                        let otherCount7 = user?[otherCountName7] as! String
-                        let otherCount8 = user?[otherCountName8] as! String
-                        
-                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
-
-                        
-                    } else {
-                        
-                        //無更新的狀態
-                        //這裡的user檔案必須要有所有的gamePassed & mapPassed才不會user?[]抓不到導致crash
-                        
-                        
-                        let count = user?["wordReviewCount"] as! String
-                        let otherCount = user?["wordReviewCount2"] as! String
-                        let otherCount2 = user?["wordReviewCount3"] as! String
-                        let otherCount3 = user?["wordReviewCount4"] as! String
-                        let otherCount4 = user?["wordReviewCount5"] as! String
-                        let otherCount5 = user?["wordReviewCount6"] as! String
-                        let otherCount6 = user?["wordReviewCount7"] as! String
-                        let otherCount7 = user?["wordReviewCount8"] as! String
-                        let otherCount8 = user?["wordReviewCount9"] as! String
-                        
-                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
-                        
-                    }
-                    
-                    
-                    DispatchQueue.main.async(execute: {
-                        self!.reviewResult(type:0, count:totalCount)
-                        
-                        
-                    })
-                    
-                    
-
-                } catch{
-                    
-                    print("catch error")
-                    
-                }
-            } else {
-                
-                print("urlsession has error")
-                
-            }
-        }).resume()
         
+//        let id = user?["id"] as! String
+//
+//        // url to access our php file
+//        var url:URL
+//        if lan == "zh-Hans" {
+//            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateWordReviewCount.php")!
+//        } else {
+//            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
+//        }
+//        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateWordReviewCount.php")!
+//
+//        // request url
+//        var request = URLRequest(url: url)
+//
+//        // method to pass data POST - cause it is secured
+//        request.httpMethod = "POST"
+//
+//        // body gonna be appended to url
+//        let body = "userID=\(id)&wordCount=\(wordCount)&course=\(course)"
+//
+//        // append body to our request that gonna be sent
+//        request.httpBody = body.data(using: .utf8)
+//
+//        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+//            // no error
+//            if error == nil {
+//
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NMutableSDictionary
+//
+//                    guard let parseJSON = json else {
+//                        print("Error while parsing")
+//
+//                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//                        return
+//                    }
+//
+//                    //print("rank")
+//                    //再次儲存使用者資訊
+//
+//                    //print(parseJSON)
+//
+//                    var tempCount = Int()
+//                    var tempJsonName = String()
+//                    var otherCountName = String()
+//                    var otherCountName2 = String()
+//                    var otherCountName3 = String()
+//                    var otherCountName4 = String()
+//
+//                    var otherCountName5 = String()
+//                    var otherCountName6 = String()
+//                    var otherCountName7 = String()
+//                    var otherCountName8 = String()
+//
+//
+//                    var totalCount = Int()
+//
+//                    switch course{
+//
+//                    case 0:
+//                        tempJsonName = "wordReviewCount"
+//                        otherCountName = "wordReviewCount2"
+//                        otherCountName2 = "wordReviewCount3"
+//                        otherCountName3 = "wordReviewCount4"
+//                        otherCountName4 = "wordReviewCount5"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount9"
+//
+//                    case 1:
+//                        tempJsonName = "wordReviewCount2"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount3"
+//                        otherCountName3 = "wordReviewCount4"
+//                        otherCountName4 = "wordReviewCount5"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount9"
+//
+//
+//                    case 2:
+//                        tempJsonName = "wordReviewCount3"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount2"
+//                        otherCountName3 = "wordReviewCount4"
+//                        otherCountName4 = "wordReviewCount5"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount9"
+//
+//                    case 3:
+//                        tempJsonName = "wordReviewCount4"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount2"
+//                        otherCountName3 = "wordReviewCount3"
+//                        otherCountName4 = "wordReviewCount5"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount9"
+//
+//                    case 4:
+//                        tempJsonName = "wordReviewCount5"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount2"
+//                        otherCountName3 = "wordReviewCount3"
+//                        otherCountName4 = "wordReviewCount4"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount9"
+//
+//                    case 5:
+//                        tempJsonName = "wordReviewCount6"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount2"
+//                        otherCountName3 = "wordReviewCount3"
+//                        otherCountName4 = "wordReviewCount4"
+//                        otherCountName5 = "wordReviewCount5"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount9"
+//                    case 6:
+//                        tempJsonName = "wordReviewCount7"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount2"
+//                        otherCountName3 = "wordReviewCount3"
+//                        otherCountName4 = "wordReviewCount4"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount5"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount9"
+//                    case 7:
+//                        tempJsonName = "wordReviewCount8"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount2"
+//                        otherCountName3 = "wordReviewCount3"
+//                        otherCountName4 = "wordReviewCount4"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount5"
+//                        otherCountName8 = "wordReviewCount9"
+//                    case 8:
+//                        tempJsonName = "wordReviewCount9"
+//                        otherCountName = "wordReviewCount"
+//                        otherCountName2 = "wordReviewCount2"
+//                        otherCountName3 = "wordReviewCount3"
+//                        otherCountName4 = "wordReviewCount4"
+//                        otherCountName5 = "wordReviewCount6"
+//                        otherCountName6 = "wordReviewCount7"
+//                        otherCountName7 = "wordReviewCount8"
+//                        otherCountName8 = "wordReviewCount5"
+//
+//
+//
+//                    default:
+//                        break
+//
+//                    }
+//
+//                    //如果有抓到該更新數字
+//                    if let resultCount = parseJSON[tempJsonName] as? String{
+//
+//                        //只有正確更新時會回傳user資訊
+//                        user = parseJSON
+//                        //有更新的狀態
+//
+//                        tempCount = Int(resultCount)!
+//                        let otherCount = user?[otherCountName] as! String
+//                        let otherCount2 = user?[otherCountName2] as! String
+//                        let otherCount3 = user?[otherCountName3] as! String
+//                        let otherCount4 = user?[otherCountName4] as! String
+//                        let otherCount5 = user?[otherCountName5] as! String
+//                        let otherCount6 = user?[otherCountName6] as! String
+//                        let otherCount7 = user?[otherCountName7] as! String
+//                        let otherCount8 = user?[otherCountName8] as! String
+//
+//                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
+//
+//
+//                    } else {
+//
+//                        //無更新的狀態
+//                        //這裡的user檔案必須要有所有的gamePassed & mapPassed才不會user?[]抓不到導致crash
+//
+//
+//                        let count = user?["wordReviewCount"] as! String
+//                        let otherCount = user?["wordReviewCount2"] as! String
+//                        let otherCount2 = user?["wordReviewCount3"] as! String
+//                        let otherCount3 = user?["wordReviewCount4"] as! String
+//                        let otherCount4 = user?["wordReviewCount5"] as! String
+//                        let otherCount5 = user?["wordReviewCount6"] as! String
+//                        let otherCount6 = user?["wordReviewCount7"] as! String
+//                        let otherCount7 = user?["wordReviewCount8"] as! String
+//                        let otherCount8 = user?["wordReviewCount9"] as! String
+//
+//                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
+//
+//                    }
+//
+//
+//                    DispatchQueue.main.async(execute: {
+//                        self!.reviewResult(type:0, count:totalCount)
+//
+//
+//                    })
+//
+//
+//
+//                } catch{
+//
+//                    print("catch error")
+//
+//                }
+//            } else {
+//
+//                print("urlsession has error")
+//
+//            }
+//        }).resume()
+//
     }
     
     
@@ -5244,171 +5079,89 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     func updateReviewSenCount(senCount:Int, course:Int){
         
         
-        let id = user?["id"] as! String
+       var senReviewGroup = [kSenReviewCount, kSenReviewCount2, kSenReviewCount3, kSenReviewCount4, kSenReviewCount5, kSenReviewCount6, kSenReviewCount7, kSenReviewCount8, kSenReviewCount9]
         
-        // url to access our php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateSenReviewCount.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
-        }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
+        let copyUser = user?.mutableCopy() as! NSMutableDictionary
         
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "POST"
-        
-        
-        // body gonna be appended to url
-        let body = "userID=\(id)&senCount=\(senCount)&course=\(course)"
-        
-        // append body to our request that gonna be sent
-        request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-            // no error
-            if error == nil {
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        return
-                    }
-                    
-                    //print("rank")
-                    //再次儲存使用者資訊
-                    
-           
-                    
-                    var tempCount = Int()
-                    var tempJsonName = String()
-                    var otherCountName = String()
-                    var otherCountName2 = String()
-                    var otherCountName3 = String()
-                    var otherCountName4 = String()
-                    
-                    var otherCountName5 = String()
-                    var otherCountName6 = String()
-                    var otherCountName7 = String()
-                    var otherCountName8 = String()
-                    
-                    
-                    var totalCount = Int()
-                    
-                    
-                    switch course{
-                        
-                    case 0:
-                        tempJsonName = "senReviewCount"
-                        otherCountName = "senReviewCount2"
-                        otherCountName2 = "senReviewCount3"
-                        otherCountName3 = "senReviewCount4"
-                        otherCountName4 = "senReviewCount5"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount9"
-                        
-                    case 1:
-                        tempJsonName = "senReviewCount2"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount3"
-                        otherCountName3 = "senReviewCount4"
-                        otherCountName4 = "senReviewCount5"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount9"
-                        
-                        
-                    case 2:
-                        tempJsonName = "senReviewCount3"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount2"
-                        otherCountName3 = "senReviewCount4"
-                        otherCountName4 = "senReviewCount5"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount9"
-                        
-                    case 3:
-                        tempJsonName = "senReviewCount4"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount2"
-                        otherCountName3 = "senReviewCount3"
-                        otherCountName4 = "senReviewCount5"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount9"
-                        
-                    case 4:
-                        tempJsonName = "senReviewCount5"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount2"
-                        otherCountName3 = "senReviewCount3"
-                        otherCountName4 = "senReviewCount4"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount9"
-                        
-                    case 5:
-                        tempJsonName = "senReviewCount6"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount2"
-                        otherCountName3 = "senReviewCount3"
-                        otherCountName4 = "senReviewCount4"
-                        otherCountName5 = "senReviewCount5"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount9"
-                    case 6:
-                        tempJsonName = "senReviewCount7"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount2"
-                        otherCountName3 = "senReviewCount3"
-                        otherCountName4 = "senReviewCount4"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount5"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount9"
-                    case 7:
-                        tempJsonName = "senReviewCount8"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount2"
-                        otherCountName3 = "senReviewCount3"
-                        otherCountName4 = "senReviewCount4"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount5"
-                        otherCountName8 = "senReviewCount9"
-                    case 8:
-                        tempJsonName = "senReviewCount9"
-                        otherCountName = "senReviewCount"
-                        otherCountName2 = "senReviewCount2"
-                        otherCountName3 = "senReviewCount3"
-                        otherCountName4 = "senReviewCount4"
-                        otherCountName5 = "senReviewCount6"
-                        otherCountName6 = "senReviewCount7"
-                        otherCountName7 = "senReviewCount8"
-                        otherCountName8 = "senReviewCount5"
-                        
-                        
-                        
-                    default:
-                        break
-                        
-                    }
+        let senReviewCount = user?.object(forKey: senReviewGroup[course]) as! Int
 
+        if senCount > senReviewCount {
+            //replace new counts
+            copyUser.setValue(senCount, forKey: senReviewGroup[course])
+            user = copyUser
+            userDefaults.set(user, forKey: "parseJSON")
+        }
+        
+        //計算所有的count
+        
+        var totalCount = Int()
+        for i in 0 ..< senReviewGroup.count {
+            let count = user?.object(forKey: senReviewGroup[i]) as! Int
+            totalCount += count
+        }
+        
+        reviewResult(type: 1, count: totalCount)
+        
+//
+//        let id = user?["id"] as! String
+//
+//        // url to access our php file
+//        var url:URL
+//        if lan == "zh-Hans" {
+//            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateSenReviewCount.php")!
+//        } else {
+//            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
+//        }
+//        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateSenReviewCount.php")!
+//
+//        // request url
+//        var request = URLRequest(url: url)
+//
+//        // method to pass data POST - cause it is secured
+//        request.httpMethod = "POST"
+//
+//
+//        // body gonna be appended to url
+//        let body = "userID=\(id)&senCount=\(senCount)&course=\(course)"
+//
+//        // append body to our request that gonna be sent
+//        request.httpBody = body.data(using: .utf8)
+//
+//        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
+//            // no error
+//            if error == nil {
+//
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//
+//                    guard let parseJSON = json else {
+//                        print("Error while parsing")
+//
+//                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//                        return
+//                    }
+//
+//                    //print("rank")
+//                    //再次儲存使用者資訊
+//
+//
+//
+//                    var tempCount = Int()
+//                    var tempJsonName = String()
+//                    var otherCountName = String()
+//                    var otherCountName2 = String()
+//                    var otherCountName3 = String()
+//                    var otherCountName4 = String()
+//
+//                    var otherCountName5 = String()
+//                    var otherCountName6 = String()
+//                    var otherCountName7 = String()
+//                    var otherCountName8 = String()
+//
+//
+//                    var totalCount = Int()
+//
+//
 //                    switch course{
 //
 //                    case 0:
@@ -5417,6 +5170,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 //                        otherCountName2 = "senReviewCount3"
 //                        otherCountName3 = "senReviewCount4"
 //                        otherCountName4 = "senReviewCount5"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount9"
 //
 //                    case 1:
 //                        tempJsonName = "senReviewCount2"
@@ -5424,6 +5181,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 //                        otherCountName2 = "senReviewCount3"
 //                        otherCountName3 = "senReviewCount4"
 //                        otherCountName4 = "senReviewCount5"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount9"
 //
 //
 //                    case 2:
@@ -5432,6 +5193,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 //                        otherCountName2 = "senReviewCount2"
 //                        otherCountName3 = "senReviewCount4"
 //                        otherCountName4 = "senReviewCount5"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount9"
 //
 //                    case 3:
 //                        tempJsonName = "senReviewCount4"
@@ -5439,6 +5204,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 //                        otherCountName2 = "senReviewCount2"
 //                        otherCountName3 = "senReviewCount3"
 //                        otherCountName4 = "senReviewCount5"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount9"
 //
 //                    case 4:
 //                        tempJsonName = "senReviewCount5"
@@ -5446,73 +5215,163 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 //                        otherCountName2 = "senReviewCount2"
 //                        otherCountName3 = "senReviewCount3"
 //                        otherCountName4 = "senReviewCount4"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount9"
+//
+//                    case 5:
+//                        tempJsonName = "senReviewCount6"
+//                        otherCountName = "senReviewCount"
+//                        otherCountName2 = "senReviewCount2"
+//                        otherCountName3 = "senReviewCount3"
+//                        otherCountName4 = "senReviewCount4"
+//                        otherCountName5 = "senReviewCount5"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount9"
+//                    case 6:
+//                        tempJsonName = "senReviewCount7"
+//                        otherCountName = "senReviewCount"
+//                        otherCountName2 = "senReviewCount2"
+//                        otherCountName3 = "senReviewCount3"
+//                        otherCountName4 = "senReviewCount4"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount5"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount9"
+//                    case 7:
+//                        tempJsonName = "senReviewCount8"
+//                        otherCountName = "senReviewCount"
+//                        otherCountName2 = "senReviewCount2"
+//                        otherCountName3 = "senReviewCount3"
+//                        otherCountName4 = "senReviewCount4"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount5"
+//                        otherCountName8 = "senReviewCount9"
+//                    case 8:
+//                        tempJsonName = "senReviewCount9"
+//                        otherCountName = "senReviewCount"
+//                        otherCountName2 = "senReviewCount2"
+//                        otherCountName3 = "senReviewCount3"
+//                        otherCountName4 = "senReviewCount4"
+//                        otherCountName5 = "senReviewCount6"
+//                        otherCountName6 = "senReviewCount7"
+//                        otherCountName7 = "senReviewCount8"
+//                        otherCountName8 = "senReviewCount5"
+//
+//
 //
 //                    default:
 //                        break
 //
+//                    }
+//
+////                    switch course{
+////
+////                    case 0:
+////                        tempJsonName = "senReviewCount"
+////                        otherCountName = "senReviewCount2"
+////                        otherCountName2 = "senReviewCount3"
+////                        otherCountName3 = "senReviewCount4"
+////                        otherCountName4 = "senReviewCount5"
+////
+////                    case 1:
+////                        tempJsonName = "senReviewCount2"
+////                        otherCountName = "senReviewCount"
+////                        otherCountName2 = "senReviewCount3"
+////                        otherCountName3 = "senReviewCount4"
+////                        otherCountName4 = "senReviewCount5"
+////
+////
+////                    case 2:
+////                        tempJsonName = "senReviewCount3"
+////                        otherCountName = "senReviewCount"
+////                        otherCountName2 = "senReviewCount2"
+////                        otherCountName3 = "senReviewCount4"
+////                        otherCountName4 = "senReviewCount5"
+////
+////                    case 3:
+////                        tempJsonName = "senReviewCount4"
+////                        otherCountName = "senReviewCount"
+////                        otherCountName2 = "senReviewCount2"
+////                        otherCountName3 = "senReviewCount3"
+////                        otherCountName4 = "senReviewCount5"
+////
+////                    case 4:
+////                        tempJsonName = "senReviewCount5"
+////                        otherCountName = "senReviewCount"
+////                        otherCountName2 = "senReviewCount2"
+////                        otherCountName3 = "senReviewCount3"
+////                        otherCountName4 = "senReviewCount4"
+////
+////                    default:
+////                        break
+////
+////
+////                    }
+//
+//                    //如果有抓到該更新數字
+//                    if let resultCount = parseJSON[tempJsonName] as? String{
+//
+//                        //只有正確更新時會回傳user資訊
+//                        user = parseJSON
+//                        //有更新的狀態
+//
+//                        tempCount = Int(resultCount)!
+//                        let otherCount = user?[otherCountName] as! String
+//                        let otherCount2 = user?[otherCountName2] as! String
+//                        let otherCount3 = user?[otherCountName3] as! String
+//                        let otherCount4 = user?[otherCountName4] as! String
+//
+//                        let otherCount5 = user?[otherCountName5] as! String
+//                        let otherCount6 = user?[otherCountName6] as! String
+//                        let otherCount7 = user?[otherCountName7] as! String
+//                        let otherCount8 = user?[otherCountName8] as! String
+//
+//                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
+//
+//                    } else {
+//
+//                        //無更新的狀態
+//                        //這裡的user檔案必須要有所有的gamePassed & mapPassed才不會user?[]抓不到導致crash
+//
+//
+//                        let count = user?["senReviewCount"] as! String
+//                        let otherCount = user?["senReviewCount2"] as! String
+//                        let otherCount2 = user?["senReviewCount3"] as! String
+//                        let otherCount3 = user?["senReviewCount4"] as! String
+//                        let otherCount4 = user?["senReviewCount5"] as! String
+//
+//                        let otherCount5 = user?["senReviewCount6"] as! String
+//                        let otherCount6 = user?["senReviewCount7"] as! String
+//                        let otherCount7 = user?["senReviewCount8"] as! String
+//                        let otherCount8 = user?["senReviewCount9"] as! String
+//
+//                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
+//
 //
 //                    }
-                    
-                    //如果有抓到該更新數字
-                    if let resultCount = parseJSON[tempJsonName] as? String{
-                        
-                        //只有正確更新時會回傳user資訊
-                        user = parseJSON
-                        //有更新的狀態
-                    
-                        tempCount = Int(resultCount)!
-                        let otherCount = user?[otherCountName] as! String
-                        let otherCount2 = user?[otherCountName2] as! String
-                        let otherCount3 = user?[otherCountName3] as! String
-                        let otherCount4 = user?[otherCountName4] as! String
-                        
-                        let otherCount5 = user?[otherCountName5] as! String
-                        let otherCount6 = user?[otherCountName6] as! String
-                        let otherCount7 = user?[otherCountName7] as! String
-                        let otherCount8 = user?[otherCountName8] as! String
-                        
-                        totalCount = tempCount + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
-                        
-                    } else {
-                        
-                        //無更新的狀態
-                        //這裡的user檔案必須要有所有的gamePassed & mapPassed才不會user?[]抓不到導致crash
-                        
-                   
-                        let count = user?["senReviewCount"] as! String
-                        let otherCount = user?["senReviewCount2"] as! String
-                        let otherCount2 = user?["senReviewCount3"] as! String
-                        let otherCount3 = user?["senReviewCount4"] as! String
-                        let otherCount4 = user?["senReviewCount5"] as! String
-                        
-                        let otherCount5 = user?["senReviewCount6"] as! String
-                        let otherCount6 = user?["senReviewCount7"] as! String
-                        let otherCount7 = user?["senReviewCount8"] as! String
-                        let otherCount8 = user?["senReviewCount9"] as! String
-                        
-                        totalCount = Int(count)! + Int(otherCount)! + Int(otherCount2)! + Int(otherCount3)! + Int(otherCount4)! + Int(otherCount5)! + Int(otherCount6)! + Int(otherCount7)! + Int(otherCount8)!
-           
-                        
-                    }
-                    
-                    
-                    DispatchQueue.main.async(execute: {
-                        self!.reviewResult(type:1, count:totalCount)
-                    })
-                    
-                    
-
-                } catch{
-                    
-                    print("catch error")
-                    
-                }
-            } else {
-                
-                print("urlsession has error")
-                
-            }
-        }).resume()
+//
+//
+//                    DispatchQueue.main.async(execute: {
+//                        self!.reviewResult(type:1, count:totalCount)
+//                    })
+//
+//
+//
+//                } catch{
+//
+//                    print("catch error")
+//
+//                }
+//            } else {
+//
+//                print("urlsession has error")
+//
+//            }
+//        }).resume()
         
     }
     
@@ -5628,17 +5487,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance){
         
-
-        
-//        if isCheckingSentence{
-//
-//
-//            print("trigger readyToReadSentence")
-//            //檢查句子前先發hint
-//
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "readyToReadSentence"), object: nil, userInfo: nil)
-//        }
-        
         
         if isReadingGuidedSentence{
             
@@ -5695,650 +5543,20 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
     }
     
-    //更新mapPassed
-    
-    func updateMapPassed(course:Int){
-        
-        
-        let id = user?["id"] as! String
-        
-        // url to access our php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/mapPassed.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/mapPassed.php")!
-        }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/mapPassed.php")!
-        
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "POST"
-        
-        // body gonna be appended to url
-        
-        //MARK: simVer K12 特別作法
-        
-        var body = String()
-        
-        if courseReceived == 5 {
-            var mapPassedString = String()
-            for i in 0 ..< k12MapPassed.count {
-                
-                mapPassedString += String(k12MapPassed[i]) + ";"
-            }
-            
-            body = "userID=\(id)&mapPassed=\(mapPassedString)&course=\(course)"
-            
-        } else {
-        
-            body = "userID=\(id)&mapPassed=\(mapPassedInt)&course=\(course)"
-        }
-        // append body to our request that gonna be sent
-        request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            // no error
-            
-            
-            if error == nil {
-                
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        
-                        return
-                    }
-                    
-                    //再次儲存使用者資訊
-                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    
-                    //print(user!)
-       
-                    
-                } catch{
-                    
-                    print("catch error")
-                    
-                    
-                }
-            } else {
-                print("urlsession has error")
-                
-            }
-        }).resume()
-        
-        
-        
-    }
-    
-    
-    //更新gamePassed
-    func updateGamePassed(course:Int){
-      
-        
-        let id = user?["id"] as! String
-        
-        // url to access our php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/gamePassed.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
-        }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/gamePassed.php")!
-        
-        
-        
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "POST"
-        
-        var body = String()
-        var gamePassedString = String()
-        
-        if courseReceived == 5 {
-            
-            for i in 0 ..< k12GamePassed.count{
-                
-                for (s,u) in k12GamePassed[i] {
-                
-                    gamePassedString += String(s) + ":" + String(u) + ";"
-          
-                }
-                
-            }
 
-            //print("gamePassedString:\(gamePassedString)")
-            
-        } else {
-
-            for (s,u) in gamePassedDic!{
-            
-            gamePassedString = String(s) + ":" + String(u)
-            
-            }
-            
-        }
-        
-        // body gonna be appended to url
-        body = "userID=\(id)&gamePassed=\(gamePassedString)&course=\(course)"
-
-        // append body to our request that gonna be sent
-        request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            // no error
-            
-            
-            if error == nil {
-                
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        
-                        return
-                    }
-                    
-                    //再次儲存使用者資訊
-                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    
-                    
-                    //print("gameVC gamePassed updated:\(user)")
-                    
-                } catch{
-                    
-                    print("catch error")
-
-                }
-                
-            } else {
-                
-                print("urlsession has error")
-                
-            }
-        }).resume()
-        
-        
-        
-    }
-    
-    
-    
-    
     //新增最愛單字
     func addWord(word:String){
         
-        //確認該字沒有在最愛之內
-        if !myWords.contains(word){
-            
-            let id = user?["id"] as! String
-            
-            // url to access our php file
-            var url:URL
-            if lan == "zh-Hans" {
-                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/addWord.php")!
-            } else {
-                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
-            }
-            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWord.php")!
-            
-            // request url
-            var request = URLRequest(url: url)
-            
-            // method to pass data POST - cause it is secured
-            request.httpMethod = "POST"
-            
-            // body gonna be appended to url
-            let body = "userID=\(id)&word=\(word)"
-            
-            // append body to our request that gonna be sent
-            request.httpBody = body.data(using: .utf8)
-            
-            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-                // no error
-                if error == nil {
-                    
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        
-                        guard let parseJSON = json else {
-                            print("Error while parsing")
-                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                            self?.isParseEnabled = true
-                            return
-                        }
-                        
-                        //再次儲存使用者資訊
-                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                        //載入我的最愛單字
-                        if let myWordsString = user!["myWords"] as! String?{
-                            self!.myWords = myWordsString.components(separatedBy: ";")
-                            
-                        }
-                        self?.isParseEnabled = true
-                        
-                    } catch{
-                        self?.isParseEnabled = true
-                        print("catch error")
-                        
-                        
-                    }
-                } else {
-                    self?.isParseEnabled = true
-                    print("urlsession has error")
-                    
-                }
-            }).resume()
-        } else {
-            
-            print("alreaded added")
-            isParseEnabled = true
-        }
-    }
-    
-    //刪除最愛單字---這部分要到單字集裡面做
-    
-//    func removeWord(word:String){
-//
-//        if myWords.contains(word) {
-//            let id = user?["id"] as! String
-//
-//            // url to access our php file
-//            var url:URL
-//            if lan == "zh-Hans" {
-//                url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/removeWord.php")!
-//            } else {
-//                url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
-//            }
-//
-//            //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/removeWord.php")!
-//
-//            // request url
-//            var request = URLRequest(url: url)
-//
-//            // method to pass data POST - cause it is secured
-//            request.httpMethod = "POST"
-//
-//            // body gonna be appended to url
-//            let body = "userID=\(id)&word=\(word)"
-//
-//            // append body to our request that gonna be sent
-//            request.httpBody = body.data(using: .utf8)
-//
-//            URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-//                // no error
-//                if error == nil {
-//
-//                    do {
-//                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-//
-//                        guard let parseJSON = json else {
-//                            print("Error while parsing")
-//                            self?.isParseEnabled = true
-//                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-//                            return
-//                        }
-//
-//                        //再次儲存使用者資訊
-//                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-//                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-//                        print(user!)
-//                        //載入我的最愛單字
-//                        if let myWordsString = user!["myWords"] as! String?{
-//                            self!.myWords = myWordsString.components(separatedBy: ";")
-//
-//                        }
-//
-//                        self?.isParseEnabled = true
-//
-//                    } catch{
-//
-//                        self?.isParseEnabled = true
-//                        print("catch error")
-//
-//                    }
-//                } else {
-//                    self?.isParseEnabled = true
-//                    print("urlsession has error")
-//
-//                }
-//            }).resume()
-//        }
-//    }
-    
-    func updateScore(score:Int, wrongWordsCount:Int, proRate:Int, senRate:Int){
+        let favWords = user?.object(forKey: kMyWords) as! String
+        let newFavWords = favWords + word + ";"
         
+        let copyUser = user?.mutableCopy() as! NSMutableDictionary
         
-        let id = user?["id"] as! String
-        
-        // url to access our php file
-        var url:URL
-        if lan == "zh-Hans" {
-            url = URL(string: "http://ec2-52-198-62-78.ap-northeast-1.compute.amazonaws.com/misswordChina/updateScore.php")!
-        } else {
-            url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
-        }
-        //let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/updateScore.php")!
-        
-        // request url
-        var request = URLRequest(url: url)
-        
-        // method to pass data POST - cause it is secured
-        request.httpMethod = "POST"
-        
-        // body gonna be appended to url
-        let body = "userID=\(id)&score=\(score)&wrongWordsCount=\(wrongWordsCount)&proRate=\(proRate)&senRate=\(senRate)"
-        
-        // append body to our request that gonna be sent
-        request.httpBody = body.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: request, completionHandler: {[weak self] data, response, error in
-            // no error
-            if error == nil {
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    
-                    guard let parseJSON = json else {
-                        print("Error while parsing")
-                        
-                        //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                        return
-                    }
-
-                    //再次儲存使用者資訊
-                    UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                    user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                    //print(user!)
-                    
-                    //MARK: must update
-                    //MARK: simVer 增加
-                    
-                    if let mapPassedString = user?["mapPassed"] as! String?{
-                        
-                        mapPassed = Int(mapPassedString)!
-                        
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed!, forKey: "mapPassed")
-                        
-                        
-                    }
-                    
-                    if let mapPassed2String = user?["mapPassed2"] as! String?{
-                        
-                        mapPassed2 = Int(mapPassed2String)!
-                        
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed2!, forKey: "mapPassed2")
-                      
-                    }
-                    
-                    if let mapPassed3String = user?["mapPassed3"] as! String?{
-                        
-                        mapPassed3 = Int(mapPassed3String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed3!, forKey: "mapPassed3")
-                     
-                    }
-                    
-                    if let mapPassed4String = user?["mapPassed4"] as! String?{
-                        
-                        mapPassed4 = Int(mapPassed4String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed4!, forKey: "mapPassed4")
-                  
-                        
-                    }
-                    
-                    if let mapPassed5String = user?["mapPassed5"] as! String?{
-                        
-                        mapPassed5 = Int(mapPassed5String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed5!, forKey: "mapPassed5")
-                 
-                    }
-                    
-                    //MARK: simVer K12 特別作法
-                    
-                    if let mapPassed6String = user?["mapPassed6"] as! String?{
-                   
-                        var mapPassedStringArray = mapPassed6String.components(separatedBy: ";")
-                      
-                        for i in 0 ..< mapPassedStringArray.count {
-                       
-                            //避免最後一位空值
-                            if mapPassedStringArray[i] != "" {
-                                
-                                k12MapPassed[i] = Int(mapPassedStringArray[i])!
-                            }
-                          
-                        }
-                        
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(k12MapPassed, forKey: "mapPassed6")
-                     
-                    }
-                    
-           
-                    
-                    if let mapPassed7String = user?["mapPassed7"] as! String?{
-                        
-                        mapPassed7 = Int(mapPassed7String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed7!, forKey: "mapPassed7")
-                        
-                        
-                    }
-                    
-                    if let mapPassed8String = user?["mapPassed8"] as! String?{
-                        
-                        mapPassed8 = Int(mapPassed8String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed8!, forKey: "mapPassed8")
-                        
-                        
-                    }
-                    
-                    if let mapPassed9String = user?["mapPassed9"] as! String?{
-                        
-                        mapPassed9 = Int(mapPassed9String)!
-                        let userDefaults = UserDefaults.standard
-                        userDefaults.set(mapPassed9!, forKey: "mapPassed9")
-
-                        
-                    }
-                    
-                    
-                    
-                    if let gamePassedString = user?["gamePassed"] as! String?{
-                        
-                        let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
-                        
-                        let s = gamePassedStringArray[0]
-                        let u = gamePassedStringArray[1]
-                        gamePassed = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-
-                        userDefaults.set(encodedObject, forKey: "gamePassed")
-                        
-                    }
-                    
-                    if let gamePassed2String = user?["gamePassed2"] as! String?{
-                        
-                        let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
-                        
-                        let s = gamePassed2StringArray[0]
-                        let u = gamePassed2StringArray[1]
-                        gamePassed2 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                        
-
-                        userDefaults.set(encodedObject, forKey: "gamePassed2")
-                        
-                    }
-                    
-                    if let gamePassed3String = user?["gamePassed3"] as! String?{
-                        
-                        let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
-                        
-                        let s = gamePassed3StringArray[0]
-                        let u = gamePassed3StringArray[1]
-                        gamePassed3 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                        
-
-                        userDefaults.set(encodedObject, forKey: "gamePassed3")
-                        
-                    }
-                    
-                    
-                    if let gamePassed4String = user?["gamePassed4"] as! String?{
-                        
-                        let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
-                        
-                        let s = gamePassed4StringArray[0]
-                        let u = gamePassed4StringArray[1]
-                        gamePassed4 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed4")
-                        
-                    }
-                    
-                    if let gamePassed5String = user?["gamePassed5"] as! String?{
-                        
-                        let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
-                        
-                        let s = gamePassed5StringArray[0]
-                        let u = gamePassed5StringArray[1]
-                        gamePassed5 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed5")
-                        
-                    }
-                    
-                    
-                    //MARK: simVer K12 特別作法
-                    
-                    if let gamePassed6String = user?["gamePassed6"] as! String?{
-                        
-                        var k12GamePassedStringArray = gamePassed6String.components(separatedBy: ";")
-                        
-                        //如果有19位數就移除最後一位
-                        if k12GamePassedStringArray.count == 19{
-                            k12GamePassedStringArray.removeLast()
-                        }
-                        
-                        
-                        for i in 0 ..< k12GamePassedStringArray.count {
-                            
-                            let gamePassed6StringArray = k12GamePassedStringArray[i].components(separatedBy: ":")
-                            
-                            let s = gamePassed6StringArray[0]
-                            let u = gamePassed6StringArray[1]
-                            k12GamePassed[i] = [Int(s)!:Int(u)!]
-                            
-                        }
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
-                        
-            
-                        userDefaults.set(encodedObject, forKey: "gamePassed6")
-                        
-                    }
-                    
-                 
-                    if let gamePassed7String = user?["gamePassed7"] as! String?{
-                        
-                        let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
-                        
-                        let s = gamePassed7StringArray[0]
-                        let u = gamePassed7StringArray[1]
-                        gamePassed7 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed7")
-                        
-                    }
-                    
-                    if let gamePassed8String = user?["gamePassed8"] as! String?{
-                        
-                        let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
-                        
-                        let s = gamePassed8StringArray[0]
-                        let u = gamePassed8StringArray[1]
-                        gamePassed8 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed8")
-                        
-                    }
-                    
-                    if let gamePassed9String = user?["gamePassed9"] as! String?{
-                        
-                        let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
-                        
-                        let s = gamePassed9StringArray[0]
-                        let u = gamePassed9StringArray[1]
-                        gamePassed9 = [Int(s)!:Int(u)!]
-                        
-                        let userDefaults = UserDefaults.standard
-                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
-                        
-                        userDefaults.set(encodedObject, forKey: "gamePassed9")
-                        
-                    }
-                    
-                    
-                    
-                    
-                } catch{
-                    
-                    print("catch error")
-                    
-                }
-            } else {
-                
-                print("urlsession has error")
-                
-            }
-        }).resume()
-        
-    }
-    
-    
+        copyUser.setValue(newFavWords, forKey: kMyWords)
+        user = copyUser
+        userDefaults.set(user, forKey: "parseJSON")
+ 
+}
 }
 
 

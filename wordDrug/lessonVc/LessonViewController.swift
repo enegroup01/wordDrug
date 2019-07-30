@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 import ProgressHUD
 
-
 class LessonViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     let lessonVC_aboutToLearn3Words = NSLocalizedString("lessonVC_aboutToLearn3Words", comment: "")
@@ -35,6 +34,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     let lessonVC_iKnow = NSLocalizedString("lessonVC_iKnow", comment: "")
     let lessonVC_theLastPage = NSLocalizedString("lessonVC_theLastPage", comment: "")
     let lessonVC_class = NSLocalizedString("lessonVC_class", comment: "")
+    
+    let lessonVC_allOpenMode = NSLocalizedString("lessonVC_allOpenMode", comment: "")
     
     
     @IBOutlet weak var thirdLabel: UILabel!
@@ -130,18 +131,20 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
     
+    
+    //單機版
+    var isUnlocked = false
+    
+    var dynamicTitleText = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         // Do any additional setup after loading the view.
         var dif = CGFloat()
         
-        
         var btnFontSize:CGFloat!
         var hintLabelFontSize:CGFloat!
-        
         
         switch height {
             
@@ -182,9 +185,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             smallSylFontSize = 30
             
-            
         case 812:
-            
             
             dif = 1
             iPadSizeDif = 1
@@ -469,8 +470,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         let attrs = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.368627451, green: 0.8117647059, blue: 0.4470588235, alpha: 1)]
         reviewBtn.setAttributedTitle(NSAttributedString(string: lessonVC_reviewBtn, attributes: attrs), for: .normal)
         
-        
-        
         enterBtn.titleLabel?.font = enterBtn.titleLabel?.font.withSize(btnFontSize)
         nextBtn.titleLabel?.font = nextBtn.titleLabel?.font.withSize(btnFontSize)
         allSylBtn.titleLabel?.font = allSylBtn.titleLabel?.font.withSize(btnFontSize)
@@ -478,11 +477,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         previousBtn.titleLabel?.font = previousBtn.titleLabel?.font.withSize(btnFontSize)
         reviewBtn.titleLabel?.font = reviewBtn.titleLabel?.font.withSize(btnFontSize)
         
-        
-        
         fullLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: view.safeRightAnchor, size: .init(width: width, height: 3))
-        
-        
         
         hintLabel.anchor(top: nil, leading: view.safeLeftAnchor, bottom: fullLength.topAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: -5, right: 0) ,size: .init(width: width, height: 21 * dif * iPadSizeDif))
         
@@ -521,11 +516,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     
-    
-    
-    
-    
-    
     //MARK: CollectionViewLayOut
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -539,13 +529,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
         return 10
-        
     }
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
-        
+
         return secRowTouched.count
     }
     
@@ -580,7 +568,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             reusableView.backgroundColor = .darkGray
             label.text = "第\(labelText)\(lessonVC_class)";
             label.textColor = UIColor.white
-            
             
             
         }
@@ -659,13 +646,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if !lessonSylView.isHidden{
             
-          
+            
             
             if secRowTouched[indexPath.section][indexPath.row] == 1 {
                 
                 sylText.textColor = .white
                 blueBall.isHidden = false
-
+                
             } else {
                 blueBall.isHidden = true
                 var isSelectable = false
@@ -718,6 +705,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         var isSelectable = false
+        
         if indexPath.section < currentMaxSpotToUse {
             isSelectable = true
         } else if indexPath.section < currentMaxSpotToUse + 1 && indexPath.row < currentMaxUnitToUse + 1{
@@ -729,7 +717,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if isSelectable{
             
-
+            
             
             ProgressHUD.spinnerColor(.white)
             
@@ -753,7 +741,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 secRowTouched.append(smallDic)
             }
             
-      
+            
             lessonSylView.reloadData()
             
             //換算tempS & tempU
@@ -775,18 +763,18 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     //這裏最後加入一個判斷是!isClassAllPassed來確保k12過關進入後不會有學習新字的情形
                     if s == tempS && u == tempU && !isClassAllPassed{
                         //學習新字
-                        
-                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
-                        
-                        titleLabel.text = lessonVC_aboutToLearn3Words
-                        titleLabel.textColor = .white
-                        
+                        if !isUnlocked{
+                            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                            
+                            titleLabel.text = lessonVC_aboutToLearn3Words
+                            titleLabel.textColor = .white
+                        }
                     } else {
                         
                         //複習機制
                         enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
                         
-                        titleLabel.text = lessonVC_review3Words
+                        titleLabel.text = dynamicTitleText
                         titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                     }
                     
@@ -797,7 +785,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //複習機制
                 enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
                 
-                titleLabel.text = lessonVC_review3Words
+                titleLabel.text = dynamicTitleText
                 titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                 
             }
@@ -829,7 +817,18 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             ghostBtn.isHidden = true
             
         }
-     
+        
+    }
+    
+    @objc func receiveIsUnlockedStatus(_ notification: NSNotification) {
+        
+        if let isUnlocked = notification.userInfo?["isUnlocked"] as? Bool {
+            
+            self.isUnlocked = isUnlocked
+            print("receive isUnlocked status:\(isUnlocked)")
+            
+        }
+        
     }
     
     @objc func removeBtns(){
@@ -848,7 +847,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         lessonSylView.isHidden = true
         
-
+        
         
     }
     
@@ -878,11 +877,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //這裡沒有大於的可能性
         //MARK: simVer K12 特別作法
         if gamePassedDic == [0:0] && mapNumToReceive == mapPassedInt{
-
+            
             cannotPracticeAlert()
             
         } else if gamePassedDic == [0:0] && courseReceived == 5{
-
+            
             cannotPracticeAlert()
         } else{
             
@@ -892,7 +891,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     @objc func practiceWord(){
-
+        
         gameMode = 1
         
         UIView.animate(withDuration: 0.06, animations: {[weak self] in
@@ -913,7 +912,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     self!.cannotPracticeAlert()
                 } else if self!.gamePassedDic == [0:0] && self!.courseReceived == 5 {
-
+                    
                     self!.cannotPracticeAlert()
                     
                 } else{
@@ -935,9 +934,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         practiceSenBtn.isEnabled = true
         practiceWordBtn.isEnabled = true
+        isUnlocked = false
         removeBtns()
         
+        
     }
+    
+    
     
     var gamePassedDic:[Int:Int]?
     var mapPassedInt = Int()
@@ -956,6 +959,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewWillAppear(_ animated: Bool) {
         
+        NotificationCenter.default.removeObserver(self)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(LessonViewController.receiveIsUnlockedStatus), name: NSNotification.Name(sendUnlockStatus), object: nil)
         
         //MARK: must update
         //就算user == nil, gamePassed & mapPassed都已經設定初始值了
@@ -980,14 +986,20 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //******** maxMapNum應該用不到 可以刪了 **********
         
+        //單機版
+        if isUnlocked {
+            isClassAllPassed = true
+            dynamicTitleText = lessonVC_allOpenMode
+            
+        } else {
+            dynamicTitleText = lessonVC_review3Words
+        }
         
         switch courseReceived {
         case 0:
             gamePassedDic = gamePassed!
             mapPassedInt = mapPassed!
             isSimVerSingleSyllable = true
-            
-            
             
             if lan == "zh-Hans"{
                 //檢體中文
@@ -1001,9 +1013,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //print("繁體中文關卡數")
                 maxMapNum = 5
                 increaseNum = 0
-                
             }
-            
             
         case 1:
             gamePassedDic = gamePassed2!
@@ -1047,10 +1057,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //print("繁體中文關卡數")
                 increaseNum = 11
                 maxMapNum = 7
-                
             }
-            
-            
             
         case 3:
             gamePassedDic = gamePassed4!
@@ -1446,7 +1453,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         case 114:
             syllableSets = map115SyllableSets
             
-            
         default:
             break
         }
@@ -1455,8 +1461,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var syllablesWithoutDigit = String()
         
         var progressFloat = CGFloat()
-        
-
         
         //建立目錄數字
         var smallDic = [Int]()
@@ -1560,11 +1564,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
             
             
-            
-            
         } else {
             //其餘語言
-           
+            
             maxSpot = 15
             
         }
@@ -1575,9 +1577,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //新增出正確組數的音節
         for _ in 0 ..< maxSpot {
-            
             secRowTouched.append(smallDic)
-            
         }
         
         
@@ -1587,11 +1587,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
         //抓目前的元素
         
-        
         //MARK: simVer 放在外的變數 done
         var threeSyllables = [String]()
-        
-        
         
         if isClassAllPassed {
             
@@ -1602,14 +1599,14 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             if lan == "zh-Hans"{
                 //檢體中文
                 
-       
+                
                 //之後還要用courseReceived來改數值, 因為每個course值不同
                 //***** 這部分的動態做法之前已做過數字只差1 ****所以不用Switch了
                 tempS = maxSpot - 1
                 
             } else {
                 //其餘語言
- 
+                
                 tempS = 14
                 
             }
@@ -1617,7 +1614,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
             
-            titleLabel.text = lessonVC_review3Words
+            titleLabel.text = dynamicTitleText
             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
             
             
@@ -1625,7 +1622,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             for (s,u) in gamePassedDic! {
                 
-            
+                
                 //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
                 mapNum = mapPassedInt
                 
@@ -1638,20 +1635,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         
         
-        //這裡的做法有不需要的環迴圈, check android版本是不是也一樣
-        //            for (s,u) in gamePassedDic! {
-        //
-        //
-        //                //MARK: simVer 這裡 (tempS = 要做不一樣的最大值)
-        //                if isClassAllPassed {
-        //
-        //
-        //
-        //                } else {
-        //
-        //                }
-        
-        // print("enter 2")
         
         //MARK: simVer 在這裡做三個音節, 要先判斷要怎麼做, 要指定好一個變數來判斷 done
         
@@ -1659,8 +1642,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             //   print("enter 3")
             if isSimVerSingleSyllable{
-                
-                
                 
                 //檢體中文 單一音節作法
                 
@@ -1710,40 +1691,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //  print("############got mapnum:\(mapNum)")
         //}
         
-        //MARK: simVer 這條好像用不到, 這也跟traVer沒有什麼關係...所以之後確認玩應該可以刪掉
-        //maxIndex = tempS * 10 + tempU
-        
-        
-        //?????這裡為什麼要這樣不懂??? 應該要刪掉....試試看, 好像tempS & tempU會更改!
         //已確認 : maxSpot  / maxUnit  為了避免被改變用另一組變數
         currentMaxSpotToUse = tempS
         currentMaxUnitToUse = tempU
-        
-        
-        
-        //第幾課
-        
-        //MARK: simVer 這裡的課程總數要動態
-        
-        //明天改個名字, 以下的變數應該更上方一樣
-        
-        //        var maxNum = Int()
-        //
-        //        if lan == "zh-Hans"{
-        //            //檢體中文
-        //
-        //            print("檢體中文關卡數")
-        //            //之後還要用courseReceived來改數值, 因為每個course值不同
-        //
-        //            maxNum = 11
-        //
-        //        } else {
-        //            //其餘語言
-        //            print("繁體中文關卡數")
-        //            maxNum = 15
-        //
-        //        }
-        
         
         
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
@@ -1752,8 +1702,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         lessonLabel.attributedText = lessonText
         
         //進度條
-        //   print("讀取進度條")
-        //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
+        
         progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
         
         
@@ -1769,16 +1718,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if courseReceived == 5 {
             //k12 在這狀況下mapNum = 0
-            
             name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(spotNum + 1)
         } else {
-            
             name = String(mapNum  + increaseNum + 1) + "-" + String(spotNum + 1)
-            
         }
-        
-        
-        
         //print(name)
         
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
@@ -1939,9 +1882,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
             
             
-            
-            
-            
         } else {
             //其餘語言 或者是簡體用3音節造字方式
             
@@ -2023,7 +1963,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                         
                         if let engWord = allThreeEngWordsArray[w][i] as String?{
                             
-                            if engWord == syllablesWithoutDigit{
+                            if engWord.lowercased() == syllablesWithoutDigit{
                                 //符合部首字
                                 
                                 let word = NSMutableAttributedString(string: engWord, attributes: attrs2)
@@ -2073,12 +2013,28 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         enterBtn.isEnabled = true
         
-      
+        
         
         //}
+        //gamePassed = [0:1]
+        
+        //        //單機版的測試在這邊
+        //        print("gamePassed:\(gamePassed)")
+        //        for (s,u) in gamePassed! {
+        //        tempS = s
+        //        tempU = u
+        //        }
+        //        loadWords(seq: 0)
         
         
-    
+        if isUnlocked {
+            
+            //回到第一組字
+            tempS = 0
+            tempU = 0
+            loadWords(seq: 0)
+        }
+        
     }
     
     //寫一個獨立的讀取單字功能
@@ -2088,7 +2044,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
         let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
         let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
-        
         
         var syllablesWithoutDigit = String()
         
@@ -2111,29 +2066,18 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 tempU = tempU + 1
                 
             } else {
-
-                
-                //if tempS < 14 {
                 
                 //MARK: simVer這裏直接取用之前的maxSpot done
                 // **** 這裡的maxSpot要 - 1
                 if tempS < maxSpot - 1 {
                     //直接 +1
-                    
-                    
                     tempS = tempS + 1
                     tempU = 0
                     
-                    
                 } else {
                     //全部練完
-                    //print("全部練完")
-                    
                     ProgressHUD.showError(lessonVC_theLastPage)
-                    
-                    
                 }
-                
                 
             }
             
@@ -2142,15 +2086,19 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
                 if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
                     
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
-                    titleLabel.text = lessonVC_aboutToLearn3Words
-                    titleLabel.textColor = .white
+                    if !isUnlocked {
+                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                        titleLabel.text = lessonVC_aboutToLearn3Words
+                        titleLabel.textColor = .white
+                    }
                     
                 }  else if tempU == u && tempS == s && courseReceived == 5{
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
-                    titleLabel.text = lessonVC_aboutToLearn3Words
-                    titleLabel.textColor = .white
                     
+                    if !isUnlocked {
+                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                        titleLabel.text = lessonVC_aboutToLearn3Words
+                        titleLabel.textColor = .white
+                    }
                 }
             }
             
@@ -2167,7 +2115,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //直接減一
                 tempU = tempU - 1
                 
-                
             } else {
                 //假入u == 0,  要扣 s
                 
@@ -2177,17 +2124,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     tempS = tempS - 1
                     tempU = 9
                     
-                    
                 } else {
                     
                     ProgressHUD.showError(lessonVC_thisIsFirst)
-                    print("全部練完")
                 }
-                
-                
             }
-            
-            
         }
         
         //MARK: simVer 這裏要寫新的音節讀取  加個判斷式done
@@ -2227,18 +2168,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         if isClassAllPassed {
-            
             mapNum = mapNumToReceive
         } else {
             mapNum = mapPassedInt
         }
         spotNum = tempS
         unitNum = tempU
+        
+        //進度條不工作...
         //progressFloat = CGFloat(tempU + 1)
-        
-        
-        //print("progressFloat\(progressFloat)")
-        
         
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
         lessonText.append(NSMutableAttributedString(string: " / \(String(maxSpot!))", attributes: attrs1))
@@ -2267,8 +2205,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             name = String(increaseNum + mapNum + 1) + "-" + String(spotNum + 1)
         }
         
-        
-        //print(name)
         
         if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
             do {
@@ -2312,10 +2248,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
-        
-        
-        
-        
+   
         //MARK: simVer 這裏音節要重做, 下方放有原始作法 done
         //***** 這裏加入判斷式儀即可
         
@@ -2324,7 +2257,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             //print("檢體中文關卡數")
             for i in 0 ..< threeSyllables.count {
-                
                 
                 if threeSyllables[i].contains("_"){
                     //specialE的作法
@@ -2336,7 +2268,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     //      for w in 0 ..< allThreeEngWordsArray.count{
                     
                     for r in 0 ..< allThreeEngWordsArray[i].count{
-                        
                         characters.removeAll(keepingCapacity: false)
                         
                         for c in allThreeEngWordsArray[i][r]{
@@ -2533,13 +2464,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
             }
             
-            
-            
-            
         }
-        
-        
-        
         
         
         //*** 以下為共同的造字func, 把字造到words裡
@@ -2564,8 +2489,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         thirdLabel.attributedText = words[2]
         
         enterBtn.isEnabled = true
-        
-
         
     }
     
@@ -2616,26 +2539,23 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             //#test: 試試看複習模式
             destinationVC.spotNumber = tempS
             destinationVC.unitNumber = tempU
-            // print("sentTempS:\(tempS)")
-            // print("sentTempU:\(tempU)")
             
-            
-            for (s,u) in gamePassedDic!{
+            if isUnlocked {
+                destinationVC.isReplay = false
+            } else {
                 
-                if tempU != u || tempS != s{
-                    //不是當下關卡
-       
-                    destinationVC.isReplay = true
-                } else {
+                for (s,u) in gamePassedDic!{
                     
-                    destinationVC.isReplay = false
+                    if tempU != u || tempS != s{
+                        //不是當下關卡
+                        destinationVC.isReplay = true
+                    } else {
+                        destinationVC.isReplay = false
+                    }
                 }
-                
             }
-            
             //MARK: simVer K12特別作法
             if courseReceived == 5 {
-                
                 destinationVC.mapNumber = mapNumToReceive
             } else {
                 destinationVC.mapNumber = mapNum
@@ -2643,7 +2563,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             destinationVC.gameMode = gameMode
             destinationVC.courseReceived = courseReceived
-            
+            destinationVC.isUnlocked = isUnlocked
         }
     }
     override func didReceiveMemoryWarning() {
@@ -2655,7 +2575,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.dismiss(animated: true, completion: nil)
     }
     
-
     var indexToJump:Int!
     var isScrollable = false
     //MARK: button actions
@@ -2678,13 +2597,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             smallDic.append(0)
         }
         
-
-
-        
         for _ in 0 ..< maxSpot {
-
+            
             secRowTouched.append(smallDic)
-
+            
         }
         
         secRowTouched[tempS][tempU] = 1
@@ -2709,10 +2625,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     loadWords(seq: -1)
                     enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
                     
-                    titleLabel.text = lessonVC_review3Words
+                    titleLabel.text = dynamicTitleText
                     titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                 } else {
-        
+                    
                     ProgressHUD.showError(lessonVC_noPrePage)
                 }
             }
@@ -2725,8 +2641,12 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     loadWords(seq: -1)
                     
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
-                    titleLabel.text = lessonVC_review3Words
+                    
+                    enterBtn.setAttributedTitle(NSAttributedString(string:
+                        lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                    
+                    titleLabel.text = dynamicTitleText
+                    
                     titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
                 } else {
                     //print("這是第一關")
@@ -2755,13 +2675,18 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                 } else if !isClassAllPassed{
                     
-
+                    
                     ProgressHUD.showError(lessonVC_noNextPage)
                     
                     enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    
+                    
                     titleLabel.text = lessonVC_aboutToLearn3Words
                     titleLabel.textColor = .white
                     
+                    
+                } else if isUnlocked {
+                    loadWords(seq: 1)
                 }
                 
             }
@@ -2782,9 +2707,12 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     ProgressHUD.showError(lessonVC_noNextPage)
                     
                     enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    
                     titleLabel.text = lessonVC_aboutToLearn3Words
                     titleLabel.textColor = .white
                     
+                } else if isUnlocked {
+                    loadWords(seq: 1)
                 }
                 
             }

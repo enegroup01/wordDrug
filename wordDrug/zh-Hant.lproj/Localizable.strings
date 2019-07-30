@@ -110,9 +110,12 @@ bookVC_noWordsLearned = "沒有學習過的單字喔！";
 
 stageVC_alreadyLearned = "已學習";
 stageVC_alert = "要先學完前面的單元喔，請加油！";
+stageVC_openAllSwitch = "課程全開";
+
 
 lessonVC_aboutToLearn3Words = "即將學習\n下列三個新單字";
 lessonVC_review3Words = "複習下列\n三個學過的單字";
+lessonVC_allOpenMode = "全開模式\n不列入計分";
 lessonVC_currentLesson = "目前課程";
 lessonVC_hintLabel = "選擇下方學習功能";
 lessonVC_reviewBtn = "挑戰模式";
@@ -177,6 +180,8 @@ gameVC_toShop = "前往商城";
 gameVC_noBuyNow = "先不購買";
 gameVC_reviewNoScore = "複習不計分";
 gameVC_pressMicAgain = "再按一下麥克風結束";
+gameVC_isReplayTitle = "[複習]";
+
 
 
 //loginVC

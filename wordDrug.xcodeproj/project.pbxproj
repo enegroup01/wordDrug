@@ -37,7 +37,7 @@
 		AA27DE1320B6E633003250D2 /* reviewSenResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */; };
 		AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */; };
 		AA2AC19D224A13E3003ADD56 /* orangePractice.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2AC19C224A13E2003ADD56 /* orangePractice.png */; };
-		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
+		AA2B64D4205A63F200742226 /* 痾.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* 痾.swift */; };
 		AA2CFA6B20BD7E91009DBBB6 /* IntroScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */; };
 		AA2CFA6F20BD7F68009DBBB6 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */; };
 		AA2CFA7120BD7F8F009DBBB6 /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CFA7020BD7F8F009DBBB6 /* IntroScene.swift */; };
@@ -81,7 +81,6 @@
 		AA39855320D294A0004E9CE3 /* logoText.png in Resources */ = {isa = PBXBuildFile; fileRef = AA39855220D294A0004E9CE3 /* logoText.png */; };
 		AA39855520D29C3C004E9CE3 /* logoAlpha.png in Resources */ = {isa = PBXBuildFile; fileRef = AA39855420D29C3B004E9CE3 /* logoAlpha.png */; };
 		AA39855920D2A6DB004E9CE3 /* loginBgPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA39855820D2A6DA004E9CE3 /* loginBgPng.png */; };
-		AA3A847620C55E2900BE88EC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3A847520C55E2900BE88EC /* RegisterViewController.swift */; };
 		AA3A84BB20C57B3A00BE88EC /* doubleLine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3A84BA20C57B3A00BE88EC /* doubleLine.png */; };
 		AA3C6C0F2091A55000B7F83C /* enterGameBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */; };
 		AA3C6C112091AF6B00B7F83C /* lessonBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3C6C102091AF6B00B7F83C /* lessonBtn.png */; };
@@ -90,7 +89,6 @@
 		AA43EACE2089C7EF006954EB /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */; };
 		AA45760620CE308D00B6680B /* newBookBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA45760520CE308D00B6680B /* newBookBg.png */; };
 		AA45760820CE44B700B6680B /* newBookVcBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = AA45760720CE44B700B6680B /* newBookVcBottom.png */; };
-		AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4642841FC4216300D34516 /* LoginViewController.swift */; };
 		AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */; };
 		AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E71207CCF7A00AAACC3 /* pointImg.png */; };
 		AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E73207CDC2800AAACC3 /* coverBg.png */; };
@@ -187,8 +185,6 @@
 		AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */; };
 		AAB30D2D20E20A3700D4EE4A /* toLoginVcBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */; };
 		AAB30D3120E2138600D4EE4A /* registerLaterBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */; };
-		AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */; };
-		AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */; };
 		AAC4C3E22297BC06005907C0 /* s5-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC4C3482297BC04005907C0 /* s5-6.txt */; };
 		AAC4C3E32297BC06005907C0 /* s5-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC4C3492297BC04005907C0 /* s5-7.txt */; };
 		AAC4C3E42297BC06005907C0 /* s5-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC4C34A2297BC04005907C0 /* s5-5.txt */; };
@@ -3526,7 +3522,7 @@
 		AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSenResultBg.png; sourceTree = "<group>"; };
 		AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewWordResultBg.png; sourceTree = "<group>"; };
 		AA2AC19C224A13E2003ADD56 /* orangePractice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePractice.png; sourceTree = "<group>"; };
-		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
+		AA2B64D3205A63F200742226 /* 痾.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "痾.swift"; sourceTree = "<group>"; };
 		AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroScene.sks; sourceTree = "<group>"; };
 		AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		AA2CFA7020BD7F8F009DBBB6 /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
@@ -3571,7 +3567,6 @@
 		AA39855420D29C3B004E9CE3 /* logoAlpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoAlpha.png; sourceTree = "<group>"; };
 		AA39855620D29F14004E9CE3 /* chartUpBg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chartUpBg2.png; sourceTree = "<group>"; };
 		AA39855820D2A6DA004E9CE3 /* loginBgPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginBgPng.png; sourceTree = "<group>"; };
-		AA3A847520C55E2900BE88EC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		AA3A84BA20C57B3A00BE88EC /* doubleLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doubleLine.png; sourceTree = "<group>"; };
 		AA3C6C0E2091A55000B7F83C /* enterGameBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enterGameBtn.png; sourceTree = "<group>"; };
 		AA3C6C102091AF6B00B7F83C /* lessonBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBtn.png; sourceTree = "<group>"; };
@@ -3580,7 +3575,6 @@
 		AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		AA45760520CE308D00B6680B /* newBookBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookBg.png; sourceTree = "<group>"; };
 		AA45760720CE44B700B6680B /* newBookVcBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBookVcBottom.png; sourceTree = "<group>"; };
-		AA4642841FC4216300D34516 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordCheck.png; sourceTree = "<group>"; };
 		AA4E2E71207CCF7A00AAACC3 /* pointImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointImg.png; sourceTree = "<group>"; };
 		AA4E2E73207CDC2800AAACC3 /* coverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverBg.png; sourceTree = "<group>"; };
@@ -3680,8 +3674,6 @@
 		AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordBtn.png; sourceTree = "<group>"; };
 		AAB30D2C20E20A3700D4EE4A /* toLoginVcBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toLoginVcBtn.png; sourceTree = "<group>"; };
 		AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerLaterBtn.png; sourceTree = "<group>"; };
-		AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
-		AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
 		AAC4C3482297BC04005907C0 /* s5-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-6.txt"; sourceTree = "<group>"; };
 		AAC4C3492297BC04005907C0 /* s5-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-7.txt"; sourceTree = "<group>"; };
 		AAC4C34A2297BC04005907C0 /* s5-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-5.txt"; sourceTree = "<group>"; };
@@ -7076,7 +7068,7 @@
 			isa = PBXGroup;
 			children = (
 				AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */,
-				AA2B64D3205A63F200742226 /* NewBookViewController.swift */,
+				AA2B64D3205A63F200742226 /* 痾.swift */,
 				AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */,
 				AA7E0F4D215DE3160001620F /* indicatorPng.png */,
 				AA408BF220F984D300CD6D72 /* redHeart.png */,
@@ -7134,7 +7126,6 @@
 		AA3A847720C562AE00BE88EC /* RegisterVc */ = {
 			isa = PBXGroup;
 			children = (
-				AA3A847520C55E2900BE88EC /* RegisterViewController.swift */,
 				AA3A84BA20C57B3A00BE88EC /* doubleLine.png */,
 				AA6D83FC20DD390B00A6025C /* newAccountPng.png */,
 				AA6D83FD20DD390B00A6025C /* newPasswordPng.png */,
@@ -7162,7 +7153,6 @@
 		AA5E2C40203D32D7005E22A0 /* loginVc */ = {
 			isa = PBXGroup;
 			children = (
-				AA4642841FC4216300D34516 /* LoginViewController.swift */,
 				AAB30D3020E2138500D4EE4A /* registerLaterBtn.png */,
 				AA39855820D2A6DA004E9CE3 /* loginBgPng.png */,
 				AA2738E7229E790000250A9F /* wechatLoginBtn.png */,
@@ -7452,8 +7442,6 @@
 		AAC1CE0A20B5283A007FF6F8 /* chartVc */ = {
 			isa = PBXGroup;
 			children = (
-				AAC1CE0820B52076007FF6F8 /* ChartViewController.swift */,
-				AAC1CE1520B52F4A007FF6F8 /* ChartTableViewCell.swift */,
 				AA95661220DB49EA005BD5E8 /* chartBg.png */,
 				AA126A5E20D3D0AC00419AD5 /* chartUpBg2.png */,
 				AA95661420DB4A91005BD5E8 /* chartSeperator.png */,
@@ -15328,23 +15316,19 @@
 				AA98C2BC21268A6C006F325F /* Constants.swift in Sources */,
 				AA7BB4C420C78FED001A1F66 /* PurchaseViewController.swift in Sources */,
 				AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */,
-				AA3A847620C55E2900BE88EC /* RegisterViewController.swift in Sources */,
 				AA6FB73A20AE84CA0001EFED /* MKGradientGenerator.swift in Sources */,
 				AA87A88E2137CD72000D9E89 /* StageCollectionViewCell.swift in Sources */,
-				AA4642851FC4216300D34516 /* LoginViewController.swift in Sources */,
 				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,
-				AAC1CE0920B52076007FF6F8 /* ChartViewController.swift in Sources */,
 				AA98BE822125B2D1006F325F /* CourseTableViewCell.swift in Sources */,
 				AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */,
 				AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */,
 				AA6FB73B20AE84CA0001EFED /* MKRingProgressView.swift in Sources */,
 				AA6FB73720AE7F910001EFED /* InfoTableViewCell.swift in Sources */,
-				AAC1CE1620B52F4A007FF6F8 /* ChartTableViewCell.swift in Sources */,
 				AA00379920497CCD0030F786 /* SwiftSiriWaveformView.swift in Sources */,
 				AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */,
 				AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */,
-				AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */,
+				AA2B64D4205A63F200742226 /* 痾.swift in Sources */,
 				AA2CFA6F20BD7F68009DBBB6 /* IntroViewController.swift in Sources */,
 				AA2CFA7120BD7F8F009DBBB6 /* IntroScene.swift in Sources */,
 				AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */,

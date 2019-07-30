@@ -2081,10 +2081,8 @@ class NewGameScene: SKScene {
                     if characters.count == 3{
                         if characters[2] == "e"{
                             
-                            
                             if vowels.contains(String(characters[0])){
-                                
-                                
+
                                 //剛好是_e部首
                                 let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs1)
                                 attrWords[sg].append(word)
@@ -2092,8 +2090,7 @@ class NewGameScene: SKScene {
                                 attrWords[sg].append(word1)
                                 let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs1)
                                 attrWords[sg].append(word2)
-                                
-                                
+         
                             } else {
                                 
                                 for c in 0 ..< characters.count {
@@ -2122,17 +2119,13 @@ class NewGameScene: SKScene {
                             attrWords[sg].append(word)
                         }
                         
-                        
                     }
                     
-                    
                 }
-                
-                
+         
             } else {
                 //非specialE的作法
-                
-                
+
                 //抓array的音節,  只抓一個字
                 for i in 0 ..< allThreeEngWordsArray[sg].count{
                     
@@ -2449,8 +2442,7 @@ class NewGameScene: SKScene {
             if addScore != 0 {
                 if gameMode == 0 {
                     countScore(score: addScore)
-                    
-                    
+ 
                 }
             }
             
@@ -2556,31 +2548,7 @@ class NewGameScene: SKScene {
             findLabelNode(name: "showHint").text = gameSC_pleaseConnect
             
         }
-        
-        /*
-         var ballDif:CGFloat!
-         
-         switch  height {
-         case 812:
-         
-         ballDif = 1
-         case 736:
-         
-         ballDif = 1
-         case 667:
-         
-         ballDif = 1
-         case 568:
-         
-         ballDif = 1
-         default:
-         
-         //all iPad
-         ballDif = 1.2
-         }
-         
-         */
-        
+    
         
         hintSlideIn(leftText: gameSC_connect, rightText: gameSC_spell,waitTime: 1) {[weak self] in
             
@@ -2616,9 +2584,6 @@ class NewGameScene: SKScene {
                     
                 case 1...:
                     
-                    
-                    
-                    
                     self?.firstEngWordLabel.attributedText = self!.words[self!.currentPracticeSequence]
                     self!.firstChiWordLabel.text = self!.allThreeChiWords[self!.currentPracticeSequence]
                     
@@ -2645,19 +2610,7 @@ class NewGameScene: SKScene {
                 
                 if shouldPronounce{
                     
-                    //發音, 用再seq > 0, backToSpell, practiceNextWord
-                    
-                    //目前都只念一次, 暫時保留
-                    //                    var speakTime = Int()
-                    //                    if self!.isBackToSpell{
-                    //                        speakTime = 1
-                    //
-                    //                    } else {
-                    //                        //2改成1
-                    //                        speakTime = 1
-                    //                    }
-                    //
-                    //
+
                     
                     let wordToPass:[String:Any] = ["wordToPass":self!.wordsToPronounce,"pronounceTime":1]
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pronounceWord"), object: nil, userInfo: wordToPass)
@@ -2992,27 +2945,17 @@ class NewGameScene: SKScene {
                     
                     if isPopQuiz{
                         
-                        //      makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 228 * 1.5, width: 220 * chiBtnDif, height: 220 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
                         makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
-                        
-                        
-                        //    makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 114, width: 220 * chiBtnDif, height: 230 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
+                     
                         makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
                         
                     } else {
-                        
-                        //makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+                    
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
-                        
-                        
-                        //makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
@@ -3033,38 +2976,24 @@ class NewGameScene: SKScene {
                     
                     
                     if isPopQuiz{
-                        
-                        //makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 228 * 1.5, width: 220 * chiBtnDif, height: 220 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
+                   
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
-                        
-                        
-                        //makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 114, width: 220 * chiBtnDif, height: 230 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+             
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
-                        
-                        
+                   
                         
                     } else {
-                        //makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
+                     
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        // makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                     }
-                    /*
-                     findLabelNode(name: "tempWord").text = "答錯"
-                     findLabelNode(name: "tempWord").fontColor = lightPink
-                     findLabelNode(name: "tempWord").fontSize = 60
-                     */
+
                     
                     let time = DispatchTime.now() + 1
                     
@@ -3095,28 +3024,18 @@ class NewGameScene: SKScene {
                     
                     if isPopQuiz{
                         
-                        //makeImageNode(name: "mark", image: "wrongX", x: 0, y: -1334 / 2 + 228 * 1.5, width: 228 * chiBtnDif, height: 228 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
+
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
 
-                        //makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 114, width: 228 * chiBtnDif, height: 238 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
+
                         makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
                         
                         
                     } else {
-                        //  makeImageNode(name: "mark", image: "wrongX", x: -190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
-                        
+            
                         makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
-                        //          makeImageNode(name: "mark", image: "rightCircle", x: 190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
@@ -3137,39 +3056,19 @@ class NewGameScene: SKScene {
                     changeImageAlfa(name: "rightChiBtn", toAlpha: 0, time: 0.1)
                     
                     if isPopQuiz{
-                        
-                        
-                        //makeImageNode(name: "mark", image: "rightCircle", x: 0, y: -1334 / 2 + 228 * 1.5, width: 228 * chiBtnDif, height: 228 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
-                        
+          
                         makeCenterImageNode(centerRef: findImageNode(name: "popUpBlock"), name: "mark", image: "rightCircle", width: 190 * chiBtnDif, height: 190 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        //makeImageNode(name: "mark", image: "wrongX", x: 0, y:-1334 / 2 + 114, width: 228 * chiBtnDif, height: 238 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "popDownBlock"), name: "mark", image: "wrongX", width: 190 * chiBtnDif, height: 200 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
                     } else {
-                        // makeImageNode(name: "mark", image: "rightCircle", x: -190 * chiBtnDif, y: -355, width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
-                        
+     
                         makeCenterImageNode(centerRef: findImageNode(name: "leftChiBtn"), name: "mark", image: "rightCircle", width: 275 * chiBtnDif, height: 275 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
-                        
-                        
-                        //    makeImageNode(name: "mark", image: "wrongX", x: 190 * chiBtnDif, y: -355, width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
-                        
                         
                         makeCenterImageNode(centerRef: findImageNode(name: "rightChiBtn"), name: "mark", image: "wrongX", width: 202 * chiBtnDif, height: 214 * chiBtnDif, z: 9, alpha: 1, isAnchoring: false)
                         
                     }
-                    /*
-                     findLabelNode(name: "tempWord").text = "答錯"
-                     findLabelNode(name: "tempWord").fontColor = lightPink
-                     findLabelNode(name: "tempWord").fontSize = 60
-                     */
+
                     let time = DispatchTime.now() + 1
                     DispatchQueue.main.asyncAfter(deadline: time, execute: {[weak self] in
                         self!.chooseChineseResult(isCorrect: false)
@@ -3690,10 +3589,7 @@ class NewGameScene: SKScene {
                             
                             //把輸入字刪除
                             findLabelNode(name: "tempWord").text = ""
-                            
-                            
-                            
-                            
+   
                             testChinese()
                             
                         }
@@ -3708,8 +3604,7 @@ class NewGameScene: SKScene {
                         
                         //把輸入過的答案移除
                         wordEntered.removeAll(keepingCapacity: false)
-                        
-                        
+    
                         findLabelNode(name: "tempWord").run(wrongAnswerAction(), completion: {[weak self] in
                             
                             //能按畫面
@@ -3899,8 +3794,6 @@ class NewGameScene: SKScene {
         practiceNextWord()
         isFinalGetPoint = true
         
-        
-        
     }
     
     //練習下個字或是結束本回合 / 進入popQuiz
@@ -3970,15 +3863,13 @@ class NewGameScene: SKScene {
                 
                 //在此確認是否為雙數結束
                 
-                
                 if (unitNumber + 1) % 2 == 0{
                     
                     
                     if isReplay {
                         
                         //複習模式就不做popQuiz
-                        
-                        
+
                         if user != nil {
                             //這是連接後端的func
                             addWrongWords()
@@ -4080,12 +3971,9 @@ class NewGameScene: SKScene {
                     
                     
                     if currentPracticeSequence == 2 {
-                        
                         currentPracticeSequence = 0
                     } else {
-                        
                         currentPracticeSequence += 1
-                        
                     }
                     
                     shownWords.removeAll(keepingCapacity: false)
@@ -4102,13 +3990,11 @@ class NewGameScene: SKScene {
                         
                         if (node.name?.contains("filledButton"))!{
                             changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
-                            
                         }
                         
                         if (node.name?.contains("emptyButton"))!{
                             changeImageAlfa(name: node.name!, toAlpha: 0, time: 0.3)
                         }
-                        
                         
                         if (node.name?.contains("Sel"))!{
                             node.removeFromParent()
@@ -4184,11 +4070,6 @@ class NewGameScene: SKScene {
             }
             
             
-        } else if gameMode == 2 {
-            
-            //    print("practice next sentence")
-            
-            
         }
         
     }
@@ -4241,7 +4122,6 @@ class NewGameScene: SKScene {
         //回復可以按鈕
         
         if !countScoreTimer.isValid{
-            
             isUserInteractionEnabled = true
         }
         
@@ -4351,6 +4231,7 @@ class NewGameScene: SKScene {
     
     func addWrongWords(){
         
+        
         if wrongWords.count > 0 {
             //確認有錯字
             
@@ -4359,59 +4240,22 @@ class NewGameScene: SKScene {
                 //避免重複
                 if !myWrongWords.contains(word){
                     
-                    //print("wrongword:\(word)")
+                    let copyUser = user?.mutableCopy() as! NSMutableDictionary
                     
-                    let id = user?["id"] as! String
                     
-                    // url to access our php file
-                    let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/addWrongWord.php")!
-                    
-                    // request url
-                    var request = URLRequest(url: url)
-                    
-                    // method to pass data POST - cause it is secured
-                    request.httpMethod = "POST"
-                    
-                    // body gonna be appended to url
-                    let body = "userID=\(id)&wrongWord=\(word)"
-                    
-                    // append body to our request that gonna be sent
-                    request.httpBody = body.data(using: .utf8)
-                    
-                    URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-                        // no error
-                        if error == nil {
-                            
-                            do {
-                                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                                
-                                guard let parseJSON = json else {
-                                    print("Error while parsing")
-                                    //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
-                                    return
-                                }
-                                
-                                //再次儲存使用者資訊
-                                UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
-                                user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
-                                //print(user!)
-                                
-                            } catch{
-                                
-                                print("catch error")
-                                
-                            }
-                        } else {
-                            
-                            print("urlsession has error")
-                            
-                        }
-                    }).resume()
+                    let myWrongWords = user?.object(forKey: kWrongWords) as! String
+                    let newMyWrongWords = myWrongWords + word + ";"
+
+                    copyUser.setValue(newMyWrongWords, forKey: kWrongWords)
+                    user = copyUser
+                    userDefaults.set(user, forKey: "parseJSON")
                     
                 }
             }
         }
         
+        
+   
     }
     
     //換圖片
@@ -4577,26 +4421,7 @@ class NewGameScene: SKScene {
         
     }
     
-    //單純造方塊字Label的功能
-    func makeBlockLabel(x:Int,y:Int){
-        let node = SKLabelNode()
-        node.position = CGPoint(x: 0, y: 0)
-        node.horizontalAlignmentMode = .center
-        node.fontSize = 20
-        node.text = ""
-        node.fontColor = .white
-        node.zPosition = 2
-        node.name = "\(x)-\(y)BlockLabel"
-        node.fontName = "Helvetica Neue"
-        node.isHidden = false
-        node.alpha = 1
-        
-        if let parentNode = findImageNode(name: "\(x)-\(y)") as SKSpriteNode?{
-            parentNode.addChild(node)
-            
-        }
-    }
-    
+
     
     //單純發音功能
     func pronounce(finished: @escaping () -> Void){
