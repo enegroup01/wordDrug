@@ -328,11 +328,11 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         practiceWordBtn.anchor(top: nil, leading: alertBg.leadingAnchor, bottom: alertBg.bottomAnchor, trailing: alertBg.trailingAnchor, size: .init(width: 0, height: 44 * iPadDif))
     
         //拉到最前方
-        self.view.bringSubview(toFront: ghostBtn)
-        self.view.bringSubview(toFront: alertBg)
-        self.view.bringSubview(toFront: alertText)
+        self.view.bringSubviewToFront(ghostBtn)
+        self.view.bringSubviewToFront(alertBg)
+        self.view.bringSubviewToFront(alertText)
  
-        self.view.bringSubview(toFront: practiceWordBtn)
+        self.view.bringSubviewToFront(practiceWordBtn)
         //self.view.bringSubview(toFront: practiceSenBtn)
   
       
@@ -418,7 +418,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         activityIndicator.hidesWhenStopped = true
         activityIndicator.layer.cornerRadius = activityIndicator.frame.width / 20
         activityIndicator.backgroundColor = alphaGray
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         view.addSubview(activityIndicator)
       
         activityIndicator.startAnimating()
@@ -477,9 +477,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             let attrWords = NSMutableAttributedString()
             
-            let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
+            let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
             
-            let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
+            let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
             
             let btnText = NSMutableAttributedString(string: purchaseVC_purchaseBtnText, attributes: attrs0)
             let btnText2 = NSMutableAttributedString(string: purchaseVC_purchaseBtnDollars, attributes: attrs1)
@@ -550,9 +550,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         let attrWords = NSMutableAttributedString()
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
         
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
         
         let btnText = NSMutableAttributedString(string: purchaseVC_purchaseOkMsg, attributes: attrs0)
         let btnText2 = NSMutableAttributedString(string: "Thank you!", attributes: attrs1)
@@ -583,9 +583,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         let attrWords = NSMutableAttributedString()
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
         
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
         
         let btnText = NSMutableAttributedString(string: purchaseVC_internetErrorMsg, attributes: attrs0)
         let btnText2 = NSMutableAttributedString(string: "Sorry!", attributes: attrs1)
@@ -615,9 +615,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
 
         let attrWords = NSMutableAttributedString()
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: subTitleFontSize)]
         
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: titleFontSize)]
         
         let btnText = NSMutableAttributedString(string: purchaseVC_purchaseBtnText, attributes: attrs0)
         let btnText2 = NSMutableAttributedString(string: purchaseVC_purchaseBtnDollars, attributes: attrs1)

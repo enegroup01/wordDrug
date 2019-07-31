@@ -14,6 +14,7 @@ import UserNotifications
 import StoreKit
 import ProgressHUD
 
+
 //MARK: must update
 //MARK: simVer要增加簡體變數
 
@@ -54,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var window: UIWindow?
 
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         
@@ -106,10 +107,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             toCourse()
 
         } else {
-            
+            print("enter here 1")
             //首次登入, 沒有user的話
           
             if introWatched == nil {
+                
+                
                 
                 //沒看過的話
                 
@@ -198,6 +201,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 
             } else if introWatched == true{
                 
+                   print("enter here 2")
                 //假如沒有測過
                 toCourse()
             }
@@ -361,10 +365,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
  
         //MARK: simVer K12 特別作法
         
-        let decodeK12Map = userDefaults.object(forKey: kMapPassed6) as? NSData
-        if let decoded = decodeK12Map {
-            k12MapPassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int]
-        }
+        //let decodeK12Map = userDefaults.object(forKey: kMapPassed6) as? NSData
+        k12MapPassed = userDefaults.object(forKey: kMapPassed6) as? [Int]
+//        if let decoded = decodeK12Map {
+//            print("appDelegate decoded successful")
+//            k12MapPassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int]
+//            print("appDelegate k12MapPassed:\(k12MapPassed)")
+//        }
+        print("appDelegate k12Map:\(k12MapPassed)")
         
         let decodeK12Game = userDefaults.object(forKey: kGamePassed6) as? NSData
         if let decoded = decodeK12Game {
@@ -390,6 +398,105 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         if let decoded = decodedObject9{
             gamePassed9 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
+        
+
+        
+        //user裡有的資料要轉換
+    
+        guard let wr = user?[kWordReviewCount] as? String else{
+            return
+        }
+        guard let wr2 = user?[kWordReviewCount2] as? String else{
+            return
+        }
+        guard let wr3 = user?[kWordReviewCount3] as? String else{
+            return
+        }
+        guard let wr4 = user?[kWordReviewCount4] as? String else{
+            return
+        }
+        guard let wr5 = user?[kWordReviewCount5] as? String else{
+            return
+        }
+        guard let wr6 = user?[kWordReviewCount6] as? String else{
+            return
+        }
+        guard let wr7 = user?[kWordReviewCount7] as? String else{
+            return
+        }
+        guard let wr8 = user?[kWordReviewCount8] as? String else{
+            return
+        }
+        guard let wr9 = user?[kWordReviewCount9] as? String else{
+            return
+        }
+        
+        guard let sr = user?[kSenReviewCount] as? String else{
+            return
+        }
+        guard let sr2 = user?[kSenReviewCount2] as? String else{
+            return
+        }
+        guard let sr3 = user?[kSenReviewCount3] as? String else{
+            return
+        }
+        guard let sr4 = user?[kSenReviewCount4] as? String else{
+            return
+        }
+        guard let sr5 = user?[kSenReviewCount5] as? String else{
+            return
+        }
+        guard let sr6 = user?[kSenReviewCount6] as? String else{
+            return
+        }
+        guard let sr7 = user?[kSenReviewCount7] as? String else{
+            return
+        }
+        guard let sr8 = user?[kSenReviewCount8] as? String else{
+            return
+        }
+        guard let sr9 = user?[kSenReviewCount9] as? String else{
+            return
+        }
+
+        guard let wch = user?[kWrongChinese] as? String else {
+            return
+        }
+        
+        guard let proRate = user?[kProRate] as? String else {
+            return
+        }
+        
+        guard let senRate = user?[kSenRate] as? String else {
+            return
+        }
+        
+        guard let myWords = user?[kMyWords] as? String else {
+            return
+        }
+        
+        guard let wrongWords = user?[kWrongWords] as? String else {
+            return
+        }
+        
+        //ava 跳過
+        guard let nickName = user?[kNickname] as? String else {
+            return
+        }
+        
+        guard let score = user?[kScore] as? String else {
+            return
+        }
+        
+        guard let date = user?[kDate] as? String else {
+            return
+        }
+
+        let replaceSelf = [kWordReviewCount:Int(wr)!,kWordReviewCount2:Int(wr2)!,kWordReviewCount3:Int(wr3)!,kWordReviewCount4:Int(wr4)!,kWordReviewCount5:Int(wr5)!,kWordReviewCount6:Int(wr6)!,kWordReviewCount7:Int(wr7)!,kWordReviewCount8:Int(wr8)!,kWordReviewCount9:Int(wr9)!,kSenReviewCount:Int(sr)!,kSenReviewCount2:Int(sr2)!,kSenReviewCount3:Int(sr3)!,kSenReviewCount4:Int(sr4)!,kSenReviewCount5:Int(sr5)!,kSenReviewCount6:Int(sr6)!,kSenReviewCount7:Int(sr7)!,kSenReviewCount8:Int(sr8)!,kSenReviewCount9:Int(sr9)!,kWrongChinese:Int(wch)!,kProRate:Int(proRate)!,kSenRate:Int(senRate)!,kMyWords:myWords,kWrongWords:wrongWords,kAva:"",kNickname:nickName,kScore:Int(score)!, kDate:date] as NSMutableDictionary
+        
+        user = replaceSelf
+        userDefaults.set(user, forKey: "parseJSON")
+       
         
     }
 

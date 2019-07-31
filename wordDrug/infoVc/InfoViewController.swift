@@ -304,7 +304,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        picker.sourceType = UIImagePickerController.SourceType.photoLibrary
         picker.allowsEditing = true
         picker.modalPresentationStyle = .overFullScreen
         
@@ -321,10 +321,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // let attrs0 = [NSAttributedStringKey.font : UIFont(name: "Helvetica Neue", size: 12), NSAttributedStringKey.foregroundColor : lightColor]
         
-        let attrs1: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: subValueFontSize), NSAttributedStringKey.foregroundColor : yellowColor]
+        let attrs1: [NSAttributedString.Key: NSObject] = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: subValueFontSize), NSAttributedString.Key.foregroundColor : yellowColor]
         
         
-        let attrs2: [NSAttributedStringKey: NSObject] = [NSAttributedStringKey.font : UIFont(name: "Helvetica Bold", size: subTitleFontSize)!, NSAttributedStringKey.foregroundColor : darkColor]
+        let attrs2: [NSAttributedString.Key: NSObject] = [NSAttributedString.Key.font : UIFont(name: "Helvetica Bold", size: subTitleFontSize)!, NSAttributedString.Key.foregroundColor : darkColor]
         
         
         cell.backgroundColor = .clear
@@ -464,11 +464,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //指定個人大頭照
         
         if let avaData = user?[kAva] as? Data {
-            
+            print("got pic")
             DispatchQueue.main.async {[weak self] in
                 self!.avaImg.image = UIImage(data: avaData)
             }
         } else {
+            print("no pic")
             DispatchQueue.main.async {[weak self] in
                 self!.avaImg.image = UIImage(named: "avatar.png")
             }
@@ -498,7 +499,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if lan == "zh-Hans"{
                 //檢體中文
                 
-                //print("檢體中文關卡數")
+                print("檢體中文關卡數")
                 //之後還要用courseReceived來改數值, 因為每個course值不同
                 
                 allMapPassedCount =  mapPassed! * 330 + mapPassed2! * 450 + mapPassed3! * 450 +  mapPassed4! * 450 +  mapPassed5! * 450 + mapPassed7! * 450 + mapPassed8! * 450 + mapPassed9! * 450
@@ -740,10 +741,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // selected image
     
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         //  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        avaImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
+        avaImg.image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage
         
         
         self.dismiss(animated: false, completion: nil)
@@ -816,7 +820,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //save photo to userdefault
         
-        let imageData = UIImageJPEGRepresentation(avaImg.image!, 0.5)
+        let imageData = avaImg.image!.jpegData(compressionQuality: 0.5)
         //let encodedAvaData = NSKeyedArchiver.archivedData(withRootObject: imageData)
         //userDefaults.set(encodedAvaData, forKey: kAva)
         
@@ -981,3 +985,13 @@ extension NSMutableData {
     
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

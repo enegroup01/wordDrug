@@ -44,7 +44,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBOutlet weak var daysLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
 
-    
     @IBOutlet weak var logoImg: UIImageView!
    
     var activityIndicator = UIActivityIndicatorView()
@@ -58,7 +57,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         var dif = CGFloat()
         var iPadDif = CGFloat()
@@ -96,7 +94,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayTitleFontSize = 20
             statusFontSize = 20
  
-
         case 812:
            //iPhoneX
             dif = 1.1
@@ -171,7 +168,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         activityIndicator.hidesWhenStopped = true
         activityIndicator.layer.cornerRadius = activityIndicator.frame.width / 20
         activityIndicator.backgroundColor = alphaGray
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         view.addSubview(activityIndicator)
         
         
@@ -255,8 +252,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         hiddenShopBtn.anchorSize(to: hiddenInfoBtn)
 
 
-        self.view.bringSubview(toFront: toInfoVcBtn)
-        self.view.bringSubview(toFront: toShopVcBtn)
+        self.view.bringSubviewToFront(toInfoVcBtn)
+        self.view.bringSubviewToFront(toShopVcBtn)
 
         bigNameLabel.text = ""
         userStatusLabel.text = courseVC_freeState
@@ -391,6 +388,9 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        print("Course:\(user)")
+        
          var nickname = String()
          var purchaseStatus = String()
          //測試用

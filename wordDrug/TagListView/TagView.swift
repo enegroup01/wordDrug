@@ -98,12 +98,12 @@ open class TagView: UIButton {
         else if isSelected {
             backgroundColor = selectedBackgroundColor ?? tagBackgroundColor
             layer.borderColor = selectedBorderColor?.cgColor ?? borderColor?.cgColor
-            setTitleColor(selectedTextColor, for: UIControlState())
+            setTitleColor(selectedTextColor, for: UIControl.State())
         }
         else {
             backgroundColor = tagBackgroundColor
             layer.borderColor = borderColor?.cgColor
-            setTitleColor(textColor, for: UIControlState())
+            setTitleColor(textColor, for: UIControl.State())
         }
     }
     
@@ -215,15 +215,15 @@ open class TagView: UIButton {
    
         //有加入數字在後面
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: senFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 1), NSAttributedStringKey.foregroundColor : UIColor.clear]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: senFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 1), NSAttributedString.Key.foregroundColor : UIColor.clear]
         
         var attrTitle = NSMutableAttributedString()
         let titles = title.components(separatedBy: " ")
         attrTitle = NSMutableAttributedString(string: titles[0], attributes: attrs0)
         attrTitle.append(NSMutableAttributedString(string: titles[1], attributes: attrs1))
         
-        setAttributedTitle(attrTitle, for: UIControlState())
+        setAttributedTitle(attrTitle, for: UIControl.State())
         
         setupView()
     }
@@ -246,7 +246,7 @@ open class TagView: UIButton {
     // MARK: - layout
 
     override open var intrinsicContentSize: CGSize {
-        var size = titleLabel?.text?.size(withAttributes: [NSAttributedStringKey.font: textFont]) ?? CGSize.zero
+        var size = titleLabel?.text?.size(withAttributes: [NSAttributedString.Key.font: textFont]) ?? CGSize.zero
         size.height = textFont.pointSize + paddingY * 2
         size.width += paddingX * 2
         if size.width < size.height {

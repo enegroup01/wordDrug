@@ -129,7 +129,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     //    var k12MapPassed:[Int]!
     //    var k12GamePassed:[[Int:Int]]!
     
-    let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
+    let attrsBtn = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
     
     
     //單機版
@@ -467,7 +467,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         previousBtn.anchorSize(to: enterBtn)
         reviewBtn.anchorSize(to: enterBtn)
         
-        let attrs = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.368627451, green: 0.8117647059, blue: 0.4470588235, alpha: 1)]
+        let attrs = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.368627451, green: 0.8117647059, blue: 0.4470588235, alpha: 1)]
         reviewBtn.setAttributedTitle(NSAttributedString(string: lessonVC_reviewBtn, attributes: attrs), for: .normal)
         
         enterBtn.titleLabel?.font = enterBtn.titleLabel?.font.withSize(btnFontSize)
@@ -487,16 +487,16 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //拉到最前方
         
-        self.view.bringSubview(toFront: ghostBtn)
-        self.view.bringSubview(toFront: alertBg)
+        self.view.bringSubviewToFront(ghostBtn)
+        self.view.bringSubviewToFront(alertBg)
         
-        self.view.bringSubview(toFront: practiceWordBtn)
-        self.view.bringSubview(toFront: practiceSenBtn)
-        self.view.bringSubview(toFront: leftBtnClickedImg)
-        self.view.bringSubview(toFront: rightBtnClickedImg)
-        self.view.bringSubview(toFront: bigQuitBtn)
+        self.view.bringSubviewToFront(practiceWordBtn)
+        self.view.bringSubviewToFront(practiceSenBtn)
+        self.view.bringSubviewToFront(leftBtnClickedImg)
+        self.view.bringSubviewToFront(rightBtnClickedImg)
+        self.view.bringSubviewToFront(bigQuitBtn)
         
-        self.view.bringSubview(toFront: lessonSylView)
+        self.view.bringSubviewToFront(lessonSylView)
         
         /*
          firstLabel.backgroundColor = .red
@@ -546,11 +546,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var reusableView = UICollectionReusableView()
         
         // header
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionView.elementKindSectionHeader {
             // 依據前面註冊設置的識別名稱 "Header" 取得目前使用的 header
             reusableView =
                 collectionView.dequeueReusableSupplementaryView(
-                    ofKind: UICollectionElementKindSectionHeader,
+                    ofKind: UICollectionView.elementKindSectionHeader,
                     withReuseIdentifier: "Header",
                     for: indexPath)
             
@@ -974,7 +974,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //重置
         //這兩個變數感覺重複了...
         let lessonVC_enterBtn1 = NSLocalizedString("lessonVC_enterBtn", comment: "")
-        let attrsBtn = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
+        let attrsBtn = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
         
         enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn1, attributes: attrsBtn), for: .normal)
         
@@ -1198,10 +1198,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //   if isClassAllPassed == false{
         
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedStringKey.foregroundColor : pinkColor]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
-        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedString.Key.foregroundColor : pinkColor]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
+        let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
+        let attrs3 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
         
         //增加數字來抓正確的值
         mapNumToReceive += increaseNum
@@ -2040,10 +2040,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     //寫一個獨立的讀取單字功能
     func loadWords(seq:Int){
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedStringKey.foregroundColor : pinkColor]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
-        let attrs3 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedString.Key.foregroundColor : pinkColor]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
+        let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
+        let attrs3 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
         
         var syllablesWithoutDigit = String()
         

@@ -994,7 +994,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         favAddedLabel.numberOfLines = 2
         favAddedLabel.alpha = 0
         self.view.addSubview(favAddedLabel)
-        self.view.bringSubview(toFront: favAddedLabel)
+        self.view.bringSubviewToFront(favAddedLabel)
         
 
         // *** 處理文字 ***
@@ -1733,13 +1733,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         collectionSelectedIndex = 0
         
         //拉到最前方
-        self.view.bringSubview(toFront: ghostBtn)
-        self.view.bringSubview(toFront: alertBg)
-        self.view.bringSubview(toFront: ghost2Btn)
-        self.view.bringSubview(toFront: practiceWordBtn)
-        self.view.bringSubview(toFront: practiceSenBtn)
-        self.view.bringSubview(toFront: leftBtnClickedImg)
-        self.view.bringSubview(toFront: rightBtnClickedImg)
+        
+
+        //swift 4.1
+        self.view.bringSubviewToFront(ghostBtn)
+        self.view.bringSubviewToFront(alertBg)
+        self.view.bringSubviewToFront(ghost2Btn)
+        self.view.bringSubviewToFront(practiceWordBtn)
+        self.view.bringSubviewToFront(practiceSenBtn)
+        self.view.bringSubviewToFront(leftBtnClickedImg)
+        self.view.bringSubviewToFront(rightBtnClickedImg)
         
         removeBtns()
         
@@ -2676,8 +2679,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let vowels = ["a","e","i","o","u"]
         
         //字型顏色
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engWordSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
-        let attrs2 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engWordSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: engWordSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
+        let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: engWordSize), NSAttributedString.Key.foregroundColor : UIColor.white]
         
         //假如音節是_e, 另外處理
         if syllableText.contains("_") {
@@ -3340,8 +3343,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     func synPronounce(){
         
         do {
-            
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: .defaultToSpeaker)
+//            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch  {
         }

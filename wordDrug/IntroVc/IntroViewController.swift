@@ -159,7 +159,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
         
         self.view.addSubview(recordingIndicator!)
-        self.view.bringSubview(toFront: recordBtn)
+        self.view.bringSubviewToFront(recordBtn)
         recordingIndicator?.translatesAutoresizingMaskIntoConstraints = false
         recordingIndicator?.widthAnchor.constraint(equalToConstant: 150  * dif).isActive = true
         recordingIndicator?.heightAnchor.constraint(equalToConstant: 150 * dif).isActive = true
@@ -231,7 +231,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         }
         
         self.view.addSubview(recordingIndicator!)
-        self.view.bringSubview(toFront: recordBtn)
+        self.view.bringSubviewToFront(recordBtn)
         
         //辨識語音的delegate
         speechRecognizer.delegate = self
@@ -255,8 +255,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
     }
     
     @objc func toCourse(_ notification: NSNotification){
-        
-        
+
         let userDefaults = UserDefaults.standard
         introWatched = true
         userDefaults.set(introWatched, forKey: "introWatched")
@@ -265,8 +264,7 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
-    
-    
+
     deinit {
         print("intro deinit")
     }
@@ -431,9 +429,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
                         
             do {
                 
-                try audioSession.setCategory(AVAudioSessionCategoryRecord)
-                try audioSession.setMode(AVAudioSessionModeMeasurement)
-                try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+                try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.record)), mode: .default)
+                try audioSession.setMode(AVAudioSession.Mode.measurement)
+                try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
                 
                 
                 if let inputNode = audioEngine.inputNode as AVAudioInputNode?{
@@ -580,8 +578,8 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
             
             //設置成ambient看能不能避免任何interruption 造成當機
             
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
-            try audioSession.setMode(AVAudioSessionModeDefault)
+            try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)), mode: .default)
+            try audioSession.setMode(AVAudioSession.Mode.default)
             try audioSession.setActive(true)
             
         } catch  {
@@ -653,4 +651,9 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
      }
      */
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

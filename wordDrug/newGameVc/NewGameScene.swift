@@ -1981,8 +1981,8 @@ class NewGameScene: SKScene {
         
         
         //字型顏色
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
-        let attrs1 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: engFontSize), NSAttributedStringKey.foregroundColor : UIColor.cyan]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: engFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
+        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: engFontSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
         
         
         //先抓音節, 待寫gameMode==1的條件式

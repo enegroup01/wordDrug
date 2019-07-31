@@ -626,7 +626,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         scoreLabel.text = ""
         
     
-        self.view.bringSubview(toFront: limitTimerLabel)
+        self.view.bringSubviewToFront(limitTimerLabel)
         limitTimerLabel.translatesAutoresizingMaskIntoConstraints = false
         limitTimerLabel.font = limitTimerLabel.font.withSize(hintLabelFontSize)
         limitTimerLabel.textAlignment = .center
@@ -644,7 +644,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         ghostBtn.frame = CGRect(x: 0, y: 0, width: width, height: height)
         ghostBtn.backgroundColor = lightGray
         self.view.addSubview(ghostBtn)
-        self.view.bringSubview(toFront: ghostBtn)
+        self.view.bringSubviewToFront(ghostBtn)
         
 
         //做reviewAlert
@@ -653,7 +653,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         reviewWordBg.image = UIImage(named:"reviewWordResultBg.png")
         self.view.addSubview(reviewWordBg)
-        self.view.bringSubview(toFront: reviewWordBg)
+        self.view.bringSubviewToFront(reviewWordBg)
         
         
 
@@ -665,7 +665,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertTitle1.textColor = .white
         reviewAlertTitle1.textAlignment = .right
         reviewWordBg.addSubview(reviewAlertTitle1)
-        self.view.bringSubview(toFront: reviewAlertTitle1)
+        self.view.bringSubviewToFront(reviewAlertTitle1)
      
         
         reviewAlertTitle2.frame = CGRect(x: reviewAlertTitle1.frame.minX, y: reviewAlertTitle1.frame.maxY - 5 * dif, width: 92 * dif * iPadDif, height: 25 * dif * iPadDif)
@@ -676,7 +676,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertTitle2.textAlignment = .right
         
         reviewWordBg.addSubview(reviewAlertTitle2)
-           self.view.bringSubview(toFront: reviewAlertTitle2)
+           self.view.bringSubviewToFront(reviewAlertTitle2)
         
         
         reviewAlertTotalLabel.frame = CGRect(x: reviewAlertTitle1.frame.midX - 10 * dif, y: reviewAlertTitle2.frame.maxY * 1.3, width: 30 * dif * iPadDif, height: 17 * dif * iPadDif)
@@ -686,7 +686,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertTotalLabel.textColor = darkColor
         //reviewAlertTotalLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertTotalLabel)
-                self.view.bringSubview(toFront: reviewAlertTotalLabel)
+                self.view.bringSubviewToFront(reviewAlertTotalLabel)
         
         
         reviewAlertCountLabel.frame = CGRect(x: (reviewWordBg.frame.width - 170 * dif * iPadDif) / 2, y: reviewAlertTotalLabel.frame.midY, width: 170 * dif * iPadDif, height: 80 * dif * iPadDif)
@@ -696,7 +696,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertCountLabel.textColor = darkColor
         //reviewAlertCountLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertCountLabel)
-                self.view.bringSubview(toFront: reviewAlertCountLabel)
+                self.view.bringSubviewToFront(reviewAlertCountLabel)
         
         
         reviewAlertUnitLabel.frame = CGRect(x: reviewAlertCountLabel.frame.maxX - 10 * dif * iPadDif, y: reviewAlertCountLabel.frame.maxY - 17 * dif * iPadDif, width: 20 * dif * iPadDif, height: 17 * dif * iPadDif)
@@ -706,9 +706,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewAlertUnitLabel.textColor = darkColor
         //reviewAlertCountLabel.backgroundColor = .gray
         reviewWordBg.addSubview(reviewAlertUnitLabel)
-        self.view.bringSubview(toFront: reviewAlertUnitLabel)
+        self.view.bringSubviewToFront(reviewAlertUnitLabel)
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12 * iPadDif), NSAttributedStringKey.foregroundColor : darkColor]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12 * iPadDif), NSAttributedString.Key.foregroundColor : darkColor]
         
         
         let title = NSAttributedString(string: gameVC_iKnow, attributes: attrs0)
@@ -720,11 +720,11 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         reviewOkBtn.setBackgroundImage(UIImage(named:"reviewOkBtnPng.png"), for: .normal)
         reviewOkBtn.setAttributedTitle(title, for: .normal)
         self.view.addSubview(reviewOkBtn)
-        self.view.bringSubview(toFront: reviewOkBtn)
+        self.view.bringSubviewToFront(reviewOkBtn)
 
         //加入alertView
         
-        self.view.bringSubview(toFront: alertBg)
+        self.view.bringSubviewToFront(alertBg)
         alertBg.translatesAutoresizingMaskIntoConstraints = false
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         self.view.addSubview(alertBg)
@@ -734,7 +734,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         alertBg.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         
-        self.view.bringSubview(toFront: purchaseAlert)
+        self.view.bringSubviewToFront(purchaseAlert)
         purchaseAlert.isHidden = true
         purchaseAlert.translatesAutoresizingMaskIntoConstraints = false
         
@@ -773,7 +773,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         cancelBtn.setTitleColor(orangeColor, for: .normal)
         cancelBtn.addTarget(self, action: #selector(NewGameViewController.removeBtns), for: .touchUpInside)
         self.view.addSubview(cancelBtn)
-        self.view.bringSubview(toFront: cancelBtn)
+        self.view.bringSubviewToFront(cancelBtn)
         
 
 
@@ -790,7 +790,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         noBuyBtn.setTitle(gameVC_noBuyNow, for: .normal)
         
         self.view.addSubview(noBuyBtn)
-          self.view.bringSubview(toFront: noBuyBtn)
+          self.view.bringSubviewToFront(noBuyBtn)
         noBuyBtn.anchor(top: nil, leading: purchaseAlert.leadingAnchor, bottom: purchaseAlert.bottomAnchor, trailing: nil, size: .init(width: 119 * iPadDif * dif, height: 462 * iPadDif * dif / 10))
 
         quitBtn.titleLabel?.font = UIFont(name: "Helvetica Bold", size: hintLabelFontSize)
@@ -799,7 +799,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         quitBtn.setTitleColor(orangeColor, for: .normal)
         quitBtn.addTarget(self, action: #selector(NewGameViewController.leaveWithoutSaving), for: .touchUpInside)
         self.view.addSubview(quitBtn)
-                self.view.bringSubview(toFront: quitBtn)
+                self.view.bringSubviewToFront(quitBtn)
 
         
         quitBtn.anchor(top: alertText.bottomAnchor, leading: alertBg.centerXAnchor, bottom: alertBg.bottomAnchor, trailing: alertBg.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
@@ -811,7 +811,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         goToBuyBtn.setTitleColor(orangeColor, for: .normal)
         goToBuyBtn.setTitle(gameVC_toShop, for: .normal)
         self.view.addSubview(goToBuyBtn)
-        self.view.bringSubview(toFront: goToBuyBtn)
+        self.view.bringSubviewToFront(goToBuyBtn)
         
         goToBuyBtn.anchor(top: nil, leading: noBuyBtn.trailingAnchor, bottom: purchaseAlert.bottomAnchor, trailing: nil)
         goToBuyBtn.anchorSize(to: noBuyBtn)
@@ -906,7 +906,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
   
         self.view.addSubview(resultTitleImg)
-        self.view.bringSubview(toFront: resultTitleImg)
+        self.view.bringSubviewToFront(resultTitleImg)
         
         resultBg.translatesAutoresizingMaskIntoConstraints = false
         resultBg.widthAnchor.constraint(equalToConstant: 280 * dif * iPadDif).isActive = true
@@ -1024,7 +1024,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         bigOkBtn.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: (height / 2 + (190 * iPadDif * dif)) * resultElementDif + okBtnDif).isActive = true
         
        
-        self.view.bringSubview(toFront: bonusScoreLabel)
+        self.view.bringSubviewToFront(bonusScoreLabel)
       
         //針對iPhoneX的高度部分特別調整, 也針對iPhonePlusY做調整
         bonusScoreLabel.frame = CGRect(x: (width - 100 * iPadDif * dif) / 2, y: (140 * iPadDif * dif) * resultElementDif * iPhoneXHeightDif * iPhoneXHeightDif2 * iPhoneXHeightDif2 / iPhonePlusHeightDif, width: 100 * iPadDif * dif, height: 39 * iPadDif * dif)
@@ -1197,7 +1197,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         clearTagBtn.addTarget(self, action: #selector(NewGameViewController.clearTag), for: .touchUpInside)
 
         view.addSubview(clearTagBtn)
-        view.bringSubview(toFront: clearTagBtn)
+        view.bringSubviewToFront(clearTagBtn)
         clearTagBtn.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeBottomAnchor, trailing: nil, padding: .init(top: 0, left: 5 * iPadDif * dif, bottom: -5 * iPadDif * dif, right: 0), size: .init(width: 25 * iPadDif * dif, height: 23 * iPadDif * dif))
 
         clearTagBtn.setBackgroundImage(UIImage(named:"clearTagBtn.png"
@@ -1838,7 +1838,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         hintLabel.textColor = .white
         
-        self.view.bringSubview(toFront: hintLabel)
+        self.view.bringSubviewToFront(hintLabel)
         hintLabel.translatesAutoresizingMaskIntoConstraints = false
 
 
@@ -1868,7 +1868,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         recordingIndicator = NVActivityIndicatorView(frame: frame, type: .circleStrokeSpin, color: recordingPinkColor, padding: 2)
    
         self.view.addSubview(recordingIndicator!)
-        self.view.bringSubview(toFront: recordBtn)
+        self.view.bringSubviewToFront(recordBtn)
         recordingIndicator?.translatesAutoresizingMaskIntoConstraints = false
         recordingIndicator?.widthAnchor.constraint(equalToConstant: 150 * iPadDif * dif).isActive = true
         recordingIndicator?.heightAnchor.constraint(equalToConstant: 150 * iPadDif * dif).isActive = true
@@ -3404,9 +3404,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             do {
                 
-                try audioSession.setCategory(AVAudioSessionCategoryRecord)
-                try audioSession.setMode(AVAudioSessionModeMeasurement)
-                try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+                try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.record)), mode: .default)
+                
+                try audioSession.setMode(AVAudioSession.Mode.measurement)
+                try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
                 
                 
                 if let inputNode = audioEngine.inputNode as AVAudioInputNode?{
@@ -3558,7 +3559,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             if let score = user?[kScore] as! Int?{
                 if score == 200 {
-                    print("第一次玩")
+  
                     
                     let copyUser = user?.mutableCopy() as! NSMutableDictionary
                     
@@ -3605,13 +3606,14 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     
                     user = copyUser
                     userDefaults.set(user, forKey: "parseJSON")
+                 
                     
 //                    user?.setValue(newScore as Int, forKey: kScore)
 //                    user?.setValue(newWrongChinese as Int, forKey: kWrongChinese)
 //                    user?.setValue(newProRate as Int, forKey: kProRate)
 //                    user?.setValue(newSenRate as Int, forKey: kSenRate)
 
-                    print("非第一次玩")
+        
                     
                 }
                 
@@ -4416,7 +4418,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         wrongSign.frame = CGRect(x: allBtns[sender.tag].frame.midX - allBtns[sender.tag].frame.width / 10, y: allBtns[sender.tag].frame.minY - allBtns[sender.tag].frame.height * 0.1, width: allBtns[sender.tag].frame.height * 1.2, height: allBtns[sender.tag].frame.height * 1.2)
         wrongSign.image = UIImage(named:"wrongX.png")
         self.view.addSubview(wrongSign)
-        self.view.bringSubview(toFront: wrongSign)
+        self.view.bringSubviewToFront(wrongSign)
         
         
         //等待1.5秒
@@ -4592,7 +4594,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //在此Crash, 無法讀dynamic字型大小.....
         
-        let attrs0 = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: chiSentenceFontSize), NSAttributedStringKey.foregroundColor : UIColor.white]
+        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: chiSentenceFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
         
      
         recogTextLabel.attributedText = NSAttributedString(string: gameVC_tagWordsToMakeSentence, attributes: attrs0)
@@ -5431,8 +5433,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             
             //設置成ambient看能不能避免任何interruption 造成當機
             
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)
-            try audioSession.setMode(AVAudioSessionModeDefault)
+            try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)), mode: .default)
+            try audioSession.setMode(AVAudioSession.Mode.default)
             try audioSession.setActive(true)
             
         } catch  {
@@ -5575,4 +5577,9 @@ extension String {
         
         return filteredString
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

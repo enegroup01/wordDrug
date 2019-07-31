@@ -265,11 +265,11 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
         
         
-        self.view.bringSubview(toFront: alreadyLearnedLabel)
+        self.view.bringSubviewToFront(alreadyLearnedLabel)
 //        self.view.bringSubview(toFront: wordCountsLabel)
-        self.view.bringSubview(toFront: backBtn)
-        self.view.bringSubview(toFront: classTitle)
-        self.view.bringSubview(toFront: unlockSwitch)
+        self.view.bringSubviewToFront(backBtn)
+        self.view.bringSubviewToFront(classTitle)
+        self.view.bringSubviewToFront(unlockSwitch)
 
         
 

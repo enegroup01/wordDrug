@@ -37,7 +37,7 @@
 		AA27DE1320B6E633003250D2 /* reviewSenResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */; };
 		AA27DE1520B6E690003250D2 /* reviewWordResultBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */; };
 		AA2AC19D224A13E3003ADD56 /* orangePractice.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2AC19C224A13E2003ADD56 /* orangePractice.png */; };
-		AA2B64D4205A63F200742226 /* 痾.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* 痾.swift */; };
+		AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B64D3205A63F200742226 /* NewBookViewController.swift */; };
 		AA2CFA6B20BD7E91009DBBB6 /* IntroScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */; };
 		AA2CFA6F20BD7F68009DBBB6 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */; };
 		AA2CFA7120BD7F8F009DBBB6 /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CFA7020BD7F8F009DBBB6 /* IntroScene.swift */; };
@@ -171,6 +171,7 @@
 		AA9655632090A03F003E5AB7 /* leftBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */; };
 		AA9655652090A048003E5AB7 /* rightBtnClickedImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */; };
 		AA9655692090B7E3003E5AB7 /* practiceBook.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9655682090B7E2003E5AB7 /* practiceBook.png */; };
+		AA96E43922F1762500583E48 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96E43822F1762500583E48 /* TestViewController.swift */; };
 		AA98BE822125B2D1006F325F /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA98BE812125B2D1006F325F /* CourseTableViewCell.swift */; };
 		AA98C2BC21268A6C006F325F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA98C2BB21268A6C006F325F /* Constants.swift */; };
 		AA98C2BE212AAFD9006F325F /* block3Title.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98C2BD212AAFD9006F325F /* block3Title.png */; };
@@ -3522,7 +3523,7 @@
 		AA27DE1220B6E633003250D2 /* reviewSenResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewSenResultBg.png; sourceTree = "<group>"; };
 		AA27DE1420B6E68F003250D2 /* reviewWordResultBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reviewWordResultBg.png; sourceTree = "<group>"; };
 		AA2AC19C224A13E2003ADD56 /* orangePractice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePractice.png; sourceTree = "<group>"; };
-		AA2B64D3205A63F200742226 /* 痾.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "痾.swift"; sourceTree = "<group>"; };
+		AA2B64D3205A63F200742226 /* NewBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
 		AA2CFA6A20BD7E91009DBBB6 /* IntroScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroScene.sks; sourceTree = "<group>"; };
 		AA2CFA6E20BD7F68009DBBB6 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		AA2CFA7020BD7F8F009DBBB6 /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
@@ -3660,6 +3661,7 @@
 		AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftBtnClickedImg.png; sourceTree = "<group>"; };
 		AA9655642090A048003E5AB7 /* rightBtnClickedImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightBtnClickedImg.png; sourceTree = "<group>"; };
 		AA9655682090B7E2003E5AB7 /* practiceBook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = practiceBook.png; sourceTree = "<group>"; };
+		AA96E43822F1762500583E48 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		AA98BE812125B2D1006F325F /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		AA98C2BB21268A6C006F325F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA98C2BD212AAFD9006F325F /* block3Title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block3Title.png; sourceTree = "<group>"; };
@@ -7068,7 +7070,7 @@
 			isa = PBXGroup;
 			children = (
 				AA43EACD2089C7EF006954EB /* BookTableViewCell.swift */,
-				AA2B64D3205A63F200742226 /* 痾.swift */,
+				AA2B64D3205A63F200742226 /* NewBookViewController.swift */,
 				AA9655622090A03F003E5AB7 /* leftBtnClickedImg.png */,
 				AA7E0F4D215DE3160001620F /* indicatorPng.png */,
 				AA408BF220F984D300CD6D72 /* redHeart.png */,
@@ -11643,6 +11645,7 @@
 				AA7FA7CE1FB5BF9900315524 /* words */,
 				AA2712B521C0C3AF0081FB1D /* Localizable.strings */,
 				AA2712C221C0CC640081FB1D /* InfoPlist.strings */,
+				AA96E43822F1762500583E48 /* TestViewController.swift */,
 			);
 			path = wordDrug;
 			sourceTree = "<group>";
@@ -11751,6 +11754,7 @@
 				TargetAttributes = {
 					AAE181881F97892D00683896 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -15315,6 +15319,7 @@
 			files = (
 				AA98C2BC21268A6C006F325F /* Constants.swift in Sources */,
 				AA7BB4C420C78FED001A1F66 /* PurchaseViewController.swift in Sources */,
+				AA96E43922F1762500583E48 /* TestViewController.swift in Sources */,
 				AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */,
 				AA6FB73A20AE84CA0001EFED /* MKGradientGenerator.swift in Sources */,
 				AA87A88E2137CD72000D9E89 /* StageCollectionViewCell.swift in Sources */,
@@ -15328,7 +15333,7 @@
 				AA00379920497CCD0030F786 /* SwiftSiriWaveformView.swift in Sources */,
 				AA04ED97203D968A00EC0A8E /* StageViewController.swift in Sources */,
 				AA34F32A20234FA7005437C6 /* NewGameViewController.swift in Sources */,
-				AA2B64D4205A63F200742226 /* 痾.swift in Sources */,
+				AA2B64D4205A63F200742226 /* NewBookViewController.swift in Sources */,
 				AA2CFA6F20BD7F68009DBBB6 /* IntroViewController.swift in Sources */,
 				AA2CFA7120BD7F8F009DBBB6 /* IntroScene.swift in Sources */,
 				AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */,
@@ -15512,7 +15517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				INFOPLIST_FILE = wordDrug/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15524,7 +15529,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/Desktop/MissWord Project Folder/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -15539,7 +15544,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				INFOPLIST_FILE = wordDrug/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15550,7 +15555,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/Desktop/MissWord Project Folder/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
