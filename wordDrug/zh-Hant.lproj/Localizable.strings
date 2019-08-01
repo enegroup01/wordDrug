@@ -178,7 +178,7 @@ gameVC_senPassed = "句型達成";
 gameVC_sen = "句";
 gameVC_toShop = "前往商城";
 gameVC_noBuyNow = "先不購買";
-gameVC_reviewNoScore = "複習不計分";
+gameVC_reviewNoScore = "不計分";
 gameVC_pressMicAgain = "再按一下麥克風結束";
 gameVC_isReplayTitle = "[複習]";
 

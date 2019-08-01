@@ -243,6 +243,7 @@ class NewGameScene: SKScene {
     var tempGamePassedDic:[Int:Int]?
     
     var isReplay = false
+    var isUnlocked = false
     
     var maxSpot:Int!
     
@@ -257,7 +258,6 @@ class NewGameScene: SKScene {
         
         //提示字
         makeLabelNode(x: 0, y: -290, alignMent: .center, fontColor: .white, fontSize: 40, text: "", zPosition: 3, name: "showHint", fontName: "Helvetica Bold", isHidden: true, alpha: 1)
-        
         
         //啟動離開遊戲
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyLeaveGame), name: NSNotification.Name("leaveGame"), object: nil)
@@ -320,9 +320,7 @@ class NewGameScene: SKScene {
         
         //移除發音符號
         NotificationCenter.default.addObserver(self, selector: #selector(NewGameScene.notifyRemovePronounceBtn), name:  NSNotification.Name("removePlaySoundBtn"), object: nil)
-        
-        
-        
+ 
         //接收再度倒數
         
         //先解決算出wordSequence之後再來讀取所有的字
@@ -335,7 +333,6 @@ class NewGameScene: SKScene {
         //MARK: must update
         
         //MARK: simVer這裏位最大值要改動態 done
-        
         
         switch courseReceived {
             
@@ -374,18 +371,13 @@ class NewGameScene: SKScene {
                 
                 maxMapNum = 5
                 increaseNum = 38
-                
             } else {
                 //其餘語言
                 //print("繁體中文關卡數")
-                
                 increaseNum = 5
                 maxMapNum = 6
-                
             }
-            
-            
-            
+       
         case 2:
             
             gamePassedDic = gamePassed3!
@@ -408,12 +400,8 @@ class NewGameScene: SKScene {
                 increaseNum = 11
                 maxMapNum = 7
                 
-                
             }
-            
-            
-            
-            
+  
         case 3:
             gamePassedDic = gamePassed4!
             mapPassedInt = mapPassed4!
@@ -1530,7 +1518,7 @@ class NewGameScene: SKScene {
         
         var scoreAlpha:CGFloat!
         
-        if isReplay{
+        if isReplay || isUnlocked{
             scoreAlpha = 0
         } else {
             scoreAlpha = 1
@@ -3866,7 +3854,7 @@ class NewGameScene: SKScene {
                 if (unitNumber + 1) % 2 == 0{
                     
                     
-                    if isReplay {
+                    if isReplay || isUnlocked{
                         
                         //複習模式就不做popQuiz
 

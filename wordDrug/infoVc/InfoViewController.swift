@@ -498,6 +498,9 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
             if lan == "zh-Hans"{
                 //檢體中文
+                print(mapPassed7)
+                print(mapPassed8)
+                print(mapPassed9)
                 
                 print("檢體中文關卡數")
                 //之後還要用courseReceived來改數值, 因為每個course值不同
@@ -509,6 +512,10 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 var k12ElemWordsMax = [120,330,330,300,330,330,330,330,390,390,330,330,210,330,300,180,390,390]
                 
                 //k12
+                
+            print(k12MapPassed)
+                print(k12GamePassed)
+                
                 for i in 0 ..< k12MapPassed.count {
                     
                     //MARK: 這裡要修正
@@ -527,7 +534,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                     }
                 }
- 
+                
             } else {
                 //其餘語言
                 //print("繁體中文關卡數")
@@ -652,13 +659,13 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //發音正確率
         
         if let proRate = user?["proRate"] as? Int{
-            
+            print("proRate:\(proRate)")
             if proRate == 200 {
                 
                 sub1Rates[1] = 0
                 
             } else {
-                
+                print("not changing proRate")
                 sub1Rates[1] = Int(proRate)
                 
             }

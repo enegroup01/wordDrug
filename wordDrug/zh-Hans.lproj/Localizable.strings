@@ -166,7 +166,7 @@ gameVC_senPassed = "句型达成";
 gameVC_sen = "句";
 gameVC_toShop = "前往商城";
 gameVC_noBuyNow = "先不购买";
-gameVC_reviewNoScore = "复习不计分";
+gameVC_reviewNoScore = "不计分";
 gameVC_pressMicAgain = "再按一下麦克风结束";
 gameVC_isReplayTitle = "[复习]";
 

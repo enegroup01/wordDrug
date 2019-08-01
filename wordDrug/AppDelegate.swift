@@ -122,80 +122,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 //第一次玩
                 //MARK: must update
                 //MARK: simVer 一起賦予值
+                giveNewUserValue()
                 
-                mapPassed = 0
-                userDefaults.set(mapPassed!, forKey: kMapPassed)
-                gamePassed = [0:0]
-                let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
-                userDefaults.set(encodedObject, forKey: kGamePassed)
-
-
-                mapPassed2 = 0
-                userDefaults.set(mapPassed2!, forKey: kMapPassed2)
-                gamePassed2 = [0:0]
-                let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
-                userDefaults.set(encodedObject2, forKey: kGamePassed2)
-                
-                mapPassed3 = 0
-                userDefaults.set(mapPassed3!, forKey: kMapPassed3)
-                gamePassed3 = [0:0]
-                let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
-                userDefaults.set(encodedObject3, forKey: kGamePassed3)
-                
-                mapPassed4 = 0
-                userDefaults.set(mapPassed4!, forKey: kMapPassed4)
-                gamePassed4 = [0:0]
-                let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
-                
-                userDefaults.set(encodedObject4, forKey: kGamePassed4)
-                
-
-                mapPassed5 = 0
-                userDefaults.set(mapPassed5!, forKey: kMapPassed5)
-                gamePassed5 = [0:0]
-                let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
-                
-                userDefaults.set(encodedObject5, forKey: kGamePassed5)
-     
-                //MARK: simVer K12特別作法
-                k12MapPassed = Array(repeating: 0, count: 18)
-                k12GamePassed = Array(repeating: [0:0], count: 18)
-                
-                let encodeK12Map = NSKeyedArchiver.archivedData(withRootObject: k12MapPassed!)
-                userDefaults.set(encodeK12Map, forKey: kMapPassed6)
-                
-                let encodeK12Game = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
-                userDefaults.set(encodeK12Game, forKey: kGamePassed6)
-                
-                mapPassed7 = 0
-                userDefaults.set(mapPassed7!, forKey: kMapPassed7)
-                gamePassed7 = [0:0]
-                let encodedObject7 = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
-                userDefaults.set(encodedObject7, forKey: kGamePassed7)
-                
-                mapPassed8 = 0
-                userDefaults.set(mapPassed8!, forKey: kMapPassed8)
-                gamePassed8 = [0:0]
-                let encodedObject8 = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
-                userDefaults.set(encodedObject8, forKey: kGamePassed8)
-    
-                mapPassed9 = 0
-                userDefaults.set(mapPassed9!, forKey: kMapPassed9)
-                gamePassed9 = [0:0]
-                let encodedObject9 = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
-                userDefaults.set(encodedObject9, forKey: kGamePassed9)
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                
-                let todayString = Date()
-                let today = dateFormatter.string(from: todayString)
-                
-                let tempDict = [kWordReviewCount:0,kWordReviewCount2:0,kWordReviewCount3:0,kWordReviewCount4:0,kWordReviewCount5:0,kWordReviewCount6:0,kWordReviewCount7:0,kWordReviewCount8:0,kWordReviewCount9:0,kSenReviewCount:0,kSenReviewCount2:0,kSenReviewCount3:0,kSenReviewCount4:0,kSenReviewCount5:0,kSenReviewCount6:0,kSenReviewCount7:0,kSenReviewCount8:0,kSenReviewCount9:0,kWrongChinese:0,kProRate:200,kSenRate:200,kMyWords:"",kWrongWords:"",kAva:"",kNickname:"單機版學生",kScore:0, kDate:today] as NSMutableDictionary
-                user = tempDict
-                
-                userDefaults.set(user, forKey: "parseJSON")
-                
+             
                 //到介紹畫面
                 toIntro()
                 
@@ -203,6 +132,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 
                    print("enter here 2")
                 //假如沒有測過
+                if user == nil {
+                    giveNewUserValue()
+                }
                 toCourse()
             }
         }
@@ -210,6 +142,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         return true
     }
     
+    
+    func giveNewUserValue(){
+        mapPassed = 0
+        userDefaults.set(mapPassed!, forKey: kMapPassed)
+        gamePassed = [0:0]
+        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+        userDefaults.set(encodedObject, forKey: kGamePassed)
+        
+        
+        mapPassed2 = 0
+        userDefaults.set(mapPassed2!, forKey: kMapPassed2)
+        gamePassed2 = [0:0]
+        let encodedObject2 = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+        userDefaults.set(encodedObject2, forKey: kGamePassed2)
+        
+        mapPassed3 = 0
+        userDefaults.set(mapPassed3!, forKey: kMapPassed3)
+        gamePassed3 = [0:0]
+        let encodedObject3 = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+        userDefaults.set(encodedObject3, forKey: kGamePassed3)
+        
+        mapPassed4 = 0
+        userDefaults.set(mapPassed4!, forKey: kMapPassed4)
+        gamePassed4 = [0:0]
+        let encodedObject4 = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+        
+        userDefaults.set(encodedObject4, forKey: kGamePassed4)
+        
+        
+        mapPassed5 = 0
+        userDefaults.set(mapPassed5!, forKey: kMapPassed5)
+        gamePassed5 = [0:0]
+        let encodedObject5 = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+        
+        userDefaults.set(encodedObject5, forKey: kGamePassed5)
+        
+        //MARK: simVer K12特別作法
+        k12MapPassed = Array(repeating: 0, count: 18)
+        k12GamePassed = Array(repeating: [0:0], count: 18)
+        
+        let encodeK12Map = NSKeyedArchiver.archivedData(withRootObject: k12MapPassed!)
+        userDefaults.set(encodeK12Map, forKey: kMapPassed6)
+        
+        let encodeK12Game = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+        userDefaults.set(encodeK12Game, forKey: kGamePassed6)
+        
+        mapPassed7 = 0
+        userDefaults.set(mapPassed7!, forKey: kMapPassed7)
+        gamePassed7 = [0:0]
+        let encodedObject7 = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+        userDefaults.set(encodedObject7, forKey: kGamePassed7)
+        
+        mapPassed8 = 0
+        userDefaults.set(mapPassed8!, forKey: kMapPassed8)
+        gamePassed8 = [0:0]
+        let encodedObject8 = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+        userDefaults.set(encodedObject8, forKey: kGamePassed8)
+        
+        mapPassed9 = 0
+        userDefaults.set(mapPassed9!, forKey: kMapPassed9)
+        gamePassed9 = [0:0]
+        let encodedObject9 = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+        userDefaults.set(encodedObject9, forKey: kGamePassed9)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let todayString = Date()
+        let today = dateFormatter.string(from: todayString)
+        
+        let tempDict = [kWordReviewCount:0,kWordReviewCount2:0,kWordReviewCount3:0,kWordReviewCount4:0,kWordReviewCount5:0,kWordReviewCount6:0,kWordReviewCount7:0,kWordReviewCount8:0,kWordReviewCount9:0,kSenReviewCount:0,kSenReviewCount2:0,kSenReviewCount3:0,kSenReviewCount4:0,kSenReviewCount5:0,kSenReviewCount6:0,kSenReviewCount7:0,kSenReviewCount8:0,kSenReviewCount9:0,kWrongChinese:0,kProRate:200,kSenRate:200,kMyWords:"",kWrongWords:"",kAva:"",kNickname:"單機版學生",kScore:0, kDate:today] as NSMutableDictionary
+        user = tempDict
+        
+        userDefaults.set(user, forKey: "parseJSON")
+        
+    }
     
 
     
@@ -331,6 +339,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         //retrieve and deCode
         
+
+        
         mapPassed = userDefaults.object(forKey: kMapPassed) as? Int
         let decodedObject = UserDefaults.standard.object(forKey: kGamePassed) as? NSData
 
@@ -364,20 +374,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
  
         //MARK: simVer K12 特別作法
+        print("start checking k12Map: \(k12MapPassed)")
         
-        //let decodeK12Map = userDefaults.object(forKey: kMapPassed6) as? NSData
-        k12MapPassed = userDefaults.object(forKey: kMapPassed6) as? [Int]
-//        if let decoded = decodeK12Map {
-//            print("appDelegate decoded successful")
-//            k12MapPassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int]
-//            print("appDelegate k12MapPassed:\(k12MapPassed)")
-//        }
-        print("appDelegate k12Map:\(k12MapPassed)")
+        let decodeK12Map = userDefaults.object(forKey: kMapPassed6) as? NSData
+        //k12MapPassed = userDefaults.object(forKey: kMapPassed6) as? [Int]
         
+        
+        print("app delegate k12MapPassed: \(k12MapPassed)")
+        if let decoded = decodeK12Map {
+            print("appDelegate decoded successful")
+            k12MapPassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int]
+            print("appDelegate k12MapPassed:\(k12MapPassed)")
+        }
+       
         let decodeK12Game = userDefaults.object(forKey: kGamePassed6) as? NSData
         if let decoded = decodeK12Game {
             k12GamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int:Int]]
+             print("appDelegate k12GamePassed:\(k12GamePassed)")
         }
+        
+        if k12MapPassed == nil {
+            print("create new k12")
+            //MARK: simVer K12特別作法
+            k12MapPassed = Array(repeating: 0, count: 18)
+           
+            let encodeK12Map = NSKeyedArchiver.archivedData(withRootObject: k12MapPassed!)
+            userDefaults.set(encodeK12Map, forKey: kMapPassed6)
+            
+        }
+        
+        if k12GamePassed == nil {
+            k12GamePassed = Array(repeating: [0:0], count: 18)
+            
+            let encodeK12Game = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
+            userDefaults.set(encodeK12Game, forKey: kGamePassed6)
+            
+        }
+        
         
         mapPassed7 = userDefaults.object(forKey: kMapPassed7) as? Int
         let decodedObject7 = UserDefaults.standard.object(forKey: kGamePassed7) as? NSData
@@ -402,10 +435,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
         
         //user裡有的資料要轉換
-    
         guard let wr = user?[kWordReviewCount] as? String else{
+            print("it's not the first transition")
             return
         }
+      
         guard let wr2 = user?[kWordReviewCount2] as? String else{
             return
         }
@@ -492,6 +526,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             return
         }
 
+        print("come here and replace self")
         let replaceSelf = [kWordReviewCount:Int(wr)!,kWordReviewCount2:Int(wr2)!,kWordReviewCount3:Int(wr3)!,kWordReviewCount4:Int(wr4)!,kWordReviewCount5:Int(wr5)!,kWordReviewCount6:Int(wr6)!,kWordReviewCount7:Int(wr7)!,kWordReviewCount8:Int(wr8)!,kWordReviewCount9:Int(wr9)!,kSenReviewCount:Int(sr)!,kSenReviewCount2:Int(sr2)!,kSenReviewCount3:Int(sr3)!,kSenReviewCount4:Int(sr4)!,kSenReviewCount5:Int(sr5)!,kSenReviewCount6:Int(sr6)!,kSenReviewCount7:Int(sr7)!,kSenReviewCount8:Int(sr8)!,kSenReviewCount9:Int(sr9)!,kWrongChinese:Int(wch)!,kProRate:Int(proRate)!,kSenRate:Int(senRate)!,kMyWords:myWords,kWrongWords:wrongWords,kAva:"",kNickname:nickName,kScore:Int(score)!, kDate:date] as NSMutableDictionary
         
         user = replaceSelf

@@ -89,6 +89,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     var mapNumber = Int()
     var gameMode = Int()
     var isReplay = false
+    var isUnlocked = false
     
     //辨識聲音用的變數
     
@@ -325,9 +326,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //MARK: simVer這裏新增一個變數來避免 wrongPronounce word把 synWord被取代掉
     var originalWordToRecognize:String!
-    
-
-    var isUnlocked = false
     
     override func viewDidLoad() {
         
@@ -1733,6 +1731,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 sceneNode.gameMode = gameMode
                 sceneNode.courseReceived = courseReceived
                 sceneNode.isReplay = isReplay
+                sceneNode.isUnlocked = isUnlocked
     
                 
                 // Set the scale mode to scale to fit the window
@@ -2068,6 +2067,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         timer?.invalidate()
 
         self.dismiss(animated: true, completion: nil)
+        
+        
 
     }
     
@@ -2094,12 +2095,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         //isPurchased = true
 
-
-        //isnlocked就不計時
-        if !isUnlocked && gameMode == 0 {
+        if gameMode == 0 {
             
             //沒有買的話
-            if isPurchased == false && !isReplay{
+            if !isPurchased && !isReplay{
                 
                 limitTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(NewGameViewController.countLimit), userInfo: nil, repeats: true)
             }
@@ -2470,7 +2469,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                     
                                     
                                     //popQuiz bonus加分
-                                    if isReplay{
+                                    if isReplay || isUnlocked{
                                         
                                         scoreLabel.text = gameVC_reviewNoScore
                                         wordCountLabel.text = "3"
@@ -2662,11 +2661,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         gamePassedDic = k12GamePassed[mapNumber]
 
                                                         
+                                                        print("ready to save: \(k12MapPassed)")
+                                                        print("ready to save: \(k12GamePassed)")
                                                         
                                                         //然後儲存
                                                         let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed[mapNumber])
-                                                        UserDefaults.standard.set(k12MapPassed[mapNumber], forKey: "mapPassed6")
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed)
+                                                        UserDefaults.standard.set(k12MapPassed, forKey: "mapPassed6")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed6")
 
                                                     case 6:
@@ -2799,7 +2800,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         
                                                         //然後儲存
                                                         let userDefaults = UserDefaults.standard
-                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed[mapNumber])
+                                                        let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed)
                                                         
                                                         userDefaults.set(encodedObject, forKey: "gamePassed6")
 
@@ -2918,7 +2919,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     
                                                     //然後儲存
                                                     let userDefaults = UserDefaults.standard
-                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed[mapNumber])
+                                                    let encodedObject = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed6")
        
@@ -3126,6 +3127,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     override func viewWillDisappear(_ animated: Bool) {
         
+        //isUnlocked = false
         
         let status:[String:Bool] = ["isUnlocked":isUnlocked]
         
@@ -3515,7 +3517,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         //在此確認是否已過地圖的確認
         
         
-        if isReplay{
+        if isReplay || isUnlocked{
             
             self.dismiss(animated: true, completion: nil)
             
@@ -3583,13 +3585,19 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     let oldWrongChinese = user?.object(forKey: kWrongChinese) as! Int
                     let newWrongChinese = oldWrongChinese + wrongChineseCounts
                     
-                    let oldProRate = user?.object(forKey: kProRate) as! Int
+                    var oldProRate = user?.object(forKey: kProRate) as! Int
+                    if oldProRate == 200 {
+                       oldProRate = 0
+                    }
                     let newProRate = (oldProRate + proRate) / 2
                     
-                    let oldSenRate = user?.object(forKey: kSenRate) as! Int
+                    var oldSenRate = user?.object(forKey: kSenRate) as! Int
+                    if oldSenRate == 200 {
+                        oldSenRate = 0
+                    }
+                    
                     let newSenRate = (oldSenRate + senRate) / 2
                
-                    
                     let copyUser = user?.mutableCopy() as! NSMutableDictionary
                     
                     copyUser.setValue(newScore, forKey: kScore)
@@ -3597,24 +3605,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                     copyUser.setValue(newProRate, forKey: kProRate)
                     copyUser.setValue(newSenRate, forKey: kSenRate)
                     
-                    
-//                    copyUser[kScore] = newScore
-//                    copyUser[kWrongChinese] = newWrongChinese
-//                    copyUser[kProRate] = newProRate
-//                    copyUser[kSenRate] = newSenRate
-                    
-                    
                     user = copyUser
                     userDefaults.set(user, forKey: "parseJSON")
-                 
-                    
-//                    user?.setValue(newScore as Int, forKey: kScore)
-//                    user?.setValue(newWrongChinese as Int, forKey: kWrongChinese)
-//                    user?.setValue(newProRate as Int, forKey: kProRate)
-//                    user?.setValue(newSenRate as Int, forKey: kSenRate)
 
-        
-                    
                 }
                 
             }

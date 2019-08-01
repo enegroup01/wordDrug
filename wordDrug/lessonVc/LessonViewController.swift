@@ -2542,6 +2542,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             if isUnlocked {
                 destinationVC.isReplay = false
+                destinationVC.isUnlocked = true
             } else {
                 
                 for (s,u) in gamePassedDic!{
