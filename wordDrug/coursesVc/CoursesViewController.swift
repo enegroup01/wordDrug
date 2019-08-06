@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate{
     
     //courseReceived 0國小 1初中 2高中 3CET4 4CET6 5K12 6toeic 7ielts 8tofel
@@ -19,8 +17,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     let courseVC_learningDays = NSLocalizedString("courseVC_learningDays", comment: "")
     let courseVC_newStudent = NSLocalizedString("courseVC_newStudent", comment: "")
     let courseVC_logOutBtnText = NSLocalizedString("courseVC_logOutBtnText", comment: "")
-
-    
+  
     @IBOutlet weak var logOutBtn: UIButton!
  
     var courseSent = Int()
@@ -106,7 +103,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             dayTitleFontSize = 12
             statusFontSize = 12
 
-   
         case 736:
             //plus
             dif = 1
@@ -156,11 +152,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             statusFontSize = 12
 
             break
-
         }
-        
      
-        
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100 * iPadDif, height: 100 * iPadDif))
         activityIndicator.layer.zPosition = 15
         let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
@@ -436,8 +429,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         bigNameLabel.text = "Hi!" + nickname
         userStatusLabel.text = purchaseStatus
         
- 
-        //用不到的按鈕hidden起來
+         //用不到的按鈕hidden起來
         toLoginVcBtn.isHidden = true
         logOutBtn.isHidden = true
     }

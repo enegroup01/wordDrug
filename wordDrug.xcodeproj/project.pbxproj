@@ -48,6 +48,8 @@
 		AA2CFA8120BD8E42009DBBB6 /* grayBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA8020BD8E42009DBBB6 /* grayBall.png */; };
 		AA2CFA8320BD8E4D009DBBB6 /* cyanBall.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA8220BD8E4D009DBBB6 /* cyanBall.png */; };
 		AA2CFA9120BE5609009DBBB6 /* arrowBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2CFA9020BE5609009DBBB6 /* arrowBlock.png */; };
+		AA2EAFB522F9A65E0001A32C /* purchaseAlertSim3.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2EAFB322F9A65D0001A32C /* purchaseAlertSim3.png */; };
+		AA2EAFB622F9A65E0001A32C /* purchaseAlert.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2EAFB422F9A65D0001A32C /* purchaseAlert.png */; };
 		AA3080FE22549C62006AC7EC /* playSoundBtnSim.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3080FD22549C61006AC7EC /* playSoundBtnSim.png */; };
 		AA30810022549EB6006AC7EC /* skipPronounceBtnSim.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3080FF22549EB6006AC7EC /* skipPronounceBtnSim.png */; };
 		AA3081022254A08E006AC7EC /* skipTagTestSim.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3081012254A08E006AC7EC /* skipTagTestSim.png */; };
@@ -94,7 +96,6 @@
 		AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E73207CDC2800AAACC3 /* coverBg.png */; };
 		AA4FB931228E78F10031C6F9 /* simBlock8.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4FB930228E78F00031C6F9 /* simBlock8.png */; };
 		AA4FB933228E78FA0031C6F9 /* block4Title.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4FB932228E78F90031C6F9 /* block4Title.png */; };
-		AA4FB9352292A5150031C6F9 /* purchaseAlertSim3.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4FB9342292A5140031C6F9 /* purchaseAlertSim3.png */; };
 		AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF413204EC68A005FCC87 /* CloseButton.swift */; };
 		AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF414204EC68A005FCC87 /* TagView.swift */; };
 		AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF415204EC68A005FCC87 /* TagListView.swift */; };
@@ -117,7 +118,6 @@
 		AA6D83F620DD010900A6025C /* bookSpeed2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F320DD010800A6025C /* bookSpeed2.png */; };
 		AA6D83F720DD010900A6025C /* bookSpeed0.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F420DD010900A6025C /* bookSpeed0.png */; };
 		AA6D83F920DD017A00A6025C /* lessonBackBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83F820DD017A00A6025C /* lessonBackBtn.png */; };
-		AA6D83FB20DD385C00A6025C /* purchaseAlert.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83FA20DD385C00A6025C /* purchaseAlert.png */; };
 		AA6D83FE20DD390C00A6025C /* newAccountPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83FC20DD390B00A6025C /* newAccountPng.png */; };
 		AA6D83FF20DD390C00A6025C /* newPasswordPng.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6D83FD20DD390B00A6025C /* newPasswordPng.png */; };
 		AA6FB73520AE7B030001EFED /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6FB73420AE7B030001EFED /* InfoViewController.swift */; };
@@ -3534,6 +3534,8 @@
 		AA2CFA8020BD8E42009DBBB6 /* grayBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBall.png; sourceTree = "<group>"; };
 		AA2CFA8220BD8E4D009DBBB6 /* cyanBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cyanBall.png; sourceTree = "<group>"; };
 		AA2CFA9020BE5609009DBBB6 /* arrowBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowBlock.png; sourceTree = "<group>"; };
+		AA2EAFB322F9A65D0001A32C /* purchaseAlertSim3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseAlertSim3.png; sourceTree = "<group>"; };
+		AA2EAFB422F9A65D0001A32C /* purchaseAlert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseAlert.png; sourceTree = "<group>"; };
 		AA3080FD22549C61006AC7EC /* playSoundBtnSim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playSoundBtnSim.png; sourceTree = "<group>"; };
 		AA3080FF22549EB6006AC7EC /* skipPronounceBtnSim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skipPronounceBtnSim.png; sourceTree = "<group>"; };
 		AA3081012254A08E006AC7EC /* skipTagTestSim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skipTagTestSim.png; sourceTree = "<group>"; };
@@ -3581,7 +3583,6 @@
 		AA4E2E73207CDC2800AAACC3 /* coverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverBg.png; sourceTree = "<group>"; };
 		AA4FB930228E78F00031C6F9 /* simBlock8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simBlock8.png; sourceTree = "<group>"; };
 		AA4FB932228E78F90031C6F9 /* block4Title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block4Title.png; sourceTree = "<group>"; };
-		AA4FB9342292A5140031C6F9 /* purchaseAlertSim3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseAlertSim3.png; sourceTree = "<group>"; };
 		AA5AF412204EC68A005FCC87 /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
 		AA5AF413204EC68A005FCC87 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		AA5AF414204EC68A005FCC87 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -3606,7 +3607,6 @@
 		AA6D83F320DD010800A6025C /* bookSpeed2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed2.png; sourceTree = "<group>"; };
 		AA6D83F420DD010900A6025C /* bookSpeed0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookSpeed0.png; sourceTree = "<group>"; };
 		AA6D83F820DD017A00A6025C /* lessonBackBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonBackBtn.png; sourceTree = "<group>"; };
-		AA6D83FA20DD385C00A6025C /* purchaseAlert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseAlert.png; sourceTree = "<group>"; };
 		AA6D83FC20DD390B00A6025C /* newAccountPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newAccountPng.png; sourceTree = "<group>"; };
 		AA6D83FD20DD390B00A6025C /* newPasswordPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newPasswordPng.png; sourceTree = "<group>"; };
 		AA6FB73420AE7B030001EFED /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -7200,9 +7200,9 @@
 				AA8B69F52024777D0023E0FD /* NewGameScene.sks */,
 				AA34F32B2023516D005437C6 /* NewGameScene.swift */,
 				AA34F32920234FA7005437C6 /* NewGameViewController.swift */,
-				AA6D83FA20DD385C00A6025C /* purchaseAlert.png */,
+				AA2EAFB422F9A65D0001A32C /* purchaseAlert.png */,
+				AA2EAFB322F9A65D0001A32C /* purchaseAlertSim3.png */,
 				AA7D4225225CCA970039DCE5 /* clearTagBtn.png */,
-				AA4FB9342292A5140031C6F9 /* purchaseAlertSim3.png */,
 				AAC6A6B62133CB5F005EAC9D /* skipTagTest.png */,
 				AA3081012254A08E006AC7EC /* skipTagTestSim.png */,
 				AA95661C20DB880D005BD5E8 /* abortPng.png */,
@@ -12040,7 +12040,6 @@
 				AAC4D36B2297BF23005907C0 /* s67-2.txt in Resources */,
 				AAC4CD452297BDFC005907C0 /* s40-6.txt in Resources */,
 				AAC4C4622297BC06005907C0 /* s2-3.txt in Resources */,
-				AA4FB9352292A5150031C6F9 /* purchaseAlertSim3.png in Resources */,
 				AAC4D09B2297BE81005907C0 /* s52-1.txt in Resources */,
 				AAC4D0812297BE81005907C0 /* s53-1.txt in Resources */,
 				AAC4DADD2297C41F005907C0 /* s103-6.txt in Resources */,
@@ -12698,6 +12697,7 @@
 				AAC4C5382297BC45005907C0 /* s8-10.txt in Resources */,
 				AAC4CE5E2297BE34005907C0 /* s44-7.txt in Resources */,
 				AAC4D02B2297BE81005907C0 /* 59-15.txt in Resources */,
+				AA2EAFB522F9A65E0001A32C /* purchaseAlertSim3.png in Resources */,
 				AAC4D3882297BF23005907C0 /* s72-14.txt in Resources */,
 				AAC4C72E2297BCD6005907C0 /* 14-14.txt in Resources */,
 				AAC4D6112297C366005907C0 /* 75-6.txt in Resources */,
@@ -14145,6 +14145,7 @@
 				AAC4CD012297BDFC005907C0 /* 43-9.txt in Resources */,
 				AAC4D3652297BF23005907C0 /* 67-14.txt in Resources */,
 				AAC4D34D2297BF23005907C0 /* 68-9.txt in Resources */,
+				AA2EAFB622F9A65E0001A32C /* purchaseAlert.png in Resources */,
 				AAC4CCF12297BDFB005907C0 /* 39-6.txt in Resources */,
 				AAC4D3CF2297BF23005907C0 /* 70-15.txt in Resources */,
 				AAC4C97F2297BD16005907C0 /* s24-11.txt in Resources */,
@@ -15039,7 +15040,6 @@
 				AAC4CE1D2297BE34005907C0 /* 45-5.txt in Resources */,
 				AAC4C9152297BD16005907C0 /* s23-15.txt in Resources */,
 				AAC4D6792297C366005907C0 /* s88-7.txt in Resources */,
-				AA6D83FB20DD385C00A6025C /* purchaseAlert.png in Resources */,
 				AAC4CE2E2297BE34005907C0 /* 48-1.txt in Resources */,
 				AAC4CE652297BE34005907C0 /* 44-7.txt in Resources */,
 				AAC4DAB02297C41E005907C0 /* s99-6.txt in Resources */,

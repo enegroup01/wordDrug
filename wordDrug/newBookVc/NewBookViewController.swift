@@ -396,12 +396,34 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 //        mapPassed3 = 7
 //        mapPassed4 = 9
 //        mapPassed5 = 8
-//        
+//
 //        gamePassed = [0:0]
 //        gamePassed2 = [0:0]
 //        gamePassed3 = [0:0]
 //        gamePassed4 = [0:0]
 //        gamePassed5 = [0:0]
+        
+        //簡體版單機test
+//                mapPassed = 3
+//                mapPassed2 = 5
+//                mapPassed3 = 6
+//                mapPassed4 = 11
+//                mapPassed5 = 13
+//                k12MapPassed = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,]
+//        mapPassed7 = 7
+//        mapPassed8 = 9
+//        mapPassed9 = 8
+//        
+//                gamePassed = [0:0]
+//                gamePassed2 = [0:0]
+//                gamePassed3 = [0:0]
+//                gamePassed4 = [0:0]
+//                gamePassed5 = [0:0]
+//        k12GamePassed = [[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0],[0:0]]
+//        gamePassed7 = [0:0]
+//        gamePassed8 = [0:0]
+//        gamePassed9 = [0:0]
+        
 
         switch courseReceived{
             

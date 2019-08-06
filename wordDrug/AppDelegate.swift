@@ -111,9 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             //首次登入, 沒有user的話
           
             if introWatched == nil {
-                
-                
-                
+
                 //沒看過的話
                 
                 introWatched = false
@@ -212,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         let todayString = Date()
         let today = dateFormatter.string(from: todayString)
         
-        let tempDict = [kWordReviewCount:0,kWordReviewCount2:0,kWordReviewCount3:0,kWordReviewCount4:0,kWordReviewCount5:0,kWordReviewCount6:0,kWordReviewCount7:0,kWordReviewCount8:0,kWordReviewCount9:0,kSenReviewCount:0,kSenReviewCount2:0,kSenReviewCount3:0,kSenReviewCount4:0,kSenReviewCount5:0,kSenReviewCount6:0,kSenReviewCount7:0,kSenReviewCount8:0,kSenReviewCount9:0,kWrongChinese:0,kProRate:200,kSenRate:200,kMyWords:"",kWrongWords:"",kAva:"",kNickname:"單機版學生",kScore:0, kDate:today] as NSMutableDictionary
+        let tempDict = [kWordReviewCount:0,kWordReviewCount2:0,kWordReviewCount3:0,kWordReviewCount4:0,kWordReviewCount5:0,kWordReviewCount6:0,kWordReviewCount7:0,kWordReviewCount8:0,kWordReviewCount9:0,kSenReviewCount:0,kSenReviewCount2:0,kSenReviewCount3:0,kSenReviewCount4:0,kSenReviewCount5:0,kSenReviewCount6:0,kSenReviewCount7:0,kSenReviewCount8:0,kSenReviewCount9:0,kWrongChinese:0,kProRate:200,kSenRate:200,kMyWords:"",kWrongWords:"",kAva:"",kNickname:"",kScore:0, kDate:today] as NSMutableDictionary
         user = tempDict
         
         userDefaults.set(user, forKey: "parseJSON")
@@ -336,11 +334,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func selectCurrentUser(){
         
-        
         //retrieve and deCode
-        
 
-        
         mapPassed = userDefaults.object(forKey: kMapPassed) as? Int
         let decodedObject = UserDefaults.standard.object(forKey: kGamePassed) as? NSData
 
@@ -374,30 +369,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
  
         //MARK: simVer K12 特別作法
-        print("start checking k12Map: \(k12MapPassed)")
+        //print("start checking k12Map: \(k12MapPassed)")
         
         let decodeK12Map = userDefaults.object(forKey: kMapPassed6) as? NSData
         //k12MapPassed = userDefaults.object(forKey: kMapPassed6) as? [Int]
         
         
-        print("app delegate k12MapPassed: \(k12MapPassed)")
+        //print("app delegate k12MapPassed: \(k12MapPassed)")
         if let decoded = decodeK12Map {
-            print("appDelegate decoded successful")
+          //  print("appDelegate decoded successful")
             k12MapPassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int]
-            print("appDelegate k12MapPassed:\(k12MapPassed)")
+            //print("appDelegate k12MapPassed:\(k12MapPassed)")
         }
        
         let decodeK12Game = userDefaults.object(forKey: kGamePassed6) as? NSData
         if let decoded = decodeK12Game {
             k12GamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int:Int]]
-             print("appDelegate k12GamePassed:\(k12GamePassed)")
+            //print("appDelegate k12GamePassed:\(k12GamePassed)")
         }
         
+        //當最初版本使用者沒有mapPassed6 或是 gamePassed6的時候會是nil 必須賦予新值
         if k12MapPassed == nil {
-            print("create new k12")
+            //print("create new k12")
             //MARK: simVer K12特別作法
             k12MapPassed = Array(repeating: 0, count: 18)
-           
             let encodeK12Map = NSKeyedArchiver.archivedData(withRootObject: k12MapPassed!)
             userDefaults.set(encodeK12Map, forKey: kMapPassed6)
             
@@ -405,10 +400,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         if k12GamePassed == nil {
             k12GamePassed = Array(repeating: [0:0], count: 18)
-            
             let encodeK12Game = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
             userDefaults.set(encodeK12Game, forKey: kGamePassed6)
-            
         }
         
         
@@ -433,7 +426,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
         
 
-        
         //user裡有的資料要轉換
         guard let wr = user?[kWordReviewCount] as? String else{
             print("it's not the first transition")
