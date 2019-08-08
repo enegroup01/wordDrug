@@ -80,7 +80,6 @@ purchaseVC_restoreFailedMsg = "恢復购买失败，请确认之前已成功购�
 purchaseVC_purchaseOkMsg =  "您已购买无限学习时间";
 purchaseVC_restoreBtnTitle = "恢復键";
 
-
 bookVC_correctWordTitle = "正确单词";
 bookVC_wrongWordTitle = "错误单词";
 bookVC_favoriteWordTitle = "最爱单词";
@@ -99,10 +98,10 @@ bookVC_alertNoWrongWords = "\n此课程到目前为止\n无任何错误单词！
 bookVC_alertNoFavWords = "\n此课程还没加任何单词\n到我的最爱！";
 bookVC_noWordsLearned = "没有学习过的单词喔！";
 
-
 stageVC_alreadyLearned = "已学习";
 stageVC_alert = "要先学完前面的单元喔，请加油！";
 stageVC_openAllSwitch = "课程全开";
+
 
 lessonVC_aboutToLearn3Words = "即将学习\n下列三个新单词";
 lessonVC_review3Words = "复习下列\n三个学过的单词";
@@ -127,6 +126,8 @@ lessonVC_alertNoChallenge = "\n此课程尚未学习，无法挑战\n至少需�
 lessonVC_iKnow = "我知道了";
 lessonVC_theLastPage = "这是最后一页喔！";
 lessonVC_class = "课";
+
+
 
 //gameScene
 gameSC_learn = "学习";

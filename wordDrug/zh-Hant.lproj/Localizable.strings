@@ -16,9 +16,6 @@ courseVC_enterClassBtnText = "進入課程";
 courseVC_enterBookBtnText = "單字集";
 courseVC_wordUnit = "字";
 
-
-
-
 infoVC_wordAchievement = "單字成就";
 infoVC_proAchievement = "發音成就";
 infoVC_senAchievement = "句型成就";
@@ -39,11 +36,6 @@ infoVC_titleLabel = "我的學習成就";
 infoVC_wordLabel = "單字量";
 infoVC_scoreLabel = "總分";
 infoVC_rankLabel = "總排名";
-
-
-
-
-
 
 registerVc.regOrPlay = "註冊帳號\n繼續免費學習";
 registerVc.isPurchasedTitleLabel = "註冊帳號\n開始紀錄你的學習";
@@ -66,13 +58,11 @@ registerVC.errorWrongPassword =  "密碼輸入有誤，請再試一次";
 
 
 
-
 chartVC_scoreChart = "總分\n排行榜";
 chartVC_wordChart = "英文\n拼字王";
 chartVC_senChart = "句型\n冠軍榜";
 chartVC_wordCountLabelText = "單字量";
 chartVC_passCountLabelText = "過關數";
-
 
 
 purchaseVC_dialogueTitle = "無限時間\n讓英語學習無限大";
@@ -155,10 +145,9 @@ gameSC_spell = "拼字";
 gameSC_limit = "限時";
 gameSC_challenge = "挑戰";
 
+
 //GameVC
-
 gameVC_pleasePressMic = "請按一下麥克風";
-
 gameVC_pleasePronounce = "請唸單字";
 gameVC_oopsWrong = "Oops！錯了喔!";
 gameVC_great = "很棒喔！";
@@ -181,7 +170,6 @@ gameVC_noBuyNow = "先不購買";
 gameVC_reviewNoScore = "不計分";
 gameVC_pressMicAgain = "再按一下麥克風結束";
 gameVC_isReplayTitle = "[複習]";
-
 
 
 //loginVC
