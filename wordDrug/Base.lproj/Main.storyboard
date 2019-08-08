@@ -859,7 +859,6 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXb-sn-KII">
                                 <rect key="frame" x="21" y="20" width="63" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="toLoginVcBtn.png"/>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x3I-fA-CGR">
                                 <rect key="frame" x="2" y="184" width="373" height="318"/>
@@ -1496,10 +1495,9 @@
         <image name="rightWordBtn.png" width="1038" height="228"/>
         <image name="skipPronounceBtn" width="330" height="116"/>
         <image name="sylBlueBall" width="16" height="16"/>
-        <image name="toLoginVcBtn.png" width="126" height="48"/>
         <image name="yellowBack.png" width="38" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rwi-hC-Ovx"/>
+        <segue reference="FzF-te-kXe"/>
     </inferredMetricsTieBreakers>
 </document>
