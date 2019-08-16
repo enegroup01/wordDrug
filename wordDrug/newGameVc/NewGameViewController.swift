@@ -1992,8 +1992,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
         
         limitTimer.invalidate()
+        
+        if gameMode == 0 {
         UserDefaults.standard.set(limitSeconds, forKey: "limitSeconds")
-
+        }
         
         alertText.text = gameVC_alertLeave
         quitBtn.setTitle(gameVC_leave, for: .normal)
@@ -2150,6 +2152,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     
     override func viewWillAppear(_ animated: Bool) {
+       
+        
         
         NotificationCenter.default.removeObserver(self)
 

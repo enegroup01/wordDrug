@@ -477,7 +477,7 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //取得暱稱
         if let nickname = user?["nickname"] as? String{
-            
+            print("has name")
             self.usernameLabel.text = nickname
         } else {
             
@@ -538,10 +538,12 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else {
                 //其餘語言
                 //print("繁體中文關卡數")
+                print("count words")
                 maxWordCount = 450
                 
                 allMapPassedCount = mapPassed! * maxWordCount + mapPassed2! * maxWordCount + mapPassed3! * maxWordCount + mapPassed4! * maxWordCount + mapPassed5! * maxWordCount
                 
+                print("count finish")
             }
             
             var gamePassedCount = Int()
@@ -553,7 +555,17 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             var gamePassed8Count = Int()
             var gamePassed9Count = Int()
             
-            
+        print("count game passed")
+        print(gamePassed)
+        print(gamePassed2)
+        print(gamePassed3)
+        print(gamePassed4)
+        print(gamePassed5)
+        print(gamePassed7)
+        print(gamePassed8)
+        print(gamePassed9)
+        
+        
             for (s,u) in gamePassed!{
                 gamePassedCount = s * 30 + u * 3
             }
@@ -583,10 +595,14 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             for (s,u) in gamePassed9!{
                 gamePassed9Count = s * 30 + u * 3
             }
-            
+        
+        print("count finish")
+        
             let allGamePassedCount = gamePassedCount + gamePassed2Count + gamePassed3Count + gamePassed4Count + gamePassed5Count + gamePassed7Count + gamePassed8Count + gamePassed9Count
-            
+        
+        print("add finished")
 
+   
             let allWordsCount = allMapPassedCount + allGamePassedCount
             
             wordCountLabel.text = String(allWordsCount)

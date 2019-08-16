@@ -252,6 +252,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
       
+        
+        print("did enter bg appDelegate")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
         Messaging.messaging().shouldEstablishDirectChannel = false
         
@@ -411,11 +413,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         if let decoded = decodedObject7{
             gamePassed7 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
+        
+        if mapPassed7 == nil {
+            mapPassed7 = 0
+        }
+        if gamePassed7 == nil {
+            gamePassed7 = [0:0]
+        }
+        
         mapPassed8 = userDefaults.object(forKey: kMapPassed8) as? Int
         let decodedObject8 = UserDefaults.standard.object(forKey: kGamePassed8) as? NSData
         
         if let decoded = decodedObject8{
             gamePassed8 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
+        }
+        
+        if mapPassed8 == nil {
+            mapPassed8 = 0
+        }
+        if gamePassed8 == nil {
+            gamePassed8 = [0:0]
         }
         
         mapPassed9 = userDefaults.object(forKey: kMapPassed9) as? Int
@@ -425,6 +442,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             gamePassed9 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
         
+        if mapPassed9 == nil {
+            mapPassed9 = 0
+        }
+        if gamePassed9 == nil {
+            gamePassed9 = [0:0]
+        }
 
         //user裡有的資料要轉換
         guard let wr = user?[kWordReviewCount] as? String else{
