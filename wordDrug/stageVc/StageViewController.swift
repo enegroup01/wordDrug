@@ -9,6 +9,10 @@
 import UIKit
 import ProgressHUD
 
+
+let width = UIScreen.main.bounds.width
+let height = UIScreen.main.bounds.height
+
 class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     let stageVC_alreadyLearned = NSLocalizedString("stageVC_alreadyLearned", comment: "")
@@ -51,6 +55,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var alertBg = UIImageView()
     var alertText = UILabel()
     var isClassAllPassed = false
+    var ghostBtn = UIView()
     
     @IBOutlet weak var alreadyLearnedLabel: UILabel!
 
@@ -65,13 +70,15 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var unlockSwitch: UISwitch!
 
     
-    @IBOutlet weak var unlockSwitchLabel: UILabel!
-    
     let greenColor = #colorLiteral(red: 0.3254901961, green: 0.8431372549, blue: 0.4117647059, alpha: 1)
+    
+    var settingView = SetView()
+    
+    var wordSets = [[String]]()
+    var settingBtn = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         var iPadDif:CGFloat!
         var wordCountTitleLabelFontSize: CGFloat!
@@ -225,6 +232,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
         }
         
+        
         collectionView.backgroundColor = bgColor
         collectionView.delegate = self
         
@@ -234,25 +242,36 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         let topView = UIView()
         topView.backgroundColor = #colorLiteral(red: 0.1260408759, green: 0.101865299, blue: 0.1016356722, alpha: 1)
-        
         self.view.addSubview(topView)
+
         topView.anchor(top: view.topAnchor, leading: view.safeLeftAnchor, bottom: nil, trailing: view.safeRightAnchor, size: .init(width: width, height: height / 5))
         collectionView.anchor(top: view.topAnchor, leading: view.safeLeftAnchor, bottom: view.bottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: height / 5, left: 0, bottom: 0, right: 0))
-        
+//        collectionView.addSubview(settingView)
+//        collectionView.bringSubviewToFront(settingView)
+       
         
         classTitle.image = UIImage(named: titleImg)
         classTitle.contentMode = .scaleAspectFill
         
         classTitle.anchor(top: view.safeTopAnchor, leading: backBtn.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15 * dif * iPadDif, left: 30 * dif * iPadDif, bottom: 0, right: 0), size: .init(width: 73 * dif * iPadDif, height: 78 * dif * iPadDif))
         
+ 
+        settingBtn = UIButton(type: UIButton.ButtonType.system)
+        self.view.addSubview(settingBtn)
+        //settingBtn.anchor(top: backBtn.topAnchor, leading: classTitle.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .init(width: 84, height: 37))
+       
+        settingBtn.setBackgroundImage(UIImage(named: "openSettingBtn.png"), for: .normal)
+        settingBtn.addTarget(self, action: #selector(StageViewController.openSettingView), for: .touchUpInside)
+        
+        if lan == "zh-Hans" && courseReceived == 5 {
+            settingBtn.isHidden = true
+        }
 
+        //alreadyLearnedLabel.font = alreadyLearnedLabel.font.withSize(wordCountTitleLabelFontSize)
         
-        alreadyLearnedLabel.font = alreadyLearnedLabel.font.withSize(wordCountTitleLabelFontSize)
+        //alreadyLearnedLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 25 * dif * iPadDif, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 100 * dif * iPadDif, height: 28 * dif * iPadDif))
         
-        
-        alreadyLearnedLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 25 * dif * iPadDif, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 100 * dif * iPadDif, height: 28 * dif * iPadDif))
-        
-        alreadyLearnedLabel.text = stageVC_openAllSwitch
+        //alreadyLearnedLabel.text = stageVC_openAllSwitch
         
         //wordCountsLabel.backgroundColor = .red
 //        wordCountsLabel.font = wordCountsLabel.font.withSize(wordCountLabelFontSize)
@@ -260,19 +279,34 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 //        wordCountsLabel.adjustsFontSizeToFitWidth = true
 //     wordCountsLabel.isHidden = true
         
-        unlockSwitch.anchor(top: alreadyLearnedLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor,padding: .init(top: 10, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 49 * dif * iPadDif, height: 31 * dif * iPadDif))
         
-    
+//         unlockSwitch.anchor(top: alreadyLearnedLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor,padding: .init(top: 10, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 49 * dif * iPadDif, height: 31 * dif * iPadDif))
         
+        settingBtn.anchor(top: alreadyLearnedLabel.bottomAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor,padding: .init(top: 10, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 84 * dif * iPadDif, height: 37 * dif * iPadDif))
         
-        self.view.bringSubviewToFront(alreadyLearnedLabel)
+        self.view.addSubview(ghostBtn)
+        let alphaGray = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.58)
+        ghostBtn.backgroundColor = alphaGray
+        ghostBtn.anchor(top: view.safeTopAnchor, leading: view.safeLeftAnchor, bottom: view.safeBottomAnchor, trailing: view.safeRightAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: CGSize(width: width, height: height))
+        ghostBtn.layer.zPosition = 2
+        ghostBtn.addSubview(settingView)
+        ghostBtn.bringSubviewToFront(settingView)
+        ghostBtn.isHidden = true
+
+        settingView.isHidden = true
+        settingView.center = self.view.center
+        
+
+        
+        //self.view.bringSubviewToFront(alreadyLearnedLabel)
 //        self.view.bringSubview(toFront: wordCountsLabel)
         self.view.bringSubviewToFront(backBtn)
         self.view.bringSubviewToFront(classTitle)
-        self.view.bringSubviewToFront(unlockSwitch)
-
         
-
+        //self.view.bringSubviewToFront(unlockSwitch)
+        self.view.bringSubviewToFront(settingBtn)
+        self.view.bringSubviewToFront(ghostBtn)
+        
     }
     
 
@@ -283,16 +317,15 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         // Dispose of any resources that can be recreated.
     }
     
-    
     @IBAction func unlockSwitchTapped(_ sender: Any) {
-        
         if unlockSwitch.isOn {
+            //打開
             isUnlocked = true
             for i in 0 ..< 18{
                 locks[i] = 0
             }
             alreadyLearnedLabel.textColor = greenColor
-           
+
         } else {
             
             isUnlocked = false
@@ -316,17 +349,20 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewWillAppear(_ animated: Bool) {
         
-        isUnlocked = false
-        unlockSwitch.isEnabled = true
-        unlockSwitch.setOn(false, animated: false)
-        alreadyLearnedLabel.textColor = .white
-
+        NotificationCenter.default.removeObserver(self)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(StageViewController.closeSettingView), name: NSNotification.Name(closeSettingViewKey), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(StageViewController.reloadCollectionView), name: NSNotification.Name(reloadCollectionViewKey), object: nil)
+        
+        isUnlocked = false
+        //unlockSwitch.isEnabled = true
+        //unlockSwitch.setOn(false, animated: false)
+        //alreadyLearnedLabel.textColor = .white
+
         //MARK: simVer 要製造足夠數量的
         eachCellMyWordsCount = Array(repeating: 0, count: 18)
         locks = Array(repeating: 1, count: 18)
-        
-
         
         isClassAllPassed = false
         
@@ -335,9 +371,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //MARK: must update
         //就算user == nil, gamePassed & mapPasse都已經設定初始值了
         //MARK: simVersion 共有幾個關卡 done
-        
-        print("mapPassed:\(mapPassed)")
-        
+       
         //單機版
 //        mapPassed = 5
 //        mapPassed2 = 6
@@ -505,11 +539,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             case 3:
                 
                 
-                
                 stageCount = 9
                 elemWordsMax = [450,450,450,450,450,450,450,450,450]
-                
-                
                 
                 gamePassedDic = gamePassed4!
                 mapPassedInt = mapPassed4!
@@ -558,10 +589,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             //其他的課程計算方式
             
             for (s,u) in gamePassedDic!{
-                
                 wordCounts = s * 30 + u * 3
-          
-    
             }
                         
             //MARK: simVer 改寫原本上方不同的switch方法字數統計
@@ -580,6 +608,10 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 }
             }
         }
+        
+//        print("courseReceived:\(courseReceived)")
+//        print("mapPassed:\(mapPassedInt)")
+//        print("gamePassed:\(gamePassedDic)")
         //print("6")
 
         //MARK: simVer locks應該上方已做過18個
@@ -630,11 +662,221 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             }
         }
         
-
         collectionView.reloadData()
-        
         tempLocks = locks
+    }
+    
+    @objc func reloadCollectionView(){
+        
+        //print("received load")
+        
+        //MARK: simVer 要製造足夠數量的
+        eachCellMyWordsCount = Array(repeating: 0, count: 18)
+        locks = Array(repeating: 1, count: 18)
+        
+            //其餘語言
+            //print("繁體中文關卡數")
+        //print("reload courseReceived:\(courseReceived)")
+            switch courseReceived {
+            case 0:
+                
+                gamePassedDic = gamePassed!
+                mapPassedInt = mapPassed!
+                
+            case 1:
+                
+                gamePassedDic = gamePassed2!
+                mapPassedInt = mapPassed2!
+                
+            case 2:
+                
+                gamePassedDic = gamePassed3!
+                mapPassedInt = mapPassed3!
+                
+            case 3:
+                
+                gamePassedDic = gamePassed4!
+                mapPassedInt = mapPassed4!
+                
+            case 4:
+                
+                gamePassedDic = gamePassed5!
+                mapPassedInt = mapPassed5!
+            case 6:
+                
+                gamePassedDic = gamePassed7!
+                mapPassedInt = mapPassed7!
+            case 7:
+                
+                gamePassedDic = gamePassed8!
+                mapPassedInt = mapPassed8!
+            case 8:
+                
+                gamePassedDic = gamePassed9!
+                mapPassedInt = mapPassed9!
+          
+                
+            default:
+                break
+            }
+ 
+        
+        //MARK: simVer 這裏要計算總計字, k12要重寫每個的計算
 
+            //其他的課程計算方式
+            
+            for (s,u) in gamePassedDic!{
+                wordCounts = s * 30 + u * 3
+            }
+            
+            //MARK: simVer 改寫原本上方不同的switch方法字數統計
+            
+            for i in 0 ..< mapPassedInt + 1{
+                if i == mapPassedInt {
+                    eachCellMyWordsCount[i] = wordCounts
+                } else {
+                    eachCellMyWordsCount[i] = elemWordsMax[i]
+                }
+            }
+
+            
+            let maxStageCount = 9
+            //最大值改成簡體CET/ 繁體 IELTS
+            
+            if mapPassedInt == maxStageCount {
+                for i in 0 ..< mapPassedInt{
+                    locks[i] = 0
+                }
+                
+            } else {
+                
+                for i in 0 ..< mapPassedInt + 1{
+                    
+                    locks[i] = 0
+                }
+            }
+        
+        collectionView.reloadData()
+    
+        tempLocks = locks
+        closeSettingView()
+
+    }
+    
+    @objc func closeSettingView(){
+        
+        collectionView.isScrollEnabled = true
+        settingView.isHidden = true
+        ghostBtn.isHidden = true
+        backBtn.isEnabled = true
+        settingBtn.isEnabled = true
+        //unlockSwitch.isEnabled = true
+        
+    }
+    
+    @objc func openSettingView(){
+        
+        collectionView.isScrollEnabled = false
+        settingView.isHidden = false
+        ghostBtn.isHidden = false
+        backBtn.isEnabled = false
+        settingBtn.isEnabled = false
+        //unlockSwitch.isEnabled = false
+        
+        wordSets = [[String]]()
+
+        //讀取該課程所有單字
+        
+        //MARK: 讀取文字檔
+        //讀取Bundle裡的文字檔
+        var wordFile:String?
+        
+        //供抓字用 & pass給 gameVc
+        //mapNum += increaseNum
+        
+        //MARK: simVer K12的地圖讀法要再增加
+        var name:String!
+        
+        var wordData = [String]()
+        
+        var startIndex = Int()
+        if courseReceived == 0 {
+            startIndex = 0
+        } else {
+            for i in 0 ..< (courseReceived){
+                 startIndex += maxMapNumArray[i]
+            }
+        }
+        
+        if lan == "zh-Hans" {
+            startIndex += 35
+        }
+        
+        var maxPageNumber = Int()
+        if lan == "zh-Hans" && courseReceived == 0{
+            maxPageNumber = 11
+        } else {
+            maxPageNumber = 15
+        }
+        
+        for i in startIndex ..< startIndex + stageCount{
+            for j in 0 ..< maxPageNumber {
+                name = "\(i+1)-\(j+1)"
+                //print("load file name :\(name)")
+  
+                if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+                    do {
+                        wordFile = try String(contentsOfFile: filepath)
+                        let words = wordFile?.components(separatedBy: "; ")
+                        
+                        //把字讀取到wordSets裡
+                        
+                        wordSets.append(words!)
+                        
+                    } catch {
+                        // contents could not be loaded
+                    }
+                } else {
+                    // example.txt not found!
+                }
+            }
+        }
+        
+        var finalWordData = [String]()
+        for set in wordSets {
+            for i in 0 ..< set.count{
+                if i < 30 {
+                    wordData.append(set[i].replacingOccurrences(of: " ", with: ""))
+                }
+            }
+            var sortedWordData = [String]()
+            for i in 0 ..< wordData.count / 3 {
+                var newString = String()
+                for n in 0 ..< 3 {
+                    let newIndex = i * 3 + n
+                    if n != 2 {
+                        newString += wordData[newIndex] + " "
+                    } else {
+                        newString += wordData[newIndex]
+                    }
+                }
+                sortedWordData.append(newString)
+            }
+            finalWordData = sortedWordData
+        }
+        
+        var tempNumber = Int()
+        for (s,u) in gamePassedDic! {
+            tempNumber = s * 10 + u
+        }
+        
+        let numberToJump = maxPageNumber * 10
+        let rowToJump = mapPassedInt * numberToJump + tempNumber
+
+        settingView.selectedIndex = rowToJump
+        settingView.pickerData = finalWordData
+        settingView.courseReceived = courseReceived
+        settingView.picker.selectRow(rowToJump, inComponent: 0, animated: true)
     }
     
     deinit {

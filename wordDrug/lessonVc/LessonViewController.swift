@@ -130,8 +130,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     //    var k12GamePassed:[[Int:Int]]!
     
     let attrsBtn = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
-    
-    
+
     //單機版
     var isUnlocked = false
     

@@ -167,6 +167,11 @@
 		AAA0E10520987FF6007148EB /* wrongSenBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA0E10420987FF5007148EB /* wrongSenBlock.png */; };
 		AAAE4EA3207C942A00C4A8EB /* recordingBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA1207C942900C4A8EB /* recordingBtn.png */; };
 		AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */; };
+		AAB391F0232B30840036BBB9 /* settingBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB391EF232B30840036BBB9 /* settingBg.png */; };
+		AAB391F2232B56C10036BBB9 /* openSettingBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB391F1232B56C00036BBB9 /* openSettingBtn.png */; };
+		AAC2AD35232346E4007EEF69 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC2AD34232346E4007EEF69 /* SetView.swift */; };
+		AAC2AD3923235B3D007EEF69 /* setCancelBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC2AD3823235B3C007EEF69 /* setCancelBtn.png */; };
+		AAC2AD3B232366F8007EEF69 /* setOkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC2AD3A232366F8007EEF69 /* setOkBtn.png */; };
 		AAC4C3E22297BC06005907C0 /* s5-6.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC4C3482297BC04005907C0 /* s5-6.txt */; };
 		AAC4C3E32297BC06005907C0 /* s5-7.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC4C3492297BC04005907C0 /* s5-7.txt */; };
 		AAC4C3E42297BC06005907C0 /* s5-5.txt in Resources */ = {isa = PBXBuildFile; fileRef = AAC4C34A2297BC04005907C0 /* s5-5.txt */; };
@@ -3637,6 +3642,11 @@
 		AAA0E10420987FF5007148EB /* wrongSenBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongSenBlock.png; sourceTree = "<group>"; };
 		AAAE4EA1207C942900C4A8EB /* recordingBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordingBtn.png; sourceTree = "<group>"; };
 		AAAE4EA5207C94EA00C4A8EB /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordBtn.png; sourceTree = "<group>"; };
+		AAB391EF232B30840036BBB9 /* settingBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingBg.png; sourceTree = "<group>"; };
+		AAB391F1232B56C00036BBB9 /* openSettingBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openSettingBtn.png; sourceTree = "<group>"; };
+		AAC2AD34232346E4007EEF69 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
+		AAC2AD3823235B3C007EEF69 /* setCancelBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setCancelBtn.png; sourceTree = "<group>"; };
+		AAC2AD3A232366F8007EEF69 /* setOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setOkBtn.png; sourceTree = "<group>"; };
 		AAC4C3482297BC04005907C0 /* s5-6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-6.txt"; sourceTree = "<group>"; };
 		AAC4C3492297BC04005907C0 /* s5-7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-7.txt"; sourceTree = "<group>"; };
 		AAC4C34A2297BC04005907C0 /* s5-5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "s5-5.txt"; sourceTree = "<group>"; };
@@ -7016,8 +7026,13 @@
 			children = (
 				AA04ED96203D968A00EC0A8E /* StageViewController.swift */,
 				AA87A88D2137CD72000D9E89 /* StageCollectionViewCell.swift */,
+				AAC2AD34232346E4007EEF69 /* SetView.swift */,
+				AAB391F1232B56C00036BBB9 /* openSettingBtn.png */,
+				AAB391EF232B30840036BBB9 /* settingBg.png */,
 				AA39854A20D28D18004E9CE3 /* stageTopCover.png */,
+				AAC2AD3823235B3C007EEF69 /* setCancelBtn.png */,
 				AA277114208A0CA900414E5D /* lockPng.png */,
+				AAC2AD3A232366F8007EEF69 /* setOkBtn.png */,
 			);
 			path = stageVc;
 			sourceTree = "<group>";
@@ -12281,6 +12296,7 @@
 				AA126A5F20D3D0AC00419AD5 /* chartUpBg2.png in Resources */,
 				AAC4C55A2297BC45005907C0 /* 10-2.txt in Resources */,
 				AAC4C73E2297BCD6005907C0 /* 13-4.txt in Resources */,
+				AAB391F2232B56C10036BBB9 /* openSettingBtn.png in Resources */,
 				AAC4CD1F2297BDFC005907C0 /* 41-8.txt in Resources */,
 				AAC4D04C2297BE81005907C0 /* s60-5.txt in Resources */,
 				AAC4C9262297BD16005907C0 /* 21-15.txt in Resources */,
@@ -13504,6 +13520,7 @@
 				AAC4D0DD2297BE81005907C0 /* s51-2.txt in Resources */,
 				AAC4CB8C2297BD8D005907C0 /* 35-12.txt in Resources */,
 				AAC4D7022297C366005907C0 /* 78-7.txt in Resources */,
+				AAC2AD3B232366F8007EEF69 /* setOkBtn.png in Resources */,
 				AAC4C94F2297BD16005907C0 /* 26-13.txt in Resources */,
 				AAC4DC962297C44D005907C0 /* s111-3.txt in Resources */,
 				AAC4DAC32297C41F005907C0 /* 103-13.txt in Resources */,
@@ -13752,6 +13769,7 @@
 				AAC4CB7E2297BD8D005907C0 /* 34-8.txt in Resources */,
 				AAC4D42C2297BF24005907C0 /* s73-15.txt in Resources */,
 				AAC4D8CE2297C3E6005907C0 /* s93-3.txt in Resources */,
+				AAB391F0232B30840036BBB9 /* settingBg.png in Resources */,
 				AAC4D39F2297BF23005907C0 /* 64-2.txt in Resources */,
 				AAAE4EA6207C94EA00C4A8EB /* recordBtn.png in Resources */,
 				AAC4C9922297BD16005907C0 /* s24-5.txt in Resources */,
@@ -14882,6 +14900,7 @@
 				AAC4C92A2297BD16005907C0 /* s21-5.txt in Resources */,
 				AAC4C7152297BCD6005907C0 /* 18-7.txt in Resources */,
 				AAC4D1492297BE82005907C0 /* 58-8.txt in Resources */,
+				AAC2AD3923235B3D007EEF69 /* setCancelBtn.png in Resources */,
 				AAC4D6F32297C366005907C0 /* s79-5.txt in Resources */,
 				AAC4C40A2297BC06005907C0 /* 1-14.txt in Resources */,
 				AAC4D0452297BE81005907C0 /* s60-2.txt in Resources */,
@@ -15228,6 +15247,7 @@
 				AA6FB73A20AE84CA0001EFED /* MKGradientGenerator.swift in Sources */,
 				AA87A88E2137CD72000D9E89 /* StageCollectionViewCell.swift in Sources */,
 				AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */,
+				AAC2AD35232346E4007EEF69 /* SetView.swift in Sources */,
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,
 				AA98BE822125B2D1006F325F /* CourseTableViewCell.swift in Sources */,
 				AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */,

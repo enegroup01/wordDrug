@@ -43,6 +43,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
 
     @IBOutlet weak var logoImg: UIImageView!
    
+
     var activityIndicator = UIActivityIndicatorView()
     
     var repeatTimes = 0
@@ -51,6 +52,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     
     @IBOutlet weak var toLoginVcBtn: UIButton!
     var dynamicCellHeight:CGFloat!
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,6 +200,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         daysLabel.adjustsFontSizeToFitWidth = true
         //daysLabel.backgroundColor = .red
         
+   
+        
     
         //設定tableview高度
         courseTableView.backgroundColor = .clear
@@ -255,7 +260,8 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         dayTitleLabel.text = courseVC_learningDays
         daysLabel.text = ""
         daysLabel.adjustsFontSizeToFitWidth = true
-    
+        
+        
     }
 
     
@@ -379,6 +385,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         performSegue(withIdentifier: "toShopVc", sender: self)
     }
     
+
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -388,7 +395,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
          var purchaseStatus = String()
          //測試用
         
-    
         let isPurchased = UserDefaults.standard.object(forKey: "isPurchased") as! Bool
         
         if isPurchased{
@@ -460,11 +466,453 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         if segue.identifier == "toStageVc"{
             
             let destinationVc = segue.destination as! StageViewController
-            
             destinationVc.courseReceived = courseSent
         }
 
     }
     
 
+    
+//    func startFetchingData(){
+//
+//
+//
+//        if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
+//
+//
+//
+//            usernameTxt.text = ""
+//            usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+//
+//            if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
+//
+//                passwordTxt.text = ""
+//
+//                passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+//
+//            }
+//
+//        } else if  passwordTxt.text!.isEmpty  || passwordTxt.text!.count < 5{
+//
+//            passwordTxt.text = ""
+//
+//            passwordTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上密碼", attributes: attrs)
+//
+//            if usernameTxt.text!.isEmpty || usernameTxt.text!.count < 5 {
+//
+//
+//
+//                usernameTxt.text = ""
+//                usernameTxt.attributedPlaceholder = NSAttributedString(string: "請輸入5位數以上帳號", attributes: attrs)
+//
+//
+//            }
+//
+//        } else {
+//
+//
+//
+//            activityIndicator.startAnimating()
+//            UIApplication.shared.beginIgnoringInteractionEvents()
+//
+//
+//            // shortcuts
+//            let username = usernameTxt.text!.lowercased()
+//            let password = passwordTxt.text!
+//
+//            // send request to mysql db
+//            // url to access our php file
+//            let url = URL(string: "http://ec2-54-238-246-23.ap-northeast-1.compute.amazonaws.com/wordDrugApp/login.php")!
+//
+//            // request url
+//            var request = URLRequest(url: url)
+//
+//            // method to pass data POST - cause it is secured
+//            request.httpMethod = "POST"
+//
+//            // body gonna be appended to url
+//            let body = "username=\(username)&password=\(password)"
+//
+//            // append body to our request that gonna be sent
+//            request.httpBody = body.data(using: .utf8)
+//
+//
+//            URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+//
+//                // no error
+//                if error == nil {
+//
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//
+//                        guard let parseJSON = json else {
+//                            print("Error while parsing")
+//                            //self?.createAlert(title: (self?.generalErrorTitleText)!, message: (self?.generalErrorMessageText)!)
+//                            self!.activityIndicator.stopAnimating()
+//                            UIApplication.shared.endIgnoringInteractionEvents()
+//                            return
+//                        }
+//
+//
+//                        isRegistered = true
+//
+//                        UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
+//
+//
+//                        //先儲存使用者資訊
+//                        UserDefaults.standard.set(parseJSON, forKey: "parseJSON")
+//                        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSDictionary
+//
+//
+//                        //MARK: must update
+//
+//                        //抓mapPassed & gamePassed
+//
+//                        if let mapPassedString = user?["mapPassed"] as! String?{
+//
+//                            mapPassed = Int(mapPassedString)!
+//
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed!, forKey: "mapPassed")
+//
+//                            print("retrieve mapPassed:\(mapPassed!)")
+//
+//                        }
+//
+//                        if let mapPassed2String = user?["mapPassed2"] as! String?{
+//
+//                            mapPassed2 = Int(mapPassed2String)!
+//
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed2!, forKey: "mapPassed2")
+//
+//                            print("retrieve mapPassed:\(mapPassed2!)")
+//
+//                        }
+//
+//                        if let mapPassed3String = user?["mapPassed3"] as! String?{
+//
+//                            mapPassed3 = Int(mapPassed3String)!
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed3!, forKey: "mapPassed3")
+//
+//                            print("retrieve mapPassed:\(mapPassed3!)")
+//
+//                        }
+//
+//                        if let mapPassed4String = user?["mapPassed4"] as! String?{
+//
+//                            mapPassed4 = Int(mapPassed4String)!
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed4!, forKey: "mapPassed4")
+//
+//                            print("retrieve mapPassed:\(mapPassed4!)")
+//
+//                        }
+//
+//                        if let mapPassed5String = user?["mapPassed5"] as! String?{
+//
+//                            mapPassed5 = Int(mapPassed5String)!
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed5!, forKey: "mapPassed5")
+//
+//                            print("retrieve mapPassed:\(mapPassed5!)")
+//
+//                        }
+//
+//                        if let mapPassed6String = user?["mapPassed6"] as! String?{
+//
+//                            mapPassed6 = Int(mapPassed6String)!
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed6!, forKey: "mapPassed6")
+//
+//                            print("retrieve mapPassed:\(mapPassed6!)")
+//
+//                        }
+//
+//                        if let mapPassed7String = user?["mapPassed7"] as! String?{
+//
+//                            mapPassed7 = Int(mapPassed7String)!
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed7!, forKey: "mapPassed7")
+//
+//                            print("retrieve mapPassed:\(mapPassed7!)")
+//
+//                        }
+//
+//                        if let mapPassed8String = user?["mapPassed8"] as! String?{
+//
+//                            mapPassed8 = Int(mapPassed8String)!
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed8!, forKey: "mapPassed8")
+//
+//                            print("retrieve mapPassed:\(mapPassed8!)")
+//
+//                        }
+//
+//                        if let mapPassed9String = user?["mapPassed9"] as! String?{
+//
+//                            mapPassed9 = Int(mapPassed9String)!
+//                            let userDefaults = UserDefaults.standard
+//                            userDefaults.set(mapPassed9!, forKey: "mapPassed9")
+//
+//                            print("retrieve mapPassed:\(mapPassed9!)")
+//
+//                        }
+//
+//
+//
+//
+//                        if let gamePassedString = user?["gamePassed"] as! String?{
+//
+//                            let gamePassedStringArray = gamePassedString.components(separatedBy: ":")
+//
+//                            let s = gamePassedStringArray[0]
+//                            let u = gamePassedStringArray[1]
+//                            gamePassed = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+//
+//                            print("retrieve gamePassed:\(gamePassed!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed")
+//
+//                        }
+//
+//                        if let gamePassed2String = user?["gamePassed2"] as! String?{
+//
+//                            let gamePassed2StringArray = gamePassed2String.components(separatedBy: ":")
+//
+//                            let s = gamePassed2StringArray[0]
+//                            let u = gamePassed2StringArray[1]
+//                            gamePassed2 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed2!)
+//
+//                            print("retrieve gamePassed:\(gamePassed2!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed2")
+//
+//                        }
+//
+//                        if let gamePassed3String = user?["gamePassed3"] as! String?{
+//
+//                            let gamePassed3StringArray = gamePassed3String.components(separatedBy: ":")
+//
+//                            let s = gamePassed3StringArray[0]
+//                            let u = gamePassed3StringArray[1]
+//                            gamePassed3 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed3!)
+//
+//                            print("retrieve gamePassed:\(gamePassed3!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed3")
+//
+//                        }
+//
+//
+//                        if let gamePassed4String = user?["gamePassed4"] as! String?{
+//
+//                            let gamePassed4StringArray = gamePassed4String.components(separatedBy: ":")
+//
+//                            let s = gamePassed4StringArray[0]
+//                            let u = gamePassed4StringArray[1]
+//                            gamePassed4 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed4!)
+//
+//                            print("retrieve gamePassed:\(gamePassed4!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed4")
+//
+//                        }
+//                        if let gamePassed5String = user?["gamePassed5"] as! String?{
+//
+//                            let gamePassed5StringArray = gamePassed5String.components(separatedBy: ":")
+//
+//                            let s = gamePassed5StringArray[0]
+//                            let u = gamePassed5StringArray[1]
+//                            gamePassed5 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed5!)
+//
+//                            print("retrieve gamePassed:\(gamePassed5!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed5")
+//
+//                        }
+//
+//
+//                        if let gamePassed6String = user?["gamePassed6"] as! String?{
+//
+//                            let gamePassed6StringArray = gamePassed6String.components(separatedBy: ":")
+//
+//                            let s = gamePassed6StringArray[0]
+//                            let u = gamePassed6StringArray[1]
+//                            gamePassed6 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed6!)
+//
+//                            print("retrieve gamePassed:\(gamePassed6!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed6")
+//
+//                        }
+//
+//                        if let gamePassed7String = user?["gamePassed7"] as! String?{
+//
+//                            let gamePassed7StringArray = gamePassed7String.components(separatedBy: ":")
+//
+//                            let s = gamePassed7StringArray[0]
+//                            let u = gamePassed7StringArray[1]
+//                            gamePassed7 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed7!)
+//
+//                            print("retrieve gamePassed:\(gamePassed7!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed7")
+//
+//                        }
+//
+//                        if let gamePassed8String = user?["gamePassed8"] as! String?{
+//
+//                            let gamePassed8StringArray = gamePassed8String.components(separatedBy: ":")
+//
+//                            let s = gamePassed8StringArray[0]
+//                            let u = gamePassed8StringArray[1]
+//                            gamePassed8 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed8!)
+//
+//                            print("retrieve gamePassed:\(gamePassed8!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed8")
+//
+//                        }
+//
+//                        if let gamePassed9String = user?["gamePassed9"] as! String?{
+//
+//                            let gamePassed9StringArray = gamePassed9String.components(separatedBy: ":")
+//
+//                            let s = gamePassed9StringArray[0]
+//                            let u = gamePassed9StringArray[1]
+//                            gamePassed9 = [Int(s)!:Int(u)!]
+//
+//                            let userDefaults = UserDefaults.standard
+//                            let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed9!)
+//
+//                            print("retrieve gamePassed:\(gamePassed9!)")
+//                            userDefaults.set(encodedObject, forKey: "gamePassed9")
+//
+//                        }
+//
+//
+//
+//                        print(user!)
+//
+//
+//
+//                        let id = user?["id"] as? String
+//
+//                        // successfully logged in
+//                        if id != nil {
+//
+//                            DispatchQueue.main.async(execute: {
+//                                print("successfully logged in")
+//
+//                                self!.activityIndicator.stopAnimating()
+//                                UIApplication.shared.endIgnoringInteractionEvents()
+//
+//
+//                                if self!.isFromCourse{
+//
+//                                    self!.dismiss(animated: true, completion: nil)
+//
+//                                } else {
+//
+//                                    self!.toCourses()
+//                                }
+//                            })
+//
+//
+//                        } else {
+//
+//                            // 抓錯誤訊息
+//                            DispatchQueue.main.async(execute: {
+//
+//                                self!.activityIndicator.stopAnimating()
+//                                UIApplication.shared.endIgnoringInteractionEvents()
+//
+//                                if let errorStatus = parseJSON["status"] as? String{
+//
+//                                    if errorStatus == "403"{
+//
+//                                        self?.usernameTxt.text = ""
+//                                        self?.passwordTxt.text = ""
+//                                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "帳號不存在，請再試一次", attributes: self!.attrs)
+//                                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+//
+//
+//                                    } else if errorStatus == "401"{
+//
+//                                        self?.usernameTxt.text = ""
+//                                        self?.passwordTxt.text = ""
+//                                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "密碼不正確，請再試一次", attributes: self!.attrs)
+//                                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+//
+//
+//                                    }
+//
+//
+//                                }
+//                            })
+//                            return
+//
+//                        }
+//
+//                    } catch {
+//
+//                        // get main queue to communicate back to user
+//                        DispatchQueue.main.async(execute: {
+//
+//                            self!.activityIndicator.stopAnimating()
+//                            UIApplication.shared.endIgnoringInteractionEvents()
+//
+//
+//                            self?.usernameTxt.text = ""
+//                            self?.passwordTxt.text = ""
+//                            self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
+//                            self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+//
+//
+//                        })
+//                        return
+//
+//                    }
+//
+//                } else {
+//
+//                    // get main queue to communicate back to user
+//                    DispatchQueue.main.async(execute: {
+//
+//                        self!.activityIndicator.stopAnimating()
+//                        UIApplication.shared.endIgnoringInteractionEvents()
+//
+//                        let message = error!.localizedDescription
+//                        print(message)
+//                        self?.usernameTxt.text = ""
+//                        self?.passwordTxt.text = ""
+//                        self?.usernameTxt.attributedPlaceholder = NSAttributedString(string: "登入錯誤，請再試一次", attributes: self!.attrs)
+//                        self?.passwordTxt.attributedPlaceholder = NSAttributedString(string: "錯誤", attributes: self!.attrs)
+//                    })
+//                    return
+//
+//                }
+//
+//                }.resume()
+//        }
+//    }
+    
 }
