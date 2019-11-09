@@ -459,6 +459,14 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             
             //之後這裡要傳送的是課程名稱
             destinationVc.courseReceived = courseSent
+            destinationVc.modalPresentationStyle = .fullScreen
+            
+            if #available(iOS 13.0, *) {
+                destinationVc.isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
+
      
         }
         
@@ -467,7 +475,41 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             
             let destinationVc = segue.destination as! StageViewController
             destinationVc.courseReceived = courseSent
+            destinationVc.modalPresentationStyle = .fullScreen
+            
+            if #available(iOS 13.0, *) {
+                destinationVc.isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
         }
+        
+        if segue.identifier == "toInfoVc"{
+            
+            let destinationVc = segue.destination as! InfoViewController
+         
+            destinationVc.modalPresentationStyle = .fullScreen
+            
+            if #available(iOS 13.0, *) {
+                destinationVc.isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        
+        if segue.identifier == "toShopVc"{
+            
+            let destinationVc = segue.destination as! PurchaseViewController
+         
+            destinationVc.modalPresentationStyle = .fullScreen
+            
+            if #available(iOS 13.0, *) {
+                destinationVc.isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        
 
     }
     

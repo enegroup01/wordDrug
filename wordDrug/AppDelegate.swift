@@ -19,8 +19,7 @@ import ProgressHUD
 //MARK: simVer要增加簡體變數
 
 //存在userDefault裡
-var user : NSMutableDictionary?
-
+var user : NSDictionary?
 //存取出來使用
 var mapPassed:Int?
 var gamePassed:[Int:Int]?
@@ -87,15 +86,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //設定購買狀態
         
         if (UserDefaults.standard.object(forKey: "isPurchased") as! Bool?) != nil{
-            print("非第一次玩")
+            //print("非第一次玩")
         } else {
-            print("第一次玩")
+            //print("第一次玩")
             UserDefaults.standard.set(false, forKey: "isPurchased")
         }
         
         //MARK: must update
         //抓使用者檔案
-        user = UserDefaults.standard.value(forKey: "parseJSON") as? NSMutableDictionary
+        //user = UserDefaults.standard.value(forKey: "parseJSON") as? NSMutableDictionary
+    
+        //user = UserDefaults.standard.object(forKey: "parseJSON") as? NSMutableDictionary
+        
+        
+        user = UserDefaults.standard.dictionary(forKey: "parseJSON") as NSDictionary?
+        //print(user)
 
         //確認有沒有看過介紹
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
@@ -107,7 +112,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             toCourse()
 
         } else {
-            print("enter here 1")
             //首次登入, 沒有user的話
           
             if introWatched == nil {
@@ -122,13 +126,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 //MARK: simVer 一起賦予值
                 giveNewUserValue()
                 
-             
                 //到介紹畫面
                 toIntro()
                 
             } else if introWatched == true{
                 
-                   print("enter here 2")
+    
                 //假如沒有測過
                 if user == nil {
                     giveNewUserValue()
@@ -142,6 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     
     func giveNewUserValue(){
+      
         mapPassed = 0
         userDefaults.set(mapPassed!, forKey: kMapPassed)
         gamePassed = [0:0]
@@ -210,11 +214,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         let todayString = Date()
         let today = dateFormatter.string(from: todayString)
         
-        let tempDict = [kWordReviewCount:0,kWordReviewCount2:0,kWordReviewCount3:0,kWordReviewCount4:0,kWordReviewCount5:0,kWordReviewCount6:0,kWordReviewCount7:0,kWordReviewCount8:0,kWordReviewCount9:0,kSenReviewCount:0,kSenReviewCount2:0,kSenReviewCount3:0,kSenReviewCount4:0,kSenReviewCount5:0,kSenReviewCount6:0,kSenReviewCount7:0,kSenReviewCount8:0,kSenReviewCount9:0,kWrongChinese:0,kProRate:200,kSenRate:200,kMyWords:"",kWrongWords:"",kAva:"",kNickname:"",kScore:0, kDate:today] as NSMutableDictionary
+        let tempDict = [kWordReviewCount:0,kWordReviewCount2:0,kWordReviewCount3:0,kWordReviewCount4:0,kWordReviewCount5:0,kWordReviewCount6:0,kWordReviewCount7:0,kWordReviewCount8:0,kWordReviewCount9:0,kSenReviewCount:0,kSenReviewCount2:0,kSenReviewCount3:0,kSenReviewCount4:0,kSenReviewCount5:0,kSenReviewCount6:0,kSenReviewCount7:0,kSenReviewCount8:0,kSenReviewCount9:0,kWrongChinese:0,kProRate:200,kSenRate:200,kMyWords:"",kWrongWords:"",kAva:"",kNickname:"",kScore:0, kDate:today] as NSDictionary
         user = tempDict
         
         userDefaults.set(user, forKey: "parseJSON")
-        
+      
     }
     
 
@@ -253,7 +257,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
       
         
-        print("did enter bg appDelegate")
+        //print("did enter bg appDelegate")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
         Messaging.messaging().shouldEstablishDirectChannel = false
         
@@ -342,7 +346,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         let decodedObject = UserDefaults.standard.object(forKey: kGamePassed) as? NSData
 
         if let decoded = decodedObject{
+            
             gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
+           
         }
         mapPassed2 = userDefaults.object(forKey: kMapPassed2) as? Int
         let decodedObject2 = UserDefaults.standard.object(forKey: kGamePassed2) as? NSData

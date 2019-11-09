@@ -264,6 +264,22 @@ class IntroViewController: UIViewController ,SFSpeechRecognizerDelegate,AVSpeech
         
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? CoursesViewController {
+            
+            destinationVC.modalPresentationStyle = .fullScreen
+            
+            
+            if #available(iOS 13.0, *) {
+                destinationVC
+                    .isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
+          
+        }
+    }
 
     deinit {
         print("intro deinit")

@@ -1628,7 +1628,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
                 tempS = s
                 tempU = u
-                
+                print("tempS :\(s)")
+                print("tempU: \(u)")
             }
             
         }
@@ -2564,6 +2565,14 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             destinationVC.gameMode = gameMode
             destinationVC.courseReceived = courseReceived
             destinationVC.isUnlocked = isUnlocked
+            
+            destinationVC.modalPresentationStyle = .fullScreen
+            
+            if #available(iOS 13.0, *) {
+                destinationVC.isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
     override func didReceiveMemoryWarning() {

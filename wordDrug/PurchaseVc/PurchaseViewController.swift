@@ -669,14 +669,18 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             print("product:\(product.productIdentifier), \(product.localizedTitle), \(product.price.floatValue )")
             
-            activityIndicator.stopAnimating()
-            UIApplication.shared.endIgnoringInteractionEvents()
-            
-            activeProduct = product
-            
-            purchaseBtn.isEnabled = true
-            restoreBtn.isEnabled = true
-            
+            DispatchQueue.main.async {[weak self] in
+                self!.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                
+                self!.activeProduct = product
+                
+                self!.purchaseBtn.isEnabled = true
+                self!.restoreBtn.isEnabled = true
+                
+
+            }
+          
             }
     
          } else {

@@ -348,7 +348,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var mapPassedInt = Int()
     
     override func viewWillAppear(_ animated: Bool) {
-        
+                
         NotificationCenter.default.removeObserver(self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(StageViewController.closeSettingView), name: NSNotification.Name(closeSettingViewKey), object: nil)
@@ -1184,6 +1184,14 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             destinationVC.mapNumToReceive = mapNumToPass
             destinationVC.isClassAllPassed = isClassAllPassed
             destinationVC.isUnlocked = isUnlocked
+            destinationVC.modalPresentationStyle = .fullScreen
+            
+            if #available(iOS 13.0, *) {
+                destinationVC.isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
+
             
         }
     }

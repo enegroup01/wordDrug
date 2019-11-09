@@ -1739,6 +1739,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
+                
                     view.presentScene(sceneNode)
                     
                     view.ignoresSiblingOrder = true
@@ -2578,6 +2579,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                         //然後儲存
                                                         let userDefaults = UserDefaults.standard
                                                         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
+                                                        
                                                         UserDefaults.standard.set(mapPassed!, forKey: "mapPassed")
                                                         userDefaults.set(encodedObject, forKey: "gamePassed")
                                                         
@@ -2858,6 +2860,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     
                                                 case 0:
                                                     
+                                                  
                                                     gamePassed = [spotNumber: unitNumber + 1]
                                                     gamePassedDic = gamePassed
                                                     
@@ -2866,6 +2869,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                                                     let encodedObject = NSKeyedArchiver.archivedData(withRootObject: gamePassed!)
                                                     
                                                     userDefaults.set(encodedObject, forKey: "gamePassed")
+                                                    let savedNumber = userDefaults.object(forKey: "gamePassed")
+                                                    print("saved number:\(savedNumber)")
                                                     
                                                     
                                                 case 1:
@@ -3635,7 +3640,9 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 
             } else {
                 
+
                 self.dismiss(animated: true, completion: nil)
+                
                 
             }
             
@@ -3686,6 +3693,13 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
             let purchaseVc = segue.destination as! PurchaseViewController
             
             purchaseVc.isDirectedFromGame = true
+            purchaseVc.modalPresentationStyle = .fullScreen
+            
+            if #available(iOS 13.0, *) {
+                purchaseVc.isModalInPresentation = false
+            } else {
+                // Fallback on earlier versions
+            }
             
         }
         

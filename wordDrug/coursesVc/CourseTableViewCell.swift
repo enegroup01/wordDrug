@@ -134,7 +134,11 @@ class CourseTableViewCell: UITableViewCell {
          
         }
         
-        courseTitleImg.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: (dynamicHeight - (90 * iPadDif * dif)) / 2, left: 20 * iPadDif * dif, bottom: 0, right: 0), size: .init(width: 90 * iPadDif * dif, height: 90 * iPadDif * dif))
+        
+        let combineDif = iPadDif * dif
+        
+        
+        courseTitleImg.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: (dynamicHeight - (90 * combineDif)) / 2, left: 20 * combineDif, bottom: 0, right: 0), size: .init(width: 90 * combineDif, height: 90 * combineDif))
         
 
         wordUnitLabel.textAlignment = .left
@@ -149,7 +153,7 @@ class CourseTableViewCell: UITableViewCell {
         wordCountOutlet.anchor(top: self.topAnchor, leading: nil, bottom: nil, trailing: wordUnitLabel.leadingAnchor, padding: .init(top: 5 * iPadDif * dif, left: 0, bottom: 0, right: 0), size: .init(width: 125 * iPadDif * dif, height: 60 * iPadDif * dif))
         
         
-        enterBookBtnOutlet.anchor(top: wordCountOutlet.bottomAnchor, leading: nil, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 5 * iPadDif * dif, left: 0, bottom: 0, right: -5 * iPadDif * dif), size: .init(width: width / 4, height: dynamicHeight - 60 * iPadDif * dif - dynamicHeight / 6))
+        enterBookBtnOutlet.anchor(top: wordCountOutlet.bottomAnchor, leading: nil, bottom: nil, trailing: self.trailingAnchor, padding: .init(top: 5 * combineDif, left: 0, bottom: 0, right: -5 * combineDif), size: .init(width: width / 4, height: dynamicHeight - 60 * combineDif - dynamicHeight / 6))
 
        
 

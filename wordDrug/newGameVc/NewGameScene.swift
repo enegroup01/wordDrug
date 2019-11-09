@@ -1509,8 +1509,10 @@ class NewGameScene: SKScene {
         
         //makeImageNode(name: "pause", image: pauseImg, x: -330 * chiBtnDif, y: 550 / iPadDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
         
+        let combineDif = ballDif * dif * xDif
+        let combineDif2 = combineDif * iPhonePlusHeightDif
         
-        makeImageNode(name: "pause", image: "pauseBtn", x: -280 * ballDif * dif * xDif * iPhonePlusHeightDif, y: 350 * ballDif * dif * yDif * iPhonePlusHeightDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
+        makeImageNode(name: "pause", image: "pauseBtn", x: -280 * combineDif2, y: 350 * ballDif * dif * yDif * iPhonePlusHeightDif, width: 39, height: 64, z: 2, alpha: 1, isAnchoring: false)
         
         
         let xFactor = ballDif * dif * xDif * iPhonePlusHeightDif
