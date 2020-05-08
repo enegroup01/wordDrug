@@ -33,7 +33,7 @@ class StageCollectionViewCell: UICollectionViewCell {
         switch height {
             
         case 1366, 1336:
-            print("big iPad")
+            //print("big iPad")
 
             stageFontSize = 180
             wordCountFontSize = 40
@@ -44,7 +44,7 @@ class StageCollectionViewCell: UICollectionViewCell {
            
             
         case 1024, 1194, 1112:
-            print("small iPad")
+            //print("small iPad")
             
             stageFontSize = 160
             wordCountFontSize = 40
@@ -55,7 +55,7 @@ class StageCollectionViewCell: UICollectionViewCell {
       
             
         case 812:
-            print("iPhone X")
+            //print("iPhone X")
 
             stageFontSize = 80
             wordCountFontSize = 20
@@ -65,7 +65,7 @@ class StageCollectionViewCell: UICollectionViewCell {
             dif = 1
    
         case 736:
-            print("iPhone plus")
+            //print("iPhone plus")
 
             stageFontSize = 80
             wordCountFontSize = 20
@@ -77,7 +77,7 @@ class StageCollectionViewCell: UICollectionViewCell {
    
             
         case 667:
-            print("iPhone")
+            //print("iPhone")
 
             stageFontSize = 80
             wordCountFontSize = 20
@@ -87,7 +87,7 @@ class StageCollectionViewCell: UICollectionViewCell {
             dif = 1
       
         case 568:
-            print("iPhone SE")
+            //print("iPhone SE")
             
             stageFontSize = 65
             wordCountFontSize = 20

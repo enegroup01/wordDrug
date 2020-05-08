@@ -9,7 +9,6 @@
 import UIKit
 
 protocol CourseTableViewCellDelegate {
-    
     func didTapEnterClass(indexPath: IndexPath)
     func didTapEnterBook(indexPath: IndexPath)
 }

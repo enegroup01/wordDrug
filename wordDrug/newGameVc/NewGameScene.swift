@@ -19,6 +19,12 @@ let playEndingMusicKey = "playEndingMusic"
 let removePronounceBtnKey = "removePlaySoundBtn"
 let leaveReviewKey = "leaveReview"
 
+extension NewGameScene: NewGameViewControllerDelegate {
+    func testFunc(){
+        print("*= did receive")
+    }
+}
+
 class NewGameScene: SKScene {
     
     let gameSC_learn = NSLocalizedString("gameSC_learn", comment: "")
@@ -253,8 +259,11 @@ class NewGameScene: SKScene {
     //MARK: simVer K12 課程紀錄變數
     //    var k12MapPassed:[Int]!
     //    var k12GamePassed:[[Int:Int]]!
+    //let newgameVC = NewGameViewController()
     
     override func didMove(to view: SKView) {
+        
+        //newgameVC.delegate = self
         
         //提示字
         makeLabelNode(x: 0, y: -290, alignMent: .center, fontColor: .white, fontSize: 40, text: "", zPosition: 3, name: "showHint", fontName: "Helvetica Bold", isHidden: true, alpha: 1)

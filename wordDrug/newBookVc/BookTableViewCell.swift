@@ -122,25 +122,27 @@ class BookTableViewCell: UITableViewCell {
         
 
         
-        hintLabel.frame = CGRect(x: width - (80 * dif * hintLabelWidthDif), y: engWordLabel.frame.minY, width: 70 * dif * hintLabelWidthDif, height: 21 * dif * iPhoneXHeightDif)
+        hintLabel.frame = CGRect(x: width - (120 * dif * hintLabelWidthDif), y: engWordLabel.frame.minY, width: 70 * dif * hintLabelWidthDif, height: 21 * dif * iPhoneXHeightDif)
         
         hintLabel.adjustsFontSizeToFitWidth = true
         hintLabel.text = bookVC_slideToLeft
         
+        accessoryType = .disclosureIndicator
 
-        /*
-        engWordLabel.backgroundColor = .red
-        chiWordLabel.backgroundColor = .green
-        partOfSpeechLabel.backgroundColor = .purple
-        engSenLabel.backgroundColor = .blue
-        chiSenLabel.backgroundColor = .yellow
-        syllableLabel.backgroundColor = .green
-        hintLabel.backgroundColor = .green
- */
-    
-        
     }
 
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let indicatorButton = allSubviews.compactMap({ $0 as? UIButton }).last {
+              let image = indicatorButton.backgroundImage(for: .normal)?.withRenderingMode(.alwaysTemplate)
+              indicatorButton.setBackgroundImage(image, for: .normal)
+              indicatorButton.tintColor = .white
+            indicatorButton.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+           }
+        
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -148,3 +150,10 @@ class BookTableViewCell: UITableViewCell {
     }
 
 }
+
+extension UIView {
+   var allSubviews: [UIView] {
+      return subviews.flatMap { [$0] + $0.allSubviews }
+   }
+}
+

@@ -9,7 +9,6 @@
 import UIKit
 import ProgressHUD
 
-
 let width = UIScreen.main.bounds.width
 let height = UIScreen.main.bounds.height
 
@@ -887,21 +886,20 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         self.dismiss(animated: true, completion: nil)
     }
     
-    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        
         
         let cell =
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "stageCell", for: indexPath as IndexPath) as! StageCollectionViewCell
         
         let lockImg = cell.viewWithTag(3) as! UIImageView
-        if locks[indexPath.row] == 0 {
-            lockImg.isHidden = true
-        } else {
-            lockImg.isHidden = false
-        }
+//        if locks[indexPath.row] == 0 {
+//            lockImg.isHidden = true
+//        } else {
+//            lockImg.isHidden = false
+//        }
+        lockImg.isHidden = locks[indexPath.row] == 0
         
         cell.stageLabel.adjustsFontSizeToFitWidth = true
         cell.stageLabel.text = String(indexPath.row + 1)
@@ -1149,7 +1147,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 
                 performSegue(withIdentifier: "toLessonVc", sender: self)
 
-            } else if mapPassedInt > indexPath.row{
+            } else if mapPassedInt > indexPath.row {
 
                 //show已過關訊息
 
@@ -1158,7 +1156,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 performSegue(withIdentifier: "toLessonVc", sender: self)
 
 
-            } else if mapPassedInt < indexPath.row{
+            } else if mapPassedInt < indexPath.row {
 
                 ProgressHUD.showError(stageVC_alert)
 

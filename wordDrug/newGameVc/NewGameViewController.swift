@@ -36,7 +36,13 @@ var limitTimer = Timer()
 var sentenceCounts = Int()
 var senFontSize = CGFloat()
 
+protocol NewGameViewControllerDelegate:AnyObject {
+    func testFunc()
+}
+
 class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagListViewDelegate, AVSpeechSynthesizerDelegate{
+    
+    weak var delegate: NewGameViewControllerDelegate?
     
     let gameVC_pleasePressMic = NSLocalizedString("gameVC_pleasePressMic", comment: "")
   
@@ -332,8 +338,8 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         super.viewDidLoad()
 
         
-        print("width: \(width)")
-        print("height: \(height)")
+        //print("width: \(width)")
+        //print("height: \(height)")
         
         skipPronounceBtn.isHidden = true
         
@@ -501,7 +507,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
            
             
         case 896:
-            print("user figures here")
+            //print("user figures here")
             dif = 1
             iPadDif = 1
             engSentenceFontSize = 30
@@ -1733,6 +1739,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
                 sceneNode.isReplay = isReplay
                 sceneNode.isUnlocked = isUnlocked
     
+                delegate = sceneNode
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
@@ -3141,8 +3148,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         let status:[String:Bool] = ["isUnlocked":isUnlocked]
         
         NotificationCenter.default.post(name: NSNotification.Name(sendUnlockStatus), object: nil, userInfo: status)
-        
-        
+
     }
 
     
@@ -4127,7 +4133,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     //做句子, 傳送nc去發音
     func makeSentence(){
-        
+        delegate?.testFunc()
         //顯示句子文字
         
         //testing
@@ -4145,9 +4151,10 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
 
             
             //製作4個中文選項Btn
-            for btn in allBtns{
-                btn.isHidden = false
-            }
+//            for btn in allBtns{
+//                btn.isHidden = false
+//            }
+            allBtns.forEach({$0.isHidden = false})
 
             //抓好中英文句子答案
             sentenceLabel.text = sentence
@@ -5502,8 +5509,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         
         
         if isReadingGuidedSentence{
-            
-            
             circleOkBtn.isHidden = false
             isReadingGuidedSentence = false
         }
@@ -5511,7 +5516,6 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         if !synth.isSpeaking{
             recordBtn.isEnabled = true
 
-            
         } else {
             
             //避免delegate不成功...此function可能不需要暫時留著需要注意timer有沒有invalidate..
@@ -5539,24 +5543,24 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance){
-        print("**pause")
+        //print("**pause")
         recordBtn.isEnabled = true
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance){
-        print("**continue")
+        //print("**continue")
         recordBtn.isEnabled = false
     }
     
     @available(iOS 7.0, *)
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance){
-        print("**cancel")
+        //print("**cancel")
         recordBtn.isEnabled = true
         
     }
     
-
+    
     //新增最愛單字
     func addWord(word:String){
         
@@ -5568,8 +5572,7 @@ class NewGameViewController: UIViewController, SFSpeechRecognizerDelegate, TagLi
         copyUser.setValue(newFavWords, forKey: kMyWords)
         user = copyUser
         userDefaults.set(user, forKey: "parseJSON")
- 
-}
+    }
 }
 
 

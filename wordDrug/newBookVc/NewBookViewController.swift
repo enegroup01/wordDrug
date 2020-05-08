@@ -2644,21 +2644,20 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         cell.hintLabel.font = cell.hintLabel.font.withSize(chiWordSize)
         
         
-        let accessoryImg = UIImageView()
-        
-        cell.accessoryType = .none
-        cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: cell.frame.height, height: cell.frame.height))
-        
-        
-        cell.accessoryView?.addSubview(accessoryImg)
-        accessoryImg.translatesAutoresizingMaskIntoConstraints = false
-        accessoryImg.centerYAnchor.constraint(equalTo: (cell.accessoryView?.centerYAnchor)!).isActive = true
-        
-        accessoryImg.trailingAnchor.constraint(equalTo: (cell.accessoryView?.trailingAnchor)!, constant: -5 * iPadDif).isActive = true
-        accessoryImg.widthAnchor.constraint(equalToConstant: 19 * iPadDif ).isActive = true
-        accessoryImg.heightAnchor.constraint(equalToConstant: 31 * iPadDif).isActive = true
-        accessoryImg.image = UIImage(named: "indicatorPng.png")
-        
+//        let accessoryImg = UIImageView()
+//        
+//        cell.accessoryType = .none
+//        cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: cell.frame.height, height: cell.frame.height))
+//        
+//        
+//        cell.accessoryView?.addSubview(accessoryImg)
+//        accessoryImg.translatesAutoresizingMaskIntoConstraints = false
+//        accessoryImg.centerYAnchor.constraint(equalTo: (cell.accessoryView?.centerYAnchor)!).isActive = true
+//        
+//        accessoryImg.trailingAnchor.constraint(equalTo: (cell.accessoryView?.trailingAnchor)!, constant: -5 * iPadDif).isActive = true
+//        accessoryImg.widthAnchor.constraint(equalToConstant: 19 * iPadDif ).isActive = true
+//        accessoryImg.heightAnchor.constraint(equalToConstant: 31 * iPadDif).isActive = true
+//        accessoryImg.image = UIImage(named: "indicatorPng.png")
         
         if indexPath.row == 0 {
             
@@ -2853,8 +2852,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         chiSenLabel.text = chiSen
         
         cell.backgroundColor = .clear
-        
-        
+
+            
         return cell
         
         

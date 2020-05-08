@@ -389,7 +389,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         
-        print("Course:\(user)")
+        //print("Course:\(user)")
         
          var nickname = String()
          var purchaseStatus = String()
@@ -440,14 +440,9 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
         logOutBtn.isHidden = true
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
 
     @IBAction func toInfoVcClicked(_ sender: Any) {
-
         performSegue(withIdentifier: "toInfoVc", sender: self)
     }
     
@@ -466,8 +461,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
             } else {
                 // Fallback on earlier versions
             }
-
-     
         }
         
         
