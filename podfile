@@ -7,7 +7,6 @@ pod "SwiftSiriWaveformView"
 pod 'SSBouncyButton'
 pod 'TwicketSegmentedControl'
 pod 'NVActivityIndicatorView'
-pod 'FacebookLogin'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
 pod 'ProgressHUD'
