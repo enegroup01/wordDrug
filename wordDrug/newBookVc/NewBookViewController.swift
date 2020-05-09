@@ -230,10 +230,14 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     var k12WordSets = [[[String()]]]
     var k12SentenceSets = [[[String()]]]
+    
+    let missWord = MissWord()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let texts = missWord.loadTextFile(fileName: "1-1")
+        print(texts)
         
         var sliderHeight: CGFloat!
         var btnDif: CGFloat!
@@ -1170,6 +1174,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             
                             //把字讀取到wordSets裡
                             wordSets.append(words!)
+                            
                             //print(contents)
                             
                         } catch {
