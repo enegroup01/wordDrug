@@ -230,14 +230,15 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     var k12WordSets = [[[String()]]]
     var k12SentenceSets = [[[String()]]]
-    
-    let missWord = MissWord()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let texts = missWord.loadTextFile(fileName: "1-1")
-        print(texts)
+        let file = File(chapter: 1, unit: 1)
+        let words = MissWordUtility.shared.loadWords(file: file)
+
+        
+        
         
         var sliderHeight: CGFloat!
         var btnDif: CGFloat!
@@ -484,7 +485,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 syllableGroup.append(map42SyllableSets)
                 syllableGroup.append(map43SyllableSets)
                 
-                
                 maxMapNum = 5
                 increaseNum = 38
                 
@@ -492,7 +492,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 maxSpotNumArray = [15,15,15,15,15]
                 
             } else {
-                
                 
                 syllableGroup.append(map6SyllableSets)
                 syllableGroup.append(map7SyllableSets)
@@ -1028,7 +1027,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //歸類所有syllable
         syllableGroup.removeFirst()
         
-        for groupSet in syllableGroup{
+        for groupSet in syllableGroup {
             
             for group in groupSet{
                 
@@ -1043,34 +1042,25 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //讀取所有syl, 排除相同的再次出現
         for syl in syllableSets{
             
-            
             let sylBreaks = syl.components(separatedBy: NSCharacterSet.decimalDigits)
             let sylOnlyText = sylBreaks[0]
 
             //全部的syl放這裡
             sylArray.append(sylOnlyText)
-            
             if !sortedSylArray.contains(sylOnlyText){
-                
                 //排除掉相同的syl之後放這裡
                 sortedSylArray.append(sylOnlyText)
             }
-            
         }
-        
         
         //建立collectionView按鈕數量
         for _ in 0 ..< sortedSylArray.count{
-
             collectionTouched.append(0)
-            
         }
         
         //預設第一個元素
         collectionTouched[0] = 1
-        
         // *** 讀取單字 ***
-        
         //MARK: simVer K12特別作法
         if courseReceived == 5  {
 
@@ -1134,11 +1124,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             }
             
-            
         }  else {
             
             //非K12其他課程的讀取單字方式
-            
             //所有已過關的地圖字都要抓進去, ...這部分是繁體可以?
             if mapPassedInt == maxMapNum{
                 
@@ -1150,7 +1138,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 gamePassedDic = [maxSpotNumArray[maxSpotNumArray.count - 1] - 1:9]
                 
             }
-            
             
             for m in 0 ..< mapPassedInt!{
                 //要讀取裡面的全部
@@ -3193,7 +3180,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        
+        return 0
         return sortedSylArray.count
         
     }
@@ -3234,6 +3221,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SylCell", for: indexPath as IndexPath)
         
+        return cell
         
         let blueBall = cell.viewWithTag(2) as! UIImageView
         
