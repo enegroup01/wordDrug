@@ -230,14 +230,16 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     var k12WordSets = [[[String()]]]
     var k12SentenceSets = [[[String()]]]
+    
+    var wordContainer:[Word] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let file = File(chapter: 1, unit: 1)
-        let words = MissWordUtility.shared.loadWords(file: file)
-
-        
+//        let file = File(chapter: 1, unit: 1)
+//        let words = MissWordUtility.shared.loadWords(file: file)
+//
+//
         
         
         var sliderHeight: CGFloat!
@@ -1128,7 +1130,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             //非K12其他課程的讀取單字方式
             //所有已過關的地圖字都要抓進去, ...這部分是繁體可以?
-            if mapPassedInt == maxMapNum{
+            if mapPassedInt == maxMapNum {
                 
                 //在這裡 -1 後面要加回來
                 //Mark: simVer 這裏maxSpotNum要減１,陪配合上方的數字分類
@@ -1148,48 +1150,51 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 for i in 0 ..< maxSpotNumArray[m]{
                     
-                    var wordFile:String?
-                    //前面的1代表第一張地圖
-                    let name = String(m + increaseNum + 1) + "-" + String(i + 1)
-                    let sName = "s\(String(m + increaseNum + 1))-" + String(i + 1)
-                    
-                    //抓字
-                    if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-                        do {
-                            wordFile = try String(contentsOfFile: filepath)
-                            let words = wordFile?.components(separatedBy: "; ")
-                            
-                            //把字讀取到wordSets裡
-                            wordSets.append(words!)
-                            
-                            //print(contents)
-                            
-                        } catch {
-                            // contents could not be loaded
-                        }
-                    } else {
-                        // example.txt not found!
-                    }
-                    
-                    var sentenceFile:String?
-                    
-                    //抓句子
-                    if let filepath = Bundle.main.path(forResource: sName, ofType: "txt") {
-                        do {
-                            sentenceFile = try String(contentsOfFile: filepath)
-                            let words = sentenceFile?.components(separatedBy: "; ")
-                            
-                            //把字讀取到wordSets裡
-                            sentenceSets.append(words!)
-                            //print(contents)
-                            
-                        } catch {
-                            // contents could not be loaded
-                        }
-                    } else {
-                        // example.txt not found!
-                    }
-                    
+                    let file = File(chapter: m + increaseNum + 1, unit: i + 1)
+                    let words = MissWordUtility.shared.loadWords(file: file)
+                    wordContainer.append(contentsOf: words)
+//                    var wordFile:String?
+//                    //前面的1代表第一張地圖
+//                    let name = String(m + increaseNum + 1) + "-" + String(i + 1)
+//                    let sName = "s\(String(m + increaseNum + 1))-" + String(i + 1)
+//
+//                    //抓字
+//                    if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+//                        do {
+//                            wordFile = try String(contentsOfFile: filepath)
+//                            let words = wordFile?.components(separatedBy: "; ")
+//
+//                            //把字讀取到wordSets裡
+//                            wordSets.append(words!)
+//
+//                            //print(contents)
+//
+//                        } catch {
+//                            // contents could not be loaded
+//                        }
+//                    } else {
+//                        // example.txt not found!
+//                    }
+//
+//                    var sentenceFile:String?
+//
+//                    //抓句子
+//                    if let filepath = Bundle.main.path(forResource: sName, ofType: "txt") {
+//                        do {
+//                            sentenceFile = try String(contentsOfFile: filepath)
+//                            let words = sentenceFile?.components(separatedBy: "; ")
+//
+//                            //把字讀取到wordSets裡
+//                            sentenceSets.append(words!)
+//                            //print(contents)
+//
+//                        } catch {
+//                            // contents could not be loaded
+//                        }
+//                    } else {
+//                        // example.txt not found!
+//                    }
+//
                 }
                 
             }
@@ -1201,98 +1206,105 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 //讀取已完整的所有字集 + 句子
                 for i in 0 ..< (s){
                     
-                    var wordFile:String?
-                    //前面的1代表第一張地圖
-                    
-                    //裡面的檔名也要加上increaseNum
-                    let name = String(describing: mapPassedInt! + increaseNum + 1) + "-" + String(i + 1)
-                    let sName = "s\(String(describing: mapPassedInt! + increaseNum + 1))-" + String(i + 1)
-                    
-                    //抓字
-                    if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-                        do {
-                            wordFile = try String(contentsOfFile: filepath)
-                            let words = wordFile?.components(separatedBy: "; ")
-                            
-                            //把字讀取到wordSets裡
-                            wordSets.append(words!)
-                            //print(contents)
-                            
-                        } catch {
-                            // contents could not be loaded
-                        }
-                        
-                    } else {
-                        // example.txt not found!
-                    }
-                    
-                    var sentenceFile:String?
-                    
-                    //抓句子
-                    if let filepath = Bundle.main.path(forResource: sName, ofType: "txt") {
-                        do {
-                            sentenceFile = try String(contentsOfFile: filepath)
-                            let words = sentenceFile?.components(separatedBy: "; ")
-                            
-                            //把字讀取到wordSets裡
-                            sentenceSets.append(words!)
-                            //print(contents)
-                            
-                        } catch {
-                            // contents could not be loaded
-                        }
-                    } else {
-                        // example.txt not found!
-                    }
+                    let file = File(chapter: mapPassedInt! + increaseNum + 1, unit: i + 1)
+                    let words = MissWordUtility.shared.loadWords(file: file)
+                    wordContainer.append(contentsOf: words)
+//                    var wordFile:String?
+//                    //前面的1代表第一張地圖
+//
+//                    //裡面的檔名也要加上increaseNum
+//                    let name = String(describing: mapPassedInt! + increaseNum + 1) + "-" + String(i + 1)
+//                    let sName = "s\(String(describing: mapPassedInt! + increaseNum + 1))-" + String(i + 1)
+//
+//                    //抓字
+//                    if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+//                        do {
+//                            wordFile = try String(contentsOfFile: filepath)
+//                            let words = wordFile?.components(separatedBy: "; ")
+//
+//                            //把字讀取到wordSets裡
+//                            wordSets.append(words!)
+//                            //print(contents)
+//
+//                        } catch {
+//                            // contents could not be loaded
+//                        }
+//
+//                    } else {
+//                        // example.txt not found!
+//                    }
+//
+//                    var sentenceFile:String?
+//
+//                    //抓句子
+//                    if let filepath = Bundle.main.path(forResource: sName, ofType: "txt") {
+//                        do {
+//                            sentenceFile = try String(contentsOfFile: filepath)
+//                            let words = sentenceFile?.components(separatedBy: "; ")
+//
+//                            //把字讀取到wordSets裡
+//                            sentenceSets.append(words!)
+//                            //print(contents)
+//
+//                        } catch {
+//                            // contents could not be loaded
+//                        }
+//                    } else {
+//                        // example.txt not found!
+//                    }
                     
                 }
                 
-                //再來讀取殘餘的英文字 + 句子
-                var wordFile:String?
+                let file = File(chapter: mapPassedInt! + increaseNum + 1, unit: s + 1)
+                let words = MissWordUtility.shared.loadWords(file: file)
+                wordContainer.append(contentsOf: words)
                 
-                //讀取最新一層的字
-                
-                //檔名要加上increaseNum
-                let name = String(describing: mapPassedInt! + increaseNum + 1) + "-" + String(s + 1)
-                let sName = "s\(String(describing: mapPassedInt! + increaseNum + 1))-" +  String(s + 1)
-                
-                if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-                    do {
-                        wordFile = try String(contentsOfFile: filepath)
-                        let words = wordFile?.components(separatedBy: "; ")
-                        
-                        //把字讀取到wordSets裡
-                        tempWordSets.append(words!)
-                        //print(contents)
-
-                        
-                    } catch {
-                        // contents could not be loaded
-                    }
-                } else {
-                    // example.txt not found!
-                }
-                
-                
-                
-                var sentenceFile:String?
-                
-                //抓句子
-                if let filepath = Bundle.main.path(forResource: sName, ofType: "txt") {
-                    do {
-                        sentenceFile = try String(contentsOfFile: filepath)
-                        let words = sentenceFile?.components(separatedBy: "; ")
-                        
-                        //把字讀取到wordSets裡
-                        tempSentenceSets.append(words!)
-                        //print(contents)
-                        
-                    } catch {
-                        // contents could not be loaded
-                    }
-                } else {
-                    // example.txt not found!
-                }
+//                //再來讀取殘餘的英文字 + 句子
+//                var wordFile:String?
+//
+//                //讀取最新一層的字
+//
+//                //檔名要加上increaseNum
+//                let name = String(describing: mapPassedInt! + increaseNum + 1) + "-" + String(s + 1)
+//                let sName = "s\(String(describing: mapPassedInt! + increaseNum + 1))-" +  String(s + 1)
+//
+//                if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+//                    do {
+//                        wordFile = try String(contentsOfFile: filepath)
+//                        let words = wordFile?.components(separatedBy: "; ")
+//
+//                        //把字讀取到wordSets裡
+//                        tempWordSets.append(words!)
+//                        //print(contents)
+//
+//
+//                    } catch {
+//                        // contents could not be loaded
+//                    }
+//                } else {
+//                    // example.txt not found!
+//                }
+//
+//
+//
+//                var sentenceFile:String?
+//
+//                //抓句子
+//                if let filepath = Bundle.main.path(forResource: sName, ofType: "txt") {
+//                    do {
+//                        sentenceFile = try String(contentsOfFile: filepath)
+//                        let words = sentenceFile?.components(separatedBy: "; ")
+//
+//                        //把字讀取到wordSets裡
+//                        tempSentenceSets.append(words!)
+//                        //print(contents)
+//
+//                    } catch {
+//                        // contents could not be loaded
+//                    }
+//                } else {
+//                    // example.txt not found!
+//                }
                 
             }
             
@@ -1305,295 +1317,215 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //K12抓單字 + 抓音節
        
         if courseReceived == 5 {
-            
             //PART 1. 在此先loop through全部mapPassed
-            
             for m in 0 ..< k12MapPassed.count {
-                
                 if k12MapPassed[m] == 1 {
                     //抓全部
-                    
                     for j in 0 ..< k12WordSets[m].count {
-                        
                         for w in 0 ..< 30{
-                            
                             engWordsToShow.append(k12WordSets[m][j][w])
                             engSenToShow.append(k12SentenceSets[m][j][w])
                         }
-                        
                         for c in 30 ..< 60{
-                            
                             chiWordsToShow.append(k12WordSets[m][j][c])
                             chiSenToShow.append(k12SentenceSets[m][j][c])
                         }
-              
-                        
                         for p in 60 ..< 90{
-                            
-                            
                             partOfSpeechToShow.append(k12WordSets[m][j][p])
-                      
                         }
-                        
                     }
-            
                 } else {
                     //抓殘值
-                    
                     for (s,u) in k12GamePassed[m] {
-                        
                         if s != 0 || u != 0 {
-                            
                             //先抓s的全部值
                             for j in 0 ..< s {
-                                
                                 for w in 0 ..< 30 {
-                                    
                                     engWordsToShow.append(k12WordSets[m][j][w])
                                     engSenToShow.append(k12SentenceSets[m][j][w])
-
-                                    
                                 }
-                                
                                 for c in 30 ..< 60{
-                                    
-                                    
                                     chiWordsToShow.append(k12WordSets[m][j][c])
                                     chiSenToShow.append(k12SentenceSets[m][j][c])
                                 }
-                          
-                                
                                 for p in 60 ..< 90{
-                                    
-                                    
                                     partOfSpeechToShow.append(k12WordSets[m][j][p])
-                                    
                                 }
-                            
                             }
-                            
-                            
                             //最後抓u剩餘的殘值
-                            
                             for w in 0 ..< u * 3{
-                                
                                 engWordsToShow.append(k12WordSets[m][s][w])
                                 engSenToShow.append(k12SentenceSets[m][s][w])
-                                
                             }
-                            
                             for w in 30 ..< (30 + u * 3){
-                                
-                                
                                 chiWordsToShow.append(k12WordSets[m][s][w])
                                 chiSenToShow.append(k12SentenceSets[m][s][w])
-                                
                             }
-                            
                             for w in 60 ..< (60 + u * 3){
-                                
                                 partOfSpeechToShow.append(k12WordSets[m][s][w])
-                                
                             }
-                            
                         }
-    
-                        
                     }
-   
                 }
-                
             }
             
             // *** k12 抓全部音節的方式在下 ***
-            
             var addedSequence = Int()
-            
             for i in 0 ..< k12GamePassed.count {
-                
                 if i != 0{
-                    
                     for s in 1 ..< i + 1 {
-                        
                         addedSequence += maxSpotNumArray[s - 1] * 30
                     }
-                    
                 }
-                
                 
                 if k12MapPassed[i] == 1 {
-                    
-                    
                     for _ in 0 ..< maxSpotNumArray[i]{
-                        
                         for _ in 0 ..< 30{
-                            
                             syllablesToShow.append(sylArray[addedSequence])
                             addedSequence += 1
-               
-                            
                         }
                     }
-                    
                     //addedSequence歸零
                     addedSequence = 0
-                    
                     //在這裡一種抓字法
-                    
-                    
                 } else {
-                    
-                    
                     for (s,g) in k12GamePassed[i]{
-                        
                         for _ in 0 ..< s {
-                            
-                            
                             for _ in 0 ..< 30 {
-                                
                                 syllablesToShow.append(sylArray[addedSequence])
-                                
                                 addedSequence += 1
-                        
                             }
-                            
-                            
                         }
-                        
                         for _ in 0 ..< g * 3{
-                            
                             syllablesToShow.append(sylArray[addedSequence])
                             addedSequence += 1
-                            
                         }
-      
-                        
                     }
                     
                     //addedSequence歸零
                     addedSequence = 0
-                    
-                    
-                    
                     //在這裡另一種抓字法
-                    
-                    
                 }
-                
             }
-
-            
             
         } else {
             
             // *** 其他課程抓單字 + 音節 ***
-            
-            for i in 0 ..< wordSets.count{
-                
-                for w in 0 ..< 30{
-                    
-                    engWordsToShow.append(wordSets[i][w])
-                     engSenToShow.append(sentenceSets[i][w])
-                    
-                    //抓出正確的順序
-                    //MARK: simVer 這裡的syllables 要更改
-                    
-                    var syllableSequence = Int()
-                    
-                    if lan == "zh-Hans" && isSimVerSingleSyllable{
-                        //檢體中文
-                        
-                        syllableSequence = Int(i * 30) +  Int(w)
-
-                    } else {
-                        //其餘語言
-                        //print("繁體中文關卡數")
-                        syllableSequence = Int(i * 10) +  Int(w / 3)
-                        
-                    }
-                    
-                    //排除掉K12, 到後方抓殘字時再處理, 這裡先保留著之後再check
-                  
-                    syllablesToShow.append(sylArray[syllableSequence])
-
-                }
-                
-                for c in 30 ..< 60{
-                    
-                    chiWordsToShow.append(wordSets[i][c])
-                    chiSenToShow.append(sentenceSets[i][c])
-                }
-                
-                for p in 60 ..< 90{
-                    
-                    partOfSpeechToShow.append(wordSets[i][p])
-                }
-                
+            //TODO: refact wordSets
+            for word in wordContainer {
+                engWordsToShow.append(word.english)
+                engSenToShow.append(word.englishSentence)
+                chiWordsToShow.append(word.chinese)
+                chiSenToShow.append(word.chineseSentence)
+                partOfSpeechToShow.append(word.partOfSpeech)
+                syllablesToShow.append(word.syllables)
             }
+//            for i in 0 ..< wordSets.count{
+//
+//                for w in 0 ..< 30{
+//
+//                    engWordsToShow.append(wordSets[i][w])
+//                    engSenToShow.append(sentenceSets[i][w])
+//
+//                    //抓出正確的順序
+//                    //MARK: simVer 這裡的syllables 要更改
+//
+//                    var syllableSequence = Int()
+//
+//                    if lan == "zh-Hans" && isSimVerSingleSyllable{
+//                        //檢體中文
+//
+//                        syllableSequence = Int(i * 30) +  Int(w)
+//
+//                    } else {
+//                        //其餘語言
+//                        //print("繁體中文關卡數")
+//                        syllableSequence = Int(i * 10) +  Int(w / 3)
+//
+//                    }
+//
+//                    //排除掉K12, 到後方抓殘字時再處理, 這裡先保留著之後再check
+//
+//                    syllablesToShow.append(sylArray[syllableSequence])
+//
+//                }
+//
+//                for c in 30 ..< 60{
+//
+//                    chiWordsToShow.append(wordSets[i][c])
+//                    chiSenToShow.append(sentenceSets[i][c])
+//                }
+//
+//                for p in 60 ..< 90{
+//
+//                    partOfSpeechToShow.append(wordSets[i][p])
+//                }
+//
+//            }
 
             //Part 2. 抓殘值 ＆ 抓可能出現錯字的最新三個
-            
+
             //MARK: simVer 這裡應該不用除3
             //* * * 抓已append完的音節數量, 之後殘值以此數量append
-            
+
             var sequence = Int()
-            
+
             if lan == "zh-Hans" && isSimVerSingleSyllable{
-                
+
                 sequence = syllablesToShow.count
-                
+
             } else {
                 sequence = Int(syllablesToShow.count / 3)
-                
+
             }
-            
-            
-            for (_,g) in gamePassedDic!{
-           
-                
-                for w in 0 ..< ((g + 1) * 3){
-                
-                    engWordsToShow.append(tempWordSets[0][w])
-                    
-                    //MARK: simVer 應該不用除以3
-                    
-                    var syllableSequence = Int()
-                    
-                    if lan == "zh-Hans" && isSimVerSingleSyllable{
-                        //檢體中文
-               
-                        //print("檢體中文關卡數")
-                        syllableSequence = sequence + w
-                        
-                    } else {
-                        //其餘語言
-                        //print("繁體中文關卡數")
-                        syllableSequence = sequence + Int(w / 3)
-                        
-                    }
-                    
-                    syllablesToShow.append(sylArray[syllableSequence]) //[s]
-                    
-                    engSenToShow.append(tempSentenceSets[0][w])
-                    
-                }
-                
-                for w in 30 ..< (30 + (g + 1) * 3){
-                    
-                    
-                    chiWordsToShow.append(tempWordSets[0][w])
-                    
-                    chiSenToShow.append(tempSentenceSets[0][w])
-                    
-                }
-                
-                for w in 60 ..< (60 + (g + 1) * 3){
-                    
-                    partOfSpeechToShow.append(tempWordSets[0][w])
-                }
-                
-            }
-            
+
+
+//            for (_,g) in gamePassedDic!{
+//
+//
+//                for w in 0 ..< ((g + 1) * 3){
+//
+//                    engWordsToShow.append(tempWordSets[0][w])
+//
+//                    //MARK: simVer 應該不用除以3
+//
+//                    var syllableSequence = Int()
+//
+//                    if lan == "zh-Hans" && isSimVerSingleSyllable{
+//                        //檢體中文
+//
+//                        //print("檢體中文關卡數")
+//                        syllableSequence = sequence + w
+//
+//                    } else {
+//                        //其餘語言
+//                        //print("繁體中文關卡數")
+//                        syllableSequence = sequence + Int(w / 3)
+//
+//                    }
+//
+//                    syllablesToShow.append(sylArray[syllableSequence]) //[s]
+//
+//                    engSenToShow.append(tempSentenceSets[0][w])
+//
+//                }
+//
+//                for w in 30 ..< (30 + (g + 1) * 3){
+//
+//
+//                    chiWordsToShow.append(tempWordSets[0][w])
+//
+//                    chiSenToShow.append(tempSentenceSets[0][w])
+//
+//                }
+//
+//                for w in 60 ..< (60 + (g + 1) * 3){
+//
+//                    partOfSpeechToShow.append(tempWordSets[0][w])
+//                }
+//
+//            }
+
         }
 
     
@@ -2581,7 +2513,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-  
+        return wordContainer.count
+        
         
         if engWordsSelected.count == 0 {
 
@@ -2633,7 +2566,18 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let engSenLabel = cell.viewWithTag(5) as! UILabel
         let chiSenLabel = cell.viewWithTag(6) as! UILabel
         
+        
         cell.hintLabel.font = cell.hintLabel.font.withSize(chiWordSize)
+        
+        let word = wordContainer[indexPath.row]
+        engWordLabel.text = word.english
+        chiWordLabel.text = word.chinese
+        partOfSpeechLabel.text = word.partOfSpeech
+        engSenLabel.text = word.englishSentence
+        chiSenLabel.text = word.chineseSentence
+        
+        
+        return cell
         
         
 //        let accessoryImg = UIImageView()

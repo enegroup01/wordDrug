@@ -22,7 +22,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     let lessonVC_nextBtn = NSLocalizedString("lessonVC_nextBtn", comment: "")
     let lessonVC_enterBtn = NSLocalizedString("lessonVC_enterBtn", comment: "")
     let lessonVC_enterReviewBtn = NSLocalizedString("lessonVC_enterReviewBtn", comment: "")
-    let lessonVC_thisIsFirst = NSLocalizedString("lessonVC_thisIsFirst", comment: "")
+    let lessonVC_thisIsFirst = NSLocalizedString("lessonVC_thisIsFirst", comment: "") 
     let lessonVC_noPrePage = NSLocalizedString("lessonVC_noPrePage", comment: "")
     let lessonVC_alertNotYet = NSLocalizedString("lessonVC_alertNotYet", comment: "")
     let lessonVC_loading = NSLocalizedString("lessonVC_loading", comment: "")
@@ -717,9 +717,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         if isSelectable{
             
             
-            
-            ProgressHUD.spinnerColor(.white)
-            
+            ProgressHUD.colorSpinner(.white)
+//            ProgressHUD.spinnerColor(.white)
+
             ProgressHUD.show(lessonVC_loading)
             
             

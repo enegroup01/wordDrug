@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import FirebaseMessaging
-import FirebaseInstanceID
 import UserNotifications
 import StoreKit
 import ProgressHUD
@@ -49,39 +48,33 @@ var seconds:Int?
 var lan:String!
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate{
-
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate{
+    
     var window: UIWindow?
-
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
         //MARK: simVer
         let array = Bundle.main.preferredLocalizations
         lan = array.first
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPauseGame), name: NSNotification.Name("globalPause"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyPurchased), name: NSNotification.Name("purchased"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyFailedToPurchase), name: NSNotification.Name("failedToPurchase"), object: nil)
-       
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.notifyTurnOffRedLight), name: NSNotification.Name("turnOffRedLight"), object: nil)
-
+        
         SKPaymentQueue.default().add(self)
         
-        FirebaseApp.configure()
-
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
-            
-            if error == nil {
-                //print("successful")
-            }
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if let error = error { print(error.localizedDescription) }
         }
         
         application.registerForRemoteNotifications()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshToken(notification:)), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
         
         //設定購買狀態
         
@@ -95,29 +88,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //MARK: must update
         //抓使用者檔案
         //user = UserDefaults.standard.value(forKey: "parseJSON") as? NSMutableDictionary
-    
         //user = UserDefaults.standard.object(forKey: "parseJSON") as? NSMutableDictionary
-        
-        
         user = UserDefaults.standard.dictionary(forKey: "parseJSON") as NSDictionary?
-        //print(user)
-
+        
         //確認有沒有看過介紹
         introWatched = UserDefaults.standard.object(forKey: "introWatched") as? Bool
-
+        
+        
         if user != nil {
-            
             //單機版: 把原本的資料儲存到userDefaults裡
             selectCurrentUser()
             toCourse()
-
+            
         } else {
             //首次登入, 沒有user的話
-          
             if introWatched == nil {
-
                 //沒看過的話
-                
                 introWatched = false
                 userDefaults.set(introWatched, forKey: "introWatched")
                 
@@ -128,24 +114,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 
                 //到介紹畫面
                 toIntro()
-                
             } else if introWatched == true{
-                
-    
                 //假如沒有測過
-                if user == nil {
-                    giveNewUserValue()
-                }
+                if user == nil { giveNewUserValue() }
                 toCourse()
             }
         }
- 
         return true
     }
     
     
     func giveNewUserValue(){
-      
+        
         mapPassed = 0
         userDefaults.set(mapPassed!, forKey: kMapPassed)
         gamePassed = [0:0]
@@ -218,16 +198,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         user = tempDict
         
         userDefaults.set(user, forKey: "parseJSON")
-      
+        
     }
     
-
+    
     
     @objc func notifyPauseGame(){
         
     }
-    
-
     
     func toCourse(){
         
@@ -251,32 +229,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-      
-        
-        //print("did enter bg appDelegate")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "globalPause"), object: nil, userInfo: nil)
-        Messaging.messaging().shouldEstablishDirectChannel = false
         
-       
         //確認BookVc Cell裡的紅燈會關起來
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "turnOffRedLight"), object: nil)
-
+        
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     @objc func notifyFailedToPurchase(){
         
         print("appDelegate failed to purchased")
     }
     @objc func notifyPurchased(){
-         print("appDelegate purchased successfully")
+        print("appDelegate purchased successfully")
         
     }
     @objc func notifyTurnOffRedLight(){
@@ -289,11 +262,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         print("did become active")
         
         FBHandler()
-
+        
         UIApplication.shared.applicationIconBadgeNumber = 0
         
-          //確認BookVc Cell裡的紅燈會關起來
-         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "turnOffRedLight"), object: nil)
+        //確認BookVc Cell裡的紅燈會關起來
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "turnOffRedLight"), object: nil)
         
         //1.0.7 BUG fixed
         
@@ -304,106 +277,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: dateFetch)
-
-
+        
+        
         let previousDate = UserDefaults.standard.object(forKey: "previousDate") as? String
         
         if previousDate == nil {
             //第一次玩的話給7分鐘, 並且設定時間
-            
             UserDefaults.standard.set(dateString, forKey: "previousDate")
             UserDefaults.standard.set(420, forKey: "limitSeconds")
-            
             print("第一次玩給7分鐘")
             
         } else {
-            
             //非第一次玩, 比較日期
-            
             if previousDate != dateString{
                 //換一天, 就給7分鐘, 並且改變時間
-                
                 UserDefaults.standard.set(dateString, forKey: "previousDate")
                 UserDefaults.standard.set(420, forKey: "limitSeconds")
                 print("換一天給7分鐘")
-                
             } else {
-                    print("不加時間")
+                print("不加時間")
             }
-    
         }
-
     }
-    
     
     //單機版: 抓取使用者資訊
     
-    func selectCurrentUser(){
+    func selectCurrentUser() {
         
         //retrieve and deCode
-
         mapPassed = userDefaults.object(forKey: kMapPassed) as? Int
         let decodedObject = UserDefaults.standard.object(forKey: kGamePassed) as? NSData
-
         if let decoded = decodedObject{
-            
             gamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
-           
         }
         mapPassed2 = userDefaults.object(forKey: kMapPassed2) as? Int
         let decodedObject2 = UserDefaults.standard.object(forKey: kGamePassed2) as? NSData
-        
         if let decoded = decodedObject2{
             gamePassed2 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
         mapPassed3 = userDefaults.object(forKey: kMapPassed3) as? Int
         let decodedObject3 = UserDefaults.standard.object(forKey: kGamePassed3) as? NSData
-        
         if let decoded = decodedObject3{
             gamePassed3 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
         mapPassed4 = userDefaults.object(forKey: kMapPassed4) as? Int
         let decodedObject4 = UserDefaults.standard.object(forKey: kGamePassed4) as? NSData
-        
         if let decoded = decodedObject4{
             gamePassed4 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
         mapPassed5 = userDefaults.object(forKey: kMapPassed5) as? Int
         let decodedObject5 = UserDefaults.standard.object(forKey: kGamePassed5) as? NSData
-        
         if let decoded = decodedObject5{
             gamePassed5 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
         
- 
         //MARK: simVer K12 特別作法
-        //print("start checking k12Map: \(k12MapPassed)")
-        
         let decodeK12Map = userDefaults.object(forKey: kMapPassed6) as? NSData
         //k12MapPassed = userDefaults.object(forKey: kMapPassed6) as? [Int]
-        
-        
-        //print("app delegate k12MapPassed: \(k12MapPassed)")
         if let decoded = decodeK12Map {
-          //  print("appDelegate decoded successful")
             k12MapPassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int]
-            //print("appDelegate k12MapPassed:\(k12MapPassed)")
         }
-       
+        
         let decodeK12Game = userDefaults.object(forKey: kGamePassed6) as? NSData
         if let decoded = decodeK12Game {
             k12GamePassed = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [[Int:Int]]
-            //print("appDelegate k12GamePassed:\(k12GamePassed)")
         }
         
         //當最初版本使用者沒有mapPassed6 或是 gamePassed6的時候會是nil 必須賦予新值
         if k12MapPassed == nil {
-            //print("create new k12")
             //MARK: simVer K12特別作法
             k12MapPassed = Array(repeating: 0, count: 18)
             let encodeK12Map = NSKeyedArchiver.archivedData(withRootObject: k12MapPassed!)
             userDefaults.set(encodeK12Map, forKey: kMapPassed6)
-            
         }
         
         if k12GamePassed == nil {
@@ -411,56 +356,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             let encodeK12Game = NSKeyedArchiver.archivedData(withRootObject: k12GamePassed!)
             userDefaults.set(encodeK12Game, forKey: kGamePassed6)
         }
-        
-        
         mapPassed7 = userDefaults.object(forKey: kMapPassed7) as? Int
         let decodedObject7 = UserDefaults.standard.object(forKey: kGamePassed7) as? NSData
-        
         if let decoded = decodedObject7{
             gamePassed7 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
-        
         if mapPassed7 == nil {
             mapPassed7 = 0
         }
         if gamePassed7 == nil {
             gamePassed7 = [0:0]
         }
-        
         mapPassed8 = userDefaults.object(forKey: kMapPassed8) as? Int
         let decodedObject8 = UserDefaults.standard.object(forKey: kGamePassed8) as? NSData
-        
         if let decoded = decodedObject8{
             gamePassed8 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
-        
         if mapPassed8 == nil {
             mapPassed8 = 0
         }
         if gamePassed8 == nil {
             gamePassed8 = [0:0]
         }
-        
         mapPassed9 = userDefaults.object(forKey: kMapPassed9) as? Int
         let decodedObject9 = UserDefaults.standard.object(forKey: kGamePassed9) as? NSData
         
         if let decoded = decodedObject9{
             gamePassed9 = NSKeyedUnarchiver.unarchiveObject(with: decoded as Data) as? [Int:Int]
         }
-        
         if mapPassed9 == nil {
             mapPassed9 = 0
         }
         if gamePassed9 == nil {
             gamePassed9 = [0:0]
         }
-
+        
         //user裡有的資料要轉換
         guard let wr = user?[kWordReviewCount] as? String else{
             print("it's not the first transition")
             return
         }
-      
         guard let wr2 = user?[kWordReviewCount2] as? String else{
             return
         }
@@ -513,7 +448,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         guard let sr9 = user?[kSenReviewCount9] as? String else{
             return
         }
-
+        
         guard let wch = user?[kWrongChinese] as? String else {
             return
         }
@@ -546,16 +481,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         guard let date = user?[kDate] as? String else {
             return
         }
-
+        
         print("come here and replace self")
         let replaceSelf = [kWordReviewCount:Int(wr)!,kWordReviewCount2:Int(wr2)!,kWordReviewCount3:Int(wr3)!,kWordReviewCount4:Int(wr4)!,kWordReviewCount5:Int(wr5)!,kWordReviewCount6:Int(wr6)!,kWordReviewCount7:Int(wr7)!,kWordReviewCount8:Int(wr8)!,kWordReviewCount9:Int(wr9)!,kSenReviewCount:Int(sr)!,kSenReviewCount2:Int(sr2)!,kSenReviewCount3:Int(sr3)!,kSenReviewCount4:Int(sr4)!,kSenReviewCount5:Int(sr5)!,kSenReviewCount6:Int(sr6)!,kSenReviewCount7:Int(sr7)!,kSenReviewCount8:Int(sr8)!,kSenReviewCount9:Int(sr9)!,kWrongChinese:Int(wch)!,kProRate:Int(proRate)!,kSenRate:Int(senRate)!,kMyWords:myWords,kWrongWords:wrongWords,kAva:"",kNickname:nickName,kScore:Int(score)!, kDate:date] as NSMutableDictionary
         
         user = replaceSelf
         userDefaults.set(user, forKey: "parseJSON")
-       
-        
     }
-
+    
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -564,28 +497,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         SKPaymentQueue.default().remove(self)
     }
-
-
+    
+    
     @objc func refreshToken(notification: NSNotification){
-     
+        
         //let refreshToken = InstanceID.instanceID().token()!
         
-        InstanceID.instanceID().instanceID { (result, error) in
-            if let error = error {
-                print("Error fetching remote instange ID: \(error)")
-            } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
-            }
-        }
+        //        InstanceID.instanceID().instanceID { (result, error) in
+        //            if let error = error {
+        //                print("Error fetching remote instange ID: \(error)")
+        //            } else if let result = result {
+        //                print("Remote instance ID token: \(result.token)")
+        //            }
+        //        }
         
         FBHandler()
-    
+        
     }
     
     func FBHandler(){
-        Messaging.messaging().shouldEstablishDirectChannel = true
+        //        Messaging.messaging().shouldEstablishDirectChannel = true
     }
+    
+}
 
+extension AppDelegate {
+    // 使用者點選推播時觸發
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print(#function)
+        let content = response.notification.request.content
+        completionHandler()
+    }
+    
+    
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        Messaging.messaging().apnsToken = deviceToken
+        var readableToken: String = ""
+        for i in 0..<deviceToken.count {
+            readableToken += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
+        }
+        print("*= Received an APNs device token: \(readableToken)")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("*= failed error:\(error.localizedDescription)")
+    }
+    
+    
+    // 讓 App 在前景也能顯示推播
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner])
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        let tokenDict = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+            name: Notification.Name("FCMToken"),
+            object: nil,
+            userInfo: tokenDict)
+    }
 }
 
 extension AppDelegate: SKPaymentTransactionObserver {
@@ -598,8 +575,6 @@ extension AppDelegate: SKPaymentTransactionObserver {
             
             switch (transaction.transactionState){
             case .purchased:
-                
-                
                 SKPaymentQueue.default().finishTransaction(transaction)
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: purchasedKey), object: nil)
@@ -610,7 +585,7 @@ extension AppDelegate: SKPaymentTransactionObserver {
                 SKPaymentQueue.default().finishTransaction(transaction)
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: failedToPurchaseKey), object: nil)
-     
+                
             default:
                 break
                 

@@ -127,7 +127,6 @@
 		AA7BB4C920C79070001A1F66 /* purchaseBtnBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4C520C7906F001A1F66 /* purchaseBtnBg.png */; };
 		AA7BB4CA20C79070001A1F66 /* purchaseDialogueBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4C620C7906F001A1F66 /* purchaseDialogueBg.png */; };
 		AA7BB4F520CA41DB001A1F66 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7BB4F420CA41DB001A1F66 /* StoreKit.framework */; };
-		AA7BB4F920CA8213001A1F66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA7BB4F820CA8213001A1F66 /* GoogleService-Info.plist */; };
 		AA7D420A225C79E60039DCE5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7D4209225C79E50039DCE5 /* libc++.tbd */; };
 		AA7D420C225C79F30039DCE5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7D420B225C79F20039DCE5 /* CoreTelephony.framework */; };
 		AA7D420E225C7A270039DCE5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7D420D225C7A270039DCE5 /* libsqlite3.tbd */; };
@@ -162,6 +161,7 @@
 		AA98CC62212C0C26006F325F /* relWords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA98CC61212C0C26006F325F /* relWords.txt */; };
 		AA98E6052085CBC3001100BA /* rightRoundedSqr.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6032085CBC2001100BA /* rightRoundedSqr.png */; };
 		AA98E6062085CBC3001100BA /* leftRoundedSqr.png in Resources */ = {isa = PBXBuildFile; fileRef = AA98E6042085CBC3001100BA /* leftRoundedSqr.png */; };
+		AA9A48422912B7EA00F67E57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA9A48412912B7E900F67E57 /* GoogleService-Info.plist */; };
 		AA9AFC0C2088EDE5003A61E9 /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */; };
 		AA9AFC132088FB50003A61E9 /* lessonProgress.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC122088FB4F003A61E9 /* lessonProgress.png */; };
 		AA9AFC152088FB59003A61E9 /* lessonFullLength.png in Resources */ = {isa = PBXBuildFile; fileRef = AA9AFC142088FB58003A61E9 /* lessonFullLength.png */; };
@@ -3474,6 +3474,8 @@
 		AA00379820497CCD0030F786 /* SwiftSiriWaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSiriWaveformView.swift; sourceTree = "<group>"; };
 		AA04ED7E203D7A1300EC0A8E /* CoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesViewController.swift; sourceTree = "<group>"; };
 		AA04ED96203D968A00EC0A8E /* StageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
+		AA04FC112912501F00843DFB /* wordDrug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wordDrug.entitlements; sourceTree = "<group>"; };
+		AA04FC122912505000843DFB /* wordDrug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wordDrug.entitlements; sourceTree = "<group>"; };
 		AA064EDD20D25A5000DD87BA /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
 		AA0752EC20CD0AA9006FCCAB /* circleOkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleOkBtn.png; sourceTree = "<group>"; };
 		AA0EAA6D20A486E600E256AF /* answerRightBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = answerRightBtn.png; sourceTree = "<group>"; };
@@ -3601,9 +3603,7 @@
 		AA7BB4C320C78FED001A1F66 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		AA7BB4C520C7906F001A1F66 /* purchaseBtnBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseBtnBg.png; sourceTree = "<group>"; };
 		AA7BB4C620C7906F001A1F66 /* purchaseDialogueBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchaseDialogueBg.png; sourceTree = "<group>"; };
-		AA7BB4E320C8EE6A001A1F66 /* wordDrug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wordDrug.entitlements; sourceTree = "<group>"; };
 		AA7BB4F420CA41DB001A1F66 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		AA7BB4F820CA8213001A1F66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA7D4209225C79E50039DCE5 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		AA7D420B225C79F20039DCE5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		AA7D420D225C7A270039DCE5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -3638,6 +3638,7 @@
 		AA98CC61212C0C26006F325F /* relWords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = relWords.txt; sourceTree = "<group>"; };
 		AA98E6032085CBC2001100BA /* rightRoundedSqr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightRoundedSqr.png; sourceTree = "<group>"; };
 		AA98E6042085CBC3001100BA /* leftRoundedSqr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftRoundedSqr.png; sourceTree = "<group>"; };
+		AA9A48412912B7E900F67E57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA9AFC0B2088EDE5003A61E9 /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
 		AA9AFC122088FB4F003A61E9 /* lessonProgress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonProgress.png; sourceTree = "<group>"; };
 		AA9AFC142088FB58003A61E9 /* lessonFullLength.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lessonFullLength.png; sourceTree = "<group>"; };
@@ -7255,6 +7256,7 @@
 			isa = PBXGroup;
 			children = (
 				AA96695B2465B052003F9AA1 /* MissWord.swift */,
+				AA04FC122912505000843DFB /* wordDrug.entitlements */,
 			);
 			path = MissWord;
 			sourceTree = "<group>";
@@ -11533,6 +11535,7 @@
 		AAD47687229D14B9001908C1 /* WeChatSDK1.8.4 */ = {
 			isa = PBXGroup;
 			children = (
+				AA04FC112912501F00843DFB /* wordDrug.entitlements */,
 				AAD47688229D14B9001908C1 /* WXApi.h */,
 				AAD47689229D14B9001908C1 /* WXApiObject.h */,
 				AAD4768A229D14B9001908C1 /* README.txt */,
@@ -11567,7 +11570,6 @@
 			children = (
 				AA96695A2465B043003F9AA1 /* MissWord */,
 				AAD47687229D14B9001908C1 /* WeChatSDK1.8.4 */,
-				AA7BB4E320C8EE6A001A1F66 /* wordDrug.entitlements */,
 				AA2B64CE205A606C00742226 /* newBookVc */,
 				AA9AFC0D2088EDF0003A61E9 /* lessonVc */,
 				AA7BB4C220C78FCE001A1F66 /* PurchaseVc */,
@@ -11582,11 +11584,11 @@
 				AA00379820497CCD0030F786 /* SwiftSiriWaveformView.swift */,
 				AA98C2BB21268A6C006F325F /* Constants.swift */,
 				AAE181901F97892D00683896 /* Actions.sks */,
-				AA7BB4F820CA8213001A1F66 /* GoogleService-Info.plist */,
 				AAE181961F97892D00683896 /* Main.storyboard */,
 				AAE181991F97892D00683896 /* Assets.xcassets */,
 				AA15E7A820D112D900A1AB82 /* logoWord.png */,
 				AA126A5B20D3AF2200419AD5 /* launchBg.png */,
+				AA9A48412912B7E900F67E57 /* GoogleService-Info.plist */,
 				AA408BF420F9971E00CD6D72 /* launchLogo.png */,
 				AA7F36E4225605920024A16B /* launchLogoSim.png */,
 				AA7F36E6225AF34F0024A16B /* launchLogoUni.png */,
@@ -12605,6 +12607,7 @@
 				AAC4D1202297BE82005907C0 /* 55-14.txt in Resources */,
 				AAC4D3532297BF23005907C0 /* 67-9.txt in Resources */,
 				AAC4DAF52297C41F005907C0 /* s106-1.txt in Resources */,
+				AA9A48422912B7EA00F67E57 /* GoogleService-Info.plist in Resources */,
 				AAC4CD542297BDFC005907C0 /* s40-12.txt in Resources */,
 				AAC4C46D2297BC06005907C0 /* s2-10.txt in Resources */,
 				AAC4C9732297BD16005907C0 /* 25-5.txt in Resources */,
@@ -12926,7 +12929,6 @@
 				AAC4CE112297BE34005907C0 /* s45-12.txt in Resources */,
 				AAC4C70F2297BCD6005907C0 /* s18-4.txt in Resources */,
 				AAC4D63D2297C366005907C0 /* s76-3.txt in Resources */,
-				AA7BB4F920CA8213001A1F66 /* GoogleService-Info.plist in Resources */,
 				AAC4C8DB2297BD16005907C0 /* s19-15.txt in Resources */,
 				AAC4D1072297BE82005907C0 /* s54-8.txt in Resources */,
 				AAC4C6C22297BCD5005907C0 /* 16-5.txt in Resources */,
@@ -15206,11 +15208,17 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-wordDrug/Pods-wordDrug-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BRYSerialAnimationQueue/BRYSerialAnimationQueue.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseMessaging/FirebaseMessaging.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Magnetic/Magnetic.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SSBouncyButton/SSBouncyButton.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSiriWaveformView/SwiftSiriWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/TwicketSegmentedControl/TwicketSegmentedControl.framework",
@@ -15221,11 +15229,17 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BRYSerialAnimationQueue.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreInternal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseMessaging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Magnetic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSBouncyButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSiriWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwicketSegmentedControl.framework",
@@ -15358,6 +15372,7 @@
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -15372,7 +15387,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -15420,6 +15435,7 @@
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -15428,7 +15444,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -15447,7 +15463,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				INFOPLIST_FILE = wordDrug/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15459,7 +15475,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.missWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/Desktop/MissWord Project Folder/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/Downloads/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -15475,7 +15491,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGBAS79AJ4;
 				INFOPLIST_FILE = wordDrug/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15486,7 +15502,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.missWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/Desktop/MissWord Project Folder/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/Downloads/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

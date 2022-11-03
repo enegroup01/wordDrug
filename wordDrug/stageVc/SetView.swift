@@ -350,6 +350,7 @@ extension SetView: UIPickerViewDataSource, UIPickerViewDelegate {
             pickerLabel?.textAlignment = .center
         }
         let eachRowString = pickerData![row]
+        pickerLabel?.textColor = .darkGray
         pickerLabel!.text = eachRowString
         let chapter = picker.selectedRow(inComponent: 0) / totalWordSets
         titleLabel.text = "第\(chapter + 1)單元"

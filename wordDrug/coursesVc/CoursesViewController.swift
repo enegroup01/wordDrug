@@ -42,7 +42,6 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     @IBOutlet weak var bottomLabel: UILabel!
 
     @IBOutlet weak var logoImg: UIImageView!
-   
 
     var activityIndicator = UIActivityIndicatorView()
     

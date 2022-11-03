@@ -269,7 +269,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //alreadyLearnedLabel.font = alreadyLearnedLabel.font.withSize(wordCountTitleLabelFontSize)
         
         //alreadyLearnedLabel.anchor(top: view.safeTopAnchor, leading: nil, bottom: nil, trailing: view.safeRightAnchor, padding: .init(top: 25 * dif * iPadDif, left: 0, bottom: 0, right: -20 * dif * iPadDif), size: .init(width: 100 * dif * iPadDif, height: 28 * dif * iPadDif))
-        
+    
         //alreadyLearnedLabel.text = stageVC_openAllSwitch
         
         //wordCountsLabel.backgroundColor = .red

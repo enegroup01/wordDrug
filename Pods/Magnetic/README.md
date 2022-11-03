@@ -1,7 +1,7 @@
 # Magnetic
 
 [![Build Status](https://travis-ci.org/efremidze/Magnetic.svg?branch=master)](https://travis-ci.org/efremidze/Magnetic)
-[![Language](https://img.shields.io/badge/Swift-4-orange.svg?style=flat)](https://swift.org)
+[![Language](https://img.shields.io/badge/Swift-5-orange.svg?style=flat)](https://swift.org)
 [![Version](https://img.shields.io/cocoapods/v/Magnetic.svg?style=flat)](http://cocoapods.org/pods/Magnetic)
 [![License](https://img.shields.io/cocoapods/l/Magnetic.svg?style=flat)](http://cocoapods.org/pods/Magnetic)
 [![Platform](https://img.shields.io/cocoapods/p/Magnetic.svg?style=flat)](http://cocoapods.org/pods/Magnetic)
@@ -9,7 +9,9 @@
 
 **Magnetic** is a customizable bubble picker like the Apple Music genre selection.
 
-<img src="https://raw.githubusercontent.com/efremidze/Magnetic/master/Images/demo.gif" width="320">
+![Demo GIF](https://thumbs.gfycat.com/RelievedHardAmericanpainthorse-size_restricted.gif)
+
+[Demo Video](https://gfycat.com/RelievedHardAmericanpainthorse)
 
 ```
 $ pod try Magnetic
@@ -28,7 +30,7 @@ $ pod try Magnetic
 
 - iOS 9.0+
 - Xcode 9.0+
-- Swift 4 (Magnetic 2.x), Swift 3 (Magnetic 1.x)
+- Swift 5 (Magnetic 3.x), Swift 4 (Magnetic 2.x), Swift 3 (Magnetic 1.x)
 
 ## Usage
 
@@ -64,13 +66,17 @@ var selectedChildren: [Node] // returns selected chidren
 
 ### Nodes
 
-A `Node` object is a circular SKShapeNode subclass.
+A `Node` object is a SKShapeNode subclass.
 
 #### Interaction
 
 ```swift
-// add node
+// add circular node
 let node = Node(text: "Italy", image: UIImage(named: "italy"), color: .red, radius: 30)
+magnetic.addChild(node)
+
+// add custom node
+let node = Node(text: "France", image: UIImage(named: "france"), color: .blue, path: path, marginScale: 1.1)
 magnetic.addChild(node)
 
 // remove node
@@ -82,7 +88,7 @@ node.removeFromParent()
 ```swift
 var text: String? // node text
 var image: UIImage? // node image
-var color: UIColor // node color. defaults to white
+var color: UIColor // node color
 ```
 
 #### Animations
@@ -125,7 +131,7 @@ For example, a node with an image by default:
 class ImageNode: Node {
     override var image: UIImage? {
         didSet {
-            sprite.texture = image.map { SKTexture(image: $0) }
+            texture = image.map { SKTexture(image: $0) }
         }
     }
     override func selectedAnimation() {}

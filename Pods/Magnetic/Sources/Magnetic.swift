@@ -11,6 +11,7 @@ import SpriteKit
 @objc public protocol MagneticDelegate: class {
     func magnetic(_ magnetic: Magnetic, didSelect node: Node)
     func magnetic(_ magnetic: Magnetic, didDeselect node: Node)
+    @objc optional func magnetic(_ magnetic: Magnetic, didRemove node: Node)
 }
 
 @objcMembers open class Magnetic: SKScene {
@@ -18,7 +19,7 @@ import SpriteKit
     /**
      The field node that accelerates the nodes.
      */
-    public lazy var magneticField: SKFieldNode = { [unowned self] in
+    open lazy var magneticField: SKFieldNode = { [unowned self] in
         let field = SKFieldNode.radialGravityField()
         self.addChild(field)
         return field
@@ -29,7 +30,18 @@ import SpriteKit
      */
     open var allowsMultipleSelection: Bool = true
     
-    var isDragging: Bool = false
+    
+    /**
+    Controls whether an item can be removed by holding down
+     */
+    open var removeNodeOnLongPress: Bool = false
+    
+    /**
+     The length of time (in seconds) the node must be held on to trigger a remove event
+     */
+    open var longPressDuration: TimeInterval = 0.35
+    
+    open var isDragging: Bool = false
     
     /**
      The selected children.
@@ -44,6 +56,8 @@ import SpriteKit
      The delegate must adopt the MagneticDelegate protocol. The delegate is not retained.
      */
     open weak var magneticDelegate: MagneticDelegate?
+    
+    private var touchStarted: TimeInterval?
     
     override open var size: CGSize {
         didSet {
@@ -101,6 +115,11 @@ import SpriteKit
 
 extension Magnetic {
     
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard removeNodeOnLongPress, let touch = touches.first else { return }
+        touchStarted = touch.timestamp
+    }
+    
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
@@ -118,6 +137,19 @@ extension Magnetic {
         
         defer { isDragging = false }
         guard !isDragging, let node = node(at: location) else { return }
+                
+        if removeNodeOnLongPress && !node.isSelected {
+            guard let touchStarted = touchStarted else { return }
+            let touchEnded = touch.timestamp
+            let timeDiff = touchEnded - touchStarted
+            
+            if (timeDiff >= longPressDuration) {
+                node.removedAnimation {
+                    self.magneticDelegate?.magnetic?(self, didRemove: node)
+                }
+                return
+            }
+        }
         
         if node.isSelected {
             node.isSelected = false
@@ -140,7 +172,7 @@ extension Magnetic {
 
 extension Magnetic {
     
-    func moveNodes(location: CGPoint, previous: CGPoint) {
+    open func moveNodes(location: CGPoint, previous: CGPoint) {
         let x = location.x - previous.x
         let y = location.y - previous.y
         
@@ -156,4 +188,58 @@ extension Magnetic {
         return nodes(at: point).compactMap { $0 as? Node }.filter { $0.path!.contains(convert(point, to: $0)) }.first
     }
     
+    /// Resets the `MagneticView` by making all visible `Node` objects vanish to a point.
+    open func reset() {
+        let speed = physicsWorld.speed
+        physicsWorld.speed = 0
+        let actions = removalActions()
+        run(.sequence(actions)) { [unowned self] in
+            self.physicsWorld.speed = speed
+        }
+    }
+    
+}
+
+/// An extension to handle the reset animation.
+extension Magnetic {
+    /// Retrieves an array of `Node` objects softed by distance.
+    ///
+    /// - Returns: `[Node]`
+    ///
+    func sortedNodes() -> [Node] {
+        return children.compactMap { $0 as? Node }.sorted { node, nextNode in
+            let distance = node.position.distance(from: magneticField.position)
+            let nextDistance = nextNode.position.distance(from: magneticField.position)
+            return distance < nextDistance && node.isSelected
+        }
+    }
+    
+    /// Retrieves an array of `SKAction`s that are setup for reset animation.
+    ///
+    /// - Returns: `[SKAction]`
+    ///
+    func removalActions() -> [SKAction] {
+        var actions = [SKAction]()
+        for (index, node) in sortedNodes().enumerated() {
+            node.physicsBody = nil
+            let action = SKAction.run { [unowned self, unowned node] in
+                if node.isSelected {
+                    let point = CGPoint(x: self.size.width / 2, y: self.size.height + 40)
+                    let movingXAction = SKAction.moveTo(x: point.x, duration: 0.2)
+                    let movingYAction = SKAction.moveTo(y: point.y, duration: 0.4)
+                    let resize = SKAction.scale(to: 0.3, duration: 0.4)
+                    let throwAction = SKAction.group([movingXAction, movingYAction, resize])
+                    node.run(throwAction) { [unowned node] in
+                        node.removeFromParent()
+                    }
+                } else {
+                    node.removeFromParent()
+                }
+            }
+            actions.append(action)
+            let delay = SKAction.wait(forDuration: TimeInterval(index) * 0.002)
+            actions.append(delay)
+        }
+        return actions
+    }
 }

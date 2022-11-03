@@ -43,6 +43,8 @@
 	<string>641689092834267</string>
 	<key>FacebookDisplayName</key>
 	<string>missWord</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

@@ -2,14 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
-	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
-	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1026554871265-c6omuaaftdrn7jea83mgdd4tpepqeleq.apps.googleusercontent.com</string>
+	<string>1026554871265-db50p2mjtpo5j085lcloultr46bl66mf.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1026554871265-c6omuaaftdrn7jea83mgdd4tpepqeleq</string>
+	<string>com.googleusercontent.apps.1026554871265-db50p2mjtpo5j085lcloultr46bl66mf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1026554871265-174lac63m4b3tcjs6cu86f3drpsl2ubh.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyASH1tBczZ367kLRTC2b-GiSgx119rGWdk</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,15 +15,15 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.playplay.missWord</string>
+	<string>com.playplay.missword</string>
 	<key>PROJECT_ID</key>
 	<string>missword-45c18</string>
 	<key>STORAGE_BUCKET</key>
 	<string>missword-45c18.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
 	<true/>
 	<key>IS_GCM_ENABLED</key>
@@ -33,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1026554871265:ios:31c42462e0214dc4</string>
+	<string>1:1026554871265:ios:dacccb3d29340baeb3a6a0</string>
 	<key>DATABASE_URL</key>
 	<string>https://missword-45c18.firebaseio.com</string>
 </dict>
