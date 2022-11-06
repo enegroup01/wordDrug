@@ -53,8 +53,9 @@ class MissWordUtility:NSObject {
     func sortWords(data: [[String]]) -> [Word] {
         var wordSets:[Word] = []
         let offSets:Int = 30
+        //TODO: check if highlightword index is correct?
         for i in 0 ..< 30 {
-            let word = Word(syllables: data[0][i], chinese: data[0][i + offSets], partOfSpeech: data[0][i + offSets * 2], englishSentence: data[1][i], chineseSentence: data[1][i + offSets], highlightWord: data[2][i % 3].removingCharacters(inCharacterSet: .decimalDigits))
+            let word = Word(syllables: data[0][i], chinese: data[0][i + offSets], partOfSpeech: data[0][i + offSets * 2], englishSentence: data[1][i], chineseSentence: data[1][i + offSets], highlightWord: data[2][i / 3].removingCharacters(inCharacterSet: .decimalDigits))
             wordSets.append(word)
         }
         return wordSets

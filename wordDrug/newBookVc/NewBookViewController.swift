@@ -232,6 +232,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     var k12SentenceSets = [[[String()]]]
     
     var wordContainer:[Word] = []
+    var remainingWordContainer:[Word] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -388,7 +389,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
         }
         
-
         
         //MARK: must update
         //在此就算user == nil, gamePasse & mapPasse也都設定好初始值了
@@ -654,13 +654,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
             }
             
-            
             mapPassedInt = mapPassed5
             gamePassedDic = gamePassed5
             
             
         case 5:
-            
             
             isSimVerSingleSyllable = true
             
@@ -1120,10 +1118,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             
                         }
                     }
-                    
                 }
-            
-                
             }
             
         }  else {
@@ -1131,7 +1126,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             //非K12其他課程的讀取單字方式
             //所有已過關的地圖字都要抓進去, ...這部分是繁體可以?
             if mapPassedInt == maxMapNum {
-                
                 //在這裡 -1 後面要加回來
                 //Mark: simVer 這裏maxSpotNum要減１,陪配合上方的數字分類
                 mapPassedInt! -= 1
@@ -1202,10 +1196,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             //接著抓目前最新開放地圖裡的完成字 + 殘字
             for (s,_) in gamePassedDic!{
-                
                 //讀取已完整的所有字集 + 句子
                 for i in 0 ..< (s){
-                    
+
                     let file = File(chapter: mapPassedInt! + increaseNum + 1, unit: i + 1)
                     let words = MissWordUtility.shared.loadWords(file: file)
                     wordContainer.append(contentsOf: words)
@@ -1257,7 +1250,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
                 let file = File(chapter: mapPassedInt! + increaseNum + 1, unit: s + 1)
                 let words = MissWordUtility.shared.loadWords(file: file)
-                wordContainer.append(contentsOf: words)
+                remainingWordContainer.append(contentsOf: words)
+
                 
 //                //再來讀取殘餘的英文字 + 句子
 //                var wordFile:String?
@@ -1412,14 +1406,30 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             // *** 其他課程抓單字 + 音節 ***
             //TODO: refact wordSets
+            
             for word in wordContainer {
-                engWordsToShow.append(word.english)
+                engWordsToShow.append(word.syllables)
                 engSenToShow.append(word.englishSentence)
                 chiWordsToShow.append(word.chinese)
                 chiSenToShow.append(word.chineseSentence)
                 partOfSpeechToShow.append(word.partOfSpeech)
-                syllablesToShow.append(word.syllables)
+                syllablesToShow.append(word.highlightWord)
             }
+            
+            if let gamePassedDic = gamePassedDic {
+                for (_,g) in gamePassedDic {
+                    for index in 0 ..< ((g + 1) * 3) {
+                        let word = remainingWordContainer[index]
+                        engWordsToShow.append(word.syllables)
+                        engSenToShow.append(word.englishSentence)
+                        chiWordsToShow.append(word.chinese)
+                        chiSenToShow.append(word.chineseSentence)
+                        partOfSpeechToShow.append(word.partOfSpeech)
+                        syllablesToShow.append(word.highlightWord)
+                    }
+                }
+            }
+
 //            for i in 0 ..< wordSets.count{
 //
 //                for w in 0 ..< 30{
@@ -1479,7 +1489,12 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
 
             }
 
-
+            //TODO: select gamePassedDict
+            
+            if let gamePassedDic = gamePassedDic {
+               
+            }
+            
 //            for (_,g) in gamePassedDic!{
 //
 //
@@ -1570,7 +1585,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             for i in 0 ..< sylArray.count{
                 
                 
-                if sortedSylArray[s] == sylArray[i]{
+                if sortedSylArray[s] == sylArray[i] {
                    // print("same syl :\(sortedSylArray[s])")
                     //MARK: simVer 這裏不抓三個字... 原始寫法保留在下方
                     
@@ -1594,11 +1609,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             
                             //音節過多, 單字不夠多所以要確認數量
                             if engWordsToShow.count > ((i * 3) + n){
-                                
                                 sortedEngWordsToShow.append(engWordsToShow[(i * 3) + n])
                                 sortedChiWordsToShow.append(chiWordsToShow[(i * 3) + n])
-                                
-                
                                 sortedPartOfSpeechToShow.append(partOfSpeechToShow[(i * 3) + n])
                                 sortedSyllablesToShow.append(syllablesToShow[(i * 3) + n])
                                 sortedEngSenToShow.append(engSenToShow[(i * 3) + n])
@@ -2039,9 +2051,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     //上方segMent選擇
     
     var alertTextShown = String()
-    
     func didSelect(_ segmentIndex: Int) {
-        
         //停止所有func
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
@@ -2512,10 +2522,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
-        return wordContainer.count
-        
-        
+                
         if engWordsSelected.count == 0 {
 
             
@@ -2568,28 +2575,19 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         cell.hintLabel.font = cell.hintLabel.font.withSize(chiWordSize)
-        
-        let word = wordContainer[indexPath.row]
-        engWordLabel.text = word.english
-        chiWordLabel.text = word.chinese
-        partOfSpeechLabel.text = word.partOfSpeech
-        engSenLabel.text = word.englishSentence
-        chiSenLabel.text = word.chineseSentence
-        
-        
-        return cell
+
         
         
 //        let accessoryImg = UIImageView()
-//        
+//
 //        cell.accessoryType = .none
 //        cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: cell.frame.height, height: cell.frame.height))
-//        
-//        
+//
+//
 //        cell.accessoryView?.addSubview(accessoryImg)
 //        accessoryImg.translatesAutoresizingMaskIntoConstraints = false
 //        accessoryImg.centerYAnchor.constraint(equalTo: (cell.accessoryView?.centerYAnchor)!).isActive = true
-//        
+//
 //        accessoryImg.trailingAnchor.constraint(equalTo: (cell.accessoryView?.trailingAnchor)!, constant: -5 * iPadDif).isActive = true
 //        accessoryImg.widthAnchor.constraint(equalToConstant: 19 * iPadDif ).isActive = true
 //        accessoryImg.heightAnchor.constraint(equalToConstant: 31 * iPadDif).isActive = true
@@ -2612,11 +2610,11 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         }
         
         
-        /*
-         cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height:10))
-         cell.accessoryView?.layer.cornerRadius = (cell.accessoryView?.frame.width)! / 2
-         cell.accessoryView?.backgroundColor = .lightGray
-         */
+        
+//         cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height:10))
+//         cell.accessoryView?.layer.cornerRadius = (cell.accessoryView?.frame.width)! / 2
+//         cell.accessoryView?.backgroundColor = .lightGray
+         
         
         //抓音節的字母 +  數字
         let syllableText = syllablesSelected[indexPath.row]
@@ -2627,13 +2625,9 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //抓字
         let engWords = engWordsSelected[indexPath.row]
-        
-        
+                
         //拆音節成array
         let engWordArray = engWords.components(separatedBy: " ")
-        
-        //定義母音
-        let vowels = ["a","e","i","o","u"]
         
         //字型顏色
         let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: engWordSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
@@ -2641,29 +2635,21 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         //假如音節是_e, 另外處理
         if syllableText.contains("_") {
-            
             var characters = [Character]()
-            
             var attrWords = [NSMutableAttributedString]()
             
             //每一個英文字節拆字母
             for i in 0 ..< engWordArray.count{
-                
                 characters.removeAll(keepingCapacity: false)
-                
                 for i in engWordArray[i]{
-                    
                     characters.append(i)
-                    
                 }
                 
                 
                 //確認是不是_e部首, 目前設定為三個字母, 若要增加要在這裡修改
                 if characters.count == 3 {
-                    if characters[2] == "e"{
+                    if characters[2] == "e" {
                         if vowels.contains(String(characters[0])){
-                            
-                            
                             //剛好是_e部首
                             let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs1)
                             attrWords.append(word)
@@ -2672,17 +2658,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                             let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs1)
                             attrWords.append(word2)
                             
-                            
                             //以下確認非部首字就loop through 然後新增
                         } else {
-                            
                             for c in 0 ..< characters.count {
-                                
                                 let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs2)
                                 attrWords.append(word)
                             }
                         }
-                        
                     } else {
                         
                         for c in 0 ..< characters.count {
@@ -2723,7 +2705,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             
             var attrWords = [NSMutableAttributedString]()
             
-            for i in 0 ..< engWordArray.count{
+            for i in 0 ..< engWordArray.count {
                 
                 if let engWord = engWordArray[i] as String?{
                     
@@ -2751,10 +2733,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     word.append(attrWords[i])
                 }
             }
-            
             engWordLabel.attributedText = word
         }
-        
         
         //中文字及詞性
         let chiWord = chiWordsSelected[indexPath.row]
@@ -2789,10 +2769,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         cell.backgroundColor = .clear
 
-            
         return cell
-        
-        
     }
     
     
@@ -3056,7 +3033,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         //用這個func來決定collectionView Cell要顯示哪個
         
         if scrollView == tableView{
-            
             findMatchCollectionCell()
         }
         
@@ -3069,11 +3045,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     //決定collectionView 那個cell被選擇
     func findMatchCollectionCell(){
-        
         if engWordsSelected.count > 0 {
-            
             if let cells = tableView.visibleCells as [UITableViewCell]?{
-                
                 //抓最後那個cell的音節
                 //定義音節的label, 有可能因為無值而找不到
                 var sylTextLabel = UILabel()
@@ -3088,7 +3061,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                 
 
                 //#新寫法
-                
+                //MARK: crash point
                 indexToChange = sortedSylArray.index(of: sylTextLabel.text!)!
              
                 //假如找到的話就做collecitonView更新
@@ -3124,7 +3097,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
     
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return 0
         return sortedSylArray.count
         
     }
@@ -3164,9 +3136,7 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         let cell =
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SylCell", for: indexPath as IndexPath)
-        
-        return cell
-        
+                
         let blueBall = cell.viewWithTag(2) as! UIImageView
         
         blueBall.frame.size = CGSize(width: collectionViewCellSize, height: collectionViewCellSize)

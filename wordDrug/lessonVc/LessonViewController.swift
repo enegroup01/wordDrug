@@ -1783,7 +1783,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     //specialE的作法
                     
                     var characters = [Character]()
-                    let vowels = ["a","e","i","o","u"]
                     
                     //每一個英文字節拆字母
                     //      for w in 0 ..< allThreeEngWordsArray.count{
@@ -1890,7 +1889,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //specialE的作法
                 
                 var characters = [Character]()
-                let vowels = ["a","e","i","o","u"]
                 
                 //每一個英文字節拆字母
                 for w in 0 ..< allThreeEngWordsArray.count{
@@ -2262,7 +2260,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     //specialE的作法
                     
                     var characters = [Character]()
-                    let vowels = ["a","e","i","o","u"]
                     
                     //每一個英文字節拆字母
                     //      for w in 0 ..< allThreeEngWordsArray.count{
@@ -2368,7 +2365,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //specialE的作法
                 
                 var characters = [Character]()
-                let vowels = ["a","e","i","o","u"]
                 
                 //每一個英文字節拆字母
                 for w in 0 ..< allThreeEngWordsArray.count{

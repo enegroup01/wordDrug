@@ -2064,7 +2064,6 @@ class NewGameScene: SKScene {
                 //specialE的作法
                 
                 var characters = [Character]()
-                let vowels = ["a","e","i","o","u"]
                 
                 //每一個英文字節拆字母
                 

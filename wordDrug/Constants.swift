@@ -66,6 +66,8 @@ public let kScore = "score"
 public let kNickname = "nickname"
 public let kDate = "date"
 
+public let vowels = ["a","e","i","o","u"]
+
 
 public var maxMapNumArray:[Int] {
     var array = [Int]()
