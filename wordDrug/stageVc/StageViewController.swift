@@ -74,6 +74,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var settingView = SetView()
     
     var wordSets = [[String]]()
+    var wordContainer: [Word] = []
     var settingBtn = UIButton()
     
     override func viewDidLoad() {
@@ -820,49 +821,74 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         for i in startIndex ..< startIndex + stageCount{
             for j in 0 ..< maxPageNumber {
-                name = "\(i+1)-\(j+1)"
-                //print("load file name :\(name)")
-  
-                if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-                    do {
-                        wordFile = try String(contentsOfFile: filepath)
-                        let words = wordFile?.components(separatedBy: "; ")
-                        
-                        //把字讀取到wordSets裡
-                        
-                        wordSets.append(words!)
-                        
-                    } catch {
-                        // contents could not be loaded
-                    }
-                } else {
-                    // example.txt not found!
-                }
+                
+                let file = File(chapter: i + 1, unit: j + 1)
+                let word = MissWordUtility.shared.loadWords(file: file)
+                wordContainer.append(contentsOf: word)
+//                name = "\(i+1)-\(j+1)"
+//                //print("load file name :\(name)")
+//
+//                if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
+//                    do {
+//                        wordFile = try String(contentsOfFile: filepath)
+//                        let words = wordFile?.components(separatedBy: "; ")
+//
+//                        //把字讀取到wordSets裡
+//
+//                        wordSets.append(words!)
+//
+//                    } catch {
+//                        // contents could not be loaded
+//                    }
+//                } else {
+//                    // example.txt not found!
+//                }
             }
         }
         
         var finalWordData = [String]()
-        for set in wordSets {
-            for i in 0 ..< set.count{
-                if i < 30 {
-                    wordData.append(set[i].replacingOccurrences(of: " ", with: ""))
-                }
-            }
-            var sortedWordData = [String]()
-            for i in 0 ..< wordData.count / 3 {
-                var newString = String()
-                for n in 0 ..< 3 {
-                    let newIndex = i * 3 + n
-                    if n != 2 {
-                        newString += wordData[newIndex] + " "
-                    } else {
-                        newString += wordData[newIndex]
-                    }
-                }
-                sortedWordData.append(newString)
-            }
-            finalWordData = sortedWordData
+        for word in wordContainer {
+            wordData.append(word.english)
         }
+        
+        var sortedWordData = [String]()
+        for i in 0 ..< wordData.count / 3 {
+            var newString = String()
+            for n in 0 ..< 3 {
+                let newIndex = i * 3 + n
+                if n != 2 {
+                    newString += wordData[newIndex] + " "
+                } else {
+                    newString += wordData[newIndex]
+                }
+            }
+            sortedWordData.append(newString)
+        }
+        finalWordData = sortedWordData
+        
+        
+        
+//        for set in wordSets {
+//            for i in 0 ..< set.count{
+//                if i < 30 {
+//                    wordData.append(set[i].replacingOccurrences(of: " ", with: ""))
+//                }
+//            }
+//            var sortedWordData = [String]()
+//            for i in 0 ..< wordData.count / 3 {
+//                var newString = String()
+//                for n in 0 ..< 3 {
+//                    let newIndex = i * 3 + n
+//                    if n != 2 {
+//                        newString += wordData[newIndex] + " "
+//                    } else {
+//                        newString += wordData[newIndex]
+//                    }
+//                }
+//                sortedWordData.append(newString)
+//            }
+//            finalWordData = sortedWordData
+//        }
         
         var tempNumber = Int()
         for (s,u) in gamePassedDic! {

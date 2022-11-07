@@ -25,23 +25,26 @@ struct File {
 }
 
 struct Word {
-    var syllables: String
+    var partedEnglish: String
+    var partedEnglishArray: [String] {
+        return partedEnglish.components(separatedBy: " ")
+    }
     var chinese: String
     var partOfSpeech: String
     var englishSentence: String
     var chineseSentence: String
-    var highlightWord: String
+    var syllable: String
     var english: String {
-        return syllables.replacingOccurrences(of: " ", with: "")
+        return partedEnglish.replacingOccurrences(of: " ", with: "")
     }
         
     init(syllables: String, chinese: String, partOfSpeech: String, englishSentence: String, chineseSentence: String, highlightWord: String) {
-        self.syllables = syllables
+        self.partedEnglish = syllables
         self.chinese = chinese
         self.partOfSpeech = partOfSpeech
         self.englishSentence = englishSentence
         self.chineseSentence = chineseSentence
-        self.highlightWord = highlightWord
+        self.syllable = highlightWord
     }
 }
 

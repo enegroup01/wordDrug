@@ -1408,24 +1408,24 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
             //TODO: refact wordSets
             
             for word in wordContainer {
-                engWordsToShow.append(word.syllables)
+                engWordsToShow.append(word.partedEnglish)
                 engSenToShow.append(word.englishSentence)
                 chiWordsToShow.append(word.chinese)
                 chiSenToShow.append(word.chineseSentence)
                 partOfSpeechToShow.append(word.partOfSpeech)
-                syllablesToShow.append(word.highlightWord)
+                syllablesToShow.append(word.syllable)
             }
             
             if let gamePassedDic = gamePassedDic {
                 for (_,g) in gamePassedDic {
                     for index in 0 ..< ((g + 1) * 3) {
                         let word = remainingWordContainer[index]
-                        engWordsToShow.append(word.syllables)
+                        engWordsToShow.append(word.partedEnglish)
                         engSenToShow.append(word.englishSentence)
                         chiWordsToShow.append(word.chinese)
                         chiSenToShow.append(word.chineseSentence)
                         partOfSpeechToShow.append(word.partOfSpeech)
-                        syllablesToShow.append(word.highlightWord)
+                        syllablesToShow.append(word.syllable)
                     }
                 }
             }
@@ -2206,14 +2206,13 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
                     UIView.animate(withDuration: 0.2, animations: {[weak self] in
                         
                         row?.backgroundColor = self!.lightRed
-                        }, completion: { (finished:Bool) in
-                            if finished{
-                                UIView.animate(withDuration: 0.2, animations: {
-                                    
-                                    row?.backgroundColor = .clear
-                                })
+                    }, completion: { (finished:Bool) in
+                        if finished{
+                            UIView.animate(withDuration: 0.2, animations: {
                                 
-                            }
+                                row?.backgroundColor = .clear
+                            })
+                        }
                     })
                     
                     //Part 3. 往下播放
@@ -2575,8 +2574,6 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         
         cell.hintLabel.font = cell.hintLabel.font.withSize(chiWordSize)
-
-        
         
 //        let accessoryImg = UIImageView()
 //
