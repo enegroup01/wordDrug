@@ -1623,309 +1623,96 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         //MARK: simVer 在這裡做三個音節, 要先判斷要怎麼做, 要指定好一個變數來判斷 done
+        //MARK: 11/8 把做音節的方式combine，下方generateAttrWord也可統一
         
-        if lan == "zh-Hans"{
-            
-            //   print("enter 3")
-            if isSimVerSingleSyllable{
-                
-                //檢體中文 單一音節作法
-                
-                //print("檢體中文關卡數")
-                for i in tempU * 3 ..< tempU * 3 + 3{
-                    
-                    let syllableChosen = syllableSets[tempS][i]
-                    let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                    
-                    syllablesWithoutDigit = syllableChosenArray[0]
-                    threeSyllables.append(syllablesWithoutDigit)
-                    
-                }
-                //****這裡的labelText fontSize要因此變小
-                syllableLabel.font = syllableLabel.font.withSize(sylFontSize / 2)
-                syllableLabel.text = "Unit " + String(tempU + 1)
-                
-            } else {
-                // 檢體中文 音節三字作法
-                let syllableChosen = syllableSets[tempS][tempU]
-                let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                syllablesWithoutDigit = syllableChosenArray[0]
-                syllableLabel.text = syllablesWithoutDigit
-            }
-            
-            
-        } else {
-            //其餘語言
-            //print("繁體中文關卡數")
-            let syllableChosen = syllableSets[tempS][tempU]
-            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-            syllablesWithoutDigit = syllableChosenArray.first ?? ""
-            syllableLabel.text = syllablesWithoutDigit
-        }
+
         
+        
+        //MARK: check if need
         spotNum = tempS
         unitNum = tempU
-        progressFloat = CGFloat(tempU + 1)
-        
-        //}
-        //  print("############got mapnum:\(mapNum)")
-        //}
         
         //已確認 : maxSpot  / maxUnit  為了避免被改變用另一組變數
         currentMaxSpotToUse = tempS
         currentMaxUnitToUse = tempU
-        
         
         let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
         let maxSpotString = String(maxSpot!)
         lessonText.append(NSMutableAttributedString(string: " / \(maxSpotString)", attributes: attrs1))
         lessonLabel.attributedText = lessonText
         
-        //進度條
-        
+        progressFloat = CGFloat(tempU + 1)
         progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
-        
-        
-        //MARK: 讀取文字檔
-        //讀取Bundle裡的文字檔
-        var wordFile:String?
-        
-        //供抓字用 & pass給 gameVc
-        //mapNum += increaseNum
+
         
         //MARK: simVer K12的地圖讀法要再增加
         var chapter: Int!
         var unit: Int!
         
-        if courseReceived == 5 {
-            //k12 在這狀況下mapNum = 0
-//            name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(spotNum + 1)
+        if courseReceived == 5 { //k12 在這狀況下mapNum = 0
             chapter = increaseNum + 1 + mapNumToReceive
             unit = spotNum + 1
         } else {
-//            name = String(mapNum  + increaseNum + 1) + "-" + String(spotNum + 1)
             chapter = mapNum  + increaseNum + 1
             unit = spotNum + 1
         }
-        //print(name)
         
         let file = File(chapter: chapter, unit: unit)
         let word = MissWordUtility.shared.loadWords(file: file)
         wordContainer.append(contentsOf: word)
         
-//        if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-//            do {
-//                wordFile = try String(contentsOfFile: filepath)
-//                let words = wordFile?.components(separatedBy: "; ")
-//
-//                //把字讀取到wordSets裡
-//                wordSets = words!
-//                //print(contents)
-//            } catch {
-//                // contents could not be loaded
-//            }
-//        } else {
-//            // example.txt not found!
-//        }
-        
-        // mapNum -= increaseNum
-        
-        //這個engWords是尚未attr的, attr完的是
-        var allThreeEngWordsArray = [[String]]()
-        var allThreeEngWords = [String]()
         var allThreeWords = [Word]()
-        
-//        let engWord0 = wordSets[unitNum * 3].components(separatedBy: " ")
-//        let engWord1 = wordSets[unitNum * 3 + 1].components(separatedBy: " ")
-//        let engWord2 = wordSets[unitNum * 3 + 2].components(separatedBy: " ")
-        
         for i in 0 ..< 3 {
-            allThreeEngWords.append(wordContainer[unitNum * 3 + i].english)
             allThreeWords.append(wordContainer[unitNum  * 3 + i])
         }
         
-//        allThreeEngWordsArray.append(engWord0)
-//        allThreeEngWordsArray.append(engWord1)
-//        allThreeEngWordsArray.append(engWord2)
-        
-        
-        
-//        for i in 0 ..< allThreeEngWordsArray.count{
-//            var word = String()
-//
-//            for syl in allThreeEngWordsArray[i]{
-//
-//                word = word + syl
-//            }
-//
-//            allThreeEngWords.append(word)
-//        }
-        
-        var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
-        
-        
-        //MARK: simVer 新造字方式, 下方有原本的造字放方式 done
-        //**** 在這裡也要用 isSimVerSingleSyllable的變數來判斷怎麼造字
-        
-        
         if lan == "zh-Hans" && isSimVerSingleSyllable {
-            //檢體中文
-            for i in 0 ..< threeSyllables.count {
-                if threeSyllables[i].contains("_"){
-                    //specialE的作法
-                    var characters = [Character]()
-                    
-                    //每一個英文字節拆字母
-                    //      for w in 0 ..< allThreeEngWordsArray.count{
-                    
-                    for r in 0 ..< allThreeEngWordsArray[i].count{
-                        
-                        characters.removeAll(keepingCapacity: false)
-                        
-                        for c in allThreeEngWordsArray[i][r]{
-                            
-                            characters.append(c)
-                        }
-                        
-                        if characters.count == 3{
-                            if characters[2] == "e"{
-                                
-                                if vowels.contains(String(characters[0])){
-                                    
-                                    
-                                    //剛好是_e部首
-                                    let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs2)
-                                    attrWords[i].append(word)
-                                    let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs3)
-                                    attrWords[i].append(word1)
-                                    let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs2)
-                                    attrWords[i].append(word2)
-                                    
-                                    
-                                } else {
-                                    
-                                    for c in 0 ..< characters.count {
-                                        
-                                        let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-                                        attrWords[i].append(word)
-                                    }
-                                    
-                                }
-                                
-                            } else {
-                                
-                                for c in 0 ..< characters.count {
-                                    
-                                    let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-                                    attrWords[i].append(word)
-                                }
-                                
-                            }
-                            
-                        } else {
-                            
-                            for c in 0 ..< characters.count {
-                                
-                                let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-                                attrWords[i].append(word)
-                            }
-                            
-                        }
-                        
-                    }
-                    //   }
-                    
-                } else {
-                    //非specialE的作法
-                    
-                    //抓三個字的array
-                    //      for w in 0 ..< allThreeEngWordsArray.count{
-                    
-                    //抓array的音節,  只抓一個字
-                    
-                    //MARK: 11/7 simVer fixed, next todo is ^^^^
-                    for syl in allThreeWords[i].partedEnglishArray {
-                        var tempAttr = [NSAttributedString.Key: NSObject]()
-                        tempAttr = syl.lowercased() == syllablesWithoutDigit ? attrs2 :  attrs3
-                        let word = NSMutableAttributedString(string: syl, attributes: tempAttr)
-                        attrWords[i].append(word)
-                    }
-                    
-//                    for r in 0 ..< allThreeEngWordsArray[i].count{
-//                        
-//                        if let engWord = allThreeEngWordsArray[i][r] as String?{
-//                            
-//                            if engWord.lowercased() == threeSyllables[i]{
-//                                //符合部首字
-//                                
-//                                let word = NSMutableAttributedString(string: engWord, attributes: attrs2)
-//                                attrWords[i].append(word)
-//                                
-//                                
-//                            } else{
-//                                //一般字元
-//                                
-//                                let word = NSMutableAttributedString(string: engWord, attributes: attrs3)
-//                                
-//                                attrWords[i].append(word)
-//                                
-//                            }
-//                        }
-//                    }
-                    //     }
-                }
+            for i in tempU * 3 ..< tempU * 3 + 3{
+                let syllableChosen = syllableSets[tempS][i]
+                let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+                let firstSyllable = syllableChosenArray[0]
+                threeSyllables.append(firstSyllable)
             }
+            makeSyllableLabelText(syllableText: "Unit " + String(tempU + 1), fontSize: sylFontSize / 2)
         } else {
-           
-            attrWords = generateAttrWords(allThreeWords: allThreeWords)
+            let syllableChosen = syllableSets[tempS][tempU]
+            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
+            threeSyllables = Array(repeating: syllableChosenArray.first ?? "", count: 3)
+            
+            makeSyllableLabelText(syllableText: syllableChosenArray.first ?? "", fontSize: sylFontSize)
         }
         
-        makeAttributedLabelTexts(attrWords: attrWords)
+        let attrWords = _generateAttrWords(allThreeWords: allThreeWords, threeSyllables: threeSyllables)
+        makeAttributedLabelText(attrWords: attrWords)
         
         enterBtn.isEnabled = true
+    
     }
     
-    private func generateAttrWords(allThreeWords: [Word]) -> [[NSMutableAttributedString]] {
-        
+    private func makeSyllableLabelText(syllableText: String, fontSize: CGFloat) {
+        syllableLabel.font = syllableLabel.font.withSize(fontSize)
+        syllableLabel.text = syllableText
+    }
+    
+    private func _generateAttrWords(allThreeWords: [Word], threeSyllables: [String]) -> [[NSMutableAttributedString]] {
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
-        
-        //其餘語言 或者是簡體用3音節造字方式
-        
-        //MARK: 音節變色
-        if syllablesWithoutDigit.contains("_") {
-            //specialE的作法
-            var characters = [Character]()
-            //每一個英文字節拆字母
-            for i in 0 ..< allThreeWords.count {
-                for syl in allThreeWords[i].partedEnglishArray {
+        for i in 0 ..< threeSyllables.count {
+            let currentSyllable = threeSyllables[i]
+            if currentSyllable.contains("_") {
+                var characters = [Character]()
+                for partedEngWord in allThreeWords[i].partedEnglishArray {
                     characters.removeAll(keepingCapacity: false)
-                    for character in syl {
+                    for character in partedEngWord {
                         characters.append(character)
                     }
-                                            
-                    
-                    if characters.count == 3 {
-                        if characters[2] == "e"{
-                            if vowels.contains(String(characters[0])){
-                                //剛好是_e部首
-                                let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs2)
-                                attrWords[i].append(word)
-                                let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs3)
-                                attrWords[i].append(word1)
-                                let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs2)
-                                attrWords[i].append(word2)
-                            } else {
-                                for c in 0 ..< characters.count {
-                                    let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-                                    attrWords[i].append(word)
-                                }
-                            }
-                        } else {
-                            for c in 0 ..< characters.count {
-                                let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-                                attrWords[i].append(word)
-                            }
-                        }
+                    if characters.count == 3 && characters[2] == "e" && vowels.contains(String(characters[0])) {
+                        //剛好是_e部首
+                        let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs2)
+                        attrWords[i].append(word)
+                        let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs3)
+                        attrWords[i].append(word1)
+                        let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs2)
+                        attrWords[i].append(word2)
                     } else {
                         for c in 0 ..< characters.count {
                             let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
@@ -1933,128 +1720,62 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                         }
                     }
                 }
-            }
-            
-//                for w in 0 ..< allThreeEngWordsArray.count{
-//
-//                    for i in 0 ..< allThreeEngWords.count{
-//
-//                        characters.removeAll(keepingCapacity: false)
-//
-//                        for c in allThreeEngWords[i]{
-//
-//                            characters.append(c)
-//                        }
-//
-//                        if characters.count == 3{
-//                            if characters[2] == "e"{
-//
-//                                if vowels.contains(String(characters[0])){
-//
-//
-//                                    //剛好是_e部首
-//                                    let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs2)
-//                                    attrWords[i].append(word)
-//                                    let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs3)
-//                                    attrWords[i].append(word1)
-//                                    let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs2)
-//                                    attrWords[i].append(word2)
-//
-//
-//                                } else {
-//
-//                                    for c in 0 ..< characters.count {
-//
-//                                        let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-//                                        attrWords[i].append(word)
-//                                    }
-//
-//                                }
-//
-//                            } else {
-//
-//                                for c in 0 ..< characters.count {
-//
-//                                    let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-//                                    attrWords[i].append(word)
-//                                }
-//
-//                            }
-//
-//                        } else {
-//
-//                            for c in 0 ..< characters.count {
-//
-//                                let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-//                                attrWords[i].append(word)
-//                            }
-//
-//                        }
-//
-//                    }
-//                }
-            
-        } else {
-            
-            //TODO: fix
-            //非specialE的作法
-            
-            for i in 0 ..< allThreeWords.count {
-                for syl in allThreeWords[i].partedEnglishArray {
-                    
+            } else {
+                for partedEngWord in allThreeWords[i].partedEnglishArray {
                     var tempAttr = [NSAttributedString.Key: NSObject]()
-                    tempAttr = syl.lowercased() == syllablesWithoutDigit ? attrs2 :  attrs3
-                    let word = NSMutableAttributedString(string: syl, attributes: tempAttr)
+                    tempAttr = partedEngWord.lowercased() == currentSyllable ? attrs2 :  attrs3
+                    let word = NSMutableAttributedString(string: partedEngWord, attributes: tempAttr)
                     attrWords[i].append(word)
-                    
-//                        if syl.lowercased() == syllablesWithoutDigit {
-//                            let word = NSMutableAttributedString(string: syl, attributes: attrs2)
-//                            attrWords[i].append(word)
-//                        } else {
-//                            let word = NSMutableAttributedString(string: syl, attributes: attrs3)
-//                            attrWords[i].append(word)
-//                        }
                 }
             }
-            
-            //抓三個字的array
-//                for w in 0 ..< allThreeEngWordsArray.count{
-                
-                //抓array的音節,  只抓一個字
-//                    for i in 0 ..< allThreeWords.count{
-//
-//                        if let engWord = allThreeWords[i].english as String?{
-//
-//                            if engWord.lowercased() == syllablesWithoutDigit {
-//                                //符合部首字
-//
-//                                let word = NSMutableAttributedString(string: engWord, attributes: attrs2)
-//                                attrWords[i].append(word)
-//
-//
-//                            } else{
-//                                //一般字元
-//
-//                                let word = NSMutableAttributedString(string: engWord, attributes: attrs3)
-//
-//                                attrWords[i].append(word)
-//
-//                            }
-//                        }
-//
-//                    }
-                
-            }
-            
-//            }
-        
-        
-        
+        }
         return attrWords
-        
     }
     
-    private func makeAttributedLabelTexts(attrWords: [[NSMutableAttributedString]]) {
+//    private func generateAttrWords(allThreeWords: [Word]) -> [[NSMutableAttributedString]] {
+//        var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
+//        //其餘語言 或者是簡體用3音節造字方式
+//        //MARK: 音節變色
+//        if syllablesWithoutDigit.contains("_") {
+//            var characters = [Character]()
+//            for i in 0 ..< allThreeWords.count {
+//                for syl in allThreeWords[i].partedEnglishArray {
+//                    characters.removeAll(keepingCapacity: false)
+//                    for character in syl {
+//                        characters.append(character)
+//                    }
+//
+//                    let isFinalESyllable = characters.count == 3 && characters[2] == "e" && vowels.contains(String(characters[0]))
+//                    if isFinalESyllable {
+//                        let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs2)
+//                        attrWords[i].append(word)
+//                        let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs3)
+//                        attrWords[i].append(word1)
+//                        let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs2)
+//                        attrWords[i].append(word2)
+//                    } else {
+//                        for c in 0 ..< characters.count {
+//                            let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
+//                            attrWords[i].append(word)
+//                        }
+//                    }
+//                }
+//            }
+//        } else {
+//            //非specialE的作法
+//            for i in 0 ..< allThreeWords.count {
+//                for syl in allThreeWords[i].partedEnglishArray {
+//                    var tempAttr = [NSAttributedString.Key: NSObject]()
+//                    tempAttr = syl.lowercased() == syllablesWithoutDigit ? attrs2 :  attrs3
+//                    let word = NSMutableAttributedString(string: syl, attributes: tempAttr)
+//                    attrWords[i].append(word)
+//                }
+//            }
+//        }
+//        return attrWords
+//    }
+    
+    private func makeAttributedLabelText(attrWords: [[NSMutableAttributedString]]) {
         for w in 0 ..< attrWords.count {
             for i in 0 ..< attrWords[w].count {
                 if i == 0 {
@@ -2073,22 +1794,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     func loadWords(seq:Int){
         //進度條動不了先不用了
         //var progressFloat = CGFloat()
-        
         //MARK: simVer 放在外面的音節變數 done
         var threeSyllables = [String]()
         
-        
         //首先抓音節
-        
-        
         if seq > 0 {
-            
             //下一課
-            
             if tempU < 9 {
                 //直接加一
                 tempU = tempU + 1
-                
             } else {
                 
                 //MARK: simVer這裏直接取用之前的maxSpot done
@@ -2128,28 +1842,19 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             
         } else if seq == 0 {
-            
             print("畫面跳轉")
-            
         } else {
-            
             //上一課
-            
             if tempU > 0 {
                 //直接減一
                 tempU = tempU - 1
-                
             } else {
                 //假入u == 0,  要扣 s
-                
                 if tempS > 0 {
                     //直接 -1
-                    
                     tempS = tempS - 1
                     tempU = 9
-                    
                 } else {
-                    
                     ProgressHUD.showError(lessonVC_thisIsFirst)
                 }
             }
