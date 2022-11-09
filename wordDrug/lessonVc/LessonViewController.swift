@@ -34,9 +34,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     let lessonVC_iKnow = NSLocalizedString("lessonVC_iKnow", comment: "")
     let lessonVC_theLastPage = NSLocalizedString("lessonVC_theLastPage", comment: "")
     let lessonVC_class = NSLocalizedString("lessonVC_class", comment: "")
-    
     let lessonVC_allOpenMode = NSLocalizedString("lessonVC_allOpenMode", comment: "")
-    
+
     
     @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -125,12 +124,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var currentMaxSpotToUse:Int!
     var currentMaxUnitToUse:Int!
     
-    
     //MARK: simVer K12 課程紀錄變數
     //    var k12MapPassed:[Int]!
     //    var k12GamePassed:[[Int:Int]]!
     
-    let attrsBtn = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
+    let yellowTextBtnAttr = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
 
     //單機版
     var isUnlocked = false
@@ -143,9 +141,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var attrs2 = [NSAttributedString.Key: NSObject]()
     var attrs3 = [NSAttributedString.Key: NSObject]()
     
+    var level: Level!
+    var course: Course!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         var dif = CGFloat()
         
@@ -770,7 +770,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     if s == tempS && u == tempU && !isClassAllPassed{
                         //學習新字
                         if !isUnlocked{
-                            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
                             
                             titleLabel.text = lessonVC_aboutToLearn3Words
                             titleLabel.textColor = .white
@@ -778,7 +778,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     } else {
                         
                         //複習機制
-                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
                         
                         titleLabel.text = dynamicTitleText
                         titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
@@ -789,7 +789,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             } else {
                 
                 //複習機制
-                enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
                 
                 titleLabel.text = dynamicTitleText
                 titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
@@ -852,9 +852,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         practiceWordBtn.isEnabled = true
         alertBg.image = UIImage(named: "reviewSelectBg3.png")
         lessonSylView.isHidden = true
-        
-        
-        
+
     }
     
     
@@ -946,17 +944,11 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-    
-    
     var gamePassedDic:[Int:Int]?
     var mapPassedInt = Int()
     var increaseNum = Int()
     var allSyls = [String]()
-    
-    
-    
-    
-    
+
     //這裡的已經redeclare了
     //var maxSpot = Int()
     //MARK: simVer 這裡要建立如何建立音節的變數 done
@@ -968,34 +960,14 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.addObserver(self, selector: #selector(LessonViewController.receiveIsUnlockedStatus), name: NSNotification.Name(sendUnlockStatus), object: nil)
         
-        //MARK: must update
-        //就算user == nil, gamePassed & mapPassed都已經設定初始值了
-        //測試用
-        
-        //mapNumToReceive = 0
-        //gamePassed = [4:3]
-        //mapPassed = 0
-        
-        //重置
-        //這兩個變數感覺重複了...
-        let lessonVC_enterBtn1 = NSLocalizedString("lessonVC_enterBtn", comment: "")
-        let attrsBtn = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8666666667, green: 0.8392156863, blue: 0.1960784314, alpha: 1)]
-        
-        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn1, attributes: attrsBtn), for: .normal)
-        
+        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
         titleLabel.text = lessonVC_aboutToLearn3Words
         titleLabel.textColor = .white
-        
-        
-        //MARK: simVer 這裏要更新最大數字 & increaseNum & isSimVerSingleSyllable done
-        
-        //******** maxMapNum應該用不到 可以刪了 **********
-        
+    
         //單機版
         if isUnlocked {
             isClassAllPassed = true
             dynamicTitleText = lessonVC_allOpenMode
-            
         } else {
             dynamicTitleText = lessonVC_review3Words
         }
@@ -1141,9 +1113,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //K12
                 //print("檢體中文關卡數")
                 maxMapNum = 18
-                
                 increaseNum = 73
-                
             }
             
         case 6:
@@ -1204,263 +1174,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //   if isClassAllPassed == false{
         
-        
-
-        
-        //增加數字來抓正確的值
-        mapNumToReceive += increaseNum
-        
-        //MARK: must update
-        //MARK: simVer 這裡要加入檢體音節檔案 done
-        
-        switch mapNumToReceive {
-        case 0:
-            syllableSets = map1SyllableSets
-        case 1:
-            syllableSets = map2SyllableSets
-        case 2:
-            syllableSets = map3SyllableSets
-        case 3:
-            syllableSets = map4SyllableSets
-        case 4:
-            syllableSets = map5SyllableSets
-        case 5:
-            syllableSets = map6SyllableSets
-        case 6:
-            syllableSets = map7SyllableSets
-        case 7:
-            syllableSets = map8SyllableSets
-            
-        case 8:
-            syllableSets = map9SyllableSets
-            
-        case 9:
-            syllableSets = map10SyllableSets
-        case 10:
-            syllableSets = map11SyllableSets
-        case 11:
-            syllableSets = map12SyllableSets
-        case 12:
-            syllableSets = map13SyllableSets
-        case 13:
-            syllableSets = map14SyllableSets
-        case 14:
-            syllableSets = map15SyllableSets
-        case 15:
-            syllableSets = map16SyllableSets
-        case 16:
-            syllableSets = map17SyllableSets
-        case 17:
-            syllableSets = map18SyllableSets
-        case 18:
-            syllableSets = map19SyllableSets
-        case 19:
-            syllableSets = map20SyllableSets
-        case 20:
-            syllableSets = map21SyllableSets
-        case 21:
-            syllableSets = map22SyllableSets
-        case 22:
-            syllableSets = map23SyllableSets
-        case 23:
-            syllableSets = map24SyllableSets
-        case 24:
-            syllableSets = map25SyllableSets
-        case 25:
-            syllableSets = map26SyllableSets
-        case 26:
-            syllableSets = map27SyllableSets
-            
-        case 27:
-            syllableSets = map28SyllableSets
-        case 28:
-            syllableSets = map29SyllableSets
-        case 29:
-            syllableSets = map30SyllableSets
-        case 30:
-            syllableSets = map31SyllableSets
-        case 31:
-            syllableSets = map32SyllableSets
-        case 32:
-            syllableSets = map33SyllableSets
-        case 33:
-            syllableSets = map34SyllableSets
-        case 34:
-            syllableSets = map35SyllableSets
-            
-        //以下為簡體部分
-        case 35:
-            syllableSets = map36SyllableSets
-        case 36:
-            syllableSets = map37SyllableSets
-        case 37:
-            syllableSets = map38SyllableSets
-            
-        case 38:
-            syllableSets = map39SyllableSets
-        case 39:
-            syllableSets = map40SyllableSets
-        case 40:
-            syllableSets = map41SyllableSets
-        case 41:
-            syllableSets = map42SyllableSets
-        case 42:
-            syllableSets = map43SyllableSets
-        case 43:
-            syllableSets = map44SyllableSets
-        case 44:
-            syllableSets = map45SyllableSets
-        case 45:
-            syllableSets = map46SyllableSets
-        case 46:
-            syllableSets = map47SyllableSets
-        case 47:
-            syllableSets = map48SyllableSets
-        case 48:
-            syllableSets = map49SyllableSets
-        case 49:
-            syllableSets = map50SyllableSets
-        case 50:
-            syllableSets = map51SyllableSets
-        case 51:
-            syllableSets = map52SyllableSets
-        case 52:
-            syllableSets = map53SyllableSets
-        case 53:
-            syllableSets = map54SyllableSets
-        case 54:
-            syllableSets = map55SyllableSets
-        case 55:
-            syllableSets = map56SyllableSets
-        case 56:
-            syllableSets = map57SyllableSets
-        case 57:
-            syllableSets = map58SyllableSets
-        case 58:
-            syllableSets = map59SyllableSets
-        case 59:
-            syllableSets = map60SyllableSets
-        case 60:
-            syllableSets = map61SyllableSets
-        case 61:
-            syllableSets = map62SyllableSets
-        case 62:
-            syllableSets = map63SyllableSets
-        case 63:
-            syllableSets = map64SyllableSets
-        case 64:
-            syllableSets = map65SyllableSets
-        case 65:
-            syllableSets = map66SyllableSets
-        case 66:
-            syllableSets = map67SyllableSets
-        case 67:
-            syllableSets = map68SyllableSets
-        case 68:
-            syllableSets = map69SyllableSets
-        case 69:
-            syllableSets = map70SyllableSets
-            
-        case 70:
-            syllableSets = map71SyllableSets
-        case 71:
-            syllableSets = map72SyllableSets
-        case 72:
-            syllableSets = map73SyllableSets
-        case 73:
-            syllableSets = map74SyllableSets
-        case 74:
-            syllableSets = map75SyllableSets
-        case 75:
-            syllableSets = map76SyllableSets
-        case 76:
-            syllableSets = map77SyllableSets
-        case 77:
-            syllableSets = map78SyllableSets
-        case 78:
-            syllableSets = map79SyllableSets
-        case 79:
-            syllableSets = map80SyllableSets
-            
-            
-        case 80:
-            syllableSets = map81SyllableSets
-        case 81:
-            syllableSets = map82SyllableSets
-        case 82:
-            syllableSets = map83SyllableSets
-        case 83:
-            syllableSets = map84SyllableSets
-        case 84:
-            syllableSets = map85SyllableSets
-        case 85:
-            syllableSets = map86SyllableSets
-        case 86:
-            syllableSets = map87SyllableSets
-        case 87:
-            syllableSets = map88SyllableSets
-        case 88:
-            syllableSets = map89SyllableSets
-        case 89:
-            syllableSets = map90SyllableSets
-            
-        case 90:
-            syllableSets = map91SyllableSets
-        case 91:
-            syllableSets = map92SyllableSets
-        case 92:
-            syllableSets = map93SyllableSets
-        case 93:
-            syllableSets = map94SyllableSets
-        case 94:
-            syllableSets = map95SyllableSets
-        case 95:
-            syllableSets = map96SyllableSets
-        case 96:
-            syllableSets = map97SyllableSets
-        case 97:
-            syllableSets = map98SyllableSets
-        case 98:
-            syllableSets = map99SyllableSets
-        case 99:
-            syllableSets = map100SyllableSets
-            
-        case 100:
-            syllableSets = map101SyllableSets
-        case 101:
-            syllableSets = map102SyllableSets
-        case 102:
-            syllableSets = map103SyllableSets
-        case 103:
-            syllableSets = map104SyllableSets
-        case 104:
-            syllableSets = map105SyllableSets
-        case 105:
-            syllableSets = map106SyllableSets
-        case 106:
-            syllableSets = map107SyllableSets
-        case 107:
-            syllableSets = map108SyllableSets
-        case 108:
-            syllableSets = map109SyllableSets
-        case 109:
-            syllableSets = map110SyllableSets
-            
-        case 110:
-            syllableSets = map111SyllableSets
-        case 111:
-            syllableSets = map112SyllableSets
-        case 112:
-            syllableSets = map113SyllableSets
-        case 113:
-            syllableSets = map114SyllableSets
-        case 114:
-            syllableSets = map115SyllableSets
-            
-        default:
-            break
-        }
-        
+        //MARK: refact syllableSets in Word
         
         
         var progressFloat = CGFloat()
@@ -1592,41 +1306,20 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var threeSyllables = [String]()
         
         if isClassAllPassed {
-            //設定gamePassed給予該關卡最大值 全開
             mapNum = mapNumToReceive
-            if lan == "zh-Hans"{
-                //檢體中文
-                //之後還要用courseReceived來改數值, 因為每個course值不同
-                //***** 這部分的動態做法之前已做過數字只差1 ****所以不用Switch了
-                tempS = maxSpot - 1
-            } else {
-                //其餘語言
-                tempS = 14
-            }
+            tempS = lan == "zh-Hans" ? maxSpot - 1 : 14
             tempU = 9
-            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
-            
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
             titleLabel.text = dynamicTitleText
             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
         } else {
-            
             for (s,u) in gamePassedDic! {
                 //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
                 mapNum = mapPassedInt
                 tempS = s
                 tempU = u
-                print("tempS :\(s)")
-                print("tempU: \(u)")
             }
         }
-        
-        
-        
-        //MARK: simVer 在這裡做三個音節, 要先判斷要怎麼做, 要指定好一個變數來判斷 done
-        //MARK: 11/8 把做音節的方式combine，下方generateAttrWord也可統一
-        
-
-        
         
         //MARK: check if need
         spotNum = tempS
@@ -1682,7 +1375,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             makeSyllableLabelText(syllableText: syllableChosenArray.first ?? "", fontSize: sylFontSize)
         }
         
-        let attrWords = _generateAttrWords(allThreeWords: allThreeWords, threeSyllables: threeSyllables)
+        let attrWords = generateAttrWords(allThreeWords: allThreeWords, threeSyllables: threeSyllables)
         makeAttributedLabelText(attrWords: attrWords)
         
         enterBtn.isEnabled = true
@@ -1694,7 +1387,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         syllableLabel.text = syllableText
     }
     
-    private func _generateAttrWords(allThreeWords: [Word], threeSyllables: [String]) -> [[NSMutableAttributedString]] {
+    private func generateAttrWords(allThreeWords: [Word], threeSyllables: [String]) -> [[NSMutableAttributedString]] {
         var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
         for i in 0 ..< threeSyllables.count {
             let currentSyllable = threeSyllables[i]
@@ -1731,49 +1424,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         return attrWords
     }
-    
-//    private func generateAttrWords(allThreeWords: [Word]) -> [[NSMutableAttributedString]] {
-//        var attrWords = [[NSMutableAttributedString](),[NSMutableAttributedString](),[NSMutableAttributedString]()]
-//        //其餘語言 或者是簡體用3音節造字方式
-//        //MARK: 音節變色
-//        if syllablesWithoutDigit.contains("_") {
-//            var characters = [Character]()
-//            for i in 0 ..< allThreeWords.count {
-//                for syl in allThreeWords[i].partedEnglishArray {
-//                    characters.removeAll(keepingCapacity: false)
-//                    for character in syl {
-//                        characters.append(character)
-//                    }
-//
-//                    let isFinalESyllable = characters.count == 3 && characters[2] == "e" && vowels.contains(String(characters[0]))
-//                    if isFinalESyllable {
-//                        let word = NSMutableAttributedString(string: String(characters[0]), attributes: attrs2)
-//                        attrWords[i].append(word)
-//                        let word1 = NSMutableAttributedString(string: String(characters[1]), attributes: attrs3)
-//                        attrWords[i].append(word1)
-//                        let word2 = NSMutableAttributedString(string: String(characters[2]), attributes: attrs2)
-//                        attrWords[i].append(word2)
-//                    } else {
-//                        for c in 0 ..< characters.count {
-//                            let word = NSMutableAttributedString(string: String(characters[c]), attributes: attrs3)
-//                            attrWords[i].append(word)
-//                        }
-//                    }
-//                }
-//            }
-//        } else {
-//            //非specialE的作法
-//            for i in 0 ..< allThreeWords.count {
-//                for syl in allThreeWords[i].partedEnglishArray {
-//                    var tempAttr = [NSAttributedString.Key: NSObject]()
-//                    tempAttr = syl.lowercased() == syllablesWithoutDigit ? attrs2 :  attrs3
-//                    let word = NSMutableAttributedString(string: syl, attributes: tempAttr)
-//                    attrWords[i].append(word)
-//                }
-//            }
-//        }
-//        return attrWords
-//    }
     
     private func makeAttributedLabelText(attrWords: [[NSMutableAttributedString]]) {
         for w in 0 ..< attrWords.count {
@@ -1825,7 +1475,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
                     
                     if !isUnlocked {
-                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
                         titleLabel.text = lessonVC_aboutToLearn3Words
                         titleLabel.textColor = .white
                     }
@@ -1833,7 +1483,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }  else if tempU == u && tempS == s && courseReceived == 5{
                     
                     if !isUnlocked {
-                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
                         titleLabel.text = lessonVC_aboutToLearn3Words
                         titleLabel.textColor = .white
                     }
@@ -2359,7 +2009,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 if s != 0 || u != 0 || mapPassedInt == 1{
                     
                     loadWords(seq: -1)
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
                     
                     titleLabel.text = dynamicTitleText
                     titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
@@ -2379,7 +2029,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     
                     enterBtn.setAttributedTitle(NSAttributedString(string:
-                        lessonVC_enterReviewBtn, attributes: attrsBtn), for: .normal)
+                        lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
                     
                     titleLabel.text = dynamicTitleText
                     
@@ -2414,7 +2064,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     ProgressHUD.showError(lessonVC_noNextPage)
                     
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
                     
                     
                     titleLabel.text = lessonVC_aboutToLearn3Words
@@ -2442,7 +2092,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     ProgressHUD.showError(lessonVC_noNextPage)
                     
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: attrsBtn), for: .normal)
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
                     
                     titleLabel.text = lessonVC_aboutToLearn3Words
                     titleLabel.textColor = .white

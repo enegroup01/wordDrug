@@ -447,7 +447,7 @@ class CoursesViewController: UIViewController, CourseTableViewCellDelegate, UITa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toNewBookVc"{
+        if segue.identifier == "toNewBookVc" {
             
             let destinationVc = segue.destination as! NewBookViewController
             

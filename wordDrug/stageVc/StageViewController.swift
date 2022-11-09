@@ -385,6 +385,31 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 //        gamePassed4 = [0:0]
 //        gamePassed5 = [0:0]
         
+        
+        
+        let course = Course(language: lan, level: Level(rawValue: courseReceived) ?? .one, mapNumberReceive: nil, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
+
+        //MARK: stageCount = course.maxMapNumber
+        if course.language == .simplified && course.level == .one {
+            elemWordsMax = Array(repeating: 330, count: course.maxMapNumber)
+        } else if course.level == .six {
+            elemWordsMax = [120,330,330,300,330,330,330,330,390,390,330,330,210,330,300,180,390,390]
+        } else {
+            elemWordsMax = Array(repeating: 450, count: course.maxMapNumber)
+        }
+        
+        
+        
+        switch course.level {
+        case .one:
+            gamePassedDic = gamePassed!
+            mapPassedInt = mapPassed!
+        default:
+            break
+        }
+        
+        
+        
         if lan == "zh-Hans"{
             //檢體中文
             //之後還要用courseReceived來改數值, 因為每個course值不同
@@ -563,100 +588,56 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         //MARK: simVer 這裏要計算總計字, k12要重寫每個的計算
         
         if courseReceived == 5 {
-            
             //K12
-            
             for i in 0 ..< k12MapPassed.count {
-                
                 if k12MapPassed[i] == 1 {
-                    
                     eachCellMyWordsCount[i] = elemWordsMax[i]
                 } else {
-                    
-                    //eachCellMyWordsCount[i] =
-                    
                     for (s,u) in k12GamePassed[i] {
-                        
                         wordCounts = s * 30 + u * 3
                     }
-                    
                     eachCellMyWordsCount[i] = wordCounts
-                    
                 }
             }
-            
         } else {
             //其他的課程計算方式
-            
             for (s,u) in gamePassedDic!{
                 wordCounts = s * 30 + u * 3
             }
-                        
             //MARK: simVer 改寫原本上方不同的switch方法字數統計
-            
             for i in 0 ..< mapPassedInt + 1{
-                
-                //print("5")
-                if i == mapPassedInt {
-                    eachCellMyWordsCount[i] = wordCounts
-                    //print("realNumber:\(eachCellMyWordsCount[i])")
-                    
-                } else {
-                    
-                    eachCellMyWordsCount[i] = elemWordsMax[i]
-                    
-                }
+                eachCellMyWordsCount[i] = i == mapPassedInt ? wordCounts : elemWordsMax[i]
             }
         }
-        
-//        print("courseReceived:\(courseReceived)")
-//        print("mapPassed:\(mapPassedInt)")
-//        print("gamePassed:\(gamePassedDic)")
-        //print("6")
 
         //MARK: simVer locks應該上方已做過18個
         //locks = [1,1,1,1,1,1,1,1,1]
-        
         
         //test: 所有關卡的最大值, 這裡要修成 9 ..
         //MARK: simVer這裡要看簡體版最大值是什麼要做動態修改, 這裡看起來要顧到繁體版的數字
         
         if courseReceived == 5 {
-            
             //k12 本來就不會有任何上鎖
-            for i in 0 ..< 18{
-                locks[i] = 0
-            }
-   
+            locks = Array(repeating: 0, count: 18)
         } else {
             //其餘課程
             //MARK: simVer這裡也要顧到繁體的最大值
-            
             var maxStageCount:Int!
             if lan == "zh-Hans"{
-                
                 //CET6
                 maxStageCount = 13
             } else {
                 //IELTS
                 maxStageCount = 9
-                
             }
             //最大值改成簡體CET/ 繁體 IELTS
             
             if mapPassedInt == maxStageCount {
-                //print("7")
-                
                 for i in 0 ..< mapPassedInt{
-
-                    //print(i)
                     locks[i] = 0
                 }
-                
             } else {
-                
                 for i in 0 ..< mapPassedInt + 1{
-
                     locks[i] = 0
                 }
             }
@@ -914,7 +895,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        
         let cell =
             collectionView.dequeueReusableCell(
                 withReuseIdentifier: "stageCell", for: indexPath as IndexPath) as! StageCollectionViewCell
@@ -1204,10 +1184,15 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             let destinationVC = segue.destination as! LessonViewController
             
             
+            let course = Course(language: lan, level: Level(rawValue: courseReceived), mapNumberReceive: mapNumToPass, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
+            
+            destinationVC.course = course
+            
             destinationVC.courseReceived = courseReceived
             destinationVC.mapNumToReceive = mapNumToPass
             destinationVC.isClassAllPassed = isClassAllPassed
             destinationVC.isUnlocked = isUnlocked
+            
             destinationVC.modalPresentationStyle = .fullScreen
             
             if #available(iOS 13.0, *) {
@@ -1215,8 +1200,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             } else {
                 // Fallback on earlier versions
             }
-
-            
         }
     }
     
