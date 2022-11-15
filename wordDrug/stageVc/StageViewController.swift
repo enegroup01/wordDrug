@@ -344,8 +344,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //即時更新學習單字字數
     
-    var gamePassedDic:[Int:Int]?
-    var mapPassedInt = Int()
+    var gamePassedDic: [Int:Int]?
+    var mapPassedInt: Int?
     
     override func viewWillAppear(_ animated: Bool) {
                 
@@ -389,7 +389,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         let course = Course(language: lan, level: Level(rawValue: courseReceived) ?? .one, mapNumberReceive: nil, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
 
-        //MARK: stageCount = course.maxMapNumber
+        //MARK:
         if course.language == .simplified && course.level == .one {
             elemWordsMax = Array(repeating: 330, count: course.maxMapNumber)
         } else if course.level == .six {
@@ -397,16 +397,12 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         } else {
             elemWordsMax = Array(repeating: 450, count: course.maxMapNumber)
         }
-        
-        
-        
-        switch course.level {
-        case .one:
-            gamePassedDic = gamePassed!
-            mapPassedInt = mapPassed!
-        default:
-            break
-        }
+
+            
+        stageCount = course.maxMapNumber
+        gamePassedDic = course.gamePass
+        mapPassedInt = course.mapPass
+        stageCount = course.maxMapNumber
         
         
         
@@ -601,7 +597,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             }
         } else {
             //其他的課程計算方式
-            for (s,u) in gamePassedDic!{
+            for (s,u) in gamePassedDic{
                 wordCounts = s * 30 + u * 3
             }
             //MARK: simVer 改寫原本上方不同的switch方法字數統計
@@ -706,7 +702,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 
             //其他的課程計算方式
             
-            for (s,u) in gamePassedDic!{
+            for (s,u) in gamePassedDic{
                 wordCounts = s * 30 + u * 3
             }
             
@@ -872,7 +868,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 //        }
         
         var tempNumber = Int()
-        for (s,u) in gamePassedDic! {
+        for (s,u) in gamePassedDic {
             tempNumber = s * 10 + u
         }
         
@@ -1184,7 +1180,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             let destinationVC = segue.destination as! LessonViewController
             
             
-            let course = Course(language: lan, level: Level(rawValue: courseReceived), mapNumberReceive: mapNumToPass, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
+            let course = Course(language: lan, level: Level(rawValue: courseReceived) ?? Level.one, mapNumberReceive: mapNumToPass, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
             
             destinationVC.course = course
             

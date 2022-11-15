@@ -6,6 +6,10 @@
 //  Copyright © 2020 playplay. All rights reserved.
 //
 
+/*
+Fork Test
+ */
+
 import Foundation
 
 public struct MissWord {
@@ -106,8 +110,8 @@ struct Course {
         default:
             return false
         }
-        
     }
+        
     /*
      //MARK: simVer K12 課程紀錄變數
      var k12MapPassed:[Int]!
@@ -121,7 +125,24 @@ struct Course {
         case .three: return gamePassed3
         case .four: return gamePassed4
         case .five: return gamePassed5
-        
+        case .six: return nil
+        case .seven: return gamePassed7
+        case .eight: return gamePassed8
+        case .nine: return gamePassed9
+        }
+    }
+    
+    var mapPass: Int? {
+        switch level {
+        case .one: return mapPassed
+        case .two: return mapPassed2
+        case .three: return mapPassed3
+        case .four: return mapPassed4
+        case .five: return mapPassed5
+        case .six: return nil
+        case .seven: return mapPassed7
+        case .eight: return mapPassed8
+        case .nine: return mapPassed9
         }
     }
 }
