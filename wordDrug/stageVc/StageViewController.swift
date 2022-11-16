@@ -403,32 +403,15 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             }
         }
         
-        var isStageLocked: StageLock = course.level == .six ? .unlocked : .locked
-        locks = Array(repeating: isStageLocked, count: 18)
+        locks = Array(repeating: .locked, count: 18)
         
-        if course.level != .six {
-            //MARK: simVer這裡也要顧到繁體的最大值
-//            var maxStageCount:Int!
-//            if lan == "zh-Hans"{
-//                //CET6
-//                maxStageCount = 13
-//            } else {
-//                //IELTS
-//                maxStageCount = 9
-//            }
-            //最大值改成簡體CET/ 繁體 IELTS
-            
-            
-            
-            if mapPassedInt == course.maxStageCount {
-                for i in 0 ..< mapPassedInt!{
-                    locks[i] = .unlocked
-                }
-            } else {
-                for i in 0 ..< mapPassedInt! + 1{
-                    locks[i] = .unlocked
-                }
+        if course.level != .six, let mapPassedInt = mapPassedInt {
+            let tempMapPassedInt = course.isAllMapPassed ? mapPassedInt : mapPassedInt + 1
+            for i in 0 ..< tempMapPassedInt {
+                locks[i] = .unlocked
             }
+        } else if course.level == .six {
+            locks = Array(repeating: .unlocked, count: 18)
         }
         
         collectionView.reloadData()

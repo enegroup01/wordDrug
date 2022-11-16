@@ -48,7 +48,7 @@ struct Course {
     var language: Language
     var level: Level
     var mapNumberReceived: Int?
-    var isClassAllPassed: Bool
+    var isClassAllPassed: Bool // needed?
     var isUnlocked: Bool
     
     init(language: String, level: Level, mapNumberReceive: Int?, isClassAllPassed: Bool, isUnlocked: Bool) {
@@ -122,6 +122,10 @@ struct Course {
         case .simplified: return 13
         case .traditional: return 9
         }
+    }
+    
+    var isAllMapPassed: Bool {
+        return maxStageCount == mapPass ? true : false
     }
         
     /*
