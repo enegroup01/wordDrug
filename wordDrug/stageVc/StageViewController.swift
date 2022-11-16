@@ -13,6 +13,7 @@ let width = UIScreen.main.bounds.width
 let height = UIScreen.main.bounds.height
 
 class StageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    var course: Course?
     
     let stageVC_alreadyLearned = NSLocalizedString("stageVC_alreadyLearned", comment: "")
     let stageVC_alert = NSLocalizedString("stageVC_alert", comment: "")
@@ -309,9 +310,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
     }
     
-
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -348,26 +346,40 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     var mapPassedInt: Int?
     
     override func viewWillAppear(_ animated: Bool) {
-                
-        NotificationCenter.default.removeObserver(self)
+       
+        setupButtonFunctions()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(StageViewController.closeSettingView), name: NSNotification.Name(closeSettingViewKey), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(StageViewController.reloadCollectionView), name: NSNotification.Name(reloadCollectionViewKey), object: nil)
-        
-        isUnlocked = false
+        isUnlocked = false // needed?
         //unlockSwitch.isEnabled = true
         //unlockSwitch.setOn(false, animated: false)
         //alreadyLearnedLabel.textColor = .white
-
         //MARK: simVer 要製造足夠數量的
+        isClassAllPassed = false // needed?
+        
+        course = Course(language: lan,
+                        level: Level(rawValue: courseReceived) ?? .one,
+                        mapNumberReceive: nil,
+                        isClassAllPassed: isClassAllPassed,
+                        isUnlocked: isUnlocked)
+        
+        settingView.initCourse(course: course)
+        countStageNumbers()
+        
+        collectionView.reloadData()
+    }
+    
+    private func setupButtonFunctions() {
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(StageViewController.closeSettingView), name: NSNotification.Name(closeSettingViewKey), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StageViewController.reloadCollectionView), name: NSNotification.Name(reloadCollectionViewKey), object: nil)
+    }
+    
+    private func countStageNumbers() {
+        //MARK:
+        guard let course = course else { return }
+        
         eachCellMyWordsCount = Array(repeating: 0, count: 18)
         
-        isClassAllPassed = false
-        
-        let course = Course(language: lan, level: Level(rawValue: courseReceived) ?? .one, mapNumberReceive: nil, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
-
-        //MARK:
         if course.language == .simplified && course.level == .one {
             elemWordsMax = Array(repeating: 330, count: course.maxMapNumber)
         } else if course.level == .six {
@@ -392,8 +404,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                     eachCellMyWordsCount[i] = wordCounts
                 }
             }
-        } else {
-            //其他的課程計算方式
+        } else { //其他的課程計算方式
             for (s,u) in gamePassedDic!{
                 wordCounts = s * 30 + u * 3
             }
@@ -414,118 +425,29 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             locks = Array(repeating: .unlocked, count: 18)
         }
         
-        collectionView.reloadData()
-        tempLocks = locks
+        tempLocks = locks // needed?
     }
     
-    @objc func reloadCollectionView(){
-        
-        //print("received load")
-        
-        //MARK: simVer 要製造足夠數量的
-        eachCellMyWordsCount = Array(repeating: 0, count: 18)
-        locks = Array(repeating: .locked, count: 18)
-        
-            //其餘語言
-            //print("繁體中文關卡數")
-        //print("reload courseReceived:\(courseReceived)")
-            switch courseReceived {
-            case 0:
-                
-                gamePassedDic = gamePassed!
-                mapPassedInt = mapPassed!
-                
-            case 1:
-                
-                gamePassedDic = gamePassed2!
-                mapPassedInt = mapPassed2!
-                
-            case 2:
-                
-                gamePassedDic = gamePassed3!
-                mapPassedInt = mapPassed3!
-                
-            case 3:
-                
-                gamePassedDic = gamePassed4!
-                mapPassedInt = mapPassed4!
-                
-            case 4:
-                
-                gamePassedDic = gamePassed5!
-                mapPassedInt = mapPassed5!
-            case 6:
-                
-                gamePassedDic = gamePassed7!
-                mapPassedInt = mapPassed7!
-            case 7:
-                
-                gamePassedDic = gamePassed8!
-                mapPassedInt = mapPassed8!
-            case 8:
-                
-                gamePassedDic = gamePassed9!
-                mapPassedInt = mapPassed9!
-          
-                
-            default:
-                break
-            }
- 
-        
-        //MARK: simVer 這裏要計算總計字, k12要重寫每個的計算
-
-            //其他的課程計算方式
-            
-            for (s,u) in gamePassedDic! {
-                wordCounts = s * 30 + u * 3
-            }
-            
-            //MARK: simVer 改寫原本上方不同的switch方法字數統計
-            
-            for i in 0 ..< mapPassedInt! + 1{
-                if i == mapPassedInt {
-                    eachCellMyWordsCount[i] = wordCounts
-                } else {
-                    eachCellMyWordsCount[i] = elemWordsMax[i]
-                }
-            }
-
-            
-            let maxStageCount = 9
-            //最大值改成簡體CET/ 繁體 IELTS
-            
-            if mapPassedInt == maxStageCount {
-                for i in 0 ..< mapPassedInt!{
-                    locks[i] = .unlocked
-                }
-                
-            } else {
-                
-                for i in 0 ..< mapPassedInt! + 1{
-                    locks[i] = .unlocked
-                }
-            }
-        
+    @objc
+    func reloadCollectionView(){
+        countStageNumbers()
         collectionView.reloadData()
-    
-        tempLocks = locks
+        tempLocks = locks //needed?
         closeSettingView()
-
     }
     
-    @objc func closeSettingView(){
-        
+    @objc
+    func closeSettingView(){
         collectionView.isScrollEnabled = true
         settingView.isHidden = true
         ghostBtn.isHidden = true
         backBtn.isEnabled = true
         settingBtn.isEnabled = true
         //unlockSwitch.isEnabled = true
-        
     }
     
-    @objc func openSettingView(){
+    @objc
+    func openSettingView() {
         
         collectionView.isScrollEnabled = false
         settingView.isHidden = false
@@ -534,24 +456,14 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         settingBtn.isEnabled = false
         //unlockSwitch.isEnabled = false
         
-        wordSets = [[String]]()
-
-        //讀取該課程所有單字
-        
-        //MARK: 讀取文字檔
-        //讀取Bundle裡的文字檔
-        var wordFile:String?
-        
-        //供抓字用 & pass給 gameVc
-        //mapNum += increaseNum
-        
-        //MARK: simVer K12的地圖讀法要再增加
-        var name:String!
+        guard let course = course else { return }
         
         var wordData = [String]()
         
         var startIndex = Int()
-        if courseReceived == 0 {
+        
+        
+        if course.level == .one {
             startIndex = 0
         } else {
             for i in 0 ..< (courseReceived){
@@ -648,7 +560,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         let numberToJump = maxPageNumber * 10
         let rowToJump = mapPassedInt! * numberToJump + tempNumber
-
+        
         settingView.selectedIndex = rowToJump
         settingView.pickerData = finalWordData
         settingView.courseReceived = courseReceived
@@ -951,10 +863,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if segue.identifier == "toLessonVc"{
             let destinationVC = segue.destination as! LessonViewController
-            
-            
-            let course = Course(language: lan, level: Level(rawValue: courseReceived) ?? Level.one, mapNumberReceive: mapNumToPass, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
-            
             destinationVC.course = course
             
             destinationVC.courseReceived = courseReceived

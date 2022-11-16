@@ -15,6 +15,11 @@ nothing
 
 import Foundation
 
+struct MissWord {
+    static let simplifiedElementaryWordCount = 330
+    static let generalWordCount = 450
+}
+
 enum StageLock {
     case locked
     case unlocked
@@ -498,7 +503,7 @@ class MissWordUtility:NSObject {
         
     }
     
-    private func findSyllableSets(file: File) -> [String]{
+    private func findSyllableSets(file: File) -> [String] {
         let syllableSets = allSyllableSets[file.chapter - 1][file.unit - 1]
         return syllableSets
     }

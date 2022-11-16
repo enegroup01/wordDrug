@@ -11,12 +11,11 @@ import UIKit
 let closeSettingViewKey = "closeSettingView"
 let reloadCollectionViewKey = "reloadCollectionView"
 
-class SetView: UIView{
-    
+class SetView: UIView {
+    var course: Course?
     var bgImageView = UIImageView()
     var cancelBtn: UIButton = {
         var btn = UIButton(type: UIButton.ButtonType.system)
-        
         btn.setBackgroundImage(UIImage(named: "setCancelBtn.png"), for: .normal)
         btn.addTarget(self, action: #selector(SetView.cancelBtnClicked), for: .touchUpInside)
         return btn
@@ -24,10 +23,8 @@ class SetView: UIView{
     
     var okBtn: UIButton = {
         var btn = UIButton(type: UIButton.ButtonType.system)
-        
         btn.setBackgroundImage(UIImage(named: "setOkBtn.png"), for: .normal)
         btn.addTarget(self, action: #selector(SetView.okBtnClicked), for: .touchUpInside)
-        
         return btn
     }()
     
@@ -44,14 +41,12 @@ class SetView: UIView{
     var titleLabel: UILabel = {
         var lb = UILabel()
         lb.textAlignment = .center
-        
         lb.textColor = #colorLiteral(red: 1, green: 0.4666666667, blue: 0.4666666667, alpha: 1)
         return lb
     }()
     var wordCountLabel: UILabel = {
         var lb = UILabel()
         lb.textAlignment = .center
-        
         lb.textColor = .white
         return lb
         
@@ -68,6 +63,10 @@ class SetView: UIView{
         setupView()
     }
     
+    func initCourse(course: Course?) {
+        self.course = course
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -77,13 +76,10 @@ class SetView: UIView{
     var heightFactor = CGFloat()
     var minusXFactor = CGFloat()
     var pickerFontSize = CGFloat()
-    
     var totalWordSets = Int()
     
     func setupView(){
-        
         switch height {
-            
         case 1366, 1336:
             print("big iPad")
             xFactor = 2
@@ -141,22 +137,15 @@ class SetView: UIView{
             
         }
         
-        
-
-        
         self.frame = CGRect(x: (width - 320) / 4, y: (height - 387) / 4, width: 320 * xFactor, height: 387 * xFactor)
         
         bgImageView.frame = CGRect(x: 0, y: 0, width: 320 * xFactor, height: 387 * xFactor)
         bgImageView.image = UIImage(named: "settingBg.png")
         self.addSubview(bgImageView)
-        
-        
+                
         picker.frame = CGRect(x: 0, y: 100, width: self.frame.width, height: self.frame.height / 2 * heightFactor)
-        
         picker.delegate = self
         picker.dataSource = self
-        //        picker.backgroundColor = .blue
-        
         self.addSubview(picker)
         
         cancelBtn.frame = CGRect(x: self.frame.midX - 117 * bigXFactor, y: picker.frame.maxY + 30 / xFactor + minusXFactor, width: 77 * heightFactor, height: 40 * heightFactor)
@@ -338,26 +327,29 @@ extension SetView: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
-        if lan == "zh-Hans" && courseReceived == 0{
+        guard let pickerData = pickerData, let course = course else { return UIView() }
+        
+        if course.language == .simplified && courseReceived == 0 {
             totalWordSets = 110
         } else {
             totalWordSets = 150
         }
-        var pickerLabel: UILabel? = (view as? UILabel)
-        if pickerLabel == nil {
-            pickerLabel = UILabel()
-            pickerLabel?.font = UIFont(name: "Helvetica", size: pickerFontSize)
-            pickerLabel?.textAlignment = .center
-        }
-        let eachRowString = pickerData![row]
-        pickerLabel?.textColor = .darkGray
-        pickerLabel!.text = eachRowString
+        
+        let pickerLabel = UILabel()
+        pickerLabel.font = UIFont(name: "Helvetica", size: pickerFontSize)
+        pickerLabel.textAlignment = .center
+        
+        let eachRowText = pickerData[row]
+        pickerLabel.textColor = .darkGray
+        pickerLabel.text = eachRowText
+        
         let chapter = picker.selectedRow(inComponent: 0) / totalWordSets
         titleLabel.text = "第\(chapter + 1)單元"
+        
         let setNumber = picker.selectedRow(inComponent: 0) % totalWordSets
         wordCountLabel.text = "第\(setNumber + 1)組字"
         
-        return pickerLabel!
+        return pickerLabel
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
