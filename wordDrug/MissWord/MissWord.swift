@@ -15,7 +15,9 @@ nothing
 
 import Foundation
 
-public struct MissWord {
+enum StageLock {
+    case locked
+    case unlocked
 }
 
 enum Language {
@@ -112,6 +114,13 @@ struct Course {
             return true
         default:
             return false
+        }
+    }
+    
+    var maxStageCount: Int {
+        switch language {
+        case .simplified: return 13
+        case .traditional: return 9
         }
     }
         

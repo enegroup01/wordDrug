@@ -48,8 +48,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //MARK: must update
     //MARK: simVer 這裡要看最多有多少map.. 這裡看起來有最多有18個課程 done
-    var locks:[Int]!
-    var tempLocks:[Int]!
+    var locks:[StageLock]!
+    var tempLocks:[StageLock]!
     
     var alertBg = UIImageView()
     var alertText = UILabel()
@@ -322,7 +322,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             //打開
             isUnlocked = true
             for i in 0 ..< 18{
-                locks[i] = 0
+                locks[i] = .unlocked
             }
             alreadyLearnedLabel.textColor = greenColor
 
@@ -362,30 +362,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 
         //MARK: simVer 要製造足夠數量的
         eachCellMyWordsCount = Array(repeating: 0, count: 18)
-        locks = Array(repeating: 1, count: 18)
         
         isClassAllPassed = false
-        
-        //抓所有學習單字字數
-        
-        //MARK: must update
-        //就算user == nil, gamePassed & mapPasse都已經設定初始值了
-        //MARK: simVersion 共有幾個關卡 done
-       
-        //單機版
-//        mapPassed = 5
-//        mapPassed2 = 6
-//        mapPassed3 = 7
-//        mapPassed4 = 9
-//        mapPassed5 = 8
-//
-//        gamePassed = [0:0]
-//        gamePassed2 = [0:0]
-//        gamePassed3 = [0:0]
-//        gamePassed4 = [0:0]
-//        gamePassed5 = [0:0]
-        
-        
         
         let course = Course(language: lan, level: Level(rawValue: courseReceived) ?? .one, mapNumberReceive: nil, isClassAllPassed: isClassAllPassed, isUnlocked: isUnlocked)
 
@@ -398,193 +376,12 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             elemWordsMax = Array(repeating: 450, count: course.maxMapNumber)
         }
 
-            
         stageCount = course.maxMapNumber
         gamePassedDic = course.gamePass
         mapPassedInt = course.mapPass
         stageCount = course.maxMapNumber
         
-        
-        
-        if lan == "zh-Hans"{
-            //檢體中文
-            //之後還要用courseReceived來改數值, 因為每個course值不同
-            switch courseReceived {
-            case 0:
-                
-                //檢體中文
-                stageCount = 3
-                
-                elemWordsMax = [330,330,330]
-                
-                gamePassedDic = gamePassed!
-                mapPassedInt = mapPassed!
-            case 1:
-                
-                //檢體中文
-                stageCount = 5
-                elemWordsMax = [450,450,450,450,450]
-                
-                gamePassedDic = gamePassed2!
-                mapPassedInt = mapPassed2!
-          
-            case 2:
-                
-                //檢體中文
-                stageCount = 6
-                elemWordsMax = [450,450,450,450,450,450]
-                
-                gamePassedDic = gamePassed3!
-                mapPassedInt = mapPassed3!
-                
-            case 3:
-                
-                //檢體中文
-                stageCount = 11
-                elemWordsMax = [450,450,450,450,450,450,450,450,450,450,450]
-                
-                gamePassedDic = gamePassed4!
-                mapPassedInt = mapPassed4!
-                
-            case 4:
-                
-                //CET6
-                
-                //檢體中文
-                stageCount = 13
-                elemWordsMax = [450,450,450,450,450,450,450,450,450,450,450,450,450]
-                //print("檢體中文關卡數")
-                
-                gamePassedDic = gamePassed5!
-                mapPassedInt = mapPassed5!
-                
-                //以下為簡體版需求
-                //要確認繁體版進不來
-                
-            case 5:
-                
-                //K12
-                //檢體中文
-                
-                stageCount = 18
-                
-                elemWordsMax = [120,330,330,300,330,330,330,330,390,390,330,330,210,330,300,180,390,390]
-                
-                
-                
-                //MARK: simVer k12紀錄
-                //測試用
-                //                k12MapPassed = Array(repeating: 0, count: 18)
-                //                k12GamePassed = Array(repeating: [0:0], count: 18)
-                
-                //k12MapPassed[1] = 2
-                //k12GamePassed[0] = [0:2]
-                //k12GamePassed[2] = [1:0]
-                
-                
-                //重新設定成k12裡各關的過關情形
-                //            gamePassedDic = gamePassed6!
-                //            mapPassedInt = mapPassed6!
-                // gamePassedDic = k12GamePassed[mapNumToReceive]
-                // mapPassedInt = k12MapPassed[mapNumToReceive]
-                
-            case 6:
-                
-                //toeic
-                
-                //檢體中文
-                stageCount = 7
-                elemWordsMax = [450,450,450,450,450,450,450]
-                
-                gamePassedDic = gamePassed7!
-                mapPassedInt = mapPassed7!
-                
-                
-            case 7:
-                
-                //ielts
-                
-                //檢體中文
-                stageCount = 9
-                elemWordsMax = [450,450,450,450,450,450,450,450,450]
-                
-                gamePassedDic = gamePassed8!
-                mapPassedInt = mapPassed8!
-            case 8:
-                
-                //tofel
-                
-                //檢體中文
-                
-                stageCount = 8
-                elemWordsMax = [450,450,450,450,450,450,450,450]
-                gamePassedDic = gamePassed9!
-                mapPassedInt = mapPassed9!
-                
-            default:
-                break
-            }
-
-     
-        } else {
-            //其餘語言
-            //print("繁體中文關卡數")
- 
-            switch courseReceived {
-            case 0:
-      
-                stageCount = 5
-                elemWordsMax = [450,450,450,450,450]
-                
-                gamePassedDic = gamePassed!
-                mapPassedInt = mapPassed!
-           
-            case 1:
-           
-                stageCount = 6
-                elemWordsMax = [450,450,450,450,450,450]
-                
-                gamePassedDic = gamePassed2!
-                mapPassedInt = mapPassed2!
-      
-            case 2:
-                
-                
-                stageCount = 7
-                elemWordsMax = [450,450,450,450,450,450,450]
-                
-                
-                gamePassedDic = gamePassed3!
-                mapPassedInt = mapPassed3!
-                
-            case 3:
-                
-                
-                stageCount = 9
-                elemWordsMax = [450,450,450,450,450,450,450,450,450]
-                
-                gamePassedDic = gamePassed4!
-                mapPassedInt = mapPassed4!
-                
-            case 4:
-                
-                stageCount = 8
-                elemWordsMax = [450,450,450,450,450,450,450,450]
-                
-                gamePassedDic = gamePassed5!
-                mapPassedInt = mapPassed5!
-
-            default:
-                break
-            }
-            
-            
-        }
-        
-        //MARK: simVer 這裏要計算總計字, k12要重寫每個的計算
-        
-        if courseReceived == 5 {
-            //K12
+        if course.level == .six { //K12
             for i in 0 ..< k12MapPassed.count {
                 if k12MapPassed[i] == 1 {
                     eachCellMyWordsCount[i] = elemWordsMax[i]
@@ -605,36 +402,31 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 eachCellMyWordsCount[i] = i == mapPassedInt ? wordCounts : elemWordsMax[i]
             }
         }
-
-        //MARK: simVer locks應該上方已做過18個
-        //locks = [1,1,1,1,1,1,1,1,1]
         
-        //test: 所有關卡的最大值, 這裡要修成 9 ..
-        //MARK: simVer這裡要看簡體版最大值是什麼要做動態修改, 這裡看起來要顧到繁體版的數字
+        var isStageLocked: StageLock = course.level == .six ? .unlocked : .locked
+        locks = Array(repeating: isStageLocked, count: 18)
         
-        if courseReceived == 5 {
-            //k12 本來就不會有任何上鎖
-            locks = Array(repeating: 0, count: 18)
-        } else {
-            //其餘課程
+        if course.level != .six {
             //MARK: simVer這裡也要顧到繁體的最大值
-            var maxStageCount:Int!
-            if lan == "zh-Hans"{
-                //CET6
-                maxStageCount = 13
-            } else {
-                //IELTS
-                maxStageCount = 9
-            }
+//            var maxStageCount:Int!
+//            if lan == "zh-Hans"{
+//                //CET6
+//                maxStageCount = 13
+//            } else {
+//                //IELTS
+//                maxStageCount = 9
+//            }
             //最大值改成簡體CET/ 繁體 IELTS
             
-            if mapPassedInt == maxStageCount {
+            
+            
+            if mapPassedInt == course.maxStageCount {
                 for i in 0 ..< mapPassedInt!{
-                    locks[i] = 0
+                    locks[i] = .unlocked
                 }
             } else {
                 for i in 0 ..< mapPassedInt! + 1{
-                    locks[i] = 0
+                    locks[i] = .unlocked
                 }
             }
         }
@@ -649,7 +441,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         //MARK: simVer 要製造足夠數量的
         eachCellMyWordsCount = Array(repeating: 0, count: 18)
-        locks = Array(repeating: 1, count: 18)
+        locks = Array(repeating: .locked, count: 18)
         
             //其餘語言
             //print("繁體中文關卡數")
@@ -722,14 +514,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             if mapPassedInt == maxStageCount {
                 for i in 0 ..< mapPassedInt!{
-                    locks[i] = 0
+                    locks[i] = .unlocked
                 }
                 
             } else {
                 
                 for i in 0 ..< mapPassedInt! + 1{
-                    
-                    locks[i] = 0
+                    locks[i] = .unlocked
                 }
             }
         
@@ -901,8 +692,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 //        } else {
 //            lockImg.isHidden = false
 //        }
-        lockImg.isHidden = locks[indexPath.row] == 0
-        
+        lockImg.isHidden = locks[indexPath.row] == .unlocked
         cell.stageLabel.adjustsFontSizeToFitWidth = true
         cell.stageLabel.text = String(indexPath.row + 1)
         
@@ -1198,8 +988,4 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             }
         }
     }
-    
-    
-    
-    
 }
