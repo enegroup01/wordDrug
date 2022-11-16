@@ -973,7 +973,8 @@ class NewBookViewController: UIViewController,TwicketSegmentedControlDelegate, U
         
         let titles = [bookVC_correctWordTitle, bookVC_wrongWordTitle, bookVC_favoriteWordTitle]
         
-        segControl.setSegmentItems(segments:titles, height:sliderHeight)
+//        segControl.setSegmentItems(segments:titles, height:sliderHeight)
+        segControl.setSegmentItems(titles)
         //segControl.set
         segControl.backgroundColor = .clear
         segControl.sliderBackgroundColor = segSliderBgColor

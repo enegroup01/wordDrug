@@ -101,7 +101,6 @@
     [self updateBackgroundImage];
 }
 
-//NSString改掉
 - (void)setTitle:(NSString *)title forState:(UIControlState)state
 {
     [super setTitle:title forState:state];

@@ -597,11 +597,11 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             }
         } else {
             //其他的課程計算方式
-            for (s,u) in gamePassedDic{
+            for (s,u) in gamePassedDic!{
                 wordCounts = s * 30 + u * 3
             }
             //MARK: simVer 改寫原本上方不同的switch方法字數統計
-            for i in 0 ..< mapPassedInt + 1{
+            for i in 0 ..< mapPassedInt! + 1{
                 eachCellMyWordsCount[i] = i == mapPassedInt ? wordCounts : elemWordsMax[i]
             }
         }
@@ -629,11 +629,11 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             //最大值改成簡體CET/ 繁體 IELTS
             
             if mapPassedInt == maxStageCount {
-                for i in 0 ..< mapPassedInt{
+                for i in 0 ..< mapPassedInt!{
                     locks[i] = 0
                 }
             } else {
-                for i in 0 ..< mapPassedInt + 1{
+                for i in 0 ..< mapPassedInt! + 1{
                     locks[i] = 0
                 }
             }
@@ -702,13 +702,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 
             //其他的課程計算方式
             
-            for (s,u) in gamePassedDic{
+            for (s,u) in gamePassedDic! {
                 wordCounts = s * 30 + u * 3
             }
             
             //MARK: simVer 改寫原本上方不同的switch方法字數統計
             
-            for i in 0 ..< mapPassedInt + 1{
+            for i in 0 ..< mapPassedInt! + 1{
                 if i == mapPassedInt {
                     eachCellMyWordsCount[i] = wordCounts
                 } else {
@@ -721,13 +721,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             //最大值改成簡體CET/ 繁體 IELTS
             
             if mapPassedInt == maxStageCount {
-                for i in 0 ..< mapPassedInt{
+                for i in 0 ..< mapPassedInt!{
                     locks[i] = 0
                 }
                 
             } else {
                 
-                for i in 0 ..< mapPassedInt + 1{
+                for i in 0 ..< mapPassedInt! + 1{
                     
                     locks[i] = 0
                 }
@@ -868,12 +868,12 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 //        }
         
         var tempNumber = Int()
-        for (s,u) in gamePassedDic {
+        for (s,u) in gamePassedDic! {
             tempNumber = s * 10 + u
         }
         
         let numberToJump = maxPageNumber * 10
-        let rowToJump = mapPassedInt * numberToJump + tempNumber
+        let rowToJump = mapPassedInt! * numberToJump + tempNumber
 
         settingView.selectedIndex = rowToJump
         settingView.pickerData = finalWordData
@@ -1149,7 +1149,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 
                 performSegue(withIdentifier: "toLessonVc", sender: self)
 
-            } else if mapPassedInt > indexPath.row {
+            } else if mapPassedInt! > indexPath.row {
 
                 //show已過關訊息
 
@@ -1158,7 +1158,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 performSegue(withIdentifier: "toLessonVc", sender: self)
 
 
-            } else if mapPassedInt < indexPath.row {
+            } else if mapPassedInt! < indexPath.row {
 
                 ProgressHUD.showError(stageVC_alert)
 
