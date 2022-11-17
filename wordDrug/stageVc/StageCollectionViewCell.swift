@@ -14,9 +14,7 @@ class StageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var stageLabel: UILabel!
     
-    
     @IBOutlet weak var lockImg: UIImageView!
-    
     
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height

@@ -67,6 +67,10 @@ class SetView: UIView {
         self.course = course
     }
     
+    func sortWords() {
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

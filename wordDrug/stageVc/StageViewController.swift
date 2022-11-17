@@ -24,7 +24,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //此兩數字要做動態
     //MARK: must update
-    var stageCount:Int!
     var elemWordsMax:[Int]!
     
     var courseReceived = Int()
@@ -60,10 +59,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var alreadyLearnedLabel: UILabel!
 
     @IBOutlet weak var classTitle: UIImageView!
-    
-    //MARK: simVer K12 課程紀錄變數
-    //    var k12MapPassed:[Int]!
-    //    var k12GamePassed:[[Int:Int]]!
     
     var isUnlocked = false
     
@@ -337,13 +332,8 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
-        return stageCount
+        return course?.maxMapNumber ?? 0
     }
-    
-    //即時更新學習單字字數
-    
-    var gamePassedDic: [Int:Int]?
-    var mapPassedInt: Int?
     
     override func viewWillAppear(_ animated: Bool) {
        
@@ -387,10 +377,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         } else {
             elemWordsMax = Array(repeating: 450, count: course.maxMapNumber)
         }
-
-        stageCount = course.maxMapNumber
-        gamePassedDic = course.gamePass
-        mapPassedInt = course.mapPass
         
         if course.level == .six { //K12
             for i in 0 ..< k12MapPassed.count {
@@ -403,20 +389,20 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                     eachCellMyWordsCount[i] = wordCounts
                 }
             }
-        } else { //其他的課程計算方式
-            for (s,u) in gamePassedDic!{
+        } else if let gamePass = course.gamePass, let mapPass = course.mapPass { //其他的課程計算方式
+            for (s,u) in gamePass {
                 wordCounts = s * 30 + u * 3
             }
             //MARK: simVer 改寫原本上方不同的switch方法字數統計
-            for i in 0 ..< mapPassedInt! + 1{
-                eachCellMyWordsCount[i] = i == mapPassedInt ? wordCounts : elemWordsMax[i]
+            for i in 0 ..< mapPass + 1 {
+                eachCellMyWordsCount[i] = i == mapPass ? wordCounts : elemWordsMax[i]
             }
         }
         
         locks = Array(repeating: .locked, count: 18)
         
-        if course.level != .six, let mapPassedInt = mapPassedInt {
-            let tempMapPassedInt = course.isAllMapPassed ? mapPassedInt : mapPassedInt + 1
+        if course.level != .six, let mapPass = course.mapPass {
+            let tempMapPassedInt = course.isAllMapPassed ? mapPass : mapPass + 1
             for i in 0 ..< tempMapPassedInt {
                 locks[i] = .unlocked
             }
@@ -447,7 +433,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     @objc
     func openSettingView() {
-        
         collectionView.isScrollEnabled = false
         settingView.isHidden = false
         ghostBtn.isHidden = false
@@ -457,49 +442,23 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         guard let course = course else { return }
         
-        var wordData = [String]()
         var wordStartIndex = 0
         for i in 0 ..< (course.level.rawValue) {
             wordStartIndex += course.maxMapNumberArray[i]
         }
         wordStartIndex = course.language == .simplified ? wordStartIndex + MissWord.simplifiedStartIndex : wordStartIndex
 
+        let maxRowCount = course.isSimplifiedElementary ? 11 : 15
         
-        var maxPageNumber = Int()
-        if lan == "zh-Hans" && courseReceived == 0{
-            maxPageNumber = 11
-        } else {
-            maxPageNumber = 15
-        }
-        
-        for i in wordStartIndex ..< wordStartIndex + stageCount{
-            for j in 0 ..< maxPageNumber {
-                
+        for i in wordStartIndex ..< wordStartIndex + course.maxMapNumber {
+            for j in 0 ..< maxRowCount {
                 let file = File(chapter: i + 1, unit: j + 1)
                 let word = MissWordUtility.shared.loadWords(file: file)
                 wordContainer.append(contentsOf: word)
-//                name = "\(i+1)-\(j+1)"
-//                //print("load file name :\(name)")
-//
-//                if let filepath = Bundle.main.path(forResource: name, ofType: "txt") {
-//                    do {
-//                        wordFile = try String(contentsOfFile: filepath)
-//                        let words = wordFile?.components(separatedBy: "; ")
-//
-//                        //把字讀取到wordSets裡
-//
-//                        wordSets.append(words!)
-//
-//                    } catch {
-//                        // contents could not be loaded
-//                    }
-//                } else {
-//                    // example.txt not found!
-//                }
             }
         }
         
-        var finalWordData = [String]()
+        var wordData = [String]()
         for word in wordContainer {
             wordData.append(word.english)
         }
@@ -509,53 +468,26 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             var newString = String()
             for n in 0 ..< 3 {
                 let newIndex = i * 3 + n
-                if n != 2 {
-                    newString += wordData[newIndex] + " "
-                } else {
-                    newString += wordData[newIndex]
-                }
+                let appendedText = n != 2 ? wordData[newIndex] + " " : wordData[newIndex]
+                newString += appendedText
             }
             sortedWordData.append(newString)
         }
-        finalWordData = sortedWordData
-        
-        
-        
-//        for set in wordSets {
-//            for i in 0 ..< set.count{
-//                if i < 30 {
-//                    wordData.append(set[i].replacingOccurrences(of: " ", with: ""))
-//                }
-//            }
-//            var sortedWordData = [String]()
-//            for i in 0 ..< wordData.count / 3 {
-//                var newString = String()
-//                for n in 0 ..< 3 {
-//                    let newIndex = i * 3 + n
-//                    if n != 2 {
-//                        newString += wordData[newIndex] + " "
-//                    } else {
-//                        newString += wordData[newIndex]
-//                    }
-//                }
-//                sortedWordData.append(newString)
-//            }
-//            finalWordData = sortedWordData
-//        }
         
         var tempNumber = Int()
-        for (s,u) in gamePassedDic! {
+        for (s,u) in course.gamePass! { // can force unwrap because level .six won't enter here
             tempNumber = s * 10 + u
         }
         
-        let numberToJump = maxPageNumber * 10
-        let rowToJump = mapPassedInt! * numberToJump + tempNumber
+        let numberToJump = maxRowCount * 10
+        let rowToJump = course.mapPass! * numberToJump + tempNumber // can force unwrap because level .six won't enter here
         
         settingView.selectedIndex = rowToJump
-        settingView.pickerData = finalWordData
+        settingView.pickerData = sortedWordData
         settingView.courseReceived = courseReceived
         settingView.picker.selectRow(rowToJump, inComponent: 0, animated: true)
     }
+
     
     deinit {
         print("bookVc deinit")
@@ -788,6 +720,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let course = course else { return }
         
         //傳送地圖數字
         mapNumToPass = indexPath.row
@@ -818,13 +751,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
 
             performSegue(withIdentifier: "toLessonVc", sender: self)
 
-        } else {
+        } else if let mapPass = course.mapPass {
 
-            if mapPassedInt == indexPath.row {
+            if mapPass == indexPath.row {
 
                 performSegue(withIdentifier: "toLessonVc", sender: self)
 
-            } else if mapPassedInt! > indexPath.row {
+            } else if mapPass > indexPath.row {
 
                 //show已過關訊息
 
@@ -833,7 +766,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
                 performSegue(withIdentifier: "toLessonVc", sender: self)
 
 
-            } else if mapPassedInt! < indexPath.row {
+            } else if mapPass < indexPath.row {
 
                 ProgressHUD.showError(stageVC_alert)
 

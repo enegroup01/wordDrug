@@ -133,6 +133,10 @@ struct Course {
     var isAllMapPassed: Bool {
         return maxStageCount == mapPass ? true : false
     }
+    
+    var isSimplifiedElementary: Bool {
+        return language == .simplified && level == .one
+    }
         
     /*
      //MARK: simVer K12 課程紀錄變數
