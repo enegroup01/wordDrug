@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1240"
+   LastUpgradeVersion = "1300"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C94D6FBF5723FAFE8C7D8C2FDC5609E"
-               BuildableName = "UIImage_BetterAdditions.framework"
-               BlueprintName = "UIImage+BetterAdditions"
+               BlueprintIdentifier = "8305E0279723F2F5C790F6BEE58E8596"
+               BuildableName = "SwiftSiriWaveformView.framework"
+               BlueprintName = "SwiftSiriWaveformView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
