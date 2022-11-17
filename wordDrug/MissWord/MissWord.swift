@@ -18,6 +18,7 @@ import Foundation
 struct MissWord {
     static let simplifiedElementaryWordCount = 330
     static let generalWordCount = 450
+    static let simplifiedStartIndex = 35
 }
 
 enum StageLock {
@@ -164,6 +165,15 @@ struct Course {
         case .seven: return mapPassed7
         case .eight: return mapPassed8
         case .nine: return mapPassed9
+        }
+    }
+    
+    var maxMapNumberArray:[Int] {
+        switch language {
+        case .traditional:
+            return [5,6,7,9,8]
+        case .simplified:
+            return [3,5,6,11,13,18,7,9]
         }
     }
 }

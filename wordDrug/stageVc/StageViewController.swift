@@ -391,7 +391,6 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         stageCount = course.maxMapNumber
         gamePassedDic = course.gamePass
         mapPassedInt = course.mapPass
-        stageCount = course.maxMapNumber
         
         if course.level == .six { //K12
             for i in 0 ..< k12MapPassed.count {
@@ -459,21 +458,12 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         guard let course = course else { return }
         
         var wordData = [String]()
-        
-        var startIndex = Int()
-        
-        
-        if course.level == .one {
-            startIndex = 0
-        } else {
-            for i in 0 ..< (courseReceived){
-                 startIndex += maxMapNumArray[i]
-            }
+        var wordStartIndex = 0
+        for i in 0 ..< (course.level.rawValue) {
+            wordStartIndex += course.maxMapNumberArray[i]
         }
-        
-        if lan == "zh-Hans" {
-            startIndex += 35
-        }
+        wordStartIndex = course.language == .simplified ? wordStartIndex + MissWord.simplifiedStartIndex : wordStartIndex
+
         
         var maxPageNumber = Int()
         if lan == "zh-Hans" && courseReceived == 0{
@@ -482,7 +472,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             maxPageNumber = 15
         }
         
-        for i in startIndex ..< startIndex + stageCount{
+        for i in wordStartIndex ..< wordStartIndex + stageCount{
             for j in 0 ..< maxPageNumber {
                 
                 let file = File(chapter: i + 1, unit: j + 1)

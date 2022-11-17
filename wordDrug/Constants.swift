@@ -68,17 +68,6 @@ public let kDate = "date"
 
 public let vowels = ["a","e","i","o","u"]
 
-
-public var maxMapNumArray:[Int] {
-    var array = [Int]()
-    if lan == "zh-Hans"{
-        array = [3,5,6,11,13,18,7,9]
-    } else {
-        array = [5,6,7,9,8]
-    }
-    return array
-}
-
 var publicMaxSpotNumArrayDic:[[Int]] {
     var dic = [[Int]]()
     if lan == "zh-Hans"{

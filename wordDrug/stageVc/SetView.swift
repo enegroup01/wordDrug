@@ -353,7 +353,6 @@ extension SetView: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         print(row)
         selectedIndex = row
         
@@ -361,7 +360,5 @@ extension SetView: UIPickerViewDataSource, UIPickerViewDelegate {
         titleLabel.text = "第\(chapter + 1)單元"
         let setNumber = row % totalWordSets
         wordCountLabel.text = "第\(setNumber + 1)組字"
-        
-        
     }
 }
