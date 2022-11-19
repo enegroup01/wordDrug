@@ -56,7 +56,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     @IBOutlet weak var nextBtn: UIButton!
     //被選擇到的音節
-    var syllableSets = [[String]()]
+    var syllableSets: [[String]] {
+        return course.syllableSets
+    }
     
     var wordSets = [String]()
     var wordContainer: [Word] = []
@@ -1172,7 +1174,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
         attrs3 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
         
-        //   if isClassAllPassed == false{
         
         //MARK: refact syllableSets in Word
         

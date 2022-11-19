@@ -180,6 +180,9 @@ struct Course {
             return [3,5,6,11,13,18,7,9]
         }
     }
+    var isK12Class: Bool {
+        return level == .six
+    }
 }
 
 

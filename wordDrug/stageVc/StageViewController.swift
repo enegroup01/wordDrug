@@ -376,13 +376,13 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if course.language == .simplified && course.level == .one {
             elemWordsMax = Array(repeating: 330, count: course.maxMapNumber)
-        } else if course.level == .six {
+        } else if course.isK12Class {
             elemWordsMax = [120,330,330,300,330,330,330,330,390,390,330,330,210,330,300,180,390,390]
         } else {
             elemWordsMax = Array(repeating: 450, count: course.maxMapNumber)
         }
         
-        if course.level == .six { //K12
+        if course.isK12Class { //K12
             for i in 0 ..< k12MapPassed.count {
                 if k12MapPassed[i] == 1 {
                     eachCellMyWordsCount[i] = elemWordsMax[i]
@@ -410,7 +410,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
             for i in 0 ..< tempMapPassedInt {
                 locks[i] = .unlocked
             }
-        } else if course.level == .six {
+        } else if course.isK12Class {
             locks = Array(repeating: .unlocked, count: 18)
         }
         
@@ -537,62 +537,21 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let course = course else { return }
-        
-        //傳送地圖數字
         mapNumToPass = indexPath.row
         
-        //在此先暫時預設mapPassed...之後要寫在過關時做儲存
-        //MARK: simVer 這裏要做K12的單獨各個判斷 決定是否isClassAllPassed
-        
-        //有過地圖才能進關卡
-
-        
-        //單機版: 以下的篩選模式都先comment掉
-        
-        if isUnlocked {
-            
+        guard !course.isK12Class else {
+            isClassAllPassed = k12MapPassed[mapNumToPass] == 1 ? true : isClassAllPassed
             performSegue(withIdentifier: "toLessonVc", sender: self)
-            
-        } else {
+            return
+        }
+
+        guard let mapPass = course.mapPass, mapPass >= indexPath.row else {
+            ProgressHUD.showError(stageVC_alert)
+            return
+        }
         
-        if courseReceived == 5 {
-            //ＭARK: simVer K12特別作法
-
-            //確認該單元是否全過
-
-            if k12MapPassed[mapNumToPass] == 1 {
-
-                isClassAllPassed = true
-            }
-
-            performSegue(withIdentifier: "toLessonVc", sender: self)
-
-        } else if let mapPass = course.mapPass {
-
-            if mapPass == indexPath.row {
-
-                performSegue(withIdentifier: "toLessonVc", sender: self)
-
-            } else if mapPass > indexPath.row {
-
-                //show已過關訊息
-
-                isClassAllPassed = true
-
-                performSegue(withIdentifier: "toLessonVc", sender: self)
-
-
-            } else if mapPass < indexPath.row {
-
-                ProgressHUD.showError(stageVC_alert)
-
-                //performSegue(withIdentifier: "toLessonVc", sender: self)
-
-
-            }
-
-        }
-        }
+        isClassAllPassed = mapPass > indexPath.row ? true : isClassAllPassed
+        performSegue(withIdentifier: "toLessonVc", sender: self)
     }
     
     
@@ -600,10 +559,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     //重送地圖編號
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toLessonVc"{
+        if segue.identifier == "toLessonVc" {
             let destinationVC = segue.destination as! LessonViewController
             destinationVC.course = course
-            
             destinationVC.courseReceived = courseReceived
             destinationVC.mapNumToReceive = mapNumToPass
             destinationVC.isClassAllPassed = isClassAllPassed
