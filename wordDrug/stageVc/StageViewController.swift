@@ -536,8 +536,9 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let course = course else { return }
+        guard var course = course else { return }
         mapNumToPass = indexPath.row
+        course.setMapPassNum(mapNumToPass)
         
         guard !course.isK12Class else {
             isClassAllPassed = k12MapPassed[mapNumToPass] == 1 ? true : isClassAllPassed
@@ -561,12 +562,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if segue.identifier == "toLessonVc" {
             let destinationVC = segue.destination as! LessonViewController
-            destinationVC.course = course
-            destinationVC.courseReceived = courseReceived
-            destinationVC.mapNumToReceive = mapNumToPass
-            destinationVC.isClassAllPassed = isClassAllPassed
-            destinationVC.isUnlocked = isUnlocked
-            
+            destinationVC.course = course            
             destinationVC.modalPresentationStyle = .fullScreen
             
             if #available(iOS 13.0, *) {

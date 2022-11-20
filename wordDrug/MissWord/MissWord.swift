@@ -19,6 +19,7 @@ struct MissWord {
     static let simplifiedElementaryWordCount = 330
     static let generalWordCount = 450
     static let simplifiedStartIndex = 35
+    
 }
 
 enum StageLock {
@@ -56,6 +57,7 @@ struct Course {
     var mapNumberReceived: Int?
     var isClassAllPassed: Bool // needed?
     var isUnlocked: Bool
+    private let k12MaxSpotArray = [4,11,11,10,11,11,11,11,13,13,11,11,7,11,11,6,13,13]
     
     init(language: String, level: Level, mapNumberReceive: Int?, isClassAllPassed: Bool, isUnlocked: Bool) {
         self.language = Language(rawValue: language)
@@ -183,8 +185,30 @@ struct Course {
     var isK12Class: Bool {
         return level == .six
     }
+    
+    var k12MapPass: [Int]? {
+        return isK12Class ? k12MapPassed : nil
+    }
+    
+    var k12GamePass: [[Int:Int]]? {
+        return isK12Class ? k12GamePassed : nil
+    }
+    
+    var maxSpotNumber: Int {
+        if isK12Class, let mapNumberReceived = mapNumberReceived {
+         return k12MaxSpotArray[mapNumberReceived - increaseNumber]
+        }
+        
+        if language == .simplified && level == .one {
+            return 11
+        }
+        return 15
+    }
+    
+    mutating func setMapPassNum(_ number: Int) {
+        mapNumberReceived = number
+    }
 }
-
 
 
 

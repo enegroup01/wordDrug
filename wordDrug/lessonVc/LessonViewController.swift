@@ -968,205 +968,14 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
         //單機版
         if isUnlocked {
-            isClassAllPassed = true
+            isClassAllPassed = true // force change?
             dynamicTitleText = lessonVC_allOpenMode
         } else {
             dynamicTitleText = lessonVC_review3Words
         }
         
-        switch courseReceived {
-        case 0:
-            gamePassedDic = gamePassed!
-            mapPassedInt = mapPassed!
-            isSimVerSingleSyllable = true
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //國小
-                //print("檢體中文關卡數")
-                maxMapNum = 3
-                increaseNum = 35
-                
-            } else {
-                //其餘語言
-                //print("繁體中文關卡數")
-                maxMapNum = 5
-                increaseNum = 0
-            }
-            
-        case 1:
-            gamePassedDic = gamePassed2!
-            mapPassedInt = mapPassed2!
-            
-            isSimVerSingleSyllable = false
-            
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //初中
-                //print("檢體中文關卡數")
-                maxMapNum = 5
-                increaseNum = 38
-                
-            } else {
-                //其餘語言
-                //print("繁體中文關卡數")
-                increaseNum = 5
-                maxMapNum = 6
-                
-            }
-            
-            
-        case 2:
-            gamePassedDic = gamePassed3!
-            mapPassedInt = mapPassed3!
-            
-            isSimVerSingleSyllable = false
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //高中
-                //print("檢體中文關卡數")
-                maxMapNum = 6
-                increaseNum = 43
-                
-            } else {
-                //其餘語言
-                //print("繁體中文關卡數")
-                increaseNum = 11
-                maxMapNum = 7
-            }
-            
-        case 3:
-            gamePassedDic = gamePassed4!
-            mapPassedInt = mapPassed4!
-            
-            
-            isSimVerSingleSyllable = false
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //CET4
-                //print("檢體中文關卡數")
-                maxMapNum = 11
-                increaseNum = 49
-                
-            } else {
-                //其餘語言
-                
-                //print("繁體中文關卡數")
-                increaseNum = 18
-                maxMapNum = 9
-                
-            }
-            
-            
-        case 4:
-            gamePassedDic = gamePassed5!
-            mapPassedInt = mapPassed5!
-            
-            isSimVerSingleSyllable = false
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //CET6
-                //print("檢體中文關卡數")
-                maxMapNum = 13
-                increaseNum = 60
-                
-            } else {
-                //其餘語言
-                
-                //print("繁體中文關卡數")
-                increaseNum = 27
-                maxMapNum = 8
-                
-            }
-            
-            
-            //以下為簡體版需求
-            //要確認繁體版進不來
-            
-        case 5:
-            
-            //MARK: simVer k12紀錄
-            //測試用
-            //            k12MapPassed = Array(repeating: 0, count: 18)
-            //            k12GamePassed = Array(repeating: [0:0], count: 18)
-            
-            //k12MapPassed[1] = 2
-            //k12GamePassed[0] = [0:2]
-            //k12GamePassed[2] = [1:0]
-            //print(k12MapPassed)
-            //print(k12GamePassed)
-            
-            //重新設定成k12裡各關的過關情形
-            //            gamePassedDic = gamePassed6!
-            //            mapPassedInt = mapPassed6!
-            gamePassedDic = k12GamePassed[mapNumToReceive]
-            mapPassedInt = k12MapPassed[mapNumToReceive]
-            //print(gamePassedDic)
-            //print(mapPassedInt)
-            
-            isSimVerSingleSyllable = true
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //K12
-                //print("檢體中文關卡數")
-                maxMapNum = 18
-                increaseNum = 73
-            }
-            
-        case 6:
-            gamePassedDic = gamePassed7!
-            mapPassedInt = mapPassed7!
-            
-            isSimVerSingleSyllable = false
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //toiec
-                //print("檢體中文關卡數")
-                maxMapNum = 7
-                increaseNum = 91
-                
-            }
-            
-        case 7:
-            gamePassedDic = gamePassed8!
-            mapPassedInt = mapPassed8!
-            
-            isSimVerSingleSyllable = false
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //ielts
-                //print("檢體中文關卡數")
-                maxMapNum = 9
-                increaseNum = 98
-                
-            }
-            
-        case 8:
-            gamePassedDic = gamePassed9!
-            mapPassedInt = mapPassed9!
-            
-            isSimVerSingleSyllable = false
-            
-            if lan == "zh-Hans"{
-                //檢體中文
-                //tofel
-                //print("檢體中文關卡數")
-                maxMapNum = 8
-                increaseNum = 107
-                
-            }
-            
-            
-        default:
-            break
-        }
+        let mapPass = course.isK12Class ? course.k12MapPass![mapNumToReceive] : course.mapPass
+        let gamePass = course.isK12Class ? course.k12GamePass![mapNumToReceive] : course.gamePass
         
         
         attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedString.Key.foregroundColor : pinkColor]
@@ -1176,129 +985,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         //MARK: refact syllableSets in Word
-        
-        
         var progressFloat = CGFloat()
-        
-        //建立目錄數字
-        var smallDic = [Int]()
-        
-        for _ in  0 ..< 10 {
-            
-            smallDic.append(0)
-        }
-        
-        //MARK: simVer 這部分要動態有幾個30 done
-        //***照理講這裡設定好maxSpot之後就不用設定了, 所以目前後面出現過的已經comment起來了
-        
-        //var maxNum = Int()
-        if lan == "zh-Hans"{
-            //檢體中文
-            //之後還要用courseReceived來改數值, 因為每個course值不同
-            switch courseReceived{
-                
-            case 0:
-                //國小
-                
-                maxSpot = 11
-            case 1:
-                //初中
-                maxSpot = 15
-            case 2:
-                //高中
-                maxSpot = 15
-            case 3:
-                //CET4
-                maxSpot = 15
-            case 4:
-                //CET6
-                maxSpot = 15
-            case 5:
-                //K12
-                
-                //這裡要用減去increaseNum的方式來找數值
-                switch (mapNumToReceive - increaseNum){
-                    
-                case 0:
-                    maxSpot = 4
-                case 1:
-                    maxSpot = 11
-                case 2:
-                    maxSpot = 11
-                case 3:
-                    maxSpot = 10
-                case 4:
-                    maxSpot = 11
-                case 5:
-                    maxSpot = 11
-                case 6:
-                    maxSpot = 11
-                case 7:
-                    maxSpot = 11
-                case 8:
-                    maxSpot = 13
-                case 9:
-                    maxSpot = 13
-                case 10:
-                    maxSpot = 11
-                case 11:
-                    maxSpot = 11
-                case 12:
-                    maxSpot = 7
-                case 13:
-                    maxSpot = 11
-                case 14:
-                    maxSpot = 11
-                case 15:
-                    maxSpot = 6
-                case 16:
-                    maxSpot = 13
-                case 17:
-                    maxSpot = 13
-                    
-                default:
-                    break
-                    
-                }
-                
-            case 6:
-                //Toeic
-                maxSpot = 15
-                
-            case 7:
-                //ielts
-                maxSpot = 15
-            case 8:
-                
-                //tofel
-                maxSpot = 15
-                
-            default:
-                
-                break
-                
-            }
-            
-            
-        } else {
-            //其餘語言
-            
-            maxSpot = 15
-            
-        }
-        
-        //原始
-        //for _ in 0 ..< 15 {
-        
-        
-        //新增出正確組數的音節
-        for _ in 0 ..< maxSpot {
-            secRowTouched.append(smallDic)
-        }
+        let smallDic = Array.init(repeating: 0, count: 10)
+        secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
         
         
         //再把數字減回來
-        mapNumToReceive -= increaseNum
+        mapNumToReceive -= course.increaseNumber // for all passed, need to count?
         
         //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
         //抓目前的元素
@@ -1306,17 +999,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //MARK: simVer 放在外的變數 done
         var threeSyllables = [String]()
         
-        if isClassAllPassed {
+        if isClassAllPassed { //MARK: needed? need to test!
             mapNum = mapNumToReceive
             tempS = lan == "zh-Hans" ? maxSpot - 1 : 14
             tempU = 9
             enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
             titleLabel.text = dynamicTitleText
             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-        } else {
-            for (s,u) in gamePassedDic! {
+        } else if let gamePass = gamePass, let mapNumFromCourse = course.mapNumberReceived {
+            for (s,u) in gamePass {
                 //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
-                mapNum = mapPassedInt
+                mapNum = mapNumFromCourse
                 tempS = s
                 tempU = u
             }
