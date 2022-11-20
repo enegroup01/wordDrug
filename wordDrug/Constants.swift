@@ -68,19 +68,6 @@ public let kDate = "date"
 
 public let vowels = ["a","e","i","o","u"]
 
-var publicMaxSpotNumArrayDic:[[Int]] {
-    var dic = [[Int]]()
-    if lan == "zh-Hans"{
-        
-        dic = [[11,11,11],[15,15,15,15,15],[15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15,15,15,15,15],[4,11,11,10,11,11,11,11,13,13,11,11,7,11,11,6,13,13],[15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15]]
-    } else {
-        
-        dic = [[15,15,15,15,15],[15,15,15,15,15,15],[15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15,15],[15,15,15,15,15,15,15,15]]
-    }
-    
-    return dic
-}
-
 public let allSyllableSets = [map1SyllableSets,map2SyllableSets,map3SyllableSets,map4SyllableSets,map5SyllableSets,map6SyllableSets,map7SyllableSets,map8SyllableSets,map9SyllableSets,map10SyllableSets,map11SyllableSets,map12SyllableSets,map13SyllableSets,map14SyllableSets,map15SyllableSets,map16SyllableSets,map17SyllableSets,map18SyllableSets,map19SyllableSets,map20SyllableSets,map21SyllableSets,map22SyllableSets,map23SyllableSets,map24SyllableSets,map25SyllableSets,map26SyllableSets,map27SyllableSets,map28SyllableSets,map29SyllableSets,map30SyllableSets,map31SyllableSets,map32SyllableSets,map33SyllableSets,map34SyllableSets,map35SyllableSets,map36SyllableSets,
 map37SyllableSets,map38SyllableSets,map39SyllableSets,map40SyllableSets,map41SyllableSets,map42SyllableSets,map43SyllableSets,map44SyllableSets,map45SyllableSets,map46SyllableSets,map47SyllableSets,map48SyllableSets,map49SyllableSets,map50SyllableSets,map51SyllableSets,map52SyllableSets,map53SyllableSets,map54SyllableSets,map55SyllableSets,map56SyllableSets,map57SyllableSets,map58SyllableSets,map59SyllableSets,map60SyllableSets,map61SyllableSets,map62SyllableSets,map63SyllableSets,map64SyllableSets,map65SyllableSets,map66SyllableSets,map67SyllableSets,map68SyllableSets,map69SyllableSets,map70SyllableSets,map71SyllableSets,map72SyllableSets,
 map73SyllableSets,map74SyllableSets,map75SyllableSets,map76SyllableSets,map77SyllableSets,map78SyllableSets,map79SyllableSets,map80SyllableSets,map81SyllableSets,map82SyllableSets,map83SyllableSets,map84SyllableSets,map85SyllableSets,map86SyllableSets,map87SyllableSets,map88SyllableSets,map89SyllableSets,map90SyllableSets,map91SyllableSets,map92SyllableSets,map93SyllableSets,map94SyllableSets,map95SyllableSets,map96SyllableSets,map97SyllableSets,map98SyllableSets,map99SyllableSets,map100SyllableSets,map101SyllableSets,map102SyllableSets,map103SyllableSets,map104SyllableSets,map105SyllableSets,map106SyllableSets,map107SyllableSets,map108SyllableSets,
