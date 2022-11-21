@@ -66,8 +66,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var words = [NSMutableAttributedString(),NSMutableAttributedString(),NSMutableAttributedString()]
     
     var mapNum = Int()
-    var spotNum = Int()
-    var unitNum = Int()
+//    var spotNum = Int()
+//    var unitNum = Int()
     var gameMode = Int()
     
     @IBOutlet weak var reviewBtn: UIButton!
@@ -493,6 +493,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         hintLabel.text = lessonVC_hintLabel
         
+        progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width, height: 3))
         //拉到最前方
         
         self.view.bringSubviewToFront(ghostBtn)
@@ -985,12 +986,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         //MARK: refact syllableSets in Word
-        var progressFloat = CGFloat()
+
         let smallDic = Array.init(repeating: 0, count: 10)
         secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
         
         
         //再把數字減回來
+        mapNumToReceive = course.mapNumberReceived ?? 0
         mapNumToReceive -= course.increaseNumber // for all passed, need to count?
         
         //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
@@ -999,9 +1001,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //MARK: simVer 放在外的變數 done
         var threeSyllables = [String]()
         
-        if isClassAllPassed { //MARK: needed? need to test!
+        if course.isClassAllPassed { //MARK: needed? need to test!
             mapNum = mapNumToReceive
-            tempS = lan == "zh-Hans" ? maxSpot - 1 : 14
+            tempS = lan == "zh-Hans" ? course.maxSpotNumber - 1 : 14
             tempU = 9
             enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
             titleLabel.text = dynamicTitleText
@@ -1015,33 +1017,27 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
         }
         
-        //MARK: check if need
-        spotNum = tempS
-        unitNum = tempU
         
         //已確認 : maxSpot  / maxUnit  為了避免被改變用另一組變數
         currentMaxSpotToUse = tempS
         currentMaxUnitToUse = tempU
         
-        let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
-        let maxSpotString = String(maxSpot!)
+        let lessonText = NSMutableAttributedString(string: String(tempS + 1), attributes: attrs0)
+        let maxSpotString = String(course.maxSpotNumber)
         lessonText.append(NSMutableAttributedString(string: " / \(maxSpotString)", attributes: attrs1))
         lessonLabel.attributedText = lessonText
-        
-        progressFloat = CGFloat(tempU + 1)
-        progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
-
         
         //MARK: simVer K12的地圖讀法要再增加
         var chapter: Int!
         var unit: Int!
         
-        if courseReceived == 5 { //k12 在這狀況下mapNum = 0
-            chapter = increaseNum + 1 + mapNumToReceive
-            unit = spotNum + 1
+        
+        if course.level == .six { //k12 在這狀況下mapNum = 0
+            chapter = course.increaseNumber + 1 + mapNumToReceive
+            unit = tempS + 1
         } else {
-            chapter = mapNum  + increaseNum + 1
-            unit = spotNum + 1
+            chapter = mapNum  + course.increaseNumber + 1
+            unit = tempS + 1
         }
         
         let file = File(chapter: chapter, unit: unit)
@@ -1050,7 +1046,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         var allThreeWords = [Word]()
         for i in 0 ..< 3 {
-            allThreeWords.append(wordContainer[unitNum  * 3 + i])
+            allThreeWords.append(wordContainer[tempU  * 3 + i])
         }
         
         if lan == "zh-Hans" && isSimVerSingleSyllable {
@@ -1074,6 +1070,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         enterBtn.isEnabled = true
     
+    }
+    
+    private func showCurrentClassText() {
+        
     }
     
     private func makeSyllableLabelText(syllableText: String, fontSize: CGFloat) {
@@ -1137,7 +1137,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     //寫一個獨立的讀取單字功能
     func loadWords(seq:Int){
         //進度條動不了先不用了
-        //var progressFloat = CGFloat()
         //MARK: simVer 放在外面的音節變數 done
         var threeSyllables = [String]()
         
@@ -1245,22 +1244,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         } else {
             mapNum = mapPassedInt
         }
-        spotNum = tempS
-        unitNum = tempU
+//        spotNum = tempS
+//        unitNum = tempU
         
-        //進度條不工作...
-        //progressFloat = CGFloat(tempU + 1)
+
         
-        let lessonText = NSMutableAttributedString(string: String(spotNum + 1), attributes: attrs0)
+        let lessonText = NSMutableAttributedString(string: String(tempS + 1), attributes: attrs0)
         lessonText.append(NSMutableAttributedString(string: " / \(String(maxSpot!))", attributes: attrs1))
         lessonLabel.attributedText = lessonText
         
-        //進度條
-        //print("讀取進度條")
-        //progressLength.frame = CGRect(x: 0, y: fullLength.frame.minY, width: width * progressFloat / 10, height: 3)
-        // progressLength.anchor(top: nil, leading: view.safeLeftAnchor, bottom: enterBtn.topAnchor, trailing: nil, size: .init(width: width * progressFloat / 10, height: 3))
-        
-        //print("widthChange:\(width * progressFloat / 10)")
         
         //MARK: 讀取文字檔
         //讀取Bundle裡的文字檔
@@ -1273,9 +1265,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if courseReceived == 5 {
             //k12 在這狀況下mapNum = 0 / 1
-            name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(spotNum + 1)
+            name = String(increaseNum + 1 + mapNumToReceive) + "-" + String(tempS + 1)
         }else {
-            name = String(increaseNum + mapNum + 1) + "-" + String(spotNum + 1)
+            name = String(increaseNum + mapNum + 1) + "-" + String(tempS + 1)
         }
         
         
@@ -1300,9 +1292,9 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var allThreeEngWordsArray = [[String]]()
         var allThreeEngWords = [String]()
         
-        let engWord0 = wordSets[unitNum * 3].components(separatedBy: " ")
-        let engWord1 = wordSets[unitNum * 3 + 1].components(separatedBy: " ")
-        let engWord2 = wordSets[unitNum * 3 + 2].components(separatedBy: " ")
+        let engWord0 = wordSets[tempU * 3].components(separatedBy: " ")
+        let engWord1 = wordSets[tempU * 3 + 1].components(separatedBy: " ")
+        let engWord2 = wordSets[tempU * 3 + 2].components(separatedBy: " ")
         
         allThreeEngWordsArray.append(engWord0)
         allThreeEngWordsArray.append(engWord1)

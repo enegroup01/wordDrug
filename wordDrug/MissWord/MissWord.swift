@@ -51,7 +51,7 @@ enum Level: Int {
     case nine
 }
 
-struct Course {
+class Course {
     var language: Language
     var level: Level
     var mapNumberReceived: Int?
@@ -196,7 +196,7 @@ struct Course {
     
     var maxSpotNumber: Int {
         if isK12Class, let mapNumberReceived = mapNumberReceived {
-         return k12MaxSpotArray[mapNumberReceived - increaseNumber]
+         return k12MaxSpotArray[mapNumberReceived]
         }
         
         if language == .simplified && level == .one {
@@ -205,7 +205,7 @@ struct Course {
         return 15
     }
     
-    mutating func setMapPassNum(_ number: Int) {
+    func setMapPassNum(number: Int) {
         mapNumberReceived = number
     }
 }
