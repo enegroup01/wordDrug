@@ -145,6 +145,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     var level: Level!
     var course: Course!
+    var gamePass: [Int: Int]?
+    var mapPass: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -926,25 +928,16 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                     
                     self!.performSegue(withIdentifier: "toGameVc", sender: self)
                 }
-                
-                
-                
             }
         }
-        
-        
-        
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         practiceSenBtn.isEnabled = true
         practiceWordBtn.isEnabled = true
         isUnlocked = false
         removeBtns()
-        
-        
     }
     
     var gamePassedDic:[Int:Int]?
@@ -966,7 +959,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
         titleLabel.text = lessonVC_aboutToLearn3Words
         titleLabel.textColor = .white
-    
+        
         //單機版
         if isUnlocked {
             isClassAllPassed = true // force change?
@@ -975,43 +968,36 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             dynamicTitleText = lessonVC_review3Words
         }
         
-        let mapPass = course.isK12Class ? course.k12MapPass![mapNumToReceive] : course.mapPass
-        let gamePass = course.isK12Class ? course.k12GamePass![mapNumToReceive] : course.gamePass
+        mapPass = course.isK12Class ? course.k12MapPass![mapNumToReceive] : course.mapPass
+        gamePass = course.isK12Class ? course.k12GamePass![mapNumToReceive] : course.gamePass
         
         
         attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: lessonBigFontSize), NSAttributedString.Key.foregroundColor : pinkColor]
         attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: lessonSmallFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
         attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
         attrs3 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
-        
-        
-        //MARK: refact syllableSets in Word
-
+                
         let smallDic = Array.init(repeating: 0, count: 10)
         secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
-        
-        
+                
         //再把數字減回來
-        mapNumToReceive = course.mapNumberReceived ?? 0
-        mapNumToReceive -= course.increaseNumber // for all passed, need to count?
+        let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
         
-        //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
-        //抓目前的元素
         
         //MARK: simVer 放在外的變數 done
         var threeSyllables = [String]()
         
         if course.isClassAllPassed { //MARK: needed? need to test!
-            mapNum = mapNumToReceive
-            tempS = lan == "zh-Hans" ? course.maxSpotNumber - 1 : 14
+            mapNum = deductedMapNumber
+            tempS = course.isSimplifiedElementary ? course.maxSpotNumber - 1 : 14
             tempU = 9
             enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
             titleLabel.text = dynamicTitleText
             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-        } else if let gamePass = gamePass, let mapNumFromCourse = course.mapNumberReceived {
+        } else if let gamePass = gamePass, let mapPass = mapPass {
             for (s,u) in gamePass {
                 //這個狀態下mapPassedInt 跟 mapNumToReceive是一樣的
-                mapNum = mapNumFromCourse
+                mapNum = mapPass
                 tempS = s
                 tempU = u
             }
@@ -1028,17 +1014,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         lessonLabel.attributedText = lessonText
         
         //MARK: simVer K12的地圖讀法要再增加
-        var chapter: Int!
-        var unit: Int!
-        
-        
-        if course.level == .six { //k12 在這狀況下mapNum = 0
-            chapter = course.increaseNumber + 1 + mapNumToReceive
-            unit = tempS + 1
-        } else {
-            chapter = mapNum  + course.increaseNumber + 1
-            unit = tempS + 1
-        }
+        let unit = tempS + 1
+        var chapter = course.increaseNumber + 1
+        let chapterToIncrease = course.isK12Class ? deductedMapNumber : mapNum
+        chapter += chapterToIncrease
         
         let file = File(chapter: chapter, unit: unit)
         let word = MissWordUtility.shared.loadWords(file: file)
@@ -1049,31 +1028,24 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             allThreeWords.append(wordContainer[tempU  * 3 + i])
         }
         
-        if lan == "zh-Hans" && isSimVerSingleSyllable {
-            for i in tempU * 3 ..< tempU * 3 + 3{
+        if course.isSimVersionSingleSyllableSet {
+            for i in tempU * 3 ..< tempU * 3 + 3 {
                 let syllableChosen = syllableSets[tempS][i]
                 let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                let firstSyllable = syllableChosenArray[0]
-                threeSyllables.append(firstSyllable)
+                let firstSyllable = syllableChosenArray.first
+                threeSyllables.append(firstSyllable ?? "")
             }
             makeSyllableLabelText(syllableText: "Unit " + String(tempU + 1), fontSize: sylFontSize / 2)
         } else {
             let syllableChosen = syllableSets[tempS][tempU]
             let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
             threeSyllables = Array(repeating: syllableChosenArray.first ?? "", count: 3)
-            
             makeSyllableLabelText(syllableText: syllableChosenArray.first ?? "", fontSize: sylFontSize)
         }
         
         let attrWords = generateAttrWords(allThreeWords: allThreeWords, threeSyllables: threeSyllables)
         makeAttributedLabelText(attrWords: attrWords)
-        
         enterBtn.isEnabled = true
-    
-    }
-    
-    private func showCurrentClassText() {
-        
     }
     
     private func makeSyllableLabelText(syllableText: String, fontSize: CGFloat) {
@@ -1136,7 +1108,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //寫一個獨立的讀取單字功能
     func loadWords(seq:Int){
-        //進度條動不了先不用了
         //MARK: simVer 放在外面的音節變數 done
         var threeSyllables = [String]()
         
@@ -1687,6 +1658,28 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //需要排除第一次玩的狀態
         //MARK: simVer K12的例外狀況
+        
+        guard let gamePass = gamePass, let mapPass = mapPass else {
+            return
+        }
+        
+        
+        //MARK: refactor
+        if course.isK12Class {
+            for (s,u) in gamePass {
+                if s != 0 || u != 0 || mapPass == 1 {
+                    loadWords(seq: -1)
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
+                    
+                    titleLabel.text = dynamicTitleText
+                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+                }
+            }
+        } else {
+            
+        }
+        
+        
         
         if courseReceived == 5 {
             

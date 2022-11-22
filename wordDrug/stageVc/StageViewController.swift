@@ -536,7 +536,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard var course = course else { return }
+        guard let course = course else { return }
         mapNumToPass = indexPath.row
         course.setMapPassNum(number: mapNumToPass)
         

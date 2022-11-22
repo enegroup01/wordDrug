@@ -71,6 +71,10 @@ class Course {
         return language == .traditional
     }
     
+    var isSimplified: Bool {
+        return language == .simplified
+    }
+    
     var increaseNumber: Int {
         switch level {
         case .one:
@@ -117,6 +121,10 @@ class Course {
         }
     }
     var isSimVersionSingleSyllableSet: Bool {
+        guard language == .simplified else {
+            return false
+        }
+        
         switch level {
         case .one, .six:
             return true
@@ -254,7 +262,7 @@ struct Word {
 
 extension Course {
     var syllableSets: [[String]] {
-        switch mapNumberReceived ?? 0 + increaseNumber {
+        switch (mapNumberReceived ?? 0) + increaseNumber {
         case 0:
             return map1SyllableSets
         case 1:
