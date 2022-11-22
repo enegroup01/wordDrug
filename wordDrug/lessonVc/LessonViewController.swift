@@ -966,7 +966,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
         titleLabel.text = lessonVC_aboutToLearn3Words
         titleLabel.textColor = .white
-    
+        
         //單機版
         if isUnlocked {
             isClassAllPassed = true // force change?
@@ -986,14 +986,13 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         
         //MARK: refact syllableSets in Word
-
+        
         let smallDic = Array.init(repeating: 0, count: 10)
         secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
         
         
         //再把數字減回來
-        mapNumToReceive = course.mapNumberReceived ?? 0
-        mapNumToReceive -= course.increaseNumber // for all passed, need to count?
+        let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
         
         //      if mapNumToReceive == mapPassedInt || mapNumToReceive < mapPassedInt{
         //抓目前的元素
@@ -1002,8 +1001,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var threeSyllables = [String]()
         
         if course.isClassAllPassed { //MARK: needed? need to test!
-            mapNum = mapNumToReceive
-            tempS = lan == "zh-Hans" ? course.maxSpotNumber - 1 : 14
+            mapNum = deductedMapNumber
+            tempS = course.isSimplifiedElementary ? course.maxSpotNumber - 1 : 14
             tempU = 9
             enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
             titleLabel.text = dynamicTitleText
@@ -1028,17 +1027,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         lessonLabel.attributedText = lessonText
         
         //MARK: simVer K12的地圖讀法要再增加
-        var chapter: Int!
-        var unit: Int!
-        
-        
-        if course.level == .six { //k12 在這狀況下mapNum = 0
-            chapter = course.increaseNumber + 1 + mapNumToReceive
-            unit = tempS + 1
-        } else {
-            chapter = mapNum  + course.increaseNumber + 1
-            unit = tempS + 1
-        }
+        let unit = tempS + 1
+        var chapter = course.increaseNumber + 1
+        let chapterToIncrease = course.isK12Class ? deductedMapNumber : mapNum
+        chapter += chapterToIncrease
         
         let file = File(chapter: chapter, unit: unit)
         let word = MissWordUtility.shared.loadWords(file: file)
@@ -1049,19 +1041,18 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             allThreeWords.append(wordContainer[tempU  * 3 + i])
         }
         
-        if lan == "zh-Hans" && isSimVerSingleSyllable {
-            for i in tempU * 3 ..< tempU * 3 + 3{
+        if course.isSimVersionSingleSyllableSet {
+            for i in tempU * 3 ..< tempU * 3 + 3 {
                 let syllableChosen = syllableSets[tempS][i]
                 let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                let firstSyllable = syllableChosenArray[0]
-                threeSyllables.append(firstSyllable)
+                let firstSyllable = syllableChosenArray.first
+                threeSyllables.append(firstSyllable ?? "")
             }
             makeSyllableLabelText(syllableText: "Unit " + String(tempU + 1), fontSize: sylFontSize / 2)
         } else {
             let syllableChosen = syllableSets[tempS][tempU]
             let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
             threeSyllables = Array(repeating: syllableChosenArray.first ?? "", count: 3)
-            
             makeSyllableLabelText(syllableText: syllableChosenArray.first ?? "", fontSize: sylFontSize)
         }
         
@@ -1069,7 +1060,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         makeAttributedLabelText(attrWords: attrWords)
         
         enterBtn.isEnabled = true
-    
+        
     }
     
     private func showCurrentClassText() {
