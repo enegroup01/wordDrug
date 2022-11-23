@@ -747,7 +747,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
             
             
-            for _ in 0 ..< maxSpot {
+            for _ in 0 ..< course.maxSpotNumber {
                 
                 secRowTouched.append(smallDic)
             }
@@ -1107,118 +1107,75 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     //寫一個獨立的讀取單字功能
-    func loadWords(seq:Int){
-        //MARK: simVer 放在外面的音節變數 done
+    func loadWords(seq: Int) {
+        let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
         var threeSyllables = [String]()
         
         //首先抓音節
         if seq > 0 {
-            //下一課
             if tempU < 9 {
-                //直接加一
                 tempU = tempU + 1
             } else {
-                
-                //MARK: simVer這裏直接取用之前的maxSpot done
-                // **** 這裡的maxSpot要 - 1
-                if tempS < maxSpot - 1 {
-                    //直接 +1
+                if tempS < course.maxSpotNumber - 1 {
                     tempS = tempS + 1
                     tempU = 0
-                    
                 } else {
-                    //全部練完
                     ProgressHUD.showError(lessonVC_theLastPage)
-                }
-                
-            }
-            
-            
-            for (s,u) in gamePassedDic!{
-                
-                if tempU == u && tempS == s && mapNumToReceive == mapPassedInt{
-                    
-                    if !isUnlocked {
-                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-                        titleLabel.text = lessonVC_aboutToLearn3Words
-                        titleLabel.textColor = .white
-                    }
-                    
-                }  else if tempU == u && tempS == s && courseReceived == 5{
-                    
-                    if !isUnlocked {
-                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-                        titleLabel.text = lessonVC_aboutToLearn3Words
-                        titleLabel.textColor = .white
-                    }
+                    return //MARK: check if should return
                 }
             }
+        
+            guard let gamePass = gamePass,
+                  let mapPass = mapPass,
+                  let spot = gamePass.keys.first,
+                  let unit = gamePass.values.first,
+                  tempU == unit,
+                  tempS == spot,
+                  (deductedMapNumber == mapPass || course.isK12Class),
+                  !isUnlocked
+            else {
+                return
+            }
             
-            
-        } else if seq == 0 {
-            print("畫面跳轉")
-        } else {
-            //上一課
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+            titleLabel.text = lessonVC_aboutToLearn3Words
+            titleLabel.textColor = .white
+        } else if seq < 0 {
             if tempU > 0 {
-                //直接減一
                 tempU = tempU - 1
             } else {
-                //假入u == 0,  要扣 s
                 if tempS > 0 {
                     //直接 -1
                     tempS = tempS - 1
                     tempU = 9
                 } else {
                     ProgressHUD.showError(lessonVC_thisIsFirst)
+                    return
                 }
             }
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
+            titleLabel.text = dynamicTitleText
+            titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
         }
         
-        //MARK: simVer 這裏要寫新的音節讀取  加個判斷式done
         
-        if lan == "zh-Hans" && isSimVerSingleSyllable {
-            //檢體中文
-            
-            //print("檢體中文關卡數")
-            
-            //以下為新修正
-            
-            for i in tempU * 3 ..< tempU * 3 + 3{
-                
+        if course.isSimVersionSingleSyllableSet {
+            for i in tempU * 3 ..< tempU * 3 + 3 {
                 let syllableChosen = syllableSets[tempS][i]
                 let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                
                 syllablesWithoutDigit = syllableChosenArray[0]
                 threeSyllables.append(syllablesWithoutDigit)
-                
             }
             syllableLabel.text = "Unit " + String(tempU + 1)
-            
-            
         } else {
-            //其餘語言
-            //print("繁體中文關卡數")
-            
             let syllableChosen = syllableSets[tempS][tempU]
-            
             let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-            
             syllablesWithoutDigit = syllableChosenArray[0]
             syllableLabel.text = syllablesWithoutDigit
-            
-            
         }
         
-        
-        if isClassAllPassed {
-            mapNum = mapNumToReceive
-        } else {
-            mapNum = mapPassedInt
-        }
-//        spotNum = tempS
-//        unitNum = tempU
-        
-
+        mapNum = course.isClassAllPassed ? deductedMapNumber : mapPass ?? 0
+        //MARK: refactoring
         
         let lessonText = NSMutableAttributedString(string: String(tempS + 1), attributes: attrs0)
         lessonText.append(NSMutableAttributedString(string: " / \(String(maxSpot!))", attributes: attrs1))
@@ -1658,67 +1615,27 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //需要排除第一次玩的狀態
         //MARK: simVer K12的例外狀況
-        
-        guard let gamePass = gamePass, let mapPass = mapPass else {
+        guard let gamePass = gamePass,
+              let mapPass = mapPass,
+              let spot = gamePass.keys.first,
+              let unit = gamePass.values.first else {
             return
         }
         
-        
-        //MARK: refactor
         if course.isK12Class {
-            for (s,u) in gamePass {
-                if s != 0 || u != 0 || mapPass == 1 {
-                    loadWords(seq: -1)
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
-                    
-                    titleLabel.text = dynamicTitleText
-                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-                }
+            if spot != 0 || unit != 0 || mapPass == 1 {
+                loadWords(seq: -1)
+                return
             }
         } else {
-            
-        }
-        
-        
-        
-        if courseReceived == 5 {
-            
-            for (s,u) in gamePassedDic!{
-                
-                if s != 0 || u != 0 || mapPassedInt == 1{
-                    
-                    loadWords(seq: -1)
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
-                    
-                    titleLabel.text = dynamicTitleText
-                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-                } else {
-                    
-                    ProgressHUD.showError(lessonVC_noPrePage)
-                }
-            }
-            
-        } else{
-            
-            for (s,u) in gamePassedDic!{
-                
-                if s != 0 || u != 0 || mapPassedInt != mapNumToReceive {
-                    
-                    loadWords(seq: -1)
-                    
-                    
-                    enterBtn.setAttributedTitle(NSAttributedString(string:
-                        lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
-                    
-                    titleLabel.text = dynamicTitleText
-                    
-                    titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-                } else {
-                    //print("這是第一關")
-                    ProgressHUD.showError(lessonVC_noPrePage)
-                }
+            let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
+            if spot != 0 || unit != 0 || mapPass != deductedMapNumber {
+                loadWords(seq: -1)
+                return
             }
         }
+        
+        ProgressHUD.showError(lessonVC_noPrePage)
     }
     
     
