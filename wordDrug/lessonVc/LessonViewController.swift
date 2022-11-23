@@ -983,10 +983,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //再把數字減回來
         let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
         
-        
-        //MARK: simVer 放在外的變數 done
-        var threeSyllables = [String]()
-        
         if course.isClassAllPassed { //MARK: needed? need to test!
             mapNum = deductedMapNumber
             tempS = course.isSimplifiedElementary ? course.maxSpotNumber - 1 : 14
@@ -1028,21 +1024,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             allThreeWords.append(wordContainer[tempU  * 3 + i])
         }
         
-        if course.isSimVersionSingleSyllableSet {
-            for i in tempU * 3 ..< tempU * 3 + 3 {
-                let syllableChosen = syllableSets[tempS][i]
-                let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                let firstSyllable = syllableChosenArray.first
-                threeSyllables.append(firstSyllable ?? "")
-            }
-            makeSyllableLabelText(syllableText: "Unit " + String(tempU + 1), fontSize: sylFontSize / 2)
-        } else {
-            let syllableChosen = syllableSets[tempS][tempU]
-            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-            threeSyllables = Array(repeating: syllableChosenArray.first ?? "", count: 3)
-            makeSyllableLabelText(syllableText: syllableChosenArray.first ?? "", fontSize: sylFontSize)
-        }
-        
+        let threeSyllables = generateThreeSyllableTexts()
         let attrWords = generateAttrWords(allThreeWords: allThreeWords, threeSyllables: threeSyllables)
         makeAttributedLabelText(attrWords: attrWords)
         enterBtn.isEnabled = true
@@ -1109,8 +1091,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     //寫一個獨立的讀取單字功能
     func loadWords(seq: Int) {
         let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
-        var threeSyllables = [String]()
-        
         //首先抓音節
         if seq > 0 {
             if tempU < 9 {
@@ -1158,22 +1138,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
         }
         
-        
-        if course.isSimVersionSingleSyllableSet {
-            for i in tempU * 3 ..< tempU * 3 + 3 {
-                let syllableChosen = syllableSets[tempS][i]
-                let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-                syllablesWithoutDigit = syllableChosenArray[0]
-                threeSyllables.append(syllablesWithoutDigit)
-            }
-            syllableLabel.text = "Unit " + String(tempU + 1)
-        } else {
-            let syllableChosen = syllableSets[tempS][tempU]
-            let syllableChosenArray = syllableChosen.components(separatedBy: NSCharacterSet.decimalDigits)
-            syllablesWithoutDigit = syllableChosenArray[0]
-            syllableLabel.text = syllablesWithoutDigit
-        }
-        
         mapNum = course.isClassAllPassed ? deductedMapNumber : mapPass ?? 0
         
         let lessonText = NSMutableAttributedString(string: String(tempS + 1), attributes: attrs0)
@@ -1197,6 +1161,15 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             allThreeWords.append(wordContainer[tempU  * 3 + i])
         }
         
+        let threeSyllables = generateThreeSyllableTexts()
+        let attrWords = generateAttrWords(allThreeWords: allThreeWords, threeSyllables: threeSyllables)
+        makeAttributedLabelText(attrWords: attrWords)
+        
+        enterBtn.isEnabled = true
+    }
+    
+    private func generateThreeSyllableTexts() -> [String] {
+        var threeSyllables = [String]()
         if course.isSimVersionSingleSyllableSet {
             for i in tempU * 3 ..< tempU * 3 + 3 {
                 let syllableChosen = syllableSets[tempS][i]
@@ -1211,16 +1184,10 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             threeSyllables = Array(repeating: syllableChosenArray.first ?? "", count: 3)
             makeSyllableLabelText(syllableText: syllableChosenArray.first ?? "", fontSize: sylFontSize)
         }
-        
-        let attrWords = generateAttrWords(allThreeWords: allThreeWords, threeSyllables: threeSyllables)
-        makeAttributedLabelText(attrWords: attrWords)
-        
-        enterBtn.isEnabled = true
-        //MARK: refactoring---
+        return threeSyllables
     }
     
     @IBAction func enterGameClicked(_ sender: Any) {
-        
         gameMode = 0
         enterBtn.isEnabled = false
         performSegue(withIdentifier: "toGameVc", sender: self)
@@ -1348,7 +1315,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     @IBAction func preBtnClicked(_ sender: Any) {
-        
         //需要排除第一次玩的狀態
         //MARK: simVer K12的例外狀況
         guard let gamePass = gamePass,
@@ -1380,63 +1346,93 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //假如等於當下關卡就不能加１
         
         //MARK: simVer k12此處的mapPassedInt不正確
-        
-        if courseReceived == 5 {
-            //K12
-            
-            for (s,u) in gamePassedDic!{
-                
-                if tempU != u || tempS != s || isClassAllPassed{
-                    //不是當下關卡
-                    
-                    loadWords(seq: 1)
-                    
-                } else if !isClassAllPassed{
-                    
-                    
-                    ProgressHUD.showError(lessonVC_noNextPage)
-                    
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-                    
-                    
-                    titleLabel.text = lessonVC_aboutToLearn3Words
-                    titleLabel.textColor = .white
-                    
-                    
-                } else if isUnlocked {
-                    loadWords(seq: 1)
-                }
-                
-            }
-            
-            
-            
-        } else {
-            
-            for (s,u) in gamePassedDic!{
-                
-                if tempU != u || tempS != s || mapNumToReceive != mapPassedInt{
-                    //不是當下關卡
-                    
-                    loadWords(seq: 1)
-                    
-                } else if !isClassAllPassed{
-                    
-                    ProgressHUD.showError(lessonVC_noNextPage)
-                    
-                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-                    
-                    titleLabel.text = lessonVC_aboutToLearn3Words
-                    titleLabel.textColor = .white
-                    
-                } else if isUnlocked {
-                    loadWords(seq: 1)
-                }
-                
-            }
-            
-            
+        guard let gamePass = gamePass,
+              let mapPass = mapPass,
+              let spot = gamePass.keys.first,
+              let unit = gamePass.values.first else {
+            return
         }
+        
+        if course.isK12Class {
+            if tempU != unit || tempS != spot || isClassAllPassed || isUnlocked {
+                loadWords(seq: 1)
+                return
+            }
+        } else {
+            let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
+            if tempU != unit || tempS != spot || deductedMapNumber != mapPass || isUnlocked {
+                loadWords(seq: 1)
+                return
+            }
+        }
+
+        
+        if !isClassAllPassed {
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+            titleLabel.text = lessonVC_aboutToLearn3Words
+            titleLabel.textColor = .white
+            ProgressHUD.showError(lessonVC_noNextPage)
+        }
+        
+        //MARK: pre and next got bug
+        
+//
+//        if courseReceived == 5 {
+//            //K12
+//
+//            for (s,u) in gamePassedDic!{
+//
+//                if tempU != u || tempS != s || isClassAllPassed{
+//                    //不是當下關卡
+//
+//                    loadWords(seq: 1)
+//
+//                } else if !isClassAllPassed{
+//
+//
+//                    ProgressHUD.showError(lessonVC_noNextPage)
+//
+//                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+//
+//
+//                    titleLabel.text = lessonVC_aboutToLearn3Words
+//                    titleLabel.textColor = .white
+//
+//
+//                } else if isUnlocked {
+//                    loadWords(seq: 1)
+//                }
+//
+//            }
+//
+//
+//
+//        } else {
+//
+//            for (s,u) in gamePassedDic!{
+//
+//                if tempU != u || tempS != s || mapNumToReceive != mapPassedInt{
+//                    //不是當下關卡
+//
+//                    loadWords(seq: 1)
+//
+//                } else if !isClassAllPassed{
+//
+//                    ProgressHUD.showError(lessonVC_noNextPage)
+//
+//                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+//
+//                    titleLabel.text = lessonVC_aboutToLearn3Words
+//                    titleLabel.textColor = .white
+//
+//                } else if isUnlocked {
+//                    loadWords(seq: 1)
+//                }
+//
+//            }
+//
+//
+//        }
         
         
         
