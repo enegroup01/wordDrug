@@ -580,7 +580,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             label.text = "第\(labelText)\(lessonVC_class)";
             label.textColor = UIColor.white
             
-            
         }
         
         //reusableView.addSubview(label)
@@ -592,118 +591,68 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        
         let cell = lessonSylView.dequeueReusableCell(withReuseIdentifier: "lessonSylCell", for: indexPath)
         
-        
         let blueBall = cell.viewWithTag(2) as! UIImageView
+        blueBall
+            .setAnchor(\.widthAnchor, .equal, constant: collectionViewCellSize * 0.9)
+            .setAnchor(\.heightAnchor, .equal, constant: collectionViewCellSize * 0.9)
+            .setAnchor(\.centerXAnchor, .equal, to: cell.centerXAnchor)
+            .setAnchor(\.centerYAnchor, .equal, to: cell.centerYAnchor)
         
-        //blueBall.frame.size = CGSize(width: collectionViewCellSize * 0.9, height: collectionViewCellSize * 0.9)
-        
-        blueBall.translatesAutoresizingMaskIntoConstraints = false
-        blueBall.widthAnchor.constraint(equalToConstant: collectionViewCellSize * 0.9).isActive = true
-        blueBall.heightAnchor.constraint(equalToConstant: collectionViewCellSize * 0.9).isActive = true
-        blueBall.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-        blueBall.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        
-        let sylText = cell.viewWithTag(1) as!UILabel
+        let sylText = cell.viewWithTag(1) as! UILabel
         sylText.adjustsFontSizeToFitWidth = true
-        //let sylToDisplay = sortedSylArray[indexPath.row]
-        
-        //sylText.text = sylToDisplay
-        //sylText.textColor = btnOffColor
         sylText.font = sylText.font.withSize(smallSylFontSize)
-        //sylText.backgroundColor = .green
-        sylText.translatesAutoresizingMaskIntoConstraints = false
-        sylText.widthAnchor.constraint(equalToConstant: collectionViewCellSize * 0.8).isActive = true
-        sylText.heightAnchor.constraint(equalToConstant: collectionViewCellSize * 0.8).isActive = true
-        sylText.centerXAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-        sylText.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        
-        //let sylToShow = allSyls[indexPath.row]
-        
+        sylText
+            .setAnchor(\.widthAnchor, .equal, constant: collectionViewCellSize * 0.8)
+            .setAnchor(\.heightAnchor, .equal, constant: collectionViewCellSize * 0.8)
+            .setAnchor(\.centerXAnchor, .equal, to: cell.centerXAnchor)
+            .setAnchor(\.centerYAnchor, .equal, to: cell.centerYAnchor)
         
         //MARK: simVer 這兩條code先comment not yet
         
-        if lan == "zh-Hans" && isSimVerSingleSyllable {
-            //檢體中文
-            
-            //print("檢體中文關卡數")
+        if course.isSimVersionSingleSyllableSet {
             //之後還要用courseReceived來改數值, 因為每個course值不同
             //*****這部分有點複雜可能等之後讀取完syllableSets再來看是否要細分處理
-            
-            //sylText.text = String(indexPath.row + 1)
-            
             //MARK: simVer 這裡沒有數字要自加數字上去
             let sylToShow = syllableSets[indexPath.section][indexPath.row * 3]
             let numbersRange = sylToShow.rangeOfCharacter(from: .decimalDigits)
-            
             let hasNumbers = (numbersRange != nil)
-            
-            if hasNumbers{
-                
-                sylText.text = sylToShow
-            } else {
-                sylText.text = sylToShow + "\(indexPath.row + 1)"
-            }
-            
+            sylText.text = hasNumbers ? sylToShow : sylToShow + "\(indexPath.row + 1)"
         } else {
-            //其餘語言
-            //print("繁體中文關卡數")
             let sylToShow = syllableSets[indexPath.section][indexPath.row]
             sylText.text = sylToShow
-            
         }
         
-        if !lessonSylView.isHidden{
+        guard !lessonSylView.isHidden else {
+            return cell
+        }
+        
+        if secRowTouched[indexPath.section][indexPath.row] == 1 {
+            blueBall.isHidden = false
+            sylText.textColor = .white
+        } else {
+            blueBall.isHidden = true
             
-            
-            
-            if secRowTouched[indexPath.section][indexPath.row] == 1 {
-                
-                sylText.textColor = .white
-                blueBall.isHidden = false
-                
+            var isSelectable = false
+            //MARK: simVer Test maxSpot  / maxUnit  為了避免被改變用另一組變數
+            if indexPath.section < currentMaxSpotToUse {
+                isSelectable = true
+            } else if indexPath.section < currentMaxSpotToUse + 1 && indexPath.row < currentMaxUnitToUse + 1{
+                isSelectable = true
             } else {
-                blueBall.isHidden = true
-                var isSelectable = false
-                
-                //MARK: simVer Test maxSpot  / maxUnit  為了避免被改變用另一組變數
-                if indexPath.section < currentMaxSpotToUse {
-                    isSelectable = true
-                } else if indexPath.section < currentMaxSpotToUse + 1 && indexPath.row < currentMaxUnitToUse + 1{
-                    isSelectable = true
-                } else {
-                    isSelectable = false
-                }
-                
-                
-                
-                if isSelectable{
-                    sylText.textColor = .lightGray
-                } else {
-                    sylText.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-                }
-                
-                
-                
+                isSelectable = false
             }
-            
-            
-            if isScrollable{
-                
-                isScrollable = false
-                let indexToScroll = IndexPath(item: tempU, section: tempS)
-                
-                lessonSylView.scrollToItem(at: indexToScroll, at: .centeredVertically, animated: false)
-            }
-            
+            sylText.textColor = isSelectable ? .lightGray : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         }
         
         
-        
+        if isScrollable {
+            isScrollable = false
+            let indexToScroll = IndexPath(item: tempU, section: tempS)
+            lessonSylView.scrollToItem(at: indexToScroll, at: .centeredVertically, animated: false)
+        }
         return cell
-        
     }
     
     var loadingTimer:Timer!
@@ -1284,34 +1233,19 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     @IBAction func allSylBtnClicked(_ sender: Any) {
-        
         isScrollable = true
         ghostBtn.isHidden = false
         
         indexToJump = tempS * 10 + tempU
         
         //指定好發亮的球
-        
         secRowTouched.removeAll(keepingCapacity: false)
-        var smallDic = [Int]()
-        
-        for _ in  0 ..< 10 {
-            
-            smallDic.append(0)
-        }
-        
-        for _ in 0 ..< maxSpot {
-            
-            secRowTouched.append(smallDic)
-            
-        }
-        
+        let smallDic = Array.init(repeating: 0, count: 10)
+        secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
         secRowTouched[tempS][tempU] = 1
-        
-        
+
         lessonSylView.reloadData()
         lessonSylView.isHidden = false
-        
     }
     
     @IBAction func preBtnClicked(_ sender: Any) {
@@ -1361,7 +1295,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         } else {
             let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
             if tempU != unit || tempS != spot || deductedMapNumber != mapPass || isUnlocked {
-                loadWords(seq: 1)
+                loadWords(seq: 1) //MARK: has bug
                 return
             }
         }

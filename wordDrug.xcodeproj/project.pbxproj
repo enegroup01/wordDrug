@@ -85,6 +85,7 @@
 		AA4E2E6E207CB5C100AAACC3 /* recordCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */; };
 		AA4E2E72207CCF7B00AAACC3 /* pointImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E71207CCF7A00AAACC3 /* pointImg.png */; };
 		AA4E2E74207CDC2900AAACC3 /* coverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4E2E73207CDC2800AAACC3 /* coverBg.png */; };
+		AA4F1B42293E322000623C14 /* UIVIew+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4F1B41293E322000623C14 /* UIVIew+Extension.swift */; };
 		AA4FB931228E78F10031C6F9 /* simBlock8.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4FB930228E78F00031C6F9 /* simBlock8.png */; };
 		AA4FB933228E78FA0031C6F9 /* block4Title.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4FB932228E78F90031C6F9 /* block4Title.png */; };
 		AA5AF417204EC68A005FCC87 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5AF413204EC68A005FCC87 /* CloseButton.swift */; };
@@ -3560,6 +3561,7 @@
 		AA4E2E6D207CB5C000AAACC3 /* recordCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordCheck.png; sourceTree = "<group>"; };
 		AA4E2E71207CCF7A00AAACC3 /* pointImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointImg.png; sourceTree = "<group>"; };
 		AA4E2E73207CDC2800AAACC3 /* coverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coverBg.png; sourceTree = "<group>"; };
+		AA4F1B41293E322000623C14 /* UIVIew+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Extension.swift"; sourceTree = "<group>"; };
 		AA4FB930228E78F00031C6F9 /* simBlock8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simBlock8.png; sourceTree = "<group>"; };
 		AA4FB932228E78F90031C6F9 /* block4Title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block4Title.png; sourceTree = "<group>"; };
 		AA5AF412204EC68A005FCC87 /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
@@ -7097,6 +7099,14 @@
 				AAD62F3B20C02424001D6275 /* testResult.png */,
 			);
 			path = IntroVc;
+			sourceTree = "<group>";
+		};
+		AA4F1B40293E31FB00623C14 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AA4F1B41293E322000623C14 /* UIVIew+Extension.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		AA5AF411204EC68A005FCC87 /* TagListView */ = {
@@ -11568,6 +11578,7 @@
 		AAE1818B1F97892D00683896 /* wordDrug */ = {
 			isa = PBXGroup;
 			children = (
+				AA4F1B40293E31FB00623C14 /* Utils */,
 				AA96695A2465B043003F9AA1 /* MissWord */,
 				AAD47687229D14B9001908C1 /* WeChatSDK1.8.4 */,
 				AA2B64CE205A606C00742226 /* newBookVc */,
@@ -15271,6 +15282,7 @@
 				AA04ED7F203D7A1300EC0A8E /* CoursesViewController.swift in Sources */,
 				AA98BE822125B2D1006F325F /* CourseTableViewCell.swift in Sources */,
 				AA5AF419204EC68A005FCC87 /* TagListView.swift in Sources */,
+				AA4F1B42293E322000623C14 /* UIVIew+Extension.swift in Sources */,
 				AA5AF418204EC68A005FCC87 /* TagView.swift in Sources */,
 				AA6FB73B20AE84CA0001EFED /* MKRingProgressView.swift in Sources */,
 				AA6FB73720AE7F910001EFED /* InfoTableViewCell.swift in Sources */,
