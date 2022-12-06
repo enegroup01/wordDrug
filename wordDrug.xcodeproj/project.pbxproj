@@ -15487,7 +15487,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.missWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/liyangyang/Documents/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -15514,7 +15514,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.playplay.missWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/liyangyang/Documents/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ethan/wordDrug/wordDrug/WeChatSDK1.8.4/wordDrug-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
