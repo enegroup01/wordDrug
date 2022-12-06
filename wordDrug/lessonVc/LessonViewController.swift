@@ -544,7 +544,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-
         return secRowTouched.count
     }
     
@@ -555,22 +554,17 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         // 建立 UICollectionReusableView
         var reusableView = UICollectionReusableView()
-        
         // header
         if kind == UICollectionView.elementKindSectionHeader {
-            // 依據前面註冊設置的識別名稱 "Header" 取得目前使用的 header
             reusableView =
                 collectionView.dequeueReusableSupplementaryView(
                     ofKind: UICollectionView.elementKindSectionHeader,
                     withReuseIdentifier: "Header",
                     for: indexPath)
             
-            
-            //reusableView.frame = CGRect(x: 0, y: 0, width: 320 * collectionViewDif, height: 40 * collectionViewDif)
-            
+                        
             // 設置 header 的內容
             let label = reusableView.viewWithTag(3) as! UILabel
-            // 顯示文字
             label.frame = CGRect(x: 0, y: 0,width: 320 * collectionViewDif, height: 40 * collectionViewDif)
             label.textAlignment = .center
             
@@ -579,18 +573,12 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             reusableView.backgroundColor = .darkGray
             label.text = "第\(labelText)\(lessonVC_class)";
             label.textColor = UIColor.white
-            
         }
-        
-        //reusableView.addSubview(label)
         return reusableView
     }
     
-    
-    
-    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     @available(iOS 6.0, *)
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = lessonSylView.dequeueReusableCell(withReuseIdentifier: "lessonSylCell", for: indexPath)
         
         let blueBall = cell.viewWithTag(2) as! UIImageView
@@ -658,12 +646,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     var loadingTimer:Timer!
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
         //選到後 1. 發亮 2. 隱藏畫面 3. load正確字
-        
-        //MARK: simVer Test maxSpot  / maxUnit  為了避免被改變用另一組變數
-        
-        
         var isSelectable = false
         
         if indexPath.section < currentMaxSpotToUse {
@@ -674,110 +657,68 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
             isSelectable = false
         }
         
-        
-        if isSelectable{
-            
-            
-            ProgressHUD.colorSpinner(.white)
-//            ProgressHUD.spinnerColor(.white)
-
-            ProgressHUD.show(lessonVC_loading)
-            
-            
-            //啟動loading標題及字
-            loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(LessonViewController.loading), userInfo: nil, repeats: true)
-            
-            secRowTouched.removeAll(keepingCapacity: false)
-            var smallDic = [Int]()
-            
-            for _ in  0 ..< 10 {
-                
-                smallDic.append(0)
-            }
-            
-            
-            for _ in 0 ..< course.maxSpotNumber {
-                
-                secRowTouched.append(smallDic)
-            }
-            
-            
-            lessonSylView.reloadData()
-            
-            //換算tempS & tempU
-            //tempU = indexPath.row % 10
-            //tempS = indexPath.row / 10
-            
-            tempS = indexPath.section
-            tempU = indexPath.row
-            
-            secRowTouched[tempS][tempU] = 1
-            
-            //MARK: simVer K12進不來這裡因為mapPassed不同, 所以要讓他可以進得來
-            
-            if mapNumToReceive == mapPassedInt || courseReceived == 5{
-                
-                for (s,u) in gamePassedDic!{
-                    
-                    //MARK: simVer K12
-                    //這裏最後加入一個判斷是!isClassAllPassed來確保k12過關進入後不會有學習新字的情形
-                    if s == tempS && u == tempU && !isClassAllPassed{
-                        //學習新字
-                        if !isUnlocked{
-                            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-                            
-                            titleLabel.text = lessonVC_aboutToLearn3Words
-                            titleLabel.textColor = .white
-                        }
-                    } else {
-                        
-                        //複習機制
-                        enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
-                        
-                        titleLabel.text = dynamicTitleText
-                        titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-                    }
-                    
-                }
-                
-            } else {
-                
-                //複習機制
-                enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
-                
-                titleLabel.text = dynamicTitleText
-                titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
-                
-            }
-            
-            
-            //  }
-            
-        } else {
-            
+        guard isSelectable else {
             ProgressHUD.showError(lessonVC_alertNotYet)
+            return
+        }
+        
+        ProgressHUD.colorSpinner(.white)
+        ProgressHUD.show(lessonVC_loading)
+        
+        //啟動loading標題及字
+        loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(LessonViewController.loading), userInfo: nil, repeats: true)
+        resetSecRowTouchRecords()
+        lessonSylView.reloadData()
+        
+        tempS = indexPath.section
+        tempU = indexPath.row
+        secRowTouched[tempS][tempU] = 1
+        
+        //MARK: simVer K12進不來這裡因為mapPassed不同, 所以要讓他可以進得來
+        guard mapNumToReceive == course.mapPass || course.isK12Class else {
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
+            titleLabel.text = dynamicTitleText
+            titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+            return
+        }
+        
+        
+        guard let gamePass = gamePass,
+              let spot = gamePass.keys.first,
+              let unit = gamePass.values.first,
+              spot == tempS,
+              unit == tempU,
+              !course.isClassAllPassed else {
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterReviewBtn, attributes: yellowTextBtnAttr), for: .normal)
+            titleLabel.text = dynamicTitleText
+            titleLabel.textColor = #colorLiteral(red: 1, green: 0.027038477, blue: 0.405282959, alpha: 1)
+            return
+        }
+        
+        if !isUnlocked {
+            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+            titleLabel.text = lessonVC_aboutToLearn3Words
+            titleLabel.textColor = .white
         }
     }
     
-    var secondCount = 0
+    private func resetSecRowTouchRecords() {
+        let smallDic = Array.init(repeating: 0, count: 10)
+        secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
+    }
     
+    var secondCount = 0
     @objc func loading(){
-        
         if secondCount < 3 {
-            
             secondCount += 1
-            
         } else {
-            
             ProgressHUD.dismiss()
             secondCount = 0
             loadingTimer.invalidate()
             loadWords(seq: 0)
             lessonSylView.isHidden = true
             ghostBtn.isHidden = true
-            
         }
-        
     }
     
     @objc func receiveIsUnlockedStatus(_ notification: NSNotification) {
@@ -926,8 +867,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.cyan]
         attrs3 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: wordFontSize), NSAttributedString.Key.foregroundColor : UIColor.white]
                 
-        let smallDic = Array.init(repeating: 0, count: 10)
-        secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
+        resetSecRowTouchRecords()
                 
         //再把數字減回來
         let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
@@ -1054,21 +994,19 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
             }
         
-            guard let gamePass = gamePass,
+            if let gamePass = gamePass,
                   let mapPass = mapPass,
                   let spot = gamePass.keys.first,
                   let unit = gamePass.values.first,
                   tempU == unit,
                   tempS == spot,
                   (deductedMapNumber == mapPass || course.isK12Class),
-                  !isUnlocked
-            else {
-                return
+               !isUnlocked {
+                enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+                titleLabel.text = lessonVC_aboutToLearn3Words
+                titleLabel.textColor = .white
             }
-            
-            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-            titleLabel.text = lessonVC_aboutToLearn3Words
-            titleLabel.textColor = .white
+
         } else if seq < 0 {
             if tempU > 0 {
                 tempU = tempU - 1
@@ -1239,9 +1177,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         indexToJump = tempS * 10 + tempU
         
         //指定好發亮的球
-        secRowTouched.removeAll(keepingCapacity: false)
-        let smallDic = Array.init(repeating: 0, count: 10)
-        secRowTouched = Array.init(repeating: smallDic, count: course.maxSpotNumber)
+        resetSecRowTouchRecords()
         secRowTouched[tempS][tempU] = 1
 
         lessonSylView.reloadData()
