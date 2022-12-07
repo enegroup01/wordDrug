@@ -552,6 +552,7 @@ class StageViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
         
         isClassAllPassed = mapPass > indexPath.row ? true : isClassAllPassed
+        course.setIsClassAllPassed(isClassAllPassed)
         performSegue(withIdentifier: "toLessonVc", sender: self)
     }
     

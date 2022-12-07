@@ -216,6 +216,10 @@ class Course {
     func setMapPassNum(number: Int) {
         mapNumberReceived = number
     }
+    
+    func setIsClassAllPassed(_ isPassed: Bool) {
+        isClassAllPassed = isPassed
+    }
 }
 
 

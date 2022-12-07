@@ -901,7 +901,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //MARK: simVer K12的地圖讀法要再增加
         let unit = tempS + 1
         var chapter = course.increaseNumber + 1
-        let chapterToIncrease = course.isK12Class ? deductedMapNumber : mapNum
+        let chapterToIncrease = course.isK12Class ? deductedMapNumber : (course.mapNumberReceived ?? 0)
         chapter += chapterToIncrease
         
         let file = File(chapter: chapter, unit: unit)
