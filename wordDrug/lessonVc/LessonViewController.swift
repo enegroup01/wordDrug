@@ -979,7 +979,8 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //寫一個獨立的讀取單字功能
     func loadWords(seq: Int) {
-        let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
+//        let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
+        let deductedMapNumber = (course.mapNumberReceived ?? 0)
         //首先抓音節
         if seq > 0 {
             if tempU < 9 {
@@ -1036,7 +1037,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         var unit = 0
         var wordContainer: [Word] = []
         
-        chapter = course.isK12Class ? increaseNum + deductedMapNumber + 1 : increaseNum + mapNum + 1
+        chapter = course.isK12Class ? course.increaseNumber + deductedMapNumber + 1 : course.increaseNumber + mapNum + 1
         unit = tempS + 1
         
         let file = File(chapter: chapter, unit: unit)
@@ -1193,7 +1194,7 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
               let unit = gamePass.values.first else {
             return
         }
-        
+
         if course.isK12Class {
             if spot != 0 || unit != 0 || mapPass == 1 {
                 loadWords(seq: -1)
@@ -1206,7 +1207,6 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
                 return
             }
         }
-        
         ProgressHUD.showError(lessonVC_noPrePage)
     }
     
@@ -1216,93 +1216,93 @@ class LessonViewController: UIViewController, UICollectionViewDataSource, UIColl
         //假如等於當下關卡就不能加１
         
         //MARK: simVer k12此處的mapPassedInt不正確
-        guard let gamePass = gamePass,
-              let mapPass = mapPass,
-              let spot = gamePass.keys.first,
-              let unit = gamePass.values.first else {
-            return
-        }
-        
-        if course.isK12Class {
-            if tempU != unit || tempS != spot || isClassAllPassed || isUnlocked {
-                loadWords(seq: 1)
-                return
-            }
-        } else {
-            let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
-            if tempU != unit || tempS != spot || deductedMapNumber != mapPass || isUnlocked {
-                loadWords(seq: 1) //MARK: has bug
-                return
-            }
-        }
-
-        
-        if !isClassAllPassed {
-            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-            titleLabel.text = lessonVC_aboutToLearn3Words
-            titleLabel.textColor = .white
-            ProgressHUD.showError(lessonVC_noNextPage)
-        }
+//        guard let gamePass = gamePass,
+//              let mapPass = mapPass,
+//              let spot = gamePass.keys.first,
+//              let unit = gamePass.values.first else {
+//            return
+//        }
+//
+//        if course.isK12Class {
+//            if tempU != unit || tempS != spot || isClassAllPassed || isUnlocked {
+//                loadWords(seq: 1)
+//                return
+//            }
+//        } else {
+//            let deductedMapNumber = (course.mapNumberReceived ?? 0) - course.increaseNumber
+//            if tempU != unit || tempS != spot || deductedMapNumber != mapPass || isUnlocked {
+//                loadWords(seq: 1) //MARK: has bug
+//                return
+//            }
+//        }
+//
+//
+//        if !isClassAllPassed {
+//            enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+//            titleLabel.text = lessonVC_aboutToLearn3Words
+//            titleLabel.textColor = .white
+//            ProgressHUD.showError(lessonVC_noNextPage)
+//        }
         
         //MARK: pre and next got bug
         
-//
-//        if courseReceived == 5 {
-//            //K12
-//
-//            for (s,u) in gamePassedDic!{
-//
-//                if tempU != u || tempS != s || isClassAllPassed{
-//                    //不是當下關卡
-//
-//                    loadWords(seq: 1)
-//
-//                } else if !isClassAllPassed{
-//
-//
-//                    ProgressHUD.showError(lessonVC_noNextPage)
-//
-//                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-//
-//
-//                    titleLabel.text = lessonVC_aboutToLearn3Words
-//                    titleLabel.textColor = .white
-//
-//
-//                } else if isUnlocked {
-//                    loadWords(seq: 1)
-//                }
-//
-//            }
-//
-//
-//
-//        } else {
-//
-//            for (s,u) in gamePassedDic!{
-//
-//                if tempU != u || tempS != s || mapNumToReceive != mapPassedInt{
-//                    //不是當下關卡
-//
-//                    loadWords(seq: 1)
-//
-//                } else if !isClassAllPassed{
-//
-//                    ProgressHUD.showError(lessonVC_noNextPage)
-//
-//                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
-//
-//                    titleLabel.text = lessonVC_aboutToLearn3Words
-//                    titleLabel.textColor = .white
-//
-//                } else if isUnlocked {
-//                    loadWords(seq: 1)
-//                }
-//
-//            }
-//
-//
-//        }
+
+        if courseReceived == 5 {
+            //K12
+
+            for (s,u) in course.gamePass! {
+
+                if tempU != u || tempS != s || isClassAllPassed{
+                    //不是當下關卡
+
+                    loadWords(seq: 1)
+
+                } else if !isClassAllPassed{
+
+
+                    ProgressHUD.showError(lessonVC_noNextPage)
+
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+
+
+                    titleLabel.text = lessonVC_aboutToLearn3Words
+                    titleLabel.textColor = .white
+
+
+                } else if isUnlocked {
+                    loadWords(seq: 1)
+                }
+
+            }
+
+
+
+        } else {
+
+            for (s,u) in course.gamePass! {
+
+                if tempU != u || tempS != s || course.mapNumberReceived != course.mapPass {
+                    //不是當下關卡
+
+                    loadWords(seq: 1)
+
+                } else if !course.isClassAllPassed {
+
+                    ProgressHUD.showError(lessonVC_noNextPage)
+
+                    enterBtn.setAttributedTitle(NSAttributedString(string: lessonVC_enterBtn, attributes: yellowTextBtnAttr), for: .normal)
+
+                    titleLabel.text = lessonVC_aboutToLearn3Words
+                    titleLabel.textColor = .white
+
+                } else if course.isUnlocked {
+                    loadWords(seq: 1)
+                }
+
+            }
+
+
+        }
         
         
         
